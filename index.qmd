@@ -1,0 +1,16 @@
+---
+title: Métodos em Estatística e Análise de Dados
+slug: home
+type: book
+weight: 10
+---
+
+#### A Estatística como parte do Método Científico
+
+A compreensão dos fundamentos do desenho experimental e da análise e interpretação de dados é essencial no desenvolvimento do método científico, pois decisões baseadas em dados orientam pesquisas e descobertas científicas. O aprendizado desses tópicos está intimamente ligado ao entendimento dos princípios da estatística e dos modelos estatísticos apropriados para diferentes tipos de delineamentos, questões científicas e naturezas de experimentos.
+
+Com a difusão de softwares livres de estatística e programação, pesquisadores podem agora realizar análises complexas que anteriormente eram acessíveis apenas para aqueles familiarizados com linguagens de programação e métodos estatísticos avançados. A disponibilidade desses pacotes estatísticos acompanhados de tutoriais de livre acesso possibilita a execução de análises sofisticadas e a exploração de dados de maneiras inovadoras, frequentemente utilizando modelos complexos. Nesse cenário, surge o desafio de selecionar modelos apropriados dentre a variedade de opções, exigindo a compreensão do potencial e das limitações de uma ampla gama de abordagens estatísticas.
+
+Dependendo do campo da ciência, algumas abordagens estatísticas são mais comuns que outras. Assim, é necessário familiarizar-se com a perspectiva filosófica de um campo de pesquisa específico e compreender as lacunas relevantes para o progresso científico da área. É igualmente importante compreender as especificidades dos métodos de coleta de dados, da organização e do volume dos dados disponíveis, além das ferramentas estatísticas básicas para analisar e interpretar essas informações.
+
+Este material foi organizado para auxiliar na compreensão e aplicação das principais técnicas estatísticas e de análise de dados, oferecendo uma base sólida para o desenvolvimento de competências essenciais na investigação científica. Além disso, o conteúdo está estruturado para proporcionar uma aprendizagem progressiva, começando com os conceitos de estatística básica e teste de hipóteses, avançando gradualmente para modelos estatísticos tradicionais e métodos avançados. Assim, os estudantes estarão bem preparados para enfrentar desafios complexos em suas pesquisas e carreiras acadêmicas.

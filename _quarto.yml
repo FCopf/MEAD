@@ -1,0 +1,169 @@
+project:
+  type: website
+
+website:
+  page-navigation: true
+  title: "Métodos em Estatística e Análise de Dados"
+  description: "Página de apoio para os cursos de estatistica e delineamento"
+  site-url: "https://www"
+
+  repo-url: https://www
+  repo-actions: [edit, issue]
+
+  open-graph: true
+
+  page-footer:
+    right: "Métodos em Estatística e Análise de Dados"
+    left: ""
+    background: "#285c34"
+
+  sidebar:
+    background: "#285c34"
+    logo: "images/logo.png"
+    pinned: true
+    align: center
+    tools:
+      - icon: github
+        href: https://www
+        text: "GitHub organization"
+
+    style: "docked"
+    search: true
+    collapse-level: 1
+    contents:
+      - href: index.qmd
+      - section: "Introdução ao R"
+        contents:
+          - href: conteudo/introducao_r/instalacao-linguagem.qmd
+            text: Estrutura da linguagem
+          - href: conteudo/introducao_r/data-frames.qmd
+            text: (Básico da) Manipulação de data frames
+          - href: conteudo/introducao_r/graficos.qmd
+            text: (Básico da) Visualização gráfica
+      - section: "Pacotes em R para Ciência de Dados"
+        contents:
+          - href: conteudo/ciencia_dados/tidyverse.qmd
+            text: Pacotes em `tidyverse`
+          - href: conteudo/ciencia_dados/import_export.qmd
+            text: Importando/Exportando dados
+          - href: conteudo/ciencia_dados/pipe.qmd
+            text: Operadores Pipe
+          - href: conteudo/ciencia_dados/manipula_formata.qmd
+            text: Manipulação e formatação de dados
+          - href: conteudo/ciencia_dados/grafico_ggplot.qmd
+            text: "Gráficos em camadas"
+      - section: "Estrutura de dados"
+        contents:
+          - href: conteudo/estrutura_dados/estrutura.qmd
+            text: Estrutura e tipo de dados
+          - href: conteudo/estrutura_dados/estrutura.qmd
+            text: Estrutura e tipo de dados
+          - href: conteudo/estrutura_dados/visualizacao-univariada.qmd
+            text: Visualização de dados univariados
+          - href: conteudo/estrutura_dados/visualizacao-bivariada.qmd
+            text: Visualização de dados bidimensionais
+      - section: "Modelos de probabilidade"
+        contents:
+          - href: conteudo/probabilidade/espaco-amostral.qmd
+            text: Espaço amostral
+          - href: conteudo/probabilidade/eventos.qmd
+            text: Eventos do espaço amostral
+          - href: conteudo/probabilidade/condicional.qmd
+            text: Probabilidade condicional
+          - href: conteudo/probabilidade/bayes.qmd
+            text: Teorema de Bayes
+          - href: conteudo/probabilidade/va-discretas.qmd
+            text: Variáveis aleatórias discretas
+          - href: conteudo/probabilidade/va-continuas.qmd
+            text: Variáveis aleatórias contínuas
+      - section: "Amostragem e Estatística Descritiva"
+        contents:
+          - href: conteudo/descritiva/popolacao-amostra.qmd
+            text: Populações e amostras
+          - href: conteudo/descritiva/amostragem.qmd
+            text: Amostrando uma População Estatística
+          - href: conteudo/descritiva/tendencia-central.qmd
+            text: Medidas de tendência central
+          - href: conteudo/descritiva/variacao.qmd
+            text: Medidas de variação
+          - href: conteudo/descritiva/posicao-quartis.qmd
+            text: "Medidas de posição: quartis"
+          - href: conteudo/descritiva/posicao-indice-z.qmd
+            text: "Medidas de posição: índice Z"
+      - section: "Inferência Estatística"
+        contents:
+          - href: conteudo/inferencia/distribuicao-normal.qmd
+            text: O modelo de distribuição normal
+          - href: conteudo/inferencia/tcl.qmd
+            text: "Distribuição das médias amostrais: TCL"
+          - href: conteudo/inferencia/distribuicao-t.qmd
+            text: Distribuição t de Student
+          - href: conteudo/inferencia/estimacao.qmd
+            text: Estimação pontual e intervalar
+          - href: conteudo/inferencia/teste-hipóteses.qmd
+            text: Introdução ao Teste de Hipóteses
+          - href: conteudo/inferencia/distribuicao-f.qmd
+            text: "Distribuição F: comparando variâncias"
+          - href: conteudo/inferencia/teste-t.qmd
+            text: "Comparando médias: teste t de Student"
+      - section: "Modelos de Análise de Variância"
+        contents:
+          - href: conteudo/anova/anova-simples.qmd
+            text: Análise de Variância de um Fator
+          - href: conteudo/anova/anova-bloco.qmd
+            text: Análise de Variância em Blocos
+          - href: conteudo/anova/anova-two-way.qmd
+            text: Análise de Variância de dois Fatores
+          - href: conteudo/anova/ancova.qmd
+            text: Análise de Covariância
+          - href: conteudo/anova/anova-medida-repetida.qmd
+            text: Análise de Variância de Medidas Repetidas
+          - href: conteudo/anova/anova-aninhada.qmd
+            text: Análise de Variância Aninhada
+      - section: "Modelos de Regressão Linear"
+        contents:
+          - href: conteudo/regressao_linear/regressao-linear-simples.qmd
+            text: Regressão Linear Simples
+          - href: conteudo/regressao_linear/diagnostico-regressao.qmd
+            text: Diagnóstico da Regressão Linear Simples
+          - href: conteudo/regressao_linear/th-coef.qmd
+            text: Teste de hipóteses sobre os coeficientes da regressão
+          - href: conteudo/regressao_linear/anova-regressao.qmd
+            text: Análise de Variância da Regressão
+          - href: conteudo/regressao_linear/regressao-linear-multipla.qmd
+            text: Regressão Linear Múltipla
+          - href: conteudo/regressao_linear/transformacao-regressao.qmd
+            text: Transformações na Regressão Linear
+      - section: "Modelos Lineares Generalizados"
+        contents:
+          - href: conteudo/glm/glm-gaussiano.qmd
+            text: "Introdução: modelo gaussiano"
+          - href: conteudo/glm/glm-binomial.qmd
+            text: "Regressão Logística"
+          - href: conteudo/glm/glm-poisson.qmd
+            text: "Regressão de Poisson"
+      - section: "Tópicos em Modelos Estatísticos"
+        contents:
+          - href: conteudo/topicos/modelos-mistos.qmd
+            text: "Modelos Mistos"
+          - href: conteudo/topicos/variancias-heterogeneas.qmd
+            text: "Variâncias heterogêneas"
+          - href: conteudo/topicos/dependencia-temporal.qmd
+            text: "Modelos com autocorrelação temporal"
+          - href: conteudo/topicos/dependencia-espacial.qmd
+            text: "Modelos com autocorrelação espacial"
+          - href: conteudo/topicos/simulacao.qmd
+            text: "Simulando modelos estatísticos"
+format:
+  html:
+    theme:
+      light: [cosmo, theme.scss]
+      dark: [cosmo, theme-dark.scss]
+    mainfont: "Atkinson Hyperlegible"
+    code-copy: true
+    code-overflow: wrap
+    toc: true
+
+freeze: auto
+
+editor: visual
