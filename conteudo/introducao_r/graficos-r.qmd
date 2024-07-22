@@ -1,0 +1,448 @@
+---
+title: (Básico da) Visualização gráfica
+format: 
+  html:
+    fig-width: 5
+    fig-height: 5
+    fig-align: 'center'
+execute:
+  echo: true
+  warning: false
+  include: true
+  message: false
+---
+
+```{r}
+#| include: false
+library(ade4)
+data(doubs)
+```
+
+
+A visualização gráfica consiste em mostrar visualmente ou padrões de *distribuição* de uma variável ou padrões de a *associação* entre duas ou mais variáveis. Os tipos de gráficos a serem utilizados depende basicamente do tipo de variável (ex. categórica ou numérica) e do número de variáveis envolvidas. Temos os gráficos **univariados** quando a visualização envolve uma única variável, gráfios **bivariados** quando a visualização envolve duas variáveis e gráficos **multivariados** que buscam expressar o padrão de associação entre mais de duas variáveis. Deixaremos os gráficos multivariados para outro momento e veremos aqui os tipos básicos para descrever padrões **uni** e **bivariados**.
+
+As funções gráficas apresentadas neste tópico estão todas disponíveis no pacote ```graphics```, que se inclui na lista dos pacotes **previamente** instalados no R. Não é necessário portanto preocupar-se com nenhuma instalação adicional. Estas funções possibilitam elevado controle sobre cada um dos elementos gráficos (fontes, tamanhos, cores), porém a custo de maior complexidade se temos a intensão de gerar figuras complexas. Vale ressaltar ainda que mesmo utilizando muitas nomenclaturas compatíveis para o controle de eixos, títulos, tamanho de fonte, estas funções nem sempre usam argumentos coesos entre os tipos gráficos, o que pode tornar a curva de aprendizado mais demorada. Por outro lado, estas funções fornecem **conhecimentos básicos** sobre a estrutura gráfica no R, permitindo resolver de forma rápida e simples muitas situações que encontramos no dia-a-dia da análise exploratória. Na próxima seção iremos tratar de outro pacote gráfico (```ggplot2```) que possui elevada capacidade para gerar estruturas complexas de imagem, utilizando uma estrutura mais coesa de manipulação gráfica.
+
+## Doubs river dataset
+
+Para demonstrar algumas ferramentas gráficas, vamos utilizar um conjunto de dados já disponível na base de dados do R chamados *Doubs River data*. Já analisamos parte deste conjunto de dados na seção antorior sobre manipulação de data frames, quando importamos o arquivo [dbenv.csv](https://raw.githubusercontent.com/FCopf/datasets/master/dbenv.csv). Deste ponto em diante, vamos utilizar o conjunto dados completo que está disponível no pacote ```ade4``` [@dray2015ade]. 
+
+Este conjunto de dados resulta da tese de doutorado de Verneaux [@Verneaux1973] e o texto a seguir foi traduzido do site [www.davidzeleny.net](https://www.davidzeleny.net/anadat-r/doku.php/en:data:doubs) que contém diversos tutoriais sobre análise de dados multivariados em Ecologia de Comunidades.
+
+Verneaux [@Verneaux1973] propôs o uso de espécies de peixes para caracterizar zonas ecológicas ao longo de rios e riachos europeus. O autor mostrou que as comunidades de peixes eram bons indicadores biológicos desses corpos d'água. Partindo da foz até a cabeceira, Verneaux propôs uma tipologia em quatro zonas, nomeadas a partir da predominância de uma dada espécie de peixe: **trout zone**, **grayling zone**, **barbel zone** e **bream zone**. As condições ecológicas correspondentes nestas zonas variam desde águas relativamente bem oxigenadas e oligotróficas até águas eutróficas e desprovidas de oxigênio.
+
+Os dados foram coletados em `r nrow(doubs$env)` localidades ao longo do [rio Doubs](https://pt.wikipedia.org/wiki/Rio_Doubs), próximo à fronteira da França e Suíça. O conjunto de dados que você irá importar consiste em uma lista de 4 elementos:
+
+1. ```$env```: um data frame com `r nrow(doubs$env)` linhas por `r ncol(doubs$env)` colunas, em que as linhas representam os locais de amostragem da cabeceira a foz do riacho e as colunas representam variáveis ambientais relacionadas à hidrologia, geomorfologia e química do rio.
+
+2. ```$fish```: um data frame com `r nrow(doubs$fish)` linhas por `r ncol(doubs$fish)` colunas, em que as linhas representam os mesmo locais de amostragem e a cada coluna as abundâncias das `r ncol(doubs$fish)` espécies de peixes capturadas.
+
+3. ```$xy```: um data frame com `r nrow(doubs$xy)` linhas por `r ncol(doubs$xy)` colunas. As linhas novamente são os locais de amostragem e as colunas representam as coordenadas geográficas de cada ponto de amostragem.
+
+4. ```$species```: um data frame com `r nrow(doubs$species)` linhas por `r ncol(doubs$species)` colunas. As linhas representam cada uma das `r nrow(doubs$species)` espécies capturadas e as colunas representam seus nomes científicos, nomes populares em francês, em inglês e um código abreviado.
+
+### Instalando o pacote ```ade4``` e carregando os dados
+
+Caso ainda não tenha feito, instale o pacote  ```ade4``` através do comando:
+
+```{r}
+#| eval: false
+install.packages("ade4")
+```
+
+Feito isto, carregue o pacote:
+
+```{r}
+#| eval: false
+library(ade4)
+```
+
+E o conjunto de dados ```doubs```
+
+```{r}
+#| eval: false
+data(doubs)
+```
+
+Veja o formato em lista destes dados:
+
+```{r}
+#| eval: false
+class(doubs)
+str(doubs)
+```
+
+E leia a descrição do conjunto de dados para entender melhor nossas discussões a frente.
+
+```{r}
+#| eval: false
+?doubs
+```
+
+Inicialmente, vamos extrair os dados ambientais para um novo ```data.frame``` que iremos utilizar nas análises gráficas:
+
+```{r}
+ambiente <- doubs$env
+```
+
+Baseados em Borcard et al. [@borcard2018numerical], vamos adicionar a este data frame uma nova variável categórica denominada ```secao``` com quatro níveis.
+
+```{r}
+ambiente$secao <- c(rep("Seção 1", 16), rep("Seção 4", 14))
+ambiente$secao[c(5,9,17)] <- "Seção 2"
+ambiente$secao[23:25] <- "Seção 3"
+ambiente$secao <- factor(ambiente$secao)
+```
+
+Outra variável categórica, indicando três níveis de concentração de oxigênio em cada ponto.
+
+```{r}
+ambiente$trofia <- cut(ambiente$oxy, breaks = c(0, 80, 109, 124), 
+           labels = c("Pobre", "Médio", "Saturado"))
+head(ambiente, 10)
+```
+
+## Descrevendo os padrões de uma variável
+
+### Gráfico de barras
+
+Um gráfico de barras é utilizado para verificar a contagem de cada nível de uma variável. Portanto, necessariamente deve ser aplicado a uma *variável categórica*. Vamos fazer um gráfico de barras para a variável ```trofia```
+
+Montamos uma tabela de frequencia:
+
+```{r}
+tab1 <- table(ambiente$trofia)
+tab1
+```
+
+E em seguida mostramos esta tabela em um gráfico de barras:
+
+```{r}
+barplot(tab1)
+```
+
+Melhorando a formatação gráfica:
+
+```{r}
+barplot(tab1,
+        main = "Concentração de oxigênio",
+        ylab = "Frequência",
+        ylim = c(0, 18), col = "black")
+box()
+```
+
+### Histograma
+
+Um histograma é a forma mais direta de avaliarmos o padrão de distribuição de uma variável quantitativa. Um histograma é construído a partir da divisão de uma variável em *intervalos de classe* e contando o número de classes dentro deste intervalo.  
+
+Veja o histograma abaixo para a `r colnames(ambiente)[10]` que expressa a concentração de oxigênio em mg/l $\times$ 10.
+
+```{r}
+#| eval: false
+hist(ambiente$oxy)
+```
+
+```{r}
+#| echo: false
+x <- hist(ambiente$oxy)
+```
+
+A figura mostra por exemplo que existe `r x$counts[1]` seção com concentração entre `r x$breaks[1]` e `r x$breaks[2]` mg/l $\times$ 10, e `r x$counts[6]` seções com concentração entre `r x$breaks[6]` e `r x$breaks[7]` mg/l $\times$ 10. Verifique quais são estes veículos com o comando abaixo:
+
+```{r}
+ambiente[order(ambiente$oxy),]
+```
+
+Em um histograma, a escolha do intervalo de classes determina o formato exato do gráfico. No exemplo acima, a escolha foi feita automaticamente. No entanto, podemos definir esplicitamente o intervalo desejado utilizando o argumento ```breaks``` conforme abaixo:
+
+```{r}
+classes <- seq(40, 140, by = 20)
+hist(ambiente$oxy, breaks = classes)
+```
+
+Aqui fizemos a divisão em intervalos de tamanho `r diff(classes)[1]`, iniciando em `r min(classes)` e terminando em `r max(classes)`. A escolha do tamanho das classes é de certa forma arbitrária e definida para que o figura evidencie da melhor forma possível o padrão de distribuição dos dados.
+
+### Boxplot
+
+Boxplots oferecem um *resumo gráfico* da distribuição de uma variável quantitativa. Abaixo veja um boxplot da variável `r colnames(ambiente)[10]`.
+
+```{r}
+boxplot(ambiente$oxy)
+```
+
+No boxplot, a linha do meio representa a **mediana** dos dados, os limitres das caixas representam o $1^o$ e $3^o$ percentis e as linhas os pontos mínimo e máximo. Podemos ver quais são estes valores com o comando:
+
+```{r}
+quantile(ambiente$oxy, probs = c(0, 0.25, 0.5, 0.75, 1))
+```
+
+## Visualizando associações entre duas variáveis
+
+### Gráfico de barras
+
+Passando aos gráficos bi-variados, vamos criar um gráfico de barras combinando as variáveis categóricas ```secao``` e ```trofia```. Como fizemos anteriormente, montamos uma tabela de frequência, porpém neste caso combinando as duas variáveis.
+
+```{r}
+tab2 <- table(ambiente[,c("secao", "trofia")])
+tab2
+```
+
+Neste caso, podemos fazer gráficos de barras de quatro formas distintas:
+
+```{r}
+#| fig-width: 8
+#| fig-height: 8
+layout(mat = matrix(1:4, nrow = 2, ncol = 2, byrow = TRUE))
+barplot(tab2, legend = TRUE)
+barplot(tab2, legend = TRUE, beside = TRUE)
+barplot(t(tab2), legend = TRUE)
+barplot(t(tab2), legend = TRUE, beside = TRUE)
+```
+
+O comando acima necessita de algumas explicações. 
+
+1. A função ```layout(mat = matrix(1:4, nrow = 2, ncol = 2, byrow = TRUE))``` organiza o espaço gráfico em um formato matricial com 2 linhas por 2 colunas, permitindo a inserrção de 4 figuras. O argumento ```byrow = TRUE``` define que as figuras serão adicionais linha-a-linha;
+   
+2. A expressão ```t(tab2)``` tem como resultado *tanspor* a tabela, o que consequentemente altera a referência da figura. No primeiro caso, a referência é a concentração de oxigêncio e no segundo caso, as seções;
+   
+3. O argumento ```beside = TRUE``` faz com que todas as barras apareçam lado-a-lado. Caso contrário, cada barra representa uma coluna da matriz ```tab2``` ou da sua transposta ```t(tab2)```;
+    
+4. Em todos os gráficos foi adicionada uma legenda para permitir a interpretação dos gráficos;
+   
+Aqui podemos melhorar a formatação:
+
+```{r}
+#| fig-width: 8
+#| fig-height: 8
+cores <- 1:4
+limy1 <- c(0, 17)
+limy2 <- c(0, 16)
+legenda <- list(cex = 0.8)
+
+layout(mat = matrix(1:4, nrow = 2, ncol = 2, byrow = TRUE))
+barplot(tab2, legend = TRUE, col = cores, ylim = limy1, 
+        args.legend = legenda)
+box()
+barplot(tab2, legend = TRUE, beside = TRUE, col = cores, 
+        ylim = limy1, args.legend = legenda)
+box()
+barplot(t(tab2), legend = TRUE, col = cores, ylim = limy2, 
+        args.legend = legenda)
+box()
+barplot(t(tab2), legend = TRUE, beside = TRUE, col = cores, 
+        ylim = limy2, args.legend = legenda)
+box()
+```
+
+
+### Boxplot
+
+O boxplot é mais utilizado na situação a seguir em que queremos sumarizar uma variável quantitativa para diferentes níveis de uma variável categórica. Para isto, vamos associar a variável `r colnames(ambiente)[10]` à variável `r colnames(ambiente)[12]`.
+
+```{r}
+boxplot(oxy ~ secao, data = ambiente)
+```
+
+Vemos que *aparentemente* os pontos associados ao ```Seção 1``` têm maiores concentrações de oxigênio (mediana = `r median(ambiente$oxy[ambiente$secao == "Secao 1"])`) e que os pontos associados à ```Seção 3``` os menores valores (mediana = `r median(ambiente$oxy[ambiente$secao == "Seção 3"])`). É neste tipo de comparação que geralmente estamos interessados ao fazer um boxplot deste tipo.
+
+Aqui utilizamos uma notação diferente. 
+
+1. Ao invés de dizermos explicitamente qual variável está no eixo ```y``` e qual está no eixo ```x```, utilizamos o símbolo ```~``` para expressar que ```y``` *depende de* ```x```. Esta notação é amplamente utilizada em modelos estatísticos como Regressão e Análise de Variância e está associada aos conceitos de variável *dependente* (ou *reposta*, ```y```) e de variável *independente* (ou *preditora*, ```x```). Neste caso, então a concentração de oxigênio *depende* da seção do rio.
+
+2. Ao invés de chamarmos a variável por ```ambiente$oxy```, utilizamos somente o nome da coluna (```oxy```) e adicionamos o argumento ```data = ambiente``` para indicar em qual data frame a função irá buscar as variáveis. Deste ponto em diante iremos utilizar esta notação sempre que possível, para que você se familiarize com sua utilização na prática de ajuste de modelos estatísticos no R.
+
+### Gráfico de dispersão
+
+Um gráfico de dispersão mostra a associação entre duas variáveis quantitativas. Vamos verificar a associação entre concentração de nitrato (mg/l $\times$ 100) e a distância da foz (km $\times$ 10). Neste caso, é fundamental definirmos quem serão as variáveis dependentes e independentes. Faz sentido pensar que a concentração de nitrato varia **em função** da distância da foz e não o contrário.
+
+```{r}
+plot(nit ~ dfs, data = ambiente)
+```
+
+Os resultados parecem expressar uma relação esperada em que a concentração de nutrientes aumenta à medida que nos aproximamos da foz de rio e riachos.
+
+Alterando os nomes dos eixos (argumentos ```xlab``` e ```ylab```), tipo de ponto (argumento ```pch```).
+
+```{r}
+plot(nit ~ dfs, data = ambiente,
+     xlab = bquote("Vazão média mínima (m" ^3/"seg x 100)"),
+     ylab = bquote("Concentração de Nitrato (mg"/"l x 100)"),
+     pch = 19
+)
+```
+
+## Compreendendo o ambiente por meio de suas variáveis
+
+Em um estudo como o de Verneaux [@Verneaux1973] o objetivo é entender o sistema de riachos por meio das variáveis que escolhemos quantificar. Os gráficos vistos acima não são a única forma de imcorporar essas variáveis em uma figura. A possibilidade de manipulação de cores, símbolos e textos no ambiente gráfico fornece formas adicionais de incluirmos uma determinada informação. Nesta seção vamos explorar um pouco melhor estas questões. 
+
+Dissemos que os pontos de amostragem foram obtidos ao longo do gradiente cabeceira-foz de um rio na França. Parte das informações que temos se referem às coordenadas geográficas destes pontos (no data frame ```$yx```). Verifique também que a sequência dos pontos segue uma ordem crescente da distância da foz. Inicialmente, vamos plotar as coordenadas geográficas de todos os pontos utilizando um gráfico de linhas:
+
+```{r}
+#| fig-width: 6
+#| fig-height: 6
+plot(x = doubs$xy$x, y = doubs$xy$y, type = "l",
+     xlab = "Coordenada em x (km)", 
+     ylab = "Coordenada em y (km)",
+     col = "#4287f5", lwd = 3)
+```
+
+Compare, a figura com o desenho do [rio Doubs](https://pt.wikipedia.org/wiki/Rio_Doubs).
+
+::: callout-note
+
+Utilizamos a definição de cores em **HEXADECIMAL**. Você pode fazer o mesmo, escolhendo a cor desejada aqui: [hex color picker](https://www.google.com/search?q=hex+color+picker&oq=hex+color+picker&aqs=chrome..69i57j0l7.11304j0j4&sourceid=chrome&ie=UTF-8).
+
+::: 
+
+Vamos indicar os pontos de cabeceira e foz.
+
+```{r}
+#| fig-width: 6
+#| fig-height: 6
+pontos_extremos <- doubs$xy[which(doubs$env$dfs == min(doubs$env$dfs) | 
+                                      doubs$env$dfs == max(doubs$env$dfs)),]
+plot(x = doubs$xy$x, y = doubs$xy$y, type = "l",
+     xlab = "Coordenada em x (km)", 
+     ylab = "Coordenada em y (km)",
+     col = "#4287f5", lwd = 3)
+text(x = pontos_extremos$x, 
+       y = pontos_extremos$y,
+       labels = c("Cabeceira", "Foz"))
+```
+
+Lembre-se que definimos acima 4 trechos. Vamos ver onde estes seções se localizam plotando-os com cores distintas.
+
+```{r}
+#| fig-width: 6
+#| fig-height: 6
+secao_cor <- as.numeric(ambiente$secao)
+
+plot(x = doubs$xy$x, y = doubs$xy$y, type = "l",
+     xlab = "Coordenada em x (km)", 
+     ylab = "Coordenada em y (km)",
+     col = "#4287f5", lwd = 3)
+points(x = doubs$xy$x, y = doubs$xy$y, pch = 21, 
+       bg = secao_cor, cex = 3)
+legend(x = "bottomright", col = 1:4, 
+       legend = levels(ambiente$secao), bty = "n", pch = 19)
+```
+
+Fica clara a divisão principal entre os grupos referente às seções 1 e 2 na metade superior do rio e as seções 3 e 4 na metade inferior. Para continuar explorando os dados, vamos inserir a informação sobre a concentração de amônia (```amm```).
+
+```{r}
+#| fig-width: 6
+#| fig-height: 6
+secao_cor <- as.numeric(ambiente$secao) + 1
+
+plot(x = doubs$xy$x, y = doubs$xy$y, type = "l",
+     xlab = "Coordenada em x (km)", 
+     ylab = "Coordenada em y (km)",
+     col = "#4287f5", lwd = 3)
+points(x = doubs$xy$x, y = doubs$xy$y, pch = 21, 
+       bg = secao_cor, cex = 4)
+legend(x = "bottomright", col = 1:4, 
+       legend = levels(ambiente$secao), bty = "n", pch = 19)
+text(x = doubs$xy$x, y = doubs$xy$y, labels = doubs$env$amm, 
+     cex = 0.8, font = 2)
+text(x = 55, y = 220, labels = "Concentração de amônia")
+text(x = 25, y = 120, label = "Foz")
+text(x = 60, y = 20, label = "Cabeceira")
+
+```
+
+Veja, que a concentração de amônia nos pontos em azul (Seção 4) é muito superior à dos pontos ao redor. Algo similar ocorre nos pontos em verde.
+
+Provavelmente, a concentração de amônia não é a única variável pela formação destes grupos. Você pode explorar as demais variáveis químicas para verificar se outras também apresentam padrões similares.
+
+O ponto que merece ser ressaltado, é que o gráfico acima, não se enquadra em nenhuma das categorias anteriores (uni-variados, bi-variados, gráficos de barras, boxplots, etc.). No entanto, a figura nos informa sobre três variáveis: as coordenadas geográficas, a variável categórica ```secao``` e a concentração de amônia.
+
+::: callout-note
+
+Utilizamos uma série de funções novas: ```text```, ```points```, ```legend```. Para entender como elas funcionam, rode os comandos acima **linha por linha** e veja como cada função adiciona uma informação adicional à figura.
+
+::: 
+
+## Mais um comentário sobre formatação gráfica no R
+
+### Outros argumentos
+
+A capacidade de formatação gráfica no R é extensa. Qualquer tentativa de resumir todas elas seria incompleta. Portanto, apresento aqui somente alguns argumentos mais comuns. Rode abaixo cada uma das linhas e veja as figuras resultantes:
+
+```{r}
+#| eval: false
+plot(nit ~ dfs, data = ambiente)
+plot(nit ~ dfs, data = ambiente, pch = 2)
+plot(nit ~ dfs, data = ambiente, pch = 19)
+plot(nit ~ dfs, data = ambiente, pch = 19, type = "b")
+plot(nit ~ dfs, data = ambiente, pch = 19, type = "b",
+     xlab = "Nitrato", ylab = "Vazão")
+plot(nit ~ dfs, data = ambiente, pch = 19, type = "b", 
+     xlab = "Nitrato", ylab = "Vazão", font.lab = 3)
+plot(nit ~ dfs, data = ambiente, pch = 19, type = "l", 
+     lty = 2)
+plot(nit ~ dfs, data = ambiente, pch = 19, type = "l", 
+     lty = 2, lwd = 3)
+plot(nit ~ dfs, data = ambiente, pch = 19, type = "l", 
+     lty = 2, lwd = 3, col = 2)
+```
+
+### Figuras compostas
+
+Podemos formar figuras compostas, inserindo múltiplos gráficos. Uma das formas mais simples para isto é utilizando a função ```layout```. Abaixo, vamos inserir 6 gráficos em um mesmo espaço.
+
+```{r}
+#| fig-height: 8
+layout(mat = matrix(1:6, nrow = 3, ncol = 2))
+plot(alt ~ dfs, data = ambiente)
+plot(amm ~ alt, data = ambiente)
+plot(nit ~ alt, data = ambiente)
+plot(pH ~ alt, data = ambiente)
+plot(bdo ~ alt, data = ambiente)
+plot(oxy ~ alt, data = ambiente)
+```
+
+### Exportando figuras com as funções ```png```, ```tiff```, ```jpeg``` e ```bmp```
+
+Temos melhor controle sobre a qualidade gráfica no R exportando figuras em uma variedade de formatos e resoluções. Exemplificamos esta funcionalidade abaixo com a função ```png```. No entanto, uma breve busca nos menus de ajuda mostrará que existem funções similares para outras extensões de imagem que possume funcionamentos similares.
+
+```{r}
+#| eval: false
+png(filename = "Exemplo_figura.png",
+    width = 15, height = 15, units = "cm", 
+    pointsize = 10, bg = "white", res = 800)
+
+plot(alt ~ dfs, data = ambiente, pch = 19, type = "b", 
+     xlab = "Vazão", ylab = "Elevação")
+
+dev.off()
+```
+
+Lembre-se que a figura foi salva do diretório atual de sua seção de trabalho. Você pode conferir este diretório com:
+
+```{r}
+#| eval: false
+getwd()
+```
+
+Experimente alterar os argumentos ```width```, ```height```, ```pointsize```, ```units``` (com ```"px"```, ```"in"```, ```"cm"``` ou ```"mm"```) e ```res```.
+
+As capacidades gráficas no R incluem ainda muitos outros argumentos. Alguns deles são: cores (```col```), tipos da fonte (```font```), tamanhos de símbolos (```cex```), dos labels (```cex.lab```), dos rótulos dos eixos (```cex.axis```), título (```main```), etc. Pode-se ainda inserir legendas (função ```legend```) e textos (função ```text```). Veja o **help** de cada uma destas funções e a lista de argumentos possíveis para o ambiente gráfico do R em ```?par```. Veja também uma demonstração com ```demo(graphics)```,  ```demo(image)```, ```demo(persp)``` e ```demo(plotmath)```. 
+
+Existem diversos outros pacotes gráficos além do ```graphics```:
+
+- ```ggplot2```
+- ```ggvis```
+- ```Lattice```
+- ```highcharter```
+- ```Leaflet```
+- ```RColorBrewer```
+- ```Plotly```
+- ```sunburstR```
+- ```RGL```
+- ```dygraphs```
+
+
+```{r}
+#| echo: false
+rm(list = ls())
+```

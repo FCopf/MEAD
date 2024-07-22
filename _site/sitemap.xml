@@ -2,14 +2,18 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://www/index.html</loc>
-    <lastmod>2024-07-18T21:32:30.840Z</lastmod>
+    <lastmod>2024-07-22T01:51:34.737Z</lastmod>
   </url>
   <url>
     <loc>https://www/conteudo/introducao_r/instalacao-linguagem.html</loc>
-    <lastmod>2024-07-19T03:41:50.361Z</lastmod>
+    <lastmod>2024-07-21T16:33:55.695Z</lastmod>
   </url>
   <url>
     <loc>https://www/conteudo/introducao_r/data-frames.html</loc>
-    <lastmod>2024-07-19T04:03:43.513Z</lastmod>
+    <lastmod>2024-07-22T02:13:25.568Z</lastmod>
+  </url>
+  <url>
+    <loc>https://www/conteudo/introducao_r/graficos-r.html</loc>
+    <lastmod>2024-07-22T02:57:37.000Z</lastmod>
   </url>
 </urlset>

@@ -38,7 +38,7 @@ website:
             text: Estrutura da linguagem
           - href: conteudo/introducao_r/data-frames.qmd
             text: (Básico da) Manipulação de data frames
-          - href: conteudo/introducao_r/graficos.qmd
+          - href: conteudo/introducao_r/graficos-r.qmd
             text: (Básico da) Visualização gráfica
       - section: "Pacotes em R para Ciência de Dados"
         contents:
@@ -164,6 +164,6 @@ format:
     code-overflow: wrap
     toc: true
 
-freeze: auto
+freeze: false
 
 editor: visual
