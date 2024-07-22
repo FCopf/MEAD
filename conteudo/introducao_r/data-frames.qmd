@@ -139,7 +139,7 @@ Sub-conjunto do data frame podem ser selecionados combinando esses procedimentos
 dbenv[linhas,colunas]
 ```
 
-### Adicionando novas colunas a um data frame
+### Adicionando novas colunas
 
 Este conjunto de dados mostra medidas físicas e químicas obtidas em um riacho amostrado desde a cabeceira até a foz. O ponto mais alto (`r max(dbenv$alt)` m de altitude) está a `r dbenv$dfs[which.max(dbenv$alt)]` km da cabeceira enquanto o ponto mais baixo está a `r min(dbenv$alt)` m de altitude e a `r dbenv$dfs[which.min(dbenv$alt)]` km da cabeceira. Vamos criar uma nova variável categorizando os trechos do rio em `Alto`, `Medio` e `Baixo` assumindo a seguinte relação:
 
@@ -178,7 +178,7 @@ Veja agora o data frame
 dbenv
 ```
 
-### Aplicando uma função às linhas ou colunas de um data frame
+### Família `apply` e `aggregate`
 
 Em muitas situações temos interesse aplicar uma determinada função a cada linha ou a cada coluna de um data frame ou ainda para grupos distintos de linhas.
 
@@ -250,7 +250,7 @@ Existem outras funções neste grupo, Veja o `help()` destas funções pois são
 ```
 :::
 
-### Função `aggregate`
+### Função `aggregate`  {.unnumbered}
 
 A função `tapply()` aplica uma função a subgrupos de uma **única** coluna. A função `aggregate()` faz o mesmo, porém para **múltiplas** colunas agrupadas de acordo com uma ou mais categorias. O comando abaixo calcula os valores médios das variáveis para os trechos alto, médio e baixo combinados com níveis de $pH$.
 

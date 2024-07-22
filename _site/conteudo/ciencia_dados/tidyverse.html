@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Métodos em Estatística e Análise de Dados</title>
+<title>Os pacotes em tidyverse – Métodos em Estatística e Análise de Dados</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,27 +20,62 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<link href="./conteudo/introducao_r/instalacao-linguagem.html" rel="next">
-<script src="site_libs/quarto-html/quarto.js"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../conteudo/ciencia_dados/import_export.qmd" rel="next">
+<link href="../../conteudo/introducao_r/graficos-r.html" rel="prev">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -70,7 +105,7 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 
 
-<meta property="og:title" content="Métodos em Estatística e Análise de Dados">
+<meta property="og:title" content="Os pacotes em tidyverse – Métodos em Estatística e Análise de Dados">
 <meta property="og:description" content="Página de apoio para os cursos de estatistica e delineamento">
 <meta property="og:site_name" content="Métodos em Estatística e Análise de Dados">
 </head>
@@ -84,7 +119,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Métodos em Estatística e Análise de Dados</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../conteudo/ciencia_dados/tidyverse.html">Pacotes em R para Ciência de Dados</a></li><li class="breadcrumb-item"><a href="../../conteudo/ciencia_dados/tidyverse.html">Pacotes em Tidyverse</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -98,8 +133,8 @@ ul.task-list li input[type="checkbox"] {
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
     <div class="pt-lg-2 mt-2 text-center sidebar-header">
-      <a href="./index.html" class="sidebar-logo-link">
-      <img src="./images/logo.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      <a href="../../index.html" class="sidebar-logo-link">
+      <img src="../../images/logo.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
       </a>
       <div class="sidebar-tools-main">
     <a href="https://www" title="GitHub organization" class="quarto-navigation-tool px-1" aria-label="GitHub organization"><i class="bi bi-github"></i></a>
@@ -115,7 +150,7 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">
+  <a href="../../index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Métodos em Estatística e Análise de Dados</span></a>
   </div>
 </li>
@@ -130,19 +165,19 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./conteudo/introducao_r/instalacao-linguagem.html" class="sidebar-item-text sidebar-link">
+  <a href="../../conteudo/introducao_r/instalacao-linguagem.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Estrutura da linguagem</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./conteudo/introducao_r/data-frames.html" class="sidebar-item-text sidebar-link">
+  <a href="../../conteudo/introducao_r/data-frames.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">(Básico da) Manipulação de data frames</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./conteudo/introducao_r/graficos-r.html" class="sidebar-item-text sidebar-link">
+  <a href="../../conteudo/introducao_r/graficos-r.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">(Básico da) Visualização gráfica</span></a>
   </div>
 </li>
@@ -150,40 +185,40 @@ ul.task-list li input[type="checkbox"] {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
  <span class="menu-text">Pacotes em R para Ciência de Dados</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./conteudo/ciencia_dados/tidyverse.html" class="sidebar-item-text sidebar-link">
+  <a href="../../conteudo/ciencia_dados/tidyverse.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Pacotes em Tidyverse</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./conteudo/ciencia_dados/import_export.qmd" class="sidebar-item-text sidebar-link">
+  <a href="../../conteudo/ciencia_dados/import_export.qmd" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Importando/Exportando dados</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./conteudo/ciencia_dados/pipe.qmd" class="sidebar-item-text sidebar-link">
+  <a href="../../conteudo/ciencia_dados/pipe.qmd" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Operadores Pipe</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./conteudo/ciencia_dados/manipula_formata.qmd" class="sidebar-item-text sidebar-link">
+  <a href="../../conteudo/ciencia_dados/manipula_formata.qmd" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Manipulação e formatação de dados</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./conteudo/ciencia_dados/grafico_ggplot.qmd" class="sidebar-item-text sidebar-link">
+  <a href="../../conteudo/ciencia_dados/grafico_ggplot.qmd" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Gráficos em camadas</span></a>
   </div>
 </li>
@@ -200,25 +235,25 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./conteudo/estrutura_dados/estrutura.qmd" class="sidebar-item-text sidebar-link">
+  <a href="../../conteudo/estrutura_dados/estrutura.qmd" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Estrutura e tipo de dados</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./conteudo/estrutura_dados/estrutura.qmd" class="sidebar-item-text sidebar-link">
+  <a href="../../conteudo/estrutura_dados/estrutura.qmd" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Estrutura e tipo de dados</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./conteudo/estrutura_dados/visualizacao-univariada.qmd" class="sidebar-item-text sidebar-link">
+  <a href="../../conteudo/estrutura_dados/visualizacao-univariada.qmd" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Visualização de dados univariados</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./conteudo/estrutura_dados/visualizacao-bivariada.qmd" class="sidebar-item-text sidebar-link">
+  <a href="../../conteudo/estrutura_dados/visualizacao-bivariada.qmd" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Visualização de dados bidimensionais</span></a>
   </div>
 </li>
@@ -235,37 +270,37 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./conteudo/probabilidade/espaco-amostral.qmd" class="sidebar-item-text sidebar-link">
+  <a href="../../conteudo/probabilidade/espaco-amostral.qmd" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Espaço amostral</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./conteudo/probabilidade/eventos.qmd" class="sidebar-item-text sidebar-link">
+  <a href="../../conteudo/probabilidade/eventos.qmd" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Eventos do espaço amostral</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./conteudo/probabilidade/condicional.qmd" class="sidebar-item-text sidebar-link">
+  <a href="../../conteudo/probabilidade/condicional.qmd" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Probabilidade condicional</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./conteudo/probabilidade/bayes.qmd" class="sidebar-item-text sidebar-link">
+  <a href="../../conteudo/probabilidade/bayes.qmd" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Teorema de Bayes</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./conteudo/probabilidade/va-discretas.qmd" class="sidebar-item-text sidebar-link">
+  <a href="../../conteudo/probabilidade/va-discretas.qmd" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Variáveis aleatórias discretas</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./conteudo/probabilidade/va-continuas.qmd" class="sidebar-item-text sidebar-link">
+  <a href="../../conteudo/probabilidade/va-continuas.qmd" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Variáveis aleatórias contínuas</span></a>
   </div>
 </li>
@@ -282,37 +317,37 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./conteudo/descritiva/popolacao-amostra.qmd" class="sidebar-item-text sidebar-link">
+  <a href="../../conteudo/descritiva/popolacao-amostra.qmd" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Populações e amostras</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./conteudo/descritiva/amostragem.qmd" class="sidebar-item-text sidebar-link">
+  <a href="../../conteudo/descritiva/amostragem.qmd" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Amostrando uma População Estatística</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./conteudo/descritiva/tendencia-central.qmd" class="sidebar-item-text sidebar-link">
+  <a href="../../conteudo/descritiva/tendencia-central.qmd" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Medidas de tendência central</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./conteudo/descritiva/variacao.qmd" class="sidebar-item-text sidebar-link">
+  <a href="../../conteudo/descritiva/variacao.qmd" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Medidas de variação</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./conteudo/descritiva/posicao-quartis.qmd" class="sidebar-item-text sidebar-link">
+  <a href="../../conteudo/descritiva/posicao-quartis.qmd" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Medidas de posição: quartis</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./conteudo/descritiva/posicao-indice-z.qmd" class="sidebar-item-text sidebar-link">
+  <a href="../../conteudo/descritiva/posicao-indice-z.qmd" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Medidas de posição: índice Z</span></a>
   </div>
 </li>
@@ -329,43 +364,43 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./conteudo/inferencia/distribuicao-normal.qmd" class="sidebar-item-text sidebar-link">
+  <a href="../../conteudo/inferencia/distribuicao-normal.qmd" class="sidebar-item-text sidebar-link">
  <span class="menu-text">O modelo de distribuição normal</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./conteudo/inferencia/tcl.qmd" class="sidebar-item-text sidebar-link">
+  <a href="../../conteudo/inferencia/tcl.qmd" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Distribuição das médias amostrais: TCL</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./conteudo/inferencia/distribuicao-t.qmd" class="sidebar-item-text sidebar-link">
+  <a href="../../conteudo/inferencia/distribuicao-t.qmd" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Distribuição t de Student</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./conteudo/inferencia/estimacao.qmd" class="sidebar-item-text sidebar-link">
+  <a href="../../conteudo/inferencia/estimacao.qmd" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Estimação pontual e intervalar</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./conteudo/inferencia/teste-hipóteses.qmd" class="sidebar-item-text sidebar-link">
+  <a href="../../conteudo/inferencia/teste-hipóteses.qmd" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Introdução ao Teste de Hipóteses</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./conteudo/inferencia/distribuicao-f.qmd" class="sidebar-item-text sidebar-link">
+  <a href="../../conteudo/inferencia/distribuicao-f.qmd" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Distribuição F: comparando variâncias</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./conteudo/inferencia/teste-t.qmd" class="sidebar-item-text sidebar-link">
+  <a href="../../conteudo/inferencia/teste-t.qmd" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Comparando médias: teste t de Student</span></a>
   </div>
 </li>
@@ -382,37 +417,37 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./conteudo/anova/anova-simples.qmd" class="sidebar-item-text sidebar-link">
+  <a href="../../conteudo/anova/anova-simples.qmd" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Análise de Variância de um Fator</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./conteudo/anova/anova-bloco.qmd" class="sidebar-item-text sidebar-link">
+  <a href="../../conteudo/anova/anova-bloco.qmd" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Análise de Variância em Blocos</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./conteudo/anova/anova-two-way.qmd" class="sidebar-item-text sidebar-link">
+  <a href="../../conteudo/anova/anova-two-way.qmd" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Análise de Variância de dois Fatores</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./conteudo/anova/ancova.qmd" class="sidebar-item-text sidebar-link">
+  <a href="../../conteudo/anova/ancova.qmd" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Análise de Covariância</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./conteudo/anova/anova-medida-repetida.qmd" class="sidebar-item-text sidebar-link">
+  <a href="../../conteudo/anova/anova-medida-repetida.qmd" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Análise de Variância de Medidas Repetidas</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./conteudo/anova/anova-aninhada.qmd" class="sidebar-item-text sidebar-link">
+  <a href="../../conteudo/anova/anova-aninhada.qmd" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Análise de Variância Aninhada</span></a>
   </div>
 </li>
@@ -429,37 +464,37 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./conteudo/regressao_linear/regressao-linear-simples.qmd" class="sidebar-item-text sidebar-link">
+  <a href="../../conteudo/regressao_linear/regressao-linear-simples.qmd" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Regressão Linear Simples</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./conteudo/regressao_linear/diagnostico-regressao.qmd" class="sidebar-item-text sidebar-link">
+  <a href="../../conteudo/regressao_linear/diagnostico-regressao.qmd" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Diagnóstico da Regressão Linear Simples</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./conteudo/regressao_linear/th-coef.qmd" class="sidebar-item-text sidebar-link">
+  <a href="../../conteudo/regressao_linear/th-coef.qmd" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Teste de hipóteses sobre os coeficientes da regressão</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./conteudo/regressao_linear/anova-regressao.qmd" class="sidebar-item-text sidebar-link">
+  <a href="../../conteudo/regressao_linear/anova-regressao.qmd" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Análise de Variância da Regressão</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./conteudo/regressao_linear/regressao-linear-multipla.qmd" class="sidebar-item-text sidebar-link">
+  <a href="../../conteudo/regressao_linear/regressao-linear-multipla.qmd" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Regressão Linear Múltipla</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./conteudo/regressao_linear/transformacao-regressao.qmd" class="sidebar-item-text sidebar-link">
+  <a href="../../conteudo/regressao_linear/transformacao-regressao.qmd" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Transformações na Regressão Linear</span></a>
   </div>
 </li>
@@ -476,19 +511,19 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./conteudo/glm/glm-gaussiano.qmd" class="sidebar-item-text sidebar-link">
+  <a href="../../conteudo/glm/glm-gaussiano.qmd" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Introdução: modelo gaussiano</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./conteudo/glm/glm-binomial.qmd" class="sidebar-item-text sidebar-link">
+  <a href="../../conteudo/glm/glm-binomial.qmd" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Regressão Logística</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./conteudo/glm/glm-poisson.qmd" class="sidebar-item-text sidebar-link">
+  <a href="../../conteudo/glm/glm-poisson.qmd" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Regressão de Poisson</span></a>
   </div>
 </li>
@@ -505,31 +540,31 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-10" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./conteudo/topicos/modelos-mistos.qmd" class="sidebar-item-text sidebar-link">
+  <a href="../../conteudo/topicos/modelos-mistos.qmd" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Modelos Mistos</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./conteudo/topicos/variancias-heterogeneas.qmd" class="sidebar-item-text sidebar-link">
+  <a href="../../conteudo/topicos/variancias-heterogeneas.qmd" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Variâncias heterogêneas</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./conteudo/topicos/dependencia-temporal.qmd" class="sidebar-item-text sidebar-link">
+  <a href="../../conteudo/topicos/dependencia-temporal.qmd" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Modelos com autocorrelação temporal</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./conteudo/topicos/dependencia-espacial.qmd" class="sidebar-item-text sidebar-link">
+  <a href="../../conteudo/topicos/dependencia-espacial.qmd" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Modelos com autocorrelação espacial</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./conteudo/topicos/simulacao.qmd" class="sidebar-item-text sidebar-link">
+  <a href="../../conteudo/topicos/simulacao.qmd" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Simulando modelos estatísticos</span></a>
   </div>
 </li>
@@ -540,15 +575,22 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul class="collapse">
+  <li><a href="#instalando-os-pacotes" id="toc-instalando-os-pacotes" class="nav-link active" data-scroll-target="#instalando-os-pacotes"><span class="header-section-number">1</span> Instalando os pacotes</a></li>
+  <li><a href="#carregando-os-pacotes" id="toc-carregando-os-pacotes" class="nav-link" data-scroll-target="#carregando-os-pacotes"><span class="header-section-number">2</span> Carregando os pacotes</a></li>
+  </ul>
+<div class="toc-actions"><ul class="collapse"><li><a href="https://www/edit/main/conteudo/ciencia_dados/tidyverse.qmd" class="toc-action"><i class="bi bi-git"></i>Edit this page</a></li><li><a href="https://www/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../conteudo/ciencia_dados/tidyverse.html">Pacotes em R para Ciência de Dados</a></li><li class="breadcrumb-item"><a href="../../conteudo/ciencia_dados/tidyverse.html">Pacotes em Tidyverse</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Métodos em Estatística e Análise de Dados</h1>
+<h1 class="title">Os pacotes em <code>tidyverse</code></h1>
 </div>
 
 
@@ -565,12 +607,73 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="a-estatística-como-parte-do-método-científico" class="level3">
-<h3 class="anchored" data-anchor-id="a-estatística-como-parte-do-método-científico">A Estatística como parte do Método Científico</h3>
-<p>A compreensão dos fundamentos do desenho experimental e da análise e interpretação de dados é essencial no desenvolvimento do método científico, pois decisões baseadas em dados orientam pesquisas e descobertas científicas. O aprendizado desses tópicos está intimamente ligado ao entendimento dos princípios da estatística e dos modelos estatísticos apropriados para diferentes tipos de delineamentos, questões científicas e naturezas de experimentos.</p>
-<p>Com a difusão de softwares livres de estatística e programação, pesquisadores podem agora realizar análises complexas que anteriormente eram acessíveis apenas para aqueles familiarizados com linguagens de programação e métodos estatísticos avançados. A disponibilidade desses pacotes estatísticos acompanhados de tutoriais de livre acesso possibilita a execução de análises sofisticadas e a exploração de dados de maneiras inovadoras, frequentemente utilizando modelos complexos. Nesse cenário, surge o desafio de selecionar modelos apropriados dentre a variedade de opções, exigindo a compreensão do potencial e das limitações de uma ampla gama de abordagens estatísticas.</p>
-<p>Dependendo do campo da ciência, algumas abordagens estatísticas são mais comuns que outras. Assim, é necessário familiarizar-se com a perspectiva filosófica de um campo de pesquisa específico e compreender as lacunas relevantes para o progresso científico da área. É igualmente importante compreender as especificidades dos métodos de coleta de dados, da organização e do volume dos dados disponíveis, além das ferramentas estatísticas básicas para analisar e interpretar essas informações.</p>
-<p>Este material foi organizado para auxiliar na compreensão e aplicação das principais técnicas estatísticas e de análise de dados, oferecendo uma base sólida para o desenvolvimento de competências essenciais na investigação científica. Além disso, o conteúdo está estruturado para proporcionar uma aprendizagem progressiva, começando com os conceitos de estatística básica e teste de hipóteses, avançando gradualmente para modelos estatísticos tradicionais e métodos avançados. Assim, os estudantes estarão bem preparados para enfrentar desafios complexos em suas pesquisas e carreiras acadêmicas.</p>
+<p>O <a href="https://www.tidyverse.org/">Tidyverse</a> é uma coleção de pacotes em R projetados para ciência de dados que inclui ferramentas para <strong>importar</strong>, <strong>arrumar</strong>, <strong>transformar</strong>, <strong>visualizar</strong> e <strong>modelar dados</strong>, todas integradas de forma coesa para tornar a análise de dados mais eficiente e intuitiva. O Tidyverse facilita a prática de uma ciência de dados mais limpa, clara e reproduzível. Entre os pacotes mais populares do Tidyverse estão <code>ggplot2</code> para visualização de dados, <code>dplyr</code> para manipulação de dados e <code>tidyr</code> para arrumação de dados.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Pacote</th>
+<th>Função</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>readr</code></td>
+<td>Importação de dados</td>
+</tr>
+<tr class="even">
+<td><code>dplyr</code></td>
+<td>Manipulação de dados</td>
+</tr>
+<tr class="odd">
+<td><code>tidyr</code></td>
+<td>Organização de dados</td>
+</tr>
+<tr class="even">
+<td><code>purrr</code></td>
+<td>Programação funcional</td>
+</tr>
+<tr class="odd">
+<td><code>tibble</code></td>
+<td>Visualização de data frames</td>
+</tr>
+<tr class="even">
+<td><code>stringr</code></td>
+<td>Manipulação de texto</td>
+</tr>
+<tr class="odd">
+<td><code>forcats</code></td>
+<td>Manipulação de fatores</td>
+</tr>
+<tr class="even">
+<td><code>ggplot2</code></td>
+<td>Visualização gráfica</td>
+</tr>
+</tbody>
+</table>
+<p>Além destes existem ainda outros que se integram bem à filosofia do <code>tidyverse</code> como o <code>lubridade</code> (manipulação de datas), o <code>readxl</code> (leitura de arquivos <code>.xls</code> e <code>.xlsx</code>), além de muitos outros. Veremos algumas funções e práticas úteis utilizando estes pacotes. Para uma visão geral de cada pacote, verifique as <a href="https://rstudio.com/resources/cheatsheets/">Cheatsheets</a> que oferecem um resumo sobre as funções principais.</p>
+<section id="instalando-os-pacotes" class="level2" data-number="1">
+<h2 data-number="1" class="anchored" data-anchor-id="instalando-os-pacotes"><span class="header-section-number">1</span> Instalando os pacotes</h2>
+<p>Cada um dos pacotes incorporados no <code>tidyverse</code> pode ser instalado individualmente. Por exemplo:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"dplyr"</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"ggplot2"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Entretando, ao instalar o <code>tidyverse</code>, todos são instalados de uma única vez:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"tidyverse"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="carregando-os-pacotes" class="level2" data-number="2">
+<h2 data-number="2" class="anchored" data-anchor-id="carregando-os-pacotes"><span class="header-section-number">2</span> Carregando os pacotes</h2>
+<p>Ao iniciar uma seção, você deve sempre carregar os pacotes que irá utilizar. No caso do <code>tidyverse</code>, você pode carregar cada pacote individualmente:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Ou todos de uma única vez:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 
 
 </section>
@@ -1142,10 +1245,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
+      <a href="../../conteudo/introducao_r/graficos-r.html" class="pagination-link" aria-label="(Básico da) Visualização gráfica">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">(Básico da) Visualização gráfica</span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./conteudo/introducao_r/instalacao-linguagem.html" class="pagination-link" aria-label="Estrutura da linguagem">
-        <span class="nav-page-text">Estrutura da linguagem</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../../conteudo/ciencia_dados/import_export.qmd" class="pagination-link" aria-label="Importando/Exportando dados">
+        <span class="nav-page-text">Importando/Exportando dados</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
@@ -1157,7 +1263,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     </div>   
     <div class="nav-footer-center">
       &nbsp;
-    <div class="toc-actions"><ul><li><a href="https://www/edit/main/index.qmd" class="toc-action"><i class="bi bi-git"></i>Edit this page</a></li><li><a href="https://www/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://www/edit/main/conteudo/ciencia_dados/tidyverse.qmd" class="toc-action"><i class="bi bi-git"></i>Edit this page</a></li><li><a href="https://www/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
 <p>Métodos em Estatística e Análise de Dados</p>
 </div>

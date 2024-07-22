@@ -43,7 +43,7 @@ website:
       - section: "Pacotes em R para Ciência de Dados"
         contents:
           - href: conteudo/ciencia_dados/tidyverse.qmd
-            text: Pacotes em `tidyverse`
+            text: Pacotes em Tidyverse
           - href: conteudo/ciencia_dados/import_export.qmd
             text: Importando/Exportando dados
           - href: conteudo/ciencia_dados/pipe.qmd
@@ -163,7 +163,8 @@ format:
     code-copy: true
     code-overflow: wrap
     toc: true
+    number-sections: true
+    toc-depth: 2
 
-freeze: false
-
-editor: visual
+freeze: auto
+bibliography: references.bib

@@ -146,7 +146,7 @@ length(y)
 length(z)
 ```
 
-#### Sequências regulares e repetições
+#### Sequências regulares e repetições {-}
 
 Podemos criar sequencias regulares.
 

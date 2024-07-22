@@ -1,11 +1,13 @@
 ---
 title: Métodos em Estatística e Análise de Dados
 slug: home
-type: book
 weight: 10
+format:
+  html:
+    number-sections: false
 ---
 
-#### A Estatística como parte do Método Científico
+### A Estatística como parte do Método Científico
 
 A compreensão dos fundamentos do desenho experimental e da análise e interpretação de dados é essencial no desenvolvimento do método científico, pois decisões baseadas em dados orientam pesquisas e descobertas científicas. O aprendizado desses tópicos está intimamente ligado ao entendimento dos princípios da estatística e dos modelos estatísticos apropriados para diferentes tipos de delineamentos, questões científicas e naturezas de experimentos.
 

@@ -1,0 +1,57 @@
+---
+title: Os pacotes em ```tidyverse```
+execute:
+  echo: true
+  warning: false
+  include: true
+  message: false
+---
+
+O [Tidyverse](https://www.tidyverse.org/) é uma coleção de pacotes em R projetados para ciência de dados que inclui ferramentas para **importar**, **arrumar**, **transformar**, **visualizar** e **modelar dados**, todas integradas de forma coesa para tornar a análise de dados mais eficiente e intuitiva. O Tidyverse facilita a prática de uma ciência de dados mais limpa, clara e reproduzível. Entre os pacotes mais populares do Tidyverse estão `ggplot2` para visualização de dados, `dplyr` para manipulação de dados e `tidyr` para arrumação de dados.
+
+| Pacote     | Função                       |
+|------------|------------------------------|
+| `readr`    | Importação de dados          |
+| `dplyr`    | Manipulação de dados         |
+| `tidyr`    | Organização de dados         |
+| `purrr`    | Programação funcional        |
+| `tibble`   | Visualização de data frames  |
+| `stringr`  | Manipulação de texto         |
+| `forcats`  | Manipulação de fatores       |
+| `ggplot2`  | Visualização gráfica         |
+
+Além destes existem ainda outros  que se integram bem à filosofia do ```tidyverse``` como o ```lubridade``` (manipulação de datas), o ```readxl``` (leitura de arquivos ```.xls``` e ```.xlsx```), além de muitos outros. Veremos algumas funções e práticas úteis utilizando estes pacotes. Para uma visão geral de cada pacote, verifique as [Cheatsheets](https://rstudio.com/resources/cheatsheets/) que oferecem um resumo sobre as funções principais.
+
+## Instalando os pacotes
+
+Cada um dos pacotes incorporados no ```tidyverse``` pode ser instalado individualmente. Por exemplo:
+
+```{r, eval=FALSE}
+install.packages("dplyr")
+install.packages("ggplot2")
+```
+
+Entretando, ao instalar o ```tidyverse```, todos são instalados de uma única vez:
+
+```{r, eval=FALSE}
+install.packages("tidyverse")
+```
+
+## Carregando os pacotes
+
+Ao iniciar uma seção, você deve sempre carregar os pacotes que irá utilizar. No caso do ```tidyverse```, você pode carregar cada pacote individualmente:
+
+```{r, eval=FALSE}
+library(dplyr)
+library(ggplot2)
+```
+
+Ou todos de uma única vez:
+
+```{r, eval=FALSE}
+library(tidyverse)
+```
+
+```{r, echo=FALSE}
+rm(list = ls())
+```

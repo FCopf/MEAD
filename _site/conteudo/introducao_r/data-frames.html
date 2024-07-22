@@ -223,8 +223,8 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../conteudo/ciencia_dados/tidyverse.qmd" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Pacotes em <code>tidyverse</code></span></a>
+  <a href="../../conteudo/ciencia_dados/tidyverse.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Pacotes em Tidyverse</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -608,21 +608,12 @@ window.Quarto = {
         <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">On this page</h2>
    
-  <ul>
-  <li><a href="#importando-arquivos-.csv" id="toc-importando-arquivos-.csv" class="nav-link active" data-scroll-target="#importando-arquivos-.csv">Importando arquivos <code>.csv</code></a></li>
-  <li><a href="#manipulação-de-data-frames" id="toc-manipulação-de-data-frames" class="nav-link" data-scroll-target="#manipulação-de-data-frames">Manipulação de data frames</a>
   <ul class="collapse">
-  <li><a href="#seleção-de-linhas-e-colunas-em-data-frames" id="toc-seleção-de-linhas-e-colunas-em-data-frames" class="nav-link" data-scroll-target="#seleção-de-linhas-e-colunas-em-data-frames">Seleção de linhas e colunas em data frames</a></li>
-  <li><a href="#adicionando-novas-colunas-a-um-data-frame" id="toc-adicionando-novas-colunas-a-um-data-frame" class="nav-link" data-scroll-target="#adicionando-novas-colunas-a-um-data-frame">Adicionando novas colunas a um data frame</a></li>
-  <li><a href="#aplicando-uma-função-às-linhas-ou-colunas-de-um-data-frame" id="toc-aplicando-uma-função-às-linhas-ou-colunas-de-um-data-frame" class="nav-link" data-scroll-target="#aplicando-uma-função-às-linhas-ou-colunas-de-um-data-frame">Aplicando uma função às linhas ou colunas de um data frame</a></li>
-  <li><a href="#função-tapply" id="toc-função-tapply" class="nav-link" data-scroll-target="#função-tapply">Função <code>tapply</code></a></li>
-  <li><a href="#função-apply" id="toc-função-apply" class="nav-link" data-scroll-target="#função-apply">Função <code>apply</code></a></li>
-  <li><a href="#função-lapply" id="toc-função-lapply" class="nav-link" data-scroll-target="#função-lapply">Função <code>lapply</code></a></li>
-  <li><a href="#função-aggregate" id="toc-função-aggregate" class="nav-link" data-scroll-target="#função-aggregate">Função <code>aggregate</code></a></li>
-  </ul></li>
-  <li><a href="#exportando-um-data-frame" id="toc-exportando-um-data-frame" class="nav-link" data-scroll-target="#exportando-um-data-frame">Exportando um data frame</a></li>
+  <li><a href="#importando-arquivos-.csv" id="toc-importando-arquivos-.csv" class="nav-link active" data-scroll-target="#importando-arquivos-.csv"><span class="header-section-number">1</span> Importando arquivos <code>.csv</code></a></li>
+  <li><a href="#manipulação-de-data-frames" id="toc-manipulação-de-data-frames" class="nav-link" data-scroll-target="#manipulação-de-data-frames"><span class="header-section-number">2</span> Manipulação de data frames</a></li>
+  <li><a href="#exportando-um-data-frame" id="toc-exportando-um-data-frame" class="nav-link" data-scroll-target="#exportando-um-data-frame"><span class="header-section-number">3</span> Exportando um data frame</a></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://www/edit/main/conteudo/introducao_r/data-frames.qmd" class="toc-action"><i class="bi bi-git"></i>Edit this page</a></li><li><a href="https://www/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+<div class="toc-actions"><ul class="collapse"><li><a href="https://www/edit/main/conteudo/introducao_r/data-frames.qmd" class="toc-action"><i class="bi bi-git"></i>Edit this page</a></li><li><a href="https://www/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -647,8 +638,8 @@ window.Quarto = {
 
 
 <p>Embora seja possivel criar um data frame entrando com os dados diretamente via linha de comando, é mais eficiente importá-los a partir de arquivos texto (<code>.csv</code>, <code>.txt)</code>.</p>
-<section id="importando-arquivos-.csv" class="level2">
-<h2 class="anchored" data-anchor-id="importando-arquivos-.csv">Importando arquivos <code>.csv</code></h2>
+<section id="importando-arquivos-.csv" class="level2" data-number="1">
+<h2 data-number="1" class="anchored" data-anchor-id="importando-arquivos-.csv"><span class="header-section-number">1</span> Importando arquivos <code>.csv</code></h2>
 <p>Um arquivo do tipo <code>.csv</code> pode ser lido com a função <code>read.csv</code>. Faça o download do conjunto de dados <code>dbenv.csv</code> disponível no repositório <a href="https://github.com/FCopf/datasets">datasets</a> e salve-o em sua pasta de trabalho (ex. <code>"C:/seu_caminho/Introducao_R")</code>. Ao abrir o arquivo em algum editor de texto verá que ele é composto por <span class="math inline">\(30\)</span> <em>linhas</em> por <span class="math inline">\(11\)</span> <em>colunas</em>.</p>
 <p>Após fazer o download, você pode importar o conjunto de dados utilizando o comando:</p>
 <div class="cell">
@@ -751,10 +742,10 @@ Iniciando uma seção de trabalho
 </div>
 </div>
 </section>
-<section id="manipulação-de-data-frames" class="level2">
-<h2 class="anchored" data-anchor-id="manipulação-de-data-frames">Manipulação de data frames</h2>
-<section id="seleção-de-linhas-e-colunas-em-data-frames" class="level3">
-<h3 class="anchored" data-anchor-id="seleção-de-linhas-e-colunas-em-data-frames">Seleção de linhas e colunas em data frames</h3>
+<section id="manipulação-de-data-frames" class="level2" data-number="2">
+<h2 data-number="2" class="anchored" data-anchor-id="manipulação-de-data-frames"><span class="header-section-number">2</span> Manipulação de data frames</h2>
+<section id="seleção-de-linhas-e-colunas-em-data-frames" class="level3" data-number="2.1">
+<h3 data-number="2.1" class="anchored" data-anchor-id="seleção-de-linhas-e-colunas-em-data-frames"><span class="header-section-number">2.1</span> Seleção de linhas e colunas em data frames</h3>
 <p>No data frame os nomes das colunas e linhas podem ser acessados por:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(dbenv)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -878,8 +869,8 @@ Iniciando uma seção de trabalho
 </div>
 </div>
 </section>
-<section id="adicionando-novas-colunas-a-um-data-frame" class="level3">
-<h3 class="anchored" data-anchor-id="adicionando-novas-colunas-a-um-data-frame">Adicionando novas colunas a um data frame</h3>
+<section id="adicionando-novas-colunas" class="level3" data-number="2.2">
+<h3 data-number="2.2" class="anchored" data-anchor-id="adicionando-novas-colunas"><span class="header-section-number">2.2</span> Adicionando novas colunas</h3>
 <p>Este conjunto de dados mostra medidas físicas e químicas obtidas em um riacho amostrado desde a cabeceira até a foz. O ponto mais alto (934 m de altitude) está a 3 km da cabeceira enquanto o ponto mais baixo está a 172 m de altitude e a 4530 km da cabeceira. Vamos criar uma nova variável categorizando os trechos do rio em <code>Alto</code>, <code>Medio</code> e <code>Baixo</code> assumindo a seguinte relação:</p>
 <ul>
 <li><span class="math inline">\(0\)</span> a <span class="math inline">\(300\)</span> m: <code>Baixo</code>;</li>
@@ -951,8 +942,8 @@ Iniciando uma seção de trabalho
 </div>
 </div>
 </section>
-<section id="aplicando-uma-função-às-linhas-ou-colunas-de-um-data-frame" class="level3">
-<h3 class="anchored" data-anchor-id="aplicando-uma-função-às-linhas-ou-colunas-de-um-data-frame">Aplicando uma função às linhas ou colunas de um data frame</h3>
+<section id="família-apply-e-aggregate" class="level3" data-number="2.3">
+<h3 data-number="2.3" class="anchored" data-anchor-id="família-apply-e-aggregate"><span class="header-section-number">2.3</span> Família <code>apply</code> e <code>aggregate</code></h3>
 <p>Em muitas situações temos interesse aplicar uma determinada função a cada linha ou a cada coluna de um data frame ou ainda para grupos distintos de linhas.</p>
 <p>Observe por exemplo que se extraímos a média aritmética da coluna <code>pH</code> (<span class="math inline">\(\times 10\)</span>).</p>
 <div class="cell">
@@ -1057,8 +1048,8 @@ Note
 </div>
 </div>
 </section>
-<section id="função-aggregate" class="level3">
-<h3 class="anchored" data-anchor-id="função-aggregate">Função <code>aggregate</code></h3>
+<section id="função-aggregate" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="função-aggregate">Função <code>aggregate</code></h3>
 <p>A função <code>tapply()</code> aplica uma função a subgrupos de uma <strong>única</strong> coluna. A função <code>aggregate()</code> faz o mesmo, porém para <strong>múltiplas</strong> colunas agrupadas de acordo com uma ou mais categorias. O comando abaixo calcula os valores médios das variáveis para os trechos alto, médio e baixo combinados com níveis de <span class="math inline">\(pH\)</span>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>media.trecho <span class="ot">&lt;-</span> <span class="fu">aggregate</span>(dbenv[, <span class="dv">1</span><span class="sc">:</span><span class="dv">11</span>], </span>
@@ -1085,8 +1076,8 @@ Note
 </div>
 </section>
 </section>
-<section id="exportando-um-data-frame" class="level2">
-<h2 class="anchored" data-anchor-id="exportando-um-data-frame">Exportando um data frame</h2>
+<section id="exportando-um-data-frame" class="level2" data-number="3">
+<h2 data-number="3" class="anchored" data-anchor-id="exportando-um-data-frame"><span class="header-section-number">3</span> Exportando um data frame</h2>
 <p>Finalmente, podemos exportar o data frame <code>media.trecho</code> obtido acima para um arquivo <code>Mediaportecho.csv</code>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write.table</span>(media.trecho, <span class="at">file =</span> <span class="st">"C:/seu_caminho/Introducao_R/Mediaportecho.csv"</span>, </span>

@@ -206,7 +206,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../conteudo/introducao_r/graficos.qmd" class="sidebar-item-text sidebar-link">
+  <a href="../../conteudo/introducao_r/graficos-r.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">(Básico da) Visualização gráfica</span></a>
   </div>
 </li>
@@ -223,8 +223,8 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../conteudo/ciencia_dados/tidyverse.qmd" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Pacotes em <code>tidyverse</code></span></a>
+  <a href="../../conteudo/ciencia_dados/tidyverse.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Pacotes em Tidyverse</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -608,23 +608,14 @@ window.Quarto = {
         <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">On this page</h2>
    
-  <ul>
-  <li><a href="#o-r-para-cálculos-aritméticos" id="toc-o-r-para-cálculos-aritméticos" class="nav-link active" data-scroll-target="#o-r-para-cálculos-aritméticos">O R para cálculos aritméticos</a></li>
-  <li><a href="#atribuição-de-valores" id="toc-atribuição-de-valores" class="nav-link" data-scroll-target="#atribuição-de-valores">Atribuição de valores</a></li>
-  <li><a href="#estruturas-de-dados" id="toc-estruturas-de-dados" class="nav-link" data-scroll-target="#estruturas-de-dados">Estruturas de dados</a>
   <ul class="collapse">
-  <li><a href="#vetores-numéricos" id="toc-vetores-numéricos" class="nav-link" data-scroll-target="#vetores-numéricos">Vetores numéricos</a></li>
-  <li><a href="#vetores-alfanuméricos" id="toc-vetores-alfanuméricos" class="nav-link" data-scroll-target="#vetores-alfanuméricos">Vetores alfanuméricos</a></li>
-  <li><a href="#unindo-vetores-comando-paste" id="toc-unindo-vetores-comando-paste" class="nav-link" data-scroll-target="#unindo-vetores-comando-paste">Unindo vetores: comando <code>paste</code></a></li>
-  <li><a href="#fatores" id="toc-fatores" class="nav-link" data-scroll-target="#fatores">Fatores</a></li>
-  <li><a href="#matrizes" id="toc-matrizes" class="nav-link" data-scroll-target="#matrizes">Matrizes</a></li>
-  <li><a href="#data-frames" id="toc-data-frames" class="nav-link" data-scroll-target="#data-frames">Data frames</a></li>
-  <li><a href="#listas" id="toc-listas" class="nav-link" data-scroll-target="#listas">Listas</a></li>
-  </ul></li>
-  <li><a href="#operadores-relacionais" id="toc-operadores-relacionais" class="nav-link" data-scroll-target="#operadores-relacionais">Operadores relacionais</a></li>
-  <li><a href="#operadores-lógicos" id="toc-operadores-lógicos" class="nav-link" data-scroll-target="#operadores-lógicos">Operadores lógicos</a></li>
+  <li><a href="#o-r-para-cálculos-aritméticos" id="toc-o-r-para-cálculos-aritméticos" class="nav-link active" data-scroll-target="#o-r-para-cálculos-aritméticos"><span class="header-section-number">1</span> O R para cálculos aritméticos</a></li>
+  <li><a href="#atribuição-de-valores" id="toc-atribuição-de-valores" class="nav-link" data-scroll-target="#atribuição-de-valores"><span class="header-section-number">2</span> Atribuição de valores</a></li>
+  <li><a href="#estruturas-de-dados" id="toc-estruturas-de-dados" class="nav-link" data-scroll-target="#estruturas-de-dados"><span class="header-section-number">3</span> Estruturas de dados</a></li>
+  <li><a href="#operadores-relacionais" id="toc-operadores-relacionais" class="nav-link" data-scroll-target="#operadores-relacionais"><span class="header-section-number">4</span> Operadores relacionais</a></li>
+  <li><a href="#operadores-lógicos" id="toc-operadores-lógicos" class="nav-link" data-scroll-target="#operadores-lógicos"><span class="header-section-number">5</span> Operadores lógicos</a></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://www/edit/main/conteudo/introducao_r/instalacao-linguagem.qmd" class="toc-action"><i class="bi bi-git"></i>Edit this page</a></li><li><a href="https://www/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+<div class="toc-actions"><ul class="collapse"><li><a href="https://www/edit/main/conteudo/introducao_r/instalacao-linguagem.qmd" class="toc-action"><i class="bi bi-git"></i>Edit this page</a></li><li><a href="https://www/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -649,8 +640,8 @@ window.Quarto = {
 
 
 <p>R é um ambiente de software livre para computação estatística e gráfica que roda em uma variedade de plataformas UNIX, Windows e MacOS (<a href="https://www.r-project.org/">R Project</a>). A instalação pode ser feita a partir do site oficial <a href="https://cran.r-project.org/">CRAN</a>, seguindo as instruções para cada plataforma. O <a href="https://rstudio.com/">RStudio</a> é uma Interface de Desenvolvimento Integrado (IDE) dedicada ao ambiente R, embora existam outras opções como <a href="https://jupyter.org/">Jupyter Notebook</a>, <a href="https://jupyterlab.readthedocs.io/en/latest/">Jupyter Lab</a>, <a href="https://code.visualstudio.com/">Visual Studio Code</a> e <a href="https://colab.research.google.com/">Google Colab</a>.</p>
-<section id="o-r-para-cálculos-aritméticos" class="level2">
-<h2 class="anchored" data-anchor-id="o-r-para-cálculos-aritméticos">O R para cálculos aritméticos</h2>
+<section id="o-r-para-cálculos-aritméticos" class="level2" data-number="1">
+<h2 data-number="1" class="anchored" data-anchor-id="o-r-para-cálculos-aritméticos"><span class="header-section-number">1</span> O R para cálculos aritméticos</h2>
 <p>Vamos iniciar nossa introdução ao R com seu uso mais simples, um ambiente para cálculos aritméticos. Como você verá, o R usa os operadores matemáticos de subtração (<code>-</code>), adição (<code>+</code>), multiplicação (<code>*</code>), divisão (<code>/</code>) e potenciação (<code>^</code>) do modo análogo a outros softwares.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="sc">+</span> <span class="dv">4</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -737,8 +728,8 @@ window.Quarto = {
 </div>
 </div>
 </section>
-<section id="atribuição-de-valores" class="level2">
-<h2 class="anchored" data-anchor-id="atribuição-de-valores">Atribuição de valores</h2>
+<section id="atribuição-de-valores" class="level2" data-number="2">
+<h2 data-number="2" class="anchored" data-anchor-id="atribuição-de-valores"><span class="header-section-number">2</span> Atribuição de valores</h2>
 <p>O R se estrutura por meio de <strong>objetos</strong>. Ao atribuir um valor a uma variável, esta se torna um <strong>objeto</strong> que fica disponível na memória. Para atribuir valor <span class="math inline">\(2\)</span> à variável <code>x</code> fazemos:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">2</span></span>
@@ -778,11 +769,11 @@ window.Quarto = {
 </div>
 </div>
 </section>
-<section id="estruturas-de-dados" class="level2">
-<h2 class="anchored" data-anchor-id="estruturas-de-dados">Estruturas de dados</h2>
+<section id="estruturas-de-dados" class="level2" data-number="3">
+<h2 data-number="3" class="anchored" data-anchor-id="estruturas-de-dados"><span class="header-section-number">3</span> Estruturas de dados</h2>
 <p>Os objetos em R podem ser <strong>vetores</strong> (numéricos, alfanuméricos ou fatores), <strong>matrizes</strong> (numéricas ou alfanumétricas), <strong>data frames</strong> (estrutura bidimensional que pode combinar colunas de diferentes tipos como vetores numéricos, alfanuméricos ou fatores) ou <strong>listas</strong> (que pode combinar em sua estrutura, todos os objetos descritos acima). As <strong>funções</strong> em R são sequências de comandos que podem transformar objetos.</p>
-<section id="vetores-numéricos" class="level3">
-<h3 class="anchored" data-anchor-id="vetores-numéricos">Vetores numéricos</h3>
+<section id="vetores-numéricos" class="level3" data-number="3.1">
+<h3 data-number="3.1" class="anchored" data-anchor-id="vetores-numéricos"><span class="header-section-number">3.1</span> Vetores numéricos</h3>
 <p>Os objetos podem guardar mais de um único valor. A função concatenar <code>c()</code> pode ser utilizada para criar um vetor com múltiplos valores. Dizemos que cada valor individual é uma <em>entrada</em>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">4</span>, <span class="fl">3.0</span>, <span class="dv">5</span>, <span class="dv">9</span>, <span class="dv">10</span>)</span>
@@ -835,8 +826,8 @@ window.Quarto = {
 <pre><code>[1] 4</code></pre>
 </div>
 </div>
-<section id="sequências-regulares-e-repetições" class="level4">
-<h4 class="anchored" data-anchor-id="sequências-regulares-e-repetições">Sequências regulares e repetições</h4>
+<section id="sequências-regulares-e-repetições" class="level4 unnumbered">
+<h4 class="unnumbered anchored" data-anchor-id="sequências-regulares-e-repetições">Sequências regulares e repetições</h4>
 <p>Podemos criar sequencias regulares.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span><span class="sc">:</span><span class="dv">10</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -892,8 +883,8 @@ window.Quarto = {
 </div>
 </section>
 </section>
-<section id="vetores-alfanuméricos" class="level3">
-<h3 class="anchored" data-anchor-id="vetores-alfanuméricos">Vetores alfanuméricos</h3>
+<section id="vetores-alfanuméricos" class="level3" data-number="3.2">
+<h3 data-number="3.2" class="anchored" data-anchor-id="vetores-alfanuméricos"><span class="header-section-number">3.2</span> Vetores alfanuméricos</h3>
 <p>São vetores em que cada entrada é um caracter alfanumerico.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb77"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a>especie <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"Deuterodon iguape"</span>, </span>
@@ -939,8 +930,8 @@ window.Quarto = {
 </div>
 </div>
 </section>
-<section id="unindo-vetores-comando-paste" class="level3">
-<h3 class="anchored" data-anchor-id="unindo-vetores-comando-paste">Unindo vetores: comando <code>paste</code></h3>
+<section id="unindo-vetores-comando-paste" class="level3" data-number="3.3">
+<h3 data-number="3.3" class="anchored" data-anchor-id="unindo-vetores-comando-paste"><span class="header-section-number">3.3</span> Unindo vetores: comando <code>paste</code></h3>
 <p>Suponha que desejamos unir dois vetores alfanuméricos</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb89"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb89-1"><a href="#cb89-1" aria-hidden="true" tabindex="-1"></a>x1 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Experimento"</span>)</span>
@@ -956,8 +947,8 @@ window.Quarto = {
 </div>
 </div>
 </section>
-<section id="fatores" class="level3">
-<h3 class="anchored" data-anchor-id="fatores">Fatores</h3>
+<section id="fatores" class="level3" data-number="3.4">
+<h3 data-number="3.4" class="anchored" data-anchor-id="fatores"><span class="header-section-number">3.4</span> Fatores</h3>
 <p>Fatores são como vetores alfanuméricos, porém com um atributo adicional. Fatores são compostos por diferentes níveis. Por exemplo, podemos criar o objeto <code>dosagem</code> com o comando:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb92"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb92-1"><a href="#cb92-1" aria-hidden="true" tabindex="-1"></a>dosagem <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Alta"</span>, <span class="st">"Alta"</span>, <span class="st">"Alta"</span>, </span>
@@ -1004,8 +995,8 @@ Levels: Baixa &lt; Media &lt; Alta</code></pre>
 </div>
 <p>Como veremos a frente, esta operação facilita a visualização gráfica de fatores ordenados.</p>
 </section>
-<section id="matrizes" class="level3">
-<h3 class="anchored" data-anchor-id="matrizes">Matrizes</h3>
+<section id="matrizes" class="level3" data-number="3.5">
+<h3 data-number="3.5" class="anchored" data-anchor-id="matrizes"><span class="header-section-number">3.5</span> Matrizes</h3>
 <p>Matrizes são objetos compostos por linhas e colunas. No R, uma matriz pode ser construída inicialmente criando um vetor numérico:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb104"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb104-1"><a href="#cb104-1" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">21</span>,<span class="dv">26</span>,<span class="dv">5</span>,<span class="dv">18</span>,<span class="dv">17</span>,<span class="dv">28</span>,<span class="dv">20</span>,<span class="dv">15</span>,<span class="dv">13</span>,<span class="dv">14</span>,<span class="dv">27</span>,<span class="dv">22</span>)</span>
@@ -1147,8 +1138,8 @@ Linha3       3       6       9      12</code></pre>
 </div>
 </div>
 </section>
-<section id="data-frames" class="level3">
-<h3 class="anchored" data-anchor-id="data-frames">Data frames</h3>
+<section id="data-frames" class="level3" data-number="3.6">
+<h3 data-number="3.6" class="anchored" data-anchor-id="data-frames"><span class="header-section-number">3.6</span> Data frames</h3>
 <p>Assim como Matrizes, <strong>Data frames</strong> são estruturas que permitem organizar dados em formato de linhas e colunas. No R entanto, as Matrizes não podem guardar objetos de diferentes características. Por exemplo, uma matriz pode ser composta inteiramente numérica:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb134"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb134-1"><a href="#cb134-1" aria-hidden="true" tabindex="-1"></a><span class="fu">matrix</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">12</span>, <span class="at">nrow =</span> <span class="dv">4</span>, <span class="at">ncol =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1265,8 +1256,8 @@ Levels: Bertioga Peruibe Santos</code></pre>
 </div>
 </div>
 </section>
-<section id="listas" class="level3">
-<h3 class="anchored" data-anchor-id="listas">Listas</h3>
+<section id="listas" class="level3" data-number="3.7">
+<h3 data-number="3.7" class="anchored" data-anchor-id="listas"><span class="header-section-number">3.7</span> Listas</h3>
 <p>Combinam em um único objeto todas as estruturas anteriores. Veja o exemplo em que combinamos um vetor alfanumérico, um vetor nominal e um data frame dentro da mesma lista.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb155"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb155-1"><a href="#cb155-1" aria-hidden="true" tabindex="-1"></a>nossalista <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">Ilha =</span> <span class="fu">c</span>(<span class="st">"Ilhabela"</span>, <span class="st">"Anchieta"</span>, <span class="st">"Cardoso"</span>), </span>
@@ -1318,8 +1309,8 @@ $Localizacao
 </div>
 </section>
 </section>
-<section id="operadores-relacionais" class="level2">
-<h2 class="anchored" data-anchor-id="operadores-relacionais">Operadores relacionais</h2>
+<section id="operadores-relacionais" class="level2" data-number="4">
+<h2 data-number="4" class="anchored" data-anchor-id="operadores-relacionais"><span class="header-section-number">4</span> Operadores relacionais</h2>
 <p>Operadores relacionais são aqueles de verificam as relações de <strong>menor que</strong> (<code>&lt;</code>), <strong>maior que</strong> (<code>&gt;</code>), <strong>menor ou igual</strong> (<code>&lt;=</code>), <strong>maior ou igual</strong> (<code>&gt;=</code>), <strong>igual a</strong> (<code>==</code>) ou <strong>diferente de</strong> (<code>!=</code>). O resultado de uma comparação retorna um objeto com o argumento <strong>verdadeiro</strong> (<code>TRUE</code>) ou <strong>falso</strong> (<code>FALSE</code>). Veja por exemplo:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb165"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb165-1"><a href="#cb165-1" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span> <span class="sc">&gt;</span> <span class="dv">5</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1398,8 +1389,8 @@ Note
 </div>
 </div>
 </section>
-<section id="operadores-lógicos" class="level2">
-<h2 class="anchored" data-anchor-id="operadores-lógicos">Operadores lógicos</h2>
+<section id="operadores-lógicos" class="level2" data-number="5">
+<h2 data-number="5" class="anchored" data-anchor-id="operadores-lógicos"><span class="header-section-number">5</span> Operadores lógicos</h2>
 <p>Operadores lógicos são os de <strong>NEGAÇÃO</strong> (<code>!</code>), <strong>E lógico</strong>, <strong>OU lógico</strong> versão vetorizada (<code>|</code>) e <strong>OU exclusivo</strong> (<code>xor()</code>). Exemplos destes operadores são:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb183"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb183-1"><a href="#cb183-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">3</span><span class="sc">:</span><span class="dv">5</span></span>

@@ -54,7 +54,27 @@ div.sourceCode
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -63,7 +83,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../">
-<link href="../../conteudo/ciencia_dados/tidyverse.qmd" rel="next">
+<link href="../../conteudo/ciencia_dados/tidyverse.html" rel="next">
 <link href="../../conteudo/introducao_r/data-frames.html" rel="prev">
 <script src="../../site_libs/quarto-html/quarto.js"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
@@ -223,8 +243,8 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../conteudo/ciencia_dados/tidyverse.qmd" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Pacotes em <code>tidyverse</code></span></a>
+  <a href="../../conteudo/ciencia_dados/tidyverse.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Pacotes em Tidyverse</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -608,32 +628,16 @@ window.Quarto = {
         <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">On this page</h2>
    
-  <ul>
-  <li><a href="#doubs-river-dataset" id="toc-doubs-river-dataset" class="nav-link active" data-scroll-target="#doubs-river-dataset">Doubs river dataset</a>
   <ul class="collapse">
-  <li><a href="#instalando-o-pacote-ade4-e-carregando-os-dados" id="toc-instalando-o-pacote-ade4-e-carregando-os-dados" class="nav-link" data-scroll-target="#instalando-o-pacote-ade4-e-carregando-os-dados">Instalando o pacote <code>ade4</code> e carregando os dados</a></li>
-  </ul></li>
-  <li><a href="#descrevendo-os-padrões-de-uma-variável" id="toc-descrevendo-os-padrões-de-uma-variável" class="nav-link" data-scroll-target="#descrevendo-os-padrões-de-uma-variável">Descrevendo os padrões de uma variável</a>
-  <ul class="collapse">
-  <li><a href="#gráfico-de-barras" id="toc-gráfico-de-barras" class="nav-link" data-scroll-target="#gráfico-de-barras">Gráfico de barras</a></li>
-  <li><a href="#histograma" id="toc-histograma" class="nav-link" data-scroll-target="#histograma">Histograma</a></li>
-  <li><a href="#boxplot" id="toc-boxplot" class="nav-link" data-scroll-target="#boxplot">Boxplot</a></li>
-  </ul></li>
-  <li><a href="#visualizando-associações-entre-duas-variáveis" id="toc-visualizando-associações-entre-duas-variáveis" class="nav-link" data-scroll-target="#visualizando-associações-entre-duas-variáveis">Visualizando associações entre duas variáveis</a>
-  <ul class="collapse">
-  <li><a href="#gráfico-de-barras-1" id="toc-gráfico-de-barras-1" class="nav-link" data-scroll-target="#gráfico-de-barras-1">Gráfico de barras</a></li>
-  <li><a href="#boxplot-1" id="toc-boxplot-1" class="nav-link" data-scroll-target="#boxplot-1">Boxplot</a></li>
-  <li><a href="#gráfico-de-dispersão" id="toc-gráfico-de-dispersão" class="nav-link" data-scroll-target="#gráfico-de-dispersão">Gráfico de dispersão</a></li>
-  </ul></li>
-  <li><a href="#compreendendo-o-ambiente-por-meio-de-suas-variáveis" id="toc-compreendendo-o-ambiente-por-meio-de-suas-variáveis" class="nav-link" data-scroll-target="#compreendendo-o-ambiente-por-meio-de-suas-variáveis">Compreendendo o ambiente por meio de suas variáveis</a></li>
-  <li><a href="#mais-um-comentário-sobre-formatação-gráfica-no-r" id="toc-mais-um-comentário-sobre-formatação-gráfica-no-r" class="nav-link" data-scroll-target="#mais-um-comentário-sobre-formatação-gráfica-no-r">Mais um comentário sobre formatação gráfica no R</a>
-  <ul class="collapse">
-  <li><a href="#outros-argumentos" id="toc-outros-argumentos" class="nav-link" data-scroll-target="#outros-argumentos">Outros argumentos</a></li>
-  <li><a href="#figuras-compostas" id="toc-figuras-compostas" class="nav-link" data-scroll-target="#figuras-compostas">Figuras compostas</a></li>
-  <li><a href="#exportando-figuras-com-as-funções-png-tiff-jpeg-e-bmp" id="toc-exportando-figuras-com-as-funções-png-tiff-jpeg-e-bmp" class="nav-link" data-scroll-target="#exportando-figuras-com-as-funções-png-tiff-jpeg-e-bmp">Exportando figuras com as funções <code>png</code>, <code>tiff</code>, <code>jpeg</code> e <code>bmp</code></a></li>
-  </ul></li>
+  <li><a href="#doubs-river-dataset" id="toc-doubs-river-dataset" class="nav-link active" data-scroll-target="#doubs-river-dataset"><span class="header-section-number">1</span> Doubs river dataset</a></li>
+  <li><a href="#descrevendo-os-padrões-de-uma-variável" id="toc-descrevendo-os-padrões-de-uma-variável" class="nav-link" data-scroll-target="#descrevendo-os-padrões-de-uma-variável"><span class="header-section-number">2</span> Descrevendo os padrões de uma variável</a></li>
+  <li><a href="#associação-entre-duas-variáveis" id="toc-associação-entre-duas-variáveis" class="nav-link" data-scroll-target="#associação-entre-duas-variáveis"><span class="header-section-number">3</span> Associação entre duas variáveis</a></li>
+  <li><a href="#compreendendo-o-ambiente-por-meio-de-suas-variáveis" id="toc-compreendendo-o-ambiente-por-meio-de-suas-variáveis" class="nav-link" data-scroll-target="#compreendendo-o-ambiente-por-meio-de-suas-variáveis"><span class="header-section-number">4</span> Compreendendo o ambiente por meio de suas variáveis</a></li>
+  <li><a href="#outros-argumentos-de-formatação-gráfica" id="toc-outros-argumentos-de-formatação-gráfica" class="nav-link" data-scroll-target="#outros-argumentos-de-formatação-gráfica"><span class="header-section-number">5</span> Outros argumentos de formatação gráfica</a></li>
+  <li><a href="#figuras-compostas" id="toc-figuras-compostas" class="nav-link" data-scroll-target="#figuras-compostas"><span class="header-section-number">6</span> Figuras compostas</a></li>
+  <li><a href="#exportando-figuras-funções-png-tiff-jpeg-e-bmp" id="toc-exportando-figuras-funções-png-tiff-jpeg-e-bmp" class="nav-link" data-scroll-target="#exportando-figuras-funções-png-tiff-jpeg-e-bmp"><span class="header-section-number">7</span> Exportando figuras: funções <code>png</code>, <code>tiff</code>, <code>jpeg</code> e <code>bmp</code></a></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://www/edit/main/conteudo/introducao_r/graficos-r.qmd" class="toc-action"><i class="bi bi-git"></i>Edit this page</a></li><li><a href="https://www/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+<div class="toc-actions"><ul class="collapse"><li><a href="https://www/edit/main/conteudo/introducao_r/graficos-r.qmd" class="toc-action"><i class="bi bi-git"></i>Edit this page</a></li><li><a href="https://www/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -657,83 +661,97 @@ window.Quarto = {
 </header>
 
 
-<p>A visualização gráfica consiste em mostrar visualmente ou padrões de <em>distribuição</em> de uma variável ou padrões de a <em>associação</em> entre duas ou mais variáveis. Os tipos de gráficos a serem utilizados depende basicamente do tipo de variável (ex. categórica ou numérica) e do número de variáveis envolvidas. Temos os gráficos <strong>univariados</strong> quando a visualização envolve uma única variável, gráfios <strong>bivariados</strong> quando a visualização envolve duas variáveis e gráficos <strong>multivariados</strong> que buscam expressar o padrão de associação entre mais de duas variáveis. Deixaremos os gráficos multivariados para outro momento e veremos aqui os tipos básicos para descrever padrões <strong>uni</strong> e <strong>bivariados</strong>.</p>
-<p>As funções gráficas apresentadas neste tópico estão todas disponíveis no pacote <code>graphics</code>, que se inclui na lista dos pacotes <strong>previamente</strong> instalados no R. Não é necessário portanto preocupar-se com nenhuma instalação adicional. Estas funções possibilitam elevado controle sobre cada um dos elementos gráficos (fontes, tamanhos, cores), porém a custo de maior complexidade se temos a intensão de gerar figuras complexas. Vale ressaltar ainda que mesmo utilizando muitas nomenclaturas compatíveis para o controle de eixos, títulos, tamanho de fonte, estas funções nem sempre usam argumentos coesos entre os tipos gráficos, o que pode tornar a curva de aprendizado mais demorada. Por outro lado, estas funções fornecem <strong>conhecimentos básicos</strong> sobre a estrutura gráfica no R, permitindo resolver de forma rápida e simples muitas situações que encontramos no dia-a-dia da análise exploratória. Na próxima seção iremos tratar de outro pacote gráfico (<code>ggplot2</code>) que possui elevada capacidade para gerar estruturas complexas de imagem, utilizando uma estrutura mais coesa de manipulação gráfica.</p>
-<section id="doubs-river-dataset" class="level2">
-<h2 class="anchored" data-anchor-id="doubs-river-dataset">Doubs river dataset</h2>
-<p>Para demonstrar algumas ferramentas gráficas, vamos utilizar um conjunto de dados já disponível na base de dados do R chamados <em>Doubs River data</em>. Já analisamos parte deste conjunto de dados na seção antorior sobre manipulação de data frames, quando importamos o arquivo <a href="https://raw.githubusercontent.com/FCopf/datasets/master/dbenv.csv">dbenv.csv</a>. Deste ponto em diante, vamos utilizar o conjunto dados completo que está disponível no pacote <code>ade4</code> <span class="citation" data-cites="dray2015ade">[@dray2015ade]</span>.</p>
-<p>Este conjunto de dados resulta da tese de doutorado de Verneaux <span class="citation" data-cites="Verneaux1973">[@Verneaux1973]</span> e o texto a seguir foi traduzido do site <a href="https://www.davidzeleny.net/anadat-r/doku.php/en:data:doubs">www.davidzeleny.net</a> que contém diversos tutoriais sobre análise de dados multivariados em Ecologia de Comunidades.</p>
-<p>Verneaux <span class="citation" data-cites="Verneaux1973">[@Verneaux1973]</span> propôs o uso de espécies de peixes para caracterizar zonas ecológicas ao longo de rios e riachos europeus. O autor mostrou que as comunidades de peixes eram bons indicadores biológicos desses corpos d’água. Partindo da foz até a cabeceira, Verneaux propôs uma tipologia em quatro zonas, nomeadas a partir da predominância de uma dada espécie de peixe: <strong>trout zone</strong>, <strong>grayling zone</strong>, <strong>barbel zone</strong> e <strong>bream zone</strong>. As condições ecológicas correspondentes nestas zonas variam desde águas relativamente bem oxigenadas e oligotróficas até águas eutróficas e desprovidas de oxigênio.</p>
-<p>Os dados foram coletados em 30 localidades ao longo do <a href="https://pt.wikipedia.org/wiki/Rio_Doubs">rio Doubs</a>, próximo à fronteira da França e Suíça. O conjunto de dados que você irá importar consiste em uma lista de 4 elementos:</p>
+<p>A visualização gráfica consiste em representar visualmente os padrões de distribuição de uma variável ou a associação entre duas ou mais variáveis. Os tipos de gráficos utilizados dependem do tipo de variável (categórica ou numérica) e do número de variáveis envolvidas. Temos gráficos <strong>univariados</strong> para uma única variável, gráficos <strong>bivariados</strong> para associação entre duas variáveis e gráficos <strong>multivariados</strong> para mais de duas variáveis.</p>
+<p>As funções gráficas discutidas nesta seção estão disponíveis no pacote <code>graphics</code>, que vem instalado por padrão no R, não sendo necessário instalar pacotes adicionais. Essas funções oferecem elevado controle sobre elementos gráficos (fontes, tamanhos, cores), mas podem ser complexas para criar figuras elaboradas. Apesar de muitas nomenclaturas serem compatíveis para o controle de eixos, títulos e tamanhos de fonte, os argumentos nem sempre são coesos entre os diferentes tipos de gráficos, o que pode dificultar o aprendizado. No entanto, essas funções fornecem uma base sólida sobre a estrutura gráfica no R, permitindo resolver rapidamente muitas situações do dia a dia da análise exploratória.</p>
+<section id="doubs-river-dataset" class="level2" data-number="1">
+<h2 data-number="1" class="anchored" data-anchor-id="doubs-river-dataset"><span class="header-section-number">1</span> Doubs river dataset</h2>
+<p>Para demonstrar algumas ferramentas gráficas, será utilizado o conjunto de dados <em>Doubs River data</em>, disponível no pacote <code>ade4</code> <span class="citation" data-cites="dray2015ade">(<a href="#ref-dray2015ade" role="doc-biblioref">Dray, Dufour, and Thioulouse 2015</a>)</span>. Esse conjunto de dados foi apresentado na seção anterior sobre manipulação de data frames, onde foi importado o arquivo <a href="https://raw.githubusercontent.com/FCopf/datasets/master/dbenv.csv">dbenv.csv</a>. Agora, será usado o conjunto de dados completo.</p>
+<p>O conjunto de dados do <a href="https://pt.wikipedia.org/wiki/Rio_Doubs">Rio Doubs</a> <span class="citation" data-cites="Verneaux1973">(<a href="#ref-Verneaux1973" role="doc-biblioref">Verneaux 1973</a>)</span> consiste de amostras sequenciais da cabeceira à foz do rio, em condições que variam de águas bem oxigenadas e oligotróficas a águas eutróficas e desprovidas de oxigênio. O conjunto de dados é uma lista com quatro data frames:</p>
 <ol type="1">
-<li><p><code>$env</code>: um data frame com 30 linhas por 11 colunas, em que as linhas representam os locais de amostragem da cabeceira a foz do riacho e as colunas representam variáveis ambientais relacionadas à hidrologia, geomorfologia e química do rio.</p></li>
-<li><p><code>$fish</code>: um data frame com 30 linhas por 27 colunas, em que as linhas representam os mesmo locais de amostragem e a cada coluna as abundâncias das 27 espécies de peixes capturadas.</p></li>
-<li><p><code>$xy</code>: um data frame com 30 linhas por 2 colunas. As linhas novamente são os locais de amostragem e as colunas representam as coordenadas geográficas de cada ponto de amostragem.</p></li>
-<li><p><code>$species</code>: um data frame com 27 linhas por 4 colunas. As linhas representam cada uma das 27 espécies capturadas e as colunas representam seus nomes científicos, nomes populares em francês, em inglês e um código abreviado.</p></li>
+<li><p><code>$env</code>: data frame com variáveis ambientais relacionadas à hidrologia, geomorfologia e química do</p></li>
+<li><p><code>$fish</code>: data frame com abundâncias das espécies de peixes capturadas nos locais de amostragem.</p></li>
+<li><p><code>$xy</code>: data frame com coordenadas geográficas de cada ponto de amostragem.</p></li>
+<li><p><code>$species</code>: data frame com os nomes científicos, populares em francês e inglês, e códigos abreviados das espécies capturadas.</p></li>
 </ol>
-<section id="instalando-o-pacote-ade4-e-carregando-os-dados" class="level3">
-<h3 class="anchored" data-anchor-id="instalando-o-pacote-ade4-e-carregando-os-dados">Instalando o pacote <code>ade4</code> e carregando os dados</h3>
-<p>Caso ainda não tenha feito, instale o pacote <code>ade4</code> através do comando:</p>
+<section id="instalando-o-pacote-ade4-e-carregando-os-dados" class="level3" data-number="1.1">
+<h3 data-number="1.1" class="anchored" data-anchor-id="instalando-o-pacote-ade4-e-carregando-os-dados"><span class="header-section-number">1.1</span> Instalando o pacote <code>ade4</code> e carregando os dados</h3>
+<ol type="1">
+<li>Instale o pacote <code>ade4</code>:</li>
+</ol>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"ade4"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Feito isto, carregue o pacote:</p>
+<ol start="2" type="1">
+<li>Carregue o pacote:</li>
+</ol>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ade4)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>E o conjunto de dados <code>doubs</code></p>
+<ol start="3" type="1">
+<li>Habilite o conjunto de dados <code>doubs</code></li>
+</ol>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(doubs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Veja o formato em lista destes dados:</p>
+<ol start="4" type="1">
+<li>Confira se consiste de uma lista:</li>
+</ol>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(doubs)</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(doubs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>E leia a descrição do conjunto de dados para entender melhor nossas discussões a frente.</p>
+<ol start="5" type="1">
+<li>Leia a descrição do conjunto de dados para conchecê-lo melhor.</li>
+</ol>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>?doubs</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Inicialmente, vamos extrair os dados ambientais para um novo <code>data.frame</code> que iremos utilizar nas análises gráficas:</p>
+<ol start="6" type="1">
+<li>Extraia os dados ambientais para um novo <code>data.frame</code>:</li>
+</ol>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>ambiente <span class="ot">&lt;-</span> doubs<span class="sc">$</span>env</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Baseados em Borcard et al. <span class="citation" data-cites="borcard2018numerical">[@borcard2018numerical]</span>, vamos adicionar a este data frame uma nova variável categórica denominada <code>secao</code> com quatro níveis.</p>
+<ol start="7" type="1">
+<li>Adicione a este data frame uma nova variável categórica denominada <code>secao</code> com quatro níveis <span class="citation" data-cites="borcard2018numerical">(<a href="#ref-borcard2018numerical" role="doc-biblioref">Borcard, Gillet, and Legendre 2018</a>)</span>.</li>
+</ol>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>ambiente<span class="sc">$</span>secao <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="st">"Seção 1"</span>, <span class="dv">16</span>), <span class="fu">rep</span>(<span class="st">"Seção 4"</span>, <span class="dv">14</span>))</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>ambiente<span class="sc">$</span>secao[<span class="fu">c</span>(<span class="dv">5</span>,<span class="dv">9</span>,<span class="dv">17</span>)] <span class="ot">&lt;-</span> <span class="st">"Seção 2"</span></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>ambiente<span class="sc">$</span>secao[<span class="dv">23</span><span class="sc">:</span><span class="dv">25</span>] <span class="ot">&lt;-</span> <span class="st">"Seção 3"</span></span>
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>ambiente<span class="sc">$</span>secao <span class="ot">&lt;-</span> <span class="fu">factor</span>(ambiente<span class="sc">$</span>secao)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Outra variável categórica, indicando três níveis de concentração de oxigênio em cada ponto.</p>
+<ol start="8" type="1">
+<li>Adicione outra variável categórica, indicando três níveis de saturação de oxigênio em cada ponto.</li>
+</ol>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>ambiente<span class="sc">$</span>trofia <span class="ot">&lt;-</span> <span class="fu">cut</span>(ambiente<span class="sc">$</span>oxy, <span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">80</span>, <span class="dv">109</span>, <span class="dv">124</span>), </span>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>ambiente<span class="sc">$</span>saturacao <span class="ot">&lt;-</span> <span class="fu">cut</span>(ambiente<span class="sc">$</span>oxy, <span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">80</span>, <span class="dv">109</span>, <span class="dv">124</span>), </span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>           <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Pobre"</span>, <span class="st">"Médio"</span>, <span class="st">"Saturado"</span>))</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(ambiente, <span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>   dfs alt   slo  flo pH har pho nit amm oxy bdo   secao   trofia
-1    3 934 6.176   84 79  45   1  20   0 122  27 Seção 1 Saturado
-2   22 932 3.434  100 80  40   2  20  10 103  19 Seção 1    Médio
-3  102 914 3.638  180 83  52   5  22   5 105  35 Seção 1    Médio
-4  185 854 3.497  253 80  72  10  21   0 110  13 Seção 1 Saturado
-5  215 849 3.178  264 81  84  38  52  20  80  62 Seção 2    Pobre
-6  324 846 3.497  286 79  60  20  15   0 102  53 Seção 1    Médio
-7  268 841 4.205  400 81  88   7  15   0 111  22 Seção 1 Saturado
-8  491 792 3.258  130 81  94  20  41  12  70  81 Seção 1    Pobre
-9  705 752 2.565  480 80  90  30  82  12  72  52 Seção 2    Pobre
-10 990 617 4.605 1000 77  82   6  75   1 100  43 Seção 1    Médio</code></pre>
+<pre><code>   dfs alt   slo  flo pH har pho nit amm oxy bdo   secao saturacao
+1    3 934 6.176   84 79  45   1  20   0 122  27 Seção 1  Saturado
+2   22 932 3.434  100 80  40   2  20  10 103  19 Seção 1     Médio
+3  102 914 3.638  180 83  52   5  22   5 105  35 Seção 1     Médio
+4  185 854 3.497  253 80  72  10  21   0 110  13 Seção 1  Saturado
+5  215 849 3.178  264 81  84  38  52  20  80  62 Seção 2     Pobre
+6  324 846 3.497  286 79  60  20  15   0 102  53 Seção 1     Médio
+7  268 841 4.205  400 81  88   7  15   0 111  22 Seção 1  Saturado
+8  491 792 3.258  130 81  94  20  41  12  70  81 Seção 1     Pobre
+9  705 752 2.565  480 80  90  30  82  12  72  52 Seção 2     Pobre
+10 990 617 4.605 1000 77  82   6  75   1 100  43 Seção 1     Médio</code></pre>
 </div>
 </div>
 </section>
 </section>
-<section id="descrevendo-os-padrões-de-uma-variável" class="level2">
-<h2 class="anchored" data-anchor-id="descrevendo-os-padrões-de-uma-variável">Descrevendo os padrões de uma variável</h2>
-<section id="gráfico-de-barras" class="level3">
-<h3 class="anchored" data-anchor-id="gráfico-de-barras">Gráfico de barras</h3>
-<p>Um gráfico de barras é utilizado para verificar a contagem de cada nível de uma variável. Portanto, necessariamente deve ser aplicado a uma <em>variável categórica</em>. Vamos fazer um gráfico de barras para a variável <code>trofia</code></p>
-<p>Montamos uma tabela de frequencia:</p>
+<section id="descrevendo-os-padrões-de-uma-variável" class="level2" data-number="2">
+<h2 data-number="2" class="anchored" data-anchor-id="descrevendo-os-padrões-de-uma-variável"><span class="header-section-number">2</span> Descrevendo os padrões de uma variável</h2>
+<section id="gráfico-de-barras" class="level3" data-number="2.1">
+<h3 data-number="2.1" class="anchored" data-anchor-id="gráfico-de-barras"><span class="header-section-number">2.1</span> Gráfico de barras</h3>
+<p>Um gráfico de barras é utilizado para verificar a contagem de cada nível de uma <em>variável categórica</em>. Faça um gráfico de barras para a variável <code>saturacao</code>.</p>
+<p>Inicialmente, monte uma tabela de frequencia:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>tab1 <span class="ot">&lt;-</span> <span class="fu">table</span>(ambiente<span class="sc">$</span>trofia)</span>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>tab1 <span class="ot">&lt;-</span> <span class="fu">table</span>(ambiente<span class="sc">$</span>saturacao)</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>tab1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
@@ -741,7 +759,7 @@ window.Quarto = {
        8       14        8 </code></pre>
 </div>
 </div>
-<p>E em seguida mostramos esta tabela em um gráfico de barras:</p>
+<p>Em seguida represente-a em um gráfico de barras:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(tab1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
@@ -752,7 +770,7 @@ window.Quarto = {
 </div>
 </div>
 </div>
-<p>Melhorando a formatação gráfica:</p>
+<p>Adicionando elementos de formatação gráfica:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(tab1,</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">main =</span> <span class="st">"Concentração de oxigênio"</span>,</span>
@@ -768,10 +786,10 @@ window.Quarto = {
 </div>
 </div>
 </section>
-<section id="histograma" class="level3">
-<h3 class="anchored" data-anchor-id="histograma">Histograma</h3>
-<p>Um histograma é a forma mais direta de avaliarmos o padrão de distribuição de uma variável quantitativa. Um histograma é construído a partir da divisão de uma variável em <em>intervalos de classe</em> e contando o número de classes dentro deste intervalo.</p>
-<p>Veja o histograma abaixo para a oxy que expressa a concentração de oxigênio em mg/l <span class="math inline">\(\times\)</span> 10.</p>
+<section id="histograma" class="level3" data-number="2.2">
+<h3 data-number="2.2" class="anchored" data-anchor-id="histograma"><span class="header-section-number">2.2</span> Histograma</h3>
+<p>Um histograma descreve o padrão de distribuição de uma variável quantitativa a partir da divisão desta variável em <em>intervalos de classe</em>.</p>
+<p>O histograma abaixo para a coluna oxy expressa a saturação de oxigênio (mg/l <span class="math inline">\(\times\)</span> 10).</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(ambiente<span class="sc">$</span>oxy)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -784,47 +802,25 @@ window.Quarto = {
 </div>
 </div>
 </div>
-<p>A figura mostra por exemplo que existe 1 seção com concentração entre 40 e 50 mg/l <span class="math inline">\(\times\)</span> 10, e 2 seções com concentração entre 90 e 100 mg/l <span class="math inline">\(\times\)</span> 10. Verifique quais são estes veículos com o comando abaixo:</p>
+<p>No histograma, o intervalo de classes determina o formato exato do gráfico. No exemplo acima, a escolha foi feita automaticamente. No entanto, é possível definir o intervalo desejado com o argumento <code>breaks</code>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>ambiente[<span class="fu">order</span>(ambiente<span class="sc">$</span>oxy),]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>    dfs alt   slo  flo pH har pho nit amm oxy bdo   secao   trofia
-25 3278 231 1.792 3870 79 100 422 620 180  41 167 Seção 3    Pobre
-24 3147 241 1.386 2976 80  99 140 250  60  52 123 Seção 3    Pobre
-26 3579 214 1.792 3910 79  94 143 300  30  62  89 Seção 4    Pobre
-23 3043 246 2.565 2880 81  97 260 350 115  63 164 Seção 3    Pobre
-8   491 792 3.258  130 81  94  20  41  12  70  81 Seção 1    Pobre
-9   705 752 2.565  480 80  90  30  82  12  72  52 Seção 2    Pobre
-27 3732 206 2.565 3960 81  90  58 300  26  72  63 Seção 4    Pobre
-5   215 849 3.178  264 81  84  38  52  20  80  62 Seção 2    Pobre
-28 3947 195 1.386 4320 83 100  74 400  30  81  45 Seção 4    Médio
-30 4530 172 1.099 6900 82 109  65 160  10  82  44 Seção 4    Médio
-21 2812 262 2.398 2720 79  85  20 220  10  90  41 Seção 4    Médio
-29 4220 183 1.946 6770 78 110  45 162  10  90  42 Seção 4    Médio
-22 2940 254 2.708 2790 81  88  20 162   7  91  48 Seção 4    Médio
-10  990 617 4.605 1000 77  82   6  75   1 100  43 Seção 1    Médio
-6   324 846 3.497  286 79  60  20  15   0 102  53 Seção 1    Médio
-17 1985 348 1.792 2430 80  92  20 250  20 102  46 Seção 2    Médio
-2    22 932 3.434  100 80  40   2  20  10 103  19 Seção 1    Médio
-16 1859 375 3.045 1610 80  88  20 200   5 103  27 Seção 1    Médio
-18 2110 332 2.197 2500 80  90  50 220  20 103  28 Seção 4    Médio
-20 2477 286 2.197 2680 80  86  30 300  30 103  28 Seção 4    Médio
-3   102 914 3.638  180 83  52   5  22   5 105  35 Seção 1    Médio
-19 2246 310 1.792 2590 81  84  60 220  15 106  33 Seção 4    Médio
-4   185 854 3.497  253 80  72  10  21   0 110  13 Seção 1 Saturado
-7   268 841 4.205  400 81  88   7  15   0 111  22 Seção 1 Saturado
-11 1234 483 3.738 1990 81  96  30 160   0 115  27 Seção 1 Saturado
-15 1645 415 1.792 2300 86  86  40 100   0 117  21 Seção 1 Saturado
-1     3 934 6.176   84 79  45   1  20   0 122  27 Seção 1 Saturado
-12 1324 477 2.833 2000 79  86   4  50   0 122  30 Seção 1 Saturado
-14 1522 434 2.565 2120 83  98  27 123   0 123  38 Seção 1 Saturado
-13 1436 450 3.091 2110 81  98   6  52   0 124  24 Seção 1 Saturado</code></pre>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>classes <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">40</span>, <span class="dv">140</span>, <span class="at">by =</span> <span class="dv">20</span>)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(ambiente<span class="sc">$</span>oxy, <span class="at">breaks =</span> classes)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="graficos-r_files/figure-html/unnamed-chunk-30-1.png" class="img-fluid figure-img" width="480"></p>
+</figure>
 </div>
 </div>
-<p>Em um histograma, a escolha do intervalo de classes determina o formato exato do gráfico. No exemplo acima, a escolha foi feita automaticamente. No entanto, podemos definir esplicitamente o intervalo desejado utilizando o argumento <code>breaks</code> conforme abaixo:</p>
+</div>
+<p>A divisão foi feita em intervalos de tamanho 20, iniciando em 40 e terminando em 140. A escolha deve ser a que evidencie da melhor forma possível o padrão de distribuição da variável.</p>
+</section>
+<section id="boxplot" class="level3" data-number="2.3">
+<h3 data-number="2.3" class="anchored" data-anchor-id="boxplot"><span class="header-section-number">2.3</span> Boxplot</h3>
+<p>Boxplots oferecem um <em>resumo gráfico</em> da distribuição de uma variável quantitativa. Abaixo está representada a variável oxy.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>classes <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">40</span>, <span class="dv">140</span>, <span class="at">by =</span> <span class="dv">20</span>)</span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(ambiente<span class="sc">$</span>oxy, <span class="at">breaks =</span> classes)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(ambiente<span class="sc">$</span>oxy)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -833,24 +829,9 @@ window.Quarto = {
 </div>
 </div>
 </div>
-<p>Aqui fizemos a divisão em intervalos de tamanho 20, iniciando em 40 e terminando em 140. A escolha do tamanho das classes é de certa forma arbitrária e definida para que o figura evidencie da melhor forma possível o padrão de distribuição dos dados.</p>
-</section>
-<section id="boxplot" class="level3">
-<h3 class="anchored" data-anchor-id="boxplot">Boxplot</h3>
-<p>Boxplots oferecem um <em>resumo gráfico</em> da distribuição de uma variável quantitativa. Abaixo veja um boxplot da variável oxy.</p>
+<p>A linha do meio representa a <strong>mediana</strong> da variável, enquanto os limites das caixas representam o <span class="math inline">\(1^o\)</span> e <span class="math inline">\(3^o\)</span> quartis e as linhas externas representam os pontos mínimo e máximo. Estes limites podem ser obtidos com o comando:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(ambiente<span class="sc">$</span>oxy)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="graficos-r_files/figure-html/unnamed-chunk-34-1.png" class="img-fluid figure-img" width="480"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>No boxplot, a linha do meio representa a <strong>mediana</strong> dos dados, os limitres das caixas representam o <span class="math inline">\(1^o\)</span> e <span class="math inline">\(3^o\)</span> percentis e as linhas os pontos mínimo e máximo. Podemos ver quais são estes valores com o comando:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">quantile</span>(ambiente<span class="sc">$</span>oxy, <span class="at">probs =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.25</span>, <span class="fl">0.5</span>, <span class="fl">0.75</span>, <span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">quantile</span>(ambiente<span class="sc">$</span>oxy, <span class="at">probs =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.25</span>, <span class="fl">0.5</span>, <span class="fl">0.75</span>, <span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>    0%    25%    50%    75%   100% 
  41.00  80.25 102.00 109.00 124.00 </code></pre>
@@ -858,16 +839,16 @@ window.Quarto = {
 </div>
 </section>
 </section>
-<section id="visualizando-associações-entre-duas-variáveis" class="level2">
-<h2 class="anchored" data-anchor-id="visualizando-associações-entre-duas-variáveis">Visualizando associações entre duas variáveis</h2>
-<section id="gráfico-de-barras-1" class="level3">
-<h3 class="anchored" data-anchor-id="gráfico-de-barras-1">Gráfico de barras</h3>
-<p>Passando aos gráficos bi-variados, vamos criar um gráfico de barras combinando as variáveis categóricas <code>secao</code> e <code>trofia</code>. Como fizemos anteriormente, montamos uma tabela de frequência, porpém neste caso combinando as duas variáveis.</p>
+<section id="associação-entre-duas-variáveis" class="level2" data-number="3">
+<h2 data-number="3" class="anchored" data-anchor-id="associação-entre-duas-variáveis"><span class="header-section-number">3</span> Associação entre duas variáveis</h2>
+<section id="gráfico-de-barras-1" class="level3" data-number="3.1">
+<h3 data-number="3.1" class="anchored" data-anchor-id="gráfico-de-barras-1"><span class="header-section-number">3.1</span> Gráfico de barras</h3>
+<p>Um gráfico de barras pode combinar duas variáveis categóricas como <code>secao</code> e <code>saturacao</code>. Inicialmente, monta-se uma tabela de frequência, combinandos as contagens para cada nível das variáveis.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>tab2 <span class="ot">&lt;-</span> <span class="fu">table</span>(ambiente[,<span class="fu">c</span>(<span class="st">"secao"</span>, <span class="st">"trofia"</span>)])</span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>tab2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>tab2 <span class="ot">&lt;-</span> <span class="fu">table</span>(ambiente[,<span class="fu">c</span>(<span class="st">"secao"</span>, <span class="st">"saturacao"</span>)])</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>tab2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>         trofia
+<pre><code>         saturacao
 secao     Pobre Médio Saturado
   Seção 1     1     5        8
   Seção 2     2     1        0
@@ -875,13 +856,47 @@ secao     Pobre Médio Saturado
   Seção 4     2     8        0</code></pre>
 </div>
 </div>
-<p>Neste caso, podemos fazer gráficos de barras de quatro formas distintas:</p>
+<p>Neste caso, é possível representar estas contagens de diferentes formas:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">layout</span>(<span class="at">mat =</span> <span class="fu">matrix</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, <span class="at">nrow =</span> <span class="dv">2</span>, <span class="at">ncol =</span> <span class="dv">2</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span>))</span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(tab2, <span class="at">legend =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(tab2, <span class="at">legend =</span> <span class="cn">TRUE</span>, <span class="at">beside =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(<span class="fu">t</span>(tab2), <span class="at">legend =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(<span class="fu">t</span>(tab2), <span class="at">legend =</span> <span class="cn">TRUE</span>, <span class="at">beside =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">layout</span>(<span class="at">mat =</span> <span class="fu">matrix</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, <span class="at">nrow =</span> <span class="dv">2</span>, <span class="at">ncol =</span> <span class="dv">2</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(tab2, <span class="at">legend =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(tab2, <span class="at">legend =</span> <span class="cn">TRUE</span>, <span class="at">beside =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(<span class="fu">t</span>(tab2), <span class="at">legend =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(<span class="fu">t</span>(tab2), <span class="at">legend =</span> <span class="cn">TRUE</span>, <span class="at">beside =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="graficos-r_files/figure-html/unnamed-chunk-38-1.png" class="img-fluid figure-img" width="768"></p>
+</figure>
+</div>
+</div>
+</div>
+<ol type="1">
+<li><p>A função <code>layout(mat = matrix(1:4, nrow = 2, ncol = 2, byrow = TRUE))</code> organiza o espaço gráfico em um formato matricial com 2 linhas por 2 colunas, permitindo a inserção de 4 figuras. O argumento <code>byrow = TRUE</code> define que as figuras serão adicionais linha-a-linha.</p></li>
+<li><p>A função <code>t()</code> <em>transpõe</em> a tabela, o que consequentemente altera a referência da figura. No primeiro caso, a concentração de oxigênio é a variável principal e, no segundo caso, são as seções.</p></li>
+<li><p>O argumento <code>beside = TRUE</code> faz com que as barras apareçam lado-a-lado e <code>beside = FALSE</code> resulta em cada barra representa a variável principal subdividida nos níveis da variável secubdária.</p></li>
+<li><p>Em todos os gráficos foi adicionada uma legenda.</p></li>
+</ol>
+<p>Adiocionando elementos de formatação:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>cores <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>limy1 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">17</span>)</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>limy2 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">16</span>)</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>legenda <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">cex =</span> <span class="fl">0.8</span>)</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a><span class="fu">layout</span>(<span class="at">mat =</span> <span class="fu">matrix</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, <span class="at">nrow =</span> <span class="dv">2</span>, <span class="at">ncol =</span> <span class="dv">2</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(tab2, <span class="at">legend =</span> <span class="cn">TRUE</span>, <span class="at">col =</span> cores, <span class="at">ylim =</span> limy1, </span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">args.legend =</span> legenda)</span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a><span class="fu">box</span>()</span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(tab2, <span class="at">legend =</span> <span class="cn">TRUE</span>, <span class="at">beside =</span> <span class="cn">TRUE</span>, <span class="at">col =</span> cores, </span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>        <span class="at">ylim =</span> limy1, <span class="at">args.legend =</span> legenda)</span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a><span class="fu">box</span>()</span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(<span class="fu">t</span>(tab2), <span class="at">legend =</span> <span class="cn">TRUE</span>, <span class="at">col =</span> cores, <span class="at">ylim =</span> limy2, </span>
+<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a>        <span class="at">args.legend =</span> legenda)</span>
+<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a><span class="fu">box</span>()</span>
+<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(<span class="fu">t</span>(tab2), <span class="at">legend =</span> <span class="cn">TRUE</span>, <span class="at">beside =</span> <span class="cn">TRUE</span>, <span class="at">col =</span> cores, </span>
+<span id="cb22-17"><a href="#cb22-17" aria-hidden="true" tabindex="-1"></a>        <span class="at">ylim =</span> limy2, <span class="at">args.legend =</span> legenda)</span>
+<span id="cb22-18"><a href="#cb22-18" aria-hidden="true" tabindex="-1"></a><span class="fu">box</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -890,47 +905,31 @@ secao     Pobre Médio Saturado
 </div>
 </div>
 </div>
-<p>O comando acima necessita de algumas explicações.</p>
-<ol type="1">
-<li><p>A função <code>layout(mat = matrix(1:4, nrow = 2, ncol = 2, byrow = TRUE))</code> organiza o espaço gráfico em um formato matricial com 2 linhas por 2 colunas, permitindo a inserrção de 4 figuras. O argumento <code>byrow = TRUE</code> define que as figuras serão adicionais linha-a-linha;</p></li>
-<li><p>A expressão <code>t(tab2)</code> tem como resultado <em>tanspor</em> a tabela, o que consequentemente altera a referência da figura. No primeiro caso, a referência é a concentração de oxigêncio e no segundo caso, as seções;</p></li>
-<li><p>O argumento <code>beside = TRUE</code> faz com que todas as barras apareçam lado-a-lado. Caso contrário, cada barra representa uma coluna da matriz <code>tab2</code> ou da sua transposta <code>t(tab2)</code>;</p></li>
-<li><p>Em todos os gráficos foi adicionada uma legenda para permitir a interpretação dos gráficos;</p></li>
-</ol>
-<p>Aqui podemos melhorar a formatação:</p>
+</section>
+<section id="boxplot-1" class="level3" data-number="3.2">
+<h3 data-number="3.2" class="anchored" data-anchor-id="boxplot-1"><span class="header-section-number">3.2</span> Boxplot</h3>
+<p>O boxplot também pode ser utilizado para representar uma variável <span class="math inline">\(X_1\)</span> para diferentes níveis de uma variável categórica <span class="math inline">\(X_2\)</span>, por exemplo oxy para cada nível de secao.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>cores <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span></span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>limy1 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">17</span>)</span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>limy2 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">16</span>)</span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>legenda <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">cex =</span> <span class="fl">0.8</span>)</span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a><span class="fu">layout</span>(<span class="at">mat =</span> <span class="fu">matrix</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, <span class="at">nrow =</span> <span class="dv">2</span>, <span class="at">ncol =</span> <span class="dv">2</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span>))</span>
-<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(tab2, <span class="at">legend =</span> <span class="cn">TRUE</span>, <span class="at">col =</span> cores, <span class="at">ylim =</span> limy1, </span>
-<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">args.legend =</span> legenda)</span>
-<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a><span class="fu">box</span>()</span>
-<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(tab2, <span class="at">legend =</span> <span class="cn">TRUE</span>, <span class="at">beside =</span> <span class="cn">TRUE</span>, <span class="at">col =</span> cores, </span>
-<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>        <span class="at">ylim =</span> limy1, <span class="at">args.legend =</span> legenda)</span>
-<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a><span class="fu">box</span>()</span>
-<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(<span class="fu">t</span>(tab2), <span class="at">legend =</span> <span class="cn">TRUE</span>, <span class="at">col =</span> cores, <span class="at">ylim =</span> limy2, </span>
-<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a>        <span class="at">args.legend =</span> legenda)</span>
-<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a><span class="fu">box</span>()</span>
-<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(<span class="fu">t</span>(tab2), <span class="at">legend =</span> <span class="cn">TRUE</span>, <span class="at">beside =</span> <span class="cn">TRUE</span>, <span class="at">col =</span> cores, </span>
-<span id="cb24-17"><a href="#cb24-17" aria-hidden="true" tabindex="-1"></a>        <span class="at">ylim =</span> limy2, <span class="at">args.legend =</span> legenda)</span>
-<span id="cb24-18"><a href="#cb24-18" aria-hidden="true" tabindex="-1"></a><span class="fu">box</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(oxy <span class="sc">~</span> secao, <span class="at">data =</span> ambiente)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="graficos-r_files/figure-html/unnamed-chunk-42-1.png" class="img-fluid figure-img" width="768"></p>
+<p><img src="graficos-r_files/figure-html/unnamed-chunk-42-1.png" class="img-fluid figure-img" width="480"></p>
 </figure>
 </div>
 </div>
 </div>
+<p>Os pontos associados à <code>Seção 1</code> têm maiores concentrações de oxigênio (mediana = 110.5) e que os pontos associados à <code>Seção 3</code> (mediana = 52).</p>
+<p>Na função <code>boxplot</code> foi utilizada a representação de <em>fórmula</em> no R (<code>y ~ x</code>) em que a variável no eixo <code>y</code> <em>depende de</em> <code>x</code>. Esta notação é amplamente utilizada em modelos estatísticos (ex. regressão linear, e análise de variância, etc.).</p>
+<ol start="2" type="1">
+<li>Ao invés de acessar a variável por <code>ambiente$oxy</code>, utilizou-se o nome da coluna (<code>oxy</code>) e adicionou-se o argumento <code>data = ambiente</code> para indicar em qual data frame a função irá buscar as variáveis.</li>
+</ol>
 </section>
-<section id="boxplot-1" class="level3">
-<h3 class="anchored" data-anchor-id="boxplot-1">Boxplot</h3>
-<p>O boxplot é mais utilizado na situação a seguir em que queremos sumarizar uma variável quantitativa para diferentes níveis de uma variável categórica. Para isto, vamos associar a variável oxy à variável secao.</p>
+<section id="gráfico-de-dispersão" class="level3" data-number="3.3">
+<h3 data-number="3.3" class="anchored" data-anchor-id="gráfico-de-dispersão"><span class="header-section-number">3.3</span> Gráfico de dispersão</h3>
+<p>Um gráfico de dispersão mostra a associação entre duas variáveis quantitativas, por exemplo, concentração de nitrato (mg/l <span class="math inline">\(\times\)</span> 100) e distância da foz (km <span class="math inline">\(\times\)</span> 10). Neste caso a concentração de nitrato será representada como dependente da distância da foz.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(oxy <span class="sc">~</span> secao, <span class="at">data =</span> ambiente)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(nit <span class="sc">~</span> dfs, <span class="at">data =</span> ambiente)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -939,18 +938,14 @@ secao     Pobre Médio Saturado
 </div>
 </div>
 </div>
-<p>Vemos que <em>aparentemente</em> os pontos associados ao <code>Seção 1</code> têm maiores concentrações de oxigênio (mediana = NA) e que os pontos associados à <code>Seção 3</code> os menores valores (mediana = 52). É neste tipo de comparação que geralmente estamos interessados ao fazer um boxplot deste tipo.</p>
-<p>Aqui utilizamos uma notação diferente.</p>
-<ol type="1">
-<li><p>Ao invés de dizermos explicitamente qual variável está no eixo <code>y</code> e qual está no eixo <code>x</code>, utilizamos o símbolo <code>~</code> para expressar que <code>y</code> <em>depende de</em> <code>x</code>. Esta notação é amplamente utilizada em modelos estatísticos como Regressão e Análise de Variância e está associada aos conceitos de variável <em>dependente</em> (ou <em>reposta</em>, <code>y</code>) e de variável <em>independente</em> (ou <em>preditora</em>, <code>x</code>). Neste caso, então a concentração de oxigênio <em>depende</em> da seção do rio.</p></li>
-<li><p>Ao invés de chamarmos a variável por <code>ambiente$oxy</code>, utilizamos somente o nome da coluna (<code>oxy</code>) e adicionamos o argumento <code>data = ambiente</code> para indicar em qual data frame a função irá buscar as variáveis. Deste ponto em diante iremos utilizar esta notação sempre que possível, para que você se familiarize com sua utilização na prática de ajuste de modelos estatísticos no R.</p></li>
-</ol>
-</section>
-<section id="gráfico-de-dispersão" class="level3">
-<h3 class="anchored" data-anchor-id="gráfico-de-dispersão">Gráfico de dispersão</h3>
-<p>Um gráfico de dispersão mostra a associação entre duas variáveis quantitativas. Vamos verificar a associação entre concentração de nitrato (mg/l <span class="math inline">\(\times\)</span> 100) e a distância da foz (km <span class="math inline">\(\times\)</span> 10). Neste caso, é fundamental definirmos quem serão as variáveis dependentes e independentes. Faz sentido pensar que a concentração de nitrato varia <strong>em função</strong> da distância da foz e não o contrário.</p>
+<p>Os resultados expressam uma relação em que a concentração de nutrientes aumenta à medida que distancia-se da foz.</p>
+<p>Adicionando formatação gráfica: nomes dos eixos (argumentos <code>xlab</code> e <code>ylab</code>) e tipo de ponto (argumento <code>pch</code>).</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(nit <span class="sc">~</span> dfs, <span class="at">data =</span> ambiente)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(nit <span class="sc">~</span> dfs, <span class="at">data =</span> ambiente,</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="fu">bquote</span>(<span class="st">"Vazão média mínima (m"</span> <span class="sc">^</span><span class="dv">3</span><span class="sc">/</span><span class="st">"seg x 100)"</span>),</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="fu">bquote</span>(<span class="st">"Concentração de Nitrato (mg"</span><span class="sc">/</span><span class="st">"l x 100)"</span>),</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">pch =</span> <span class="dv">19</span></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -959,42 +954,26 @@ secao     Pobre Médio Saturado
 </div>
 </div>
 </div>
-<p>Os resultados parecem expressar uma relação esperada em que a concentração de nutrientes aumenta à medida que nos aproximamos da foz de rio e riachos.</p>
-<p>Alterando os nomes dos eixos (argumentos <code>xlab</code> e <code>ylab</code>), tipo de ponto (argumento <code>pch</code>).</p>
+</section>
+</section>
+<section id="compreendendo-o-ambiente-por-meio-de-suas-variáveis" class="level2" data-number="4">
+<h2 data-number="4" class="anchored" data-anchor-id="compreendendo-o-ambiente-por-meio-de-suas-variáveis"><span class="header-section-number">4</span> Compreendendo o ambiente por meio de suas variáveis</h2>
+<p>Um dos objetivo da descrição gráfica é representar o sistema por meio das variáveis escolhidas para quantificá-lo. Além dos gráficos apresentados anteriormente, há outras formas de incorporar essas variáveis em uma figura, utilizando cores, símbolos e textos no ambiente gráfico. Nesta seção, serão exploradas algumas possibilidades.</p>
+<p>Os pontos de amostragem foram obtidos ao longo do gradiente cabeceira-foz. As informações incluem as coordenadas geográficas desses pontos (no data frame <code>$xy</code>). A sequência dos pontos segue uma ordem crescente de distância da foz. Inicialmente, serão plotadas as coordenadas geográficas de todos os pontos utilizando um gráfico de linhas.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(nit <span class="sc">~</span> dfs, <span class="at">data =</span> ambiente,</span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="fu">bquote</span>(<span class="st">"Vazão média mínima (m"</span> <span class="sc">^</span><span class="dv">3</span><span class="sc">/</span><span class="st">"seg x 100)"</span>),</span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="fu">bquote</span>(<span class="st">"Concentração de Nitrato (mg"</span><span class="sc">/</span><span class="st">"l x 100)"</span>),</span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">pch =</span> <span class="dv">19</span></span>
-<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x =</span> doubs<span class="sc">$</span>xy<span class="sc">$</span>x, <span class="at">y =</span> doubs<span class="sc">$</span>xy<span class="sc">$</span>y, <span class="at">type =</span> <span class="st">"l"</span>,</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"Coordenada em x (km)"</span>, </span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">"Coordenada em y (km)"</span>,</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> <span class="st">"#4287f5"</span>, <span class="at">lwd =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="graficos-r_files/figure-html/unnamed-chunk-48-1.png" class="img-fluid figure-img" width="480"></p>
+<p><img src="graficos-r_files/figure-html/unnamed-chunk-48-1.png" class="img-fluid figure-img" width="576"></p>
 </figure>
 </div>
 </div>
 </div>
-</section>
-</section>
-<section id="compreendendo-o-ambiente-por-meio-de-suas-variáveis" class="level2">
-<h2 class="anchored" data-anchor-id="compreendendo-o-ambiente-por-meio-de-suas-variáveis">Compreendendo o ambiente por meio de suas variáveis</h2>
-<p>Em um estudo como o de Verneaux <span class="citation" data-cites="Verneaux1973">[@Verneaux1973]</span> o objetivo é entender o sistema de riachos por meio das variáveis que escolhemos quantificar. Os gráficos vistos acima não são a única forma de imcorporar essas variáveis em uma figura. A possibilidade de manipulação de cores, símbolos e textos no ambiente gráfico fornece formas adicionais de incluirmos uma determinada informação. Nesta seção vamos explorar um pouco melhor estas questões.</p>
-<p>Dissemos que os pontos de amostragem foram obtidos ao longo do gradiente cabeceira-foz de um rio na França. Parte das informações que temos se referem às coordenadas geográficas destes pontos (no data frame <code>$yx</code>). Verifique também que a sequência dos pontos segue uma ordem crescente da distância da foz. Inicialmente, vamos plotar as coordenadas geográficas de todos os pontos utilizando um gráfico de linhas:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x =</span> doubs<span class="sc">$</span>xy<span class="sc">$</span>x, <span class="at">y =</span> doubs<span class="sc">$</span>xy<span class="sc">$</span>y, <span class="at">type =</span> <span class="st">"l"</span>,</span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"Coordenada em x (km)"</span>, </span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">"Coordenada em y (km)"</span>,</span>
-<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> <span class="st">"#4287f5"</span>, <span class="at">lwd =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="graficos-r_files/figure-html/unnamed-chunk-50-1.png" class="img-fluid figure-img" width="576"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>Compare, a figura com o desenho do <a href="https://pt.wikipedia.org/wiki/Rio_Doubs">rio Doubs</a>.</p>
+<p>Compare a figura com o desenho do <a href="https://pt.wikipedia.org/wiki/Rio_Doubs">rio Doubs</a>.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -1008,17 +987,37 @@ Note
 <p>Utilizamos a definição de cores em <strong>HEXADECIMAL</strong>. Você pode fazer o mesmo, escolhendo a cor desejada aqui: <a href="https://www.google.com/search?q=hex+color+picker&amp;oq=hex+color+picker&amp;aqs=chrome..69i57j0l7.11304j0j4&amp;sourceid=chrome&amp;ie=UTF-8">hex color picker</a>.</p>
 </div>
 </div>
-<p>Vamos indicar os pontos de cabeceira e foz.</p>
+<p>Representando os pontos de amostragem.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>pontos_extremos <span class="ot">&lt;-</span> doubs<span class="sc">$</span>xy[<span class="fu">which</span>(doubs<span class="sc">$</span>env<span class="sc">$</span>dfs <span class="sc">==</span> <span class="fu">min</span>(doubs<span class="sc">$</span>env<span class="sc">$</span>dfs) <span class="sc">|</span> </span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>                                      doubs<span class="sc">$</span>env<span class="sc">$</span>dfs <span class="sc">==</span> <span class="fu">max</span>(doubs<span class="sc">$</span>env<span class="sc">$</span>dfs)),]</span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x =</span> doubs<span class="sc">$</span>xy<span class="sc">$</span>x, <span class="at">y =</span> doubs<span class="sc">$</span>xy<span class="sc">$</span>y, <span class="at">type =</span> <span class="st">"l"</span>,</span>
-<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"Coordenada em x (km)"</span>, </span>
-<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">"Coordenada em y (km)"</span>,</span>
-<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> <span class="st">"#4287f5"</span>, <span class="at">lwd =</span> <span class="dv">3</span>)</span>
-<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="at">x =</span> pontos_extremos<span class="sc">$</span>x, </span>
-<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> pontos_extremos<span class="sc">$</span>y,</span>
-<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Cabeceira"</span>, <span class="st">"Foz"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>pontos_extremos <span class="ot">&lt;-</span> doubs<span class="sc">$</span>xy[<span class="fu">which</span>(doubs<span class="sc">$</span>env<span class="sc">$</span>dfs <span class="sc">==</span> <span class="fu">min</span>(doubs<span class="sc">$</span>env<span class="sc">$</span>dfs) <span class="sc">|</span> </span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>                                      doubs<span class="sc">$</span>env<span class="sc">$</span>dfs <span class="sc">==</span> <span class="fu">max</span>(doubs<span class="sc">$</span>env<span class="sc">$</span>dfs)),]</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x =</span> doubs<span class="sc">$</span>xy<span class="sc">$</span>x, <span class="at">y =</span> doubs<span class="sc">$</span>xy<span class="sc">$</span>y, <span class="at">type =</span> <span class="st">"l"</span>,</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"Coordenada em x (km)"</span>, </span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">"Coordenada em y (km)"</span>,</span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> <span class="st">"#4287f5"</span>, <span class="at">lwd =</span> <span class="dv">3</span>)</span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="at">x =</span> pontos_extremos<span class="sc">$</span>x, </span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> pontos_extremos<span class="sc">$</span>y,</span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Cabeceira"</span>, <span class="st">"Foz"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="graficos-r_files/figure-html/unnamed-chunk-50-1.png" class="img-fluid figure-img" width="576"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Representando as <span class="math inline">\(4\)</span> seções do rio.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>secao_cor <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(ambiente<span class="sc">$</span>secao)</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x =</span> doubs<span class="sc">$</span>xy<span class="sc">$</span>x, <span class="at">y =</span> doubs<span class="sc">$</span>xy<span class="sc">$</span>y, <span class="at">type =</span> <span class="st">"l"</span>,</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"Coordenada em x (km)"</span>, </span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">"Coordenada em y (km)"</span>,</span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> <span class="st">"#4287f5"</span>, <span class="at">lwd =</span> <span class="dv">3</span>)</span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="at">x =</span> doubs<span class="sc">$</span>xy<span class="sc">$</span>x, <span class="at">y =</span> doubs<span class="sc">$</span>xy<span class="sc">$</span>y, <span class="at">pch =</span> <span class="dv">21</span>, </span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">bg =</span> secao_cor, <span class="at">cex =</span> <span class="dv">3</span>)</span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="at">x =</span> <span class="st">"bottomright"</span>, <span class="at">col =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, </span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>       <span class="at">legend =</span> <span class="fu">levels</span>(ambiente<span class="sc">$</span>secao), <span class="at">bty =</span> <span class="st">"n"</span>, <span class="at">pch =</span> <span class="dv">19</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -1027,18 +1026,23 @@ Note
 </div>
 </div>
 </div>
-<p>Lembre-se que definimos acima 4 trechos. Vamos ver onde estes seções se localizam plotando-os com cores distintas.</p>
+<p>Representando a concentração de amônia (<code>amm</code>).</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>secao_cor <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(ambiente<span class="sc">$</span>secao)</span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x =</span> doubs<span class="sc">$</span>xy<span class="sc">$</span>x, <span class="at">y =</span> doubs<span class="sc">$</span>xy<span class="sc">$</span>y, <span class="at">type =</span> <span class="st">"l"</span>,</span>
-<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"Coordenada em x (km)"</span>, </span>
-<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">"Coordenada em y (km)"</span>,</span>
-<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> <span class="st">"#4287f5"</span>, <span class="at">lwd =</span> <span class="dv">3</span>)</span>
-<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="at">x =</span> doubs<span class="sc">$</span>xy<span class="sc">$</span>x, <span class="at">y =</span> doubs<span class="sc">$</span>xy<span class="sc">$</span>y, <span class="at">pch =</span> <span class="dv">21</span>, </span>
-<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">bg =</span> secao_cor, <span class="at">cex =</span> <span class="dv">3</span>)</span>
-<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="at">x =</span> <span class="st">"bottomright"</span>, <span class="at">col =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, </span>
-<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a>       <span class="at">legend =</span> <span class="fu">levels</span>(ambiente<span class="sc">$</span>secao), <span class="at">bty =</span> <span class="st">"n"</span>, <span class="at">pch =</span> <span class="dv">19</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>secao_cor <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(ambiente<span class="sc">$</span>secao) <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x =</span> doubs<span class="sc">$</span>xy<span class="sc">$</span>x, <span class="at">y =</span> doubs<span class="sc">$</span>xy<span class="sc">$</span>y, <span class="at">type =</span> <span class="st">"l"</span>,</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"Coordenada em x (km)"</span>, </span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">"Coordenada em y (km)"</span>,</span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> <span class="st">"#4287f5"</span>, <span class="at">lwd =</span> <span class="dv">3</span>)</span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="at">x =</span> doubs<span class="sc">$</span>xy<span class="sc">$</span>x, <span class="at">y =</span> doubs<span class="sc">$</span>xy<span class="sc">$</span>y, <span class="at">pch =</span> <span class="dv">21</span>, </span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">bg =</span> secao_cor, <span class="at">cex =</span> <span class="dv">4</span>)</span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="at">x =</span> <span class="st">"bottomright"</span>, <span class="at">col =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, </span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>       <span class="at">legend =</span> <span class="fu">levels</span>(ambiente<span class="sc">$</span>secao), <span class="at">bty =</span> <span class="st">"n"</span>, <span class="at">pch =</span> <span class="dv">19</span>)</span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="at">x =</span> doubs<span class="sc">$</span>xy<span class="sc">$</span>x, <span class="at">y =</span> doubs<span class="sc">$</span>xy<span class="sc">$</span>y, <span class="at">labels =</span> doubs<span class="sc">$</span>env<span class="sc">$</span>amm, </span>
+<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a>     <span class="at">cex =</span> <span class="fl">0.8</span>, <span class="at">font =</span> <span class="dv">2</span>)</span>
+<span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="at">x =</span> <span class="dv">55</span>, <span class="at">y =</span> <span class="dv">220</span>, <span class="at">labels =</span> <span class="st">"Concentração de amônia"</span>)</span>
+<span id="cb29-14"><a href="#cb29-14" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="at">x =</span> <span class="dv">25</span>, <span class="at">y =</span> <span class="dv">120</span>, <span class="at">label =</span> <span class="st">"Foz"</span>)</span>
+<span id="cb29-15"><a href="#cb29-15" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="at">x =</span> <span class="dv">60</span>, <span class="at">y =</span> <span class="dv">20</span>, <span class="at">label =</span> <span class="st">"Cabeceira"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -1047,34 +1051,7 @@ Note
 </div>
 </div>
 </div>
-<p>Fica clara a divisão principal entre os grupos referente às seções 1 e 2 na metade superior do rio e as seções 3 e 4 na metade inferior. Para continuar explorando os dados, vamos inserir a informação sobre a concentração de amônia (<code>amm</code>).</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>secao_cor <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(ambiente<span class="sc">$</span>secao) <span class="sc">+</span> <span class="dv">1</span></span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x =</span> doubs<span class="sc">$</span>xy<span class="sc">$</span>x, <span class="at">y =</span> doubs<span class="sc">$</span>xy<span class="sc">$</span>y, <span class="at">type =</span> <span class="st">"l"</span>,</span>
-<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"Coordenada em x (km)"</span>, </span>
-<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">"Coordenada em y (km)"</span>,</span>
-<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> <span class="st">"#4287f5"</span>, <span class="at">lwd =</span> <span class="dv">3</span>)</span>
-<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="at">x =</span> doubs<span class="sc">$</span>xy<span class="sc">$</span>x, <span class="at">y =</span> doubs<span class="sc">$</span>xy<span class="sc">$</span>y, <span class="at">pch =</span> <span class="dv">21</span>, </span>
-<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">bg =</span> secao_cor, <span class="at">cex =</span> <span class="dv">4</span>)</span>
-<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="at">x =</span> <span class="st">"bottomright"</span>, <span class="at">col =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, </span>
-<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a>       <span class="at">legend =</span> <span class="fu">levels</span>(ambiente<span class="sc">$</span>secao), <span class="at">bty =</span> <span class="st">"n"</span>, <span class="at">pch =</span> <span class="dv">19</span>)</span>
-<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="at">x =</span> doubs<span class="sc">$</span>xy<span class="sc">$</span>x, <span class="at">y =</span> doubs<span class="sc">$</span>xy<span class="sc">$</span>y, <span class="at">labels =</span> doubs<span class="sc">$</span>env<span class="sc">$</span>amm, </span>
-<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a>     <span class="at">cex =</span> <span class="fl">0.8</span>, <span class="at">font =</span> <span class="dv">2</span>)</span>
-<span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="at">x =</span> <span class="dv">55</span>, <span class="at">y =</span> <span class="dv">220</span>, <span class="at">labels =</span> <span class="st">"Concentração de amônia"</span>)</span>
-<span id="cb31-14"><a href="#cb31-14" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="at">x =</span> <span class="dv">25</span>, <span class="at">y =</span> <span class="dv">120</span>, <span class="at">label =</span> <span class="st">"Foz"</span>)</span>
-<span id="cb31-15"><a href="#cb31-15" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="at">x =</span> <span class="dv">60</span>, <span class="at">y =</span> <span class="dv">20</span>, <span class="at">label =</span> <span class="st">"Cabeceira"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="graficos-r_files/figure-html/unnamed-chunk-56-1.png" class="img-fluid figure-img" width="576"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>Veja, que a concentração de amônia nos pontos em azul (Seção 4) é muito superior à dos pontos ao redor. Algo similar ocorre nos pontos em verde.</p>
-<p>Provavelmente, a concentração de amônia não é a única variável pela formação destes grupos. Você pode explorar as demais variáveis químicas para verificar se outras também apresentam padrões similares.</p>
-<p>O ponto que merece ser ressaltado, é que o gráfico acima, não se enquadra em nenhuma das categorias anteriores (uni-variados, bi-variados, gráficos de barras, boxplots, etc.). No entanto, a figura nos informa sobre três variáveis: as coordenadas geográficas, a variável categórica <code>secao</code> e a concentração de amônia.</p>
+<p>A figura nos informa sobre a distribuição espacial da concentração de amônia entre as seções. Verifica-se que a concentração de amônia é mais nas seções <span class="math inline">\(4\)</span> e <span class="math inline">\(3\)</span>.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -1089,64 +1066,62 @@ Note
 </div>
 </div>
 </section>
-<section id="mais-um-comentário-sobre-formatação-gráfica-no-r" class="level2">
-<h2 class="anchored" data-anchor-id="mais-um-comentário-sobre-formatação-gráfica-no-r">Mais um comentário sobre formatação gráfica no R</h2>
-<section id="outros-argumentos" class="level3">
-<h3 class="anchored" data-anchor-id="outros-argumentos">Outros argumentos</h3>
-<p>A capacidade de formatação gráfica no R é extensa. Qualquer tentativa de resumir todas elas seria incompleta. Portanto, apresento aqui somente alguns argumentos mais comuns. Rode abaixo cada uma das linhas e veja as figuras resultantes:</p>
+<section id="outros-argumentos-de-formatação-gráfica" class="level2" data-number="5">
+<h2 data-number="5" class="anchored" data-anchor-id="outros-argumentos-de-formatação-gráfica"><span class="header-section-number">5</span> Outros argumentos de formatação gráfica</h2>
+<p>A capacidade de formatação gráfica no R é extensa e qualquer tentativa de resumí-las seria incompleta. Abaixo exemplificam alguns argumentos comuns de formatação gráfica.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(nit <span class="sc">~</span> dfs, <span class="at">data =</span> ambiente)</span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(nit <span class="sc">~</span> dfs, <span class="at">data =</span> ambiente, <span class="at">pch =</span> <span class="dv">2</span>)</span>
-<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(nit <span class="sc">~</span> dfs, <span class="at">data =</span> ambiente, <span class="at">pch =</span> <span class="dv">19</span>)</span>
-<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(nit <span class="sc">~</span> dfs, <span class="at">data =</span> ambiente, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">type =</span> <span class="st">"b"</span>)</span>
-<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(nit <span class="sc">~</span> dfs, <span class="at">data =</span> ambiente, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">type =</span> <span class="st">"b"</span>,</span>
-<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"Nitrato"</span>, <span class="at">ylab =</span> <span class="st">"Vazão"</span>)</span>
-<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(nit <span class="sc">~</span> dfs, <span class="at">data =</span> ambiente, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">type =</span> <span class="st">"b"</span>, </span>
-<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"Nitrato"</span>, <span class="at">ylab =</span> <span class="st">"Vazão"</span>, <span class="at">font.lab =</span> <span class="dv">3</span>)</span>
-<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(nit <span class="sc">~</span> dfs, <span class="at">data =</span> ambiente, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">type =</span> <span class="st">"l"</span>, </span>
-<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a>     <span class="at">lty =</span> <span class="dv">2</span>)</span>
-<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(nit <span class="sc">~</span> dfs, <span class="at">data =</span> ambiente, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">type =</span> <span class="st">"l"</span>, </span>
-<span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a>     <span class="at">lty =</span> <span class="dv">2</span>, <span class="at">lwd =</span> <span class="dv">3</span>)</span>
-<span id="cb32-13"><a href="#cb32-13" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(nit <span class="sc">~</span> dfs, <span class="at">data =</span> ambiente, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">type =</span> <span class="st">"l"</span>, </span>
-<span id="cb32-14"><a href="#cb32-14" aria-hidden="true" tabindex="-1"></a>     <span class="at">lty =</span> <span class="dv">2</span>, <span class="at">lwd =</span> <span class="dv">3</span>, <span class="at">col =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(nit <span class="sc">~</span> dfs, <span class="at">data =</span> ambiente)</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(nit <span class="sc">~</span> dfs, <span class="at">data =</span> ambiente, <span class="at">pch =</span> <span class="dv">2</span>)</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(nit <span class="sc">~</span> dfs, <span class="at">data =</span> ambiente, <span class="at">pch =</span> <span class="dv">19</span>)</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(nit <span class="sc">~</span> dfs, <span class="at">data =</span> ambiente, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">type =</span> <span class="st">"b"</span>)</span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(nit <span class="sc">~</span> dfs, <span class="at">data =</span> ambiente, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">type =</span> <span class="st">"b"</span>,</span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"Nitrato"</span>, <span class="at">ylab =</span> <span class="st">"Vazão"</span>)</span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(nit <span class="sc">~</span> dfs, <span class="at">data =</span> ambiente, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">type =</span> <span class="st">"b"</span>, </span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"Nitrato"</span>, <span class="at">ylab =</span> <span class="st">"Vazão"</span>, <span class="at">font.lab =</span> <span class="dv">3</span>)</span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(nit <span class="sc">~</span> dfs, <span class="at">data =</span> ambiente, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">type =</span> <span class="st">"l"</span>, </span>
+<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a>     <span class="at">lty =</span> <span class="dv">2</span>)</span>
+<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(nit <span class="sc">~</span> dfs, <span class="at">data =</span> ambiente, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">type =</span> <span class="st">"l"</span>, </span>
+<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a>     <span class="at">lty =</span> <span class="dv">2</span>, <span class="at">lwd =</span> <span class="dv">3</span>)</span>
+<span id="cb30-13"><a href="#cb30-13" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(nit <span class="sc">~</span> dfs, <span class="at">data =</span> ambiente, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">type =</span> <span class="st">"l"</span>, </span>
+<span id="cb30-14"><a href="#cb30-14" aria-hidden="true" tabindex="-1"></a>     <span class="at">lty =</span> <span class="dv">2</span>, <span class="at">lwd =</span> <span class="dv">3</span>, <span class="at">col =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="figuras-compostas" class="level3">
-<h3 class="anchored" data-anchor-id="figuras-compostas">Figuras compostas</h3>
-<p>Podemos formar figuras compostas, inserindo múltiplos gráficos. Uma das formas mais simples para isto é utilizando a função <code>layout</code>. Abaixo, vamos inserir 6 gráficos em um mesmo espaço.</p>
+<section id="figuras-compostas" class="level2" data-number="6">
+<h2 data-number="6" class="anchored" data-anchor-id="figuras-compostas"><span class="header-section-number">6</span> Figuras compostas</h2>
+<p>Uma das formas mais simples para inserir múltiplas figuras no mesmo espaço gráfico é por meio da função <code>layout</code>. Abaixo, serõ inseridos <span class="math inline">\(6\)</span> gráficos em uma espaço de <span class="math inline">\(3\)</span> colunas por <span class="math inline">\(2\)</span> linhas.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">layout</span>(<span class="at">mat =</span> <span class="fu">matrix</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, <span class="at">nrow =</span> <span class="dv">3</span>, <span class="at">ncol =</span> <span class="dv">2</span>))</span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(alt <span class="sc">~</span> dfs, <span class="at">data =</span> ambiente)</span>
-<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(amm <span class="sc">~</span> alt, <span class="at">data =</span> ambiente)</span>
-<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(nit <span class="sc">~</span> alt, <span class="at">data =</span> ambiente)</span>
-<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(pH <span class="sc">~</span> alt, <span class="at">data =</span> ambiente)</span>
-<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(bdo <span class="sc">~</span> alt, <span class="at">data =</span> ambiente)</span>
-<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(oxy <span class="sc">~</span> alt, <span class="at">data =</span> ambiente)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">layout</span>(<span class="at">mat =</span> <span class="fu">matrix</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, <span class="at">nrow =</span> <span class="dv">3</span>, <span class="at">ncol =</span> <span class="dv">2</span>))</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(alt <span class="sc">~</span> dfs, <span class="at">data =</span> ambiente)</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(amm <span class="sc">~</span> alt, <span class="at">data =</span> ambiente)</span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(nit <span class="sc">~</span> alt, <span class="at">data =</span> ambiente)</span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(pH <span class="sc">~</span> alt, <span class="at">data =</span> ambiente)</span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(bdo <span class="sc">~</span> alt, <span class="at">data =</span> ambiente)</span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(oxy <span class="sc">~</span> alt, <span class="at">data =</span> ambiente)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="graficos-r_files/figure-html/unnamed-chunk-60-1.png" class="img-fluid figure-img" width="480"></p>
+<p><img src="graficos-r_files/figure-html/unnamed-chunk-58-1.png" class="img-fluid figure-img" width="480"></p>
 </figure>
 </div>
 </div>
 </div>
 </section>
-<section id="exportando-figuras-com-as-funções-png-tiff-jpeg-e-bmp" class="level3">
-<h3 class="anchored" data-anchor-id="exportando-figuras-com-as-funções-png-tiff-jpeg-e-bmp">Exportando figuras com as funções <code>png</code>, <code>tiff</code>, <code>jpeg</code> e <code>bmp</code></h3>
-<p>Temos melhor controle sobre a qualidade gráfica no R exportando figuras em uma variedade de formatos e resoluções. Exemplificamos esta funcionalidade abaixo com a função <code>png</code>. No entanto, uma breve busca nos menus de ajuda mostrará que existem funções similares para outras extensões de imagem que possume funcionamentos similares.</p>
+<section id="exportando-figuras-funções-png-tiff-jpeg-e-bmp" class="level2" data-number="7">
+<h2 data-number="7" class="anchored" data-anchor-id="exportando-figuras-funções-png-tiff-jpeg-e-bmp"><span class="header-section-number">7</span> Exportando figuras: funções <code>png</code>, <code>tiff</code>, <code>jpeg</code> e <code>bmp</code></h2>
+<p>É possível exportar figuras em diversos formatos e resoluções. A função <code>png</code> é exemplificada abaixo. As funções para exportar em outros formatos são similares.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">png</span>(<span class="at">filename =</span> <span class="st">"Exemplo_figura.png"</span>,</span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">width =</span> <span class="dv">15</span>, <span class="at">height =</span> <span class="dv">15</span>, <span class="at">units =</span> <span class="st">"cm"</span>, </span>
-<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">pointsize =</span> <span class="dv">10</span>, <span class="at">bg =</span> <span class="st">"white"</span>, <span class="at">res =</span> <span class="dv">800</span>)</span>
-<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(alt <span class="sc">~</span> dfs, <span class="at">data =</span> ambiente, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">type =</span> <span class="st">"b"</span>, </span>
-<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"Vazão"</span>, <span class="at">ylab =</span> <span class="st">"Elevação"</span>)</span>
-<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a><span class="fu">dev.off</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">png</span>(<span class="at">filename =</span> <span class="st">"Exemplo_figura.png"</span>,</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">width =</span> <span class="dv">15</span>, <span class="at">height =</span> <span class="dv">15</span>, <span class="at">units =</span> <span class="st">"cm"</span>, </span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">pointsize =</span> <span class="dv">10</span>, <span class="at">bg =</span> <span class="st">"white"</span>, <span class="at">res =</span> <span class="dv">800</span>)</span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(alt <span class="sc">~</span> dfs, <span class="at">data =</span> ambiente, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">type =</span> <span class="st">"b"</span>, </span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"Vazão"</span>, <span class="at">ylab =</span> <span class="st">"Elevação"</span>)</span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a><span class="fu">dev.off</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Lembre-se que a figura foi salva do diretório atual de sua seção de trabalho. Você pode conferir este diretório com:</p>
+<p>A figura foi salva do diretório atual de sua seção de trabalho. Você pode conferir este diretório com o comando:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">getwd</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">getwd</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Experimente alterar os argumentos <code>width</code>, <code>height</code>, <code>pointsize</code>, <code>units</code> (com <code>"px"</code>, <code>"in"</code>, <code>"cm"</code> ou <code>"mm"</code>) e <code>res</code>.</p>
 <p>As capacidades gráficas no R incluem ainda muitos outros argumentos. Alguns deles são: cores (<code>col</code>), tipos da fonte (<code>font</code>), tamanhos de símbolos (<code>cex</code>), dos labels (<code>cex.lab</code>), dos rótulos dos eixos (<code>cex.axis</code>), título (<code>main</code>), etc. Pode-se ainda inserir legendas (função <code>legend</code>) e textos (função <code>text</code>). Veja o <strong>help</strong> de cada uma destas funções e a lista de argumentos possíveis para o ambiente gráfico do R em <code>?par</code>. Veja também uma demonstração com <code>demo(graphics)</code>, <code>demo(image)</code>, <code>demo(persp)</code> e <code>demo(plotmath)</code>.</p>
@@ -1165,10 +1140,20 @@ Note
 </ul>
 
 
-</section>
+
 </section>
 
-</main> <!-- /main -->
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-borcard2018numerical" class="csl-entry" role="listitem">
+Borcard, Daniel, François Gillet, and Pierre Legendre. 2018. <em>Numerical Ecology with r</em>. Springer.
+</div>
+<div id="ref-dray2015ade" class="csl-entry" role="listitem">
+Dray, S, AB Dufour, and J Thioulouse. 2015. <span>“Ade 4: Analysis of Ecological Data: Exploratory and Euclidean Methods in Environmental Sciences. R Package Version 1.7-2.”</span>
+</div>
+<div id="ref-Verneaux1973" class="csl-entry" role="listitem">
+Verneaux, J. 1973. <span>“Cours d’eau de Franche-Comté (Massif Du Jura). Recherches Écologiques Sur Le Réseau Hydrographique Du Doubs. Essai de Biotypologie.”</span> PhD thesis, Thèse d’état, Besançon.
+</div>
+</div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -1740,8 +1725,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../../conteudo/ciencia_dados/tidyverse.qmd" class="pagination-link" aria-label="Pacotes em `tidyverse`">
-        <span class="nav-page-text">Pacotes em <code>tidyverse</code></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../../conteudo/ciencia_dados/tidyverse.html" class="pagination-link" aria-label="Pacotes em Tidyverse">
+        <span class="nav-page-text">Pacotes em Tidyverse</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
