@@ -95,7 +95,7 @@ website:
           - href: conteudo/inferencia/distribuicao-normal.qmd
             text: O modelo de distribuição normal
           - href: conteudo/inferencia/tcl.qmd
-            text: "Distribuição das médias amostrais: TCL"
+            text: Teorema Central do Limite
           - href: conteudo/inferencia/distribuicao-t.qmd
             text: Distribuição t de Student
           - href: conteudo/inferencia/estimacao.qmd
@@ -106,7 +106,7 @@ website:
             text: "Distribuição F: comparando variâncias"
           - href: conteudo/inferencia/teste-t.qmd
             text: "Comparando médias: teste t de Student"
-      - section: "Modelos de Análise de Variância"
+      - section: "Análise de Variância"
         contents:
           - href: conteudo/anova/anova-simples.qmd
             text: Análise de Variância de um Fator
@@ -120,7 +120,7 @@ website:
             text: Análise de Variância de Medidas Repetidas
           - href: conteudo/anova/anova-aninhada.qmd
             text: Análise de Variância Aninhada
-      - section: "Modelos de Regressão Linear"
+      - section: "Regressão Linear"
         contents:
           - href: conteudo/regressao_linear/regressao-linear-simples.qmd
             text: Regressão Linear Simples
@@ -149,9 +149,9 @@ website:
           - href: conteudo/topicos/variancias-heterogeneas.qmd
             text: "Variâncias heterogêneas"
           - href: conteudo/topicos/dependencia-temporal.qmd
-            text: "Modelos com autocorrelação temporal"
+            text: "Autocorrelação temporal"
           - href: conteudo/topicos/dependencia-espacial.qmd
-            text: "Modelos com autocorrelação espacial"
+            text: "Autocorrelação espacial"
           - href: conteudo/topicos/simulacao.qmd
             text: "Simulando modelos estatísticos"
 format:
