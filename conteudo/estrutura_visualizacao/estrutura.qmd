@@ -1,0 +1,105 @@
+---
+title: Estrutura e tipos de dados
+execute:
+  echo: true
+  warning: false
+  include: true
+  message: false
+format:
+  html:
+    code-fold: false
+---
+
+Neste capítulo, exploraremos os conceitos fundamentais de estrutura de dados, focando na organização de unidades amostrais e descritores em tabelas de dados. Também discutiremos diferentes tipos de variáveis, suas transformações e como lidar com valores ausentes (`NA`) em tabelas de dados. Para ilustrar esses conceitos, usaremos a tabela `penguins_raw` do pacote [palmerpenguins](https://allisonhorst.github.io/palmerpenguins/) em R, fornecendo tanto explicações teóricas quanto exemplos práticos de código em R.
+
+:::{.callout-tip collapse="true"}
+## Pacotes utilizados
+
+```{r}
+library(tidyverse)
+library(gt)
+library(palmerpenguins)
+```
+:::
+
+
+## Palmer Penguins dataset
+
+A tabela `penguins_raw` inclui observações de nidificação, dados de morfometria e tamanho dos pinguins e medidas de isótopos de amostras de sangue de pinguins adultos das espécies Adélie (*Pygoscelis adeliae*), Chinstrap (*Pygoscelis antarctica*) e Gentoo (*Pygoscelis papua*).
+
+```{r}
+#| label: tbl-penguins_raw
+#| tbl-cap: "Primeiras linhas da tabela `penguins_raw`."
+data(penguins_raw)
+penguins_raw |> 
+  head() |>
+  gt()
+```
+
+A tabela `penguins_raw` contém `r nrow(penguins_raw)` linhas e `r ncol(penguins_raw)` colunas, cada uma representando diferentes aspectos dos dados coletados sobre os pinguins. Cada linha representa uma **unidade amostral** (UA) e cada coluna representa uma **variável** (VAR) que descreve um atributo específico da unidade amostral (@tbl-atr_penguins_raw).
+
+| Variável          | Tipo                  | Descrição                                                                 |
+|:------------------|:----------------------|:--------------------------------------------------------------------------|
+| studyName         | Categórica            | Expedição de amostragem de onde os dados foram coletados, gerados, etc.   |
+| Sample Number     | Quantitativa Discreta | Um número inteiro indicando a sequência contínua de numeração para cada amostra |
+| Species           | Categórica            | Uma string de caracteres indicando a espécie de pinguim                   |
+| Region            | Categórica            | Uma string de caracteres indicando a região da grade de amostragem Palmer LTER |
+| Island            | Categórica            | Uma string de caracteres indicando a ilha perto da Estação Palmer onde as amostras foram coletadas |
+| Stage             | Categórica            | Uma string de caracteres indicando o estágio reprodutivo no momento da amostragem |
+| Individual ID     | Categórica            | Uma string de caracteres indicando o ID único para cada indivíduo no conjunto de dados |
+| Clutch Completion | Categórica            | Uma string de caracteres indicando se o ninho estudado foi observado com uma ninhada completa, ou seja, 2 ovos |
+| Date Egg          | Categórica Ordinal    | Uma data indicando a data em que o ninho estudado foi observado com 1 ovo (amostrado) |
+| Culmen Length     | Quantitativa Contínua | Um número indicando o comprimento da crista dorsal do bico de um pássaro (milímetros) |
+| Culmen Depth      | Quantitativa Contínua | Um número indicando a profundidade da crista dorsal do bico de um pássaro (milímetros) |
+| Flipper Length    | Quantitativa Discreta | Um número inteiro indicando o comprimento da nadadeira do pinguim (milímetros) |
+| Body Mass         | Quantitativa Discreta | Um número inteiro indicando a massa corporal do pinguim (gramas)          |
+| Sex               | Categórica            | Uma string de caracteres indicando o sexo do animal                       |
+| Delta 15 N        | Quantitativa Contínua | Um número indicando a medida da razão dos isótopos estáveis 15N:14N       |
+| Delta 13 C        | Quantitativa Contínua | Um número indicando a medida da razão dos isótopos estáveis 13C:12C       |
+| Comments          | Categórica            | Uma string de caracteres com texto fornecendo informações adicionais relevantes para os dados |
+
+: Descrição dos atributos da tabela `penguins_raw`. {#tbl-atr_penguins_raw .striped .hover}
+
+## Dados ausentes
+
+Valores não preenchidos são comuns em conjuntos de dados. Na tabela `penguins_raw`, diversas colunas apresentam dados ausentes, indicados como `NA`. A seguir, são apresentadas algumas estratégias para lidar com esses dados faltantes:
+
+1. Remover valores faltantes: Exclua linhas com dados ausentes usando a função `drop_na()`.
+
+```{r}
+penguins_limpo <- drop_na(penguins_raw)
+
+nrow(penguins_limpo)
+```
+
+Restaram apenas `r nrow(penguins_raw)` linhas na tabela, o que indica a necessidade de avaliar cuidadosamente quais colunas terão seus valores `NA` removidos. Para isso, é útil verificar a quantidade de dados ausentes em cada coluna. Observando a tabela @tbl-penguins_raw, nota-se que a maioria dos dados ausentes está na variável `Comments`. Como essa coluna não será incluída nas análises, os valores ausentes nela não precisam ser removidos. Podemos, portanto, excluir as linhas que contêm `NA` em outras colunas, preservando apenas a coluna `Comments`.
+
+```{r}
+penguins_limpo <- penguins_raw %>%
+  drop_na(-Comments)
+
+nrow(penguins_limpo)
+```
+
+Agora, restaram `r nrow(penguins_raw)` linhas na tabela. A remoção de linhas deve ser feita com cautela, avaliando caso a caso. Como alternativa, pode-se considerar a imputação de valores para as células ausentes, o que pode permitir a preservação de mais dados para análise.
+
+2. Inserir valores faltantes: Preencha valores faltantes usando métodos estatísticos, como substituição pela média.
+
+```{r}
+penguins_lpch <- penguins_raw %>%
+  mutate(`Culmen Length (mm)` = if_else(
+    is.na(`Culmen Length (mm)`),
+    mean(`Culmen Length (mm)`, na.rm = TRUE),
+    `Culmen Length (mm)`
+  ))
+```
+
+Neste caso, os valores ausentes foram substituídos pela média aritmética da variável `Culmen Length (mm)`.
+
+:::{.callout-tip}
+# Técnicas Avançadas de Imputação
+
+Uma alternativa à substituição pela média simples é a imputação múltipla, que pode utilizar agrupamentos mais detalhados (por exemplo, por espécie e ilha) e considerar a associação com outras variáveis da tabela. Outra opção é empregar métodos mais sofisticados, como o k-Nearest Neighbors (kNN).
+:::
+
+

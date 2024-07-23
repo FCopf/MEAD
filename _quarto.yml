@@ -8,7 +8,7 @@ website:
   site-url: "https://www"
 
   repo-url: https://www
-  repo-actions: [edit, issue]
+  #repo-actions: [edit, issue]
 
   open-graph: true
 
@@ -54,14 +54,10 @@ website:
             text: Gráficos em camadas
       - section: "Estrutura de dados"
         contents:
-          - href: conteudo/estrutura_dados/estrutura.qmd
+          - href: conteudo/estrutura_visualizacao/estrutura.qmd
             text: Estrutura e tipo de dados
-          - href: conteudo/estrutura_dados/estrutura.qmd
-            text: Estrutura e tipo de dados
-          - href: conteudo/estrutura_dados/visualizacao-univariada.qmd
-            text: Visualização de dados univariados
-          - href: conteudo/estrutura_dados/visualizacao-bivariada.qmd
-            text: Visualização de dados bidimensionais
+          - href: conteudo/estrutura_dados/visualizacao.qmd
+            text: Visualização de dados
       - section: "Modelos de probabilidade"
         contents:
           - href: conteudo/probabilidade/espaco-amostral.qmd
@@ -78,7 +74,7 @@ website:
             text: Variáveis aleatórias contínuas
       - section: "Amostragem e Estatística Descritiva"
         contents:
-          - href: conteudo/descritiva/popolacao-amostra.qmd
+          - href: conteudo/descritiva/populacao-amostra.qmd
             text: Populações e amostras
           - href: conteudo/descritiva/amostragem.qmd
             text: Amostrando uma População Estatística
@@ -166,5 +162,5 @@ format:
     number-sections: true
     toc-depth: 2
 
-freeze: false
+freeze: auto
 bibliography: references.bib

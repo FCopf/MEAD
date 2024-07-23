@@ -1,0 +1,15 @@
+{
+  "hash": "e7af5e93994a6abb9d2d3edd9c5caa0c",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: Os pacotes em ```tidyverse```\nexecute:\n  echo: true\n  warning: false\n  include: true\n  message: false\n---\n\n\n\n\nO [Tidyverse](https://www.tidyverse.org/) é uma coleção de pacotes em R projetados para ciência de dados que inclui ferramentas para **importar**, **arrumar**, **transformar**, **visualizar** e **modelar dados**, todas integradas de forma coesa para tornar a análise de dados mais eficiente e intuitiva. O Tidyverse facilita a prática de uma ciência de dados mais limpa, clara e reproduzível. Entre os pacotes mais populares do Tidyverse estão `ggplot2` para visualização de dados, `dplyr` para manipulação de dados e `tidyr` para arrumação de dados.\n\n| Pacote     | Função                       |\n|------------|------------------------------|\n| `readr`    | Importação de dados          |\n| `dplyr`    | Manipulação de dados         |\n| `tidyr`    | Organização de dados         |\n| `purrr`    | Programação funcional        |\n| `tibble`   | Visualização de data frames  |\n| `stringr`  | Manipulação de texto         |\n| `forcats`  | Manipulação de fatores       |\n| `ggplot2`  | Visualização gráfica         |\n\nAlém destes existem ainda outros  que se integram bem à filosofia do ```tidyverse``` como o ```lubridade``` (manipulação de datas), o ```readxl``` (leitura de arquivos ```.xls``` e ```.xlsx```), além de muitos outros. Veremos algumas funções e práticas úteis utilizando estes pacotes. Para uma visão geral de cada pacote, verifique as [Cheatsheets](https://rstudio.com/resources/cheatsheets/) que oferecem um resumo sobre as funções principais.\n\n::: {.callout-tip}\n\n## R for Data Science (2e)\n\nPara uma fundamentação sobre as ferramentas mais importantes para tratamento de dados no R accesse a publicação [R for Data Science (2e)](https://r4ds.hadley.nz/).\n\n:::\n\n## Instalando os pacotes\n\nCada um dos pacotes incorporados no ```tidyverse``` pode ser instalado individualmente. Por exemplo:\n\n\n\n\n::: {.cell}\n\n```{.r .cell-code}\ninstall.packages(\"dplyr\")\ninstall.packages(\"ggplot2\")\n```\n:::\n\n\n\n\nEntretando, ao instalar o ```tidyverse```, todos são instalados de uma única vez:\n\n\n\n\n::: {.cell}\n\n```{.r .cell-code}\ninstall.packages(\"tidyverse\")\n```\n:::\n\n\n\n\n## Carregando os pacotes\n\nAo iniciar uma seção, você deve sempre carregar os pacotes que irá utilizar. No caso do ```tidyverse```, você pode carregar cada pacote individualmente:\n\n\n\n\n::: {.cell}\n\n```{.r .cell-code}\nlibrary(dplyr)\nlibrary(ggplot2)\n```\n:::\n\n\n\n\nOu todos de uma única vez:\n\n\n\n\n::: {.cell}\n\n```{.r .cell-code}\nlibrary(tidyverse)\n```\n:::\n\n::: {.cell}\n\n:::",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}
