@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Os pacotes em tidyverse – Métodos em Estatística e Análise de Dados</title>
+<title>Tranformação de Dados – Métodos em Estatística e Análise de Dados</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -54,7 +54,27 @@ div.sourceCode
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -63,8 +83,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../">
-<link href="../../conteudo/ciencia_dados/import_export.html" rel="next">
-<link href="../../conteudo/introducao_r/graficos-r.html" rel="prev">
+<link href="../../conteudo/ciencia_dados/grafico_ggplot.qmd" rel="next">
+<link href="../../conteudo/ciencia_dados/pipe.html" rel="prev">
 <script src="../../site_libs/quarto-html/quarto.js"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -104,8 +124,37 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
-<meta property="og:title" content="Os pacotes em tidyverse – Métodos em Estatística e Análise de Dados">
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<meta property="og:title" content="Tranformação de Dados – Métodos em Estatística e Análise de Dados">
 <meta property="og:description" content="Página de apoio para os cursos de estatistica e delineamento">
 <meta property="og:site_name" content="Métodos em Estatística e Análise de Dados">
 </head>
@@ -119,7 +168,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../conteudo/ciencia_dados/tidyverse.html">Pacotes em R para Ciência de Dados</a></li><li class="breadcrumb-item"><a href="../../conteudo/ciencia_dados/tidyverse.html">Pacotes em Tidyverse</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../conteudo/ciencia_dados/tidyverse.html">Pacotes em R para Ciência de Dados</a></li><li class="breadcrumb-item"><a href="../../conteudo/ciencia_dados/transform.html">Tranformação de Dados</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -194,7 +243,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../conteudo/ciencia_dados/tidyverse.html" class="sidebar-item-text sidebar-link active">
+  <a href="../../conteudo/ciencia_dados/tidyverse.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Pacotes em Tidyverse</span></a>
   </div>
 </li>
@@ -212,7 +261,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../conteudo/ciencia_dados/transform.html" class="sidebar-item-text sidebar-link">
+  <a href="../../conteudo/ciencia_dados/transform.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Tranformação de Dados</span></a>
   </div>
 </li>
@@ -580,17 +629,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul class="collapse">
-  <li><a href="#instalando-os-pacotes" id="toc-instalando-os-pacotes" class="nav-link active" data-scroll-target="#instalando-os-pacotes"><span class="header-section-number">1</span> Instalando os pacotes</a></li>
-  <li><a href="#carregando-os-pacotes" id="toc-carregando-os-pacotes" class="nav-link" data-scroll-target="#carregando-os-pacotes"><span class="header-section-number">2</span> Carregando os pacotes</a></li>
+  <li><a href="#ordenando-as-linhas-funções-arrange-e-desc" id="toc-ordenando-as-linhas-funções-arrange-e-desc" class="nav-link active" data-scroll-target="#ordenando-as-linhas-funções-arrange-e-desc"><span class="header-section-number">1</span> Ordenando as linhas: funções <code>arrange()</code> e <code>desc()</code></a></li>
+  <li><a href="#filtrando-linhas-função-filter" id="toc-filtrando-linhas-função-filter" class="nav-link" data-scroll-target="#filtrando-linhas-função-filter"><span class="header-section-number">2</span> Filtrando linhas: função <code>filter()</code></a></li>
+  <li><a href="#selecionando-colunas-função-select" id="toc-selecionando-colunas-função-select" class="nav-link" data-scroll-target="#selecionando-colunas-função-select"><span class="header-section-number">3</span> Selecionando colunas: função <code>select()</code></a></li>
+  <li><a href="#agrupando-tabelas-funções-do-grupo-join" id="toc-agrupando-tabelas-funções-do-grupo-join" class="nav-link" data-scroll-target="#agrupando-tabelas-funções-do-grupo-join"><span class="header-section-number">4</span> Agrupando tabelas: funções do grupo <code>join</code></a></li>
+  <li><a href="#criando-e-modificando-colunas-com-mutate" id="toc-criando-e-modificando-colunas-com-mutate" class="nav-link" data-scroll-target="#criando-e-modificando-colunas-com-mutate"><span class="header-section-number">5</span> Criando e modificando colunas com <code>mutate()</code></a></li>
+  <li><a href="#reformatando-data-frames-funções-pivot_wider-e-pivot_longer" id="toc-reformatando-data-frames-funções-pivot_wider-e-pivot_longer" class="nav-link" data-scroll-target="#reformatando-data-frames-funções-pivot_wider-e-pivot_longer"><span class="header-section-number">6</span> Reformatando data frames: funções <code>pivot_wider()</code> e <code>pivot_longer()</code></a></li>
   </ul>
-<div class="toc-actions"><ul class="collapse"><li><a href="https://www/edit/main/conteudo/ciencia_dados/tidyverse.qmd" class="toc-action"><i class="bi bi-git"></i>Edit this page</a></li><li><a href="https://www/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+<div class="toc-actions"><ul class="collapse"><li><a href="https://www/edit/main/conteudo/ciencia_dados/transform.qmd" class="toc-action"><i class="bi bi-git"></i>Edit this page</a></li><li><a href="https://www/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../conteudo/ciencia_dados/tidyverse.html">Pacotes em R para Ciência de Dados</a></li><li class="breadcrumb-item"><a href="../../conteudo/ciencia_dados/tidyverse.html">Pacotes em Tidyverse</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../conteudo/ciencia_dados/tidyverse.html">Pacotes em R para Ciência de Dados</a></li><li class="breadcrumb-item"><a href="../../conteudo/ciencia_dados/transform.html">Tranformação de Dados</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Os pacotes em <code>tidyverse</code></h1>
+<h1 class="title">Tranformação de Dados</h1>
 </div>
 
 
@@ -607,91 +660,449 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>O <a href="https://www.tidyverse.org/">Tidyverse</a> é uma coleção de pacotes em R projetados para ciência de dados que inclui ferramentas para <strong>importar</strong>, <strong>arrumar</strong>, <strong>transformar</strong>, <strong>visualizar</strong> e <strong>modelar dados</strong>, todas integradas de forma coesa para tornar a análise de dados mais eficiente e intuitiva. O Tidyverse facilita a prática de uma ciência de dados mais limpa, clara e reproduzível. Entre os pacotes mais populares do Tidyverse estão <code>ggplot2</code> para visualização de dados, <code>dplyr</code> para manipulação de dados e <code>tidyr</code> para arrumação de dados.</p>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th>Pacote</th>
-<th>Função</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code>readr</code></td>
-<td>Importação de dados</td>
-</tr>
-<tr class="even">
-<td><code>dplyr</code></td>
-<td>Manipulação de dados</td>
-</tr>
-<tr class="odd">
-<td><code>tidyr</code></td>
-<td>Organização de dados</td>
-</tr>
-<tr class="even">
-<td><code>purrr</code></td>
-<td>Programação funcional</td>
-</tr>
-<tr class="odd">
-<td><code>tibble</code></td>
-<td>Visualização de data frames</td>
-</tr>
-<tr class="even">
-<td><code>stringr</code></td>
-<td>Manipulação de texto</td>
-</tr>
-<tr class="odd">
-<td><code>forcats</code></td>
-<td>Manipulação de fatores</td>
-</tr>
-<tr class="even">
-<td><code>ggplot2</code></td>
-<td>Visualização gráfica</td>
-</tr>
-</tbody>
-</table>
-<p>Além destes existem ainda outros que se integram bem à filosofia do <code>tidyverse</code> como o <code>lubridade</code> (manipulação de datas), o <code>readxl</code> (leitura de arquivos <code>.xls</code> e <code>.xlsx</code>), além de muitos outros. Veremos algumas funções e práticas úteis utilizando estes pacotes. Para uma visão geral de cada pacote, verifique as <a href="https://rstudio.com/resources/cheatsheets/">Cheatsheets</a> que oferecem um resumo sobre as funções principais.</p>
-<div class="callout callout-style-default callout-tip callout-titled">
+<p>Após importar uma base de dados para o R, os pacotes <code>dplyr</code> e <code>tidyr</code> são essenciais para transformação de data frames. As funções desses pacotes ajudam na análise, modelagem e comunicação de dados. Neste seção são apresentadas as principais funções para transformar observações (linhas) e variáveis em um data frame a partir de uma ou mais tabelas. A <a href="https://rstudio.com/resources/cheatsheets/">Cheatsheets</a> do <code>dplyr</code> apresenta outros recursos não discutidos nesta seção.</p>
+<section id="ordenando-as-linhas-funções-arrange-e-desc" class="level2" data-number="1">
+<h2 data-number="1" class="anchored" data-anchor-id="ordenando-as-linhas-funções-arrange-e-desc"><span class="header-section-number">1</span> Ordenando as linhas: funções <code>arrange()</code> e <code>desc()</code></h2>
+<p>As funções <code>arrange()</code> e <code>desc()</code> permitem ordenar a base de dados com base nos valores de uma ou mais colunas. Usará-se o conjunto de dados <code>iris</code> como exemplo.</p>
+<p>Carregar os pacote <code>dplyr</code>, <code>tidyr</code> e `readr``</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Para carregar e visualizar as primeiras linhas da base de dados iris:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"iris"</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(iris, <span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+1           5.1         3.5          1.4         0.2  setosa
+2           4.9         3.0          1.4         0.2  setosa
+3           4.7         3.2          1.3         0.2  setosa
+4           4.6         3.1          1.5         0.2  setosa
+5           5.0         3.6          1.4         0.2  setosa
+6           5.4         3.9          1.7         0.4  setosa
+7           4.6         3.4          1.4         0.3  setosa
+8           5.0         3.4          1.5         0.2  setosa
+9           4.4         2.9          1.4         0.2  setosa
+10          4.9         3.1          1.5         0.1  setosa</code></pre>
+</div>
+</div>
+<p>Para ordenar a tabela pela coluna <code>Sepal.Length</code> em ordem crescente:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>iris <span class="sc">|&gt;</span> </span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(Sepal.Length)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Para ordenar em ordem decrescente:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>iris <span class="sc">|&gt;</span> </span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(Sepal.Length))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>É possível também combinar duas colunas, ordenando a tabela pela coluna <code>Species</code> (em ordem alfabética decrescente) e <code>Sepal.Length</code> (em ordem crescente):</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>iris <span class="sc">|&gt;</span> </span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(Species), Sepal.Length)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Para criar um novo objeto com a tabela ordenada</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>iris_ordenado <span class="ot">&lt;-</span> iris <span class="sc">|&gt;</span> </span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(Sepal.Length)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>iris_ordenado</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="filtrando-linhas-função-filter" class="level2" data-number="2">
+<h2 data-number="2" class="anchored" data-anchor-id="filtrando-linhas-função-filter"><span class="header-section-number">2</span> Filtrando linhas: função <code>filter()</code></h2>
+<p>A função <code>filter()</code> extrai linhas que satisfazem uma condição lógica. Para filtrar as linhas referentes à espécie <code>virginica</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>iris <span class="sc">|&gt;</span> </span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Species <span class="sc">==</span> <span class="st">"virginica"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Para filtrar espécies diferentes de <code>virginica</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>iris <span class="sc">|&gt;</span> </span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Species <span class="sc">!=</span> <span class="st">"virginica"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Para filtrar linhas onde o comprimento das pétalas seja menor que <span class="math inline">\(1.3\)</span>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>iris <span class="sc">|&gt;</span> </span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Petal.Length <span class="sc">&lt;</span> <span class="fl">1.3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Para filtrar onde o comprimento das pétalas seja menor que <span class="math inline">\(1.3\)</span> e o comprimento das sépalas seja maior ou igual a <span class="math inline">\(5\)</span>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>iris <span class="sc">|&gt;</span> </span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Petal.Length <span class="sc">&lt;</span> <span class="fl">1.3</span> <span class="sc">&amp;</span> Sepal.Length <span class="sc">&gt;=</span> <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="selecionando-colunas-função-select" class="level2" data-number="3">
+<h2 data-number="3" class="anchored" data-anchor-id="selecionando-colunas-função-select"><span class="header-section-number">3</span> Selecionando colunas: função <code>select()</code></h2>
+<p>A função <code>select()</code> permite extrair ou reorganizar um subconjunto de colunas de um data frame.</p>
+<p>Para extrair uma coluna:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>iris <span class="sc">|&gt;</span> </span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Petal.Length)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Para extrair múltiplas colunas:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>iris <span class="sc">|&gt;</span> </span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Petal.Length, Species)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Para extrair um intervalo de colunas:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>iris <span class="sc">|&gt;</span> </span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Petal.Length<span class="sc">:</span>Species)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Para excluir uma coluna:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>iris <span class="sc">|&gt;</span> </span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>Petal.Length)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Para excluir colunas específicas:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>iris <span class="sc">|&gt;</span> </span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">!</span><span class="fu">c</span>(Petal.Length, Species))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Para selecionar colunas que começam com “Sepal”:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>iris <span class="sc">|&gt;</span> </span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">starts_with</span>(<span class="st">"Sepal"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Para combinar <code>filter()</code> e <code>select()</code> a fim de extrair um subconjunto do data frame:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>iris <span class="sc">|&gt;</span> </span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">starts_with</span>(<span class="st">"Sepal"</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Sepal.Length <span class="sc">&lt;=</span> <span class="fl">4.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="agrupando-tabelas-funções-do-grupo-join" class="level2" data-number="4">
+<h2 data-number="4" class="anchored" data-anchor-id="agrupando-tabelas-funções-do-grupo-join"><span class="header-section-number">4</span> Agrupando tabelas: funções do grupo <code>join</code></h2>
+<p>As funções <code>left_join()</code>, <code>right_join()</code>, <code>inner_join()</code>, <code>anti_join()</code> e <code>full_join()</code> do pacote <code>dplyr</code> em R são utilizadas para combinar dois data frames baseados em uma coluna ou colunas comuns. Esses tipos de joins são amplamente utilizados em operações de banco de dados e manipulação de dados.</p>
+<p>Considere os arquivos <code>regiao.csv</code> e <code>habitat.csv</code> do repositório <a href="https://github.com/FCopf/datasets">datasets</a>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>regiao <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"https://raw.githubusercontent.com/FCopf/datasets/master/regiao.csv"</span>)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>habitat <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"https://raw.githubusercontent.com/FCopf/datasets/master/habitat.csv"</span>)</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>regiao</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 10 × 4
+   Riacho Bacia      Município      Área
+   &lt;chr&gt;  &lt;chr&gt;      &lt;chr&gt;         &lt;dbl&gt;
+ 1 R1     Boicucanga São Sebastião  30.3
+ 2 R4     Boicucanga São Sebastião  30.3
+ 3 R8     Boicucanga São Sebastião  30.3
+ 4 R2     Cubatão    Cubatão       189  
+ 5 R5     Cubatão    Cubatão       189  
+ 6 R10    Cubatão    Cubatão       189  
+ 7 R13    Cubatão    Cubatão       189  
+ 8 R6     Quilombo   Santos         86  
+ 9 R9     Quilombo   Santos         86  
+10 R7     Quilombo   Santos         86  </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>habitat</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 8 × 4
+  Riacho Altitude Largura Profundidade
+  &lt;chr&gt;     &lt;dbl&gt;   &lt;dbl&gt;        &lt;dbl&gt;
+1 R1           74     7.8         20.2
+2 R4           14    10.9         17.7
+3 R8          245     8.3         19.5
+4 R11         241     2.2         20.3
+5 R2           29     1.6         11.8
+6 R6           86    15.2         35.3
+7 R9           77     4.1         18.9
+8 R7           63    14.2         42.1</code></pre>
+</div>
+</div>
+<section id="tabela-regiao-.unnumbered-contém-informações-sobre-a-bacia-hidrográfica-área-da-bacia-e-município-de-alguns-riachos-da-região-litorânea-de-são-paulo." class="level4" data-number="4.0.1">
+<h4 data-number="4.0.1" class="anchored" data-anchor-id="tabela-regiao-.unnumbered-contém-informações-sobre-a-bacia-hidrográfica-área-da-bacia-e-município-de-alguns-riachos-da-região-litorânea-de-são-paulo."><span class="header-section-number">4.0.1</span> Tabela regiao {.unnumbered}: Contém informações sobre a bacia hidrográfica, área da bacia e município de alguns riachos da região litorânea de São Paulo.</h4>
+</section>
+<section id="tabela-habitat-.unnumbered-contém-informações-sobre-a-largura-e-profundidade-desses-riachos.-algumas-entradas-são-comuns-às-duas-tabelas-enquanto-outras-são-exclusivas-de-uma-delas.-a-coluna-riacho-serve-como-chave-para-combinar-as-informações." class="level4" data-number="4.0.2">
+<h4 data-number="4.0.2" class="anchored" data-anchor-id="tabela-habitat-.unnumbered-contém-informações-sobre-a-largura-e-profundidade-desses-riachos.-algumas-entradas-são-comuns-às-duas-tabelas-enquanto-outras-são-exclusivas-de-uma-delas.-a-coluna-riacho-serve-como-chave-para-combinar-as-informações."><span class="header-section-number">4.0.2</span> Tabela habitat {.unnumbered}: Contém informações sobre a largura e profundidade desses riachos. Algumas entradas são comuns às duas tabelas, enquanto outras são exclusivas de uma delas. A coluna <code>Riacho</code> serve como chave para combinar as informações.</h4>
+</section>
+<section id="função-left_join" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="função-left_join">Função left_join()</h3>
+<p>Retorna todas as linhas da tabela à esquerda (<code>regiao</code>) e adiciona colunas da tabela à direita (<code>habitat</code>). Linhas sem correspondência na tabela da direita terão valores de <code>NA</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>regiao <span class="sc">|&gt;</span> <span class="fu">left_join</span>(<span class="at">y =</span> habitat)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 10 × 7
+   Riacho Bacia      Município      Área Altitude Largura Profundidade
+   &lt;chr&gt;  &lt;chr&gt;      &lt;chr&gt;         &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;        &lt;dbl&gt;
+ 1 R1     Boicucanga São Sebastião  30.3       74     7.8         20.2
+ 2 R4     Boicucanga São Sebastião  30.3       14    10.9         17.7
+ 3 R8     Boicucanga São Sebastião  30.3      245     8.3         19.5
+ 4 R2     Cubatão    Cubatão       189         29     1.6         11.8
+ 5 R5     Cubatão    Cubatão       189         NA    NA           NA  
+ 6 R10    Cubatão    Cubatão       189         NA    NA           NA  
+ 7 R13    Cubatão    Cubatão       189         NA    NA           NA  
+ 8 R6     Quilombo   Santos         86         86    15.2         35.3
+ 9 R9     Quilombo   Santos         86         77     4.1         18.9
+10 R7     Quilombo   Santos         86         63    14.2         42.1</code></pre>
+</div>
+</div>
+</section>
+<section id="função-right_join" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="função-right_join">Função right_join()</h3>
+<p>Retorna todas as linhas da tabela à direita (<code>habitat</code>) e adiciona colunas da tabela à esquerda (<code>regiao</code>). Linhas sem correspondência na tabela da esquerda terão valores de <code>NA</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>regiao <span class="sc">%&gt;%</span> <span class="fu">right_join</span>(<span class="at">y =</span> habitat, <span class="at">keep=</span><span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 8 × 8
+  Riacho.x Bacia      Município      Área Riacho.y Altitude Largura Profundidade
+  &lt;chr&gt;    &lt;chr&gt;      &lt;chr&gt;         &lt;dbl&gt; &lt;chr&gt;       &lt;dbl&gt;   &lt;dbl&gt;        &lt;dbl&gt;
+1 R1       Boicucanga São Sebastião  30.3 R1             74     7.8         20.2
+2 R4       Boicucanga São Sebastião  30.3 R4             14    10.9         17.7
+3 R8       Boicucanga São Sebastião  30.3 R8            245     8.3         19.5
+4 R2       Cubatão    Cubatão       189   R2             29     1.6         11.8
+5 R6       Quilombo   Santos         86   R6             86    15.2         35.3
+6 R9       Quilombo   Santos         86   R9             77     4.1         18.9
+7 R7       Quilombo   Santos         86   R7             63    14.2         42.1
+8 &lt;NA&gt;     &lt;NA&gt;       &lt;NA&gt;           NA   R11           241     2.2         20.3</code></pre>
+</div>
+</div>
+</section>
+<section id="função-inner_join" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="função-inner_join">Função inner_join()</h3>
+<p>Retorna apenas as linhas que têm correspondência em ambas as tabelas.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>regiao <span class="sc">|&gt;</span> <span class="fu">inner_join</span>(<span class="at">y =</span> habitat)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 7 × 7
+  Riacho Bacia      Município      Área Altitude Largura Profundidade
+  &lt;chr&gt;  &lt;chr&gt;      &lt;chr&gt;         &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;        &lt;dbl&gt;
+1 R1     Boicucanga São Sebastião  30.3       74     7.8         20.2
+2 R4     Boicucanga São Sebastião  30.3       14    10.9         17.7
+3 R8     Boicucanga São Sebastião  30.3      245     8.3         19.5
+4 R2     Cubatão    Cubatão       189         29     1.6         11.8
+5 R6     Quilombo   Santos         86         86    15.2         35.3
+6 R9     Quilombo   Santos         86         77     4.1         18.9
+7 R7     Quilombo   Santos         86         63    14.2         42.1</code></pre>
+</div>
+</div>
+</section>
+<section id="função-anti_join" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="função-anti_join">Função anti_join()</h3>
+<p>Retorna as linhas da tabela à esquerda que não têm correspondência na tabela à direita. Também retorna todas as colunas da tabela à esquerda.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>regiao <span class="sc">|&gt;</span> <span class="fu">anti_join</span>(<span class="at">y =</span> habitat)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 4
+  Riacho Bacia   Município  Área
+  &lt;chr&gt;  &lt;chr&gt;   &lt;chr&gt;     &lt;dbl&gt;
+1 R5     Cubatão Cubatão     189
+2 R10    Cubatão Cubatão     189
+3 R13    Cubatão Cubatão     189</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>habitat <span class="sc">|&gt;</span> <span class="fu">anti_join</span>(<span class="at">y =</span> regiao)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 4
+  Riacho Altitude Largura Profundidade
+  &lt;chr&gt;     &lt;dbl&gt;   &lt;dbl&gt;        &lt;dbl&gt;
+1 R11         241     2.2         20.3</code></pre>
+</div>
+</div>
+</section>
+<section id="função-full_join" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="função-full_join">Função full_join()</h3>
+<p>Retorna todas as linhas e colunas de ambas as tabelas. Nas células onde não houver correspondência, retorna <code>NA</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>regiao <span class="sc">|&gt;</span> <span class="fu">full_join</span>(<span class="at">y =</span> habitat, <span class="at">keep =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 11 × 8
+   Riacho.x Bacia      Município     Área Riacho.y Altitude Largura Profundidade
+   &lt;chr&gt;    &lt;chr&gt;      &lt;chr&gt;        &lt;dbl&gt; &lt;chr&gt;       &lt;dbl&gt;   &lt;dbl&gt;        &lt;dbl&gt;
+ 1 R1       Boicucanga São Sebasti…  30.3 R1             74     7.8         20.2
+ 2 R4       Boicucanga São Sebasti…  30.3 R4             14    10.9         17.7
+ 3 R8       Boicucanga São Sebasti…  30.3 R8            245     8.3         19.5
+ 4 R2       Cubatão    Cubatão      189   R2             29     1.6         11.8
+ 5 R5       Cubatão    Cubatão      189   &lt;NA&gt;           NA    NA           NA  
+ 6 R10      Cubatão    Cubatão      189   &lt;NA&gt;           NA    NA           NA  
+ 7 R13      Cubatão    Cubatão      189   &lt;NA&gt;           NA    NA           NA  
+ 8 R6       Quilombo   Santos        86   R6             86    15.2         35.3
+ 9 R9       Quilombo   Santos        86   R9             77     4.1         18.9
+10 R7       Quilombo   Santos        86   R7             63    14.2         42.1
+11 &lt;NA&gt;     &lt;NA&gt;       &lt;NA&gt;          NA   R11           241     2.2         20.3</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="criando-e-modificando-colunas-com-mutate" class="level2" data-number="5">
+<h2 data-number="5" class="anchored" data-anchor-id="criando-e-modificando-colunas-com-mutate"><span class="header-section-number">5</span> Criando e modificando colunas com <code>mutate()</code></h2>
+<p>A função <code>mutate()</code> permite criar e modificar colunas em um data frame. Usando a base de dados Doubs river:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ade4)</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(doubs)</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>dbenv <span class="ot">&lt;-</span> doubs<span class="sc">$</span>env</span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(dbenv)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  dfs alt   slo flo pH har pho nit amm oxy bdo
+1   3 934 6.176  84 79  45   1  20   0 122  27
+2  22 932 3.434 100 80  40   2  20  10 103  19
+3 102 914 3.638 180 83  52   5  22   5 105  35
+4 185 854 3.497 253 80  72  10  21   0 110  13
+5 215 849 3.178 264 81  84  38  52  20  80  62
+6 324 846 3.497 286 79  60  20  15   0 102  53</code></pre>
+</div>
+</div>
+<section id="ajustando-a-escala-de-ph" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="ajustando-a-escala-de-ph">Ajustando a escala de pH</h3>
+<p>A coluna <code>pH</code> está multiplicada por <span class="math inline">\(10\)</span>. Vamos ajustar isso:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>dbenv <span class="ot">&lt;-</span> dbenv  <span class="sc">|&gt;</span> </span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">pH =</span> pH <span class="sc">/</span> <span class="dv">10</span>)</span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(dbenv)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  dfs alt   slo flo  pH har pho nit amm oxy bdo
+1   3 934 6.176  84 7.9  45   1  20   0 122  27
+2  22 932 3.434 100 8.0  40   2  20  10 103  19
+3 102 914 3.638 180 8.3  52   5  22   5 105  35
+4 185 854 3.497 253 8.0  72  10  21   0 110  13
+5 215 849 3.178 264 8.1  84  38  52  20  80  62
+6 324 846 3.497 286 7.9  60  20  15   0 102  53</code></pre>
+</div>
+</div>
+</section>
+<section id="criando-variável-categórica" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="criando-variável-categórica">Criando variável categórica</h3>
+<p>Criar uma variável categórica <code>pH_cat</code> com níveis <code>Elevado</code> (maior ou igual a <span class="math inline">\(8\)</span>) e <code>Neutro</code> (menor que <span class="math inline">\(8\)</span>):</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>dbenv <span class="ot">&lt;-</span> dbenv <span class="sc">|&gt;</span> </span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">pH =</span> pH <span class="sc">/</span> <span class="dv">10</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">pH_cat =</span> <span class="fu">if_else</span>(pH <span class="sc">&lt;</span> <span class="dv">8</span>, <span class="at">true =</span> <span class="st">"Neutro"</span>, <span class="at">false =</span> <span class="st">"Elevado"</span>),</span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>         , <span class="at">.after =</span> pH)</span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(dbenv)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  dfs alt   slo flo   pH pH_cat har pho nit amm oxy bdo
+1   3 934 6.176  84 0.79 Neutro  45   1  20   0 122  27
+2  22 932 3.434 100 0.80 Neutro  40   2  20  10 103  19
+3 102 914 3.638 180 0.83 Neutro  52   5  22   5 105  35
+4 185 854 3.497 253 0.80 Neutro  72  10  21   0 110  13
+5 215 849 3.178 264 0.81 Neutro  84  38  52  20  80  62
+6 324 846 3.497 286 0.79 Neutro  60  20  15   0 102  53</code></pre>
+</div>
+</div>
+</section>
+<section id="unindo-colunas-com-unite" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="unindo-colunas-com-unite">Unindo colunas com <code>unite()</code></h3>
+<p>A função <code>unite()</code> do <code>tidyr</code> combina duas colunas em uma nova coluna. Usando a tabela <code>iris</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>iris2 <span class="ot">&lt;-</span> iris <span class="sc">|&gt;</span> </span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Genus =</span> <span class="st">"Iris"</span>, <span class="at">.before =</span> Species)  <span class="sc">|&gt;</span>  </span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unite</span>(scientic_name, Genus, Species, <span class="at">sep =</span> <span class="st">" "</span>)</span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(iris2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Sepal.Length Sepal.Width Petal.Length Petal.Width scientic_name
+1          5.1         3.5          1.4         0.2   Iris setosa
+2          4.9         3.0          1.4         0.2   Iris setosa
+3          4.7         3.2          1.3         0.2   Iris setosa
+4          4.6         3.1          1.5         0.2   Iris setosa
+5          5.0         3.6          1.4         0.2   Iris setosa
+6          5.4         3.9          1.7         0.4   Iris setosa</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-R for Data Science (2e)
+Observação
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Para uma fundamentação sobre as ferramentas mais importantes para tratamento de dados no R accesse a publicação <a href="https://r4ds.hadley.nz/">R for Data Science (2e)</a>.</p>
+<p>A função <code>unite()</code> excluiu as colunas que foram unificadas da tabela. Mara mantê-las na tabela utilize o argumento <code>remove = FALSE</code>.</p>
 </div>
-</div>
-<section id="instalando-os-pacotes" class="level2" data-number="1">
-<h2 data-number="1" class="anchored" data-anchor-id="instalando-os-pacotes"><span class="header-section-number">1</span> Instalando os pacotes</h2>
-<p>Cada um dos pacotes incorporados no <code>tidyverse</code> pode ser instalado individualmente. Por exemplo:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"dplyr"</span>)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"ggplot2"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>Entretando, ao instalar o <code>tidyverse</code>, todos são instalados de uma única vez:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"tidyverse"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="carregando-os-pacotes" class="level2" data-number="2">
-<h2 data-number="2" class="anchored" data-anchor-id="carregando-os-pacotes"><span class="header-section-number">2</span> Carregando os pacotes</h2>
-<p>Ao iniciar uma seção, você deve sempre carregar os pacotes que irá utilizar. No caso do <code>tidyverse</code>, você pode carregar cada pacote individualmente:</p>
+</section>
+<section id="reformatando-data-frames-funções-pivot_wider-e-pivot_longer" class="level2" data-number="6">
+<h2 data-number="6" class="anchored" data-anchor-id="reformatando-data-frames-funções-pivot_wider-e-pivot_longer"><span class="header-section-number">6</span> Reformatando data frames: funções <code>pivot_wider()</code> e <code>pivot_longer()</code></h2>
+<p>A tabela <code>HubbardBrook.csv</code> (<a href="https://github.com/FCopf/datasets">datasets</a>) contém dados anuais de vazão e precipitação em dois bacias hidrográficas <span class="citation" data-cites="hornbeck1993long">(<a href="#ref-hornbeck1993long" role="doc-biblioref">Hornbeck et al. 1993</a>)</span>. A primeira (<code>Deforested</code>) teve toda a vegetação removida como parte de um experimento de longa duração enquanto a outra se manteve intacta (<code>Referenca</code>). Os daods de origem e o experimento detalhado são apresentados am Os dados foram retirados de <a href="https://tiee.esa.org/vol/v1/data_sets/hubbard/hubbard_overview.html">tiee.esa.org</a></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>hbrook <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"https://raw.githubusercontent.com/FCopf/datasets/master/HubbardBrook.csv"</span>)</span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>hbrook</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 62 × 4
+    Year Treatment   Flow Precipitation
+   &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt;         &lt;dbl&gt;
+ 1  1958 Deforested  645.         1168.
+ 2  1959 Deforested 1012.         1483.
+ 3  1960 Deforested  825.         1321.
+ 4  1961 Deforested  470.          980.
+ 5  1962 Deforested  777.         1232.
+ 6  1963 Deforested  774.         1139.
+ 7  1964 Deforested  712.         1175.
+ 8  1965 Deforested  599.         1115.
+ 9  1966 Deforested 1189.         1222.
+10  1967 Deforested 1132.         1315.
+# … with 52 more rows</code></pre>
 </div>
-<p>Ou todos de uma única vez:</p>
+</div>
+<section id="reorganizando-data-frames-de-formato-longo-para-formato-largo" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="reorganizando-data-frames-de-formato-longo-para-formato-largo">Reorganizando data frames de formato longo para formato largo</h3>
+<p>A função <code>pivot_wider()</code> é utilizada para transformar dados do formato longo para o formato largo. A seguir, será feito isso apenas para a variável <code>Flow</code>, excluindo <code>Precipitation</code>, separando os dados nas colunas <code>Deforested</code> e <code>Reference</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>hbrook_largo <span class="ot">&lt;-</span> hbrook <span class="sc">|&gt;</span></span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>Precipitation) <span class="sc">|&gt;</span></span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">spread</span>(<span class="at">key =</span> Treatment, <span class="at">value =</span> Flow)</span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>hbrook_largo</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 31 × 3
+    Year Deforested Reference
+   &lt;dbl&gt;      &lt;dbl&gt;     &lt;dbl&gt;
+ 1  1958       645.      567.
+ 2  1959      1012.      918.
+ 3  1960       825.      752.
+ 4  1961       470.      436.
+ 5  1962       777.      699.
+ 6  1963       774.      663.
+ 7  1964       712.      630.
+ 8  1965       599.      547.
+ 9  1966      1189.      727.
+10  1967      1132.      781.
+# … with 21 more rows</code></pre>
 </div>
+</div>
+</section>
+<section id="reorganizando-data-frames-de-formato-largo-para-formato-longo" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="reorganizando-data-frames-de-formato-largo-para-formato-longo">Reorganizando data frames de formato largo para formato longo</h3>
+<p>A função <code>pivot_longer()</code> é utilizada para transformar dados do formato largo para o formato longo, fazendo o caminho inverso de <code>pivot_wider()</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>hbrook_longo <span class="ot">&lt;-</span> hbrook_largo <span class="sc">|&gt;</span></span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gather</span>(<span class="at">key =</span> Desmatamento, <span class="at">value =</span> Flow, <span class="sc">-</span>Year)</span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>hbrook_longo</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 62 × 3
+    Year Desmatamento  Flow
+   &lt;dbl&gt; &lt;chr&gt;        &lt;dbl&gt;
+ 1  1958 Deforested    645.
+ 2  1959 Deforested   1012.
+ 3  1960 Deforested    825.
+ 4  1961 Deforested    470.
+ 5  1962 Deforested    777.
+ 6  1963 Deforested    774.
+ 7  1964 Deforested    712.
+ 8  1965 Deforested    599.
+ 9  1966 Deforested   1189.
+10  1967 Deforested   1132.
+# … with 52 more rows</code></pre>
+</div>
+</div>
+
 
 
 </section>
+</section>
 
-</main> <!-- /main -->
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-hornbeck1993long" class="csl-entry" role="listitem">
+Hornbeck, J. W., M. B. Adams, E. S. Corbett, E. S. Verry, and J. A. Lynch. 1993. <span>“Long-Term Impacts of Forest Treatment on Water Yield: A Summary for Northeastern USA.”</span> <em>Journal of Hydrology</em> 150: 323–44.
+</div>
+</div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -1258,13 +1669,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../../conteudo/introducao_r/graficos-r.html" class="pagination-link" aria-label="(Básico da) Visualização gráfica">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">(Básico da) Visualização gráfica</span>
+      <a href="../../conteudo/ciencia_dados/pipe.html" class="pagination-link" aria-label="Operadores Pipe">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Operadores Pipe</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../../conteudo/ciencia_dados/import_export.html" class="pagination-link" aria-label="Importando/Exportando dados">
-        <span class="nav-page-text">Importando/Exportando dados</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../../conteudo/ciencia_dados/grafico_ggplot.qmd" class="pagination-link" aria-label="Gráficos em camadas">
+        <span class="nav-page-text">Gráficos em camadas</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
@@ -1276,7 +1687,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     </div>   
     <div class="nav-footer-center">
       &nbsp;
-    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://www/edit/main/conteudo/ciencia_dados/tidyverse.qmd" class="toc-action"><i class="bi bi-git"></i>Edit this page</a></li><li><a href="https://www/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://www/edit/main/conteudo/ciencia_dados/transform.qmd" class="toc-action"><i class="bi bi-git"></i>Edit this page</a></li><li><a href="https://www/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
 <p>Métodos em Estatística e Análise de Dados</p>
 </div>

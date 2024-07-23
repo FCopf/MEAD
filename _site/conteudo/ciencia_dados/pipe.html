@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Métodos em Estatística e Análise de Dados</title>
+<title>Operadores pipe – Métodos em Estatística e Análise de Dados</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,27 +20,62 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<link href="./conteudo/introducao_r/instalacao-linguagem.html" rel="next">
-<script src="site_libs/quarto-html/quarto.js"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../conteudo/ciencia_dados/transform.html" rel="next">
+<link href="../../conteudo/ciencia_dados/import_export.html" rel="prev">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -70,7 +105,7 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 
 
-<meta property="og:title" content="Métodos em Estatística e Análise de Dados">
+<meta property="og:title" content="Operadores pipe – Métodos em Estatística e Análise de Dados">
 <meta property="og:description" content="Página de apoio para os cursos de estatistica e delineamento">
 <meta property="og:site_name" content="Métodos em Estatística e Análise de Dados">
 </head>
@@ -84,7 +119,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Métodos em Estatística e Análise de Dados</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../conteudo/ciencia_dados/tidyverse.html">Pacotes em R para Ciência de Dados</a></li><li class="breadcrumb-item"><a href="../../conteudo/ciencia_dados/pipe.html">Operadores Pipe</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -98,8 +133,8 @@ ul.task-list li input[type="checkbox"] {
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
     <div class="pt-lg-2 mt-2 text-center sidebar-header">
-      <a href="./index.html" class="sidebar-logo-link">
-      <img src="./images/logo.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      <a href="../../index.html" class="sidebar-logo-link">
+      <img src="../../images/logo.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
       </a>
       <div class="sidebar-tools-main">
     <a href="https://www" title="GitHub organization" class="quarto-navigation-tool px-1" aria-label="GitHub organization"><i class="bi bi-github"></i></a>
@@ -115,7 +150,7 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">
+  <a href="../../index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Métodos em Estatística e Análise de Dados</span></a>
   </div>
 </li>
@@ -130,19 +165,19 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./conteudo/introducao_r/instalacao-linguagem.html" class="sidebar-item-text sidebar-link">
+  <a href="../../conteudo/introducao_r/instalacao-linguagem.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Estrutura da linguagem</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./conteudo/introducao_r/data-frames.html" class="sidebar-item-text sidebar-link">
+  <a href="../../conteudo/introducao_r/data-frames.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">(Básico da) Manipulação de data frames</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./conteudo/introducao_r/graficos-r.html" class="sidebar-item-text sidebar-link">
+  <a href="../../conteudo/introducao_r/graficos-r.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">(Básico da) Visualização gráfica</span></a>
   </div>
 </li>
@@ -150,40 +185,40 @@ ul.task-list li input[type="checkbox"] {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
  <span class="menu-text">Pacotes em R para Ciência de Dados</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./conteudo/ciencia_dados/tidyverse.html" class="sidebar-item-text sidebar-link">
+  <a href="../../conteudo/ciencia_dados/tidyverse.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Pacotes em Tidyverse</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./conteudo/ciencia_dados/import_export.html" class="sidebar-item-text sidebar-link">
+  <a href="../../conteudo/ciencia_dados/import_export.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Importando/Exportando dados</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./conteudo/ciencia_dados/pipe.html" class="sidebar-item-text sidebar-link">
+  <a href="../../conteudo/ciencia_dados/pipe.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Operadores Pipe</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./conteudo/ciencia_dados/transform.html" class="sidebar-item-text sidebar-link">
+  <a href="../../conteudo/ciencia_dados/transform.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Tranformação de Dados</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./conteudo/ciencia_dados/grafico_ggplot.qmd" class="sidebar-item-text sidebar-link">
+  <a href="../../conteudo/ciencia_dados/grafico_ggplot.qmd" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Gráficos em camadas</span></a>
   </div>
 </li>
@@ -200,25 +235,25 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./conteudo/estrutura_dados/estrutura.qmd" class="sidebar-item-text sidebar-link">
+  <a href="../../conteudo/estrutura_dados/estrutura.qmd" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Estrutura e tipo de dados</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./conteudo/estrutura_dados/estrutura.qmd" class="sidebar-item-text sidebar-link">
+  <a href="../../conteudo/estrutura_dados/estrutura.qmd" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Estrutura e tipo de dados</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./conteudo/estrutura_dados/visualizacao-univariada.qmd" class="sidebar-item-text sidebar-link">
+  <a href="../../conteudo/estrutura_dados/visualizacao-univariada.qmd" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Visualização de dados univariados</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./conteudo/estrutura_dados/visualizacao-bivariada.qmd" class="sidebar-item-text sidebar-link">
+  <a href="../../conteudo/estrutura_dados/visualizacao-bivariada.qmd" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Visualização de dados bidimensionais</span></a>
   </div>
 </li>
@@ -235,37 +270,37 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./conteudo/probabilidade/espaco-amostral.qmd" class="sidebar-item-text sidebar-link">
+  <a href="../../conteudo/probabilidade/espaco-amostral.qmd" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Espaço amostral</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./conteudo/probabilidade/eventos.qmd" class="sidebar-item-text sidebar-link">
+  <a href="../../conteudo/probabilidade/eventos.qmd" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Eventos do espaço amostral</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./conteudo/probabilidade/condicional.qmd" class="sidebar-item-text sidebar-link">
+  <a href="../../conteudo/probabilidade/condicional.qmd" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Probabilidade condicional</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./conteudo/probabilidade/bayes.qmd" class="sidebar-item-text sidebar-link">
+  <a href="../../conteudo/probabilidade/bayes.qmd" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Teorema de Bayes</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./conteudo/probabilidade/va-discretas.qmd" class="sidebar-item-text sidebar-link">
+  <a href="../../conteudo/probabilidade/va-discretas.qmd" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Variáveis aleatórias discretas</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./conteudo/probabilidade/va-continuas.qmd" class="sidebar-item-text sidebar-link">
+  <a href="../../conteudo/probabilidade/va-continuas.qmd" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Variáveis aleatórias contínuas</span></a>
   </div>
 </li>
@@ -282,37 +317,37 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./conteudo/descritiva/popolacao-amostra.qmd" class="sidebar-item-text sidebar-link">
+  <a href="../../conteudo/descritiva/popolacao-amostra.qmd" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Populações e amostras</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./conteudo/descritiva/amostragem.qmd" class="sidebar-item-text sidebar-link">
+  <a href="../../conteudo/descritiva/amostragem.qmd" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Amostrando uma População Estatística</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./conteudo/descritiva/tendencia-central.qmd" class="sidebar-item-text sidebar-link">
+  <a href="../../conteudo/descritiva/tendencia-central.qmd" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Medidas de tendência central</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./conteudo/descritiva/variacao.qmd" class="sidebar-item-text sidebar-link">
+  <a href="../../conteudo/descritiva/variacao.qmd" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Medidas de variação</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./conteudo/descritiva/posicao-quartis.qmd" class="sidebar-item-text sidebar-link">
+  <a href="../../conteudo/descritiva/posicao-quartis.qmd" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Medidas de posição: quartis</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./conteudo/descritiva/posicao-indice-z.qmd" class="sidebar-item-text sidebar-link">
+  <a href="../../conteudo/descritiva/posicao-indice-z.qmd" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Medidas de posição: índice Z</span></a>
   </div>
 </li>
@@ -329,43 +364,43 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./conteudo/inferencia/distribuicao-normal.qmd" class="sidebar-item-text sidebar-link">
+  <a href="../../conteudo/inferencia/distribuicao-normal.qmd" class="sidebar-item-text sidebar-link">
  <span class="menu-text">O modelo de distribuição normal</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./conteudo/inferencia/tcl.qmd" class="sidebar-item-text sidebar-link">
+  <a href="../../conteudo/inferencia/tcl.qmd" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Distribuição das médias amostrais: TCL</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./conteudo/inferencia/distribuicao-t.qmd" class="sidebar-item-text sidebar-link">
+  <a href="../../conteudo/inferencia/distribuicao-t.qmd" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Distribuição t de Student</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./conteudo/inferencia/estimacao.qmd" class="sidebar-item-text sidebar-link">
+  <a href="../../conteudo/inferencia/estimacao.qmd" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Estimação pontual e intervalar</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./conteudo/inferencia/teste-hipóteses.qmd" class="sidebar-item-text sidebar-link">
+  <a href="../../conteudo/inferencia/teste-hipóteses.qmd" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Introdução ao Teste de Hipóteses</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./conteudo/inferencia/distribuicao-f.qmd" class="sidebar-item-text sidebar-link">
+  <a href="../../conteudo/inferencia/distribuicao-f.qmd" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Distribuição F: comparando variâncias</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./conteudo/inferencia/teste-t.qmd" class="sidebar-item-text sidebar-link">
+  <a href="../../conteudo/inferencia/teste-t.qmd" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Comparando médias: teste t de Student</span></a>
   </div>
 </li>
@@ -382,37 +417,37 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./conteudo/anova/anova-simples.qmd" class="sidebar-item-text sidebar-link">
+  <a href="../../conteudo/anova/anova-simples.qmd" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Análise de Variância de um Fator</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./conteudo/anova/anova-bloco.qmd" class="sidebar-item-text sidebar-link">
+  <a href="../../conteudo/anova/anova-bloco.qmd" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Análise de Variância em Blocos</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./conteudo/anova/anova-two-way.qmd" class="sidebar-item-text sidebar-link">
+  <a href="../../conteudo/anova/anova-two-way.qmd" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Análise de Variância de dois Fatores</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./conteudo/anova/ancova.qmd" class="sidebar-item-text sidebar-link">
+  <a href="../../conteudo/anova/ancova.qmd" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Análise de Covariância</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./conteudo/anova/anova-medida-repetida.qmd" class="sidebar-item-text sidebar-link">
+  <a href="../../conteudo/anova/anova-medida-repetida.qmd" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Análise de Variância de Medidas Repetidas</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./conteudo/anova/anova-aninhada.qmd" class="sidebar-item-text sidebar-link">
+  <a href="../../conteudo/anova/anova-aninhada.qmd" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Análise de Variância Aninhada</span></a>
   </div>
 </li>
@@ -429,37 +464,37 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./conteudo/regressao_linear/regressao-linear-simples.qmd" class="sidebar-item-text sidebar-link">
+  <a href="../../conteudo/regressao_linear/regressao-linear-simples.qmd" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Regressão Linear Simples</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./conteudo/regressao_linear/diagnostico-regressao.qmd" class="sidebar-item-text sidebar-link">
+  <a href="../../conteudo/regressao_linear/diagnostico-regressao.qmd" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Diagnóstico da Regressão Linear Simples</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./conteudo/regressao_linear/th-coef.qmd" class="sidebar-item-text sidebar-link">
+  <a href="../../conteudo/regressao_linear/th-coef.qmd" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Teste de hipóteses sobre os coeficientes da regressão</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./conteudo/regressao_linear/anova-regressao.qmd" class="sidebar-item-text sidebar-link">
+  <a href="../../conteudo/regressao_linear/anova-regressao.qmd" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Análise de Variância da Regressão</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./conteudo/regressao_linear/regressao-linear-multipla.qmd" class="sidebar-item-text sidebar-link">
+  <a href="../../conteudo/regressao_linear/regressao-linear-multipla.qmd" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Regressão Linear Múltipla</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./conteudo/regressao_linear/transformacao-regressao.qmd" class="sidebar-item-text sidebar-link">
+  <a href="../../conteudo/regressao_linear/transformacao-regressao.qmd" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Transformações na Regressão Linear</span></a>
   </div>
 </li>
@@ -476,19 +511,19 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-9" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./conteudo/glm/glm-gaussiano.qmd" class="sidebar-item-text sidebar-link">
+  <a href="../../conteudo/glm/glm-gaussiano.qmd" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Introdução: modelo gaussiano</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./conteudo/glm/glm-binomial.qmd" class="sidebar-item-text sidebar-link">
+  <a href="../../conteudo/glm/glm-binomial.qmd" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Regressão Logística</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./conteudo/glm/glm-poisson.qmd" class="sidebar-item-text sidebar-link">
+  <a href="../../conteudo/glm/glm-poisson.qmd" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Regressão de Poisson</span></a>
   </div>
 </li>
@@ -505,31 +540,31 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-10" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./conteudo/topicos/modelos-mistos.qmd" class="sidebar-item-text sidebar-link">
+  <a href="../../conteudo/topicos/modelos-mistos.qmd" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Modelos Mistos</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./conteudo/topicos/variancias-heterogeneas.qmd" class="sidebar-item-text sidebar-link">
+  <a href="../../conteudo/topicos/variancias-heterogeneas.qmd" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Variâncias heterogêneas</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./conteudo/topicos/dependencia-temporal.qmd" class="sidebar-item-text sidebar-link">
+  <a href="../../conteudo/topicos/dependencia-temporal.qmd" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Modelos com autocorrelação temporal</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./conteudo/topicos/dependencia-espacial.qmd" class="sidebar-item-text sidebar-link">
+  <a href="../../conteudo/topicos/dependencia-espacial.qmd" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Modelos com autocorrelação espacial</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./conteudo/topicos/simulacao.qmd" class="sidebar-item-text sidebar-link">
+  <a href="../../conteudo/topicos/simulacao.qmd" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Simulando modelos estatísticos</span></a>
   </div>
 </li>
@@ -540,15 +575,27 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul class="collapse">
+  <li><a href="#operador-pipe-nativo" id="toc-operador-pipe-nativo" class="nav-link active" data-scroll-target="#operador-pipe-nativo"><span class="header-section-number">1</span> Operador Pipe Nativo <code>|&gt;</code></a></li>
+  <li><a href="#operador-pipe-do-pacote-magrittr" id="toc-operador-pipe-do-pacote-magrittr" class="nav-link" data-scroll-target="#operador-pipe-do-pacote-magrittr"><span class="header-section-number">2</span> Operador Pipe do Pacote magrittr %&gt;%</a></li>
+  <li><a href="#diferenças-e-considerações" id="toc-diferenças-e-considerações" class="nav-link" data-scroll-target="#diferenças-e-considerações"><span class="header-section-number">3</span> Diferenças e Considerações</a></li>
+  <li><a href="#tratamento-de-erros-e-depuração" id="toc-tratamento-de-erros-e-depuração" class="nav-link" data-scroll-target="#tratamento-de-erros-e-depuração"><span class="header-section-number">4</span> Tratamento de Erros e Depuração</a></li>
+  <li><a href="#desempenho" id="toc-desempenho" class="nav-link" data-scroll-target="#desempenho"><span class="header-section-number">5</span> Desempenho</a></li>
+  <li><a href="#quando-usar-operadores-pipe" id="toc-quando-usar-operadores-pipe" class="nav-link" data-scroll-target="#quando-usar-operadores-pipe"><span class="header-section-number">6</span> Quando usar operadores pipe</a></li>
+  <li><a href="#quando-não-usar-operadores-pipe" id="toc-quando-não-usar-operadores-pipe" class="nav-link" data-scroll-target="#quando-não-usar-operadores-pipe"><span class="header-section-number">7</span> Quando Não Usar Operadores Pipe</a></li>
+  </ul>
+<div class="toc-actions"><ul class="collapse"><li><a href="https://www/edit/main/conteudo/ciencia_dados/pipe.qmd" class="toc-action"><i class="bi bi-git"></i>Edit this page</a></li><li><a href="https://www/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../conteudo/ciencia_dados/tidyverse.html">Pacotes em R para Ciência de Dados</a></li><li class="breadcrumb-item"><a href="../../conteudo/ciencia_dados/pipe.html">Operadores Pipe</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Métodos em Estatística e Análise de Dados</h1>
+<h1 class="title">Operadores pipe</h1>
 </div>
 
 
@@ -565,12 +612,223 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="a-estatística-como-parte-do-método-científico" class="level3">
-<h3 class="anchored" data-anchor-id="a-estatística-como-parte-do-método-científico">A Estatística como parte do Método Científico</h3>
-<p>A compreensão dos fundamentos do desenho experimental e da análise e interpretação de dados é essencial no desenvolvimento do método científico, pois decisões baseadas em dados orientam pesquisas e descobertas científicas. O aprendizado desses tópicos está intimamente ligado ao entendimento dos princípios da estatística e dos modelos estatísticos apropriados para diferentes tipos de delineamentos, questões científicas e naturezas de experimentos.</p>
-<p>Com a difusão de softwares livres de estatística e programação, pesquisadores podem agora realizar análises complexas que anteriormente eram acessíveis apenas para aqueles familiarizados com linguagens de programação e métodos estatísticos avançados. A disponibilidade desses pacotes estatísticos acompanhados de tutoriais de livre acesso possibilita a execução de análises sofisticadas e a exploração de dados de maneiras inovadoras, frequentemente utilizando modelos complexos. Nesse cenário, surge o desafio de selecionar modelos apropriados dentre a variedade de opções, exigindo a compreensão do potencial e das limitações de uma ampla gama de abordagens estatísticas.</p>
-<p>Dependendo do campo da ciência, algumas abordagens estatísticas são mais comuns que outras. Assim, é necessário familiarizar-se com a perspectiva filosófica de um campo de pesquisa específico e compreender as lacunas relevantes para o progresso científico da área. É igualmente importante compreender as especificidades dos métodos de coleta de dados, da organização e do volume dos dados disponíveis, além das ferramentas estatísticas básicas para analisar e interpretar essas informações.</p>
-<p>Este material foi organizado para auxiliar na compreensão e aplicação das principais técnicas estatísticas e de análise de dados, oferecendo uma base sólida para o desenvolvimento de competências essenciais na investigação científica. Além disso, o conteúdo está estruturado para proporcionar uma aprendizagem progressiva, começando com os conceitos de estatística básica e teste de hipóteses, avançando gradualmente para modelos estatísticos tradicionais e métodos avançados. Assim, os estudantes estarão bem preparados para enfrentar desafios complexos em suas pesquisas e carreiras acadêmicas.</p>
+<p>Em R, <strong>operadores pipe</strong> são usados para passar a saída de uma função para a entrada de outra, tornando o código mais legível e conciso. Este tutorial compara o operador pipe nativo <code>|&gt;</code> introduzido no R 4.1.0 e o operador <code>%&gt;%</code> do pacote <code>magrittr</code>.</p>
+<section id="operador-pipe-nativo" class="level2" data-number="1">
+<h2 data-number="1" class="anchored" data-anchor-id="operador-pipe-nativo"><span class="header-section-number">1</span> Operador Pipe Nativo <code>|&gt;</code></h2>
+<p>O operador pipe nativo <code>|&gt;</code> é uma nova adição ao R base. Ele permite escrever código mais limpo e legível ao encadear funções.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Exemplo usando o operador pipe nativo |&gt;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>resultado <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span> <span class="sc">|&gt;</span> </span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sum</span>() <span class="sc">|&gt;</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sqrt</span>()</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>resultado</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 7.416198</code></pre>
+</div>
+</div>
+<p>Neste exemplo, a sequência de 1 a 10 é passada para a função <code>sum()</code>, e o resultado é então passado para a função `sqrt()```.</p>
+<p>O mesmo resultado é obtido sem o operador pipe por:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>resultado <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="fu">sum</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>))</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>resultado</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 7.416198</code></pre>
+</div>
+</div>
+</section>
+<section id="operador-pipe-do-pacote-magrittr" class="level2" data-number="2">
+<h2 data-number="2" class="anchored" data-anchor-id="operador-pipe-do-pacote-magrittr"><span class="header-section-number">2</span> Operador Pipe do Pacote magrittr %&gt;%</h2>
+<p>O operador <code>%&gt;%</code> do pacote `magrittr``` tem sido amplamente usado na comunidade R há vários anos. Ele serve ao mesmo propósito que o operador pipe nativo, mas possui alguns recursos adicionais.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(magrittr)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Exemplo usando o operador pipe do magrittr %&gt;%</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>resultado <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span> <span class="sc">%&gt;%</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sum</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sqrt</span>()</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>resultado</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 7.416198</code></pre>
+</div>
+</div>
+<p>Este exemplo alcança o mesmo resultado que o anterior, mas usa o operador <code>%&gt;%</code> do pacote <code>magrittr</code>.</p>
+</section>
+<section id="diferenças-e-considerações" class="level2" data-number="3">
+<h2 data-number="3" class="anchored" data-anchor-id="diferenças-e-considerações"><span class="header-section-number">3</span> Diferenças e Considerações</h2>
+<section id="suporte-a-placeholder" class="level3" data-number="3.1">
+<h3 data-number="3.1" class="anchored" data-anchor-id="suporte-a-placeholder"><span class="header-section-number">3.1</span> Suporte a Placeholder</h3>
+<p>Uma diferença chave é que <code>%&gt;%</code> suporta placeholders <code>(.)</code>, que podem ser úteis para pipelines mais complexos.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Usando placeholder com %&gt;%</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>resultado <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span> <span class="sc">%&gt;%</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sum</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  { . <span class="sc">/</span> <span class="dv">2</span> } <span class="sc">%&gt;%</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sqrt</span>()</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>resultado</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 5.244044</code></pre>
+</div>
+</div>
+<p>O operador pipe nativo <code>|&gt;</code> não suporta placeholders diretamente.</p>
+<p>Usando o pipe nativo, a mesma expressão ficaria:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>resultado <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span> <span class="sc">|&gt;</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sum</span>() <span class="sc">|&gt;</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  (\(x) x <span class="sc">/</span> <span class="dv">2</span>)() <span class="sc">|&gt;</span>  <span class="co"># Esta linha é similar à: `(function(x) x / 2)()`</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sqrt</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Portanto, torna-se necessário declarar uma função dentro da sequência se comandos.</p>
+</section>
+</section>
+<section id="tratamento-de-erros-e-depuração" class="level2" data-number="4">
+<h2 data-number="4" class="anchored" data-anchor-id="tratamento-de-erros-e-depuração"><span class="header-section-number">4</span> Tratamento de Erros e Depuração</h2>
+<p>O operador <code>%&gt;%</code> do magrittr fornece mensagens de erro mais detalhadas e melhores capacidades de depuração. Se você encontrar um erro em um pipeline usando <code>|&gt;</code>, a mensagem de erro pode ser menos informativa em comparação com o uso de <code>%&gt;%</code>.</p>
+</section>
+<section id="desempenho" class="level2" data-number="5">
+<h2 data-number="5" class="anchored" data-anchor-id="desempenho"><span class="header-section-number">5</span> Desempenho</h2>
+<p>Ambos os operadores pipe têm desempenho semelhante na maioria dos casos. No entanto, <code>|&gt;</code> por ser parte do R base, pode ter ligeiras vantagens de desempenho em alguns cenários devido à sua integração com a linguagem principal.</p>
+</section>
+<section id="quando-usar-operadores-pipe" class="level2" data-number="6">
+<h2 data-number="6" class="anchored" data-anchor-id="quando-usar-operadores-pipe"><span class="header-section-number">6</span> Quando usar operadores pipe</h2>
+<p>Tanto o operador pipe nativo <code>|&gt;</code> quanto o operador <code>%&gt;%</code> do magrittr são ferramentas poderosas para escrever código R limpo e legível. A escolha entre eles depende de suas necessidades específicas e preferências. Se você precisa de suporte a placeholders e depuração aprimorada, <code>%&gt;%</code> é uma boa escolha. Para uma dependência mais leve e potencialmente melhor desempenho, <code>|&gt;</code> é uma opção sólida. A seguir algumas sugestões para a escolha entre os operadores.</p>
+<ol type="1">
+<li><em>Leitura e Legibilidade</em>: Use operadores pipe quando você deseja aumentar a legibilidade do código. Eles ajudam a encadear operações de forma linear, tornando o fluxo de dados claro e fácil de seguir.</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>resultado <span class="ot">&lt;-</span> dados <span class="sc">%&gt;%</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(variavel1 <span class="sc">&gt;</span> <span class="dv">10</span>) <span class="sc">%&gt;%</span>  <span class="co"># Filtra os dados</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">nova_variavel =</span> variavel2 <span class="sc">*</span> <span class="dv">2</span>) <span class="sc">%&gt;%</span>  <span class="co"># insere `nova_variavel` no data frame</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">media =</span> <span class="fu">mean</span>(nova_variavel))  <span class="co"># extrai a média da `nova_variavel`</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol start="2" type="1">
+<li><em>Transformações Sequenciais</em>: Use operadores pipe quando você precisa aplicar uma série de transformações sequenciais nos dados. Eles permitem que você evite a criação de variáveis temporárias.</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>resultado <span class="ot">&lt;-</span> dados <span class="sc">|&gt;</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(variavel1 <span class="sc">&gt;</span> <span class="dv">10</span>) <span class="sc">|&gt;</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">nova_variavel =</span> variavel2 <span class="sc">*</span> <span class="dv">2</span>) <span class="sc">|&gt;</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">media =</span> <span class="fu">mean</span>(nova_variavel))</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Sem o operador pipe, esta sequância de códigos poderia ficar:</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>res1 <span class="ot">&lt;-</span> <span class="fu">filter</span>(dados, variável1 <span class="sc">&gt;</span> <span class="dv">10</span>)</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>res2 <span class="ot">&lt;-</span> <span class="fu">mutate</span>(res1, <span class="at">nova_variavel =</span> variavel2 <span class="sc">*</span> <span class="dv">2</span>)</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>resultado <span class="ot">&lt;-</span> <span class="fu">summarise</span>(res2, <span class="at">media =</span> <span class="fu">mean</span>(nova_variavel))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol start="3" type="1">
+<li><p><em>Consistência de Sintaxe</em>: Utilize pipes para manter uma sintaxe consistente em todo o seu código, especialmente se você estiver trabalhando em um projeto colaborativo onde a consistência de estilo é importante.</p></li>
+<li><p><em>Simplificação de Funções Aninhadas</em>: Empregue operadores pipe para simplificar a leitura de funções aninhadas, evitando a necessidade de múltiplos parênteses.</p></li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>resultado <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="fu">sum</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>))</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="co"># versus</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>resultado_pipe <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span> <span class="sc">|&gt;</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sum</span>() <span class="sc">|&gt;</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sqrt</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>resultado</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 7.416198</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>resultado_pipe</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 7.416198</code></pre>
+</div>
+</div>
+<ol start="5" type="1">
+<li><em>Codificação Explorativa e Prototipagem Rápida</em>: Use pipes durante a exploração de dados e prototipagem rápida, pois eles permitem que você altere e teste rapidamente diferentes transformações.</li>
+</ol>
+</section>
+<section id="quando-não-usar-operadores-pipe" class="level2" data-number="7">
+<h2 data-number="7" class="anchored" data-anchor-id="quando-não-usar-operadores-pipe"><span class="header-section-number">7</span> Quando Não Usar Operadores Pipe</h2>
+<ol type="1">
+<li><p><em>Simplicidade Excessiva</em>: Evite usar operadores pipe para operações extremamente simples onde o uso de pipes não adiciona clareza. Por exemplo, <code>sum(1:10)</code> é mais claro sem o pipe.</p></li>
+<li><p><em>Depuração de Código</em>: Não use pipes se você está tendo dificuldades para depurar uma sequência de operações. Em vez disso, atribua resultados intermediários a variáveis temporárias para inspecioná-los.</p></li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>passo1 <span class="ot">&lt;-</span> <span class="fu">filter</span>(dados, variavel1 <span class="sc">&gt;</span> <span class="dv">10</span>)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>passo2 <span class="ot">&lt;-</span> <span class="fu">mutate</span>(passo1, <span class="at">nova_variavel =</span> variavel2 <span class="sc">*</span> <span class="dv">2</span>)</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>resultado <span class="ot">&lt;-</span> <span class="fu">summarise</span>(passo2, <span class="at">media =</span> <span class="fu">mean</span>(nova_variavel))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol start="3" type="1">
+<li><em>Operações Complexas com Várias Etapas</em>: Evite usar pipes em operações muito complexas que envolvem várias etapas interdependentes, onde a clareza do código pode ser comprometida. Por exemplo se você precisa manipular dois data frames independentes e depois uní-los, fazer isso em uma única sequencia de operadores pipe pode tornar o código difícil de interpretar.</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Criando exemplos de data frames</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>dados1 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">categoria =</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span>), <span class="at">each =</span> <span class="dv">4</span>),</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">variavel1 =</span> <span class="fu">rnorm</span>(<span class="dv">12</span>, <span class="at">mean =</span> <span class="dv">6</span>, <span class="at">sd =</span> <span class="dv">2</span>)</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>dados2 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">categoria =</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span>), <span class="at">each =</span> <span class="dv">4</span>),</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">variavel2 =</span> <span class="fu">rnorm</span>(<span class="dv">12</span>, <span class="at">mean =</span> <span class="dv">10</span>, <span class="at">sd =</span> <span class="dv">5</span>)</span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Operações complexas em uma única sequência de operadores pipe</span></span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>resultado <span class="ot">&lt;-</span> dados1 <span class="sc">|&gt;</span></span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(categoria) <span class="sc">|&gt;</span></span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">media_variavel1 =</span> <span class="fu">mean</span>(variavel1)) <span class="sc">|&gt;</span></span>
+<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">inner_join</span>(</span>
+<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a>    dados2 <span class="sc">|&gt;</span> </span>
+<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a>      <span class="fu">group_by</span>(categoria) <span class="sc">|&gt;</span> </span>
+<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a>      <span class="fu">summarise</span>(<span class="at">soma_variavel2 =</span> <span class="fu">sum</span>(variavel2)),</span>
+<span id="cb18-21"><a href="#cb18-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">by =</span> <span class="st">"categoria"</span></span>
+<span id="cb18-22"><a href="#cb18-22" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb18-23"><a href="#cb18-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">nova_variavel =</span> soma_variavel2 <span class="sc">/</span> media_variavel1) <span class="sc">|&gt;</span></span>
+<span id="cb18-24"><a href="#cb18-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(nova_variavel))</span>
+<span id="cb18-25"><a href="#cb18-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-26"><a href="#cb18-26" aria-hidden="true" tabindex="-1"></a>resultado</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 4
+  categoria media_variavel1 soma_variavel2 nova_variavel
+  &lt;chr&gt;               &lt;dbl&gt;          &lt;dbl&gt;         &lt;dbl&gt;
+1 B                    6.18           41.5          6.71
+2 A                    7.42           46.6          6.28
+3 C                    6.36           22.4          3.52</code></pre>
+</div>
+</div>
+<p>O exemplo acima pode ser reescrito de forma que cada etapa tenha uma leitura mais clara.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Passo 1: Filtrar e resumir dados1</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>resumo_dados1 <span class="ot">&lt;-</span> dados1 <span class="sc">|&gt;</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(categoria) <span class="sc">|&gt;</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">media_variavel1 =</span> <span class="fu">mean</span>(variavel1))</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Passo 2: Filtrar e resumir dados2</span></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>resumo_dados2 <span class="ot">&lt;-</span> dados2 <span class="sc">|&gt;</span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(categoria) <span class="sc">|&gt;</span></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">soma_variavel2 =</span> <span class="fu">sum</span>(variavel2))</span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Passo 3: Unir os resultados dos dois data frames</span></span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>resultado_unido <span class="ot">&lt;-</span> <span class="fu">inner_join</span>(resumo_dados1, </span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>                                     resumo_dados2, </span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>                                     <span class="at">by =</span> <span class="st">"categoria"</span>)  <span class="sc">|&gt;</span>  </span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">nova_variavel =</span> soma_variavel2 <span class="sc">/</span> media_variavel1) <span class="sc">|&gt;</span></span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(nova_variavel))</span>
+<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a>resultado_unido</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 4
+  categoria media_variavel1 soma_variavel2 nova_variavel
+  &lt;chr&gt;               &lt;dbl&gt;          &lt;dbl&gt;         &lt;dbl&gt;
+1 B                    6.18           41.5          6.71
+2 A                    7.42           46.6          6.28
+3 C                    6.36           22.4          3.52</code></pre>
+</div>
+</div>
+<p>Embora o código tenha ficado mais longo, fica também mais simples de ser inspecionado.</p>
+<ol start="4" type="1">
+<li><p><em>Desempenho Crítico</em>: Se você está preocupado com o desempenho crítico e a eficiência, pode ser melhor evitar pipes, já que eles podem adicionar alguma sobrecarga.</p></li>
+<li><p><em>Ambiguidade de Funções</em>: Evite pipes se o uso deles torna a ordem das operações ou a origem dos dados ambígua. Certifique-se de que a sequência de operações é clara e lógica.</p></li>
+</ol>
 
 
 </section>
@@ -1142,10 +1400,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
+      <a href="../../conteudo/ciencia_dados/import_export.html" class="pagination-link" aria-label="Importando/Exportando dados">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Importando/Exportando dados</span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./conteudo/introducao_r/instalacao-linguagem.html" class="pagination-link" aria-label="Estrutura da linguagem">
-        <span class="nav-page-text">Estrutura da linguagem</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../../conteudo/ciencia_dados/transform.html" class="pagination-link" aria-label="Tranformação de Dados">
+        <span class="nav-page-text">Tranformação de Dados</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
@@ -1157,7 +1418,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     </div>   
     <div class="nav-footer-center">
       &nbsp;
-    <div class="toc-actions"><ul><li><a href="https://www/edit/main/index.qmd" class="toc-action"><i class="bi bi-git"></i>Edit this page</a></li><li><a href="https://www/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://www/edit/main/conteudo/ciencia_dados/pipe.qmd" class="toc-action"><i class="bi bi-git"></i>Edit this page</a></li><li><a href="https://www/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
 <p>Métodos em Estatística e Análise de Dados</p>
 </div>

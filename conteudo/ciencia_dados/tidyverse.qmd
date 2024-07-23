@@ -22,18 +22,28 @@ O [Tidyverse](https://www.tidyverse.org/) é uma coleção de pacotes em R proje
 
 Além destes existem ainda outros  que se integram bem à filosofia do ```tidyverse``` como o ```lubridade``` (manipulação de datas), o ```readxl``` (leitura de arquivos ```.xls``` e ```.xlsx```), além de muitos outros. Veremos algumas funções e práticas úteis utilizando estes pacotes. Para uma visão geral de cada pacote, verifique as [Cheatsheets](https://rstudio.com/resources/cheatsheets/) que oferecem um resumo sobre as funções principais.
 
+::: {.callout-tip}
+
+## R for Data Science (2e)
+
+Para uma fundamentação sobre as ferramentas mais importantes para tratamento de dados no R accesse a publicação [R for Data Science (2e)](https://r4ds.hadley.nz/).
+
+:::
+
 ## Instalando os pacotes
 
 Cada um dos pacotes incorporados no ```tidyverse``` pode ser instalado individualmente. Por exemplo:
 
-```{r, eval=FALSE}
+```{r}
+#| eval: false
 install.packages("dplyr")
 install.packages("ggplot2")
 ```
 
 Entretando, ao instalar o ```tidyverse```, todos são instalados de uma única vez:
 
-```{r, eval=FALSE}
+```{r}
+#| eval: false
 install.packages("tidyverse")
 ```
 
@@ -41,17 +51,20 @@ install.packages("tidyverse")
 
 Ao iniciar uma seção, você deve sempre carregar os pacotes que irá utilizar. No caso do ```tidyverse```, você pode carregar cada pacote individualmente:
 
-```{r, eval=FALSE}
+```{r}
+#| eval: false
 library(dplyr)
 library(ggplot2)
 ```
 
 Ou todos de uma única vez:
 
-```{r, eval=FALSE}
+```{r}
+#| eval: false
 library(tidyverse)
 ```
 
-```{r, echo=FALSE}
+```{r}
+#| echo: false
 rm(list = ls())
 ```

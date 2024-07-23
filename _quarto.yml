@@ -48,8 +48,8 @@ website:
             text: Importando/Exportando dados
           - href: conteudo/ciencia_dados/pipe.qmd
             text: Operadores Pipe
-          - href: conteudo/ciencia_dados/manipula_formata.qmd
-            text: Manipulação e formatação de dados
+          - href: conteudo/ciencia_dados/transform.qmd
+            text: Tranformação de Dados
           - href: conteudo/ciencia_dados/grafico_ggplot.qmd
             text: "Gráficos em camadas"
       - section: "Estrutura de dados"
@@ -166,5 +166,5 @@ format:
     number-sections: true
     toc-depth: 2
 
-freeze: auto
+freeze: false
 bibliography: references.bib
