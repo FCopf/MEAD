@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Tranformação de Dados – Métodos em Estatística e Análise de Dados</title>
+<title>Transformação de Dados – Métodos em Estatística e Análise de Dados</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -83,7 +83,7 @@ div.csl-indent {
 <script src="../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../">
-<link href="../../conteudo/ciencia_dados/grafico_ggplot.qmd" rel="next">
+<link href="../../conteudo/ciencia_dados/grafico_ggplot2.html" rel="next">
 <link href="../../conteudo/ciencia_dados/pipe.html" rel="prev">
 <script src="../../site_libs/quarto-html/quarto.js"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
@@ -154,7 +154,7 @@ window.Quarto = {
 };
 </script>
 
-<meta property="og:title" content="Tranformação de Dados – Métodos em Estatística e Análise de Dados">
+<meta property="og:title" content="Transformação de Dados – Métodos em Estatística e Análise de Dados">
 <meta property="og:description" content="Página de apoio para os cursos de estatistica e delineamento">
 <meta property="og:site_name" content="Métodos em Estatística e Análise de Dados">
 </head>
@@ -267,7 +267,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../conteudo/ciencia_dados/grafico_ggplot.qmd" class="sidebar-item-text sidebar-link">
+  <a href="../../conteudo/ciencia_dados/grafico_ggplot2.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Gráficos em camadas</span></a>
   </div>
 </li>
@@ -643,7 +643,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../conteudo/ciencia_dados/tidyverse.html">Pacotes em R para Ciência de Dados</a></li><li class="breadcrumb-item"><a href="../../conteudo/ciencia_dados/transform.html">Tranformação de Dados</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Tranformação de Dados</h1>
+<h1 class="title">Transformação de Dados</h1>
 </div>
 
 
@@ -812,12 +812,8 @@ window.Quarto = {
 8 R7           63    14.2         42.1</code></pre>
 </div>
 </div>
-<section id="tabela-regiao-.unnumbered-contém-informações-sobre-a-bacia-hidrográfica-área-da-bacia-e-município-de-alguns-riachos-da-região-litorânea-de-são-paulo." class="level4" data-number="4.0.1">
-<h4 data-number="4.0.1" class="anchored" data-anchor-id="tabela-regiao-.unnumbered-contém-informações-sobre-a-bacia-hidrográfica-área-da-bacia-e-município-de-alguns-riachos-da-região-litorânea-de-são-paulo."><span class="header-section-number">4.0.1</span> Tabela regiao {.unnumbered}: Contém informações sobre a bacia hidrográfica, área da bacia e município de alguns riachos da região litorânea de São Paulo.</h4>
-</section>
-<section id="tabela-habitat-.unnumbered-contém-informações-sobre-a-largura-e-profundidade-desses-riachos.-algumas-entradas-são-comuns-às-duas-tabelas-enquanto-outras-são-exclusivas-de-uma-delas.-a-coluna-riacho-serve-como-chave-para-combinar-as-informações." class="level4" data-number="4.0.2">
-<h4 data-number="4.0.2" class="anchored" data-anchor-id="tabela-habitat-.unnumbered-contém-informações-sobre-a-largura-e-profundidade-desses-riachos.-algumas-entradas-são-comuns-às-duas-tabelas-enquanto-outras-são-exclusivas-de-uma-delas.-a-coluna-riacho-serve-como-chave-para-combinar-as-informações."><span class="header-section-number">4.0.2</span> Tabela habitat {.unnumbered}: Contém informações sobre a largura e profundidade desses riachos. Algumas entradas são comuns às duas tabelas, enquanto outras são exclusivas de uma delas. A coluna <code>Riacho</code> serve como chave para combinar as informações.</h4>
-</section>
+<p><strong>Tabela regiao</strong>: Contém informações sobre a bacia hidrográfica, área da bacia e município de alguns riachos da região litorânea de São Paulo.</p>
+<p><strong>Tabela habitat</strong>: Contém informações sobre a largura e profundidade desses riachos. Algumas entradas são comuns às duas tabelas, enquanto outras são exclusivas de uma delas. A coluna <code>Riacho</code> serve como chave para combinar as informações.</p>
 <section id="função-left_join" class="level3 unnumbered">
 <h3 class="unnumbered anchored" data-anchor-id="função-left_join">Função left_join()</h3>
 <p>Retorna todas as linhas da tabela à esquerda (<code>regiao</code>) e adiciona colunas da tabela à direita (<code>habitat</code>). Linhas sem correspondência na tabela da direita terão valores de <code>NA</code>.</p>
@@ -1048,7 +1044,7 @@ Observação
 <div class="cell">
 <div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>hbrook_largo <span class="ot">&lt;-</span> hbrook <span class="sc">|&gt;</span></span>
 <span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>Precipitation) <span class="sc">|&gt;</span></span>
-<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">spread</span>(<span class="at">key =</span> Treatment, <span class="at">value =</span> Flow)</span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> Treatment, <span class="at">values_from =</span> Flow)</span>
 <span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>hbrook_largo</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 31 × 3
@@ -1073,22 +1069,22 @@ Observação
 <p>A função <code>pivot_longer()</code> é utilizada para transformar dados do formato largo para o formato longo, fazendo o caminho inverso de <code>pivot_wider()</code>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>hbrook_longo <span class="ot">&lt;-</span> hbrook_largo <span class="sc">|&gt;</span></span>
-<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gather</span>(<span class="at">key =</span> Desmatamento, <span class="at">value =</span> Flow, <span class="sc">-</span>Year)</span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="sc">!</span>Year, <span class="at">names_to =</span> <span class="st">"Desmatamento"</span>, <span class="at">values_to =</span> <span class="st">"Flow"</span>)</span>
 <span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>hbrook_longo</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 62 × 3
     Year Desmatamento  Flow
    &lt;dbl&gt; &lt;chr&gt;        &lt;dbl&gt;
  1  1958 Deforested    645.
- 2  1959 Deforested   1012.
- 3  1960 Deforested    825.
- 4  1961 Deforested    470.
- 5  1962 Deforested    777.
- 6  1963 Deforested    774.
- 7  1964 Deforested    712.
- 8  1965 Deforested    599.
- 9  1966 Deforested   1189.
-10  1967 Deforested   1132.
+ 2  1958 Reference     567.
+ 3  1959 Deforested   1012.
+ 4  1959 Reference     918.
+ 5  1960 Deforested    825.
+ 6  1960 Reference     752.
+ 7  1961 Deforested    470.
+ 8  1961 Reference     436.
+ 9  1962 Deforested    777.
+10  1962 Reference     699.
 # … with 52 more rows</code></pre>
 </div>
 </div>
@@ -1674,7 +1670,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../../conteudo/ciencia_dados/grafico_ggplot.qmd" class="pagination-link" aria-label="Gráficos em camadas">
+      <a href="../../conteudo/ciencia_dados/grafico_ggplot2.html" class="pagination-link" aria-label="Gráficos em camadas">
         <span class="nav-page-text">Gráficos em camadas</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>

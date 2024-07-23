@@ -50,8 +50,8 @@ website:
             text: Operadores Pipe
           - href: conteudo/ciencia_dados/transform.qmd
             text: Tranformação de Dados
-          - href: conteudo/ciencia_dados/grafico_ggplot.qmd
-            text: "Gráficos em camadas"
+          - href: conteudo/ciencia_dados/grafico_ggplot2.qmd
+            text: Gráficos em camadas
       - section: "Estrutura de dados"
         contents:
           - href: conteudo/estrutura_dados/estrutura.qmd
