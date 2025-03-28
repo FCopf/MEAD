@@ -1,0 +1,220 @@
+---
+title: Operadores pipe
+description: "Uso de operadores pipe para simplificar o fluxo de transformação de dados em R."
+categories: ["Ciência de Dados", "R", "Tidyverse", "Transformação de dados"]
+image: "images/pipe.jpg"
+execute:
+  echo: true
+  warning: false
+  include: true
+  message: false
+---
+
+Em R, **operadores pipe** são usados para passar a saída de uma função para a entrada de outra, tornando o código mais legível e conciso. Este tutorial compara o operador pipe nativo `|>` introduzido no R 4.1.0 e o operador `%>%` do pacote `magrittr`.
+
+## Operador Pipe nativo `|>`
+
+O operador pipe nativo `|>` é uma nova adição ao R base. Ele permite escrever código mais limpo e legível ao encadear funções.
+
+```{r}
+# Exemplo usando o operador pipe nativo |>
+resultado <- 1:10 |> 
+  sum() |>
+  sqrt()
+
+resultado
+```
+
+Neste exemplo, a sequência de 1 a 10 é passada para a função `sum()`, e o resultado é então passado para a função `sqrt()```.
+
+O mesmo resultado é obtido sem o operador pipe por:
+
+```{r}
+resultado <- sqrt(sum(1:10))
+
+resultado
+```
+
+
+## Operador Pipe do pacote magrittr %>%
+
+O operador `%>%` do pacote `magrittr``` tem sido amplamente usado na comunidade R há vários anos. Ele serve ao mesmo propósito que o operador pipe nativo, mas possui alguns recursos adicionais.
+
+```{r}
+library(magrittr)
+
+# Exemplo usando o operador pipe do magrittr %>%
+resultado <- 1:10 %>%
+  sum() %>%
+  sqrt()
+
+resultado
+
+```
+
+Este exemplo alcança o mesmo resultado que o anterior, mas usa o operador `%>%` do pacote `magrittr`.
+
+## Diferenças e Considerações
+
+### Suporte a Placeholder
+
+Uma diferença chave é que `%>%` suporta placeholders `(.)`, que podem ser úteis para pipelines mais complexos.
+
+```{r}
+# Usando placeholder com %>%
+resultado <- 1:10 %>%
+  sum() %>%
+  { . / 2 } %>%
+  sqrt()
+
+resultado
+```
+
+O operador pipe nativo `|>` não suporta placeholders diretamente.
+
+Usando o pipe nativo, a mesma expressão ficaria:
+
+```{r}
+resultado <- 1:10 |>
+  sum() |>
+  (\(x) x / 2)() |>  # Esta linha é similar à: `(function(x) x / 2)()`
+  sqrt()
+```
+
+Portanto, torna-se necessário declarar uma função dentro da sequência se comandos.
+
+## Tratamento de Erros e Depuração
+
+O operador `%>%` do magrittr fornece mensagens de erro mais detalhadas e melhores capacidades de depuração. Se você encontrar um erro em um pipeline usando `|>`, a mensagem de erro pode ser menos informativa em comparação com o uso de `%>%`.
+
+## Desempenho
+
+Ambos os operadores pipe têm desempenho semelhante na maioria dos casos. No entanto, `|>` por ser parte do R base, pode ter ligeiras vantagens de desempenho em alguns cenários devido à sua integração com a linguagem principal.
+
+## Quando usar operadores pipe
+
+Tanto o operador pipe nativo `|>` quanto o operador `%>%` do magrittr são ferramentas poderosas para escrever código R limpo e legível. A escolha entre eles depende de suas necessidades específicas e preferências. Se você precisa de suporte a placeholders e depuração aprimorada, `%>%` é uma boa escolha. Para uma dependência mais leve e potencialmente melhor desempenho, `|>` é uma opção sólida. A seguir algumas sugestões para a escolha entre os operadores.
+
+1. *Leitura e Legibilidade*: Use operadores pipe quando você deseja aumentar a legibilidade do código. Eles ajudam a encadear operações de forma linear, tornando o fluxo de dados claro e fácil de seguir.
+
+```{r}
+#| eval: false
+resultado <- dados %>%
+  filter(variavel1 > 10) %>%  # Filtra os dados
+  mutate(nova_variavel = variavel2 * 2) %>%  # insere `nova_variavel` no data frame
+  summarise(media = mean(nova_variavel))  # extrai a média da `nova_variavel`
+  
+```
+
+2. *Transformações Sequenciais*: Use operadores pipe quando você precisa aplicar uma série de transformações sequenciais nos dados. Eles permitem que você evite a criação de variáveis temporárias.
+
+```{r}
+#| eval: false
+resultado <- dados |>
+  filter(variavel1 > 10) |>
+  mutate(nova_variavel = variavel2 * 2) |>
+  summarise(media = mean(nova_variavel))
+
+# Sem o operador pipe, esta sequância de códigos poderia ficar:
+res1 <- filter(dados, variável1 > 10)
+res2 <- mutate(res1, nova_variavel = variavel2 * 2)
+resultado <- summarise(res2, media = mean(nova_variavel))
+
+```
+
+3. *Consistência de Sintaxe*: Utilize pipes para manter uma sintaxe consistente em todo o seu código, especialmente se você estiver trabalhando em um projeto colaborativo onde a consistência de estilo é importante.
+
+4. *Simplificação de Funções Aninhadas*: Empregue operadores pipe para simplificar a leitura de funções aninhadas, evitando a necessidade de múltiplos parênteses.
+
+```{r}
+resultado <- sqrt(sum(1:10))
+
+# versus
+
+resultado_pipe <- 1:10 |>
+  sum() |>
+  sqrt()
+```
+
+```{r}
+resultado
+resultado_pipe
+```
+
+5. *Codificação Explorativa e Prototipagem Rápida*: Use pipes durante a exploração de dados e prototipagem rápida, pois eles permitem que você altere e teste rapidamente diferentes transformações.
+
+
+## Quando Não Usar Operadores Pipe
+
+1. *Simplicidade Excessiva*: Evite usar operadores pipe para operações extremamente simples onde o uso de pipes não adiciona clareza. Por exemplo, `sum(1:10)` é mais claro sem o pipe.
+
+2. *Depuração de Código*: Não use pipes se você está tendo dificuldades para depurar uma sequência de operações. Em vez disso, atribua resultados intermediários a variáveis temporárias para inspecioná-los.
+
+```{r}
+#| eval: false
+passo1 <- filter(dados, variavel1 > 10)
+passo2 <- mutate(passo1, nova_variavel = variavel2 * 2)
+resultado <- summarise(passo2, media = mean(nova_variavel))
+```
+
+3. *Operações Complexas com Várias Etapas*: Evite usar pipes em operações muito complexas que envolvem várias etapas interdependentes, onde a clareza do código pode ser comprometida. Por exemplo se você precisa manipular dois data frames independentes e depois uní-los, fazer isso em uma única sequencia de operadores pipe pode tornar o código difícil de interpretar.
+
+```{r}
+# Criando exemplos de data frames
+dados1 <- data.frame(
+  categoria = rep(c("A", "B", "C"), each = 4),
+  variavel1 = rnorm(12, mean = 6, sd = 2)
+)
+
+dados2 <- data.frame(
+  categoria = rep(c("A", "B", "C"), each = 4),
+  variavel2 = rnorm(12, mean = 10, sd = 5)
+)
+
+library(dplyr)
+# Operações complexas em uma única sequência de operadores pipe
+resultado <- dados1 |>
+  group_by(categoria) |>
+  summarise(media_variavel1 = mean(variavel1)) |>
+  inner_join(
+    dados2 |> 
+      group_by(categoria) |> 
+      summarise(soma_variavel2 = sum(variavel2)),
+    by = "categoria"
+  ) |>
+  mutate(nova_variavel = soma_variavel2 / media_variavel1) |>
+  arrange(desc(nova_variavel))
+
+resultado
+
+```
+
+O exemplo acima pode ser reescrito de forma que cada etapa tenha uma leitura mais clara.
+
+```{r}
+# Passo 1: Filtrar e resumir dados1
+resumo_dados1 <- dados1 |>
+  group_by(categoria) |>
+  summarise(media_variavel1 = mean(variavel1))
+
+# Passo 2: Filtrar e resumir dados2
+resumo_dados2 <- dados2 |>
+  group_by(categoria) |>
+  summarise(soma_variavel2 = sum(variavel2))
+
+# Passo 3: Unir os resultados dos dois data frames
+resultado_unido <- inner_join(resumo_dados1, 
+                                     resumo_dados2, 
+                                     by = "categoria")  |>  
+  mutate(nova_variavel = soma_variavel2 / media_variavel1) |>
+  arrange(desc(nova_variavel))
+
+resultado_unido
+```
+
+Embora o código tenha ficado mais longo, fica também mais simples de ser inspecionado.
+
+4. *Desempenho Crítico*: Se você está preocupado com o desempenho crítico e a eficiência, pode ser melhor evitar pipes, já que eles podem adicionar alguma sobrecarga.
+
+5. *Ambiguidade de Funções*: Evite pipes se o uso deles torna a ordem das operações ou a origem dos dados ambígua. Certifique-se de que a sequência de operações é clara e lógica.
+

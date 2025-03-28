@@ -1,0 +1,15 @@
+---
+title: "Introdução à Inferência Bayesiana"
+author: baseado no material [Statistical Rethinking course and book package](https://github.com/rmcelreath/rethinking){target="_blank"}
+description: "Introdução à inferência bayesiana e contagem de possibilidades"
+Categories: ["Probabilidade", "Inferência bayesiana", "Resultados equiprováveis"]
+
+image: "images/intro-bayes.png"
+execute:
+  echo: true
+  warning: false
+  include: true
+  message: false
+---
+
+## Introdução a infe

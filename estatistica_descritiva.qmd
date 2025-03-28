@@ -1,0 +1,25 @@
+---
+title: "Estatística descritiva"
+description: "Representação de variáveis, medidas de tendência central e variação"
+categories: ["Estatística", "R"]
+image: "images/estatistica_descritiva.jpg"
+listing:
+  contents: 
+    - conteudo/estatistica_descritiva/varqualit.qmd
+    - conteudo/estatistica_descritiva/varquant.qmd
+    - conteudo/estatistica_descritiva/tendcentral.qmd
+    - conteudo/estatistica_descritiva/variacao.qmd
+    - conteudo/estatistica_descritiva/quartis.qmd
+    - conteudo/estatistica_descritiva/escorez.qmd
+  sort: false
+  type: default
+  fields: 
+    - image
+    - title
+    - description
+    - categories  
+format:
+  html:
+    toc: true
+    number-sections: true
+---

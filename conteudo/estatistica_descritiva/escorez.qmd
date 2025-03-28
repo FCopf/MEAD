@@ -1,0 +1,245 @@
+---
+title: "Medidas de posição: transformação Z"
+description: "Transformação e interpretação do índice Z para padronizar distribuições, destacando sua relação com a média e o desvio padrão."
+categories: ["R", "Análise de Dados", "Estatística Descritiva", "Padronização de Dados", "Índice Z"]
+
+
+image: "images/escorez-logo.jpg"
+execute:
+  echo: true
+  warning: false
+  include: true
+  message: false
+format:
+  html:
+    code-fold: false
+---
+
+:::{.callout-tip collapse="true"}
+## Pacotes e funções utilizados
+
+```{r}
+#| output: false
+library(tidyverse)
+library(gt)
+library(patchwork)
+source('scripts/normal_empirica_gg.r')
+```
+
+:::
+
+O **índice (ou escore) $Z$** indica a posição de uma observação particular ($X_i$) dentro de uma distribuição, relacionando a posição de $X_i$ com a **média** e o **desvio padrão** da distribuição de $X$. Suponha uma variável com média $\overline{X}$ e desvio padrão $s$. O índice de $Z_i$ para uma observação $i$ particular é calculado por:
+
+$$Z_i = \frac{X_i - \overline{X}}{s}$$
+
+Seja, por exemplo, a variável $X$:
+
+```{r}
+#| code-fold: true
+set.seed(1)
+X <- round(rnorm(20, 10, 2), 1)
+nX <- length(X)
+sX <- sort(X)
+```
+
+```{r}
+#| echo: false
+Xm <- mean(X)
+Xsd <- sd(X)
+```
+
+$X$ = `r X` 
+
+Com média e desvio padrão $\overline{X} = `r round(Xm, 2)`$ e $s = `r round(Xsd, 2)`$, respectivamente.
+
+```{r}
+#| echo: false
+i <- 3
+```
+
+O índice $Z_i$ para a $`r i`a$ observação $X_{`r i`} = `r X[i]`$ pode ser obtido por:
+
+```{r}
+#| code-fold: true
+i <- 3
+Xm <- mean(X)
+Xsd <- sd(X)
+Zi <- (X[i] - Xm) / Xsd
+```
+
+$Z_`r X[i]` = \frac{`r X[i]` - `r round(Xm, 2)`}{`r round(Xsd, 2)`} = `r round(Zi, 2)`$
+
+## Interpretando o valor de $Z$
+
+O cálculo do índice $Z$ passa pela **centralização** e **padronização** da variável $X$:
+
+1. **Centralização**: a porção $X_i - \overline{X}$ mede o *desvio* de cada observação, isto é, a distância (positiva ou negativa) entre $X_i$ e $\overline{X}$. O termo centralização refere-se ao comportamento dos desvios estarem distribuídos ao redor de zero, isto é, a média dos desvios é zero.
+
+$$\sum_{i=1}^{n}\frac{(X_i - \overline{X})}{n} = 0$$
+
+2. **Padronização**: ao dividirmos a quantia $X_i - \overline{X}$ pelo desvio padrão de $X$, obtemos a nova variável denominada $Z$. O termo padronização refere-se ao fato de o desvio padrão de $Z$ ser igual a $1$.
+
+A **transformação $Z$** consiste, portanto, em gerar uma nova variável com média $\overline{Z} = 0$ e desvio padrão $s_{Z} = 1$. 
+
+Deste modo, o valor de $Z_i$ associado a uma observação $X_i$ particular nos indica **quantos desvios padrões** $X_i$ está acima ou abaixo da média de seu grupo. 
+
+:::{.callout-note}
+## Relação $Z$ e $X$
+
+- Se $Z_i = 0$, então $X_i = \overline{X}$;
+- Se $Z_i > 0$, então $X_i > \overline{X}$;
+- Se $Z_i < 0$, então $X_i < \overline{X}$;
+
+:::
+
+Para uma distribuição com média igual a $10$ e desvio padrão igual a $3$, por exemplo, uma observação $X_i = 16$ terá um valor de $Z = \frac{16-10}{3} = 2$, indicando que está **dois desvios padrões** acima da média de $X$.
+
+## Cálculo de $Z$ no ambiente R
+
+Seja:
+
+```{r}
+#| code-fold: true
+set.seed(1)
+X <- round(rnorm(20, 10, 2), 1)
+```
+
+$X$ = `r X`
+
+$Z$ pode ser obtido pelos comandos:
+
+```{r}
+Xm <- mean(X)
+Xsd <- sd(X)
+Z <- (sort(X) - Xm) / Xsd
+```
+
+Podemos ver na @tbl-z-score os valores de cada observação $X_i$ e dos respectivos valores de $Z_i$ em ordem crescente.
+
+```{r}
+#| code-fold: true
+#| label: tbl-z-score
+#| tbl-cap: 'Associação entre uma distribuição X e a transformação Z.'
+
+Posicao_k <- paste(1:length(X), "a Posição", sep = "")
+df <- tibble(`Posicao k` = Posicao_k, `X ordenado` = sX, Z = round(Z, 2)) |>
+  add_row(
+    `Posicao k` = c("Média", "Desvio padrão"),
+    `X ordenado` = c(round(mean(sX), 2), round(sd(sX), 2)),
+    Z = c(round(mean(Z), 2), round(sd(Z), 2))
+  )
+
+df |>
+  gt()
+```
+
+Podemos comparar graficamente as distribuições das variáveis $X$ e $Z$.
+
+```{r}
+#| code-fold: true
+#| label: fig-z-score
+#| fig-cap: 'Histogramas representando a distribuição de X e Z.'
+#| fig-width: 8
+#| fig-height: 10
+hX <- ggplot(df, aes(x = `X ordenado`)) +
+  geom_histogram(fill = 'darkblue', color = 'white', bins = 9) +
+  ylab('Frequência') +
+  scale_x_continuous(n.breaks = 7) +
+  theme_classic(base_size = 20)
+
+hZ <- ggplot(df, aes(x = Z)) +
+  geom_histogram(fill = 'darkblue', color = 'white', bins = 9) +
+  ylab('Frequência') +
+  scale_x_continuous(n.breaks = 7) +
+  theme_classic(base_size = 20)
+
+hX / hZ
+```
+
+Veja na @tbl-z-score que conforme o valor de $X_i$ se distancia da média de $X = `r round(Xm, 2)`$, mais distante de zero será o valor de $Z_i$. Neste exemplo, as observações mais extremas de $X$ estão, respectivamente, a `r min(round(Z, 2))` desvios padrões abaixo e `r max(round(Z, 2))` desvios padrões acima da média. Como discutido acima, a nova variável $Z$ tem média $\overline{Z} = 0$ (está centralizada) e desvio padrão $s_Z = 1$ (está padronizada). 
+
+## Obtendo a transformação $Z$ a partir de uma tabela de dados 
+
+Importe a base de dados `Reservatorios_Parana_parcial.csv`.
+
+```{r}
+#| output: false
+res <- read_delim(
+  file = "https://github.com/FCopf/datasets/raw/refs/heads/master/Reservatorios_Parana_parcial.csv",
+  delim = ",",
+  locale = locale(decimal_mark = ".", encoding = "latin1")
+)
+```
+
+Utilizando a função `mutate`, vamos manter somente a variável `CPUE` e criar outra coluna denominada `CPUE_z`.
+
+```{r}
+df_z <- res |> 
+  select(CPUE) |> 
+  mutate(CPUE_z = (CPUE - mean(CPUE)) / sd(CPUE)) |> 
+  round(2)
+
+df_z |> 
+  gt()
+```
+
+Se calcularmos a média e o desvio padrão das variáveis, veremos que `CPUE` mantém os valores originais, enquanto `CPUE_z` terá média igual a $0$ e desvio padrão igual a $1$.
+
+```{r}
+df_z |> 
+  summarize(CPUE_media = mean(CPUE),
+            CPUE_dp = sd(CPUE),
+            CPUE_z_media = round(mean(CPUE_z), 2),
+            CPUE_z_dp = round(sd(CPUE_z), 2)) |> 
+  gt()
+```
+
+## Valores esperados de $Z$ em uma distribuição normal padronizada
+
+A interpretação de $Z$ faz sentido quando desejamos posicionar uma determinada observação $X_i$ como função da média e desvio padrão de seu grupo. Adicionalmente, se uma variável $X$ puder ser descrita adequadamente por uma **distribuição normal de probabilidades**, existe uma regra empírica que permite determinar os percentuais das observações acima e abaixo de limites conhecidos.
+
+```{r}
+#| code-fold: true
+#| label: fig-normal-empirica-gg
+#| fig-cap: "Áreas de probabilidade em uma distribuição normal."
+# Ver função completa no arquivo 'scripts/normal_empirica_gg.r'
+normal_empirica_gg()
+```
+
+Na @fig-normal-empirica-gg, vemos que existe uma probabilidade de aproximadamente $68\%$ de que uma observação tomada ao acaso esteja entre os limites de $-1$ e $1$ desvios padrões da média. Existe ainda uma probabilidade de aproximadamente $95\%$ de que uma observação esteja entre $-2$ e $2$ desvios padrões da média. Por outro lado, é muito improvável encontrarmos ao acaso uma observação a mais de $3$ desvios padrões distantes da média. Isto deverá ocorrer em somente cerca de $0,26\%$ dos casos em que sortearmos uma amostra aleatoriamente.
+
+```{r}
+#| echo: false
+mH <- 175
+sdH <- 10
+lim <- 2
+linf <- round(mH - lim * sdH, 2)
+lsup <- round(mH + lim * sdH, 2)
+```
+
+:::{.callout-note}
+## Uso da distribuição normal empírica
+
+Suponha que a distribuição de altura de homens adultos siga uma distribuição normal com média $\mu = `r mH`$ cm e desvio padrão $\sigma = `r sdH`$ cm. 
+
+```{r}
+#| code-fold: true
+#| echo: true
+mH <- 175
+sdH <- 10
+lim <- 2
+linf <- round(mH - lim * sdH, 2)
+lsup <- round(mH + lim * sdH, 2)
+```
+
+Neste caso, se tomarmos os limites entre $-2$ e $+2$ desvios padrões teremos: 
+
+$\mu - `r lim` \times \sigma = `r mH` - `r lim` \times `r sdH` = `r linf`$ cm
+
+e
+
+$\mu + `r lim` \times \sigma = `r mH` + `r lim` \times `r sdH` = `r lsup`$ cm
+
+Estes resultados sugerem que nesta população temos somente cerca de $5\%$ dos homens adultos com mais de $`r lsup`$ cm ou menos de $`r linf`$ cm de altura.
+
+:::

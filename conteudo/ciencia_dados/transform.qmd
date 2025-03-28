@@ -1,0 +1,425 @@
+---
+title: Transformação de Dados
+description: "Tidyverse - manipulação, transformação, visualização de dados."
+categories: ["Ciência de Dados", "R", "Tidyverse"]
+image: "images/transform.jpg"
+execute:
+  echo: true
+  warning: false
+  include: true
+  message: false
+---
+
+Após importar uma base de dados para o R, os pacotes `dplyr` e `tidyr` são essenciais para transformação de data frames. As funções desses pacotes ajudam na análise, modelagem e comunicação de dados. Neste seção são apresentadas as principais funções para transformar observações (linhas) e variáveis em um data frame a partir de uma ou mais tabelas. A [Cheatsheets](https://rstudio.com/resources/cheatsheets/) do `dplyr` apresenta outros recursos não discutidos nesta seção.
+
+## Ordenando as linhas: funções `arrange()` e `desc()`
+
+As funções `arrange()` e `desc()` permitem ordenar a base de dados com base nos valores de uma ou mais colunas. Usará-se o conjunto de dados `iris` como exemplo.
+
+Carregue os pacote `dplyr`, `tidyr` e `readr`.
+
+```{r}
+library(dplyr)
+library(tidyr)
+library(readr)
+```
+
+
+Para carregar e visualizar as primeiras linhas da base de dados `iris`:
+
+```{r}
+data("iris")
+head(iris, 10)
+```
+
+Para ordenar a tabela pela coluna `Sepal.Length` em ordem crescente:
+
+```{r}
+#| eval: false
+iris |> 
+  arrange(Sepal.Length)
+```
+
+Para ordenar em ordem decrescente:
+
+```{r}
+#| eval: false
+iris |> 
+  arrange(desc(Sepal.Length))
+```
+
+É possível também combinar duas colunas, ordenando a tabela pela coluna `Species` (em ordem alfabética decrescente) e `Sepal.Length` (em ordem crescente):
+
+```{r}
+#| eval: false
+iris |> 
+  arrange(desc(Species), Sepal.Length)
+```
+
+Para criar um novo objeto com a tabela ordenada
+
+```{r}
+#| eval: false
+iris_ordenado <- iris |> 
+  arrange(Sepal.Length)
+
+iris_ordenado
+```
+
+## Filtrando linhas: função `filter()`
+
+A função `filter()` extrai linhas que satisfazem uma condição lógica. Para filtrar as linhas referentes à espécie `virginica`:
+
+```{r}
+#| eval: false
+iris |> 
+  filter(Species == "virginica")
+```
+
+Para filtrar espécies diferentes de `virginica`.
+
+```{r}
+#| eval: false
+iris |> 
+  filter(Species != "virginica")
+```
+
+Para filtrar linhas onde o comprimento das pétalas seja menor que $1.3$:
+
+```{r}
+#| eval: false
+iris |> 
+  filter(Petal.Length < 1.3)
+```
+
+Para filtrar onde o comprimento das pétalas seja menor que $1.3$ e o comprimento das sépalas seja maior ou igual a $5$:
+
+```{r}
+#| eval: false
+iris |> 
+  filter(Petal.Length < 1.3 & Sepal.Length >= 5)
+```
+
+## Selecionando colunas: função `select()`
+
+A função `select()` permite extrair ou reorganizar um subconjunto de colunas de um data frame.
+
+Para extrair uma coluna: 
+
+```{r}
+#| eval: false
+iris |> 
+  select(Petal.Length)
+```
+
+Para extrair múltiplas colunas:
+
+```{r}
+#| eval: false
+iris |> 
+  select(Petal.Length, Species)
+```
+
+Para extrair um intervalo de colunas:
+
+```{r}
+#| eval: false
+iris |> 
+  select(Petal.Length:Species)
+```
+
+Para excluir uma coluna:
+
+```{r}
+#| eval: false
+iris |> 
+  select(-Petal.Length)
+```
+
+Para excluir colunas específicas:
+
+```{r}
+#| eval: false
+iris |> 
+  select(!c(Petal.Length, Species))
+```
+
+Para selecionar colunas que começam com "Sepal":
+
+```{r}
+#| eval: false
+iris |> 
+  select(starts_with("Sepal"))
+```
+
+Para combinar `filter()` e `select()` a fim de extrair um subconjunto do data frame:
+
+```{r}
+#| eval: false
+iris |> 
+  select(starts_with("Sepal")) |> 
+  filter(Sepal.Length <= 4.5)
+```
+
+### Selecionando/Excluindo variáveis numéricas e categóricas
+
+Importe o conjuntoi de dados `Reservatorios_Parana_parcial.csv`:
+
+```{r}
+res = read_delim(file = "https://github.com/FCopf/datasets/raw/refs/heads/master/Reservatorios_Parana_parcial.csv",
+                  delim = ',',
+                  locale = locale(decimal_mark = '.',
+                                  encoding = 'latin1'))
+```
+#### Seleção de variáveis categóricas
+
+```{r}
+res |>
+  select(Reservatorio, Bacia, Trofia)
+
+res |>
+  select(where(is.character))
+```
+
+#### Seleção de variáveis numéricas
+
+```{r}
+res |>
+  select(Fechamento, Area, pH, Condutividade, Alcalinidade, P.total, Riqueza, CPUE)
+
+res |>
+  select(Fechamento, Area, pH:CPUE)
+
+res |>
+  select(where(is.numeric))
+```
+
+### Exclusão de variáveis
+
+```{r}
+res |>
+  select(-Fechamento, -Area)
+
+res |>
+  select(!where(is.numeric))
+
+res |>
+  select(!where(is.character))
+```
+
+## Outros exemplos de seleção/exclusão de variáveis
+
+### `all_off()`, `any_of()`, `one_of()`
+```{r}
+# 1. all_of(): Seleciona todas as colunas mencionadas
+res |>
+  select(all_of(c('Reservatorio', 'Bacia')))
+
+# 2. any_of(): Seleciona qualquer coluna que exista na lista (ignora colunas inexistentes)
+res |>
+  select(any_of(c('Reservatorio', 'Bacia', 'Turbidez'))) # funciona, any_of() ignora que `Turbidez` não existe
+
+res |>
+  select(one_of(c('Reservatorio', 'Trofia', 'Turbidez'))) # funciona, one_of() avisa que `Turbidez` não existe
+
+# res |>
+#   select(Reservatorio, Bacia, Turbidez) # Não funciona, pois `Turbidez` não existe
+
+```
+
+### `contains()`, `ends_with()`, `everything()`, `last_col()`
+```{r}
+# 3. contains(): Seleciona colunas cujos nomes contêm uma string específica
+res |>
+  select(contains('to'))
+
+# 4. ends_with(): Seleciona colunas que terminam com uma string específica
+res |>
+  select(ends_with('dade'))
+
+# 5. everything(): Seleciona todas as colunas (pode ser usado para reorganizar)
+res |>
+  select(Fechamento, pH, everything())
+
+# 6. last_col(): Seleciona a última coluna
+res |>
+  select(last_col())
+
+```
+
+### Expressoes regulares
+```{r}
+# 7. matches(): Seleciona colunas que correspondem a uma expressão regular
+res |>
+  select(matches('^[FA]')) # Colunas que começam com 'F ou A'
+
+# 8. Seleciona colunas cujos nomes:
+# 1. Começam com a letra "A" ou "C"
+# 2. Podem conter qualquer sequência de caracteres após a primeira letra
+# 3. Terminam com as letras "a" ou "e"
+res |>
+  select(matches('^[AC].*[ae]$'))
+```
+
+
+## Renomeando colunas
+
+```{r}
+res |>
+  rename(Fosforo_total = P.total,
+         Captura_kg = CPUE)
+```
+
+## Agrupando tabelas: funções do grupo ```join```
+
+As funções `left_join()`, `right_join()`, `inner_join()`, `anti_join()` e `full_join()` do pacote `dplyr` em R são utilizadas para combinar dois data frames baseados em uma coluna ou colunas comuns. Esses tipos de joins são amplamente utilizados em operações de banco de dados e manipulação de dados.
+
+Considere os arquivos `regiao.csv` e `habitat.csv` do repositório [datasets](https://github.com/FCopf/datasets).
+
+
+```{r}
+regiao <- read_csv("https://raw.githubusercontent.com/FCopf/datasets/master/regiao.csv")
+habitat <- read_csv("https://raw.githubusercontent.com/FCopf/datasets/master/habitat.csv")
+regiao
+habitat
+```
+
+**Tabela regiao**: Contém informações sobre a bacia hidrográfica, área da bacia e município de alguns riachos da região litorânea de São Paulo.
+
+**Tabela habitat**: Contém informações sobre a largura e profundidade desses riachos. Algumas entradas são comuns às duas tabelas, enquanto outras são exclusivas de uma delas. A coluna `Riacho` serve como chave para combinar as informações.
+
+### Função left_join()  {.unnumbered}
+
+Retorna todas as linhas da tabela à esquerda (`regiao`) e adiciona colunas da tabela à direita (`habitat`). Linhas sem correspondência na tabela da direita terão valores de `NA`.
+
+```{r}
+regiao |> left_join(y = habitat)
+```
+
+### Função right_join() {.unnumbered}
+
+Retorna todas as linhas da tabela à direita (`habitat`) e adiciona colunas da tabela à esquerda (`regiao`). Linhas sem correspondência na tabela da esquerda terão valores de `NA`.
+
+```{r}
+regiao |> right_join(y = habitat, keep=TRUE)
+```
+
+### Função inner_join() {.unnumbered}
+
+Retorna apenas as linhas que têm correspondência em ambas as tabelas.
+
+```{r}
+regiao |> inner_join(y = habitat)
+```
+
+### Função anti_join() {.unnumbered}
+
+Retorna as linhas da tabela à esquerda que não têm correspondência na tabela à direita. Também retorna todas as colunas da tabela à esquerda.
+
+```{r}
+regiao |> anti_join(y = habitat)
+```
+
+```{r}
+habitat |> anti_join(y = regiao)
+```
+
+### Função full_join() {.unnumbered}
+
+Retorna todas as linhas e colunas de ambas as tabelas. Nas células onde não houver correspondência, retorna `NA`.
+
+```{r}
+regiao |> full_join(y = habitat, keep = TRUE)
+```
+
+## Criando e modificando colunas com `mutate()`
+
+A função `mutate()` permite criar e modificar colunas em um data frame. Usando a base de dados Doubs river:
+
+```{r}
+library(ade4)
+data(doubs)
+dbenv <- doubs$env
+head(dbenv)
+```
+
+### Ajustando a escala de pH {.unnumbered}
+
+A coluna `pH` está multiplicada por $10$. Vamos ajustar isso:
+
+```{r}
+dbenv <- dbenv  |> 
+  mutate(pH = pH / 10)
+
+head(dbenv)
+```
+
+### Criando variável categórica {.unnumbered}
+
+Criar uma variável categórica `pH_cat` com níveis `Elevado` (maior ou igual a $8$) e `Neutro` (menor que $8$):
+
+```{r}
+dbenv <- dbenv |> 
+  mutate(pH = pH / 10) |> 
+  mutate(pH_cat = if_else(pH < 8, true = "Neutro", false = "Elevado"),
+         , .after = pH)
+
+head(dbenv)
+```
+
+### Unindo colunas com `unite()` {.unnumbered}
+
+A função `unite()` do `tidyr` combina duas colunas em uma nova coluna. Usando a tabela `iris`:
+
+```{r}
+iris2 <- iris |> 
+  mutate(Genus = "Iris", .before = Species)  |>  
+  unite(scientic_name, Genus, Species, sep = " ")
+
+head(iris2)
+```
+
+::: {.callout-note}
+
+## Observação
+
+A função `unite()` excluiu as colunas que foram unificadas da tabela. Mara mantê-las na tabela utilize o argumento `remove = FALSE`.
+
+:::
+
+## Reformatando data frames: funções `pivot_wider()` e `pivot_longer()`
+
+A tabela `HubbardBrook.csv` ([datasets](https://github.com/FCopf/datasets)) contém dados anuais de vazão e precipitação em dois bacias hidrográficas [@hornbeck1993long]. A primeira (`Deforested`) teve toda a vegetação removida como parte de um experimento de longa duração enquanto a outra se manteve intacta (`Referenca`). Os daods de origem e o experimento detalhado são apresentados am Os dados foram retirados de [tiee.esa.org](https://tiee.esa.org/vol/v1/data_sets/hubbard/hubbard_overview.html)
+
+
+```{r}
+hbrook <- read_csv("https://raw.githubusercontent.com/FCopf/datasets/master/HubbardBrook.csv")
+hbrook
+```
+
+### Reorganizando data frames de formato longo para formato largo {.unnumbered}
+
+A função `pivot_wider()` é utilizada para transformar dados do formato longo para o formato largo. A seguir, será feito isso apenas para a variável `Flow`, excluindo `Precipitation`, separando os dados nas colunas `Deforested` e `Reference`.
+
+
+```{r}
+hbrook_largo <- hbrook |>
+  select(-Precipitation) |>
+  pivot_wider(names_from = Treatment, values_from = Flow)
+hbrook_largo
+```
+
+### Reorganizando data frames de formato largo para formato longo {.unnumbered}
+
+A função `pivot_longer()` é utilizada para transformar dados do formato largo para o formato longo, fazendo o caminho inverso de `pivot_wider()`.
+
+```{r}
+hbrook_longo <- hbrook_largo |>
+  pivot_longer(!Year, names_to = "Desmatamento", values_to = "Flow")
+hbrook_longo
+```
+
+```{r}
+#| echo: false
+rm(list = ls())
+```

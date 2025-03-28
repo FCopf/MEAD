@@ -1,0 +1,515 @@
+---
+title: Estrutura da linguagem
+description: "Introdução ao R: estrutura da linguagem, operações básicas e tipo de objetos como vetores, data frames, matrizes e listas."
+categories: ["R", "Programação"]
+image: "images/estrutura-liguagem-r.jpg"
+execute:
+  echo: true
+  warning: false
+  include: true
+  message: false
+---
+
+R é um ambiente de software livre para computação estatística e gráfica que roda em uma variedade de plataformas UNIX, Windows e MacOS ([R Project](https://www.r-project.org/)). A instalação pode ser feita a partir do site oficial [CRAN](https://cran.r-project.org/), seguindo as instruções para cada plataforma. O [RStudio](https://rstudio.com/) é uma Interface de Desenvolvimento Integrado (IDE) dedicada ao ambiente R, embora existam outras opções como [Jupyter Notebook](https://jupyter.org/), [Jupyter Lab](https://jupyterlab.readthedocs.io/en/latest/), [Visual Studio Code](https://code.visualstudio.com/) e [Google Colab](https://colab.research.google.com/).
+
+## O R para cálculos aritméticos
+
+Vamos iniciar nossa introdução ao R com seu uso mais simples, um ambiente para cálculos aritméticos. Como você verá, o R usa os operadores matemáticos de subtração (`-`), adição (`+`), multiplicação (`*`), divisão (`/`) e potenciação (`^`) do modo análogo a outros softwares.
+
+```{r}
+2 + 4
+2 * 4
+2 - 4
+2^4
+```
+
+Além destes, temos operadores para extrairmos a parte inteira (`%%`) e o resto (`%/%`) de uma divisão.
+
+```{r}
+13%/%2
+13%%2
+```
+
+O uso de parênteses também permite o controle das operações matemáticas seguindo as prioridades conhecidas nestas operações. Por exemplo, a expressão:
+
+```{r}
+5 * (9 + 2)
+```
+
+é diferente de:
+
+```{r}
+5 * 9 + 2
+```
+
+Assim como a expressão:
+
+```{r}
+(3 + 4)^2
+```
+
+é diferente de:
+
+```{r}
+3 + 4^2
+```
+
+Existem também funções aritméticas comuns como $log(x)$, $\sqrt(x)$, $\sin(x)$, o número $\pi$, etc.
+
+```{r}
+log(100)
+log10(100)
+log(100, base = 2)
+sqrt(36)
+pi
+sin(0.5 * pi)
+```
+
+## Atribuição de valores
+
+O R se estrutura por meio de **objetos**. Ao atribuir um valor a uma variável, esta se torna um **objeto** que fica disponível na memória. Para atribuir valor $2$ à variável `x` fazemos:
+
+```{r}
+x <- 2
+x
+```
+
+Após atribuir um valor à variável, esta fica disponível na memória da seção atual e pode ser utilizada em operações subsequentes.
+
+```{r}
+y <- x + 10
+y
+```
+
+Ao atribuir outro valor à mesma variável, o valor inicial é substituído:
+
+```{r}
+x <- 5
+y <- x + 10
+y
+```
+
+O R diferencia caracteres minúsculos de MAIÚSCULOS. Portanto:
+
+```{r}
+a <- sqrt(49)
+A <- sqrt(81)
+a
+A
+```
+
+## Estruturas de dados
+
+Os objetos em R podem ser **vetores** (numéricos, alfanuméricos ou fatores), **matrizes** (numéricas ou alfanumétricas), **data frames** (estrutura bidimensional que pode combinar colunas de diferentes tipos como vetores numéricos, alfanuméricos ou fatores) ou **listas** (que pode combinar em sua estrutura, todos os objetos descritos acima). As **funções** em R são sequências de comandos que podem transformar objetos.
+
+### Vetores numéricos
+
+Os objetos podem guardar mais de um único valor. A função concatenar `c()` pode ser utilizada para criar um vetor com múltiplos valores. Dizemos que cada valor individual é uma *entrada*.
+
+```{r}
+x <- c(4, 3.0, 5, 9, 10)
+x
+```
+
+Podemos utilizar estes vetores em nossas operações.
+
+```{r}
+y <- x * 2
+y
+```
+
+Note que na operação acima, cada entrada foi multiplicada por $2$.
+
+Podemos ainda acessar e modificar entradas individuais. Por exemplo, o objeto `y` criado acima tem `r length(y)` elementos. O segundo elemento pode ser acessado com o comando:
+
+```{r}
+y[2]
+```
+
+E alterado com o comando:
+
+```{r}
+y[2] <- 300
+y
+```
+
+Se quisermos excluir o quarto elemento de `y` e gravar o resultado em um novo objeto `z` fazemos:
+
+```{r}
+z <- y[-4]
+z
+```
+
+*Obs:* Veja que o quarto elemento, `r y[4]`, foi excluído.
+
+Podemos obter a informação sobre o número de elementro do vetor. O vetor `y` tem tamanho igual a `r length(y)`, enquanto o vetor `z` tem `r length(z)` elementos.
+
+```{r}
+length(y)
+length(z)
+```
+
+#### Sequências regulares e repetições {-}
+
+Podemos criar sequencias regulares.
+
+```{r}
+2:10
+seq(2, 10, by = 2)
+seq(2, 10, length = 4)
+seq(2, 10, length = 10)
+```
+
+E repetições de valores e vetores.
+
+```{r}
+rep(4, times = 6)
+rep(c(2, 5), times = 3)
+rep(c(2, 5), each = 3)
+```
+
+Os resultados destas sequências podem ser guardadas em um objeto para utilização subsequente.
+
+```{r}
+a <- seq(2, 10, by = 2)
+a
+b <- seq(10, 2, by = -2)
+b
+
+c <- a + b
+c
+```
+
+### Vetores alfanuméricos
+
+São vetores em que cada entrada é um caracter alfanumerico.
+
+```{r}
+especie = c("Deuterodon iguape", 
+            "Characidium japuhybense", 
+            "Trichomycterus zonatus")
+especie
+```
+
+Existe uma variedade de funções para manipulação de vetores alfanuméricos.
+
+A função `sort()` por exemplo, aplicada a um vetor *numérico* é utilizada para ordená-lo de forma crescente:
+
+```{r}
+a = c(5,2,15,12)
+a
+sort(a)
+```
+
+ou decrescente:
+
+```{r}
+sort(a, decreasing = T)
+```
+
+Se aplicada a um vetor alfanumerico esta função ordena o vetor em ordem alfabética:
+
+```{r}
+sort(especie, decreasing = FALSE)
+sort(especie, decreasing = TRUE)
+```
+
+### Unindo vetores: comando `paste`
+
+Suponha que desejamos unir dois vetores alfanuméricos
+
+```{r}
+x1 <- c("Experimento")
+x2 <- c("A", "B", "C")
+x3 <- paste(x1, x2, sep = "_")
+```
+
+O mesmo resultado pode ser obtido de forma mais concisa com o comando:
+
+```{r}
+x4 <- paste("Experimento", LETTERS[1:3], sep = "_")
+x4
+```
+
+### Fatores
+
+Fatores são como vetores alfanuméricos, porém com um atributo adicional. Fatores são compostos por diferentes níveis. Por exemplo, podemos criar o objeto `dosagem` com o comando:
+
+```{r}
+dosagem <- c("Alta", "Alta", "Alta", 
+            "Media", "Media", "Media", 
+            "Baixa", "Baixa", "Baixa")
+dosagem
+```
+
+No exemplo acima, o R não reconhece as palavras `Alta`, `Media` e `Baixa` como diferentes níveis. Para isto devemos transformá-lo em um fator:
+
+```{r}
+dosagem <- factor(dosagem)
+dosagem
+```
+
+O objeto dosagem agora é um fator com `r nlevels(dosagem)` níveis.
+
+```{r}
+levels(dosagem)
+nlevels(dosagem)
+levels(dosagem)[2]
+```
+
+Note entretanto que os níveis foram reconhecidos em ordem alfabética. Se quisermos ordenar este níveis de outro modo fazemos:
+
+```{r}
+dosagem <- factor(dosagem, ordered = TRUE, 
+                 levels = c("Baixa", "Media", "Alta"))
+dosagem
+```
+
+Como veremos a frente, esta operação facilita a visualização gráfica de fatores ordenados.
+
+### Matrizes
+
+Matrizes são objetos compostos por linhas e colunas. No R, uma matriz pode ser construída inicialmente criando um vetor numérico:
+
+```{r}
+a <- c(21,26,5,18,17,28,20,15,13,14,27,22)
+a
+```
+
+Em seguida o vetor pode ser organizado em uma matriz definindo-se o número de linhas e de colunas que sejam compatíveis com o tamanho do vetor. No exemplo acima o vetor tem comprimento `r length(a)` e pode ser organizado em uma matriz de $3$ linhas e $4$ colunas:
+
+```{r}
+x <- matrix(a, nrow = 3, ncol = 4)
+x
+```
+
+Note que os elementos foram adicionados um por vez de **coluna em coluna**. Se quisermos preencher a matriz **por linhas** adicionamos ao comando, o argumento `byrow = TRUE`.
+
+```{r}
+x <- matrix(a, nrow = 3, ncol = 4, byrow = TRUE)
+x
+```
+
+Os elementos de uma matriz podem ser acessados indicando sua posição na linha e na coluna. Por exemplo, o elemento da $2^a$ linha e $3^a$ coluna de `x` pode ser acessados pelo comando:
+
+```{r}
+x[2, 3]
+```
+
+De modo análogo, a $2^a$ linha pode ser acessada por:
+
+```{r}
+x[2, ]
+```
+
+E a $4^a$ coluna por:
+
+```{r}
+x[, 4]
+```
+
+Valores individuais em matrizes podem ser alterados de forma similar ao que é realizasdo em vetores. Por exemplo, para alterar o elemento da $2^a$ linha e $3^a$ coluna de `x` por $1000$ fazemos:
+
+```{r}
+x[2, 3] <- 1000
+x
+```
+
+Também podemos excluir linhas e colunas de uma matriz.
+
+```{r}
+x[-2,]
+x[,-3]
+```
+
+Note que, acima, não salvamos os resultados da exclusão das linhas e colunas de `x` em nenhum objeto, de modo que `x` continua inalterado.
+
+```{r}
+x
+```
+
+Podemos criar matrizes unindo vetores de tamanho iguais em linhas ou colunas.
+
+```{r}
+x <- 3:12
+y <- 12:3
+rbind(x, y)
+cbind(x, y)
+```
+
+Eventualmente, se desejarmos atribuir nomes às linhas e às colunas de uma matriz, podemos fazê-lo por meio das funções `rownames()` e `colnames()` respectivamente:
+
+```{r}
+x_mat <- matrix(1:12, nrow = 3, ncol = 4)
+x_mat
+rownames(x_mat) <- paste("Linha", 1:3, sep = "")
+x_mat
+colnames(x_mat) <- paste("Coluna", 1:4, sep = "")
+x_mat
+```
+
+### Data frames
+
+Assim como Matrizes, **Data frames** são estruturas que permitem organizar dados em formato de linhas e colunas. No R entanto, as Matrizes não podem guardar objetos de diferentes características. Por exemplo, uma matriz pode ser composta inteiramente numérica:
+
+```{r}
+matrix(1:12, nrow = 4, ncol = 3)
+```
+
+Ou alfanumérica:
+
+```{r}
+matrix(letters[1:12], nrow = 4, ncol = 3)
+```
+
+Porém, se tentarmos unir um vetor numérico a um vetor alfanumérico, toda a matriz será convertida no formato alfanumérico.
+
+```{r}
+z <- LETTERS[3:12]
+z
+cbind(x, z)
+```
+
+Para unir diferentes tipos de vetores devemos usar transformar a matriaz para um objeto do tipo `data.frame` que cria uma estrutura com colunas independentes, permitindo que estas tenham diferentes formatos. Podemos unir os objetos `x` e `z` acima em um data frame como segue:
+
+```{r}
+data.frame(x, z)
+```
+
+Note que automaticamente, a função atribui nomes as colunas (`r colnames(data.frame(x, z))[1]` e `r colnames(data.frame(x, z))[2]`) e às linhas ($1$ a `r nrow(data.frame(x, z))`). Estes nomes podem ser alterados com as funções `rownames()` e `colnames()`.
+
+Neste caso, a coluna `x` continua sendo numérica e a coluna `z` continua alfanumérica.
+
+Podemos acessar os elementos de um data frame do mesmo modo que fizemos para matrizes.
+
+Podemos criar um data frame diretamente:
+
+```{r}
+Dados <- data.frame(Regiao = factor(c("Santos", "Santos", 
+                                     "Bertioga", "Bertioga", 
+                                     "Peruibe", "Peruibe")),
+                   Especie_A = c(12,43,80,91,75,115), 
+                   Especie_B = c(0, 59, 300, 350, 154, 200))
+```
+
+E acessá-lo de diferentes formas:
+
+```{r}
+Dados
+Dados$Regiao
+Dados["Regiao"]
+Dados[,"Regiao"]
+Dados[,c("Especie_A","Especie_B")]
+```
+
+### Listas
+
+Combinam em um único objeto todas as estruturas anteriores. Veja o exemplo em que combinamos um vetor alfanumérico, um vetor nominal e um data frame dentro da mesma lista.
+
+```{r}
+nossalista <- list(Ilha = c("Ilhabela", "Anchieta", "Cardoso"), 
+                  Areaskm2 = c(347.5, 8.3, 131), 
+                  Localizacao = data.frame(
+                    Bioma = rep("Mata Atlantica", 3),
+                  Lat = c(23, 25, 23),
+                  Long = c(45, 47, 45)))
+nossalista
+```
+
+Podemos ainda inserir listas dentro de outras listas, criando estruturas altamente complexas.
+
+Para acessar os elementos de uma lista podemos identificar seu nome após o operador `$` ou sua posição das formas que se seguem:
+
+```{r}
+nossalista$Ilha
+nossalista[[1]]
+nossalista$Localizacao
+nossalista[[3]]
+```
+
+## Operadores relacionais
+
+Operadores relacionais são aqueles de verificam as relações de **menor que** (`<`), **maior que** (`>`), **menor ou igual** (`<=`), **maior ou igual** (`>=`), **igual a** (`==`) ou **diferente de** (`!=`). O resultado de uma comparação retorna um objeto com o argumento **verdadeiro** (`TRUE`) ou **falso** (`FALSE`). Veja por exemplo:
+
+```{r}
+3 > 5
+```
+
+```{r}
+3 > 3
+```
+
+```{r}
+3 >= 3
+```
+
+```{r}
+a <- 5
+b <- 7
+a == b
+a != b
+```
+
+Se os objetos têm mais de um elemento, no caso de vetores, matrizes ou data frames, a comparação é feita elemento-a-elemento, comparando aqueles que estão na mesma posição, ou seja, os que têm o mesmo *índice de posição*.
+
+```{r}
+a <- c(3,5,5,7,1)
+b <- c(3,6,1,9,-3)
+a < b
+```
+
+Os operadores `TRUE` e `FALSE`, quanto utilizados em operações aritméticas se comportam respectivamente como valores `1` e `0`.
+
+```{r}
+a <- 5
+b <- c(3,6,1,9,-3)
+y <- b > a
+y
+```
+
+Somando os elementos de `y` temos o número de elementos que atendendem à condição acima:
+
+```{r}
+sum(y)
+```
+
+E se tirarmos a média aritmética, teremos a *proporção* de `1`'s no vetor `y`.
+
+```{r}
+mean(y)
+```
+
+::: callout-note
+Lembre-se que ao compararmos vetores de tamanhos distintos, o R **não retorna um erro**, mas recicla os elementos do vetor menor para compensar elementos faltantes.
+:::
+
+## Operadores lógicos
+
+Operadores lógicos são os de **NEGAÇÃO** (`!`), **E lógico**, **OU lógico** versão vetorizada (`|`) e **OU exclusivo** (`xor()`). Exemplos destes operadores são:
+
+```{r}
+x <- 3:5
+y <- 5:3
+```
+
+```{r}
+(x < 4)
+!(x < 4)
+```
+
+```{r}
+(x < 4) & (y > 4)
+```
+
+```{r}
+(x < 4) | (y > 4)
+```
+
+```{r}
+xor(x,y)
+```
+
+```{r}
+#| echo: false
+rm(list = ls())
+```

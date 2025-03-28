@@ -1,0 +1,68 @@
+---
+title: Importando/Exportando dados
+description: "Técnicas de importação e exportação de dados usando o pacote `readr` do Tidyverse."
+categories: ["Ciência de Dados", "R", "Tidyverse", "Importação/Exportação de dados"]
+image: "images/import_export.jpg"
+execute:
+  echo: true
+  warning: false
+  include: true
+  message: false
+---
+
+O pacote responsável pela importação de dados no ```tidyverse``` é o ```readr```. Este pacote permite importar arquivos de texto nos formatos ```.csv``` ou ```.txt```.
+
+Existem diversas funções no pacote ```readr```(veja [aqui](https://readr.tidyverse.org/index.html)). A função ```read_csv()``` importa arquivos texto em que as colunas são separadas por *vírgulas*. A função ```read_tsv()``` importa arquivos texto em que as colunas são separadas por *tabulações*. 
+
+## Importando dados de arquivos texto
+
+A função ```read_delim()``` oferece mais controle sobre o tipo de delimitador de colunas (*vírgulas*, *tabulações*, *ponto-e-vírgula*, entre outros) ou o identificador decimal (*vírgulas* ou *ponto*).
+
+Carrege o pacote ```readr``` e importe o arquivo ```res.csv``` disponível no repositório [datasets](https://github.com/FCopf/datasets) do <i class="bi bi-github"></i>. É possível importar o arquivo diretamente do repositório:
+
+```{r}
+library(readr)
+res = read_delim(file = "https://github.com/FCopf/datasets/raw/refs/heads/master/Reservatorios_Parana_parcial.csv",
+                  delim = ',',
+                  locale = locale(decimal_mark = '.',
+                                  encoding = 'latin1'))
+```
+
+
+::: {.callout-note}
+Se optar por fazer o download do arquivo, basta acessar pelo link ([res](https://github.com/FCopf/datasets/blob/master/Reservatorios_Parana_parcial.csv)), salvá-lo em seu diretório de trabalho e importar com o comando:
+
+```{r}
+#| eval: false
+res = read_delim(file = "res.csv", delim = ",")
+```
+
+:::
+
+Verifique o objeto importado.
+
+```{r}
+res
+```
+
+O objeto é do tipo ```tibble``` com `r nrow(res)` linhas por `r ncol(res)` colunas. Uma [tibble](https://tibble.tidyverse.org/) é uma versão moderna do data.frame que preserva aspectos eficazes para manipulação, visualização e transformação de dados.
+
+```{r}
+class(res)
+```
+
+## Exportando um data frame
+
+A função para exportar data frames no pacote ```readr``` é ```write_delim()``` e outras funções análogas. Para exportar uma parte do data frame utiliza-se o comando:
+
+```{r}
+write_delim(res[1:10, 3:5],
+            file = "dbenv_parcial.csv", 
+            delim = ',')
+```
+
+
+```{r}
+#| echo: false
+rm(list = ls())
+```

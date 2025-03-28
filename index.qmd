@@ -1,0 +1,31 @@
+---
+slug: home
+weight: 10
+format:
+  html:
+    number-sections: false
+
+listing:
+  contents:
+    - introducao_r.qmd
+    - ciencia_dados.qmd
+    - estrutura_dados.qmd
+    - estatistica_descritiva.qmd
+    - medidas_associacao.qmd
+    - amostragem.qmd
+    - inferencia_estatistica.qmd
+    - teste_hipoteses.qmd
+    - anova.qmd
+    - regressao_linear.qmd
+    - modelos_probabilisticos.qmd    
+  sort: false
+  type: grid
+  fields:
+    - title
+    - subtitle
+    - categories
+    - description
+    - image
+  categories: true
+---
+

@@ -1,0 +1,22 @@
+---
+title: "Introdução ao R"
+description: "Estrutura da linguagem, manipulação e visualização de dados."
+categories: ["R", "Programação", "Objetos em R", "Manipulação de Dados", "Data frames", "Gráficos em R", "Visualização de Dados"]
+image: "images/intro-r.jpg"
+listing:
+  contents: 
+    - conteudo/introducao_r/estrutura-linguagem.qmd
+    - conteudo/introducao_r/data-frames.qmd
+    - conteudo/introducao_r/graficos-r.qmd
+  sort: false
+  type: default
+  fields: 
+    - image
+    - title
+    - description
+    - categories    
+format:
+  html:
+    toc: true
+    number-sections: true
+---

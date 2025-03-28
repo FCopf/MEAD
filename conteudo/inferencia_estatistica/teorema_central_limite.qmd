@@ -1,0 +1,322 @@
+---
+title: Distribuição das médias amostrais
+description: "Teorema central do limite e a distribuição das médias amostrais."
+Categories: ["Teorema Central do Limite", "Inferência Estatística"]
+
+image: "images/teorema_central_limite.jpg"
+execute:
+  echo: true
+  warning: false
+  include: true
+  message: false
+---
+
+:::{.callout-tip collapse="true"}
+## Pacotes e funções utilizados
+
+```{r}
+library(tidyverse)
+library(patchwork)
+source("scripts/tcl_simetry.r")
+```
+
+:::
+
+# Distribuição das médias amostrais
+
+Ao amostrar uma população estatística por meio de um experimento, seremos capazes de calcular estatísticas descritivas desta população. A média amostral $\overline{X}$ é uma destas estimativas, mas a mesma ideia vale para **qualquer outra estatística $\theta$**.
+
+::: {#fig-amostr-inf1}
+
+![](img/amostragem_inferencia_1.png)
+
+Processo de amostragem e inferência estatística.
+:::
+
+Neste processo, o resultado de um experimento pode ser visto como uma observação particular de uma **população de experimentos** que podem ser reproduzidos sob as mesmas condições. A estimativa obtida deste experimento é portanto, somente uma entre uma **população de estimativas** que o experimento pode gerar. A inferência estatística consiste em entender o que podemos esperar como resultados possíveis desta população de experimentos. 
+
+::: {#fig-amostr-inf1}
+
+![](img/amostragem_inferencia_2.png)
+
+Distribuição das médias amostrais provenientes de um experimento.
+:::
+
+## Teorema Central do Limite
+
+Seja uma população estatística com média $\mu$ e desvio padrão $\sigma$. A distribuição das médias amostrais desta população tenderá a apresentar uma **distribuição normal de probabilidades** com média $\mu$ e desvio padrão $\frac{\sigma}{\sqrt(n)}$ à medida que o tamanho amostral $n$ aumenta, ainda que a distribuição das observações originais **não possua** uma distribuição normal.
+
+Segundo o TCL, as médias amostrais $\overline{X}$ de um experimento distribuem-se como:
+
+$$\overline{X} \sim \mathcal{N}(\mu_{\overline{X}},\,\sigma^{2}_{\overline{X}})$$
+
+em que $\mu_{\overline{X}} = \mu$ $\sigma^{2}_{\overline{X}} = \frac{\sigma^2}{n}$
+
+Note que a variância de $\overline{X}$ depende do tamanho amostral $n$.
+
+### Probabilidades na amostra original e na distribuição de médias
+
+```{r}
+#| echo: false
+muX = 50
+sigmaX = 10
+x1 <- 55
+n1 <- 2
+n2 <- 10
+```
+
+
+Seja uma variável $X$ qualquer com $\mu = `r muX`$ e $\sigma = `r sigmaX`$. As figuras abaixo comparam as probabilidades acima de $x_1 = `r x1`$ para as observações originais e para as distribuições de médias amostrais de tamanho $n_1 = `r n1`$ e $n_2 = `r n2`$.
+
+```{r}
+#| echo: false
+#| fig-width: 12
+#| fig-height: 4
+#| label: fig-prob-xm
+#| fig-cap: 'Probabilidades na amostra original e na distribuição de médias.'
+tam <- 20
+lim_x <- muX + c(-4,4) * sigmaX
+exprx <- expression(
+   paste('média = ', mu, '; desvio padrão = ', sigma))
+expr1 <- expression(
+   paste('média = ', mu, '; desvio padrão = ', frac(sigma, sqrt('n'["1"]))))
+expr2 <- expression(
+   paste('média = ', mu, '; desvio padrão = ', frac(sigma, sqrt('n'["2"]))))
+
+p1 <- ggplot(data.frame(x = lim_x), aes(x = x)) +
+  stat_function(fun = dnorm,
+                args = list(mean = muX,
+                            sd = sigmaX)) +
+   geom_area(stat = "function", fun = dnorm,
+             args = list(mean = muX,
+                         sd = sigmaX),
+             fill = "#00998a", 
+             xlim = c(x1, lim_x[2])) +
+   labs(x = "X", y = "", subtitle = "Distribuição de X") +
+   scale_y_continuous(breaks = NULL) +
+   scale_x_continuous(breaks = c(muX, x1)) +
+   theme(axis.text.x = element_text(size = tam),
+         axis.title.x = element_text(size = tam),
+         plot.title = element_text(hjust = 0.5, size = tam)) +
+   ggtitle(exprx) +
+   theme_classic()
+
+p2 <- ggplot(data.frame(x = lim_x), aes(x = x)) +
+  stat_function(fun = dnorm,
+                args = list(mean = muX,
+                            sd = sigmaX/sqrt(n1))) +
+   geom_area(stat = "function", fun = dnorm,
+             args = list(mean = muX,
+                         sd = sigmaX/sqrt(n1)),
+             fill = "#00998a", 
+             xlim = c(x1, lim_x[2])) +
+   labs(x = expression(bar("X")), y = "", subtitle = paste("Distr. de médias: n = ", n1, sep = '')) +
+   scale_y_continuous(breaks = NULL) +
+   scale_x_continuous(breaks = c(muX, x1)) +
+   theme(axis.text.x = element_text(size = tam),
+         axis.title.x = element_text(size = tam),
+         plot.title = element_text(hjust = 0.5, size = tam)) +
+   ggtitle(expr1) +
+   theme_classic()
+
+p3 <- ggplot(data.frame(x = lim_x), aes(x = x)) +
+  stat_function(fun = dnorm,
+                args = list(mean = muX,
+                            sd = sigmaX/sqrt(n2))) +
+   geom_area(stat = "function", fun = dnorm,
+             args = list(mean = muX,
+                         sd = sigmaX/sqrt(n2)),
+             fill = "#00998a", 
+             xlim = c(x1, lim_x[2])) +
+   labs(x = expression(bar("X")), y = "", subtitle = paste("Distr. de médias: n = ", n2, sep = '')) +
+   scale_y_continuous(breaks = NULL) +
+   scale_x_continuous(breaks = c(muX, x1)) +
+   theme(axis.text.x = element_text(size = tam),
+         axis.title.x = element_text(size = tam),
+         plot.title = element_text(hjust = 0.5, size = tam)) +
+   ggtitle(expr2) +
+   theme_classic()
+
+area <- round(pnorm(x1, mean = muX, sd = sigmaX, lower.tail = F), 3)
+area1 <- round(pnorm(x1, mean = muX, sd = sigmaX/sqrt(n1), lower.tail = F), 3)
+area2 <- round(pnorm(x1, mean = muX, sd = sigmaX/sqrt(n2), lower.tail = F), 3)
+
+p1 | p2 | p3
+```
+
+Note que existe uma probabilidade razoável de que uma determinada observação em $X$ esteja acima de $`r x1`$, $P(X \leq `r x1`) = `r area`$. No entando se tomarmos *ao acaso* uma amostra de tamanho $n_1 = `r n1`$, a probabilidade de que **a média** destas duas amostras esteja acima de $`r x1`$ diminui para $P(\overline{X} \leq `r x1`) = `r area1`$. Se tormarmos uma amostra ainda maior ($n_2 = `r n2`$), a probabilidade se reduz ainda mais para $P(\overline{X} \leq `r x1`) = `r area2`$. 
+
+Vemos portanto que a precisão de um experimento aumenta à medida que aumentamos o tamanho amostral, pois para amostras grandes, a probabilidade de obtermos um $\overline{X}$ distante de $\mu$ torna-se cada vez menor.
+
+### Distribuições não-normais
+
+O TCL é válido inclusive para distribuições não-normais. Isto torna a distribuição normal uma das mais importantes em inferência estatística, pois ainda que o resultado de um experimento particular seja descrito por *qualquer outro modelo de probabilidades*, as **médias das amostras** deste experimento seguirão uma distribuição normal, à medida que $n$ aumenta. Isto justifica muitos dos processos de análise e inferência estatística que serão descritos nos capítulos posteriores.
+
+A @fig-tcl-non-normal, simula a distribuição de médias amostrais para variáveis com diferentes distribuições de probabiidades e tamanhos crescentes de $n$. Podemos observar que *independente* do formato da distribuição original, a distribuição das médias amostrais *tende à normalidade*. O padrão normal aparece mais rápido se a distribuição original é **simétrica**. Ainda que para populações estatísticas com distribuições **assimétricas**, seja necessário um tamanho amostral maior para que se alcance a normalidade, a figura mostra que a partir de $n = 30$ todas as distribuições parecem se aproximar do que seria esperado um modelo normal.
+
+```{r}
+#| echo: false
+#| fig-width: 12
+#| fig-height: 9
+#| label: fig-tcl-non-normal
+#| fig-cap: 'Demostração empírica do Teorema Central do Limite, mostrando a tendência à normalidade de $\bar{X}$ à medina que $n$ aumenta.'
+tcl_simetry()
+```
+
+
+## Exercícios resolvidos: 
+
+### Tamanho médio de robalos no mercado de peixes 
+
+Em 2014 no estuário do rio Itanhaém - SP foi pescado o *"maior robalo já encontrado"* <a href="http://g1.globo.com/sp/santos-regiao/noticia/2014/11/pescador-fisga-em-itanhaem-o-maior-robalo-ja-encontrado-briguei-com-ele.html" target="_blank">(G1 Santos)</a>. O peixe tinha $133$ cm e $27,8$ kg . Em 2018 em Bertioga, também no litoral de SP: *"Robalo 'gigante' quebra recordes e vira atração"* <a href="https://g1.globo.com/sp/santos-regiao/noticia/robalo-gigante-quebra-recordes-e-vira-atracao-durante-pescaria-em-sp.ghtml" target="_blank">(G1 Santos)</a> pesando $33$ kg. Finalmente, em "*uma das salas da Colônia de Pesca Z2 de Atafona*" RJ está uma imagem de um robalo de $28$ kg capturado muitas décadas atrás <a href="http://ambientecult.blogspot.com/2010/10/ponto-de-memoria-foto-da-pesca.html" target="_blank">(Ambiente Cult)</a>
+
+::: {#fig-grobalos layout-ncol=3}
+
+![Itanhaém 2014](images/robalo_itanhaem_2014.png){#fig-robalo-itanhaem-2014}
+
+![Bertioga 2018](images/robalo_bertioga_2018.jpg){#fig-robalo-bertioga-2018}
+
+![Atafona, sem data](images/robalo_paraiba.jpg){#fig-robalo-paraiba}
+
+Grandes robalos
+:::
+
+Estas capturas viram notícias pois são inusitadas. Dados de desembarque sugerem que a distribuição de tamanho de robalos comumente capturados está muito abaixo destes limites (@fig-ximenes-carvalho-2006) [@ximanes-carvalo2006] ( <a href="http://repositorio.ufc.br/bitstream/riufc/1312/1/2006_dis_moxcarvalho.pdf" target="_blank">Acesse aqui o trabalho completo</a>).
+
+```{r}
+#| code-fold: true
+TabelaI <- data.frame(
+  compmedio = c(25.2, 34.4, 40.7, 46.3, 51.7, 56.5, 61.2, 65.8, 70.3, 73.4, 76.2),
+  N = c(130,130,112,100,82,64,47,30,18,12,6)
+)
+
+tabelaI_plt <- ggplot(data = TabelaI, mapping = aes(x = compmedio, y = N)) +
+   geom_col(fill = 'dodgerblue4', color = 'black') +
+   labs(y = 'Número de indivíduos analisados',
+        x = 'Comprimento médio (cm)') +
+   theme_classic()
+
+```
+
+```{r}
+#| code-fold: true
+#| label: fig-ximenes-carvalho-2006
+#| fig-cap: 'Dados de desembarque no Mercado de São Pedro (Niterói, RJ). Extraídos de XIMENES-CARVALHO, 2006.'
+tabelaI_plt
+```
+
+```{r}
+#| echo: false
+mu <- TabelaI |> 
+   summarise(mu = sum(compmedio * N)/sum(N)) |> 
+   round(1) |> as.numeric()
+sigma <- TabelaI |> 
+   summarise(sigma = sqrt(sum((compmedio - mu)^2 * N)/sum(N))) |> 
+   round(1) |> as.numeric()
+n1 <- 10
+n2 <- 4
+zi <- (52.4 - mu)/(sigma/sqrt(n1))
+a <- mu - zi * (sigma/sqrt(n1))
+b <- mu + zi * (sigma/sqrt(n1))
+```
+
+
+A distribuição de tamanhos na @fig-ximenes-carvalho-2006 é altamente assimétrica e claramente **não-normal**. Um dos motivos para este forte grau de assimetria deve-se ao limite inferior de captura, pois a captura e comercialização de animais muito pequenos é proibida. 
+
+Suponha que o comprimento de robalos ($L$) disponíveis para compra tenha média $\mu = `r mu`$ e desvio padrão $\sigma = `r sigma`$. Você compra 10 robalos escolhidos ao acaso dos que estão disponíveis. Qual a probabilidade de que:
+
+i. O tamanho médio de uma compra esteja acima de $52,4$ cm, isto é $P(\overline{L} > 52,4)$?
+ii. Em $95\%$ das vezes que fizer a compra, determine o intervalo simétrico que conterá o tamanho médio dos robalos selecionados, isto é $P(a \le \overline{L} \le b) = 0,95$
+iii. Responda novamente aos itens i. e ii. no caso de sua compra constar de $4$ robalos.
+
+**RESOLUÇÃO**
+
+Ainda que a distribuição original claramente não siga uma distribuição normal, podemos utilizar o TCL para estimarmos as probabilidades de obter uma média amostral $\overline{X}$ a determinada distância de $\mu$. Para isto, no entanto devemos recordar que o desvio padrão das médias amostrais será dado por: $\sigma_{\overline{X}} = \frac{\sigma}{\sqrt{n}}$.
+
+
+:::{.callout-tip collapse="true"}
+
+# i. $P(\overline{L} > 52,4)$
+
+Com base no TCL, uma amostra de $n = 10$ terá média normalmente distribuída com parâmetros $\mu$ e $\sigma_{\mu} = \frac{\sigma}{\sqrt{10}}$. Podemos assim, realizar a transformação $Z$ como segue:
+
+$Z_{\overline{L}} = \frac{\overline{L} - \mu}{\sigma_{\mu}} = \frac{\overline{L} - \mu}{\frac{\sigma}{\sqrt{n}}}$
+
+$Z_{\overline{L}} = \frac{52,4 - `r mu`}{\frac{`r sigma`}{\sqrt{`r n1`}}} = `r round(zi,2)`$
+
+> Note que o denomidador aqui é *diferente* do que fizemos no @sec-norm, pois aqui estamos falando da distribuição das **médias amostrais** $\overline{L}$ e não nas observações individuais $L$.
+
+Se buscarmos na Tabela Z, veremos que a área da distribuição normal padronizada abaixo de $`r round(zi,2)`$ é de $0,975$. Consequentemente $P(\overline{L} > 52,4) = 1 - 0,975 = 0,025$
+
+:::
+
+:::{.callout-tip collapse="true"}
+
+# ii. $P(a \le \overline{L} \le b) = 0,95$
+
+Se o intervalo é simétrico e contém $0,95$ das observações, restam $0,025$ em cada uma das caudas. Vimos no item anterior que $z = 1,96$ que delimita $0,025$ da cauda superior. Portanto os limites aqui serão dados por: $a = -1.96$ e $b = 1.96$. Na distribuição original estes limites resultarão em:
+
+$-1,96 = \frac{a - `r mu`}{\frac{`r sigma`}{\sqrt{`r n1`}}}:: a = `r mu` -1,96 \frac{`r sigma`}{\sqrt{`r n1`}} = `r a`$ cm
+
+e
+
+$+1,96 = \frac{b - `r mu`}{\frac{`r sigma`}{\sqrt{`r n1`}}}:: b = `r mu` +1,96 \frac{`r sigma`}{\sqrt{`r n1`}} = `r b`$ cm
+
+:::
+
+:::{.callout-tip collapse="true"}
+
+# Reduzindo para $n = 4$ robalos
+
+Aqui você deve repetir exatamente os passos de i. e ii. substituindo $n = 10$ por $n = 4$.
+
+:::
+
+:::{.callout-tip collapse="true"}
+
+# RESOLUÇÃO no R:
+
+i. $P(\overline{L} > 52,4)$
+```{r}
+pnorm(52.4, 
+      mean = 44.1, 
+      sd = 13.4/sqrt(10), 
+      lower.tail = FALSE)
+```
+
+ii. $P(a \le \overline{L} \le b) = 0,95$
+
+```{r, echo = TRUE}
+a <- qnorm((1-0.95)/2, 
+      mean = 44.1, 
+      sd = 13.4/sqrt(10), 
+      lower.tail = TRUE)
+a
+b <- qnorm((1-0.95)/2, 
+      mean = 44.1, 
+      sd = 13.4/sqrt(10), 
+      lower.tail = FALSE)
+b
+```
+
+
+iii. Repita os comandos acima para $n = 4$
+
+:::
+
+:::{.callout-warning}
+
+# Atenção
+
+Neste exercício aplicamos o que aprendemos sobre o TCL para estimar probabilidades de eventos, assumindo a distribuição normal das médias amostaris. É importante resaltar, no entanto, que a distribuição **altamente assimétrica** do comprimento dos robalos (@fig-ximenes-carvalho-2006) e um tamanho amostral reduzido ($n = 10$ e $n = 4$) dificilmente justificariam o uso do TCL como vemos na @fig-tcl-non-normal.
+
+:::
+
+
+:::{.callout-note}
+# Vídeo-aulas
+
+{{< video https://youtu.be/hcxS9PbBU84 >}}
+
+:::
+

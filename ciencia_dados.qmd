@@ -1,0 +1,24 @@
+---
+title: "Ciência de Dados em R"
+description: "Introdução à ciência de dados em R, incluindo manipulação, transformação e visualização de dados."
+categories: ["Ciência de Dados", "R", "Tidyverse"]
+image: "images/ciencia_dados-r.jpg"
+listing:
+  contents: 
+    - conteudo/ciencia_dados/tidyverse.qmd
+    - conteudo/ciencia_dados/import_export.qmd
+    - conteudo/ciencia_dados/pipe.qmd
+    - conteudo/ciencia_dados/transform.qmd
+    - conteudo/ciencia_dados/grafico_ggplot2.qmd
+  sort: false
+  type: default
+  fields: 
+    - image
+    - title
+    - description
+    - categories    
+format:
+  html:
+    toc: true
+    number-sections: true
+---

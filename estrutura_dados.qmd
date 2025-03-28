@@ -1,0 +1,23 @@
+---
+title: "Estrutura de dados"
+description: "Fundamentos da estrutura de dados, abordando tipos de variáveis, níveis de mensuração"
+categories: ["R", "Estrutura de Dados"]
+image: "images/estrutura_dados.jpg"
+listing:
+  contents: 
+    - conteudo/estrutura_dados/estrutura_tipo.qmd
+  sort: false
+  type: default
+  fields: 
+    - image
+    - title
+    - description
+    - categories  
+format:
+  html:
+    toc: true
+    number-sections: true
+---
+
+
+

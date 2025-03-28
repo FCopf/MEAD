@@ -1,0 +1,189 @@
+---
+title: Estrutura e tipos de dados
+description: "Estruturas de dados, categorização de variáveis, níveis de mensuração e estratégias práticas para tratar valores ausentes em tabelas"
+categories: ["Ciência de Dados", "R", "Estrutura de Dados", "Tipos de Dados", "Análise de Dados"]
+image: "images/estrutura_tipo.jpg"
+execute:
+  echo: true
+  warning: false
+  include: true
+  message: false
+format:
+  html:
+    code-fold: false
+---
+
+Neste tópico exploramos os conceitos fundamentais de estrutura e tipos de dados, focando na organização de unidades amostrais e descritores em tabelas de dados. Também discutiremos diferentes tipos de variáveis, suas transformações e como lidar com valores ausentes (`NA`) em tabelas de dados. Para ilustrar esses conceitos, usaremos a tabela `penguins_raw` do pacote [palmerpenguins](https://allisonhorst.github.io/palmerpenguins/) em R, fornecendo tanto explicações teóricas quanto exemplos práticos de código em R.
+
+:::{.callout-tip collapse="true"}
+## Pacotes utilizados
+
+```{r}
+library(tidyverse)
+library(gt)
+library(palmerpenguins)
+```
+:::
+
+
+## Palmer Penguins dataset
+
+A tabela `penguins_raw` inclui observações de nidificação, dados de morfometria e tamanho dos pinguins e medidas de isótopos de amostras de sangue de pinguins adultos das espécies Adélie (*Pygoscelis adeliae*), Chinstrap (*Pygoscelis antarctica*) e Gentoo (*Pygoscelis papua*).
+
+```{r}
+#| label: tbl-penguins_raw
+#| tbl-cap: "Primeiras linhas da tabela `penguins_raw`."
+data(penguins_raw)
+penguins_raw |> 
+  head() |>
+  gt()
+```
+
+A tabela `penguins_raw` contém `r nrow(penguins_raw)` linhas e `r ncol(penguins_raw)` colunas, cada uma representando diferentes aspectos dos dados coletados sobre os pinguins. Cada linha representa uma **unidade amostral** (UA) e cada coluna representa uma **variável** (VAR) que descreve um atributo específico da unidade amostral (@tbl-atr_penguins_raw).
+
+| Variável          | Tipo                  | Descrição                                                                 |
+|:------------------|:----------------------|:--------------------------------------------------------------------------|
+| studyName         | Categórica            | Expedição de amostragem de onde os dados foram coletados, gerados, etc.   |
+| Sample Number     | Quantitativa Discreta | Um número inteiro indicando a sequência contínua de numeração para cada amostra |
+| Species           | Categórica            | Uma string de caracteres indicando a espécie de pinguim                   |
+| Region            | Categórica            | Uma string de caracteres indicando a região da grade de amostragem Palmer LTER |
+| Island            | Categórica            | Uma string de caracteres indicando a ilha perto da Estação Palmer onde as amostras foram coletadas |
+| Stage             | Categórica            | Uma string de caracteres indicando o estágio reprodutivo no momento da amostragem |
+| Individual ID     | Categórica            | Uma string de caracteres indicando o ID único para cada indivíduo no conjunto de dados |
+| Clutch Completion | Categórica            | Uma string de caracteres indicando se o ninho estudado foi observado com uma ninhada completa, ou seja, 2 ovos |
+| Date Egg          | Categórica Ordinal    | Uma data indicando a data em que o ninho estudado foi observado com 1 ovo (amostrado) |
+| Culmen Length     | Quantitativa Contínua | Um número indicando o comprimento da crista dorsal do bico de um pássaro (milímetros) |
+| Culmen Depth      | Quantitativa Contínua | Um número indicando a profundidade da crista dorsal do bico de um pássaro (milímetros) |
+| Flipper Length    | Quantitativa Discreta | Um número inteiro indicando o comprimento da nadadeira do pinguim (milímetros) |
+| Body Mass         | Quantitativa Discreta | Um número inteiro indicando a massa corporal do pinguim (gramas)          |
+| Sex               | Categórica            | Uma string de caracteres indicando o sexo do animal                       |
+| Delta 15 N        | Quantitativa Contínua | Um número indicando a medida da razão dos isótopos estáveis 15N:14N       |
+| Delta 13 C        | Quantitativa Contínua | Um número indicando a medida da razão dos isótopos estáveis 13C:12C       |
+| Comments          | Categórica            | Uma string de caracteres com texto fornecendo informações adicionais relevantes para os dados |
+
+: Descrição dos atributos da tabela `penguins_raw`. {#tbl-atr_penguins_raw .striped .hover}
+
+## Unidades amostrais e descritores: formato geral
+
+A tabela @tbl-penguins_raw está organizada no formato em que cada linha representa uma **unidade amostral (UA)** e cada coluna representa uma **variável (VA)**. As variáveis são os descritores ou atributos que descrevem as características de cada unidade amostral.
+
+```{r}
+#| label: tbl-estrutura
+#| tbl-cap: 'Estrutura geral de uma base de dados. As linhas representam as unidades amostrais (ou observações) e as colunas representam as variáveis (ou atributos).'
+#| echo: false
+linhas = 10
+data.frame(ID = paste('UA', 1:linhas, by = ' ')) |> 
+  mutate(`VA 1` = rep('', linhas), 
+         `VA 2` = rep('', linhas),
+         `VA 3` = rep('', linhas),
+         `VA 4` = rep('', linhas),
+         `VA 5` = rep('', linhas),
+         `VA 6` = rep('', linhas),
+         `VA 7` = rep('', linhas)) |> 
+  gt()
+```
+
+
+
+## Dados ausentes
+
+Valores não preenchidos são comuns em conjuntos de dados. Na tabela `penguins_raw`, diversas colunas apresentam dados ausentes, indicados como `NA`. A seguir, são apresentadas algumas estratégias para lidar com esses dados faltantes:
+
+1. Remover valores faltantes: Exclua linhas com dados ausentes usando a função `drop_na()`.
+
+```{r}
+penguins_limpo <- drop_na(penguins_raw)
+
+nrow(penguins_limpo)
+```
+
+Restaram apenas `r nrow(penguins_raw)` linhas na tabela, o que indica a necessidade de avaliar cuidadosamente quais colunas terão seus valores `NA` removidos. Para isso, é útil verificar a quantidade de dados ausentes em cada coluna. Observando a tabela @tbl-penguins_raw, nota-se que a maioria dos dados ausentes está na variável `Comments`. Como essa coluna não será incluída nas análises, os valores ausentes nela não precisam ser removidos. Podemos, portanto, excluir as linhas que contêm `NA` em outras colunas, preservando apenas a coluna `Comments`.
+
+```{r}
+penguins_limpo <- penguins_raw |> 
+  drop_na(-Comments)
+
+nrow(penguins_limpo)
+```
+
+Agora, restaram `r nrow(penguins_raw)` linhas na tabela. A remoção de linhas deve ser feita com cautela, avaliando caso a caso. Como alternativa, pode-se considerar a imputação de valores para as células ausentes, o que pode permitir a preservação de mais dados para análise.
+
+2. Inserir valores faltantes: Preencha valores faltantes usando métodos estatísticos, como substituição pela média.
+
+```{r}
+penguins_lpch <- penguins_raw |> 
+  mutate(`Culmen Length (mm)` = if_else(
+    is.na(`Culmen Length (mm)`),
+    mean(`Culmen Length (mm)`, na.rm = TRUE),
+    `Culmen Length (mm)`
+  ))
+```
+
+Neste caso, os valores ausentes foram substituídos pela média aritmética da variável `Culmen Length (mm)`.
+
+:::{.callout-tip}
+# Técnicas Avançadas de Imputação
+
+Uma alternativa à substituição pela média simples é a imputação múltipla, que pode utilizar agrupamentos mais detalhados (por exemplo, por espécie e ilha) e considerar a associação com outras variáveis da tabela. Outra opção é empregar métodos mais sofisticados, como o k-Nearest Neighbors (kNN).
+:::
+
+
+## Tipos de dados
+
+Uma tabela de dados pode ser composta por variáveis **quantitativas** ou **qualitativas**.
+
+### Variáveis qualitativas {-}
+
+São variáveis **não-numéricas** como categorias ou rótulos. Dentre as variáveis qualitativas temos aquelas do tipo **categóricas não-ordenadas** e do tipo **categóricas ordenadas**. 
+
+*Variável categórica não-ordenada*: a variável `Island` classifica cada penguim de acordo com a ilha em que foi registrado. Os *níveis* da variável `Island` são: `r paste(unique(penguins_raw$Island),collapse = ', ')`. A variável é do tipo categórica não-ordenada, pois os níveis não possuem qualquer relação de ordenação natural entre si.
+
+### Variáveis quantitativas {-}
+
+São variáveis *numéricas* que também podem ser sub-divididas em dois grupos: *discretas* e *contínuas*. 
+
++ *Variáveis quantitativas discretas*: envolvem quantias *enumeráveis*. Na tabela `penguins_raw` não há nenhum exemplo deste tipo de variável, mas exemplos podem ser a contagem de barcos que saem para pescar em um determinado dia, o número de peixes de um cardume o número de ovos no ninho de ave.
+
++ *Variáveis quantitativas contínuas*: envolvem quantias *não-enumeráveis* como a vazão em $m^3/seg$ que verte de uma cachoeira, o volume de chuva em um determinado dia, altura da maré ou a velocidade do vento. O limite de precisão que utilizamos para representá-las depende basicamente da capacidade de mensuração dos aparelhos disponíveis. Na tabela `penguins_raw` existem diversos exemplos deste tipo de variável como 
+
+Em nosso exemplo, temos diversas variáveis deste tipo como `Culmen Length`, `Culmen Depth`, `Flipper Length`, `Body Mass`, `Delta 15 N` e `Delta 13 C`.
+
+:::{.callout-note}
+
+# Transformando variáveis
+
+Sempre é possível transformar variáveis quantitativas em qualitativas. Se temos uma variável medindo o comprimento de peixes desembarcados em centímetros (variável quantitativa), é possível expressá-la de forma categórica em *peixes grandes* e *peixes pequenos* (variável qualitativa). Por outro lado, se tivermos somente a informação de que um peixe é grande ou pequeno, não podemos recuperar as quantias numéricas originais. Ao transformar uma variável de quantitativa em qualitativa, algumas propriedades são perdidas.
+
+:::
+
+## Níveis de mensuração
+
+Podemos organizar uma variável a partir de seu nível de mensuração (@fig-niveis_mensuracao), dado em: **nominal**, **ordinal**, **intervalar** e **razão**.
+
+Nível nominal: é característico de variáveis que possuem níveis não ordenaveis. Ex. cor, grupo taxonômico, nomes de cidades, etc.
+
++ *Nível ordinal*: é aquele em que os níveis podem ser ordenados, embora não seja possível quantificar as diferenças entre dois níveis. Ex. i - Ordem de chegada de maratonistas em uma competição ($1^o$,$2^o$,$3^o$,$\cdots$). ii - Condição de saneamento das cidades (**ótimo, bom, ruim, péssimo**). iii - Condição de saneamento das praias da baixada santista (**próprio, imprórpio**). No nível ordinal podemos ordenar os elementos porém não podemos quantificar as diferenças entre eles.
+
++ *Nível intervalar*: é aquele em que além ser possível ordenar, é possível quantificar as diferenças entre duas observações. No entanto, não há um ponto inicial natural, ou seja, um ponto zero que indique ausência da quantia. Ex. i – *Temperatura*: $0^oC$ não indica ausência de temperatura, assim como $10^oC$ não é duas vezes mais quente que $5^oC$. Essas características são somente uma convenção relacionada à escala de mensuração da temperatura. ii - *Ano do calendário*: o ano zero é uma convenção do calendário, não significa ausência de tempo.
+
++ *Nível de razão*: é como o intervalar, porém existe um ponto zero natural. Peso igual a $0$ kg indica ausência de peso e dez quilogramas é duas vezes mais pesado que $5$ kg. O mesmo vale para comprimento, distância, velocidade, número de ovos. 
+
+______
+
+::: {#fig-niveis_mensuracao}
+
+![](images/Niveis_de_mensuracao.png)
+
+Tipos de variáveis e níveis de mensuração.
+:::
+______
+
+A depender do nível de mensuração, algumas operações matemáticas podem ou não fazer sentido. Por exemplo, se uma espécie tem $N_A = 100$ indivíduos na região A e $N_B = 200$ na região B, a segunda região é duas vezes mais populosa pois $\frac{N_B}{N_A} = 2$. Por outro lado, se a temperatura na região A é de $T_A = 10^oC$ enquanto na B é de $T_B = 20^oC$ não faz sentido fazer $\frac{T_B}{T_A} = 2$ e dizer que B seja duas vezes mais quente que A. Ainda que matematicamente a operação seja possível nos dois exemplos, no último sua interpretação física não tem sentido.
+
+:::{.callout-note}
+
+# Tipos de dados *vs* níveis de mensuração
+
+Existe uma relação entre tipo de dados e nível de mensuração. Os níveis nominal e ordinal de mensuração se referem a variáveis qualitativas não-ordenadas e qualitativas ordenadas respectivamente. Já os níveis intervalar e razão se referem a variáveis quantitativas, podendo ser discretas ou contínuas.
+
+:::

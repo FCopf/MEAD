@@ -1,0 +1,21 @@
+---
+title: "Modelos de Regressão linear"
+description: "Relações entre variáveis dependentes e independentes, previsão e análise de padrões para dados contínuos."
+categories: ["Regressão Linear", "Estatística", "Modelagem Preditiva"]
+image: "images/regressao_linear.jpg"
+listing:
+  contents:
+    - conteudo/regressao_linear/regressao_linear_simples.qmd
+    - conteudo/regressao_linear/regressao_linear_multipla.qmd
+  sort: false
+  type: default
+  fields: 
+    - image
+    - title
+    - description
+    - categories
+format:
+  html:
+    toc: true
+    number-sections: true
+---

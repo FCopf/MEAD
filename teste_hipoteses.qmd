@@ -1,0 +1,22 @@
+---
+title: "Teste de hipóteses"
+description: "Fundamentos do teste de hipóteses, erros do tipo I e II e valor de p."
+categories: ["Inferência Estatística", "Teste de hipóteses", "Análise de Dados"]
+image: "images/teste_hipoteses.jpg"
+listing:
+  contents:
+    - conteudo/teste_hipoteses/intro_testehipot.qmd
+    - conteudo/teste_hipoteses/teste_variancia.qmd
+    - conteudo/teste_hipoteses/teste_t.qmd
+  sort: false
+  type: default
+  fields: 
+    - image
+    - title
+    - description
+    - categories
+format:
+  html:
+    toc: true
+    number-sections: true
+---

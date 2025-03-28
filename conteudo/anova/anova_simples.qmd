@@ -1,0 +1,776 @@
+---
+title: Análise de variância de um fator
+description: "Análise de variância, partição da soma de quadrados, teste F."
+Categories: ["ANOVA", "Comparação de Médias", "Estatística Experimental"]
+
+image: "images/anova_simples.jpg"
+execute:
+  echo: true
+  warning: false
+  include: true
+  message: false
+---
+
+
+:::{.callout-tip collapse="true"}
+## Pacotes, funções e base de dados utilizadas
+
+```{r}
+library(tidyverse)
+library(patchwork)
+library(gt)
+source('scripts/anova_sim.r')
+```
+
+:::
+
+A *Análise de Variância* (**ANOVA**) desenvolvida por <a href="https://en.wikipedia.org/wiki/Ronald_Fisher" target="_blank">R. A. Fisher</a> aplica-se à uma classe de desenho experimental em que a variável resposta $Y$ é *contínua* e a variável explanatória $X$ é *categórica* com $2$ ou mais níveis. A ANOVA nos permite testar a hipótese de que duas ou mais médias amostrais ($\overline{Y}_i$) tenham sido obtidas de uma mesma população estatística com média $\mu$. Alternativamente, podemos concluir que as médias amostrais diferem umas das outras, de tal forma que devemos assumir que foram amostradas a partir de **diferentes populações estatísticas**, nas quais ao menos um $\mu_i$ seja diferente dos demais. Iremos denominar estas duas possibilidades de **hipótese estatísticas** sobre a relação entre as médias populacionais. 
+
+## O modelo da ANOVA e as hipóteses estatísticas
+
+O modelo pode ser representado por:
+
+$$Y_{ij} = \mu + A_i + \epsilon_{ij}$$
+
+onde $Y_{ij}$ é a variável resposta associada à observação $i$ do tratamento $j$, $\mu$ representa a média geral e $A_i$ o efeito do tratamento $i$. O termo $\epsilon_{ij}$ é denominado de **resíduo** (ou *erro*) associado a cada observação, que assumimos ter distribuição normal com média zero e variância constante.
+
+$$\epsilon \sim \mathcal{N}(0, \sigma^2)$$
+
+:::{.callout-note}
+
+# Hipóteses estatísticas no modelo de ANOVA
+
+$H_0: \mu_1 = \mu_2 = \mu_3 =.... = \mu_k$ (HIPÓTESE NULA)
+
+$H_a$: ao menos um par de médias é diferente (HIPÓTESE ALTERNATIVA)
+
+:::
+
+A hipótese nula ($H_0$) define a ausência de diferenças entre as médias populacionais enquanto a hipótese alternativa ($H_a$) refere-se a qualquer possibilidade diferente de $H_0$. Se temos exatamente dois níveis em $X$, a comparação de médias pode ser feita por meio de um teste $t$. Por outro lado, quando temos **mais** de dois níveis em $X$, devemos utilizar o modelo de ANOVA.
+
+## Partição das Soma dos Quadrados
+
+Ao representarmos a distribuição de uma variável $Y$ contínua em função de uma variável $X$ categórica, geralmente estamos interessados em determinar se os diferentes níveis de $X$ (diferentes grupos) têm médias similares ou se ao menos um dos níveis têm média diferente dos demais. Queremos uma medida que nos permita diferenciar situações como as apresentadas abaixo.
+
+```{r}
+#| echo: false
+# anova_sim = function(B = c(b0 = 50, b1 = 0, b2 = 0, b3 = 0, b4 = 0), 
+#                      k = 100, sd_residuo = 5, 
+#                      seed = 1){
+#   n = length(B) - 1
+#   X = gl(n, k, labels = LETTERS[1:n])
+#   dummy = model.matrix(~0 + X)
+#   betas = matrix(B)
+#   fx = as.matrix(data.frame(1, dummy)) %*% betas
+#   set.seed(seed)
+#   Y = fx + rnorm(n  = n * k, mean = 0, sd = sd_residuo)
+#   df = data.frame(X, Y)
+#   return(df)
+#}
+
+df1 = anova_sim()
+df2 = anova_sim(B = c(b0 = 50, b1 = 0, b2 = 20, b3 = 0, b4 = 0))
+df3 = anova_sim(B = c(b0 = 50, b1 = 0, b2 = 20, b3 = -10, b4 = 10))
+```
+
+```{r}
+#| echo: false
+#| fig-align: 'center'
+#| fig-width: 8
+#| fig-height: 3
+plt_df1 = ggplot(df1, aes(x = X, y = Y)) +
+  geom_boxplot() +
+  labs(title = 'A') +
+  theme_classic() +
+  theme(axis.text.y = element_blank())
+
+plt_df2 = ggplot(df2, aes(x = X, y = Y)) +
+  geom_boxplot() +
+  labs(title = 'B') +
+  theme_classic() +
+  theme(axis.text.y = element_blank())
+
+plt_df3 = ggplot(df3, aes(x = X, y = Y)) +
+  geom_boxplot() +
+  labs(title = 'C') +
+  theme_classic() +
+  theme(axis.text.y = element_blank())
+
+plt_df1 | plt_df2 | plt_df3
+
+```
+
+Na figura $A$ todos os grupos são provenientes da mesma distribuição e têm médias aproximadamente iguais ($\overline{Y}_A \approx  \overline{Y}_B \approx \overline{Y}_C \approx \overline{Y}_D$) e as diferenças são provinientes unicamente da variabilidade amostral. Na figura $B$ o segundo grupo tem média mais elevada que os demais, enquanto na figura $C$, todas as médias parecem ser diferentes entre si ($\overline{Y}_A \ne  \overline{Y}_B \ne \overline{Y}_C \ne \overline{Y}_D$).
+
+Para mensurar o grau de associação entre $Y$ e $X$ de modo a diferenciar as situações acima, vamos introduzir o processo de **Partição da Soma dos Quadrados**. 
+
+Suponha a situção abaixo:
+
+```{r}
+#| echo: false
+#| fig-align: 'center'
+#| fig-width: 8
+#| fig-height: 5
+n = 5
+B = c(b0 = 20, b1 = 0, b2 = 8, b3 = -8)
+k = length(B) - 1
+N = k * n 
+dfe = anova_sim(B = B, seed = 1,
+                 k = n) |> 
+  mutate(Y = round(Y, 1),
+         i = rep(1:n, times = k),
+         j = rep(1:k, each = n)) |> 
+  mutate(ij = paste(i,j,sep = ''))
+
+Ymeans = dfe |> 
+  group_by(X) |> 
+  summarise(medias = mean(Y))
+
+Yg = mean(Ymeans$medias)
+
+plt_dfe = ggplot(dfe, aes(x = X, y = Y)) +
+  geom_point(size = 3) +
+  theme_classic(base_size = 15)
+
+plt_dfe +
+  gridExtra::tableGrob(dfe[,1:2])
+```
+
+
+:::{.callout-note}
+
+## Notações
+
++ Temos $k = `r k`$ grupos (`A`, `B` ou `C`) e para cada grupo $n =  `r n`$ observações. Denotamos por $n_{ij}$ o número de observações dentro de cada grupo, em que $i$ é a *i-ésima* observação ($i = 1$ a $`r n`$) do *j-ésimo* grupo ($j = 1$ a $`r k`$ - grupos `A` ao `C`). Neste exemplo, o número de observações em cada grupo é o mesmo ($n_1 = n_2 = n_3 = n$), de modo que o total de observações é dado por:
+
+$N = k \times n = n_1 + n_2 + n_3 = `r N`$
+
++ A média de cada grupo será denotada por $\overline{Y}_j$, que neste exemplo são: $Y_1 = `r Ymeans[1,2]`$ (grupo `A`), $Y_2 = `r Ymeans[2,2]`$ (grupo `B`) e $Y_3 = `r Ymeans[3,2]`$ (grupo `C`).
+
++ Vamos denotar por $\overline{\overline{Y}}$ a **Grande Média**, isto é, a média geral de todas as observações independente do grupo de origem.
+
+$$\overline{\overline{Y}} = \sum_{j = 1}^{k}\sum_{i = 1}^{n}\frac{Y_{ij}}{N} = \frac{\overline{Y_1} + \overline{Y_2} + \overline{Y_3}}{3} = `r Yg`$$
+
+:::
+
+Podemos agora observar estes elementos no gráfico de dispersão.
+
+
+```{r}
+#| echo: false
+#| fig-align: 'center'
+#| fig-width: 8
+#| fig-height: 5
+Y1 = Ymeans$medias[1]
+Y2 = Ymeans$medias[2]
+Y3 = Ymeans$medias[3]
+plt_dfe +
+  theme(legend.position='none') +
+  geom_hline(yintercept = Yg, alpha = 0.3, size = 2) +
+  annotate('text', x = 3.4, 
+           y = Yg + 1.5, 
+           label = bquote(bar(bar(Y)) == .(Yg)),
+           color = 'black', size = 3.5) +  
+  annotate('text', x = as.numeric(dfe$X) + 0.1, 
+           y = dfe$Y, label = paste('n',dfe$ij, sep = '_'),
+           size = 3) +
+  geom_point(data = Ymeans, 
+            aes(x = X, y = medias, color = X),
+            size = 5, alpha = 0.5) +
+  annotate('text', x = as.numeric(Ymeans$X)[1] - 0.2, 
+           y = Ymeans$medias[1] - 1.2, 
+           label = bquote(bar(Y)[1] == .(Y1)),
+           color = 'red', size = 3) +
+  annotate('text', x = as.numeric(Ymeans$X)[2] - 0.25, 
+           y = Ymeans$medias[2], 
+           label = bquote(bar(Y)[2] == .(Y2)),
+           color = 'green', size = 3) +
+  annotate('text', x = as.numeric(Ymeans$X)[3] - 0.25, 
+           y = Ymeans$medias[3], 
+           label = bquote(bar(Y)[3] == .(Y3)),
+           color = 'blue', size = 3)
+```
+
+Em seguida, precisamos calcular $3$ quantias, a **Soma dos Quadrados Totais** ($SQ_{Total}$), a **Soma dos Quadrados dos Tratamentos** $SQ_{Trat}$ e a **Soma dos Quadrados dos Resíduos** $SQ_{Res}$.
+
+i. **Soma dos Quadrados Totais** $SQ_{Total}$: mede as diferenças entre $Y_{ij}$ e $\overline{\overline{Y}}$. Temos nesta expressão o somatório dos desvios ao quadrado de todas as observações com relação à grande média **independente** do grupo de origem de cada observação.
+
+$$SQ_{Total} = \sum_{j = 1}^{k}\sum_{i = 1}^{n}(Y_{ij} - \overline{\overline{Y}})^2$$
+
+
+ii. **Soma dos Quadrados dos Tratamentos** $SQ_{Trat}$: mede as diferenças entre as **médias dos tratamentos** $\overline{Y}_j$ e $\overline{\overline{Y}}$, sendo portanto os desvios ao quadrado da média de cada tratamento subtraída da grande média. $SQ_{Trat}$ também é chamada de soma dos quadrados **entre grupos** ou **entre tratamentos**
+
+$$SQ_{Trat} = \sum_{j = 1}^{k}\sum_{i = 1}^{n_{j}}(\overline{Y}_{j} - \overline{\overline{Y}})^2 = \sum_{j = 1}^{k}n_{j}(\overline{Y}_{j} - \overline{\overline{Y}})^2$$
+
+iii. **Soma dos Quadrados dos Resíduos** $SQ_{Res}$: mede as diferenças entre cada observação $Y_{ij}$ e a média de seu próprio grupo $\overline{Y}_{j}$. $SQ_{Res}$ também é chamada de soma dos quadrados **dentro dos grupos** ou **dentro dos tratamentos**
+
+$$SQ_{Res} = \sum_{j = 1}^{k}\sum_{i = 1}^{n_{j}}(Y_{ij} - \overline{Y}_{j})^2$$
+
+:::{.callout-note}
+
+## A característica aditiva das somas dos quadrados
+
+A partição da soma dos quadrados consiste em decompor a **variação total** do experimento em uma parcela atribuída à variação **entre tratamentos** e outra parcela da variação **dentro dos tratamentos**. Isto é possível pois as somas dos quadrados definidas acima podem ser expressas de forma aditiva como:
+
+$$SQ_{Total} = SQ_{Trat} + SQ_{Res}$$
+
+Deste modo, é possível demostrar que:
+
+$\sum_{j = 1}^{k}\sum_{i = 1}^{n}(Y_{ij} - \overline{\overline{Y}})^2 = \sum_{j = 1}^{k}n_{j}(Y_{j} - \overline{\overline{Y}})^2 + \sum_{j = 1}^{k}\sum_{i = 1}^{n}(Y_{ij} - \overline{Y}_{j})^2$
+
+:::
+
+## Medindo a associação entre $Y$ e $X$
+
+A característica aditiva das somas dos quadrados pode ser utilizada para mensurar o grau de dependência de $Y_{ij}$ com respeito aos diferentes tratamentos. Compare as duas figuras abaixo:
+
+```{r}
+#| echo: false
+n = 5
+Bi = c(b0 = 20, b1 = 0, b2 = 1, b3 = -1)
+k = length(B) - 1
+N = k * n 
+dfi = anova_sim(B = Bi, seed = 1,
+                 k = n) |> 
+  arrange(X, desc(Y)) |> 
+  mutate(Y = round(Y, 1),
+         i = rep(1:n, times = k),
+         j = rep(1:k, each = n)) |> 
+  mutate(ij = paste(i,j,sep = ''))
+
+Ymeansi = dfi |> 
+  group_by(X) |> 
+  summarise(mediasi = mean(Y))
+
+Ygi = mean(Ymeansi$mediasi)
+
+plt_dfi = ggplot(dfi, aes(x = X, y = Y)) +
+  geom_point() +
+  theme_classic(base_size = 15)
+
+```
+
+
+```{r}
+#| echo: false
+#| fig-align: 'center'
+#| fig-width: 8
+#| fig-height: 4
+anova_dfe = anova(aov(Y ~ X, data = dfe))
+SQ_Trat_dfe = round(anova_dfe$`Sum Sq`[1],1)
+SQ_Res_dfe = round(anova_dfe$`Sum Sq`[2],1)
+SQ_Total_dfe = SQ_Trat_dfe + SQ_Res_dfe
+
+plt_diff = plt_dfe +
+  geom_hline(yintercept = Yg, alpha = 0.3, size = 2) +
+  annotate('text', x = 1, 
+           y = 8, 
+           label = bquote(bar(bar(Y)) == .(Yg)),
+           color = 'black', size = 3.5) +
+  geom_point(data = Ymeans, 
+            aes(x = X, y = medias, color = X),
+            size = 5, alpha = 0.5) +
+  annotate('text', x = as.numeric(Ymeans$X)[1] - 0.2, 
+           y = Ymeans$medias[1] - 1.2, 
+           label = bquote(bar(Y)[1] == .(Y1)),
+           color = 'red', size = 3) +
+  annotate('text', x = as.numeric(Ymeans$X)[2] - 0.25, 
+           y = Ymeans$medias[2], 
+           label = bquote(bar(Y)[2] == .(Y2)),
+           color = 'green', size = 3) +
+  annotate('text', x = as.numeric(Ymeans$X)[3] - 0.25, 
+           y = Ymeans$medias[3], 
+           label = bquote(bar(Y)[3] == .(Y3)),
+           color = 'blue', size = 3) +
+  coord_cartesian(ylim = c(0,35)) +
+  labs(title = expression(SQ[Total] == SQ[Trat] + SQ[Res]),
+       subtitle = bquote(.(SQ_Total_dfe) == .(SQ_Trat_dfe) + .(SQ_Res_dfe))) +
+  theme(legend.position='none',
+        plot.title = element_text(hjust = 0.5),
+        plot.subtitle = element_text(hjust = 0.5))
+
+anova_dfi = anova(aov(Y ~ X, data = dfi))
+SQ_Trat_dfi = round(anova_dfi$`Sum Sq`[1],1)
+SQ_Res_dfi = round(anova_dfi$`Sum Sq`[2],1)
+SQ_Total_dfi = SQ_Trat_dfi + SQ_Res_dfi
+
+Y1i = Ymeansi$mediasi[1]
+Y2i = Ymeansi$mediasi[2]
+Y3i = Ymeansi$mediasi[3]
+plt_igu = plt_dfi +
+  geom_hline(yintercept = Ygi, alpha = 0.3, size = 2) +
+  annotate('text', x = 1, 
+           y = 8, 
+           label = bquote(bar(bar(Y)) == .(Ygi)),
+           color = 'black', size = 3.5) +
+  geom_point(data = Ymeansi, 
+            aes(x = X, y = mediasi, color = X),
+            size = 5, alpha = 0.5) +
+  annotate('text', x = as.numeric(Ymeansi$X)[1] - 0.2, 
+           y = Ymeansi$mediasi[1] - 1.2, 
+           label = bquote(bar(Y)[1] == .(Y1i)),
+           color = 'red', size = 3) +
+  annotate('text', x = as.numeric(Ymeansi$X)[2] - 0.25, 
+           y = Ymeansi$mediasi[2], 
+           label = bquote(bar(Y)[2] == .(Y2i)),
+           color = 'green', size = 3) +
+  annotate('text', x = as.numeric(Ymeansi$X)[3] - 0.25, 
+           y = Ymeansi$mediasi[3], 
+           label = bquote(bar(Y)[3] == .(Y3i)),
+           color = 'blue', size = 3) +
+  coord_cartesian(ylim = c(0,35)) +
+  labs(title = expression(SQ[Total] == SQ[Trat] + SQ[Res]),
+       subtitle = bquote(.(SQ_Total_dfi) == .(SQ_Trat_dfi) + .(SQ_Res_dfi))) +
+  theme(legend.position='none',
+        plot.title = element_text(hjust = 0.5),
+        plot.subtitle = element_text(hjust = 0.5))
+
+plt_igu | plt_diff
+```
+
+A soma dos quadrados dentro dos grupos é a mesma nas duas figuras ($SQ_{Res} = `r SQ_Res_dfi`$). No entanto, na figura da esquerda, em que as médias dos tratamentos são similares (e consequentemente próximas à grande média), a soma dos quadrados entre os tratamentos é muito menor ($SQ_{Trat}^{esquerda} = `r SQ_Trat_dfi`$) que na figura da direita, em que as médias dos tratamentos estão distantes entre si ($SQ_{Trat}^{direita} = `r SQ_Trat_dfe`$). É desta forma que a partição das somas dos quadrados nos permite diferenciar situações em que: i - a média dos grupos **depende** dos níveis do tratamento (figura da direita); de situações em que ii - a média **não depende** dos níveis do tratamento (figura da esquerda). 
+
+
+## Quadrados médios e graus de liberdade
+
+Para que os somatórios dos quadrados expressem uma medida de variação é necessário corrigi-los em função dos **graus de liberdade ($gl$)**, obtendo assim os **Quadrados médios** conforme abaixo:
+
+i. **Quadrado Médio Total ($QM_{Total}$)**
+
+$$QM_{Total} = \frac{SQ_{Total}}{gl_{Total}}$$
+
+em que $gl_{Total} = N - 1$
+
+ii. **Quadrado Médio dos Tratamentos ($QM_{Trat}$)**
+
+$$QM_{Trat} = \frac{SQ_{Trat}}{gl_{Trat}}$$
+
+em que $gl_{Trat} = k - 1$
+
+iii. **Quadrado Médio dos Resíduos ($QM_{Res}$)**
+
+$$QM_{Res} = \frac{SQ_{Res}}{gl_{Res}}$$
+
+em que $gl_{Res} = N-k$
+
+Assim como a soma dos quadrados, os graus de liberdade também têm característica aditiva.
+
+$$gl_{Total} = gl_{Trat} + gl_{Res} = (k - 1) + (N - K) = N - 1$$
+
+Os quadrados médios que são estimativas de variâncias. Compare por exemplo a expressão do $QM_{Total}$ com a fórmula da variância amostral ($s^2$) e verá que excetuando mudanças de notação, as expressões são essencialmente as mesmas.
+
+## Estatística $F$ e teste de hipóteses
+
+Uma vez que os quadrados médios são estimativas de variância, uma estatística de teste apropriada é:
+
+$$F_{calculado} = \frac{QM_{Trat}}{QM_{Res}}$$
+
+A estatística $F$ (ou razão-$F$) está associada à **distribuição de probabilidades $F$** e nos permite comparar a variância associada ao tratamento com a variância associada aos resíduos. Com o valor de $F_{calculado}$, o teste de hipóteses é possível após a definição do **nível de significância** $\alpha$. 
+
+### Nível de significância
+
+Assim como discutimos nos testes $Z$ e $t$, o valor de $\alpha$ estabelece um limite de aceitação para $H_0$, isto é, um limite a partir do qual a estatística do teste se torna **tão extrema** que nos leva a assumir que $H_0$ é improvável, devendo portanto ser rejeitada em favor de $H_a$. Este passo é possível pois o valor de $F_{calculado}$ pode ser associado à distribuição $F$ de probabilidades, o que nos permite calcular a probabilidade:
+
+$$P(F_{calculado}) \le \alpha$$
+
+Para facilitar a notação denominaremos $P(F_{calculado})$ simplesmente de **valor de $p$** expresso em vermelho na figura abaixo:
+
+:::{.callout-note}
+
+# Tomada de decisão na ANOVA
+
+Se $p > \alpha$ --> **ACEITAMOS $H_0$**
+
+Se $p \le \alpha$ --> **REJEITAMOS $H_0$** (e assumimos $H_a$ como verdadeira)
+
+:::
+
+```{r}
+#| echo: false
+#| fig-align: 'center'
+#| fig-width: 8
+#| fig-height: 4
+glnon <- 5
+glden <- 50
+
+params = list(df1 = glnon, df2 = glden)
+ylim = c(0,7)
+pF = 0.90
+lim <- qf(pF, df1 = glnon, df2 = glden)
+dfF <- data.frame(x = seq(0.1,4, l = 100)) |> 
+  mutate(df = stats::df(x, df1 = glnon, df2 = glden))
+Fcurve = ggplot(data = dfF, mapping = aes(x = x)) +
+  stat_function(fun = stats::df, args = list(df1 = glnon, df2 = glden)) +
+  geom_area(stat = "function", fun = stats::df, color = 1,
+            args = params,
+            fill = '#d14143',
+            xlim = c(lim, ylim[2])) +
+  theme_classic(base_size = 15) +
+  xlab('X') + #ylab('Densidade de probabilidade') +
+  theme(plot.title = element_text(hjust = 0.5),
+        plot.subtitle = element_text(hjust = 0.5, color = 'black')) +
+  scale_x_continuous(name = 'F',
+                     limits = range(dfF$x), labels = NULL, breaks = NULL) +
+  scale_y_continuous(name = 'Densidade de probabilidade',
+                     limits = c(0,0.8), labels = NULL, breaks = NULL) +
+  annotate(geom = 'segment', x = lim - 0.0, xend = lim - 0.0,
+           y = 0.5, yend = 0.2, color = 'gray', size = 2,
+           arrow = arrow(length = unit(2, "mm"))) +
+  annotate(geom = 'text', x = lim - 0.0, y = 0.55, size = 8,
+           color = 'gray', label = bquote("F"["calculado"])) +
+  annotate(geom = 'text', x = lim + 0.7, y = 0.15, size = 8,
+           color = '#d14143', label = "Valor de p")
+
+Fcurve
+```
+
+Tradicionalmente utiliza-se $\alpha = 0.05$. Neste caso, $H_0$ seria rejeitada somente de $p \le 0.05$. Em algumas situações podemos utilizar $\alpha = 0.01$, o que torna o experimento mais rigoroso, isto é, menos propenso ao **erro do tipo I**.
+
+## Um exemplo de ANOVA: os níveis de metais pesados afetam a diversidade de espécies?
+
+Importe a base de dados `medley.csv` (disponível também em [Chapter 10 - Single factor classification (ANOVA)](https://users.monash.edu.au/~murray/BDAR/){target="_blank"}) que avalia o impacto da presença de metais pesados na diversidade de espécies de diatomácias em riachos (@medleyclements1998; @queen2002experimental; @logan2011biostatistical).
+
+```{r}
+medley = read_csv("https://github.com/FCopf/datasets/raw/refs/heads/master/medley.csv") |> 
+  mutate(STREAM = factor(STREAM),
+         ZINC = factor(ZINC, ordered = TRUE,
+                       levels = c("BACK", "LOW", "MED", "HIGH")))
+var_medley = colnames(medley)
+stream_levels = levels(medley$STREAM)
+n_stream = nlevels(medley$STREAM)
+zinc_levels = levels(medley$ZINC)
+n_zinc = nlevels(medley$ZINC)
+```
+
+
+```{r}
+medley |> gt()
+```
+
+
+A coluna `r var_medley[1]` é uma variável categórica contendo o nome dos $`r n_stream`$ riachos amostrados (`r paste(stream_levels, collapse = ', ')`). A coluna `r var_medley[2]` é uma variável categórica ordinal com $`r n_zinc`$ níveis de concentração de zinco na água (`r paste(zinc_levels, collapse = ' < ')`). O primeiro nível (`r zinc_levels[1]`) é o nível de referência. Finalmente, a coluna `r var_medley[3]` é uma variável contínua que contém a diversidade de diatomácieas medida pelo índice de [Shannon](https://pt.wikipedia.org/wiki/%C3%8Dndice_de_Shannon){target="_blank"} em cada uma das `r nrow(medley)` amostras.
+
+Vamos nos concentrar nas variáveis `r var_medley[3]` e `r var_medley[2]`. `r var_medley[3]` será a variável resposta. Dizemos que `r var_medley[2]` é um **tratamento**, isto é, uma condição experimental (ou observacional) sob a qual a variável dependente $Y$ foi medida. 
+
+Para verificarmos a distribuição de diversidade para cada concentração de zinco vamos fazer um boxplot da variável `DIVERSITY` em função de `ZINC`.
+
+```{r}
+#| code-fold: true
+ggplot(medley) +
+  aes(x = ZINC, y = DIVERSITY) +
+  geom_boxplot(coef = 3) +
+  theme_classic(base_size = 15)
+
+```
+
+Vemos que a concentração HIGH aparenta ter menor diversidade que as demais concentralções. A ANOVA nos permitirá testar esta suposição.
+
+:::{.callout-note}
+
+# Hipópteses estatísticas
+
+$H_0: \mu_{BACK} = \mu_{LOW} = \mu_{MED}  = \mu_{HIGH}$
+
+$H_a$: ao menos um $\mu$ é diferente
+
+$\alpha = 0.05$
+
+:::
+
+
+### Calculando a ANOVA
+
+```{r}
+#| echo: false
+anova_ex = anova(aov(DIVERSITY ~ ZINC, data = medley))
+```
+
+
+**i. Somatórios dos quadrados**
+
+$SQ_{Trat} = \sum_{j = 1}^{k}\sum_{i = 1}^{n_{j}}(\overline{Y}_{j} - \overline{\overline{Y}})^2 = `r anova_ex[[2]][1]`$
+
+$SQ_{Res} = \sum_{j = 1}^{k}\sum_{i = 1}^{n_{j}}(Y_{ij} - \overline{Y}_{j})^2 = `r anova_ex[[2]][2]`$
+
+
+**ii. Graus de liberdade**
+
+$gl_{Trat} = k - 1 = `r anova_ex[[1]][1]`$
+
+$gl_{Res} = N-k = `r anova_ex[[1]][2]`$
+
+
+**iii. Quadrados médios**
+
+$QM_{Trat} = \frac{SQ_{Trat}}{gl_{Trat}} = `r anova_ex[[3]][1]`$
+
+
+$QM_{Res} = \frac{SQ_{Res}}{gl_{Res}} = `r anova_ex[[3]][2]`$
+
+**iv. Estatística $F$**
+
+$F_{calculado} = \frac{QM_{Trat}}{QM_{Res}} = `r round(anova_ex[[4]][1],3)`$
+
+
+:::{.callout-note}
+
+# Tabela da ANOVA**
+
+As quantias acima são tradicionalmente expressas em uma **Tabela de ANOVA**.
+
+```{r}
+#| code-fold: true
+aov_ex = aov(DIVERSITY ~ ZINC, data = medley)
+anova_ex = anova(aov_ex)
+```
+
+```{r}
+#| echo: false
+#| label: tbl-anova
+#| tbl-cap: 'Tabela da ANOVA para a base de dados medley.'
+anova_ex |> 
+  gt()
+
+```
+
+em que:
+
+`Df`: graus de liberdade
+
+`Sum Sq`: soma dos quadrados
+
+`Mean Sq`: quadrados médios
+
+`F value`: valor de $F_{calculado}$
+
+`Pr(>F)`: valor de p
+
+A primeira linha refere-se aos valores associados aos tratamentos e a segunda linha aos resíduos. Note que o cômputo de $SQ_{Total}$, $gl_{Total}$ e $QM_{Total}$ não é realmente necessário.
+
+:::
+
+O valor de $p = `r anova_ex[[5]][1]`$ mostrado na @tbl-anova refere-se à área na distribuição $F$ que fica acima de $F_{calculado}$ e que está representado em vermelho na @fig-Fdist-medley.
+
+```{r}
+#| echo: false
+#| fig-align: 'center'
+#| fig-width: 8
+#| fig-height: 5
+#| label: fig-Fdist-medley
+#| fig-cap: 'Distribuição F com indicação do valor de p.'
+glnon <- anova_ex[[1]][1]
+glden <- anova_ex[[1]][2]
+
+params = list(df1 = glnon, df2 = glden)
+ylim = c(0,7)
+pF = 1 - anova_ex[[5]][1]
+lim <- qf(pF, df1 = glnon, df2 = glden)
+dfF <- data.frame(x = seq(0.1,7, l = 100)) |> 
+  mutate(df = stats::df(x, df1 = glnon, df2 = glden))
+Fcurve = ggplot(data = dfF, mapping = aes(x = x)) +
+  stat_function(fun = stats::df, args = list(df1 = glnon, df2 = glden)) +
+  geom_area(stat = "function", fun = stats::df, color = 1,
+            args = params,
+            fill = '#d14143',
+            xlim = c(lim, ylim[2])) +
+  theme_classic(base_size = 15) +
+  xlab('X') + #ylab('Densidade de probabilidade') +
+  theme(plot.title = element_text(hjust = 0.5),
+        plot.subtitle = element_text(hjust = 0.5, color = 'black')) +
+  scale_x_continuous(name = 'F',
+                      breaks = seq(0,7, by = 1)) +
+  scale_y_continuous(name = 'Densidade de probabilidade',
+                     breaks = seq(0,1, by = 0.1)) +
+  annotate(geom = 'segment', x = anova_ex[[4]][1], xend = anova_ex[[4]][1],
+           y = 0.5, yend = 0.02, color = 'gray', size = 2,
+           arrow = arrow(length = unit(2, "mm"))) +
+  annotate(geom = 'text', x = anova_ex[[4]][1], y = 0.55, size = 8,
+           color = 'gray', label = bquote("F"["calculado"])) +
+  annotate(geom = 'text', x = lim + 1.2, y = 0.06, size = 6,
+           color = '#d14143', label = bquote('p' == .(anova_ex[[5]][1])))
+
+Fcurve
+```
+
+Ao verificar que $p \le \alpha$, nossa conclusão deve ser de **REJEITAR $H_0$**, pois $F_{calculado}$ é muito extremo para ser resultante da hipótese nula. Neste caso, assumimos que a $H_a$ é mais condizente com a estrutura dos dados, de modo que os tratamentos devem ser provenientes de populações estatísticas com diferentes médias $\mu$.
+
+## Testes a *posteriori* de comparação de médias: o teste de *Tukey*
+
+Tendo rejeitado $H_0$ concluímos que ao menos 1 par médias é diferente entre si. Nos resta saber quais pares são estatisticamente diferentes, o que nos leva a buscar por um teste que permita fazer comparações **par-a-par**. Os testes a *posteriori* são uma alternativa.
+
+Entre os diferentes testes a *posteriori* na literatura discutiremos o <a href="https://en.wikipedia.org/wiki/Tukey%27s_range_test" target="_blank">teste de Tukey</a>, em que o objetivo é estabelecer uma *Diferença Honesta Significativa* (*DHS*) entre um dado par de médias. Considerando a diferença entre um par de médias e o erro padrão das diferenças de médias, a estatística do teste de Tukey é:
+
+$$q = \frac{\overline{Y}_1 - \overline{Y}_2}{SE}$$
+
+em que:
+
+$$SE = \sqrt{\frac{QM_{Res}}{2}(\frac{1}{n_1} + \frac{1}{n_2})}$$
+
+onde:
+
+$q$: é e estatística do teste
+
+$\overline{Y}_1$: é a maior das médias do par consideraddo;
+
+$\overline{Y}_2$: é a menor das médias do par consideraddo
+
+$QM_{Res}$: é quadrado médio do resíduo obtido na ANOVA, e;
+
+$n_1$, $n_2$: os tamanhos amostrais de cada grupo envolvido na comparação.
+
+O valor crítico de $q$ pode ser obtido de uma **tabela estatística da distribuição de amplitude normalizada** (*studentized range q table*). Para um dado $\alpha$, o valor desejado de $q$ é encontrado cruzando a linha contento o número $k$ de tratamentos do experimento com a linha contendo os graus de liberdade do resíduo ($gl_{Res}$). Veja um exemplo desta tabela no link: <a href="https://www.real-statistics.com/statistics-tables/studentized-range-q-table/" target="_blank">Studentized Range q Table</a>.
+
+
+Em nosso exemplo, os valores de $q$ entre os pares de médias serão:
+
+```{r}
+#| echo: false
+medias <- medley |> 
+  group_by(ZINC) |> 
+  summarise(Medias = round(mean(DIVERSITY),2))
+
+qmres <- anova_ex[2,3]
+nmeans = nlevels(medley$ZINC)
+dfres = anova_ex[2,1]
+qc = qtukey(p = 0.95, nmeans = 4, df = anova_ex[2,1])
+Tukey_tab <- TukeyHSD(aov_ex)$ZINC |> 
+  as.data.frame() |> 
+  rownames_to_column(var = 'combinacoes') |> 
+  select(combinacoes,diff) |> 
+  mutate(diff = abs(diff),
+         n1 = c(8,8,9,9,9,9),
+         n2 = c(8,8,8,8,8,9)) |> 
+  mutate(se = sqrt(qmres/2 * (1/n1 + 1/n2))) |> 
+  mutate(q = diff/se) |> 
+  mutate(diff = round(diff,3),
+         se = round(se,3),
+         q = round(q, 3)) |> 
+  mutate(H0 = case_when(q >= qc ~ 'Rejeita H0',
+                        .default = 'Aceita H0'))
+
+```
+
+
+```{r}
+Tukey_tab |> 
+  gt() |> 
+  cols_label(
+    combinacoes = "Combinações",
+    diff = "Diferença",
+    n1 = "n1",
+    n2 = "n2",
+    se = "Erro Padrão",
+    q = "Estatística q",
+    H0 = "Decisão"
+  ) |> 
+  fmt_number(
+    columns = c(diff, se, q),
+    decimals = 3
+  ) |> 
+  tab_style(
+    style = cell_fill(color = "orange"),
+    locations = cells_body(
+      columns = H0,
+      rows = q >= qc
+    )
+  ) |> 
+  tab_options(
+    table.width = "100%",
+    column_labels.font.weight = "bold"
+  )
+```
+
+
+O limite crítico para o valor de $q$ tabelado é $q_{0.95,`r dfres`,`r nmeans`} = `r round(qc,3)`$ (veja em: <a href="https://www.real-statistics.com/statistics-tables/studentized-range-q-table/" target="_blank">Studentized Range q Table</a>), deste modo somente a comparação entre `r Tukey_tab[Tukey_tab[, 6] >=qc,1]` sugere ter médias significativamente diferentes.
+
+## Ajustando a ANOVA no R
+
+A ANOVA no R pode ser feita com o comando `aov`.
+
+```{r}
+ajuste = aov(DIVERSITY ~ ZINC, data = medley)
+ajuste
+```
+
+:::{.callout-note}
+# Fórmula no R
+A notação de fórmula no R é escrita como: `Y ~ X`onde lê-se **$Y$ é função de $X$**. 
+
+:::
+
+O comando acima fez os cálculos da ANOVA, isto é, computou as somas dos quadrados, os graus de liberdade, os quadrados médios, o $F_{calculado}$ e o valor de $p$. Para visualizarmos a tabela da ANOVA escrevemos:
+
+```{r}
+anova(ajuste)
+```
+
+Note que os resultados coincidem com o que apresentamos anteriormente. Como o valor de $p$ foi menor que $\alpha = 0.05$, concluimos que a ANOVA foi significativa, isto é, indicou que ao menos um par de médias difere entre si. Podemos fazer o teste a *posteriori* de Tukey com o comando:
+
+```{r}
+alfa = 0.05
+TukeyHSD(ajuste, conf.level = 1-alfa)
+```
+
+O resultado apresenta todas as comparações possíveis entre os grupos, mostrando as diferenças de médias, seus intervalos de confiança a $95\%$ e os valores de $p$, indicando quais destas diferenças são significativas ($p \le \alpha$). Nvamente, estes resultados nos permitem concluir que somente o par `HIGH-LOW` difere entre si, pois  `p adj < 0.05`.
+
+O gráfico abaixo facilita a visualização das comparações, sobretudo em situações com muitos pares de médias envolvidos:
+
+```{r}
+plot(TukeyHSD(ajuste))
+```
+
+Neste gráfico, são consideradas estatisticamente significativas as comparações em que o intervalo de confiança **não inclui o zero**.
+
+## Pressupostos da ANOVA
+
+Os pressupostos da ANOVA são:
+
+1. As observações são independentes e;
+
+2. A variância dos resíduos é homogênea e;
+
+3. Os resíduos têm distribuição normal com média $0$ e variância consante $\sigma^2$.
+
+Vamos inicialmente testar o pressuposto de homogeneidade de variâncias com um teste $F$. 
+
+```{r}
+#| echo: false
+v = tapply(medley$DIVERSITY, medley$ZINC, var)
+var_max = max(v)
+var_min = min(v)
+
+```
+
+```{r}
+medley |> group_by(ZINC) |> 
+  summarise(Var = var(DIVERSITY)) |> 
+  gt()
+```
+
+Note que a maior variância é $`r var_max`$ e a menor $`r var_min`$.
+
+O teste $F$ consiste em dividir a maior variância pela menor:
+
+```{r}
+vmax = medley$DIVERSITY[medley$ZINC == "MED"]
+vmin = medley$DIVERSITY[medley$ZINC == "HIGH"]
+var.test(vmax, vmin)
+```
+
+A maior variância foi `r round(var_max/var_min, 2)` vezes maior que a menor variância e o test F sugere que esta diferença é **não-significativa** a $5\%$  ($p < 0.05$). Isto indica que as variâncias são homogêneas.
+
+A verificação visual de que as variâncias são homogêneas pode também ser inspecionada pelo **gráfico de resíduos**:
+
+```{r}
+plot(rstudent(ajuste) ~ fitted(ajuste), pch = 16)
+abline(h = 0, col = 2)
+```
+
+Em seguida avaliamos o histograma dos resíduos e aplicamos um teste de normalidade (ex. teste de Shapiro-Wilk) para verificar se o pressuposto de normalidade pode ser aceito.
+
+```{r}
+hist(rstudent(ajuste), breaks = 10)
+shapiro.test(rstudent(ajuste))
+```
+
+Neste caso, o valor de $p > 0.05$ indica não haver desvio da normalidade.

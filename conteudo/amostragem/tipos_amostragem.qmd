@@ -1,0 +1,325 @@
+---
+title: Amostrando uma População Estatística
+description: "Métodos de amostragem aleatória simples, estratificada e sistemática. Conceitos de erro amostral, precisão e acurácia."
+Categories: ["amostragem", "inferência"]
+image: "images/tipos_amostragem.jpg"
+execute:
+  echo: true
+  warning: false
+  include: true
+  message: false
+---
+
+:::{.callout-tip collapse="true"}
+## Pacotes, funções e base de dados utilizadas no capítulo
+
+Pacotes:
+
+```{r}
+library(tidyverse)
+library(patchwork)
+library(gt)
+library(knitr)
+```
+:::
+
+O objetivo da amostragem é descrever características da **população estatística** por meio de características da **amostra**. Por exemplo, em um estudo sobre o tamanho do pescado em uma área de pesca, a população estatística são os comprimentos de todos os peixes que podem ser pescados na região. A população estatística pode ser descrita por **parâmetros** que representam medidas de centro como o comprimento médio ($\mu$), ou por medidas de variação como o desvio padrão ($\sigma$), que representam o grau de dispersão das unidades amostrais ao redor da média. Se amostramos **n** elementos desta população, a média amostral ($\overline{X}$) e o desvio padrão amostral ($s$) dos diâmetros serão os estimadores destas características.
+
+Dependendo da questão envolvida e do conhecimento prévio sobre a população, diferentes métodos de amostragem são apropriados. A  **teoria da amostragem** é a área da ciência que estuda estes métodos. Neste capítulo vamos discutir três tipos de amostragem: **aleatória simples**, **estratificada** e **sistemática**.
+
+## Amostragem aleatória simples
+
+É aquela em que cada elemento da população tem a mesma probabilidade de ser selecionado para compor a amostra. Se a população consiste de $1000$ elementos, cada um terá uma probabilidade de $\frac{1}{1000}$ de ser escolhido. Isto isenta o pesquisador de tomar qualquer decisão com base em julgamentos pré-concebidos, sobre quais elementos devem ou não compor a amostra.
+
+
+```{r}
+#| code-fold: true
+set.seed(1)
+pop = c(3, 10, 14, 19, 27, 28, 29, 41, 42, 43)
+N = length(pop)
+Am1 = sort(pop)[1:5]
+set.seed(2)
+Am2 = sample(pop, size = 5, replace = F)
+```
+
+Suponha uma população hipotética de somente $`r N`$ elementos: 
+
+**População**: `r pop`
+
+Em uma amostra aleatória simples de cinco elementos, qualquer combinação destes $`r N`$ elementos é **igualmente provável**. Se por puro acaso sortearmos uma amostra aleatória contendo os cinco menores valores da população:
+
+**Amostra 1**: `r  Am1`
+
+A amostra seria **tão aleatória** e válida do ponto de vista estatístico quanto qualquer outra como:
+
+**Amostra 2**: `r  Am2`
+
+Isto significa que uma amostra aleatória pode não ser **necessariamente** representativa da população. Amostras pequenas por exemplo, têm uma chance maior de selecionar apenas valores extremos, ou seja, os maiores ou menores elementos da população. A média amostral ($\overline{X}$) calculada para estas amostras estará distante da média populacional ($\mu$). 
+No entanto, a importância central da amostragem aleatória em estatística está no fato de que a aleatoriedade produz, **em média**, amostras representativas da população. Deste modo, é esperado que na maioria das vezes, uma amostra aleatória gere médias amostrais próximas à média populacional. Por este motivo, é fundamental prezar pela aleatoriedade no processo amostral, pois de outro modo não poderemos garantir que a inferência seja válida com base nas leis de probabilidade. 
+
+O modo mais direto de se obter uma amostra aleatória é por meio de sorteio. Após atribuir números de 1 a $N$ a cada unidade amostral, estas unidades são sorteadas até que seja atingido o tamanho $n$ desejado. Na prática, nem sempre é simples, ou mesmo possível obter uma amostra aleatória nestes moldes. Não seria possível enumerar todos os peixes de uma região para, após um sorteio, tomar as medidas somente dequeles selecionados. Entretanto, se empregarmos métodos de captura em que indivíduos de todos os tamanhos sejam igualmente sujeitos a serem capturados poderíamos no *aproximar* do que seria uma amostra verdsadeiramente aleatória. Outras dificuldades práticas surgiriam neste estudo como por exemplo: garantir acesso irrestrito à toda a área de ocorrência da espécie, tempo disponível para percorrer a toda região. Questões como estas não desmerecem o requisito básico de se obter uma amostra aleatória, mas devem nos auxiliar a decidir como conciliar a prática experimental com a necessidade de garantirmos uma amostra aleatória.
+
+## Amostragem aleatória estratificada
+
+Se tivermos algum conhecimento prévio de como a população está estruturada, a amostra aleatória simples, embora não esteja incorreta, pode não ser a estratégia mais eficiente do ponto de vista estatístico. Se for possivel identificar **estratos** ou **subgrupos** dentro da população, podemos conduzir uma **amostragem aleatória estatificada**. 
+
+Voltemos ao exemplo do comprimento do pescado. Suponha que existam duas áreas de ocorrência da espécie. Uma delas sujeita a intensa atividade pesqueira e outra sendo uma área protegida. Poderíamos supor que na área protegida estejam os maiores indivíduos, justamente porque nesta área não há atividade de pesca (que em geral busca indivíduos maiores). Dizemos que os comprimentos em cada uma das duas regiões compõem estratos da população estatística.
+
+Nesta situação, uma amostra puramente aleatória  **sem considerar** a existência dos dois estratos pode fazer com que, puramente ao acaso, um deles se torne mais representados na amostra. Se por exemplo da maioria dos pontos selecionados estiverem na região intensamente pescada, o comprimento médio da amostra ($\overline{X}$) tenderá a ficar consistentemente abaixo de $\mu$. A chance disto ocorrer se torna maior principalmente se o tamanho amostral for pequeno. 
+
+Entretanto, se a seleção dos indivíduos foi feita por meio de sorteio, o simples fato de observarmos este padrão não seria por si só justificativa para refarzermos a amostra. O ponto relevante aqui é que em uma amostra aleatória simples, estes extremos indesejáveis (um estrato mais representado que outro) são mais prováveis de acontecer.
+
+Se temos conhecimento da existência dos dois estratos portanto, a amostragem aleatória **estratificada** seria a mais indicada. Neste tipo de amostragem, o esforço amostral é subdividido entre os estratos. O tamanho amostral em cada estrato será o mesmo, ou **proporcional** ao seu tamanho. Uma vez definirmos os tamanhos amostrais que será aplicado aos estratos, as unidades são selecionadas por meio de uma amostragem aleatória simples em cada um. 
+
+A amostragem aleatória estratificada garante que **todos** os estratos estejam presentes na amostra conforme sua representatividade na população. Ao fazer isto, as estimativas da amostra tenderão a se concentrar mais próximas ao parâmetro da população. Deste modo, quando os estratos são identificados **corretamente**, a principal vantagem da amostra aleatória estratificada sobre a amostra aleatória simples está em aumentar a **precisão** das estimativas. Mais a frente iremos discutir os conceitos de precisão e acurácia e relacioná-los com as estratégias amostrais discutidas aqui.
+
+## Amostragem sistemática
+
+Em uma amostragem sistemática o pesquisador escolhe um elemento inicial e toma medidas a cada $k$ ocorrências, seguindo a ordem de observação. No caso do comprimento de pescado, para facilitar a tomada de dados, o pesquisador pode medir o primeiro peixe coletado e, em seguida, medir os peixes em intervalos regulares, por exemplo a cada $10$ observados.
+
+A escolha da amostragem sistemática ao invés de uma amostragem aleatória simples, deve-se à sua praticidade. Se a característica de interesse das unidades amostrais estiver disposta de forma aleatória ao longo da sequência escolhida, a amostragem aleatória e sistemática irão gerar resultados similares. Na maioria dos casos, é isto que o pesquisador assume (ainda que implicitamente) quando opta por uma amostragem sistemática.
+
+
+## Erro amostral, acurácia e precisão
+
+Como as estimativas são obtidas de um subconjunto da população (a amostra), é regra que o resultado obtido de uma amostra aleatória particular, não será igual ao verdadeiro valor da população (o parâmetro), embora exista uma grande probabilidade estar próximo. 
+
++ **Erro amostral**: é a diferença entre uma estimativa em particular e o parâmetro na população e portanto, é inerente à variabilidade do processo de amostragem. Suponha que, puramente ao acaso, a amostra inclua os menores elementos da população. A média amostral ($\overline{X}$) estará muito abaixo da média populacional ($\mu$) e o erro amostral será grande. Se calcularmos a média ($\overline{X}$) de uma amostra particular, o erro amostral será dado por:
+
+$$E = \overline{X} - \mu$$
+
+A estatística estuda o comportamento probabilístico dos erros amostrais. Existe também o **erro não amostral** que decorre de equívocos de amostragem, inexperiência do amostrador, falha de equipamentos, enganos no cômputo dos resultados, etc. A estatística **não lida** com este tipo de erro.
+
++ **Acurácia**: se refere à proximidade entre o parâmetro e o estimador. Um estimador acurado é, em média, igual ao parâmetro populacional. Diferente do erro amostral, a acurácia não se refere a uma estimativa em particular, mas ao valor **esperado** do estimador, caso a amostragem fosse repetida um grande número de vezes. Um estimador não-acurado (**viciado**) resulta em valores **consistentemente** diferentes do parâmetro, podendo estar acima (**viés positivo**) ou abaixo (**viés negativo**) do valor populacional. A média aritmética amostral ($\overline{X}$) é um estimador não-viciado da média populacional ($\mu$) pois:
+
+$$\mu_{\overline{X}} = \mu$$
+
++ **Precisão**: tem relação com a variabilidade do estimador. Estimadores que geram estimativas similares entre si são mais precisos. Porém, se as estimativas estiverem distantes de sua média, o estimador é dito pouco preciso. **Exemplo**: Para uma população normalmente distribuída, tanto a média aritmética quanto a mediana são estimadores acurados. Entretanto, a variância da mediana é maior que da média aritmética. Dizemos portanto, que a média aritmética é um estimador mais preciso que a mediana. A precisão de um estimador é medida pelo **erro padrão da média**.
+
+$$\sigma_{\overline{X}} =\frac{\sigma}{\sqrt{n}}$$
+
+A figura abaixo é comnmente utilizada para representar os conceitos de precição e acurácia. O centro do alvo é o valor do parâmetro populacional e os pontos em preto são as estimativas. Estimadores acurados geram, em média, estimativas ao redor do parâmetro populacional (viés $= 0$). Estimadores **não-acurados** geram, em média, valores deslocados do parâmetro populacional (viés $\ne 0$). Estimadores precisos resultam sempre em estimativas próximas entre si, enquanto estimadores não precisos resultam em estimativas distantes umas das outras.
+
+
+::: {#fig-precis-acur}
+
+![](imgages/precisao-acuracia.png)
+
+Representação dos conceitos de precisão e acurácia.
+:::
+
+### Erro amostral
+
+Voltemos à nossa população fictícia com $N = `r N`$ elementos:
+
+**População**: `r pop`
+
+Para esta população em particular nós conhecemos a média populacional ($\mu$ = `r round(mean(pop),1)`), de modo que será possível compará-la com as estimativas amostrais.
+
+```{r}
+#| code-fold: true
+set.seed(4)
+n = 5
+Am1 = sample(pop, size = n, replace = F)
+somaAm1 = paste(Am1, collapse = "+")
+mp = round(mean(pop),1)
+mAm1 = round(mean(Am1),1)
+E1 = mAm1 - mp
+```
+
+Vamos tomar uma amostra aleatória de tamanho $n = `r n`$:
+
+**Amostra 1**: $`r  Am1`$
+
+Para esta amostra, a média vale: $\overline{X} =\frac{`r somaAm1`}{`r n`} = `r mAm1`$.
+
+Os valores $\mu = `r mp`$ e $\overline{X} = `r mAm1`$ não são idênticos, pois a amostra contém somente alguns elementos da população. A diferença entre $\mu$ e $\overline{X}$ é o chamamos de **erro amostral**.
+
+Neste caso, o erro amostral é:
+
+**Erro amostral 1**: $E_1 = `r mAm1`  -  `r mp`  =  `r E1`$
+
+Se tomarmos outra amostra aleatória, teremos outro conjunto de unidades amostrais, e consequentemente, um $\overline{X}$ e um erro amostral diferentes. Por exemplo:
+
+```{r}
+#| code-fold: true
+set.seed(3)
+n = 5
+Am2 = sample(pop, size = n, replace = F)
+mAm2 = round(mean(Am2),1)
+E2 = mAm2 - mp
+```
+
+**Amostra 2**: $`r Am2`$
+
+**Média amostral 2**: $\overline{X_2} = `r mAm2`$
+
+**Erro amostral 2**: $E_2 = `r mAm2`  -  `r mp`  =  `r E2`$
+
+
+### Acurácia
+
+```{r}
+#| code-fold: true
+N = length(pop)
+n = 5
+CT = choose(N,n)
+```
+
+Até agora, analisamos duas amostras diferentes da população. Porém, quantas amostras distintas seriam possíveis? Para uma amostragem **sem reposição**, a teoria combinatória nos diz que são possíveis:  
+
+$${{`r N`}\choose{`r 5`}} = \frac{`r N`!}{(`r N`-`r n`)! \times `r n`!} = `r CT`$$
+
+formas diferentes de combinarmos $N = `r N`$ elementos em amostras de tamanho $n = `r n`$.
+
+```{r}
+#| code-fold: true
+set.seed(8)
+R = 8
+A15 = replicate(n = R, sample(pop, size = n, replace = F))
+colnames(A15) = paste("A", 1:ncol(A15), sep = "")
+Medias = round(apply(A15, 2, mean),2)
+```
+
+Inicialmente vamos avaliar a questão com um número menor. Sejam por exemplo, `r R` amostras tomadas aleatoriamente, gerando os resultados a seguir:
+
+```{r}
+#| code-fold: true
+#| label: tbl-amostr-pop
+#| tbl-cap: 'Oito amostras de tamanho n = 5 da população estatística.'
+A15 |> 
+  as.data.frame() |> 
+  add_column('Obs' = rep('', times = nrow(A15)), .before = 'A1') |> 
+  rbind(Obs = c('Médias', Medias)) |> 
+  gt() |> 
+  tab_style(
+    style = list(cell_fill(color = "lightblue")),
+    locations = cells_body(
+      rows = Obs == "Médias"
+    )
+  ) |> 
+  cols_width(
+    everything() ~ px(150)
+  )
+```
+
+Cada coluna desta matriz corresponde a uma possível amostra aleatória e suas respectivas médias.
+
+Algumas amostras tiveram médias muito distantes de $\mu$, como: $\overline{X_{A`r which.max(Medias)`}} = `r max(Medias)`$ ou $\overline{X_{A`r which.min(Medias)`}} = `r min(Medias)`$. Esta variação é natural do processo amostral. Os métodos de amostragem e de inferência estatística tratam justamente de como interpretar e como lidar com esta variação. Para entender melhor este processo, vamos obter **todas** as `r CT` combinações possíveis de amostras com $n = `r n`$ e, em seguida, extrair suas respectivas médias. 
+
+Os resultados das `r CT` médias possíveis podem ser vistos a seguir ordenados da menor para a maior média possível:
+
+```{r}
+#| code-fold: true
+Allcomb = combn(x = pop, m = 5)
+M_Allcomb = apply(Allcomb,2,mean)
+M_Allcomb_round = round(M_Allcomb,1)
+knitr::kable(matrix(M_Allcomb_round,nc = 14, byrow = T))
+```
+
+A menor e maior médias possíveis são `r min(M_Allcomb_round)` e `r max(M_Allcomb_round)` respectivamente. Estes valores são os mais distantes do parâmetro populacional ($\mu = `r mp`$) e ocorrem **puramente ao acaso** quanto são amostrados os `r n` menores (`r sort(pop)[1:5]`) ou os `r n` maiores (`r sort(pop, dec = T)[1:5]`) elementos da população estatística. Estes casos extremos são **raros**. Em nosso exemplo, valores superiores a `r quantile(M_Allcomb_round, prob = 0.975)` ou inferiores a `r quantile(M_Allcomb_round, prob = 0.025)` são muito improváveis.
+
+
+Podemos avaliar graficamente a distribuição das médias amostrais através de um histograma. A grande maioria das médias amostrais concentra-se na porção intermediária do gráfico entre estes limites. Por exemplo, somente `r round(mean(M_Allcomb_round >= quantile(M_Allcomb_round, prob = 0.975)) * 100,1)`% das observações estão acima de `r quantile(M_Allcomb_round, prob = 0.975)`. Da mesma forma, somente `r round(mean(M_Allcomb_round <= quantile(M_Allcomb_round, prob = 0.025)) * 100,1)`% das observações estão abaixo de `r quantile(M_Allcomb_round, prob = 0.025)`
+
+```{r}
+#| code-fold: true
+#| label: fig-hist-medias252
+#| fig-cap: 'Histograma das 252 médias amostrais obtidas a partis de amostras de tamanho n = 5.'
+M_Allcomb_df = data.frame(M = as.numeric(M_Allcomb))
+
+gp5 <- ggplot(M_Allcomb_df, aes(x = M)) +
+  geom_histogram(fill = 'brown3', color = 'black', bins = 10) +
+  scale_x_continuous(breaks = seq(0, 50, by = 5)) +
+  coord_cartesian(xlim = c(10, 40)) +
+  labs(x = "Médias",
+       y = "Frequência") +
+  theme_classic()
+
+gp5
+
+```
+
+Se calcularmos a **média das médias** ($\mu_{\overline{X}}$), ou seja, somarmos todos estes valores e dividirmos por `r CT`, o resultado será `r mean(M_Allcomb)`, que é exatamente o valor da média populacional $\mu$. Isto têm uma implicação  central em inferência estatística. Significa que a média amostral $\overline{X}$ é um estimador **acurado** (= **não-viciado**), pois tende a estimar corretamente o valor da média populacional $\mu$. Ou seja, o histograma acima está centrado ao redor de $\mu$, o que significa que **em média** uma amostra particular tem maior probabilidade de expressar um $\overline{X}$ próximo ao valor populacional. 
+
+### Precisão: o erro padrão da média ($\sigma_{\overline{X}}$)
+
+```{r}
+#| code-fold: true
+n2 = 7
+Allcomb7 = combn(x = pop, m = n2)
+M_Allcomb7 = apply(Allcomb7,2,mean)
+M_Allcomb7_round = round(M_Allcomb7,1)
+CT2 = choose(N,n2)
+```
+
+Suponha agora que tomemos ao acaso amostras com $n = `r n2`$ desta mesma população. Existem ao todo:
+
+$${{`r N`}\choose{`r n2`}} = \frac{`r N`!}{(`r N`-`r n2`)! \times `r n2`!} = `r CT2`$$
+
+amostras diferentes de tamanho $n = `r n2`$ que podem ser retiradas de uma população de tamanho  $n = `r N`$. Se tomarmos estas `r CT2` amostras e calcularmos suas respectivas médias amostrais, teremos os resultados abaixo:
+
+```{r}
+#| code-fold: true
+knitr::kable(matrix(M_Allcomb7_round,nc = 12, byrow = T))
+```
+
+```{r}
+#| code-fold: true
+#| label: fig-hist-medias120
+#| fig-cap: 'Histograma das 120 médias amostrais obtidas a partis de amostras de tamanho n = 7'
+M_Allcomb7_df = data.frame(M = as.numeric(M_Allcomb7))
+
+gp7 <- ggplot(M_Allcomb7_df, aes(x = M)) +
+  geom_histogram(fill = 'brown3', color = 'black', bins = 10) +
+  scale_x_continuous(breaks = seq(0, 50, by = 5)) +
+  coord_cartesian(xlim = c(10, 40)) +
+  labs(x = "Média",
+       y = "Frequência") +
+  theme_classic()
+
+gp7
+```
+
+
+```{r}
+#| code-fold: true
+mu_pop = mean(pop)
+N = length(pop)
+var_pop = mean((pop - mu_pop)^2)
+sigma_pop = sqrt(var_pop)
+
+ep5 = sigma_pop/sqrt(n)
+ep7 = sigma_pop/sqrt(n2)
+
+```
+
+Se compararmos os histogramas com $n = `r n`$ e $n = `r n2`$ (@fig-hist-medias252 e @fig-hist-medias120), veremos que os dois resultam em estimadores acurados, pois $\mu_{\overline{X}} = \mu$. No entando, o **intervalo de variação** é menor para amostras de tamanho $n = `r n2`$. Para esta figura, os valores estão mais concentrados ao redor da média. Portanto, à medida que aumenta o tamanho amostral, diminui a dispersão das médias amostrais ao redor de $\mu$. Assim, para amostras grandes torna-se mais **improvável** obter uma média amostral distante da média populacional. Dizemos então que conforme aumenta o tamanho amostral, conseguimos estimativas mais precisas.
+
+
+A precisão de um estimador pode ser medida pelo **Erro padrão da média** ($\sigma_{\overline{X}}$) que pode ser calculado por:
+
+$$\sigma_{\overline{X}} = \frac{\sigma}{\sqrt{n}}$$
+
+O erro padrão da média é o desvio padrão de **todas** as médias amostrais que poderiam ser obtidas de uma amostra com tamanho $n$. Para nosso exemplo com $n = `r n`$, $\sigma_{\overline{X}}$ = `r round(ep5,2)`, enquanto para $n = 7$, $\sigma_{\overline{X}}$ = `r round(ep7,2)`. Dizemos que o último exemplo fornece estimativas **mais precisas**. 
+
+:::{.callout-note}
+
+# Erro padrão amostral
+
+Na prática científica não conhecemos o desvio padrão populacional $\sigma$ e, consequentemente, não temos obter o erro padrão populacional $\sigma_{\overline{X}}$. No entanto, dado que temos uma amostra particular, podemos **estimá-lo** a partir do desvio padrão amostral $\sigma_{\overline{X}}$ pela expressão:
+
+$$s_{\overline{X}} = \frac{s}{\sqrt{n}}$$
+
+em que $s_{\overline{X}}$ é denominado de **erro padrão amostral**
+
+:::
+
+___
+
+:::{.callout-note}
+# Vídeo-aulas
+
+{{< video https://youtu.be/iyzCGvlxN-o >}}
+
+:::

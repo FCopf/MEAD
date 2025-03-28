@@ -1,0 +1,289 @@
+---
+title: (Básico da) Manipulação de data frames
+description: "Introdução à manipulação de data frames no R: importação de dados, seleção de linhas e colunas, criação de novas variáveis"
+categories: ["R", "Programação", "Manipulação de dados", "Data frames"]
+image: "images/data-frames-r.jpg"
+execute:
+  echo: true
+  warning: false
+  include: true
+  message: false
+---
+
+Embora seja possivel criar um data frame entrando com os dados diretamente via linha de comando, é mais eficiente importá-los a partir de arquivos texto (`.csv`, `.txt`).
+
+## Importando arquivos `.csv`
+
+```{r}
+#| echo: false
+dbenv <- read.csv("https://raw.githubusercontent.com/FCopf/datasets/master/dbenv.csv")
+```
+
+Um arquivo do tipo `.csv` pode ser lido com a função `read.csv`. Faça o download do conjunto de dados `dbenv.csv` disponível no repositório [datasets](https://github.com/FCopf/datasets) e salve-o em sua pasta de trabalho (ex. `"C:/seu_caminho/Introducao_R")`. Ao abrir o arquivo em algum editor de texto verá que ele é composto por $`r nrow(dbenv)`$ *linhas* por $`r ncol(dbenv)`$ *colunas*.
+
+Após fazer o download, você pode importar o conjunto de dados utilizando o comando:
+
+```{r}
+#| eval: false
+dbenv <- read.csv(file = "C:/seu_caminho/Introducao_R/dbenv.csv", 
+                 header = TRUE, dec = '.', sep = ',')
+```
+
+```{r}
+#| echo: false
+dbenv <- read.csv(file = "https://raw.githubusercontent.com/FCopf/datasets/master/dbenv.csv", 
+                 header = TRUE, dec = '.', 
+                 sep = ',')
+```
+
+A função `read.csv` possui diferentes argumentos. A argumento `header` define se a primeira linha consiste do cabeçalho (`TRUE`) ou não (`FALSE`). O argumento `dec` define se o separador decimal consiste de *vírgula* ou *ponto* e o argumento `sep` informa sobre qual é o caracter separador de colunas utilizado no arquivo. No arquivo em questão as colunas são separadas por *vírgulas*. Outros tipos de separadores comuns são *ponto-e-vírgula* ou *tabulações*.
+
+Confira os nomes das $`r ncol(dbenv)`$ variáveis (cabeçalho), a dimensão da tabela (número de linhas e colunas) e sua estrutura (um `data.frame` formado por $`r ncol(dbenv)`$ vetores numéricos).
+
+```{r}
+dbenv
+colnames(dbenv)
+dim(dbenv)
+```
+
+::: callout-note
+## Acessando `.csv` em uma *url*
+
+Como este arquivo está em um repositório na nuvem, poderia ser lido acessando diretamente sua *url*, sem a necessidade de fazer o download:
+
+```{r}
+#| eval: false
+dbenv <- read.csv(file = "https://raw.githubusercontent.com/FCopf/datasets/master/dbenv.csv", 
+                 header = TRUE, dec = '.', 
+                 sep = ',')
+```
+:::
+
+::: callout-note
+## Iniciando uma seção de trabalho
+
+Uma seção no R, se refere ao ambiente em que ficam armazenados os objetos (vetores, matrizes, data frames, etc.) criados durante o processo de manipulação e análise de dados. Ao fechar uma seção do R (ex. ao sair do RStudio), esta pode ser salva guardando os objetos criados. O arquivo de uma seção é salvo com extensão `.RData`.
+
+Ao abrir um novo script (com extensão `.r`) em um editor de texto é importante definir o diretório de trabalho, que será o local onde ficarão dados e onde serão salvos os resultados do trabalho (ex. figuras, tabelas, etc.). No RStudio, um novo *script* pode ser aberto via menu `Arquivo --> Novo script`. Ao iniciar o R-Studio abre-se uma nova seção. O diretório desta seção pode ser verificado pelo comando:
+
+```{r}
+#| eval: false
+getwd()
+```
+
+Para criar uma pasta (ex. `Introducao_R`) e direcionar a seção de trabalho para esta pasta utiliza-se a função `setwd()`:
+
+```{r}
+#| eval: false
+setwd("C:/seu_caminho/Introducao_R")
+```
+
+A função `getwd()` pode ser utilizada para verificar se a alteração de diretório foi realizada
+
+```{r}
+#| eval: false
+getwd()
+```
+
+```{r}
+#| include: true
+#| echo: false
+cat("C:/seu_caminho/Introducao_R")
+```
+
+A partir deste momento o R irá ler e salvar aquivos sempre a partir desse diretório.
+:::
+
+## Manipulação de data frames
+
+### Seleção de linhas e colunas em data frames
+
+No data frame os nomes das colunas e linhas podem ser acessados por:
+
+```{r}
+colnames(dbenv)
+```
+
+```{r}
+rownames(dbenv)
+```
+
+Os números *"entre aspas"* significam que estão sendo lidos como caracteres.
+
+Colunas específicas podem ser acessadas por meio de seus nomes:
+
+```{r}
+colunas <- c("dfs", "flo", "oxy")
+dbenv[,colunas]
+```
+
+Ou por suas posições:
+
+```{r}
+colunas_num <- c(1, 3, 4)
+dbenv[,colunas_num]
+```
+
+O mesmo é válido para as linhas.
+
+```{r}
+linhas <- c("3", "7", "9")
+dbenv[linhas,]
+```
+
+```{r}
+linhas_num <- c(3, 7, 9)
+dbenv[linhas_num,]
+```
+
+Sub-conjunto do data frame podem ser selecionados combinando esses procedimentos.
+
+```{r}
+dbenv[linhas,colunas]
+```
+
+### Adicionando novas colunas
+
+Este conjunto de dados mostra medidas físicas e químicas obtidas em um riacho amostrado desde a cabeceira até a foz. O ponto mais alto (`r max(dbenv$alt)` m de altitude) está a `r dbenv$dfs[which.max(dbenv$alt)]` km da cabeceira enquanto o ponto mais baixo está a `r min(dbenv$alt)` m de altitude e a `r dbenv$dfs[which.min(dbenv$alt)]` km da cabeceira. Vamos criar uma nova variável categorizando os trechos do rio em `Alto`, `Medio` e `Baixo` assumindo a seguinte relação:
+
+-   $0$ a $300$ m: `Baixo`;
+-   $300$ a $600$ m: `Médio`;
+-   Acima de $600$ m: `Alto`.
+
+```{r}
+elv_cat <- cut(dbenv$alt, breaks = c(0, 300, 600, 1000), 
+              labels = c("Baixo", "Medio", "Alto"))
+```
+
+A inserção do novo objeto `elv_cat` no data frame pode ser feito simplesmente por:
+
+```{r}
+dbenv$trecho <- elv_cat
+```
+
+A nova coluna denominada `trecho` foi inserida no data frame, como pode ser visto:
+
+```{r}
+head(dbenv)
+```
+
+O mesmo pode ser realizado com a função `transform()`. Vamos utilizá-la para criar uma nova variável categórica a partir do oxigênio dissolvido, considerando 3 níveis de satuação: `Pobre` ($0$ a $5$), `Médio` ($5$ a $8$) e `Saturado` (acima de $8$).
+
+```{r}
+dbenv <- transform(dbenv,  
+ saturacao = cut(dbenv$oxy, breaks = c(0, 40, 109, 124), 
+           labels = c("Pobre", "Medio", "Saturado")))
+```
+
+Veja agora o data frame
+
+```{r}
+dbenv
+```
+
+### Família `apply` e `aggregate`
+
+Em muitas situações temos interesse aplicar uma determinada função a cada linha ou a cada coluna de um data frame ou ainda para grupos distintos de linhas.
+
+Observe por exemplo que se extraímos a média aritmética da coluna `pH` ($\times 10$).
+
+```{r}
+mean(dbenv$pH)  # média aritmética
+```
+
+O resultado é calculado para toda a coluna.
+
+### Função `tapply` {.unnumbered}
+
+Podemos estar interessados no entanto, em extrair as médias separadamente para os trechos alto, médio e baixo do rio. A função `tapply()` é útil nestas situações.
+
+```{r}
+tapply(dbenv$pH, dbenv$trecho, mean)
+```
+
+A função acima, pode ser *lida* do modo:
+
+-   Selecione a coluna `pH`;
+-   Agrupe os elementos em função dos níveis em `trecho` (`r levels(dbenv$trecho)`);
+-   Calcule a média aritmética para cada sub-grupo.
+
+Note que o resultado foi um vetor em que cada elemento corresponde à média de um sub-grupo. Funções que retornam mais de um valor resultam em um objeto no formato de `lista`. A função `range()` por exemplo, retorna dois valores (mínimo e máximo). Ao utilizá-la junto à função `tapply()` termos como resultado uma lista composta por um vetor para cada subgrupo.
+
+```{r}
+tapply(dbenv$pH, dbenv$trecho, range)
+```
+
+### Função `apply` {.unnumbered}
+
+Podemos aplicar uma determinada função a todas as linhas ou colunas de um data frame (ou matriz).
+
+```{r}
+apply(dbenv[,1:5], MARGIN = 2, mean)
+```
+
+O argumento `MARGIN = 2` diz que desejamos aplicar a função ás colunas da matriz. Com `MARGIN = 1` aplicamos a função às linhas da matriz.
+
+### Função `lapply` {.unnumbered}
+
+Se o objeto é do formato `lista`, o comando `lapply()` aplica uma função a cada elemento da lista. Considere a lista:
+
+```{r}
+nossalista <- list(Ilha = c("Ilhabela", "Anchieta", "Cardoso"), 
+                  Areaskm2 = c(347.5, 8.3, 131), 
+                  Bioma = rep("Mata Atlantica",3),
+                  Lat = c(23, 25, 23),
+                  Long = c(45, 47, 45))
+```
+
+Veja os resultados dos comandos abaixo:
+
+```{r}
+lapply(nossalista, sort)
+```
+
+::: callout-note
+Existem outras funções neste grupo, Veja o `help()` destas funções pois são extremamente úteis na manipulação de data frames e listas.
+
+```{r}
+?tapply
+?apply
+?lapply
+?mapply
+?replicate
+```
+:::
+
+### Função `aggregate`  {.unnumbered}
+
+A função `tapply()` aplica uma função a subgrupos de uma **única** coluna. A função `aggregate()` faz o mesmo, porém para **múltiplas** colunas agrupadas de acordo com uma ou mais categorias. O comando abaixo calcula os valores médios das variáveis para os trechos alto, médio e baixo combinados com níveis de $pH$.
+
+```{r}
+media.trecho <- aggregate(dbenv[, 1:11], 
+                         by = list(TRECHO = dbenv$trecho,
+                                   ALCALINO = dbenv$pH >= 80),
+                         FUN = mean)
+media.trecho
+```
+
+## Exportando um data frame
+
+Finalmente, podemos exportar o data frame `media.trecho` obtido acima para um arquivo `Mediaportecho.csv`.
+
+```{r}
+#| eval: false
+write.table(media.trecho, file = "C:/seu_caminho/Introducao_R/Mediaportecho.csv", 
+            sep = ",", dec = '.', row.names = FALSE, 
+            col.names = TRUE)
+```
+
+```{r}
+#| echo: false
+write.table(media.trecho, 
+            file = "Mediaportecho.csv",  
+            sep = ",", dec = '.', row.names = FALSE, col.names = TRUE)
+```
+
+```{r}
+#| echo: false
+rm(list = ls())
+```

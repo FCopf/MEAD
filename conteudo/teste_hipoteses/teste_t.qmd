@@ -1,0 +1,340 @@
+---
+title: "Comparando médias: teste t de Student"
+description: "Comparando médias testes t para uma amostra, grupos independentes e medidas pareadas."
+Categories: ["Comparação de Médias", "Testes de hipóteses"]
+
+image: "images/teste_t.jpg"
+execute:
+  echo: true
+  warning: false
+  include: true
+  message: false
+---
+
+:::{.callout-tip collapse="true"}
+## Pacotes, funções e base de dados utilizadas no capítulo
+
+```{r}
+library(tidyverse)
+library(gt)
+```
+:::
+
+```{r}
+#| echo: false
+mo = 4.8
+X = c(5.1 , 5.0 , 4.8 , 5.0 , 5.0 , 4.9 , 4.9 , 4.7)
+n = length(X)
+ep = sd(X)/sqrt(n)
+tc = (mean(X) - mo)/ep
+tR <- t.test(X, mu = 4.8)
+valort <- tR$statistic
+df <- tR$parameter
+pv <- tR$p.value
+ic <- tR$conf.int
+tRmedio <- tR$estimate
+```
+
+O modelo normal de probabilidades não é a melhor aproximação para a distribuição das médias amostrais quando não conhecemos $\mu$ e $\sigma$ e/ou quando o tamanho amostral $n$ é pequeno. Nesta situação, a **distribuição t de Student** é mais apropriada para o cálculo do intervalo de confiança. Da mesma forma, o **teste $Z$** assume que a distribuição das médias amostrais é normalmente distribuída e que a variância populacional $\sigma$ seja conhecida, uma informação que não temos na prática científica.
+
+
+O **teste t de Student** é utilizado em substituição ao **teste $Z$** quando $\sigma$ é desconhecido e/ou o tamanho amostral é pequeno. A lógica do teste é a mesma apresentada discutida no teste $Z$, porém estabelece que a distribuição das médias  amostrais é melhor descrita pela distribuição $t$ e não pela distribuição normal.
+
+::: {#fig-Z_vs_T_distribution}
+
+![](img/Z_vs_T_distribution.png)
+
+Teste Z versus teste t. Estatística do teste e distribuição de probabilidades.
+:::
+
+
+## Teste t para uma média populacional
+
+Considere um exemplo simples. Dados do Banco Central do Brasil dizem que moedas de $R\$ 0,10$ da segunda geração pesam `r mo` gramas. Você tem $`r n`$ moedas no bolso e resolve testar essa afirmação pesando cada moeda. Os pesos obtidos são: $X = `r X`$.
+
+Inicialmente, devemos estabelecer nossa hipótese nula ($H_0$), nossa hipótese alternativa ($H_a$) e o nível se significância $\alpha$. Iremos estabelecer $\alpha = 0,05$ e as hipóteses como:
+
+$H_0: \mu = `r mo`$ gramas
+
+$H_a: \mu \ne `r mo`$ gramas
+
+Como não conhecemos $\sigma$ e temos uma amostra pequena, a posição das médias amostrais seguirá uma distribuição $t$ de Student e a estatística do teste será:
+
+$$t = \frac{\overline{X} - \mu}{s_{\overline{X}}}$$
+
+sendo o erro padrão amostral obtido por:
+
+$$s_{\overline{X}} = \frac{s}{\sqrt{n}}$$
+
+O cálculo de $t$ é muito similar ao escore $Z$. No entanto, substituímos $\sigma$ por $s$. As distribuições de $t$ e de $Z$ são muito similares. Entretanto, para amostras pequenas e quando $\sigma$ é desconhecido, a curva de $t$ nos fornece uma melhor estimativa das probabilidades associadas a distribuição das médias amostrais.
+
+Para este exemplo, temos uma amostra de tamanho $n = `r n`$ com média $\overline{X} = `r mean(X)`$g e desvio padrão $s = `r round(sd(X),2)`$g. O valor de $t$ pode ser calculado por:
+
+$$t_{c} = \frac{\overline{X} - \mu}{s_{\overline{X}}} = \frac{\overline{X} - \mu}{\frac{s}{\sqrt{n}}} = \frac{`r mean(X)`  - `r mo`}{\frac{`r round(sd(X),2)`}{\sqrt{`r n`}}} = `r round(tc,2)`$$
+
+Assim como fizemos para a distribuição $Z$, devemos encontrar a probabilidade de obtermos um valor tão ou maior que o módulo de $t_c$. Na figura abaixo, nosso resultado fica:
+
+``` {r}
+#| echo: false
+#| fig-width: 8
+#| fig-height: 6
+#| label: fig-limite-rej-t
+#| fig-cap: 'Valor de p associado ao resultado do teste t.'
+qr = c(-tc, tc)
+dqr = dt(x = qr, df = n-1)
+
+
+qrc1 = c(seq(-5, qr[1], l = 100), seq(qr[1],-5, l = 100))
+dqrc1 = c(rep(0,100), dt(x = seq(qr[1],-5, l = 100), df = n-1))
+
+qrc2 = c(seq(5, qr[2], l = 100), seq(qr[2],5, l = 100))
+dqrc2 = c(rep(0,100), dt(x = seq(qr[2],5, l = 100), df = n-1))
+
+pqr = pt(q = qr, df = n-1)
+perc = diff(pqr, df = n-1) * 100
+
+#eixox = bquote(.(-tc), 0, .(+tc))
+
+curve(expr = dt(x, 0, df = n-1), from = -4, to = 4, 
+      ylab = "Densidade da distribuição t",
+      xlab = "Valores de t", ylim = c(0, 0.5), axes = F)
+axis(1, at = round(c(qr[1],0,qr[2]),2), cex.axis = 0.8)
+axis(2, at = seq(-1, 0.5, by = 0.1), cex.axis = 0.8)
+polygon(x = qrc1, y = dqrc1, col = rgb(red = 0.9, 0,0, alpha = 0.3))  
+polygon(x = qrc2, y = dqrc2, col = rgb(red = 0.9, 0,0, alpha = 0.3))  
+segments(x0 = qr[1], x1 = qr[7], y0 = 0.65, y1 = 0.65, lwd = 2)
+text(y = c(0.05), x = c(-3.1), labels = bquote(.(round(pt(-tc, df = n-1),3))))
+text(y = c(0.05), x = c(3.1), labels = bquote(.(round(pt(tc, df = n-1, lower.tail = F),3))))
+
+```
+
+A probabilidade de encontrarmos um valor de $t_c$ tão ou mais extremo segundo a hipótese nula foi de $p = `r round(pt(-tc, df = n-1)*2,3)`$. Uma vez que este valor é **menor** que o nível crítico $\alpha = 0,05$, concluímos que existe evidência suficiente para **rejeitar** $H_0$ e **aceitar** a hipótese alternativa de que as moedas de $10$ centavos **não** provém de uma população estatística com $\mu = 4,8$ gramas. Nossa conclusão é portanto, que as moedas de $R\$ 0,10$ são mais **pesadas** que $4,8$ gramas.
+
+::: {.callout-note}
+
+# Terste t no R
+
+```{r, echo = T}
+t.test(X, mu = 4.8)
+```
+
+___
+
+Nos comandos acima, $X$ é a amostra e o argumento ```mu``` representa a expectativa sobre a média populacional *segundo $H_0$*. Como resultados temos:
+
++ a indicação de que fizemos um *teste $t$* para uma amostra: ```One Sample t-test```;
+
++ o valor de $t$ calculado: ```t = `r round(valort,4)` ```;
+
++ os graus de liberdade: ```df = `r length(X)` - 1 = `r df` ```; e 
+
++ o valor de ```p = `r round(pv,3)` ```. 
+
+A saída da função apresenta ainda o valor da média amostral ($\overline{X} = `r round(tRmedio,3)`$) e o intervalo de confiança a $95\%$ (``` `r paste(round(ic, 6), collapse = " - ")` ```).
+
+:::
+
+## Graus de liberdade
+
+A distribuição $t$ como várias outras distribuições amostrais utilizadas em inferência estatística, muda seu formato em função do que chamamos de **graus de liberdade** ($gl$). Os graus de liberdade têm relação com o tamanho amostral. No caso do teste $t$ para $1$ amostra, esta relação é simplesmente: $gl = n-1$. 
+
+À medida que os graus de liberdade aumentam, o formato da distribuição $t$ se assemelha ao formato da distribuição Normal padronizada. De fato, para graus de liberdades altos (ex. $n \ge 30$), os formatos das distribuições $Z$ e $t$ são praticamente indistinguíveis. Na prática, isto faz que as distribuição $Z$ **raramente** seja utilizada.
+
+```{r}
+#| echo: false
+#| fig-width: 8
+#| fig-height: 6
+#| label: fig-dist-t-gl
+#| fig-cap: "Função de densidade de t para diferentes graus de liberdade."
+
+n1 <- 2
+n2 <- 5
+n3 <- 30
+ggplot(data = data.frame(x = c(-4,4)),
+       mapping = aes(x = x)) +
+  stat_function(mapping = aes(color = "Dist. Normal"),
+                fun = dnorm, size = 2) +
+  stat_function(mapping = aes(color = paste("Dist. t; n =",n1)),
+                fun = dt,
+                args = list(df = n1-1)) +
+  stat_function(mapping = aes(color = paste("Dist. t; n =",n2)),
+                fun = dt,
+                args = list(df = n2-1)) +
+  stat_function(mapping = aes(color = paste("Dist. t; n =",n3)),
+                fun = dt,
+                args = list(df = n3-1)) +
+  labs(colour = "", y = "Densidade de probabilidade", x = "") +
+  theme_classic()
+
+```
+
+
+## Probabilidades no teste $t$ de Student: a tabela $t$
+
+A rejeição uo aceitação da hipótese nula em um teste $t$ pode ser feita por meio da obtenção do *valor de p* ou pela comparação do $t$ calculado com valores críticos de referência para determinado nível de significância. O primeiro caso foi o que apresentamos acima e depende de um software estatístico para obtermos valores exatos de $p$. O segundo caso, pode ser feito com auxílio da Tabela $t$, em que limites críticos de $t$ são disponibilizados para diferentes níveis de significância e graus de liberdade.
+
+Atualmente, o uso da tabela $t$ têm finalidade em grande parte didática e, por este motivo, vamos apresentá-lo aqui rapidamente. No entanto, fora da sala de aula, o teste $t$ será invariavelmente conduzido por meio de um software estatístico este método que permitirá a obtenção do valor exato de $p$.
+
+Na <a href="https://github.com/FCopf/amostragem-inferencia/blob/main/files/Tabela_t.pdf" target="_blank">Tabela t</a>, a primeira coluna mostra os *graus de liberdade* de $1$ a $120$. O cabeçalho da tabela de $90\%$ a $0,1\%$ mostra a área na distribuição de $t$ nas caldas inferior e superior.
+
+Vamos retornar ao exemplo da moedas de $R\$0,10$ para exemplificar sua utilização. Neste exemplo a tinhamos $`r n`$ ($gl = `r df`$ graus de liberdade) e o teste foi feito com $\alpha =0,05$. Se buscarmos na linha $gl = `r df`$ e a coluna $5\%$ ($\alpha = 0,05$), encontraremos o valor $t = 2,3646$. Este é o chamado $t$ **crítico** ($t_{crítico}$). Acima deste valor e abaixo de sua contraparte negativa temos exatamente $5\%$ da área na disribuição $t$. Deste modo, qualquer valor calulado **maior** que $t_{crítico}$ estará mais para a extremidade da distribuição e consequentemente estará associado a **menores** valores de probabilidade. Neste sentido:
+
+> $t_{calculado} \ge t_{crítico}$ leva a *rejeição* de $H_0$
+
+> $t_{calculado} < t_{crítico}$ leva a *aceitação* de $H_0$
+
+O resultado do teste estatístico em nosso exemplo foi $t_c = `r round(valort,2)`$ que é **maior** que $2,3646$. Isto nos leva à mesma decisão anterior (**rejeitar** $H_0$), ainda que por meio da tabela $t$ não tenhamos o valor exato de probabilidade.
+
+
+## Teste t para comparação de duas médias independentes
+
+O que vimos no teste $t$ para uma amostra pode ser facilmente extendido para testarmos a diferenças entre duas amostras. 
+
+Os dados abaixo mostram o tempo de coagulação sanguínea (em minutos) em ratos machos adultos tratados com dois tipos de drogas, retirado do livro Biostatistical Analysis [@zar2010biostatistical], pp. 130-134.
+
+
+```{r}
+#| code-fold: true
+ra <- data.frame(Droga = factor(c(rep("Droga A", 6), rep("Droga B",7))),
+                Tempo = c(8.8, 8.4, 7.9, 8.7, 9.1, 9.6, 
+                          9.9, 9.0, 11.1, 9.6, 8.7, 10.4, 9.5))
+
+```
+
+```{r}
+#| echo: false
+#| label: tbl-coagulacao
+#| tbl-cap: "Tempo de coagulação sanguínea (em minutos) para dois tipos de drogas."
+ra |> 
+  gt() |> 
+  cols_width(
+    Droga ~ px(200),
+    Tempo ~ px(400)
+  ) |> 
+  fmt_number(columns = Tempo, decimals = 2)
+```
+
+Nosso objetivo é testar se as duas drogas resultam, em média, no mesmo tempo de coagulação. Inicialmente, vamos fazer um gráfico de dispersão para verificar a distribuição do tempo de coagulação para cada droga.
+
+```{r}
+#| code-fold: true
+#| fig-width: 6
+#| fig-height: 4
+#| label: fig-bx-coagulacao
+#| fig-cap: "Distribuição do tempo de coagulação sanguínea (em minutos) para dois tipos de drogas."
+ggplot(ra, aes(y = Tempo, x = Droga)) +
+  geom_boxplot() +
+  geom_point(col = 2, size = 3) +
+  labs(y = 'Tempo de coalgulação (min)', x = '') +
+  theme_classic(base_size = 15)
+
+```
+
+As médias, desvios padrões e tamanhos amostrais de cada grupo são:
+
+```{r}
+#| code-fold: true
+#| label: tbl-coagulacao-summary
+#| tbl-cap: "Tempo de coagulação sanguínea (em minutos) para dois tipos de drogas."
+ra_m = ra |> 
+    group_by(Droga) |> 
+    summarize('Tempo médio' = round(mean(Tempo),2), 
+              Desvio = round(sd(Tempo),2), n = n() )
+
+ra_m |> 
+  gt()
+```
+
+Para testarmos se as médias dos grupos provém de populações estatísticas com diferentes $\mu's$ devemos estabelecer nosso nível de significância (por exemplo $\alpha = 0.05$) as hipoteses estatísticas:
+
+$H_0: \mu_A = \mu_B$ gramas
+
+$H_a: \mu_A \ne \mu_B$ gramas
+
+:::{.callout-note}
+
+# Teste de homogeneidade de variâncias
+
+Um dos pressupostos do teste t que apresentaremos a frente é de que as populações que serão comparadas têm a mesma variância $\sigma^2$. Devemos portanto testar o pressuposto de **homogeneidade de variâncias** que pode ser realizado com o teste de razão de variâncias.
+
+No R fazemos o teste de homogeneidade de variâncias com o comando abaixo.
+
+```{r}
+var.test(ra$Tempo ~ ra$Droga)
+```
+
+```{r}
+#| echo: false
+ft = var.test(ra$Tempo ~ ra$Droga)
+p = ft$p.value
+Fc = ft$statistic
+```
+
+No teste acima, $F_{calculado} = `r round(Fc,2)`$ e $p = `r round(p,3)`$. Assumindo um $\alpha = 0,05$, concluímos que **não há evidências** para rejeitar a hipótese de homogeneidade e que assumimos que as duas populações têm a mesma variância. Deste modo podemos continuar com o teste t.
+
+:::
+
+
+
+
+O teste t para duas amostras é calculado por:
+
+$$t = \frac{(\overline{X_A} - \mu_A) - (\overline{X_B} - \mu_B)}{s_{\overline{X_A}-\overline{X_B}}}$$
+
+Assumindo a hipotese nula em que $\mu_A = \mu_B$ a expressão fica
+
+$$t = \frac{\overline{X_A} - \overline{X_B}}{s_{\overline{X_A}-\overline{X_B}}}$$
+
+em que a quantia $s_{\overline{X_A}-\overline{X_B}}$ é calculada por:
+
+$$s_{\overline{X_A}-\overline{X_B}} = \sqrt{\frac{s^2_{p}}{n_1} + \frac{s^2_{p}}{n_2}}$$
+
+
+$s_p$ é denominada de **variância conjunta** calculada por
+
+$$s^2_p = \frac{(n_1 - 1) \times s^2_1 + (n_2 - 1) \times s^2_2}{(n_1 - 1) + (n_2 - 1)}$$
+
+Para este exemplo, 
+
+```{r}
+#| echo: false
+m1 = tapply(ra$Tempo, ra$Droga, mean)[1]
+m2 = tapply(ra$Tempo, ra$Droga, mean)[2]
+var1 = tapply(ra$Tempo, ra$Droga, var)[1]
+var2 = tapply(ra$Tempo, ra$Droga, var)[2]
+n1 = tapply(ra$Tempo, ra$Droga, length)[1]
+n2 = tapply(ra$Tempo, ra$Droga, length)[2]
+vp = (var1 * (n1-1) + var2 * (n2-1))/((n1-1) + (n2-1))
+sx = sqrt(vp/(n1) + vp/(n2))    
+tc = (m1-m2)/sx
+#tc
+#t.test(Tempo ~ Droga, data = ra, var.equal = T)
+```
+
+
+$s_p = `r round(vp,2)`$
+
+e
+
+$s_{\overline{X_A}-\overline{X_B}} =  `r round(sx,2)`$
+
+O valor de t calculado é:
+
+$t_c =  `r round(tc,3)`$
+
+Na distribuição t, a probabilidade de encontrar valores tão ou mais extremos que `r -round(tc,3)` é de $p = `r round(pt(tc, df = n1+n2-2, lower.tail = T)*2,3)`$.
+
+Portanto:
+
+$P(|t| \ge `r -round(tc,3)`) \le 0.05$
+
+Uma vez que a probabilidade associada ao valor de $t$ é menor que o nível de significância, **rejeitamos** $H_0$ e assumimos que os tempos médios de coagulação **são diferentes**. Ao avaliar as média amostrais $\overline{X}_A$ e $\overline{X}_B$, concluímos que **a droga $A$** resulta, em média, em tempos menores de coagulação.
+
+___
+
+:::{.callout-note}
+# Vídeo-aulas
+
+{{< video https://youtu.be/Mu4QQr5ud58 >}}
+
+:::

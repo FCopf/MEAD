@@ -1,0 +1,332 @@
+---
+title: "Regressão Linear Múltipla"
+author: baseado no livro [Experimental Design and Data Analysis for Biologists](https://www.cambridge.org/highereducation/books/experimental-design-and-data-analysis-for-biologists/BAF276114278FF40A7ED1B0FE77D691A#overview){target="_blank"}
+description: "Regressão linear múltipla: determinação, seleção de variáveis, pressupostos e diagnósticos."
+Categories: ["Regressão Linear", "Estatística Descritiva", "Modelagem Matemática", "Análise de Variância"]
+
+image: "images/regressao_linear_multipla.jpg"
+execute:
+  echo: true
+  warning: false
+  include: true
+  message: false
+---
+
+:::{.callout-tip collapse="true"}
+## Pacotes, funções e base de dados utilizadas
+
+```{r}
+library(tidyverse)
+library(GGally)
+library(patchwork)
+library(gt)
+```
+
+:::
+
+## Abundância de aves em fragmentos de floresta
+
+@loyn1987effects conduziu um estudo para entender quais características do habitat estavam relacionadas à abundância de aves da floresta (acesse o artigo <a href="https://github.com/FCopf/datasets/blob/master/Loyn1987fragments.pdf" target="_blank">aqui</a>). Para isso, ele selecionou 56 fragmentos de floresta no sudeste de Victoria, Austrália, e registrou a abundância de aves da floresta (**ABUND**) em cada fragmento como variável de resposta.
+
+As variáveis preditoras registradas para cada fragmento incluíram:
+
+- Área do fragmento (ha): **AREA**
+- Distância ao fragmento mais próximo (km): **DIST**
+- Distância ao fragmento maior mais próximo (km):**LDIST**
+- Número de anos desde que o fragmento foi isolado por desmatamento (anos):**YR.ISOL**
+- Índice de histórico de pastagem, de 1 (leve) a 5 (pesado):**GRAZE**
+- Altitude média (m):**ALT**
+
+Inicialmente, vamos nos concentrar nas variáveis **YR.ISOL**, **GRAZE** e **ALT**.
+
+
+Importe a base de dados `loyn.csv`
+
+
+```{r}
+loyn = read_csv("https://github.com/FCopf/datasets/raw/refs/heads/master/loyn.csv")
+
+head(loyn) |> gt()
+```
+
+## Gráficos de dispersão entre ABUND e cada uma das demais variáveis preditoras
+
+
+```{r}
+plt_gr <- ggplot(loyn) +
+  aes(y = ABUND, x = GRAZE) +
+  geom_point() +
+  geom_smooth(se = FALSE, span = 1)
+
+plt_al <- ggplot(loyn) +
+  aes(y = ABUND, x = ALT) +
+  geom_point() +
+  geom_smooth(se = FALSE, span = 1)
+
+plt_yr <- ggplot(loyn) +
+  aes(y = ABUND, x = YR.ISOL) +
+  geom_point() +
+  geom_smooth(se = FALSE, span = 1)
+```
+
+
+```{r, fig.width=8, fig.height=3}
+plt_gr + plt_al + plt_yr
+```
+
+## Multicolinearidade: as variáveis preditoras são correlacionadas entre si?
+
+
+```{r}
+ggpairs(loyn |> select(GRAZE, ALT, YR.ISOL))
+```
+
+As variáveis **ALT** versus **GRAZE** e **GRAZE** versus **YR.ISOL** parecem ter um grau de correlação moderado entre si.
+
+## O modelo de regressão múltipla
+
+O modelo de regressão linear múltipla é dado por:
+
+$$ABUND_i = \beta_0 + \beta_1 ALT_i + \beta_2 YR.ISIOL_i + \epsilon_i$$
+
+No R pode ser ajustado por:
+
+
+```{r}
+mfull <- lm(ABUND ~ ALT + YR.ISOL, data  = loyn)
+mfull
+```
+
+O resumo do modelo pode ser visto com a função `summary`
+
+
+```{r}
+summary(mfull)
+```
+
+```{r}
+#| echo: false
+F_full = round(summary(mfull)$fstatistic[1], 3)
+# Extract F-statistic and degrees of freedom
+model_summary <- summary(mfull)
+f_stat <- model_summary$fstatistic[1]
+df1 <- model_summary$fstatistic[2]
+df2 <- model_summary$fstatistic[3]
+
+# Calculate p-value
+overall_p_value <- round(pf(f_stat, df1, df2, lower.tail = FALSE), 6)
+```
+
+## Hipótese nula e comparação de modelos
+
+A hipótese nula ($H_0$) básica que podemos testar ao ajustar um modelo de regressão linear múltipla é que todas as inclinações de regressão parciais são iguais a zero, ou seja, $H_0: \beta_1 = \beta_2 = \cdots = \beta_j = 0$. Neste exemplo, $H_0$ é que o coeficiente de inclinação dos níveis de pastagem e os anos de isolamento do fragmento sejam ambos iguais a zero e, consequentemente, não têm influência sobre a abundância.
+
+Testamos a hipótese nula com a ANOVA na regressão múltipla, que divide a variação total de $Y$ em dois componentes: a variação explicada pela regressão linear com $X_1$, $X_2$, $\cdots$, $X_j$ e a variação residual.
+
+Se $H_0$ for verdadeira, tanto o quadrado médio da regressão $QM_{Regressão}$ quanto o quadrado médio do resíduo ($QM_{Resíduo}$) estimarão $\sigma^2$, e a razão $F$ entre eles será igual a 1. Se $H_0$ for falsa, pelo menos uma das inclinações de regressão parciais não será igual a zero e $QM_{Regressão}$ estimará $\sigma^2$ mais um termo $QM_{Regressão}$ o que representa essas inclinações de regressão parciais. Portanto, a razão $F = \frac{QM_{Regressão}}{QM_{Regressão}} > 1$. Neste caso, a decisão de aceitar $H_0$ é feita pela comparação do $F$ calculado com a distribuição $F$ apropriada, da mesma forma que fazemos com a regressão linear simples ou com a Análise de Variância.
+
+O resultado da razão $F$ aparece no comando `summary`, que no exemplo acima é F = `r F_full`, com valor de p = `r overall_p_value`.
+
+Também podemos testar as hipóteses nulas sobre cada coeficiente de regressão parcial, ou seja, de que qualquer $\beta_1$ seja igual a zero. Para isto, podemos usar a estratégia de comparação de modelos em que o modelo completo (aquele com todas as variáveis) é comparado com o modelo reduzido (aquele sem a variável $X_1$ de interesse).
+
+Para testar o efeito da altitude, por exemplo, o modelo reduzido é:
+
+$ABUND_i = \beta_0 + \beta_2 YR.ISIOL_i + \epsilon_i$
+
+O modelo completo tem soma dos quadrados ($SQ$) maior que o modelo reduzido. Para comparar o ganho extra que o modelo completo tem sobre o modelo reduzido podemos fazer:
+
+$SS_{extra} = SS_{Regressão_{completo}} - SS_{Regressão_{reduzido}}$
+
+Em seguida, calculamos o quadrado médio extra como $QM_{extra} = \frac{SS_{extra}}{gl}$ e usamos o teste $F$ como:
+
+$F = \frac{QM_{extra}}{QM_{Resíduo_{completo}}}$
+
+O mesmo pode ser feito para a variável $YR.ISOL$.
+
+No R, podemos testar os efeitos dos coeficientes parciais de regressão com o comando `drop1`.
+
+
+```{r}
+drop1(mfull, test = 'F')
+```
+
+Vemos aqui que os dois componentes (**ALT** e **YR.ISOL**) adicionam uma variação explicada significativa, isto é, para os dois coeficientes $p \le 0,005$.
+
+Note que o teste o teste F de comparação de modelos foi equivalente ao teste $t$ aplicado a cada coeficiente e que pode ser visto no resultado da função summary, sendo $F = t^2$. No entanto, a estratégia de comparação de modelos apresentada aqui permite a comparação não somente de coeficientes isolados, mas de qualquer combinação específica dos coeficientes em comparação com o modelo completo.
+
+## Coeficiente de determinação ($R^2$)
+
+Na regressão múltipla, o coeficiente de determinação $R^2$ mede a proporção da variabilidade total da variável resposta que é explicada pelas variáveis preditoras. No entanto, $R^2$ tende a aumentar à medida que mais preditores são adicionados ao modelo, mesmo que não sejam significativos. Para corrigir essa inflação, utilizamos o coeficiente de determinação ajustado ($R^2_{ajustado}$), que ajusta o $R^2$ considerando o número de preditores no modelo e o tamanho da amostra. O $R^2_{ajustado}$ penaliza a adição de preditores irrelevantes, proporcionando uma avaliação mais precisa da qualidade do ajuste do modelo e pode ser obtido pela expressão:
+
+$R^2_{ajustado} = 1 - \frac{(1-R^2)(n-1)}{n-k-1}$
+
+
+```{r}
+#| echo: false
+r.squared = summary(mfull)$r.squared |> round(3)
+adj.r.squared = summary(mfull)$adj.r.squared |> round(3)
+```
+
+No resultado da função `summary` vemos que o $R^2 = `r r.squared`$ e o $R^2_{ajustado} = `r  adj.r.squared`$.
+
+## Pressupostos da regressão linear múltipla
+
+### Normalidade dos resíduos
+
+
+```{r}
+loyn <- loyn |> 
+  mutate(rst = rstudent(mfull),
+         yaj = fitted(mfull))
+```
+
+
+```{r}
+ggplot(loyn) +
+  aes(x = rst, y = after_stat(density)) +
+  geom_histogram(bins = 10, density = TRUE, color = 'white') +
+  geom_density(color = 'darkblue', linewidth = 2)
+```
+
+
+```{r}
+shapiro.test(loyn$rst)
+```
+
+### Gráfico de resíduos
+
+
+```{r}
+ggplot(loyn) +
+  aes(x = yaj, y = rst) +
+  geom_point() +
+  geom_hline(yintercept = 0, linetype = "dashed", color = "blue")
+```
+
+### Índice de Alavancagem (Leverage)
+
+
+```{r}
+infl <- influence.measures(mfull)$infmat |> 
+  as.data.frame()
+
+ggplot(infl) +
+  aes(y = hat, x = 1:nrow(infl)) +
+  geom_point() +
+  ylab('Leverage')
+```
+
+### Índice de Alavancagem de Cook (Dcook)
+
+O índice de alavancagem de Cook é uma medida que combina a magnitude do efeito de alavancagem de uma observação com o quanto essa observação influencia a estimativa dos coeficientes de regressão. Uma observação com $D_{Cook} > 1$ é frequentemente considerada influente e devem ser examinada para avaliar seu impacto no modelo.
+
+Para obter o índice de alavancagem de Cook em R:
+
+
+```{r}
+ggplot(infl) +
+  aes(y = cook.d, x = 1:nrow(infl)) +
+  geom_point() +
+  ylab('Distância de Cook')
+```
+
+## Outros dignósticos
+
+### Resíduos *versus* variáveis preditoras
+
+```{r}
+ggplot(loyn) +
+  aes(x = ALT, y = rst) +
+  geom_point()
+```
+
+
+```{r}
+ggplot(loyn) +
+  aes(x = YR.ISOL, y = rst) +
+  geom_point()
+```
+
+### Resíduos dos modelos reduzidos versus variáveis preditoras
+
+Neste gráficos, ajustamos os modelos reduzidos excluindo uma variável preditora por vez e plotamos os resíduos deste modelo com a variável preditora excluída. Uma tendência neste gráfico indica que a inclusão da variável no modelo ajudaria a reduzir a variação residual.
+
+
+```{r}
+mpalt <- lm(ABUND ~ YR.ISOL, data  = loyn) # Modelo reduzido sem ALT
+plot(rstudent(mpalt) ~ loyn$ALT)
+abline(lm(rstudent(mpalt) ~ loyn$ALT))
+```
+
+
+```{r}
+mpisol <- lm(ABUND ~ ALT, data  = loyn) # Modelo reduzido sem YR.ISOL
+plot(rstudent(mpisol) ~ loyn$YR.ISOL)
+abline(lm(rstudent(mpisol) ~ loyn$YR.ISOL))
+```
+
+## Mais sobre multicolinearidade
+
+Variáveis preditoras correlacionadas entre si caracteriza a multicolinearidade. Quando severa, a multicolinearidade pode afetar a estimativa dos parâmetros da regressão, pois pequenas alterações nos dados ou inclusão/remoção de variáveis podem causar grandes mudanças nos coeficientes estimados da regressão. Além disso, a presença de multicolinearidade pode inflar os erros padrões dos coeficientes de regressão, resultando em um modelo globalmente significativo, mas com coeficientes individuais que não são estatisticamente diferentes de zero.
+
+Avaliar uma matriz de correlação entre pares de variáveis preditoras pode ser a primeira e mais simples forma de explorar a presença de colinearidade. Outra forma é avaliar a tolerância de cada variável preditora $X_j$ por meio de $1 - R^2_j$, em que $R^2_j$ é o coeficiente de determinação do modelo em que $X_j$ é relacionada às demais $1 - p$ variáveis preditoras. Geralmente, esta tolerância é expressa na forma do índice de inflação da variação (*variance inflation factor* - $VIF$) para cada variável preditora, em que:
+
+$$VIF_j =\frac{1}{1 - R^2_j}$$
+
+Valores elevados indicam que a presença de colinearidade devido a variável $X_j$. Diferente níveis de corte são propostos como indicadores da presença de multicolinearidade $VIF > 5$, $VIF > 10$ ou $VIF > 20$
+
+Todos os coeficientes $VIF_j$ podem ser encontrados em uma única operação calculando a inversa da matriz de correlação, $\mathbb{R^{1}}$ entre as variáveis de interesse. Os elementos diagonais dessa matriz inversa são os coeficientes $VIF_j$. Vimos que **GRAZE** era correlacionada com **ALT** e com **YR.ISOL**. Os ceoficientes $VIF$ para estas variáveis podem ser obtidos por:
+
+
+```{r}
+vif <- loyn |> 
+  select(GRAZE, ALT, YR.ISOL) |> 
+  cor() |> 
+  solve() |> 
+  diag()
+
+vif
+```
+
+O $VIF$ para **GRAZE** é maior que os demais, porém longe do limite $VIF > 5$. Vejamos entretanto o que ocorre com o modelo para abundância se inserimos estas três variáveis:
+
+
+```{r}
+mfull2 <- lm(ABUND ~ GRAZE + ALT + YR.ISOL, data = loyn)
+summary(mfull2)
+```
+
+```{r}
+#| echo: false
+adj.r.squared2 = summary(mfull2)$adj.r.squared |> round(3)
+```
+
+Note que agora, somente **GRAZE** aparece com coeficiente estatísticamente diferente de $0$ e $R^2_{ajustado}$ aumenta de `r adj.r.squared` para `r adj.r.squared2`
+
+## Tranformações
+
+Transformações podem frequentemente ser eficazes se a distribuição em situações em que as variáveis preditoras apresentem distribuições assimétricas. Vamos incluir a **AREA** no modelo de regressão. Vejamos os graficos de disperção entre as variáveis preditoras.
+
+
+```{r}
+ggpairs(loyn |> select(AREA, GRAZE, ALT, YR.ISOL))
+```
+
+Há uma relação fortemente assimétrica da variável área, em que poucos framentos são muito maiores. Vejamos as associações par a par utilizando a transfomação $log(AREA)$
+
+```{r}
+loyn$lAREA <- log(loyn$AREA)
+ggpairs(loyn |> select(lAREA, GRAZE, ALT, YR.ISOL))
+```
+
+A transformação resolveu o problema da assimetria.
+
+Vamos ajustar agora o modelo de regressão:
+
+
+```{r}
+mfull3 <- lm(ABUND ~ lAREA + GRAZE + ALT + YR.ISOL, data = loyn)
+summary(mfull3)
+```
+
+O resultado indica que somente o $log(AREA)$ seja importante para predizer a abundância. Entretanto, lembre-se que havia uma certo padrão de colinearidade entre **GRAZE**, **ALT** a **YR.ISOL**. Teste retirar uma a uma estas variáveis do modelo e avalie os resultados.

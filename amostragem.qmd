@@ -1,0 +1,21 @@
+---
+title: "Amostragem"
+description: "Introdução aos conceitos fundamentais de amostragem em estatística."
+categories: ["estatística", "amostragem"]
+image: "images/amostragem.jpg"
+listing:
+  contents: 
+    - conteudo/amostragem/pop_amostra.qmd
+    - conteudo/amostragem/tipos_amostragem.qmd
+  sort: false
+  type: default
+  fields: 
+    - image
+    - title
+    - description
+    - categories  
+format:
+  html:
+    toc: true
+    number-sections: true
+---

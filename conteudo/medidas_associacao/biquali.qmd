@@ -1,0 +1,559 @@
+---
+title: Associação entre duas variáveis qualitativas
+description: "Análise da associação entre variáveis qualitativas, tabelas de contingência e índice de qui-quadrado."
+categories: ["Estatística", "Análise Qualitativa", "Tabelas de Contingência"]
+
+image: "images/biquali.jpg"
+execute:
+  echo: true
+  warning: false
+  include: true
+  message: false
+---
+
+:::{.callout-tip collapse="true"}
+## Pacotes e funções utilizadas no capítulo
+
+```{r}
+#| output: false
+library(tidyverse)
+library(gt)
+library(patchwork)
+library(gridExtra)
+source('scripts/assoc_municipies.r')
+```
+
+:::
+
+Imagine que haverá uma obra de revitalização de uma área na região central da cidade. A obra implicará na melhoria de acesso, de segurança e na oferta de serviços. Entretanto como levará tempo para ser concluída, haverá ações de remoção de moradias irregulares, interdição de ruas e avenidas por longos períodos, etc. A prefeitura encomenda uma pesquisa para saber a opinião dos munícipes. A cada entrevistado são feitas duas perguntas:
+
+1. Qual sua opinião sobre a necessidade de realização da obra?
+
+- [ ] A favor
+- [ ] Contra
+
+2. Você reside na região diretamente afetada:
+
+- [ ] Residente
+- [ ] Não-Residente
+
+A base de dados completa está disponível em [datasets](https://github.com/FCopf/datasets){target="_blank"}
+
+
+Com estas entrevistas desejamos responder à seguinte questão:
+
+:::{.callout-note}
+## Questão do capítulo
+
+Moradores `Residentes` da região central têm uma opinião **consistentemente** diferente de moradores `Não-residentes` no que se refere a ser `A favor` ou `Contra` a obra?
+
+:::
+
+Importe a base de dados
+
+```{r}
+mun = read_delim('https://github.com/FCopf/datasets/raw/refs/heads/master/Entrevista_municipes.csv',
+                  delim = ',')
+
+n_amostra = 12
+n = nrow(mun)  # Número de entrevistados
+```
+
+Após entrevistar `r n` pessoas selecionadas ao acaso de uma lista da moradores da cidade, foi construída uma tabela com três colunas: `Entrevistado` (sequência numérica do primeiro ao último respondente), `Opinião` e `Moradia`. 
+
+
+Veja os primeiros `r n_amostra` resultados das entrevistas:
+
+
+```{r}
+#| code-fold: true
+#| label: tbl-municipies
+#| tbl-cap: 'Respostas dos primeiros munícipies entrevistados.'
+#| echo: false
+
+n_amostra = 12
+mun |> 
+  head(n_amostra) |> 
+  gt()
+```
+
+Estão descritos na @tbl-municipies os resultados das primeiras `r n_amostra` entrevistas, onde é possível ver ao menos uma combinação de todas as possíveis respostas. O entrevistado pode ser: 
+
++ `A favor` e ser `Residente` da região; 
+
++ `A favor` e ser `Não-Residente`; 
+
++ `Contra` e ser `Residente`; 
+
++ `Contra` e ser `Não-Residente`. 
+
+## Tabelas de frequência e gráficos de barras
+
+Inicialmente, vamos representar cada uma das variáveis por meio de uma tabela de frequência dos `r n` entrevistados.
+
+
+```{r}
+#| code-fold: true
+resumo_opiniao = mun |> 
+  group_by(Opiniao) |> 
+  summarise(Op_n = n()) |> 
+  mutate(Op_rel = Op_n/sum(Op_n))
+
+resumo_opiniao |> 
+  gt()
+```
+
+Das $`r n`$ respostas tivemos $`r resumo_opiniao[1,2]`$ pessoas ``r resumo_opiniao[1,1]`` ($`r round(resumo_opiniao[1,3] * 100,2)`\%$) e $`r resumo_opiniao[2,2]`$ pessoas ``r resumo_opiniao[2,1]`` ($`r round(resumo_opiniao[2,3] * 100,2)`\%$).
+
+```{r}
+#| code-fold: true
+resumo_opiniao = mun |> 
+  group_by(Opiniao) |> 
+  summarise(Op_n = n()) |> 
+  mutate(Op_rel = Op_n/sum(Op_n))
+
+resumo_opiniao |> 
+  gt()
+```
+
+
+Com relação ao local de residência:
+
+```{r}
+#| code-fold: true
+resumo_morad = mun |> 
+  group_by(Moradia) |> 
+  summarise(Morad_n = n()) |> 
+  mutate(Morad_rel = Morad_n/sum(Morad_n))
+
+resumo_morad |> 
+  gt()
+```
+
+Responderam à entrevistas um total de $`r resumo_morad[1,2]`$ pessoas ``r resumo_morad[1,1]`` ($`r round(resumo_morad[1,3] * 100,2)`\%$) e $`r resumo_morad[2,2]`$ pessoas ``r resumo_morad[2,1]`` ($`r round(resumo_morad[2,3] * 100,2)`\%$)
+
+Se visualizarmos estes totais em gráficos de barras individuais teremos:
+
+```{r}
+#| code-fold: true
+#| label: fig-municipies-indiv
+#| fig-cap: 'Respostas dos munícipies entrevistados para cada questão separadamente.'
+plt_op = ggplot(mun, aes(x = Opiniao)) +
+  geom_bar(fill = 'darkblue', color = 'white') +
+  coord_cartesian(ylim = c(0, 150)) +
+  labs(y = 'Número de respostas') +
+  theme_classic(base_size = 15)
+
+plt_morad = ggplot(mun, aes(x = Moradia)) +
+  geom_bar(fill = 'darkred', color = 'white') +
+  coord_cartesian(ylim = c(0, 150)) +
+  labs(y = 'Número de respostas') +
+  theme_classic(base_size = 15)
+
+plt_op + plt_morad
+```
+
+Existe portanto um predomínio de pessoas `A Favor` e um ligeiro predomínio de entrevistados `Não-Residentes`.
+
+Para responder à questão do capítulo, precisamos verificar se existe alguma **associação** entre as respostas dadas às duas perguntas explorando a *distribuição conjunta* dos totais respondidos.
+
+## Tabelas de contingência
+
+Tabelas de contigência são organizadas para verificarmos a associação entre duas variáveis qualitativas. São conhecidas também como tabelas de *dupla entrada*. Nas colunas estão os níveis da variável $X$ e nas linhas os níveis da variável $Y$.
+
+Para nosso exemplo, podemos fazer simplesmente:
+
+```{r}
+tcont = table(mun$Opiniao, mun$Moradia)
+tcont
+```
+
+Temos:
+
++ `r tcont[1,1]` - `r rownames(tcont)[1]` e `r colnames(tcont)[1]`;
+
++ `r tcont[1,2]` - `r rownames(tcont)[1]` e `r colnames(tcont)[2]`;
+
++ `r tcont[2,1]` - `r rownames(tcont)[2]` e `r colnames(tcont)[1]`;
+
++ `r tcont[2,2]` - `r rownames(tcont)[2]` e `r colnames(tcont)[2]`
+
+Podemos ver os totais marginais das linhas:
+
+```{r}
+tcont_linhas = apply(tcont, 1, sum)
+tcont_linhas
+```
+
+Ou os totais marginais das colunas:
+
+```{r}
+tcont_colunas = apply(tcont, 2, sum)
+tcont_colunas
+```
+
+Que são justamente os totais que verificamos nas distribuições individuais.
+
+Se quisermos ver as frequências relativas *marginais* podemos fazer:
+
+```{r}
+trel_linha = prop.table(tcont, 1)
+trel_linha
+```
+
+Neste caso estamos vendo as **frequências relativas das linhas**, isto é, cada linha nesta tabela soma $1$. O que vemos nesta tabela é que: 
+
++ dos $`r tcont_linhas[1]`$ entrevistados que são `r rownames(trel_linha)[1]`, cerca de $`r round(trel_linha[1,1] * 100,2)`\%$ são `r colnames(trel_linha)[1]`, enquanto os demais $`r round(trel_linha[1,2] * 100,2)`\%$ são `r colnames(trel_linha)[2]`
+
++ dos $`r tcont_linhas[2]`$ entrevistados que são `r rownames(trel_linha)[2]`, cerca de $`r round(trel_linha[2,1] * 100,2)`\%$ são `r colnames(trel_linha)[1]`, enquanto os demais $`r round(trel_linha[2,2] * 100,2)`\%$ são `r colnames(trel_linha)[2]`
+
+Podemos fazer exatamente o mesmo olhando para as **frequências marginais por colunas**:
+
+```{r}
+trel_coluna = prop.table(tcont, 2)
+trel_coluna
+```
+
+Neste caso são as **colunas** que somam $1$, portanto:
+
++ dos $`r tcont_colunas[1]`$ entrevistados que são `r colnames(trel_coluna)[1]`, cerca de $`r round(trel_coluna[1,1] * 100,2)`\%$ são `r rownames(trel_coluna)[1]`, enquanto os demais $`r round(trel_coluna[2,1] * 100,2)`\%$ são `r rownames(trel_coluna)[2]`
+
++ dos $`r tcont_colunas[2]`$ entrevistados que são `r colnames(trel_coluna)[2]`, cerca de $`r round(trel_coluna[1,2] * 100,2)`\%$ são `r rownames(trel_coluna)[1]`, enquanto os demais $`r round(trel_coluna[1,2] * 100,2)`\%$ são `r rownames(trel_coluna)[2]`
+
+Podemos finalmente ver a frequência relativa conjunta:
+
+```{r}
+trel_conjunta = prop.table(tcont)
+trel_conjunta
+```
+
+Em que o somatório das linhas é igual a:
+
+```{r}
+tcont_linhas / sum(tcont_linhas)
+```
+
+indicando os valores relativos das opiniões `A Favor` e `Contra`.
+
+O somatório das colunas é igual a:
+
+```{r}
+tcont_colunas / sum(tcont_colunas)
+```
+
+indicando os valores relativos de `Não-Residentes` e `Residentes`.
+
+Na tabela de frequência relativa conjunta, o somatório total da tabela deve ser igual a $1$.
+
+## O gráfico de barras para duas variáveis qualitativas
+
+Existem várias formas de gerar um gráfico de barras combinando as duas variáveis. Se quisermos utilizar a própria tabela de contingência obtida a partir do comando `table(mun$Opiniao, mun$Moradia)`, podemos utilizar o comando `barplot()`. Por outro lado, se quisermos utilizar a tabela original de dados (objeto `mun`) podemos fazer uso do pacote ggplot2:
+
+
+```{r}
+#| code-fold: true
+#| label: fig-municipies
+#| fig-cap: 'Respostas dos munícipies entrevistados combinando local de moradia e opinião.'
+plt_bar1 = ggplot(mun) +
+  aes(x = Moradia, fill = Opiniao) +
+  geom_bar(color = 'white', position = 'dodge') +
+  scale_fill_manual(values = c('Contra' = 'darkred',
+                               'A favor' = 'darkblue')) +
+  coord_cartesian(ylim = c(0, 80)) +
+  labs(y = 'Número de respostas') +
+  theme_classic(base_size = 15)
+
+plt_bar1
+```
+
+Veja que nesta figura, existem mais opiniões `A favor`, **independente** do entrevistado ser ou não residente da região central. Este padrão é o mesmo que observamos no gráfico da variável `Opinião` isoladamente, o que sugere **não haver** associação entre as variáveis `Opinião` e `Moradia`. Ao que parece, a opinião de um entrevistado sobre a construção da obra **não depende** de seu local de moradia.
+
+:::{.callout-note}
+## Exemplos de associações entre duas variáveis
+
+Abaixo são apresentadas quatro situações em que **existe** associação `Opinião` e `Moradia`.
+
+```{r}
+#| echo: false
+mun1 = assoc_municipies(n = 200, p1 = 0.2, p2 = 0.8, seed = 2)
+mun2 = assoc_municipies(n = 200, p1 = 0.05, p2 = 0.3, seed = 2)
+mun3 = assoc_municipies(n = 200, p1 = 0.55, p2 = 0.22, seed = 3)
+mun4 = assoc_municipies(n = 200, p1 = 0.8, p2 = 0.50, seed = 14)
+
+muns = list(mun1, mun2, mun3, mun4)
+
+plt_bar_list = list()
+for (i in 1:length(muns)){
+  p = ggplot(muns[[i]]) +
+    aes(x = Moradia, fill = Opiniao) +
+    geom_bar(color = 'white', position = 'dodge') +
+    scale_fill_manual(values = c('Contra' = 'darkred',
+                                 'A favor' = 'darkblue')) +
+    coord_cartesian(ylim = c(0, 80)) +
+    labs(y = 'Número de respostas', title = LETTERS[i]) +
+    theme_classic()
+  
+  plt_bar_list[[i]] = p
+}
+
+(plt_bar_list[[1]] | plt_bar_list[[2]]) / 
+  (plt_bar_list[[3]] | plt_bar_list[[4]])
+
+```
+
+:::
+
+Em todos estes exemplos, note que a relação as opiniões `A favor` ou `Contra` *dependem* se o entrevistado é ou não `Residente` na região. Esses padrões configuram diferentes tipos de associação entre as variáveis `Opinião` e `Moradia`, a saber:
+
++ Figura A: `Não-Residentes` tendem a ser `A favor` e `Residentes` são em sua maioria `Contra`;
+
++ Figura B: todos tendem a ser `Contra`, mas a diferença de opiniões é maior entre os `Residentes`;
+
++ Figura C: `Não-Residentes` tendem a ser `Contra`, enquanto não parece haver diferenças entre os `Residentes`;
+
++ Figura D: `Residentes` tendem a ser `A favor`, enquanto não parece haver diferenças entre os `Residentes`;
+
+
+## Medindo a discrepância com o índice de $\chi^2$ de Pearson
+
+O índice de qui-quadrado ($\chi^2$) mede a discrepância entre os valores **observados** e os valores **esperados** em uma tabela de contingência.
+
+Digamos que um município tenha $20\%$ de sua população morando em área Rural e os outros $80\%$ em área Urbana. Se fizermos uma amostragem *ao acaso* dos moradores é esperado que esta frequência relativa se reflita na amostra. Neste caso se sorteamos $200$ pessoas, seria esperado:
+
++ Zona Rural: $40$ moradores
+
++ Zona Urbana $160$ moradores
+
+```{r}
+#| echo: false 
+n = 200
+pr = 0.2
+pu = 1-pr
+Moradia = data.frame(Regiao = c(rep('Rural', pr * n),
+                           rep('Urbana', pu * n)))
+```
+
+Entretando, se fazemos um sorteio ao acaso, haverá alguma variação ao redor destes valores, de modo que as frequências observadas ($o$) deverão ser diferentes das esperadas ($e$). O $\chi^2$ mede a discrepância entre $o$ e $e$ para cada célula de uma tabela de contigência como:
+
+$$\chi^2 = \sum_{i=1}^{n}\frac{(o_i - e_i)^2}{e_i}$$
+Para uma tabela de frequências, devemos determinar portanto os valores de $o_i$ e $e_i$.
+
+Suponha que uma amostra de $`r n`$ moradores tenha resultado em:
+
+```{r}
+#| code-fold: true
+set.seed(10)
+nor = sum(rbinom(n = n, size = 1, prob = pr))
+Moradia_obs = data.frame(Regiao = c(rep('Rural', nor),
+                           rep('Urbana', n - nor)))
+
+tb_dfo = table(Moradia_obs)
+tb_dfo
+```
+
+As frequências observadas e esperadas serão:
+
++ Zona Rural: 
+
+$o_{Rural} = `r tb_dfo[1]`$
+
+$e_{Rural} = `r pr` \times `r n` = `r pr * n`$
+
++ Zona Urbana
+
+$o_{Urbana} = `r tb_dfo[2]`$
+
+$e_{Urbana} = `r pu` \times `r n` = `r pu * n`$
+
+De modo que o valor de $\chi^2$ será:
+
+$\chi^2 = \frac{(`r tb_dfo[1]` - `r pr * n`)^2}{`r pr * n`} + \frac{(`r tb_dfo[2]` - `r pu * n`)^2}{`r pu * n`} = \frac{(`r tb_dfo[1] - pr * n`)^2}{`r pr * n`} + \frac{(`r tb_dfo[2] - pu * n`)^2}{`r pu * n`} = `r (tb_dfo[1] - pr * n)^2 / (pr * n)` + `r (tb_dfo[2] - pu * n)^2 / (pu * n)` = `r (tb_dfo[1] - pr * n)^2 / (pr * n) + (tb_dfo[2] - pu * n)^2 / (pu * n)`$
+
+## O índice de $\chi^2$ em uma tabela de contigência
+
+No exemplo acima, as contagens esperadas foram definidas a partir de um *modelo* que dizia que as populações rurais e urbanas se dividiam nas proporções $20\%:80\%$. Em uma tabela de contigência, a hipótese em verificação é a de que **não há associação entre $X$ e $Y$**. Se for assim, é esperado que as frequências conjuntas sejam *porporcionais às frequências marginais*. Vamos apresentar esta ideia utilizando uma notação geral para tabelas de contingência e, em seguida, discutir com um exemplo.
+
+A tabela @tbl-contigencia apresenta $r$ linhas por $s$ colunas com as contagens de todas as combinações dos níveis da variável $X$ (Níveis $A_{1}$ a $A_{r}$) e da variável $Y$ (Níveis $B_{1}$ a $B_{s}$). Os totais marginais de $X$ e $Y$ são expressos respectivamente na última coluna e na última linha.
+
+|X ⟍ Y            |$B_{1}$  |  $B_{2}$|$\cdots$| $B_{j}$ |$\cdots$|$B_{s}$|Totais em $X$|
+|:---              |:---:   | :---:  |:---:   |:---:   |:---:   |:---:   |:---:        |
+| $A_{1}$          |$n_{11}$|$n_{12}$|$\cdots$|$n_{1j}$|$\cdots$|$n_{1s}$|$n_{1.}$     |
+| $A_{2}$          |$n_{21}$|$n_{22}$|$\cdots$|$n_{2j}$|$\cdots$|$n_{2s}$|$n_{2.}$     |
+| $\vdots$         |$\vdots$|$\vdots$|$\vdots$|$\vdots$|$\vdots$|$\vdots$|$\vdots$     |
+| $A_{i}$          |$n_{i1}$|$n_{i2}$|$\cdots$|$n_{ij}$|$\cdots$|$n_{is}$|$n_{i.}$     |
+| $\vdots$         |$\vdots$|$\vdots$|$\vdots$|$\cdots$|$\cdots$|$\vdots$|$\vdots$     |
+| $A_{r}$          |$n_{r1}$|$n_{r2}$|$\cdots$|$n_{rj}$|$\cdots$|$n_{rs}$|$n_{r.}$     |
+|**Totais em $Y$** |$n_{.1}$|$n_{.2}$|$\cdots$|$n_{.j}$|$\cdots$|$n_{rs}$|$n$          |
+
+: Representação de uma tabela de contigência. {#tbl-contigencia}
+
+Sob a hipótese de **não-associação** entre $X$ e $Y$ teremos que:
+
+$\frac{n_{i1}}{n_{.1}} = \frac{n_{i2}}{n_{.2}} = \cdots = \frac{n_{is}}{n_{.s}} = \frac{n_{i.}}{n}$
+
+e assim:
+
+$\frac{n_{ij}}{n_{.j}} = \frac{n_{i.}}{n}$
+
+Deste modo:
+
+$n_{ij}^{e} = \frac{n_{i.} \times n_{.j}}{n}$
+
+:::{.callout-note}
+## Observações
+
+A notação $n_{ij}^{e}$ está sendo utilizada para denotar que a expressão acima determina a contagem de cada célula da tabela **sob a hipótese de não associação** e portanto, se refere ao **valor esperado** de $n_{ij}$.
+
+:::
+
+Tendo definido os valores esperados em uma tabela de contingência de $r \times s$, o $\chi^2$ é dado por:
+
+$$\chi^2 = \sum_{i=1}^{r}\sum_{j=1}^{s}\frac{(n_{ij} - n_{ij}^{e})^2}{n_{ij}^{e}}$$
+
+**Retornando ao exemplo das entrevistas**
+
+A tabela de contingência contendo os dados **observados** do início do capítulo pode ser escrita como:
+
+|                |Não-Residente      |Residente         |Total Opinião     |
+|---             |---               |---               |---               |
+|A favor         |`r tcont[1,1]`    |`r tcont[1,2]`    |`r sum(tcont[1,])`|
+|Contra          |`r tcont[2,1]`    |`r tcont[2,2]`    |`r sum(tcont[2,])`|
+|Total Moradia   |`r sum(tcont[,1])`|`r sum(tcont[,2])`|`r sum(tcont)`    |
+
+: Resultados das entrevistas dos `r n` munícipies. {#tbl-contigencia-municipies}
+
+Os Valores esperados na linha $i$ e coluna $j$ são:
+
++ Linha $1$ - Coluna $1$ (`Não-Residente` - `A favor`):
+
+$n_{ii}^{e} = \frac{n_{1.} \times n_{.1}}{n} =  \frac{`r sum(tcont[1,])` \times `r sum(tcont[,1])`}{`r sum(tcont)`} = `r (sum(tcont[1,]) * sum(tcont[,1]))/sum(tcont)`$
+
++ Linha $1$ - Coluna $2$ (`Residente` - `A favor`):
+
+$n_{ii}^{e} = \frac{n_{1.} \times n_{.2}}{n} =  \frac{`r sum(tcont[1,])` \times `r sum(tcont[,2])`}{`r sum(tcont)`} = `r (sum(tcont[1,]) * sum(tcont[,2]))/sum(tcont)`$
+
++ Linha $2$ - Coluna $1$ (`Não-Residente` - `Contra`):
+
+$n_{ii}^{e} = \frac{n_{2.} \times n_{.1}}{n} =  \frac{`r sum(tcont[2,])` \times `r sum(tcont[,1])`}{`r sum(tcont)`} = `r (sum(tcont[2,]) * sum(tcont[,1]))/sum(tcont)`$
+
++ Linha $2$ - Coluna $2$ (`Residente` - `Contra`):
+
+$n_{ii}^{e} = \frac{n_{2.} \times n_{.2}}{n} =  \frac{`r sum(tcont[2,])` \times `r sum(tcont[,2])`}{`r sum(tcont)`} = `r (sum(tcont[2,]) * sum(tcont[,2]))/sum(tcont)`$
+
+
+```{r}
+#| echo: false
+tcont_esp = tcont
+for (i in 1:nrow(tcont)){
+  for (j in 1:ncol(tcont)){
+    tcont_esp[i,j] = (sum(tcont[i,]) * sum(tcont[,j]))/sum(tcont)
+  }
+}
+
+#chisq_tcont = chisq.test(tcont, correct = FALSE)
+chisq_tcont_est = sum(((tcont - tcont_esp)^2)/tcont_esp)
+```
+
+De modo que a tabela com os valores **esperados** será:
+
+|                |Não-Residente         |Residente            |Total Opinião     |
+|---             |---                   |---                   |---               |
+|A favor         |`r tcont_esp[1,1]`    |`r tcont_esp[1,2]`    |`r sum(tcont_esp[1,])`|
+|Contra          |`r tcont_esp[2,1]`    |`r tcont_esp[2,2]`    |`r sum(tcont_esp[2,])`|
+|Total Moradia   |`r sum(tcont_esp[,1])`|`r sum(tcont_esp[,2])`|`r sum(tcont_esp)`    |
+
+: Valores esperados na hipótese de **não-associação** entre `Opiniao` e locals de `Moradia` dos `r n` munícipies entrevistados. {#tbl-contigencia-municipies-esperado}
+
+Finalmente, o valor de $\chi^2$ pode ser calculado por:
+
+$\chi^2 = \frac{(`r tcont[1,1]` - `r tcont_esp[1,1]`)^2}{`r tcont_esp[1,1]`} + \frac{(`r tcont[2,1]` - `r tcont_esp[2,1]`)^2}{`r tcont_esp[1,1]`} + \frac{(`r tcont[1,2]` - `r tcont_esp[1,2]`)^2}{`r tcont_esp[1,1]`} + \frac{(`r tcont[2,2]` - `r tcont_esp[2,2]`)^2}{`r tcont_esp[1,1]`} = `r round(chisq_tcont_est,3)`$
+
+## Valores de $\chi^2$ quando existe associação
+
+O valor de $\chi^2$ será zero somente se os valores observados forem **exatamente** iguais aos valores esperados. Pequenas discrepâncias irão gerar valores de $\chi^2$ acima de zero, que se tornarão mais altos à medida que aumentam as diferenças entre $n_{ij}$ e $n_{ij}^e$.
+
+:::{.callout-note}
+## Quantificando as associações
+
+Abaixo estão diferentes exemplos em que existe associação entre `Opinião` e `Moradia`. Compare os valores e os gráficos abaixo aos que fizemos no exemplo do capítulo  e veja que todos os valores de $\chi^2$ são mais elevados.
+
+```{r}
+#| echo: false
+mun1_chisq = chisq.test(table(mun1$Opiniao, mun1$Moradia), correct = FALSE)$statistic
+mun2_chisq = chisq.test(table(mun2$Opiniao, mun2$Moradia), correct = FALSE)$statistic
+mun3_chisq = chisq.test(table(mun3$Opiniao, mun3$Moradia), correct = FALSE)$statistic
+mun4_chisq = chisq.test(table(mun4$Opiniao, mun4$Moradia), correct = FALSE)$statistic
+
+ex1 = plt_bar_list[[1]] + 
+  labs(subtitle = bquote(chi^2 == .(round(mun1_chisq,3)))) +
+  theme(plot.subtitle = element_text(hjust = 0.5)) +
+  gridExtra::tableGrob(table(mun1$Opiniao, mun1$Moradia))
+
+ex2 = plt_bar_list[[2]] + 
+  labs(subtitle = bquote(chi^2 == .(round(mun2_chisq,3)))) +
+  theme(plot.subtitle = element_text(hjust = 0.5)) +
+  gridExtra::tableGrob(table(mun2$Opiniao, mun2$Moradia))
+
+ex3 = plt_bar_list[[3]] + 
+  labs(subtitle = bquote(chi^2 == .(round(mun3_chisq,3)))) +
+  theme(plot.subtitle = element_text(hjust = 0.5)) +
+  gridExtra::tableGrob(table(mun3$Opiniao, mun3$Moradia))
+
+ex4 = plt_bar_list[[4]] + 
+  labs(subtitle = bquote(chi^2 == .(round(mun4_chisq,3)))) +
+  theme(plot.subtitle = element_text(hjust = 0.5)) +
+  gridExtra::tableGrob(table(mun4$Opiniao, mun4$Moradia))
+
+```
+
+```{r}
+#| echo: false
+#| fig-align: 'center'
+#| fig-height: 10
+ex1 / ex2 / ex3 / ex4
+```
+
+____
+
++ Tente aplicar a fórmula do $\chi^2$ para chegar aos resultados apresentados em cada exemplo.
+
+:::
+
+## Variações do índice de $\chi^2$
+
+O valor de $\chi^2$ aumenta com o tamanho da amostra, o que torna difícil comparações entre diferentes estudos. Para corrigir este efeito existe o **coeficiente de contigência de Pearson ($C$)** que é baseado no resultado de $\chi^2$
+
+$$C = \sqrt{\frac{\chi^2}{\chi^2 + n}}$$
+
+em que $n$ é o tamanho da amostra. 
+
+O valor máximo de $C$ depende do número de linhas ($r$) e de colunas ($s$) na tabela de contingêcia. Podemos definir um coeficiente que esteja limitado entre $0$ e $1$:
+
+$$T = \sqrt{\frac{\frac{\chi^2}{n}}{(r-1) \times (s-1)}}$$
+O valor $T = 0$ ocorre quando **não há** associação ($\chi^2 = 0$) e o valor máximo de $T = 1$ só será atingido se houver associação e $r = s$
+
+
+## Obtendo o índice de $\chi^2$ de uma tabela de dados
+
+A função para o cálculo do $\chi^2$ no R é `chisq.test` e pode ser utilizada a partir da tabela de contigência gerada pela função `table`:
+
+```{r}
+tcont = table(mun$Opiniao, mun$Moradia)
+chisq.test(tcont)
+```
+
+O resultado mostra o o valor de $\chi^2$ calculado (`X-squared`) e outras duas quantias denominadas de **graus de liberdade** (`df`) e **valor de p** (`p-value`),  tópicos abordados em *inferência estatística*.
+
+Note que o resultado é diferente do que obtivemos neste capítulo. Isto ocorre pois, por padrão, a função utiliza a [correção de Yates](https://en.wikipedia.org/wiki/Yates%27s_correction_for_continuity){target="_blank"}, em que $\chi_{Yates}^{2}$ é calculado por:
+
+$$\chi_{Yates}^{2} = \sum_{i=1}^{r}\sum_{j=1}^{s}\frac{(|n_{ij} - n_{ij}^{e}| - 0,5)^2}{n_{ij}^{e}}$$
+
+O termo $|n_{ij} - n_{ij}^{e}|$ se refere ao módulo da distância entre os valores observados e calculados. 
+
+Se quisermos obter exatamente os resultados descritos no exemplo deste capítulo, basta fazermos:
+
+```{r}
+chisq.test(tcont, correct = FALSE)
+```
+
+

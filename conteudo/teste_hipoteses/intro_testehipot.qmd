@@ -1,0 +1,469 @@
+---
+title: Introdução ao Teste de Hipóteses
+description: "Hipóteses nula/alternativa, erros do Tipo I/II, valor do p e nível de significância"
+Categories: ["Fundamentos Estatísticos", "Teste de Hipóteses"]
+
+image: "images/intro_testehipot.jpg"
+execute:
+  echo: true
+  warning: false
+  include: true
+  message: false
+---
+
+
+:::{.callout-tip collapse="true"}
+## Pacotes, funções e base de dados utilizadas
+
+```{r}
+library(tidyverse)
+```
+:::
+
+Um dos objetivos centrais em estatística é fazer inferências válidas para a **população** examinando as características de uma **amostra**. Considere as afirmações abaixo: 
+
+> *A fragmentação de habitats reduz a diversidade de espécies*;
+
+> *Em níveis elevados de poluentes, a mortalidade de um determinado organismo aumenta*;
+
+> *A remoção da área de mangue implica na redução da captura de carbono*. 
+
+Todas estas afirmações são na realidade **hipóteses**, sobre um ou mais parâmetros de uma população estatística que podem ser testadas por meio de experimentos adequados. A experimentação nos permite tirar conclusões sobre determitada hipótese com base na amostra. Mais especificamente, queremos saber se os dados em mãos nos permitem ou não refutar uma hipótese inicial. Portanto, se desejamos fazer uma inferência sobre um parâmetro da população estatística (ex.: sua média $\mu$), devemos iniciar com uma afirmação sobre a posição deste parâmetro, que denominamos de **hipótese nula** ($H_0$). 
+
+:::{.callout-note}
+
+# Um exemplo
+
+> Imagine que um modelo de climático estabeleça que a pluviosidade média entre junho e agosto nas cidades litorâneas do estado de São Paulo seja de $110$ mm/mês. 
+
+Um cientista acredita que o modelo têm falhas e resolve tomar algumas observações sobre chuva mensal a fim de testar esta afirmação. Este cientista inicia formulando as **hipóteses estatísticas**, definindo o **limite de rejeição**, conduzindo o **experimento**, e por fim realizando o **teste de hipóteses**.
+
+
+
+1. **Hipoteses estatísticas**: inicialmente é necessário estabelecer o que chamamos de hipótese nula. Se uma análise estatística concluir que a hipótese nula deve ser **falsa**, então precisaremos ter me mãos uma hipótese **alternativa** ($H_a$). Assim, no caso de rejeição de $H_0$, passaremos a assumir $H_a$ como **verdadeira**. Neste exemplo teríamos:
+
+$H_0: \mu = 110$ mm de chuva (HIPÓTESE NULA)
+
+$H_a: \mu \ne 110$ mm de chuva (HIPÓTESE ALTERNATIVA)
+
+2. **Limite de rejeição**: é o limite a partir do qual iremos conlcuir que $H_0$ é falsa. Este limite está baseado no que denominamos de **nível de significância** ($\alpha$) sobre o qual iremos falar adiante.
+
+3. **Experimentação**: tomar amostras sobre o fenômeno em questão que nos permita tirar alguma conlusão sobre a veracidade de de $H_0$. Note que as hipóteses nula e alternativa se referem a predições sobre a posição da **média populaçional** $\mu$, que é justamente a informação que não temos, mas sobre a qual queremos conhecer. Como não temos acesso à $\mu$, nossa opção é tomar amostras do fenômeno (i.e. quantidade de chuva em diferentes localidades), calcular a média amostral $\overline{X}$ e compará-la com a média populacional descrita em $H_0$. 
+
+4. **Teste de hipóteses**: é o teste formal que nos permite dizer, com base nos resultados do experimento se há evidências suficiente para rejeitar $H_0$. Se não houver, concluímos que $H_0$ é verdadeira. Caso contrário assumimos $H_0$ como falsa e acitamos a hipótese alternativa $H_a$.
+
+:::
+
+## Probabilidade e teste de hipóteses
+
+A média $\overline{X}$ de uma amostra será nossa melhor evidência a respeito de $\mu$. Tendo este valor, podemos nos perguntar:
+
+> O valor obtido de $\overline{X}$ é condizente com o esperado segundo $H_0$?
+
+Caso $\overline{X}$ esteja **muito próximo** a $\mu$, não há evidências para rejeitar $H_0$. Por outro lado, um valor de $\overline{X}$ muito distante de $\mu$ irá colocar em dúvida a afirmação estabelecida em $H_0$. O ponto relevante aqui é decidirmos *quão distante de $\mu$ deve estar $\overline{X}$ para que rejeitemos $H_0$?* Esta resposta poderá ser respondida **somente** com o auxílio de um modelo probabilístico aplicado ao experimento em questão. 
+
+Seja $H_0$ verdadeira, é esperado que a probabilidade de $\overline{X}$ estar próximo a $\mu$ é alta. Portanto, uma pergunta melhor formulada seria:
+
+> Sendo $H_0$ **verdadeira**, qual é a probabilidade de que uma determinada média amostral $\overline{X}$ esteja tão ou mais distante de $\mu$ quanto o observado em nossa amostra particular?
+
+### Um modelo de distribuição das médias amostrais para testar $H_0$
+
+A pergunta feita acima é de natureza probabilística, de modo que para respondê-la iremos precisar estabelecer um **modelo probabilístico** para a distribuição das médias amostrais. De acordo com o que temos discutido até este ponto, **Teorema Central do Limite (TCL)** estabelece que a distribuição normal é um bom modelo neste situação.
+
+Desta forma, para um $H_0$ verdadeiro, seria esperado que a distribuição das médias amostrais resultantes de um procedimento experimental tivesse o formato de um distribuição normal, centrada em $110$ mm. Segundo o TCL, a distribuição seria centrada em $\mu$ e o desvio padrão seria definido pelo **erro padrão da média**, isto é, $\sigma_{\overline{X}} = \frac{\sigma}{\sqrt{n}}$.
+
+Digamos ainda que o modelo climático estabeleça que desvio padrão para a quantidade de chuva seja $\sigma = 30$. Neste caso, o erro padrão seria de $\sigma_{\mu} = \frac{30}{\sqrt{n}}$.
+
+Feito isto, temos em mãos o **modelo probabilístico** que, aliado a uma amostra particular, nos permitirá concluir se há evidências para rejeitar $H_0$ em favor de $H_a$.
+
+### Definindo o limite de rejeição para $H_0$: nivel de significância $\alpha$
+
+Segundo a distribuição normal, a probabilidade do valor observado $\overline{X}$ estar **tão ou mais distante** de $\mu$ na distribuição $Z$ é calculando por:
+
+$$z = \frac{\overline{X} - \mu}{\sigma_{\overline{X}}}$$
+
+O valor de $z$ calculado é chamado de **estatitica do teste**. Com o uso da Tabela $Z$, esta estatística será utilizada para encontrar:
+
+$$P(Z \ge z) = P(\overline{X} \ge \mu)$$
+A probabilidade $P(Z \ge z)$ é encontrada na **distribuição normal padronizada** em que $Z \sim \mathcal{N}(0,\,\frac{\sigma}{\sqrt{n}})$ e como nossa pergunta se refere à **distância** entre $\overline{X}$ e $\mu$, devemos encontar também $P(Z \le -z)$, de modo que a probabilidade que nos interessa é denominada de **valor de p** de um teste de hipóteses:
+
+$$p = P(Z \ge |z|)$$
+
+O valor de $p$ é a área destacada em vermelho da distribuição normal padronizada:
+
+``` {r}
+#| echo: false
+#| fig-width: 8
+#| fig-height: 6
+#| label: fig-limite-rej
+#| fig-cap: 'Representação da área de rejeição na distribuição Z.'
+qr = qnorm(p = c(0.10, 0.90))
+dqr = dnorm(x = qr)
+
+
+qrc1 = c(seq(-5, qr[1], l = 100), seq(qr[1],-5, l = 100))
+dqrc1 = c(rep(0,100), dnorm(x = seq(qr[1],-5, l = 100)))
+
+qrc2 = c(seq(5, qr[2], l = 100), seq(qr[2],5, l = 100))
+dqrc2 = c(rep(0,100), dnorm(x = seq(qr[2],5, l = 100)))
+
+pqr = pnorm(q = qr)
+perc = diff(pqr) * 100
+
+eixox = expression(-z, 0, +z)
+
+curve(expr = dnorm(x, 0,1), from = -4, to = 4, 
+      ylab = "Densidade da distribuição normal",
+      xlab = "Valores de z", ylim = c(0, 0.5), axes = F)
+axis(1, at = c(qr[1],0,qr[2]), labels = eixox, cex.axis = 0.8)
+axis(2, at = seq(-1, 0.5, by = 0.1), cex.axis = 0.8)
+polygon(x = qrc1, y = dqrc1, col = rgb(red = 0.9, 0,0, alpha = 0.3))  
+polygon(x = qrc2, y = dqrc2, col = rgb(red = 0.9, 0,0, alpha = 0.3))  
+segments(x0 = qr[1], x1 = qr[7], y0 = 0.65, y1 = 0.65, lwd = 2)
+text(y = c(0.1), x = c(-2.7), labels = bquote(P(Z <= -z)))
+text(y = c(0.1), x = c(2.7), labels = bquote(P(Z >= +z)))
+
+```
+
+A área destacada em vermelho diminui conforme $\overline{X}$ se distancia de $\mu$ e aumenta se $\overline{X}$ está próximo a $\mu$. 
+
+:::{.callout-note}
+
+# O valor de p e nível de significância
+
+Mede a probabilidade de encontrarmos $\overline{X}$ tão ou mais distante de $\mu$, **assumindo** que $H_0$ seja verdadeira. Se $p$ for muito pequeno, a probabilidade de que $\overline{X}$ seja condizente com $H_0$ diminui. Neste caso dizemos que é **improvável** que $\overline{X}$ seja proviniente de $H_0$, o que nos leva  levando a **rejeitar** a hipótese nula em favor de $H_a$. 
+
+A decisão de rejeitar $H_0$ depende do **limite de rejeição** $\alpha$, também chamado de **nivel crítico** ou **nível de significância**. A definir o valor de $\alpha$, a conclusão de um teste estatístico se dá por (@fig-limite-rej-alfa):
+
++ Se $p > \alpha$ --> **ACEITAMOS $H_0$**, $\overline{X}$ está próximo de $\mu$ 
+
++ Se $p \le \alpha$ --> **REJEITAMOS $H_0$**, $\overline{X}$ está distante de $\mu$. A assumimos $H_a$ como verdadeira.
+
+``` {r}
+#| echo: false
+#| fig-width: 8
+#| fig-height: 4
+#| label: fig-limite-rej-alfa
+#| fig-cap: 'Efeito do nível de significancia sobre a área de rejeição em um teste de hipótese.'
+
+qr_a = qnorm(p = c(0.25, 0.75))
+dqr_a = dnorm(x = qr_a)
+
+qrc1_a = c(seq(-5, qr_a[1], l = 100), seq(qr_a[1],-5, l = 100))
+dqrc1_a = c(rep(0,100), dnorm(x = seq(qr_a[1],-5, l = 100)))
+
+qrc2_a = c(seq(5, qr_a[2], l = 100), seq(qr_a[2],5, l = 100))
+dqrc2_a = c(rep(0,100), dnorm(x = seq(qr_a[2],5, l = 100)))
+
+pqr_a = pnorm(q = qr_a)
+perc_a= diff(pqr_a) * 100
+
+eixox_a = expression(-z, 0, +z)
+#_______________________
+qr_b = qnorm(p = c(0.025, 0.975))
+dqr_b = dnorm(x = qr_b)
+
+qrc1_b = c(seq(-5, qr_b[1], l = 100), seq(qr_b[1],-5, l = 100))
+dqrc1_b = c(rep(0,100), dnorm(x = seq(qr_b[1],-5, l = 100)))
+
+qrc2_b = c(seq(5, qr_b[2], l = 100), seq(qr_b[2],5, l = 100))
+dqrc2_b = c(rep(0,100), dnorm(x = seq(qr_b[2],5, l = 100)))
+
+pqr_b = pnorm(q = qr_b)
+perc_b= diff(pqr_b) * 100
+
+eixox_b = expression(-z, 0, +z)
+
+layout(matrix(1:2, nc = 2))
+curve(expr = dnorm(x, 0,1), from = -4, to = 4, 
+      ylab = "Densidade da distribuição normal",
+      xlab = "Valores de z", ylim = c(0, 0.5), axes = F,
+      main = bquote(bar(X) ~ " próximo a " ~ mu))
+axis(1, at = c(qr_a[1],0,qr_a[2]), labels = eixox_a, cex.axis = 0.8)
+axis(2, at = seq(-1, 0.5, by = 0.1), cex.axis = 0.8)
+polygon(x = qrc1_a, y = dqrc1_a, col = rgb(red = 0.9, 0,0, alpha = 0.3))  
+polygon(x = qrc2_a, y = dqrc2_a, col = rgb(red = 0.9, 0,0, alpha = 0.3))  
+segments(x0 = qr_a[1], x1 = qr_a[7], y0 = 0.65, y1 = 0.65, lwd = 2)
+
+curve(expr = dnorm(x, 0,1), from = -4, to = 4, 
+      ylab = "Densidade da distribuição normal",
+      xlab = "Valores de z", ylim = c(0, 0.5), axes = F,
+      main = bquote(bar(X) ~ " distante de " ~ mu))
+axis(1, at = c(qr_b[1],0,qr_b[2]), labels = eixox_a, cex.axis = 0.8)
+axis(2, at = seq(-1, 0.5, by = 0.1), cex.axis = 0.8)
+polygon(x = qrc1_b, y = dqrc1_b, col = rgb(red = 0.9, 0,0, alpha = 0.3))  
+polygon(x = qrc2_b, y = dqrc2_b, col = rgb(red = 0.9, 0,0, alpha = 0.3))  
+segments(x0 = qr_b[1], x1 = qr_b[7], y0 = 0.65, y1 = 0.65, lwd = 2)
+
+
+```
+
+:::
+
+## Exemplificando um teste de hipóteses: o teste $Z$
+
+::: {.callout-note}
+
+# Descrição do problema
+
+Digamos que o número de batimentos cardíacos por minuto de um adulto em repouso tenha média $\mu = 65$ e desvio padrão $\sigma = 9$. Você imagina que o sedentarismo altera o batimento médio de um adulto. 
+
+:::
+
+1. **Hipóteses estatíticas**:
+
+$H_0: \mu = 65$ batimentos por minuto
+
+$H_a: \mu \ne 65$ batimentos por minuto
+
+2. **Limite de rejeição**: determinamos o nível de significância ($\alpha$) do teste como $\alpha = 0,05$.
+
+> IMPORTANTE: O nível de significância $\alpha$ deve ser determinado **antes** da tomada de dados.
+
+3. **Experimento**: selecionamos uma amostra **aleatória** selecionando *ao acaso* $n = 15$ pessoas de hábito sedentário e medimos seus batimentos cardíacos. Os resultados são:
+
+
+```{r}
+#| echo: false
+set.seed(32)
+n = 15
+mu = 65
+dp = 9
+ep = dp/sqrt(n)
+BM  = round(rnorm(n = n, mean = mu, sd = dp),0)
+z = (mean(BM) - mu)/ep
+```
+
+Amostra: `r BM`
+
+que nos dá uma média amostral de:
+
+$\overline{X} = \frac{\sum{X_i}}{n} = \frac{`r paste(BM, collapse = "+")`}{`r n `} = `r round(mean(BM),2)`$ batimentos por minuto;
+
+e um erro padrão de:
+
+$\sigma_{\mu} = \frac{\sigma}{\sqrt{n}} = \frac{`r dp`}{`r round(sqrt(n),2)`} = `r round(ep,2)`$
+
+4. **Teste de hipóteses**: com estes resultados encontramos o valor correspondente de Z.
+
+$z = \frac{\overline{X} - \mu}{\sigma_{\mu}} = \frac{`r round(mean(BM),2)` - `r mu`}{`r round(ep,2)`} = `r round(z,2)`$
+
+e utilizando a <a href="https://github.com/FCopf/datasets/blob/master/Tabela_Z.pdf" target="_blank">Tabela Z</a> , encontramos a probabilidade de obtermos valores tão ou mais extremos que $-`r round(z,2)`$ e $+`r round(z,2)`$.
+
+``` {r}
+#| echo: false
+#| fig-width: 8
+#| fig-height: 6
+#| label: fig-limite-tz
+#| fig-cap: 'Área de rejeição para z = 0,75.'
+z = round(z,2)
+if(mean(BM) >= mu) {
+    qr = c(-z,z)
+}else {qr = c(z,-z)}
+dqr = dnorm(x = qr)
+
+qrc1 = c(seq(-5, qr[1], l = 100), seq(qr[1],-5, l = 100))
+dqrc1 = c(rep(0,100), dnorm(x = seq(qr[1],-5, l = 100)))
+
+qrc2 = c(seq(5, qr[2], l = 100), seq(qr[2],5, l = 100))
+dqrc2 = c(rep(0,100), dnorm(x = seq(qr[2],5, l = 100)))
+
+pqr = pnorm(q = qr)
+perc = diff(pqr) * 100
+
+
+curve(expr = dnorm(x, 0,1), from = -4, to = 4, 
+      ylab = "Densidade da distribuição normal",
+      xlab = "Valores de z", ylim = c(0, 0.5), axes = F)
+axis(1, at = c(qr[1],0,qr[2]), cex.axis = 0.8)
+axis(2, at = seq(-1, 0.5, by = 0.1), cex.axis = 0.8)
+polygon(x = qrc1, y = dqrc1, col = rgb(red = 0.9, 0,0, alpha = 0.3))  
+polygon(x = qrc2, y = dqrc2, col = rgb(red = 0.9, 0,0, alpha = 0.3))  
+segments(x0 = qr[1], x1 = qr[7], y0 = 0.65, y1 = 0.65, lwd = 2)
+text(y = c(0.2), x = c(-2.7), labels = bquote(P(Z <= .(-z)) == .(round(pnorm(-z),3))), cex = 0.8)
+text(y = c(0.2), x = c(2.7), labels = bquote(P(Z >= .(z)) == .(round(pnorm(z, lower.tail = F),3))), cex = 0.8)
+
+```
+
+Com isto, a probabilidade de encontarmos valores tão ou mais extermos que $\overline{X} = `r round(mean(BM),2)`$ foi calculada em $`r round(pnorm(-z),3)` + `r round(pnorm(z, lower.tail = F),3)` =$ **`r round(pnorm(-z)*2,3)`**.
+
+Neste exemplo, a **estatística do teste** foi $z = `r abs(z)`$ o a probabilidade associada $p = `r round(pnorm(-z)*2,3)`$. 
+
+::: {.callout-note}
+
+# Teste Z no R
+
+```{r echo = TRUE}
+X <- c(65, 73, 56, 71, 69, 69, 68, 59, 73, 68, 69, 64, 67, 64, 66)
+Xm <- mean(X)
+pnorm(q = Xm, mean = 65, sd = 9/sqrt(15), lower.tail = FALSE) * 2
+```
+
+:::
+
+## Tomada de decisão sobre $H_0$: nível de significância
+
+No exemplo anterior, obtivemos $p =$ **`r round(pnorm(-z)*2,3)`**. Isto significa que:
+
+> sendo $H_0$ **verdadeira**, existe uma probabilidade igual a $`r round(pnorm(-z)*2,3)`$ de que a média de uma amostra com $n = `r n`$ esteja tão ou mais distante de $\mu = `r mu`$ como observado neste experimento. 
+
+Se aceitarmos que esta probabilidade é **alta**, então não há motivo para buscar por outras explicações. Por outro lado, se concluirmos que esta probabilidade é **baixa**, estamos dizendo que resultado obtido é **improvável** segundo a hipótese nula. Neste caso, devemos recorrer à hipótese **alternativa** para explicar o fenômeno.
+
+Para decidir se a probabilidade obtida é alta ou baixa, devemos compará-la ao nível de significância $\alpha$ pré-estabelecido. $H_0$ será aceita somente se a probabilidade encontrada for **maior** que $\alpha$. Por outro lado, se nossa probabilidade for **menor ou igual** a $\alpha$, considerarmos os resultados improváveis  segundo a hipótese nula e **rejeitamos** $H_0$ em favor de $H_a$. 
+
+Um nível crítico comumente utilizado é $\alpha = 0.05$. No exemplo acima a probabilidade foi de `r round(pnorm(-z)*2,3)`, um valor muito acima de $0.05$. Dizemos portanto, que a média amostral $\overline{X}$ não está tão distante do $\mu$ a ponto de rejeitarmos $H_0$. 
+
+> Concluimos que, neste exemplo, $\overline{X} = `r round(mean(BM),2)`$ não nos fornece evidência suficiente para rejeitar $H_0$.
+
+## Erros de decisão em um teste de hipóteses
+
+A interpretação da probabilidade final esta associada à situação em que $H_0$ seja verdadeira.
+
+Isto nos leva perguntar: *o que esperar caso $H_0$ seja falsa*?
+
+Como não sabemos de fato, de $H_0$ é verdadeira ou não, a tomada de decisão sobre um resultado de um teste estatístico pode nos levar às seguintes situações:
+
+|                   | $H_0$ Verdadeira                       | $H_0$ Falsa
+| :---              | :------:                               | :------:
+| $H_0$ é rejeitada | $\alpha$ ($\textbf{Erro Tipo I}$)      | Decisão correta ($1-\beta$)
+| $H_0$ é aceita    | Decisão correta ($1-\alpha$)           | $\beta$ ($\textbf{Erro Tipo II}$)
+
+: Erros de decisão em um teste de hipótestes {#tbl-erros}
+
+A @tbl-erros nos mostra os tipos de erros aos quais estamos sujeitos ao realizar um teste de hipótese. Podemos rejeitar $H_0$, ainda que ela seja verdadeira. O nivel de significância adotado, estabele que a probabilidade disto acontecer é $\alpha$. Se rejeitarmos $H_0$ quando ela é verdadeira, estaremos incorrendo em um erro de decisão que denominamos de **Erro Tipo I**. Consequentemente, temos uma probabilidade de $1 - \alpha$ de aceitar corretamente $H_0$ quando ela é verdadeira. Estabelecer um $\alpha = 0,05$ nos garante que iremos incorrer no erro do tipo I em somente $5\%$ das vezes que o experimento for realizado.
+
+Um outra situação ocorre quando aceitamos erroneamente a hipótese nula que é **falsa**, incorrendo no **Erro Tipo II**. O erro do tipo II tem probabilidade $\beta$ de acontecer. O complementar desta probabilidade ($1-\beta$) é denominado de **Poder do Teste**. Um teste poderoso é portanto, aquele que tem elevada probabilidade de rejeitar $H_0$ quando ela é falsa.
+
+As figuras abaixo representam as distribuições das médias amostrais e os erros do tipos I e II quando o $H_0$ é verdadeira ($\mu_a = \mu$) e quando $H_0$ é falsa ($\mu_a > \mu$).
+
+``` {r fig.width=6, fig.height=5, fig.align = "center"}
+#| echo: false
+#| fig-width: 8
+#| fig-height: 6
+#| label: fig-alfa-beta
+#| fig-cap: 'Relação entre o erro tipo I ($\alpha$) e o erro tipos II ($\beta$), ao aceitar ou rejeitar $H_0$.'
+qr_a = qnorm(p = c(0.05, 0.95))
+dqr_a = dnorm(x = qr_a)
+
+qrc1_a = c(seq(-5, qr_a[1], l = 100), seq(qr_a[1],-5, l = 100))
+dqrc1_a = c(rep(0,100), dnorm(x = seq(qr_a[1],-5, l = 100)))
+
+qrc2_a = c(seq(5, qr_a[2], l = 100), seq(qr_a[2],5, l = 100))
+dqrc2_a = c(rep(0,100), dnorm(x = seq(qr_a[2],5, l = 100)))
+
+pqr_a = pnorm(q = qr_a)
+perc_a= diff(pqr_a) * 100
+
+#_______________________
+ma = 1
+qr_b = qnorm(p = c(0.95, 0.99999), mean = 0)
+dqr_b = dnorm(x = qr_b, mean = ma)
+
+qrc1_b = c(seq(-5, qr_b[1], l = 100), seq(qr_b[1],-5, l = 100))
+dqrc1_b = c(rep(0,100), dnorm(x = seq(qr_b[1],-5, l = 100), mean = ma))
+
+qrc2_b = c(seq(5, qr_b[2], l = 100), seq(qr_b[2],5, l = 100))
+dqrc2_b = c(rep(0,100), dnorm(x = seq(qr_b[2],5, l = 100), mean = ma))
+
+pqr_b = pnorm(q = qr_b, mean = ma)
+perc_b= diff(pqr_b) * 100
+
+layout(matrix(1:2, nr = 2))
+par(mai = c(0,1,0,0))
+curve(expr = dnorm(x, 0,1), from = -5, to = 5, 
+      ylab = bquote(mu[a] == mu),
+      xlab = "Valores de z", ylim = c(0, 0.5), xlim = c(-5,5), axes = F)
+axis(1, at = seq(-5,5,by = 1), cex.axis = 0.8)
+polygon(x = qrc1_a, y = dqrc1_a, col = rgb(red = 0.9, 0,0, alpha = 0.3))  
+polygon(x = qrc2_a, y = dqrc2_a, col = rgb(red = 0.9, 0,0, alpha = 0.3))  
+segments(x0 = qr_a[1], x1 = qr_a[7], y0 = 0.65, y1 = 0.65, lwd = 2)
+text(y = c(0.1), x = c(-2.7), labels = bquote(alpha/2),font = 3)
+text(y = c(0.1), x = c(2.7), labels = bquote(alpha/2),font = 3)
+abline(v = qr_a[2], lty = 2)
+text(y = 0.45, x = -4.8, label = "A")
+
+curve(expr = dnorm(x, ma,1), from = -5, to = 5, 
+      ylab = bquote(mu[a] > mu),
+      xlab = "Valores de z", ylim = c(0, 0.5), xlim = c(-5,5), axes = F)
+axis(1, at = seq(-5,5,by = 1), cex.axis = 0.8)
+polygon(x = qrc1_b, y = dqrc1_b, col = rgb(red = 0.9, 0,0, alpha = 0.3))  
+polygon(x = qrc2_b, y = dqrc2_b, col = rgb(red = 0.9, 0,0, alpha = 0.3))  
+segments(x0 = qr_b[1], x1 = qr_b[7], y0 = 0.65, y1 = 0.65, lwd = 2)
+text(y = c(0.1), x = c(0.5), labels = bquote(beta), font = 3)
+abline(v = qr_b[1], lty = 2)
+text(y = 0.35, x = -4.8, label = "B")
+```
+
+Idealmente em um teste estatístico, seria interessante reduzir ao máximo os erros do tipo I e II. Ao reduzirmos o erro do tipo I, diminuindo $\alpha$ teremos um teste mais rigoroso que raramente iria errar ao rejeitar um $H_0$ verdadeiro (Figura A). Entretanto, este teste também **raramente** iria rejeitar $H_0$ ainda que ele seja falso (Figura B). Consequentemente, ao diminuir o valor de $\alpha$ ficamos menos propensos a cometer o erro do tipo I, porém **mais propensos** a incorrer no erro tipo II, isto é, não rejeitar uma $H_0$ falsa.
+
+Dadas estas características, o único modo que reduzir os dois tipos de erros **simultaneamente** é aumentando o tamanho amostral $n$ pois, neste caso, reduzimos o erro padrão ($\sigma_{\overline{X}}$) e consequentemente a sobreposição entre as duas curvas acima.
+
+
+## Estabelecendo a hipótese alternativa: testes bilaterais *vs* unilaterais
+
+A hipótese alternativa estabelece nossa expectativa para a explicação dos resultados de um experimento no caso de $H_0$ ser falsa. Os testes que descrevemos acima são chamados **testes bilaterais ou bicaudais**. Isto significa que sendo $H_0$ falsa, podemos esperar que a média populacional esteja tanto acima quanto abaixo de $\mu$. Existem situações, no entanto, para as quais já temos uma expectativa *a priori* com base no conhecimento prévio sobre o fenêmeno estudado.
+
+Voltemos ao exemplo sobre a frequência cardíaca. Sabemos que o sedentarismo, tende a elevar a frequência cardíaca em repouso. Deste modo, o problema poderia ser estabelecido da seguinte forma.
+
+::: {.callout-note}
+
+# Descrição do problema
+
+Digamos que o número de batimentos cardíacos por minuto de um adulto em repouso tenha média $\mu = 65$ e desvio padrão $\sigma = 9$. A literatura sugere que o **sedentarismo** aumenta o batimento médio de um adulto. 
+
+:::
+
+O problema agora estabelece que no caso de rejeição de $H_0$, a frequência cardíaca deveia ser maior que 65 batimentos por minuto. Deste modo teremos como hipóteses estatísticas:
+
+1. **Hipóteses estatíticas**:
+
+$H_0: \mu = 65$ batimentos por minuto
+
+$H_a: \mu \gt 65$ batimentos por minuto
+
+A mudança aqui está em $H_a$ que estabelece que na hipótese de rejeição de $H_0$, esperamos **somente** que a frequencia cardíaca aumente.
+
+Esta modificação na construção das hipóteses estatísticas tem implicação na definição do limite de rejeição.
+
+2. **Limite de rejeição**: se definimos $\alpha = 0,05$, e $H_a: \mu \gt 65$, temos que a área de rejeição será expressa **acima** de 65 batimentos por minuto.
+
+```{r}
+#| echo: false
+#| fig-width: 8
+#| fig-height: 5
+#| label: fig-norm-unil
+#| fig-cap: 'Área de rejeição em um teste unilateral com $\alpha = 0,05$.'
+alfa <- 0.05
+df_z <- data.frame(x = c(-4, 4))
+zcritico <- round(qnorm(p = 1 - alfa),2)
+cor_rej <- rgb(red = 0.9, 0,0, alpha = 0.3)#'#d14143'
+  
+pZ <- ggplot(data = df_z,
+              mapping = aes(x = x)) +
+  stat_function(fun = dnorm) +
+  labs(x = "Z", y = "") +
+  geom_area(stat = "function", fun = dnorm,
+            fill = cor_rej,
+            xlim = c(zcritico,5)) +
+  scale_x_continuous(breaks = c(0 ,zcritico),
+                     labels =  c(0 ,zcritico),
+                     limits =  c(-4, 4)) +
+  annotate('text', x = c(0, 3),
+           y = c(0.23, 0.09),
+           label = c(1-alfa, alfa), size = 12) +
+  theme_classic(base_size = 22)
+
+pZ
+```
+
+Note portanto, que a diferença entre um teste bilateral e um teste unilateral está na definição dá área que expressa a zona de rejeição, $\alpha$ para $H_0$. Nos teste bilaterais, a área de rejeição é distribuída acima e abaixo de $\mu$ (@fig-limite-rej-alfa), enquanto nos teste unilaterais, a área estará toda acima ou abaixo de $\mu$, a depender do que foi estabelecido em $H_a$ (@fig-norm-unil).
+
+
+___
+
+:::{.callout-note}
+# Vídeo-aulas
+
+{{< video https://youtu.be/LJJVcdAag24 >}}
+
+:::

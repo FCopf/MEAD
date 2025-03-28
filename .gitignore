@@ -1,0 +1,68 @@
+# =========================================
+# Arquivos e pastas criados pela build Quarto
+# =========================================
+
+# Pasta de saída (build) do Quarto
+_site/
+
+# Quarto cache (se existir, dependendo da configuração)
+.quarto/
+
+# =========================================
+# Arquivos e pastas comuns em projetos R
+# =========================================
+
+# Histórico e dados de sessão
+.Rhistory
+.RData
+.Ruserdata
+.Rproj.user/
+
+# Arquivos de plot padrão do R
+Rplots.pdf
+
+# bookdown (caso use em conjunto com Quarto)
+_bookdown_files/
+
+# renv
+renv/library/
+renv/python/
+renv/staging/
+
+# =========================================
+# Arquivos e pastas comuns em projetos Python
+# =========================================
+
+__pycache__/
+*.py[cod]
+
+# =========================================
+# Jupyter Notebooks
+# =========================================
+
+.ipynb_checkpoints/
+
+# =========================================
+# Ambiente virtual Python
+# =========================================
+
+venv/
+.venv/
+
+# =========================================
+# MacOS
+# =========================================
+
+.DS_Store
+
+# =========================================
+# Outros arquivos temporários/sem relevância
+# =========================================
+
+*.tmp
+*.log
+*.aux
+*.out
+*.toc
+*.bak
+

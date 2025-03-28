@@ -1,0 +1,447 @@
+---
+title: Associação entre variáveis quantitativas e qualitativas 
+description: "Relação entre variáveis categóricas e contínuas, partição da soma dos quadrados, coeficiente de determinação"
+categories: ["Estatística", "ANOVA", "Análise Quantitativa", "Análise Qualitativa"]
+
+image: "images/biquantquali.jpg"
+execute:
+  echo: true
+  warning: false
+  include: true
+  message: false
+---
+
+:::{.callout-tip collapse="true"}
+## Pacotes e funções utilizadas no capítulo
+
+```{r}
+#| output: false
+library(tidyverse)
+library(gt)
+library(patchwork)
+library(gridExtra)
+source('scripts/anova_sim.r')
+```
+
+:::
+
+Neste capítulo vamos descrever a associação entre uma variável $Y$ contínua e uma variável  $X$ categórica denominadas respectivamente de variável **dependente** (ou **resposta**) e variável **independente** (ou **preditora**)
+
+Assumimos *explicitamente* que $Y$ é função (depende) de $X$ e não o contrário. O nome variável preditora vem do fato que, se $Y$ e $X$ estão associadas, ao conhecemos $X$ somos capazer de *predizer* a resposta média em $Y$.
+
+## Visualizando a distribuição de $Y$ em diferentes grupos
+
+Importe a base de dados `medley.csv` (disponível também em [Chapter 10 - Single factor classification (ANOVA)](https://users.monash.edu.au/~murray/BDAR/){target="_blank"}) que avalia o impacto da presença de metais pesados na diversidade de espécies de diatomácias em riachos (@medleyclements1998; @queen2002experimental; @logan2011biostatistical).
+
+```{r}
+medley = read_csv("https://github.com/FCopf/datasets/raw/refs/heads/master/medley.csv") |> 
+  mutate(STREAM = factor(STREAM),
+         ZINC = factor(ZINC, ordered = TRUE,
+                       levels = c("BACK", "LOW", "MED", "HIGH")))
+var_medley = colnames(medley)
+stream_levels = levels(medley$STREAM)
+n_stream = nlevels(medley$STREAM)
+zinc_levels = levels(medley$ZINC)
+n_zinc = nlevels(medley$ZINC)
+```
+
+
+```{r}
+medley |> gt()
+```
+
+
+A coluna `r var_medley[1]` é uma variável categórica contendo o nome dos $`r n_stream`$ riachos amostrados (`r paste(stream_levels, collapse = ', ')`). A coluna `r var_medley[2]` é uma variável categórica ordinal com $`r n_zinc`$ níveis de concentração de zinco na água (`r paste(zinc_levels, collapse = ' < ')`). O primeiro nível (`r zinc_levels[1]`) é o nível de referência (**BACKGROUND**). Finalmente, a coluna `r var_medley[3]` é uma variável contínua que contém a diversidade de diatomácieas (medida pelo índice de diversidade de [Shannon](https://pt.wikipedia.org/wiki/%C3%8Dndice_de_Shannon){target="_blank"} medida de cada uma das `r nrow(medley)` amostras.
+
+Vamos nos concentrar nas variáveis `r var_medley[3]` e `r var_medley[2]`. `r var_medley[3]` será a variável resposta. Em delineamento experimental, dizemos que `r var_medley[2]` é um **tratamento**, isto é, uma condição experimental sob a qual nossa variável dependente $Y$ foi mensurada. 
+
+Para verificarmos a distribuição de diversidade para cada concentração de zinco poderíamos fazer um gráfico de dispersão. A diferença agora é que $X$ trata-se de uma variável categórica ordinal com $`r n_zinc`$ níveis.
+
+```{r}
+ggplot(medley) +
+  aes(x = ZINC, y = DIVERSITY) +
+  geom_point() +
+  theme_classic(base_size = 15)
+```
+
+### Boxplots para os níveis do tratamento
+
+Não há problema em apresentarmos um gráfico de dispersão. No entanto, em situações deste tipo estamos comumente interessados em representar medidas-resumo que nos permitam comparar os diferentes níveis do tratamento. A forma mais comum de representar esta situação é por meio de um boxplot para cada nível do tratamento.
+
+```{r echo = TRUE}
+ggplot(medley) +
+  aes(x = ZINC, y = DIVERSITY) +
+  geom_boxplot() +
+  theme_classic(base_size = 15)
+```
+
+
+Na figura acima estão representadas a mediana, os quartis ($1^o$ e $3^o$) e os pontos máximo e mínimo para cada nível do tratamento. Alguns pontos extremos podem aparecer isoladamente para indicar que estão muito distantes dos demais. Podemos controlar esta representação com o argumento `coef` na função `geom_boxplot`.
+
+```{r}
+ggplot(medley) +
+  aes(x = ZINC, y = DIVERSITY) +
+  geom_boxplot(coef = 3) +
+  theme_classic(base_size = 15)
+```
+
+Vemos que o boxplot referente ao nível `r zinc_levels[4]` está em uma posição inferior aos demais, sugerindo que a diversidade de diatomáceas tende a ser mais baixa para níveis elevados de zinco.
+
+Exitem outras variações que podem nos ajudar a entender melhor os padrões. Podemos sobrepor os pontos individuais sobre os boxplots:
+
+```{r}
+ggplot(medley) +
+  aes(x = ZINC, y = DIVERSITY) +
+  geom_boxplot(coef = 3) +
+  geom_point(size = 3) +
+  theme_classic(base_size = 15)
+```
+
+### O gráfico de erros
+
+Nas figuras acima representamos os quartis das distribuições. Podemos estar interessados em apresentar somente os **pontos médios** (média aritimética) juntamente com **barras de erro** que representem alguma medida de dispersão (ex. desvio padrão). Para isto é necessário inicialmente criar um `data.frame` com estas medidas.
+
+```{r}
+medley_barras = medley |> 
+  group_by(ZINC) |> 
+  summarise(Media = mean(DIVERSITY),
+            Desvio = sd(DIVERSITY))
+medley_barras |> 
+  gt()
+```
+
+E em seguida plotar a figura.
+
+```{r}
+ggplot(medley_barras, aes(x = ZINC)) +
+  geom_point(aes(y = Media), size = 3) +
+  geom_errorbar(aes(ymin = Media - Desvio,
+                    ymax = Media + Desvio), width = 0.4) +
+  labs(y = 'DIVERSITY') +
+  theme_classic(base_size = 15)
+```
+
+Aqui vemos somente os pontos médios e as barras de erro, que estão à distância de $1$ desvio padrão acima e abaixo da média ($\overline{Y} \pm 1s$). Embora tenhamos expressado as distâncias utilizado o desvio padrão como medida de variação, poderíamos ter utilizado outras medidas como o **erro padrão** ou o **intervalo  de confiança** O importante é sempre deixar claro qual medida de variação está semdo representada no gráfico de erros (Veja: [Krzywinski & Altman, 2013 - Error bars - Points of Significance](https://www.nature.com/articles/nmeth.2659){target="_blank"}).  
+
+## Partição das Soma dos Quadrados
+
+Ao representarmos a distribuição de uma variável $Y$ contínua em função de uma variável $X$ categórica, geralmente estamos interessados em determinar se os diferentes níveis de $X$ (diferentes grupos) têm médias similares ou se ao menos um dos níveis têm média diferente dos demais. Queremos uma medida que nos permita diferenciar situações como as apresentadas abaixo.
+
+```{r}
+#| echo: false
+# anova_sim = function(B = c(b0 = 50, b1 = 0, b2 = 0, b3 = 0, b4 = 0), 
+#                      k = 100, sd_residuo = 5, 
+#                      seed = 1){
+#   n = length(B) - 1
+#   X = gl(n, k, labels = LETTERS[1:n])
+#   dummy = model.matrix(~0 + X)
+#   betas = matrix(B)
+#   fx = as.matrix(data.frame(1, dummy)) %*% betas
+#   set.seed(seed)
+#   Y = fx + rnorm(n  = n * k, mean = 0, sd = sd_residuo)
+#   df = data.frame(X, Y)
+#   return(df)
+#}
+
+df1 = anova_sim()
+df2 = anova_sim(B = c(b0 = 50, b1 = 0, b2 = 20, b3 = 0, b4 = 0))
+df3 = anova_sim(B = c(b0 = 50, b1 = 0, b2 = 20, b3 = -10, b4 = 10))
+```
+
+```{r}
+#| echo: false
+#| fig-align: 'center'
+#| fig-width: 8
+#| fig-height: 3
+plt_df1 = ggplot(df1, aes(x = X, y = Y)) +
+  geom_boxplot() +
+  labs(title = 'A') +
+  theme_classic() +
+  theme(axis.text.y = element_blank())
+
+plt_df2 = ggplot(df2, aes(x = X, y = Y)) +
+  geom_boxplot() +
+  labs(title = 'B') +
+  theme_classic() +
+  theme(axis.text.y = element_blank())
+
+plt_df3 = ggplot(df3, aes(x = X, y = Y)) +
+  geom_boxplot() +
+  labs(title = 'C') +
+  theme_classic() +
+  theme(axis.text.y = element_blank())
+
+plt_df1 | plt_df2 | plt_df3
+
+```
+
+Na figura $A$ todos os grupos são provenientes da mesma distribuição e têm médias aproximadamente iguais ($\overline{Y}_A \approx  \overline{Y}_B \approx \overline{Y}_C \approx \overline{Y}_D$). Na figura $B$ o segundo grupo tem média mais elevada que os demais, e na da figura $C$, todas as médias parecem ser diferentes entre si ($\overline{Y}_A \ne  \overline{Y}_B \ne \overline{Y}_C \ne \overline{Y}_D$).
+
+Para mensurar o grau de associação entre $Y$ e $X$ e entender como podemos diferenciar as situações acima, vamos introduzir o processo de **Partição da Soma dos Quadrados**. 
+
+Suponha a situção abaixo:
+
+```{r}
+#| echo: false
+#| fig-align: 'center'
+#| fig-width: 8
+#| fig-height: 5
+n = 5
+B = c(b0 = 20, b1 = 0, b2 = 8, b3 = -8)
+k = length(B) - 1
+N = k * n 
+dfe = anova_sim(B = B, seed = 1,
+                 k = n) |> 
+  mutate(Y = round(Y, 1),
+         i = rep(1:n, times = k),
+         j = rep(1:k, each = n)) |> 
+  mutate(ij = paste(i,j,sep = ''))
+
+Ymeans = dfe |> 
+  group_by(X) |> 
+  summarise(medias = mean(Y))
+
+Yg = mean(Ymeans$medias)
+
+plt_dfe = ggplot(dfe, aes(x = X, y = Y)) +
+  geom_point(size = 3) +
+  theme_classic(base_size = 15)
+
+plt_dfe +
+  gridExtra::tableGrob(dfe[,1:2])
+```
+
+
+:::{.callout-note}
+
+## Notações
+
++ Temos $k = `r k`$ grupos (`A`, `B` ou `C`) e para cada grupo $n =  `r n`$ observações. Denotamos por $n_{ij}$ o número de observações dentro de cada grupo, em que $i$ é a *i-ésima* observação ($i = 1$ a $`r n`$) do *j-ésimo* grupo ($j = 1$ a $`r k`$ - grupos `A` ao `C`). Neste exemplo, o número de observações em cada grupo é o mesmo ($n_1 = n_2 = n_3 = n$), de modo que o total de observações é dado por:
+
+$N = k \times n = n_1 + n_2 + n_3 = `r N`$
+
++ A média de cada grupo será denotada por $\overline{Y}_j$, que neste exemplo são: $Y_1 = `r Ymeans[1,2]`$ (grupo `A`), $Y_2 = `r Ymeans[2,2]`$ (grupo `B`) e $Y_3 = `r Ymeans[3,2]`$ (grupo `C`).
+
++ Vamos denotar por $\overline{\overline{Y}}$ a **Grande Média**, isto é, a média geral de todas as observações independente do grupo de origem.
+
+$$\overline{\overline{Y}} = \sum_{j = 1}^{k}\sum_{i = 1}^{n}\frac{Y_{ij}}{N} = \frac{\overline{Y_1} + \overline{Y_2} + \overline{Y_3}}{3} = `r Yg`$$
+
+:::
+
+Podemos agora observar estes elementos no gráfico de dispersão.
+
+
+```{r}
+#| echo: false
+#| fig-align: 'center'
+#| fig-width: 8
+#| fig-height: 5
+Y1 = Ymeans$medias[1]
+Y2 = Ymeans$medias[2]
+Y3 = Ymeans$medias[3]
+plt_dfe +
+  theme(legend.position='none') +
+  geom_hline(yintercept = Yg, alpha = 0.3, size = 2) +
+  annotate('text', x = 3.4, 
+           y = Yg + 1.5, 
+           label = bquote(bar(bar(Y)) == .(Yg)),
+           color = 'black', size = 3.5) +  
+  annotate('text', x = as.numeric(dfe$X) + 0.1, 
+           y = dfe$Y, label = paste('n',dfe$ij, sep = '_'),
+           size = 3) +
+  geom_point(data = Ymeans, 
+            aes(x = X, y = medias, color = X),
+            size = 5, alpha = 0.5) +
+  annotate('text', x = as.numeric(Ymeans$X)[1] - 0.2, 
+           y = Ymeans$medias[1] - 1.2, 
+           label = bquote(bar(Y)[1] == .(Y1)),
+           color = 'red', size = 3) +
+  annotate('text', x = as.numeric(Ymeans$X)[2] - 0.25, 
+           y = Ymeans$medias[2], 
+           label = bquote(bar(Y)[2] == .(Y2)),
+           color = 'green', size = 3) +
+  annotate('text', x = as.numeric(Ymeans$X)[3] - 0.25, 
+           y = Ymeans$medias[3], 
+           label = bquote(bar(Y)[3] == .(Y3)),
+           color = 'blue', size = 3)
+```
+
+Em seguida, precisamos calcular $3$ quantias, a **Soma dos Quadrados Totais** ($SQ_{Total}$), a **Soma dos Quadrados dos Tratamentos** $SQ_{Trat}$ e a **Soma dos Quadrados dos Resíduos** $SQ_{Res}$.
+
+i. **Soma dos Quadrados Totais** $SQ_{Total}$: mede as diferenças entre $Y_{ij}$ e $\overline{\overline{Y}}$. Temos nesta expressão o somatório dos desvios ao quadrado de todas as observações com relação à grand, fig.align='center', fig.width=8, fig.height=4e média **independente** do grupo de origem de cada observação.
+
+$$SQ_{Total} = \sum_{j = 1}^{k}\sum_{i = 1}^{n}(Y_{ij} - \overline{\overline{Y}})^2$$
+
+
+ii. **Soma dos Quadrados dos Tratamentos** $SQ_{Trat}$: mede as diferenças entre as **médias dos tratamentos** $\overline{Y}_j$ e $\overline{\overline{Y}}$, sendo portanto os desvios ao quadrado da média de cada tratamento subtraída da grande média. $SQ_{Trat}$ também é chamada de soma dos quadrados **entre grupos** ou **entre tratamentos**
+
+$$SQ_{Trat} = \sum_{j = 1}^{k}\sum_{i = 1}^{n_{j}}(\overline{Y}_{j} - \overline{\overline{Y}})^2 = \sum_{j = 1}^{k}n_{j}(\overline{Y}_{j} - \overline{\overline{Y}})^2$$
+
+iii. **Soma dos Quadrados dos Resíduos** $SQ_{Res}$: mede as diferenças entre cada observação $Y_{ij}$ e a média de seu próprio grupo $\overline{Y}_{j}$. $SQ_{Res}$ também é chamada de soma dos quadrados **dentro dos grupos** ou **dentro dos tratamentos**
+
+$$SQ_{Res} = \sum_{j = 1}^{k}\sum_{i = 1}^{n_{j}}(Y_{ij} - \overline{Y}_{j})^2$$
+
+:::{.callout-note}
+
+## A característica aditiva das somas dos quadrados
+
+A partição da soma dos quadrados consiste em decompor a **variação total** do experimento em uma parcela atribuída à variação **entre tratamentos** e outra parcela da variação **dentro dos tratamentos**. Isto é possível pois as somas dos quadrados definidas acima podem ser expressas de forma aditiva como:
+
+$$SQ_{Total} = SQ_{Trat} + SQ_{Res}$$
+
+Deste modo, é possível demostrar que:
+
+$\sum_{j = 1}^{k}\sum_{i = 1}^{n}(Y_{ij} - \overline{\overline{Y}})^2 = \sum_{j = 1}^{k}n_{j}(Y_{j} - \overline{\overline{Y}})^2 + \sum_{j = 1}^{k}\sum_{i = 1}^{n}(Y_{ij} - \overline{Y}_{j})^2$
+
+:::
+
+## Medindo a associação entre $Y$ e $X$
+
+A característica aditiva das somas dos quadrados pode ser utilizada para mensurar o grau de dependência de $Y_{ij}$ com respeito aos diferentes tratamentos. Compare as duas figuras abaixo:
+
+```{r}
+#| echo: false
+n = 5
+Bi = c(b0 = 20, b1 = 0, b2 = 1, b3 = -1)
+k = length(B) - 1
+N = k * n 
+dfi = anova_sim(B = Bi, seed = 1,
+                 k = n) |> 
+  arrange(X, desc(Y)) |> 
+  mutate(Y = round(Y, 1),
+         i = rep(1:n, times = k),
+         j = rep(1:k, each = n)) |> 
+  mutate(ij = paste(i,j,sep = ''))
+
+Ymeansi = dfi |> 
+  group_by(X) |> 
+  summarise(mediasi = mean(Y))
+
+Ygi = mean(Ymeansi$mediasi)
+
+plt_dfi = ggplot(dfi, aes(x = X, y = Y)) +
+  geom_point() +
+  theme_classic(base_size = 15)
+
+```
+
+
+```{r}
+#| echo: false
+#| fig-align: 'center'
+#| fig-width: 8
+#| fig-height: 4
+anova_dfe = anova(aov(Y ~ X, data = dfe))
+SQ_Trat_dfe = round(anova_dfe$`Sum Sq`[1],1)
+SQ_Res_dfe = round(anova_dfe$`Sum Sq`[2],1)
+SQ_Total_dfe = SQ_Trat_dfe + SQ_Res_dfe
+
+plt_diff = plt_dfe +
+  geom_hline(yintercept = Yg, alpha = 0.3, size = 2) +
+  annotate('text', x = 1, 
+           y = 8, 
+           label = bquote(bar(bar(Y)) == .(Yg)),
+           color = 'black', size = 3.5) +
+  geom_point(data = Ymeans, 
+            aes(x = X, y = medias, color = X),
+            size = 5, alpha = 0.5) +
+  annotate('text', x = as.numeric(Ymeans$X)[1] - 0.2, 
+           y = Ymeans$medias[1] - 1.2, 
+           label = bquote(bar(Y)[1] == .(Y1)),
+           color = 'red', size = 3) +
+  annotate('text', x = as.numeric(Ymeans$X)[2] - 0.25, 
+           y = Ymeans$medias[2], 
+           label = bquote(bar(Y)[2] == .(Y2)),
+           color = 'green', size = 3) +
+  annotate('text', x = as.numeric(Ymeans$X)[3] - 0.25, 
+           y = Ymeans$medias[3], 
+           label = bquote(bar(Y)[3] == .(Y3)),
+           color = 'blue', size = 3) +
+  coord_cartesian(ylim = c(0,35)) +
+  labs(title = expression(SQ[Total] == SQ[Trat] + SQ[Res]),
+       subtitle = bquote(.(SQ_Total_dfe) == .(SQ_Trat_dfe) + .(SQ_Res_dfe))) +
+  theme(legend.position='none',
+        plot.title = element_text(hjust = 0.5),
+        plot.subtitle = element_text(hjust = 0.5))
+
+anova_dfi = anova(aov(Y ~ X, data = dfi))
+SQ_Trat_dfi = round(anova_dfi$`Sum Sq`[1],1)
+SQ_Res_dfi = round(anova_dfi$`Sum Sq`[2],1)
+SQ_Total_dfi = SQ_Trat_dfi + SQ_Res_dfi
+
+Y1i = Ymeansi$mediasi[1]
+Y2i = Ymeansi$mediasi[2]
+Y3i = Ymeansi$mediasi[3]
+plt_igu = plt_dfi +
+  geom_hline(yintercept = Ygi, alpha = 0.3, size = 2) +
+  annotate('text', x = 1, 
+           y = 8, 
+           label = bquote(bar(bar(Y)) == .(Ygi)),
+           color = 'black', size = 3.5) +
+  geom_point(data = Ymeansi, 
+            aes(x = X, y = mediasi, color = X),
+            size = 5, alpha = 0.5) +
+  annotate('text', x = as.numeric(Ymeansi$X)[1] - 0.2, 
+           y = Ymeansi$mediasi[1] - 1.2, 
+           label = bquote(bar(Y)[1] == .(Y1i)),
+           color = 'red', size = 3) +
+  annotate('text', x = as.numeric(Ymeansi$X)[2] - 0.25, 
+           y = Ymeansi$mediasi[2], 
+           label = bquote(bar(Y)[2] == .(Y2i)),
+           color = 'green', size = 3) +
+  annotate('text', x = as.numeric(Ymeansi$X)[3] - 0.25, 
+           y = Ymeansi$mediasi[3], 
+           label = bquote(bar(Y)[3] == .(Y3i)),
+           color = 'blue', size = 3) +
+  coord_cartesian(ylim = c(0,35)) +
+  labs(title = expression(SQ[Total] == SQ[Trat] + SQ[Res]),
+       subtitle = bquote(.(SQ_Total_dfi) == .(SQ_Trat_dfi) + .(SQ_Res_dfi))) +
+  theme(legend.position='none',
+        plot.title = element_text(hjust = 0.5),
+        plot.subtitle = element_text(hjust = 0.5))
+
+plt_igu | plt_diff
+```
+
+A soma dos quadrados dentro dos grupos é a mesma nas duas figuras ($SQ_{Res} = `r SQ_Res_dfi`$). No entanto, na figura da esquerda, em que as médias dos tratamentos são similares (e consequentemente próximas à grande média), a soma dos quadrados entre os tratamentos é muito menor ($SQ_{Trat}^{esquerda} = `r SQ_Trat_dfi`$) que na figura da direita, em que as médias dos tratamentos estão distantes entre si ($SQ_{Trat}^{direita} = `r SQ_Trat_dfe`$). É desta forma que a partição das somas dos quadrados nos permite diferenciar situações em que: i - a média dos grupos **depende** dos níveis do tratamento (figura da direita); de situações em que ii - a média **não depende** dos níveis do tratamento (figura da esquerda). 
+
+### O coeficiente de determinação ($R^2$)
+
+Podemos expressar a relação entre $SQ_{Trat}$ e $SQ_{Total}$ pela expressão:
+
+___
+
+$$R^2 = \frac{SQ_{Trat}}{SQ_{Trat} + SQ_{Res}} = \frac{SQ_{Trat}}{SQ_{Total}}$$
+
+___
+
+$R^2$ é chamado de **coeficiente de determinação** e varia entre $0$ e $1$. Se $R^2 = 0$ toda a variação em $Y$ é causada por $SQ_{Res}$ ($\overline{\overline{Y}} = \overline{Y}_1 = \overline{Y}_2 = \cdots = \overline{Y}_k$). À medida que as médias dos tratamentos se distanciam umas das outras, $R^2$ se aproxima de $1$ pois a maior parte da variação em $Y$ é causada por $SQ_{Trat}$.
+
+
+## Partição das Soma dos Quadrados no ambiente R
+
+Voltando ao conjundo de dados `medley.csv`, uma forma de obter os somatórios dos quadrados no R é utilizando a função `aov` (mas veja também a função `lm`).
+
+```{r}
+aov(DIVERSITY ~ ZINC, data = medley)
+```
+
+O resultado retorna a soma dos quadrados dos tratamentos (neste caso a coluna `ZINC`) e dos resíduos (coluna `Residuals`). Como o $SQ_{Total}$ é simplesmente a soma dos dois anteriores, podemos obtê-lo facilmente:
+
+```{r}
+sq = aov(DIVERSITY ~ ZINC, data = medley)
+SQTrat = anova(sq)$`Sum Sq`[1]
+SQRes = anova(sq)$`Sum Sq`[2]
+SQTotal = SQTrat + SQRes
+
+SQTotal
+
+```
+
+Por fim, o $R^2$ pode ser calculado por:
+
+```{r}
+R2 = SQTrat / SQTotal
+R2
+```
+

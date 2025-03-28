@@ -1,0 +1,947 @@
+---
+title: Regressão Linear Simples
+description: "Modelos de regressão linear simples, ANOVA da regressão, coeficientes de determinação e diagnósticos da regressão."
+Categories: ["Regressão Linear", "Estatística Descritiva", "Modelagem Matemática", "Análise de Variância"]
+
+image: "images/regressao_linear_simples.jpg"
+execute:
+  echo: true
+  warning: false
+  include: true
+  message: false
+---
+
+:::{.callout-tip collapse="true"}
+## Pacotes, funções e base de dados utilizadas
+
+```{r}
+library(tidyverse)
+library(patchwork)
+library(gt)
+library(knitr)
+```
+
+:::
+
+Um modelo de regressão linear nos permite verificar se há uma relação funcional entre variáveis quantitativas. Nesta relação, uma variável é denominada **dependente** (ou **variável resposta** - $Y$) e as demais **independentes** (ou **variáveis preditoras** - $X$). Portanto, ao ajustar um modelo de regressão linear, estamos assumindo que existe uma relação estatística de **dependencia** de $Y$ como *função* das variáveis preditoras em $X$. No modelo de regressão linear **simples** temos somente **uma** variável preditora e sua relação funcional com $Y$ é dada por:
+
+$$Y_i = \beta_0 + \beta_1X_i + \epsilon_i$$
+
+```{r}
+#| code-fold: true
+st <- read_csv("https://github.com/FCopf/datasets/raw/refs/heads/master/HubbardBrook_wide.csv") |>
+    rename(FlowD = WS2_Flow_Defosrested, FlowR = WS3_Flow_reference, 
+           RainD = WS2_precipitation, RainR = WS3_precipitation) |>
+    mutate(FlowD = FlowD / 100, FlowR = FlowR / 100,
+           RainD = RainD / 10, RainR = RainR / 10) |>
+    (\(df) df[-31, ])()
+```
+
+
+Considere novamente os dados sobre pluviosidade anual e vazão em uma bacia hidrográfica americada, medidos entre os anos de `r min(st$Year)` e `r max(st$Year)` (disponível em: [tiee.esa.org](https://tiee.esa.org/vol/v1/data_sets/hubbard/hubbard_overview.html)). Vamos avaliar a relação entre a vazão na bacia e os volumes de chuva.
+
+
+```{r}
+#| echo: false
+gt(st)
+```
+
+É razoável supor que em anos de mais chuva, seriam esperadas maiores vazões e que anos mais secos resultassem menores volumes de vazão. Para verificar esta suposição vamos fazer um gráfico de dispersão entre vazão e chuva.
+
+```{r fig.align = "center", fig.width=6, fig.height=5}
+#| echo: false
+m1 = lm(FlowR ~ RainR, data = st)
+b0 = round(coef(m1)[1],2)
+b1 = round(coef(m1)[2],2)
+Xm = 1400
+Ym = b0 + b1 * Xm
+limitey <- range(st$FlowR)
+limitex <- range(st$RainR)
+
+rg1 = ggplot(st, aes(y = FlowR, x = RainR)) +
+    geom_point() +
+    ylab("Vazão (mm/area/ano)") +
+    xlab("Pluviosidade (mm/area/ano)") +
+    xlim(limitex) +
+    ylim(limitey) +
+    theme_classic()
+
+
+rg1
+
+```
+
+O gráfico sugere que a suposição faz sentido. Volumes baixos de chuva estão associados a volumes baixos de vazão e vice versa. O gráfico sugrere ainda que a relação funcional é **linear**. Nestas condições, faz sentido tentar modelar a relação entre estas variáveis por meio de um modelo de regressão linear simples.
+
+Ao ajustar um modelo de regressão, vemos que a linha em azul é a que melhor descreve a relação linear entre as variáveis. 
+
+```{r fig.align = "center", fig.width=6, fig.height=5}
+#| echo: false
+dfy <- data.frame(x1 = Xm, x2 = Xm, y1 = 500, y2 = Ym)
+dfx <- data.frame(x1 = Xm, x2 = 1000, y1 = Ym, y2 = Ym)
+
+rg2 = rg1 +
+    geom_smooth(method = "lm", se = FALSE) +
+    geom_segment(mapping = aes(x = x1, xend = x2, y = y1, yend = y2), data = dfx,
+                 colour = "red", arrow = arrow(length = unit(0.1, "inches"))) +
+    geom_segment(mapping = aes(x = x1, xend = x2, y = y1, yend = y2), data = dfy,
+                 colour = "red", arrow = arrow(length = unit(0.1, "inches"))) +
+    annotate('text', x = 1250, y = 1250, 
+             label = bquote(.(round(Ym,0)) ~ " = "~ .(round(b0,0)) ~ " + "~ .(round(b1,2)) ~ " x "~ .(Xm)), size = 4) +
+    theme_classic()
+
+rg2
+
+```
+
+Esta linha nos permite obter uma estimativa sobre a vazão esperada ($Y$) para qualquer **dado** volume de chuva ($X$). Neste exemplo, a equação que melhor associa vazão e chuva é:
+
+$$Y_i = `r round(b0,2)` + `r round(b1,2)` X_i$$
+
+O valor de $\beta_1 = `r round(b1,2)`$ nos diz que para um aumento de 1 mm/area/ano de chuva, a vazão aumentará `r round(b1,2)` mm/area/ano. $\beta_1$ é conhecido como **coeficiente de inclinação da reta** e nos fornece magnitude da variação em $Y$ para um aumento de **1 unidade** em $X$.
+
+Esta equação prevê por exemplo, que para um volume de chuva igual a `r Xm`  mm/area/ano a vazão na bacia será de `r round(Ym,0)` mm/area/ano. *Faça as contas para conferir*.
+
+$$`r round(b0 + b1 * Xm,2)` = `r round(b0,2)` + `r round(b1,2)` \times `r round(Xm,2)`$$
+
+A reta descreve portanto os valores **preditos** de vazão para cada nível de chuva. 
+
+## Modelo geral de regressão
+
+A estrutura de um modelo de regressão é dada por:
+
+$$Y_i = f(X_i, \beta) + \epsilon_i$$
+
+onde $f(X_i, \beta)$ representa a parte **determinística** e $\epsilon$ a parte **estocástica**. O sulfixo *i* nos diz que esta expressão é dada para **cada par de observação** $(Y,X)$.
+
+### Porção determinística
+
+A porção determinística é um modelo matemático que descreve a relação funcional entre $X$ e $Y$. Os parâmetros $\beta$'s determinam a intensidade do efeito de $X$ sobre $Y$. Na regressão linear **simples** temos somente uma variável $X$, e a relação funcional é dada pela **equação da reta**. No modelo de regressão linear **múltipla** existe mais de uma variável $X$. Finalmente, nos modelos de regressão **não-lineares** a relação funcional pode ser representada por outros modelos matemáticos (ex. função potência $Y = \beta_0X^{\beta_1}$).
+
+Na regressão linear simples, o parâmetro $\beta_1$ é geralmente o de maior interesse. Este parâmetro nos dirá se a relação será crescente ($\beta_1 > 0$), decrescente ($\beta_1 < 0$) ou nula ($\beta_1 = 0$). $\beta_0$ é o $\textbf{intercepto}$ e expressa o ponto em $Y$ em que a reta cruza o eixo das ordenadas.
+
+```{r fig.align = "center", fig.width=5, fig.height=6, warning=F}
+#| echo: false
+nf <- matrix(c(1,1,1,2,3,4), nc = 3, nr = 2, byrow = TRUE)
+layout(nf, respect = F, heights = c(3,1), widths = c(1,1,1))
+size_text = 1.2
+#_____________________________________________________
+#layout.show(nf)
+par(mai = c(0.2,0.2,0,0))
+plot(1:10, type  = "n", axes = F, xlab = "", ylab = "")
+axis(1, at = c(-1,20))
+axis(2, at = c(-1,20))
+abline(a = 2, b = .5)
+segments(x0 = 6, x1 = 6, y0 = 3.5, y1 = 5, col = "red")
+segments(x0 = 6, x1 = 3, y0 = 3.5, y1 = 3.5, col = "red")
+text(x = 7.3, y = 4.2, labels = expression(D ~ "Y" == beta[1]), cex = size_text)
+text(x = 4.5, y = 3, labels = expression(D ~ "X" == 1), cex = size_text)
+text(x = 4.5, y = 6, labels = expression(Y == beta[0] + beta[1]*X), cex = size_text+.5)
+text(x = 1, y = 2, labels = expression(beta[0]), cex = size_text)
+mtext(text = "X", side = 1, adj = 1, font = 2, padj = 0.5) 
+mtext(text = "Y", side = 2, adj = 1, font = 2) 
+
+#_____________________________________________________
+par(mai = c(0,0.2,0,0))
+plot(1:10, type  = "n", axes = F, xlab = "", ylab = "")
+axis(1, at = c(-1,20))
+axis(2, at = c(-1,20))
+abline(a = 2, b = .5)
+text(x = 4.5, y = 7, labels = expression(beta[1] > 0), cex = size_text)
+text(x = 2, y = 2, labels = expression(beta[0]), cex = size_text)
+
+#_____________________________________________________
+par(mai = c(0,0.2,0,0))
+plot(1:10, type  = "n", axes = F, xlab = "", ylab = "")
+axis(1, at = c(-1,20))
+axis(2, at = c(-1,20))
+abline(a = 5, b = 0)
+text(x = 4.5, y = 7, labels = expression(beta[1] == 0), cex = size_text)
+text(x = 2, y = 4, labels = expression(beta[0]), cex = size_text)
+
+#_____________________________________________________
+par(mai = c(0,0.2,0,0))
+plot(1:10, type  = "n", axes = F, xlab = "", ylab = "")
+axis(1, at = c(-1,20))
+axis(2, at = c(-1,20))
+abline(a = 8, b = -0.5)
+text(x = 7, y = 7, labels = expression(beta[1] < 0), cex = size_text)
+text(x = 2, y = 6, labels = expression(beta[0]), cex = size_text)
+
+```
+
+### Porção estocástica
+
+A porção estocástica, é representada pelo **resíduo** ou **erro**. A cada observação $Y_i$ está associado um valor de resíduo correspondente ($\epsilon_i$), dado pela distância vertical entre $Y_i$ e o valor predito $\hat{Y_i}$ sobre a reta de regressão. 
+
+```{r fig.align = "center", fig.width=6, fig.height=5}
+#| echo: false
+b0 = 0
+b1 = .5
+set.seed(3)
+i = 12
+DS = data.frame(X = runif(n = 30, min = 0, max = 10))
+
+DS = DS |> 
+  mutate(Y = rnorm(n = 30, mean = b0 + b1 * X, sd = 1.3)) |> 
+  mutate(Yfit = predict(lm(Y ~ X)),
+         Yres = resid(lm(Y ~ X)))
+
+ggplot(DS, aes(y = Y, x = X)) +
+   geom_point() +
+   geom_smooth(method = lm, se = F) +
+   geom_point(aes(y=Y[i], x=X[i]), shape = 21, colour = "red", size = 3, alpha = 0.5) +
+   geom_segment(aes(y=Y[i], x=X[i], xend = X[i], yend = Yfit[i]), colour = "red") +
+   geom_text(x = 4.7, y = 3.5, label = expression(epsilon), size = 6) +
+   theme_classic()
+```
+
+No modelo de regressão linear que veremos aqui, os resídos são uma **variável aleatória** prevenientes de uma distribuição normal de probabilidades com média $\mu = 0$ e variância $\sigma^2$ constante ao longo da reta de regressão, $N(0, \sigma^2)$.
+
+::: {#fig-regre2}
+
+![](imgages/Regre2.png)
+
+Resíduo normalmente distribuído ao longo da reta de regressão.
+
+:::
+
+## Ajuste dos dados ao modelo de regressão
+
+O ajuste de dados observados a um modelo de regressão requer a obtenção de estimativas para $\beta_0$, $\beta_1$ e $\sigma^2$, denotadas respectivamente por $\hat{\beta_0}$, $\hat{\beta_1}$ e $\hat{\sigma}^2$. Note que o símbolo $\hat{}$ significa que estamos falando de **estimativas** obtidas a partir de dados amostrais e não dos parâmetros populacionais.
+
+Ao obter estas estimativas, podemos encontrar valores **ajustados** de $Y$ para um dados valor de $X$. Os valores ajustados de $Y$ são denotados por $\hat{Y}$.
+
+$$\hat{Y_i} = \hat{\beta_0} + \hat{\beta_1}X_i$$
+
+### Método dos mínimos quadrados
+
+O **Método dos Mínimos Quadrados** ($MMQ$) é uma das formas disponíveis para calcularmos $\hat{\beta_0}$, $\hat{\beta_1}$ e $\hat{\sigma}^2$. O $MMQ$ envolve encontrar a combinação de $\hat{\beta_0}$ e $\hat{\beta_1}$ que minimiza a **Soma dos Quadrados dos Resíduos** ($SQ_{Resíduo}$), ou seja, que minimizam a quantia:
+
+$$SQ_{Resíduo} = \sum{(Y_i-\hat{Y_ i})^2} = \sum{(Y_i-(\hat{\beta_0} + \hat{\beta_1}X_i))^2}$$
+
+```{r fig.align = "center", fig.width=8, fig.height=4}
+#| echo: false
+b0 = 0
+b1 = .5
+set.seed(3)
+
+DS = data.frame(X = runif(n = 30, min = 0, max = 10))
+
+DS = DS |> 
+  mutate(Y = rnorm(n = 30, mean = b0 + b1 * X, sd = 1.3)) |> 
+  mutate(Yfit = predict(lm(Y ~ X)),
+         Yres = resid(lm(Y ~ X))) |> 
+  mutate(Y2 = rnorm(n = 30, mean = c(b0-2) + c(b1+0.6) * X, sd = 1.3)) |> 
+  mutate(Yfit2 = predict(lm(Y2 ~ X)),
+         Yres2 = resid(lm(Y2 ~ X)))
+
+sre = sum(DS$Yres^2)
+sre2 = sum((DS$Y - DS$Yfit2)^2)
+
+rg1 = ggplot(DS, aes(y = Y, x = X)) +
+  geom_point() +
+  geom_smooth(method = lm, se = F) +
+  #geom_point(aes(y=Y[i], x=X[i]), colour = "red", size = 3) +
+  geom_segment(aes(y=Y, x=X, xend = X, yend = Yfit), colour = "red", linetype=3) +
+  annotate("text", x = 2.5, y = 5, label = bquote(sum(epsilon[i])^2==sum((Y[i]-hat(Y[i]))^2 == .(floor(sre)))), size = 3) +
+  theme_classic()
+
+rg2 = ggplot(DS, aes(y = Y, x = X)) +
+  geom_point() +
+  geom_smooth(aes(y = Y2), method = lm, se = F) +
+  #geom_point(aes(y=Y[i], x=X[i]), colour = "red", size = 3) +
+  geom_segment(aes(y=Y, x=X, xend = X, yend = Yfit2), colour = "red", linetype=3) +
+  annotate("text",x = 2.5, y = 5, label = bquote(sum(epsilon[i])^2==sum((Y[i]-hat(Y[i]))^2 == .(floor(sre2)))), size = 3) +
+  theme_classic()
+
+#expression(sum(epsilon[i])^2==sum((Y[i]-hat(Y[i]))^2 == sre))
+
+rg1 | rg2
+```
+
+Nas figuras acima, a linha da esquerda ($SQ_{Resíduo} = \sum{\epsilon_i^2} = `r floor(sre)`$) está claramente melhor ajustada à nuvem de pontos, o que se expressa em um menor somatório dos quadrados dos resíduos ($SQ_{Resíduo} = \sum{\epsilon_i^2} = `r floor(sre)`$) quando comparado com o ajuste da figura à direita ($SQ_{Resíduo} = \sum{\epsilon_i^2} = `r floor(sre2)`$).
+
+### Variâncias, covariâncias e coeficientes da regressão
+
+Para estimarmos os coeficientes da regressão $\beta_0$ e $\beta_1$ devemos retomar o conceito de **variância amostral** e introduzir o conceito de **covariância amostral**.
+
+A variância amostral de $Y$ por exemplo, pode ser obtida subtraindo cada observação em $Y$ de sua média ($\overline{Y}$) e elevando esta subtração ao quadrado $(Y_i - \overline{Y})^2$. Ao somar para todos os valores de $Y_i$ teremos o **somatório dos quadrados de $Y$** ($SQ_Y$). 
+
+$$SQ_Y = \sum_{i-1}^{n} (Y_i - \overline{Y})^2 = \sum_{i-1}^{n}(Y_i - \overline{Y}) (Y_i - \overline{Y})$$
+
+Dividindo $SQ_Y$ por $n-1$ teremos a **variância amostral de $Y$** ($s^2_Y$).
+
+$$s^2_Y = \frac{\sum_{i-1}^{n} (Y_i - \overline{Y})^2}{n-1}$$
+
+Adotando o mesmo procedimento para $X$, podemos calcular o **somatório dos quadrados de $X$** ($SQ_X$).
+
+$$SQ_X = \sum_{i-1}^{n} (X_i - \overline{X})^2 = \sum_{i-1}^{n}(X_i - \overline{X}) (X_i - \overline{X})$$
+
+e a **variância amostral de $X$** ($s^2_X$).
+
+$$s^2_X = \frac{\sum_{i-1}^{n} (X_i - \overline{X})^2}{n-1}$$
+
+Combinando as duas ideias, teremos o **produto cruzado de $Y$ e $X$** ($SQ_{YX}$)
+
+$$SQ_{YX} = \sum_{i-1}^{n}(Y_i - \overline{Y}) (X_i - \overline{X})$$
+
+e a **covariância amostral entre $Y$ e $X$** ($s_{YX}$).
+
+$$s_{YX} = \frac{\sum_{i-1}^{n}(Y_i - \overline{Y}) (X_i - \overline{X})}{n-1}$$
+
+O estimador $\hat{\beta_1}$ nada mais é que a covariância entre $Y$ e $X$ **padronizada** pela variância de $X$.
+
+$$\hat{\beta_1} = \frac{s_{YX}}{s^2_X} = \frac{\frac{SQ_{XY}}{n-1}}{\frac{SQ_X}{n-1}} = \frac{SQ_{XY}}{SQ_X} = \frac{\sum{(Y_i - \overline{Y})(X_i - \overline{X})}}{\sum{(X_i - \overline{X})^2}}$$
+
+$$\hat{\beta_1} = \frac{\sum{(Y_i - \overline{Y})(X_i - \overline{X})}}{\sum{(X_i - \overline{X})^2}}$$
+
+Após encontrar $\hat{\beta_1}$, podemos calcular $\hat{\beta_0}$ sabendo que a melhor reta de regressão passará **necessariamente** pelo ponto médio de $X$ e de $Y$. Deste modo temos:
+
+$$\hat{\beta_0} = \overline{Y} - \hat{\beta_1}\overline{X}$$
+
+Calculados $\hat{\beta_1}$ e $\hat{\beta_0}$, podemos encontrar os valores ajustados de $Y$ para cada valor de $X$ que serão utilizados para construir a reta de regressão. $\hat{Y_i}$ será dado por:
+
+$$\hat{Y_i} = \hat{\beta_0} + \hat{\beta_1}X_i$$
+
+Por fim, a variância residual $s^2$ é dada por:
+
+$$s^2 = QM_{Resíduo} = \frac{SQ_{Resíduo}}{n-2} = \frac{\sum{(Y_i-\hat{Y_ i})^2}}{n-2}$$
+
+### Exemplo de ajuste ao modelo de regressão
+
+```{r}
+rk = read_csv('https://github.com/FCopf/datasets/raw/refs/heads/master/RIKZ.csv')
+rks = rk |> 
+  (\(df) df[seq(3,43,by = 5),])()
+```
+
+Considere a tabela abaixo com os dados de riqueza da macro-fauna praial (número de espécies) e de um índice de exposição às ondas (NAP). Os dados foram obtidos em 2002 na costa da Holanda em nove praias [@zuur2009mixed]. Valores negativos de NAP se referem a locais mais expostos e valores positivos a locais menos expostos à ação das ondas.
+
+```{r}
+rks |> 
+  select(Richness, NAP) |> 
+  gt()
+```
+
+O gráfico de dispersão sugere uma relação negativa e possivelmente linear, em que a riqueza de espécies diminui com o aumento no grau de exposição. Vamos ajustar um modelo de regressão a estes pontos calculando $\hat{\beta_0}$, $\hat{\beta_1}$ e $\hat{\sigma}^2$.
+
+```{r fig.width=6, fig.height=4, fig.align = "center"}
+#| echo: false
+rks |> 
+  ggplot(aes(y = Richness, x = NAP)) +
+  geom_point() +
+  theme_classic()
+
+m1 = lm(Richness ~ NAP, data = rks)
+b0 = coef(m1)[1]
+b1 = coef(m1)[2]
+
+```
+
+Os passos intermediários envolvem o cálculo do somatórios dos quadrados de X: 
+
+$$SQ_X = \sum{(X_i - \overline{X})^2}$$
+
+de Y: 
+
+$$SQ_Y = \sum{(Y_i - \overline{Y})^2}$$
+
+e do somatório dos produtos cruzados de X e Y: 
+
+$$SQ_{XY} = \sum{(X_i - \overline{X}) (Y_i - \overline{Y})}$$
+
+Estes passos são descritos na tabela a seguir.
+
+```{r}
+#| echo: false
+rksR = rks |> 
+  select(Richness, NAP) |> 
+  mutate(XmX = NAP - mean(NAP),
+         YmY = Richness - mean(Richness)) |> 
+  mutate(XmX2 = XmX^2, YmY2 = YmY^2, SXY = XmX * YmY) |> 
+  round(digits = 2)
+
+SXY = sum(rksR$SXY)
+SQX = sum(rksR$XmX2)
+b1e = SXY/SQX
+MRichness = mean(rksR$Richness)
+MNAP = mean(rksR$NAP)
+b0e =  MRichness - b1e * MNAP
+
+rksR = rksR |> 
+  mutate(Yfit = b0e + b1e * NAP,
+         Yres = Richness - Yfit)
+
+SQRes = sum(rksR$Yres^2)
+n = nrow(rksR)
+s2res = SQRes/(n-2)
+SQY = sum((rksR$Richness - mean(rksR$Richness))^2) 
+r2 = 1 - SQRes / SQY
+
+round(rksR,2) |> 
+  select(-c("Yfit", "Yres")) |> 
+  kable(col.names = c("Richness", "NAP",
+                     "$(X_i - \\overline{X})$",
+                     "$(Y_i - \\overline{Y})$",
+                     "$(X_i - \\overline{X})^2$",
+                     "$(Y_i - \\overline{Y})^2$",
+                     "$(X_i - \\overline{X})(Y_i - \\overline{Y})$"))
+
+r = SXY/sqrt(sum((rksR$Richness-mean(rksR$Richness))^2) * sum((rksR$NAP-mean(rksR$NAP))^2))
+
+#summary(m1)
+```
+
+Após os cálculos, os valores estimados são:
+
+$$\hat{\beta_1} = \frac{\sum{(X_i - \overline{X})(Y_i - \overline{Y})}}{\sum{(X_i - \overline{X})^2}} = \frac{`r SXY`}{`r SQX`} = `r round(b1e,3)`$$
+
+$$\hat{\beta_0} = \overline{Y} - \hat{\beta_1}\overline{X} = `r round(MRichness,2)` `r round(b1e,3)` \times `r round(MNAP, 2)` = `r round(b0e,3)`$$
+
+$$\hat{\sigma}^2 = QM_{Resíduo} = \frac{SQ_{Resíduo}}{n-2} = \frac{\sum{(Y_i-\hat{Y_ i})^2}}{n-2} = \frac{`r round(SQRes,2)`}{`r n - 2`} = `r round(s2res, 2)`$$
+
+De modo que a melhor reta de regressão é dada por:
+
+$$Richness = `r round(b0e,3)` `r round(b1e,3)` \times NAP$$
+
+```{r fig.width=6, fig.height=4, fig.align = "center"}
+#| echo: false
+rks |> 
+  ggplot(aes(y = Richness, x = NAP)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = F) +
+  theme_classic()
+
+```
+
+## Testes de hipóteses na regressão linear simples
+
+Até o momento, apresentamos uma discussão sobre o método para calcular os estimadores $\hat{\beta_0}$, $\hat{\beta_1}$ e $\hat{\sigma}$. Entretanto, como nossas observações provêm de **amostras**, estas estimativas estão sujeitas à variação inerente às observações de que dispomos e certamente não serão iguais ao valor da **população estatística**. Devemos portanto, entender quais evidências estes estimadores nos fornecem para a existência de um efeito de $X$ sobre $Y$, ou seja, para rejeitarmos a hipótese nula em favor de $H_A$.
+
+### Teste sobre $\beta_1$
+
+Na regressão linear simples, o efeito de $X$ sobre $Y$ depende do valor de $\beta_1$
+
+$Y_i = \beta + \beta_1X_i + \epsilon_i$
+
+A não existência de um efeito implica em $\beta_1 = 0$ e consequentemente:
+
+$Y_i = \beta_0 + 0 \times X_i + \epsilon_i$ $\rightarrow$ $Y = \beta_0 + \epsilon_i$
+
+Portanto, as hipóteses nula e alternativa seriam:
+
+$H_0: \beta_1 = 0$
+
+$H_A: \beta_1 \ne 0$
+
+Segundo $H_0$, a inclinação da reta $populacional$ não é diferente de zero e o valor estimado $\hat{\beta_1}$ ocorreu puramente ao acaso, como efeito da variação amostral. Para testar esta hipótese, utilizamos a **distribuição de t** de modo que:
+
+$$t = \frac{\hat{\beta_1} - \beta_1}{s_{\hat{\beta_1}}}$$
+
+Como segundo $H_0$, $\beta_1  = 0$ a expressão fica:
+
+$$t = \frac{\hat{\beta_1} - 0}{s_{\hat{\beta_1}}} = \frac{\hat{\beta_1}}{s_{\hat{\beta_1}}}$$
+
+$s_{\hat{\beta_1}}$ é o **erro padrão** de $\beta_1$ calculado por:
+
+$$s_{\hat{\beta_1}} = \sqrt{\frac{\hat{\sigma}^2}{\sum{(X_i-\overline{X})^2}}}$$
+
+No exemplo sobre a fauna praial estamos interessados em testar a hipótese de que a riqueza de espécies esteja associada ao grau de exposição às ondas. Em regressão linear, esta hipótese pode ser expressa por:
+
+
+```{r}
+#| echo: false
+seb1 = sqrt(s2res/SQX)
+
+tc = b1e/seb1
+
+```
+
+$$t = \frac{\hat{\beta_1}}{s_{\hat{\beta_1}}} = \frac{`r round(b1e,2)`}{`r round(seb1,2)`} = `r round(tc,3)`$$
+
+Que na distribuição de t fica:
+
+``` {r fig.width=8, fig.height=5, fig.align = "center"}
+#| echo: false
+qr = c(tc, -tc)
+dqr = dt(x = qr, df = n-1)
+
+
+qrc1 = c(seq(-5, qr[1], l = 100), seq(qr[1],-5, l = 100))
+dqrc1 = c(rep(0,100), dt(x = seq(qr[1],-5, l = 100), df = n-2))
+
+qrc2 = c(seq(5, qr[2], l = 100), seq(qr[2],5, l = 100))
+dqrc2 = c(rep(0,100), dt(x = seq(qr[2],5, l = 100), df = n-2))
+
+pqr = pt(q = qr, df = n-2)
+perc = diff(pqr, df = n-2) * 100
+
+#eixox = bquote(.(-tc), 0, .(+tc))
+
+curve(expr = dt(x, 0, df = n-2), from = -4, to = 4, 
+      ylab = "Densidade da distribuição t",
+      xlab = "Valores de t", ylim = c(0, 0.5), axes = F)
+axis(1, at = round(c(qr[1],0,qr[2]),2), cex.axis = 0.8)
+axis(2, at = seq(-1, 0.5, by = 0.1), cex.axis = 0.8)
+polygon(x = qrc1, y = dqrc1, col = rgb(red = 0.9, 0,0, alpha = 0.3))  
+polygon(x = qrc2, y = dqrc2, col = rgb(red = 0.9, 0,0, alpha = 0.3))  
+segments(x0 = qr[1], x1 = qr[7], y0 = 0.65, y1 = 0.65, lwd = 2)
+text(y = c(0.05), x = c(-3.1), labels = bquote(.(round(pt(tc, df = n-2),3))))
+text(y = c(0.05), x = c(3.1), labels = bquote(.(round(pt(-tc, df = n-2, lower.tail = F),3))))
+
+```
+
+Se nosso nível de significancia $\alpha = 0.05$, então a probabilidade $p = `r round(pt(tc, df = n-2),3)` + `r round(pt(-tc, df = n-2, lower.tail = F),3)` = `r round(pt(-tc, df = n-2, lower.tail = F),3) * 2`$ indica que devemos **rejeitar** $H_0$ e aceitar que **existe** uma relação entre Riqueza de espécies e NAP.
+
+### Análise de variância da regressão
+
+Como já dizemos, a estrutura de um modelo de regressão é dada por um componente sistemático expresso como função de $X$ ($\beta_0 + \beta_1X_i$) e um componente aleatório expresso pelos resíduos do modelo ($\epsilon_i$). A variação total em $Y$ no modelo de regressão portanto, pode ser atribuída a ambos os efeitos de $X$ e do resíduo. Estas quantias de variação podem mensuradas pelos somatório dos quadrados abaixo.
+
+Soma dos quadrados **totais**:
+
+$SQ_Y = \sum{(Y_i - \overline{Y})^2}$
+
+Soma dos quadrados da **regressão**:
+
+$SQ_{Regressão}= \sum{(\hat{Y_i} - \overline{Y})^2}$
+
+E soma dos quadrados do **resíduo**:
+
+$SQ_{Resíduo}= \sum{(Y_i - \hat{Y_i})^2}$
+
+Pode-se mostrar ainda que vale a expressão:
+
+$$SQ_Y = SQ_{Regressão} + SQ_{Resíduo}$$
+A decomposição destas quantias é conhecida **partição das somas dos quadrados** e nos permitem comparar a influência de $X$ com a influência do puro acaso sobre a variabilidade em $Y$. Se todos os pontos estiverem perfeitamente sobre a reta, então toda a variação em $Y$ seria atribuída à influência de $X$. Por outro lado, à medida que aumenta a distância média dos pontos acima e abaixo da curva, aumenta a parcela atribuída ao **acaso**.
+
+```{r, fig.align="center", fig.width=8, fig.height=4}
+#| echo: false
+b0sim <- 10
+b1sim <- 2
+dp1 <- 0
+dp2 <- 60
+X <- rep(seq(10, 100, by = 10), times= 10)
+n <- length(X)
+set.seed(1)
+Y1 <- rnorm(n = n, mean = b0sim + b1sim * X, sd = dp1)
+set.seed(1)
+Y2 <- rnorm(n = n, mean = b0sim + b1sim * X, sd = dp2)
+limitey <- range(c(Y1,Y2))
+limitex <- range(X)
+alto <- ">>>>"
+df <- data.frame(Y1, Y2, X)
+
+reg1 <- ggplot(df, mapping = aes(y = Y1, x = X)) +
+  geom_point(shape = 19, size = 3) +
+  geom_smooth(method = "lm", color = "blue", se = FALSE) +
+  xlim(limitex) +
+  ylim(limitey) +
+  annotate("text",x = 30, y = 250, label = bquote(SQ[Regressão] ~ ">>>>"), size = 4) +
+  theme_classic()
+
+reg2 <- ggplot(df, mapping = aes(y = Y2, x = X)) +
+  geom_point(shape = 19, size = 3) +
+  geom_smooth(method = "lm", color = "blue", se = FALSE) +
+  xlim(limitex) +
+  ylim(limitey) +
+  annotate("text",x = 30, y = 250, label = bquote(SQ[Residuo] ~ ">>>>"), size = 4) +
+  theme_classic()
+
+reg1 | reg2
+  
+```
+
+
+Estes **componentes de variação** podem ser organizados em uma Tabela de **Análise de Variância (ANOVA)**. $n$ se refere ao número de amostras.
+
+|Fonte de variação |SQ               |gl                |QM                                                       |F                                     |p | 
+| :--- | :------:| :------:| :------:| :------:| :------:|
+|Regressão         |$SQ_{Regressão}$ |$gl_{Regressão}$  |$QM_{Regressão} = \frac{SQ_{Regressão}}{gl_{Regressão}}$ |$\frac{QM_{Regressão}}{QM_{Resíduo}}$ |Probabilidade associada à cauda da distribuição F| 
+|Resíduo           |$SQ_{Resíduo}$   |$gl_{Resíduo}$    |$QM_{Resíduo} = \frac{SQ_{Resíduo}}{gl_{Resíduo}}$       |                                      | | 
+|Total             |$SQ_{Y}$         |$gl_{Y}$          |$QM_{Y} = \frac{SQ_{Y}}{gl_{Y}}$                         |                                      | | 
+
+
+As coluna $gl$ se refer aos graus de liberdade nos modelo de regressão, a semelhança do que discutimos para o teste t de Student. A coluna **QM** (**Quadrado médio**) apresenta os estimadores de variância da regressão ($QM_{Regressão}$), do resíduo ($QM_{Resíduo}$) e total ($QM_{Y}$). 
+
+#### A distribuição F
+
+O valor de $F$ na tabela se refere a **distribuição de probabilidade F**. Esta distribuição de probabilidades é esperada para a razão entre duas variâncias amostrais. No caso da regressão linear, estas são a **variância da regressão** ($QM_{Regressão}$ no numerador) e a **variância residual** ($QM_{Resíduo}$ no denominador). Diferente da distribuiçao t, a distribuição F tem um formato assimétrico, sendo que o grau de assimetria depende dos graus de liberdade do numerador e do denominador. O valor de $p$ na tabela se refere à área sob a distribuição F, **acima** do valor de $F$ calculado. Na ANOVA da regressão, um valor de $p < \alpha$ nos leva a rejeitar a hipótese nula e assumir que a variável $X$ **exerce** algum efeito sobre $Y$.
+
+> O símbolo $F$ foi dado em homenagem a Ronald Aylmer Fisher o estatístico e geneticista Britânico do início do séc. XX, que entre inúmeras outras contribuições, desenvolveu a Análise de Variância. Fisher é descrito como *"a genius who almost single-handedly created the foundations for modern statistical science"* [@halt1998history] e como *"the single most important figure in 20th century statistics"* [@efron1998r]. Ver [Ronald Aylmer Fisher](https://en.wikipedia.org/wiki/Ronald_Fisher).
+
+```{r, fig.align='center', fig.height=15, fig.width=6}
+#| echo: false
+shade_curve <- function(y, x, zstart, zend, fill, alpha = .5){
+  MyDF <- data.frame(x,y)
+  geom_area(data = subset(MyDF, x >= zstart
+                          & x < zend),
+            aes(y=y, x = x), fill = fill, color = NA, alpha = alpha)
+}
+
+num1 <- 1; num2 <- 10; den1 <- 10; den2 <- 50
+Flim1 <- qf(p = 0.05, df = num1, df2 = den1, lower.tail = FALSE)
+Flim2 <- qf(p = 0.05, df = num2, df2 = den2, lower.tail = FALSE)
+f <- seq(0.1, 10, length = 100)
+DF <- data.frame(f,
+                 DF1 = df(f, df1 = num1, df2 = den1),
+                 DF2 = df(f, df1 = num2, df2 = den2))
+
+gdfa <- ggplot(DF) +
+  geom_line(mapping = aes(x = f, y = DF1), color  ="blue") +
+  geom_line(mapping = aes(x = f, y = DF2), color  ="red") +
+  ylab("Densidade de probabilidade de F") +
+  xlab("Valores de F") +
+  annotate("segment", x = 2.5, xend = 3, y = 1, yend = 1, colour = "blue") +
+  annotate("segment", x = 2.5, xend = 3, y = 0.85, yend = 0.85, colour = "red") +
+  annotate("text", x = 6.5, y = 1, size = 4, label = bquote(gl[numerador]==.(num1) ~ ";" ~ gl[denominador]==.(den1))) +
+  annotate("text", x = 6.5, y = 0.85, size = 4, label = bquote(gl[numerador]==.(num2) ~ ";" ~ gl[denominador]==.(den2))) +
+  theme_classic(base_size=20)
+
+gdfb <- ggplot(DF) +
+  geom_line(mapping = aes(x = f, y = DF1), color  ="blue") +
+  shade_curve(x = DF$f, y = DF$DF1, zstart = Flim1, zend = 10, fill = "blue", alpha = .3) +
+  ylab("Densidade de probabilidade de F") +
+  xlab("Valores de F") +
+  annotate("text", x = 6, y = 1, label = bquote(gl[numerador]==.(num1) ~ ";" ~ gl[denominador]==.(den1))) +
+  geom_segment(mapping = aes(x = Flim1, xend = Flim1, y = 0.3, yend = 0.1),
+                 colour = "blue", arrow = arrow(length = unit(0.1, "inches"))) +
+  theme_classic(base_size=20)
+
+gdfc <- ggplot(DF) +
+  geom_line(mapping = aes(x = f, y = DF2), color  ="red") +
+  shade_curve(x = DF$f, y = DF$DF2, zstart = Flim2, zend = 10, fill = "red", alpha = .3) +
+  ylab("Densidade de probabilidade de F") +
+  xlab("Valores de F") +
+  annotate("text", x = 6, y = 0.85, label = bquote(gl[numerador]==.(num2) ~ ";" ~ gl[denominador]==.(den2))) +
+  geom_segment(mapping = aes(x = Flim2, xend = Flim2, y = 0.3, yend = 0.2),
+                 colour = "red", arrow = arrow(length = unit(0.1, "inches"))) +
+  theme_classic(base_size=20)
+
+gdfa / gdfb / gdfc
+```
+
+
+Os resultados da ANOVA para os dados da fauna praial nos dá os seguintes valores. *Confira os cálculos*.
+
+```{r}
+#| echo: false
+m1_anovatb <- as_tibble(anova(m1)) 
+m1_s <- m1_anovatb |>
+  (\(x) replace(x, is.na(x), 0))() |>
+  summarise(across(everything(), sum))
+
+m1_anovatb <- m1_anovatb |> 
+  bind_rows(m1_s) |> 
+  mutate(`Fonte de variação`  = c("Regressão", "Resíduo", "Total")) |> 
+  rename(gl = Df, SQ = `Sum Sq`, QM = `Mean Sq`, `F` = `F value`, p = `Pr(>F)`) |> 
+  select(`Fonte de variação`, SQ, gl, QM, `F`, p)
+  
+m1_anovatb[3, "QM"] <- m1_anovatb[3, "SQ"]/m1_anovatb[3, "gl"]
+m1_anovatb[3, c("F", "p")] <- NA
+
+m1_anovatb[,c(2,4,5)] <- round(m1_anovatb[,c(2,4,5)], 2)
+m1_anovatb[1,"p"] <- round(m1_anovatb[1,"p"], 3)
+
+kable(m1_anovatb)
+```
+
+O valor de $p = `r m1_anovatb[1,"p"]`$ **abaixo** do nível de significância $\alpha = 0.05$, nos leva a rejeitar a hipótese nula em favor da alternativa, concluindo que o índice de exposição às ondas **interfere** sobre a riqueza da macro-fauna. O valor de $p$ foi identico ao obtido no teste de hipóteses de $\beta_1$. No modelo de regressão linear **simples** isto é necessariamente verdadeiro, pois toda a variação associada à regressão é devida ao efeito do coeficiente $\beta_1$. Por outro lado, nos modelos de regressão **múltipla**, em que temos:
+
+$$Y_i = \beta_0 + \beta_1X_{i1} + \beta_1X_{i2} + \cdots + \beta_mX_{im} + \epsilon_i$$
+
+esta relação não é mais observada, pois existem múltiplos coeficientes agindo sobre a variação em $Y$.
+
+## Coeficiente de determinação $R^2$
+
+Uma vez que toda a variação observada em Y pode ser alocada aos efeitos da **reta de regressão** e e do **resíduo** podemos fazer a seguinte questão:
+
+> Qual parcela da variação na Riqueza é explicada **exclusivamente** pelo modelo de regressão?
+
+Esta pergunta pode ser respondida calculando o que denominamos de **coeficiente de determinção** ou simplesmente $R^2$:
+
+$$R^2 = \frac{SQ_{Regressão}}{SQ_Y} = 1 - \frac{SQ_{Resíduo}}{SQ_Y}$$
+
+
+O valor de $SQ_{Regressão}$ mede a variação **explicada exclusivamente** pela regressão, $SQ_{Resíduo}$ a **variação residual** e $SQ_Y$ mede a **variação total** em $Y$. Ao dividir $SQ_{Resíduo}$ por $SQ_Y$, o $r^2$ nos informa sobre qual a **fração** da variação total é explicada somente pela reta de regressão.
+
+Npo exemplo da fauna praial:
+
+$$R^2 = 1 - \frac{`r round(SQRes,2)`}{`r round(SQY,2)`} = `r round(r2,4)`$$
+
+O que significa que aproximadamente `r round(r2 * 100,2)`\% da variação na riqueza é explicada pela variação no grau de exposição às ondas (NAP). Não sabemos a que se deve o restante da variação e, no contexto do modelo de regressão, assumimos ser uma variação aleatória inerente a cada observação ($\epsilon_i$). Esta variação aleatória, como dito, segue uma distribuição normal com ponto central sobre a reta e variância data por $\sigma^2$. Este pressuposto é fundamental para a discussão do próximo ponto a respeito do **intervalo de confiança de $Y$**
+
+## Intervalo de confiança de $Y$
+
+Como nem todos os pontos caem perfeitamente sobre a reta, seria interessante que pudéssemos obter um intervalo de confiança de $Y$ para um dado valor de $X$. A amplitude deste intervalo irá depender da **variância dos valores ajustados** ($s^2_{Y|X}$) de $Y$, calculada por:
+
+$$s^2_{Y|X} = s^2(\frac{1}{n} + \frac{(X_i-\overline{X})^2}{SQ_X})$$
+
+do modo que: 
+
+$$s_{Y|X} = \sqrt{s^2(\frac{1}{n} + \frac{(X_i-\overline{X})^2}{SQ_X})}$$
+
+Note pela expressão acima que o $s_{Y|X}$ diminui quanto:
+
+1. a variância residual $s^2$ diminui;
+2. o tamanho amostral $n$ aumenta. 
+3. o dado valor de $X_i$ está próximo à média, pois neste caso $(X_i-\overline{X})$ diminui.
+
+Encontrado $s_{Y|X}$, o intervalo de confiança de $Y$ é dado por:
+
+$$IC_{Y} = \hat{Y}\pm t_{(\alpha, n-2)} \times s_{Y|X}$$
+
+```{r}
+#| echo: false
+n <- nrow(rks)
+epy <- sqrt(s2res * (1/n + ((rks$NAP - mean(rks$NAP))^2)/SQX))
+limites <- qt(p = 1-0.025, df = n-2) * epy
+qt95 <- qt(p = 1-0.025, df = n-2)
+obs <- 4
+Yfit <- rksR$Yfit
+```
+
+Para os dados da macrofauna, vamos exemplificar o cálculo de $IC_{95\%}$ para a $`r obs`^a$ observação da tabela, em que Richness = `r rks$Richness[obs]` e NAP = `r rks$NAP[obs]`.
+
+Lembre-se que já estimamos anteriormente a variância residual destes dados ($s^2 = `r round(s2res,2)`$). Como temos `r n` observações, o valor de $t_{(\alpha, n-2)} = `r round(qt95,2)`$, portanto:
+
+$s_{Y|X} = \sqrt{s^2(\frac{1}{n} + \frac{(X_i-\overline{X})^2}{SQ_X})} = `r round(epy[obs],2)`$
+
+O valor estimado de riqueza neste ponto é `r round(rksR$Yfit[4],2)`, portanto:
+
+$IC_{Y} = \hat{Y} \pm t_{(\alpha, n-2)} \times s_{Y|X} = `r round(Yfit[obs],2)` \pm `r round(qt95,2)` \times `r round(epy[obs],2)`$
+
+$IC_{Y} = `r round(Yfit[obs],2)` \pm `r round(qt95 * epy[obs], 2)`$
+
+$IC_{Y_{limite superior}} = `r round(Yfit[obs] + qt95 * epy[obs], 2)`$
+
+$IC_{Y_{limite inferior}} = `r round(Yfit[obs] - qt95 * epy[obs], 2)`$
+
+Podemos calcular intervalos destes para todos os pontos observados como expresso na tabela abaixo.
+
+```{r}
+#| echo: false
+rksRtb <- round(rksR,2) |> 
+  select(c(Richness, NAP, Yfit)) |> 
+  mutate(erropad = round(epy,2), ICinferior = round(Yfit - limites,2), ICsuperior = round(Yfit + limites,2)) 
+
+kable(rksRtb,
+         col.names = c("Richness",
+        "NAP",
+        "$\\hat{Y}$",
+        "$s_{Y \\mid X}$",
+        "$IC_{inferior}$",
+        "$IC_{superior}$")
+        )
+
+```
+
+E representá-los graficamente, juntamente com os valores ajustados de Y.
+
+```{r fig.width=5, fig.height=3, fig.align = "center"}
+#| echo: false
+rksRtb |>  
+  ggplot(aes(y = Richness, x = NAP)) +
+  geom_point() +
+  geom_point(aes(y = Yfit, x = NAP), color = 'blue', shape = 19) +
+  geom_point(aes(y = ICinferior, x = NAP), color = 'red', shape = 19) +
+  geom_point(aes(y = ICsuperior, x = NAP), color = 'red', shape = 19) +
+  theme_classic()
+
+```
+
+Note que na figura acima, estão representados os valores observados de riqueza de espécies (em preto), os valores ajustados (azul) e os intervalos a 95% (vermelho). Os valores ajustados são aqueles utilizados para construir a **reta de regressão**. O intervalo não costuma ser representados por pontos individuais, mas por uma banda que delimita a área que restringe o intervalo de confiança ao nível $1 - \alpha$ como na figura abaixo.
+
+
+```{r fig.width=5, fig.height=3, fig.align = "center"}
+#| echo: false
+rksRtb |>  
+  ggplot(aes(y = Richness, x = NAP)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = TRUE, fill = "red", alpha = 0.5) +
+  theme_classic()
+```
+
+A banda mais estreita próxima ao ponto médio de $X$, reflete o ponto comentado anteriormente, de que quanto mais próximo ao centro da distibuição de pontos, mais confiança temos sobre os limites máximos e mínimos que um valor de $Y$ pode assumir. Do mesmo modo, esta confiança **diminui** à medida que nos aproximamos dos extremos dos valores observados em $X$. 
+
+## Pressupostos da regressão linear simples
+
+Ao realizar uma regressão linear simples, devemos assumir como verdadeiros alguns pressupostos.
+
+1. O modelo linear descreve adequadamente a relação funcional entre $X$ e $Y$;
+2. Cada par de observação $(X,Y)$ é independente dos demais;
+3. A variável $X$ é medida sem erros;
+4. Os resíduos têm distribuição normal, e;
+5. A variância residual $\sigma^2$ é constante ao longo dos valores de $X$.
+
+### Relação funcional linear
+
+Caso a relação funcional entre $X$ e $Y$ assuma uma forma diferente de $Y_i = \beta_0 + \beta_1X_i$, o modelo de regressão não é mais válido, pois a estimativa de erro irá conter, além do componente aleatório residual, um componente **sistemático**. Este componente terá efeito sobre influência sobre a predição do modelo, sobretudo nos extremos das observações. Por modelo linear, entendemos aqueles em que os coeficientes $\beta$ aparecem de forma aditiva. Modelos em que os componentes aparecem de outro modo na equação como potência ou no denominador de uma equação são exemplos de modelos não-lineares. Abaixo estão dois exemplos de relações **não-lineares** comumente observadas em fenômenos ambientais:
+
+Equação potência: $Y_i = \beta_0 X_i^{\beta_1}$
+
+Modelo de Michaelis-Menten: $Y_i = \frac{\beta_0 X_i}{\beta_1 + X_i}$
+
+### Independência
+
+A falta de independência pode ocorrer como resultado do delineamento amostral inapropriado para a questão em teste. A falta de independência torna crítico o uso de uma distribuição de probabilidade para o cálculo do intervalo de confiança (distribuição $t$) e para o teste de hipóteses (distribuições $t$ e $F$ ). Casos clássicos de falta de independência são aqueles em que as observações são denominadas como **pseudoréplicas** [@hurlbert1984pseudoreplication]. Após a publicação clássica de [Hurlbert](https://esajournals.onlinelibrary.wiley.com/doi/abs/10.2307/1942661), muito tem sido dito sobre pseudoreplicação. Em experimentos de campo, a falta de independência ocorre geralmente como resultados da proximidade espacial entre as réplicas ou sobre séries temporais.
+
+### Variável $X$ é medida sem erros
+
+Veja que a parcela residual do modelo de regressão se refere à distância **vertical** de $Y_i$, para um dados valor de $X$. Isto implica que os níveis de $X$ são **previamente** definidos. Quando existe variabilidade aleatória tanto em $Y$ quanto em $X$, o modelo correto para a estimativa dos parâmetros da regressão é conhecido como **Modelo II** de regressão. Este pressuposto é frequêntemente ignorado em delineamentos de regressão, sobretudo em estudos observacionais, o que não parece ser particularmente problemático.
+
+### Distribuição normal dos resíduos
+
+Assim como no pressuposto de independência, assumir que os resíduos têm uma distribuição normal permite o uso da distribuição $F$ pra o teste de hipótese e da distribuiçãio $t$ para o cálculo do intervalo de confiança. Uma distribuição de erros diferente da distribuição normal terá influência sobre o cálculo da amplitude do intervalo de confiança.
+
+### Variância residual constante
+
+Caso, a variância $\sigma$ não seja constante ao longo da reta de regressão, o cálculo do intervalo de confiança e o resultado do teste de hipóteses são afetados. Uma vez diagnosticada uma variância **não-constante** existem modelos de regressão que podem ser apicados para incorporar este efeito em suas estimativas [@zuur2009mixed].
+
+## Diagnósticos da regressão
+
+O diagnóstivo da regressão é composto por observações e testes que ajudam a decidirmos se a regressão linear foi um bom modelo para ajustar a um conjunto de dados particular. Um bom modelo neste contexto significa um modelo que atendeu aos pressuostos descritos acima. Esta verificação passa pela observação de padrões nos **resíduos** da regressão, ou seja, pela observação da parcela estocástica do modelo.
+
+### Gráfico de resíduos
+
+O primeiro diagnóstico da regressão é  conhecido como **gráfico de resíduos**, que consiste em um gráfico de dispersão entre os resíduos e o valor ajustado $\hat{Y}$. Abaixo estão os gráficos de resíduos que surge quando ajustamos uma reta a dados que apresentam uma **relação linear**, uma **função potência**, uma **função assintótica** e uma relação linear porém comm **variância heterogênea**.
+
+```{r, fig.width=10, fig.height=20}
+#| echo: false
+set.seed(6)
+n = 30
+X <- seq(from = 0, to = 100, length = n)
+# Linear
+b0a <- 2
+b1a <- 4
+dpa <- 80
+Ya <- rnorm(n = n, mean = b0a + b1a*X, sd = dpa)
+
+#Potência
+b0b <- 1
+b1b <- 2.3
+dpb <- 2000
+Yb <- rnorm(n = n, mean = b0b * X^b1b, sd = dpb)
+
+#Assintótica
+b0c <- 50
+b1c <- 10
+dpc <-2
+Yc <- rnorm(n = n, mean = (b0c * X)/(b1c + X), sd = dpc)
+
+# Linear com variância heterogênea
+b0d <- 2
+b1d <- 4
+dpd <- X^1.1
+Yd <- rnorm(n = n, mean = b0d + b1d*X, sd = dpd) 
+
+df <- data.frame(X, Ya, Yb, Yc, Yd)
+
+ma <- lm(Ya ~ X, data = df)
+mb <- lm(Yb ~ X, data = df)
+mc <- lm(Yc ~ X, data = df)
+md <- lm(Yd ~ X, data = df)
+
+df <- df |> mutate(Yafit = fitted(ma),
+             Ybfit = fitted(mb),
+             Ycfit = fitted(mc),
+             Ydfit = fitted(md),
+             Yares = resid(ma),
+             Ybres = resid(mb),
+             Ycres = resid(mc),
+             Ydres = resid(md))
+
+ga <- ggplot(df, aes(x = X, y = Ya)) +
+  geom_point(shape = 19) +
+  geom_segment(x = df$X, xend = df$X, y = df$Ya, yend = df$Yafit, color = "red", linetype = "dashed", alpha = 0.5) +
+  geom_smooth(method = "lm", se = FALSE) +
+  labs(x = "X", y = "Y") +
+  geom_text(x = 2, y = 520, label = "Relação linear", hjust = 0) +
+  theme_classic()
+
+gb <- ggplot(df, aes(x = X, y = Yb)) +
+  geom_point(shape = 19) +
+  geom_segment(x = df$X, xend = df$X, y = df$Yb, yend = df$Ybfit, color = "red", linetype = "dashed", alpha = 0.5) +
+  geom_smooth(method = "lm", se = FALSE) +
+  labs(x = "X", y = "Y") +
+  geom_text(x = 2, y = 37000, label = "Função potência", hjust = 0) +
+  theme_classic()
+
+gc <- ggplot(df, aes(x = X, y = Yc)) +
+  geom_point(shape = 19) +
+  geom_segment(x = df$X, xend = df$X, y = df$Yc, yend = df$Ycfit, color = "red", linetype = "dashed", alpha = 0.5) +
+  geom_smooth(method = "lm", se = FALSE) +
+  labs(x = "X", y = "Y") +
+  geom_text(x = 2, y = 48, label = "Relação asintótica", hjust = 0) +
+  theme_classic()
+
+gd <- ggplot(df, aes(x = X, y = Yd)) +
+  geom_point(shape = 19) +
+  geom_segment(x = df$X, xend = df$X, y = df$Yd, yend = df$Ydfit, color = "red", linetype = "dashed", alpha = 0.5) +
+  geom_smooth(method = "lm", se = FALSE) +
+  labs(x = "X", y = "Y") +
+  geom_text(x = 2, y = 450, label = "Variância heterogênea", hjust = 0) +
+  theme_classic()
+
+gar <- ggplot(df, aes(x = Yafit, y = Yares)) +
+  geom_point(shape = 19) +
+  geom_hline(yintercept = 0, color = "red", alpha = 0.5) +
+  labs(x = bquote("Y ajustado (" ~ hat(Y) ~")"), y = "Resíduos") +
+  theme_classic()
+
+gbr <- ggplot(df, aes(x = Ybfit, y = Ybres)) +
+  geom_point(shape = 19) +
+  geom_hline(yintercept = 0, color = "red", alpha = 0.5) +
+  labs(x = bquote("Y ajustado (" ~ hat(Y) ~")"), y = "Resíduos") +
+  theme_classic()
+
+gcr <- ggplot(df, aes(x = Ycfit, y = Ycres)) +
+  geom_point(shape = 19) +
+  geom_hline(yintercept = 0, color = "red", alpha = 0.5) +
+  labs(x = bquote("Y ajustado (" ~ hat(Y) ~")"), y = "Resíduos") +
+  theme_classic()
+
+gdr <- ggplot(df, aes(x = Ydfit, y = Ydres)) +
+  geom_point(shape = 19) +
+  geom_hline(yintercept = 0, color = "red", alpha = 0.5) +
+  labs(x = bquote("Y ajustado (" ~ hat(Y) ~")"), y = "Resíduos") +
+  theme_classic()
+
+
+(ga | gar) / (gb | gbr) / (gc | gcr) / (gd | gdr)
+
+```
+
+
+Nas primeiras duas figuras, em que a relação é linear, vemos um padrão crescente de $Y$ como função de $X$ (figura da esquerda), em que os pontos estão aleatóriamente acima e abaixo da reta de regressão. Este padrão se reflete em um gráfico de resíduos (figura da direita) em que os pontos ficam aleatóriamente acima e abaixo de zero expressando resíduos positivos e negativos respectivamente. Em uma situação em que os pontos estivessem **perfeitamente** sobre a reta, os resíduos seriam todos iguais a zero e o gráfico de resíduos mostraria todos os pontos alinhados horizontalmente em zero.
+
+Quando a relação é potência e tentamos ajustar uma reta sobre, vemos que inicialmente os resíduos sao positivos, o seja, estão acima da reta. Os resíduos se tornam negativos no centro da nuvem de pontos e novamente positivos ao final do gráfico. Este padrão é mais evidente no gráfico de resíduos, que mostra um componente **sistemático** dos resíduos como fução do valor ajustado. Ao usar uma regressão linear neste caso, iríamos subestimar **consistentemente** os valores de Y nos extremos da figura e superestimlá-los no trecho central.  Portanto, uma reta de regressão, quando ajustada a um conjunto de dados que expressa um padrão **não-linear**, não é capaz de isolar adequadamente as parcelas aleatórias e sistemáticas da relação entre $Y$ e $X$. Isto pode ser corrigido aplicando-se uma regressão **não-linear** aos dados.
+
+Quando a relação é assintótica, o resultado do ajuste foi inverso ao anterior. De fato, resultados análogos serão observados senpre que tentarmos ajustra uma regressão linear a dados que expressam padrões não-lineares.
+
+No último exemplo (variância heterogênea) os pontos tendem a se afastar consistentemente da reta de regressão conforme aumentam os valores de $X$. Isto denota que o pressuposto de variância $\sigma^2$ constante não é válido nesta relação. Isto pode ser corrigido aplicando-se um modelo de regressão linear com variância heterogênea.
+
+### Histograma dos resíduos
+
+Outro diagnóstico da regressão consiste em fazer um histograma dos gráficos de resíduos. Um histograma, aproximadamente simétrico ao redor de zero o que sugere que o pressuposto de normalidade dos resíduos é válido neste caso. Existem testes formais de normalidade cmo o teste de **Kolmogorov Smirnov** ou o teste de **Shapiro-Wilk**.
+
+```{r}
+#| echo: false
+set.seed(8)
+n = 30
+X <- seq(from = 0, to = 100, length = n)
+# Linear
+b0a <- 2
+b1a <- 4
+dpa <- 80
+Ya <- rnorm(n = n, mean = b0a + b1a*X, sd = dpa)
+mtest <- lm(Ya ~ X)
+dftest <- data.frame(X, Ya, Yfit = fitted(mtest), Yres = resid(mtest))
+
+ggplot(dftest, aes(x = Yres)) +
+  geom_histogram(aes(y = ..density..), binwidth = 30, color = 1, fill = "gray", alpha = 0.8) +
+  stat_function(fun = dnorm, args = list(mean = mean(dftest$Yres), sd = sd(dftest$Yres)), color = "red") +
+  theme_classic()
+
+
+```

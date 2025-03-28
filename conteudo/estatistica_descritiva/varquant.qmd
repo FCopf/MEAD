@@ -1,0 +1,270 @@
+---
+title: Descrevendo variáveis quantitativas
+description: "Descrição de variáveis quantitativas utilizando tabelas de frequência, histogramas e gráficos de frequência acumulada."
+categories: ["R", "Ciência de Dados", "Análise de Dados", "Estatística Descritiva", "Variáveis Quantitativas", "Distribuição de Frequência"]
+
+image: "images/varquanti.jpg"
+execute:
+  echo: true
+  warning: false
+  include: true
+  message: false
+format:
+  html:
+    code-fold: false
+---
+
+:::{.callout-tip collapse="true"}
+## Pacotes e funções utilizados
+
+```{r}
+#| output: false
+library(tidyverse)
+library(gt)
+```
+:::
+
+Variáveis quantitativas podem ser discretas ou contínuas. A descrição dos padrões de distribuição para esses tipos de variáveis é feita utilizando tabelas (frequência e frequência acumulada) e gráficos (histogramas ou gráficos de frequência acumulada).
+
+## Tabelas de frequência para variáveis quantitativas
+
+A construção de tabelas de frequências para variáveis quantitativas necessita que agrupemos as observações em *faixas de valores*. Veja as observações abaixo por exemplo:
+
+```{r}
+#| echo: false
+set.seed(1)
+X <- runif(n = 10, min = 0, max = 10) |> round(2)
+Classes <- cut(X, seq(0, 10, by = 2))
+```
+
+$X =$ \{`r paste(X, collapse = ', ')`\}
+
+Podemos agrupá-las nas seguintes faixas de valores:
+
+`r levels(Classes)`
+
+Estas faixas de valores são denominadas de **intervalos de classe**. Se alocadas nestes intervalos, as observações ficam:
+
+```{r}
+X <- c(2.66, 3.72, 5.73, 9.08, 2.02, 8.98, 9.45, 6.61, 6.29, 0.62)
+Classes <- cut(X, seq(0, 10, by = 2))
+
+df <- data.frame(X, Classes)
+
+df |> 
+  gt()
+```
+
+Uma tabela de frequência para estas observações é construída contando o número de observações por intervalo de classes. Neste caso:
+
+```{r}
+df |> 
+  group_by(Classes) |> 
+  summarise(Frequencia = n()) |> 
+  gt()
+```
+
+Na coluna `Frequencia`, temos o número de observações da variável `X` para cada um dos intervalos de classe.
+
+### Alterando o tamanho dos intervalos de classe
+
+No exemplo anterior, definimos os limites dos intervalos de classe de 2 em 2 unidades. Poderíamos ter escolhido outros tamanhos, por exemplo, de 4 em 4. Neste caso teríamos:
+
+```{r}
+Classes <- cut(X, seq(0, 12, by = 4))
+data.frame(X, Classes) |> 
+  group_by(Classes) |> 
+  summarise(Frequencia = n()) |> 
+  gt()
+```
+
+Note que ao escolhermos o tamanho dos intervalos de classe, estamos criando a variável qualitativa ordinal `Classes`, a partir do agrupamento das observações em `X`. Neste sentido, não há um único tamanho *correto* para os intervalos de classe. O objetivo é encontrar um tamanho que permita evidenciar os padrões de distribuição da variável sem perdermos muitos detalhes.
+
+Poderíamos escolher um tamanho muito grande, de 5 em 5. Neste caso, teríamos somente 2 grupos.
+
+```{r}
+Classes <- cut(X, seq(0, 10, by = 5))
+data.frame(X, Classes) |> 
+  group_by(Classes) |> 
+  summarise(Frequencia = n()) |> 
+  gt()
+```
+
+Por outro lado, poderíamos escolher um tamanho muito pequeno, por exemplo, de 1 em 1.
+
+```{r}
+Classes <- cut(X, seq(0, 10, by = 1))
+data.frame(X, Classes) |> 
+  group_by(Classes) |> 
+  summarise(Frequencia = n()) |> 
+  gt()
+```
+
+Nas duas situações, não é possível evidenciar os padrões de distribuição da variável `X`. Na primeira, perdemos muita informação agrupando as observações em somente duas faixas e, na última, perdemos a capacidade de visualizar os padrões de distribuição de `X`.
+
+### Tabela de frequência para a `CPUE`
+
+Importe a base de dados `Reservatorios_Parana_parcial.csv`.
+
+```{r}
+#| output: false
+res <- read_delim(
+  file = "https://github.com/FCopf/datasets/raw/refs/heads/master/Reservatorios_Parana_parcial.csv",
+  delim = ",",
+  locale = locale(decimal_mark = ".", encoding = "latin1")
+)
+```
+
+```{r}
+#| echo: false
+names_num <- names(which(sapply(res, is.numeric)))
+res_num <- res[, names_num]
+```
+
+No objeto `res`, temos `r length(names_num)` variáveis quantitativas: `r paste(names_num, collapse = ', ')`. Vamos verificar como fica uma tabela de frequências para a variável `CPUE`, que expressa a captura em $kg$ de peixes em cada reservatório. Inicialmente, vamos selecionar somente esta coluna da tabela e visualizá-la em ordem crescente.
+
+```{r}
+sort(res$CPUE)
+```
+
+Vemos que o menor valor é `r min(res$CPUE, na.rm = T)` $kg$ e o maior `r max(res$CPUE, na.rm = T)` $kg$. Assumindo que temos `r nrow(res)` observações, vamos criar um intervalo de classes de 5 em 5 unidades. Para isso, criaremos a variável `cl_cpue`, que será uma sequência de $0$ a $35$, com tamanho $5$. Os valores nesta sequência são os *limites de classe*.
+
+```{r}
+cl_cpue <- seq(from = 0, to = 35, by = 5)
+cl_cpue
+```
+
+Utilizaremos os limites de classe para gerar uma nova coluna, delimitando os intervalos a que cada observação pertence. Para isso, utilizaremos a função `cut`.
+
+```{r}
+tab_cpue <- res |> 
+  select(CPUE) |> 
+  mutate(int_cpue = cut(CPUE, breaks = cl_cpue))
+```
+
+E veremos a tabela em ordem crescente de classes para facilitar a identificação de padrões.
+
+```{r}
+tab_cpue |> 
+  arrange(CPUE) |> 
+  gt()
+```
+
+A nova tabela `tab_cpue` tem agora duas colunas: os valores numéricos de `CPUE` e os valores transformados em intervalos de classe, `int_cpue`. É com esta última que montaremos a tabela de frequência.
+
+```{r}
+fre_cpue <- tab_cpue |> 
+  group_by(int_cpue) |> 
+  summarise(Frequencia = n())
+
+fre_cpue |> 
+  gt()
+```
+
+E, em seguida, de frequência relativa:
+
+```{r}
+fre_cpue <- fre_cpue |> 
+  mutate(Freq_relativa = Frequencia / sum(Frequencia))
+
+fre_cpue |> 
+  gt()
+```
+
+Veja que os intervalos de (5,10] e (10,15] contêm o maior número de observações, cerca de 29\% cada um, e que acima de $25$ $kg$ temos somente duas observações.
+
+### Tabela de frequência acumulada
+
+Outra forma de representar o padrão de distribuição para uma variável quantitativa é apresentá-la em uma tabela de frequência acumulada. Fazemos isso somando de forma cumulativa as observações em cada classe de intervalo e criando duas colunas adicionais de frequência acumulada e de frequência relativa acumulada.
+
+```{r}
+fre_cpue <- fre_cpue |> 
+  mutate(F_acumulada = cumsum(Frequencia),
+         FR_acumulada = cumsum(Freq_relativa))
+
+fre_cpue |> 
+  gt()
+```
+
+Veja agora que a última linha da coluna de frequência acumulada é igual ao número de observações total e que a da frequência relativa acumulada é igual a 1.
+
+## Representação gráfica: histogramas
+
+Histogramas são representações das tabelas de frequência e de frequência relativa. Um histograma da coluna `CPUE` pode ser feito com o comando:
+
+```{r}
+ggplot(res, aes(x = CPUE)) +
+  geom_histogram()
+```
+
+Os intervalos de classe foram escolhidos automaticamente pela função `geom_histogram`. Se quisermos ter o controle sobre estes intervalos, podemos adicionar o argumento `breaks` e a sequência com os limites de classe que criamos anteriormente:
+
+```{r}
+ggplot(res, aes(x = CPUE)) +
+  geom_histogram(breaks = cl_cpue)
+```
+
+A formatação do histograma acima pode ser melhorada de diversas formas, por exemplo:
+
+```{r}
+ggplot(res, aes(x = CPUE, label = after_stat(count))) +
+  geom_histogram(breaks = cl_cpue, 
+                 fill = 'darkblue', color = 'white') +
+  labs(x = 'Captura em kg', y = 'Frequência') +
+  geom_text(stat = "bin", size = 6, vjust = 1.5, color = 'white',
+            breaks = cl_cpue) +
+  theme_classic()
+```
+
++ Modificamos a cor do preenchimento (`fill = 'darkblue'`), e identificamos as barras individualmente traçando uma linha branca entre elas (`color = 'white'`);
++ Reescrevemos o rótulo dos eixos $x$ e $y$ (`labs()`);
++ Identificamos as frequências em cada barra individualmente com o argumento `label = after_stat(count)` e a função `geom_text`;
++ Modificamos o **tema** do gráfico para obter uma alteração geral na aparência da figura. Existem diversos outros temas possíveis que podem ser vistos [aqui](https://ggplot2.tidyverse.org/reference/ggtheme.html).
+
+Um histograma com a frequência relativa pode ser obtido com:
+
+```{r}
+ggplot(res, aes(x = CPUE,
+                y = after_stat(count)/sum(after_stat(count)),
+                label = round(after_stat(count)/sum(after_stat(count)), 2))) +
+  geom_histogram(breaks = cl_cpue, 
+                 fill = 'darkblue', color = 'white') +
+  labs(x = 'Captura em kg', y = 'Frequência relativa') +
+  geom_text(stat = "bin", size = 6, vjust = 1.5, color = 'white',
+            breaks = cl_cpue) +
+  theme_classic()
+```
+
+Aqui fizemos duas mudanças:
++ Inserimos o argumento `y = after_stat(count)/sum(after_stat(count))` para dizer que as barras em $y$ devem mostrar a contagem do número de observações em cada intervalo dividido pelo total;
++ Modificamos o argumento `label = round(after_stat(count)/sum(after_stat(count)), 2)` de modo que também mostre a frequência relativa, utilizando a função `round`.
+
+### Representando frequências acumuladas
+
+A única modificação neste caso será identificarmos o eixo $y$ por sua contagem acumulada: `y = cumsum(after_stat(count))`.
+
+```{r}
+ggplot(res, aes(x = CPUE,
+                y = cumsum(after_stat(count)),
+                label = round(cumsum(after_stat(count)), 2))) +
+  geom_histogram(breaks = cl_cpue, 
+                 fill = 'darkblue', color = 'white') +
+  labs(x = 'Captura em kg', y = 'Frequência acumulada') +
+  geom_text(stat = "bin", size = 6, vjust = 1.5, color = 'white',
+            breaks = cl_cpue) +
+  theme_classic()
+```
+
+Para fazer o mesmo mostrando as frequências relativas, fazemos:
+
+```{r}
+ggplot(res, aes(x = CPUE,
+                y = cumsum(after_stat(count)/sum(after_stat(count))),
+                label = round(cumsum(after_stat(count)/sum(after_stat(count))), 2))) +
+  geom_histogram(breaks = cl_cpue, 
+                 fill = 'darkblue', color = 'white') +
+  labs(x = 'Captura em kg', y = 'Frequência acumulada relativa') +
+  geom_text(stat = "bin", size = 6, vjust = 1.5, color = 'white',
+            breaks = cl_cpue) +
+  theme_classic()
+```

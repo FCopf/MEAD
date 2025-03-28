@@ -1,0 +1,344 @@
+---
+title: Descrevendo variáveis qualitativas
+description: "Exploração de variáveis qualitativas, incluindo categóricas ordenadas e não ordenadas, tabelas de frequência e representações gráficas com gráficos de barras."
+categories: ["R", "Análise de Dados", "Estatística Descritiva", "Variáveis Qualitativas", "Visualização de Dados"]
+
+image: "images/varquali.jpg"
+execute:
+  echo: true
+  warning: false
+  include: true
+  message: false
+format:
+  html:
+    code-fold: false
+---
+
+:::{.callout-tip collapse="true"}
+## Pacotes e funções utilizados
+
+```{r}
+#| output: false
+library(tidyverse)
+library(gt)
+```
+:::
+
+Variáveis qualitativas podem ser categóricas não ordenadas ou categóricas ordenadas. A descrição de variáveis desta natureza se dá por meio da contagem e da representação dos níveis destas variáveis por meio da contagem total, pelos valores relativos ou percentuais.
+
+Importe a base de dados `Reservatorios_Parana_parcial.csv`.
+
+```{r}
+#| output: false
+res <- read_delim(
+  file = "https://github.com/FCopf/datasets/raw/refs/heads/master/Reservatorios_Parana_parcial.csv",
+  delim = ",",
+  locale = locale(decimal_mark = ".", encoding = "latin1")
+)
+```
+
+Na tabela, temos 3 variáveis categóricas: `Reservatorio`, `Bacia` e `Trofia`. A primeira identifica cada reservatório pelo seu nome. A segunda é uma variável categórica não ordenada (nível de mensuração nominal) e a terceira uma variável categórica ordenada (nível de mensuração ordinal).
+
+## Representação em tabelas de frequência
+
+Se uma variável é descrita no nível de mensuração nominal, como é o caso de `Bacia`, podemos obter a frequência com que cada um dos níveis aparece na variável. Essa contagem pode ser obtida por meio de uma *tabela de frequências*.
+
+```{r}
+fbacia <- res |> 
+  group_by(Bacia) |> 
+  summarise(Frequencia = n())
+
+fbacia |> 
+  gt()
+```
+
+O resultado mostra que existem `r as.numeric(fbacia[1,2])` reservatórios na tabela pertencentes à bacia do rio `r as.character(fbacia[1,1])`, `r as.numeric(fbacia[2,2])` à bacia do rio `r as.character(fbacia[2,1])` e assim por diante. Confira estas contagens na base de dados.
+
+As linhas da tabela estão organizadas em ordem alfabética. Para facilitar a visualização, podemos ordená-las de modo decrescente como função do número de reservatórios por bacia.
+
+```{r}
+fbacia <- fbacia |> 
+  arrange(desc(Frequencia))
+
+fbacia |> 
+  gt()
+```
+
+Podemos olhar também para a **frequência relativa** do número de reservatórios por bacia.
+
+```{r}
+fbacia_rel <- fbacia |> 
+  mutate(Freq_relativa = Frequencia / sum(Frequencia))
+
+fbacia_rel |> 
+  gt()
+```
+
+A característica da frequência relativa é que o somatório da coluna deve ser igual a 1, enquanto a frequência numérica tem o somatório igual ao número de linhas na tabela.
+
+```{r}
+fbacia_rel |> 
+  summarise_if(is.numeric, sum) |> 
+  gt()
+```
+
+## Tabelas de frequência para variáveis categóricas ordenadas
+
+A característica da variável `Trofia` difere da anterior unicamente por ser uma variável categórica ordenada que, no caso, expressa o grau de eutrofização dos reservatórios. Neste sentido, a única mudança na representação da variável se deve ao fato de que existe uma sequência natural para representar os níveis. Podemos indicar que uma determinada variável é categórica ordenada fazendo uma pequena alteração na base de dados.
+
+Se montarmos uma tabela de frequência da variável `Trofia`, teremos as linhas organizadas em ordem alfabética:
+
+```{r}
+ftrofia <- res |> 
+  group_by(Trofia) |> 
+  summarise(Frequencia = n())
+
+ftrofia |> 
+  gt()
+```
+
+Se desejarmos que as colunas apareçam como função do nível de eutrofização, devemos primeiro transformar a variável `Trofia` em um **fator ordenado**, que é o modo como o R interpreta uma **variável categórica ordenada**.
+
+Inicialmente, use o comando abaixo para verificar que o R entende a variável `Trofia` como um *character* (`<chr>`).
+
+```{r}
+glimpse(res)
+```
+
+Iremos transformar esta variável para que o R a interprete como uma variável categórica ordenada.
+
+```{r}
+res <- res |> 
+  mutate(Trofia = factor(Trofia, ordered = TRUE, 
+                         levels = c("Oligotrófico", 
+                                    "Mesotrófico", 
+                                    "Eutrófico")))
+```
+
+Após aplicarmos este comando, vemos que agora o R reconhece esta variável como do tipo `<ord>`:
+
+```{r}
+glimpse(res)
+```
+
+E se fizermos:
+
+```{r}
+res$Trofia
+```
+
+Temos agora a indicação de que há uma ordenação sequencial nos níveis de trofia em que `Oligotrófico < Mesotrófico < Eutrófico`.
+
+A partir de agora, se extrairmos uma tabela de frequência relativa, as linhas serão apresentadas na ordem pré-definida.
+
+```{r}
+ftrofia <- res |> 
+  group_by(Trofia) |> 
+  summarise(Frequencia = n())
+
+ftrofia |> 
+  gt()
+```
+
+Na tabela acima, a última linha aparece vazia, pois há casos sem informação, isto é, com dados faltantes que são representados por `NA`. Caso você não queira representar os dados faltantes, é possível utilizar a função `drop_na()` para excluir estas linhas.
+
+```{r}
+ftrofia <- res |> 
+  drop_na(Trofia) |> 
+  group_by(Trofia) |> 
+  summarise(Frequencia = n())
+
+ftrofia |> 
+  gt()
+```
+
+Podemos adicionar uma coluna de frequência relativa como fizemos anteriormente.
+
+```{r}
+ftrofia_rel <- ftrofia |> 
+  mutate(Freq_relativa = Frequencia / sum(Frequencia))
+
+ftrofia_rel |> 
+  gt()
+```
+
+## Representação gráfica
+
+Variáveis categóricas não ordenadas ou ordenadas podem ser representadas por **gráficos de barras**.
+
+:::{.callout-note}
+
+## O pacote `ggplot2`
+
+Utilizaremos o pacote `ggplot2` para representar graficamente as variáveis. O `ggplot2` é instalado e habilitado juntamente com o `tidyverse`, de modo que neste momento você já o tem habilitado em sua sessão do R. 
+
+Para uma rápida explicação do `ggplot2`, veja [aqui](https://fcopf.github.io/probest-introR/ggplot2.html){target="_blank"}. Para uma explicação detalhada, veja o site oficial ([ggplot2](https://ggplot2.tidyverse.org/)){target="_blank"} e o livro [ggplot2: Elegant Graphics for Data Analysis](https://ggplot2-book.org/){target="_blank"}.
+
+:::
+
+### Criando um gráfico no `ggplot2`
+
+Um gráfico no `ggplot2` é feito em camadas que devem ter minimamente:
+
+1. A definição da tabela de dados;
+1. A estética gráfica indicando quais variáveis serão representadas e suas posições no gráfico;
+1. O formato da representação por meio de geometrias gráficas (ex. gráficos de pontos, linhas, barras, etc.).
+
+Esta abordagem permite que tenhamos um método consistente para construir diferentes tipos de gráficos. 
+
+**Gráfico de frequência**
+
+Um gráfico de barras da variável `Bacia` ficaria:
+
+```{r}
+ggplot(data = res) + # define tabela de dados
+  aes(x = Bacia) +   # define a estética gráfica
+  geom_bar()         # define a geometria gráfica
+```
+
+Vamos entender o comando:
+
++ `ggplot(res)`: define a tabela de dados que será utilizada.
+
++ `aes(x = Bacia)`: define que o eixo x deste gráfico deverá conter os níveis da variável `Bacia`.
+
++ `geom_bar()`: define o tipo gráfico, que no `ggplot2` é denominado de *geometria gráfica*.
+
+Estes argumentos devem ser inseridos sequencialmente separados pelo símbolo `+`.
+
+O argumento `geom_bar()` espera como argumento uma variável qualitativa em um dos eixos. Por padrão, a função fará a contagem dos níveis dentro da variável e representará no eixo y.
+
+Poderíamos ter feito o mesmo gráfico de barras indicando que a variável `Bacia` seria representada no eixo y, o que resultaria em um gráfico de barras invertido conforme abaixo:
+
+```{r}
+ggplot(data = res) +
+  aes(y = Bacia) +
+  geom_bar()
+```
+
+A estética gráfica (`aes()`) não precisa estar em uma linha separada. Também não é obrigatório escrevermos `data = res`. De fato, é mais comum escrevermos esta sequência de argumentos como:
+
+```{r}
+ggplot(res, mapping = aes(x = Bacia)) +
+  geom_bar()
+```
+
+ou simplesmente:
+
+```{r}
+ggplot(res, aes(x = Bacia)) +
+  geom_bar()
+```
+
+o que irá gerar os mesmos resultados.
+
+Finalmente, poderíamos organizar as barras em ordem decrescente como fizemos com as tabelas de frequência, utilizando a função `fct_infreq()`:
+
+```{r}
+ggplot(res, aes(x = fct_infreq(Bacia))) +
+  geom_bar()
+```
+
+ou em ordem crescente, revertendo o comando anterior com a função `fct_rev()`.
+
+```{r}
+ggplot(res, aes(x = fct_rev(fct_infreq(Bacia)))) +
+  geom_bar()
+```
+
+**Formatando a figura**
+
+Para tornar a figura mais autoexplicativa, podemos adicionar camadas identificando os eixos e fornecendo título, subtítulo e outras informações:
+
+```{r}
+ggplot(res, aes(x = Bacia)) +
+  geom_bar() +
+  labs(
+    title = "Reservatórios do Estado do Paraná",
+    subtitle = "Reservatórios por bacia hidrográfica",
+    caption = "Dados obtidos do livro: Biocenoses em Reservatórios",
+    x = "Bacia hidrográfica",
+    y = "Frequência"
+  )
+```
+
+**Gráfico de frequência relativa**
+
+Utilizando o `ggplot2`, é simples construir um gráfico de frequência relativa.
+
+```{r}
+ggplot(res, aes(x = Bacia, y = after_stat(prop), group = 1)) +
+  geom_bar()
+```
+
+Veja que para isso transformamos as contagens em proporções. Se quisermos transformar em percentuais, então:
+
+```{r}
+ggplot(res, aes(x = Bacia, y = after_stat(prop), group = 1)) +
+  geom_bar() +
+  scale_y_continuous(labels = scales::percent)
+```
+
+___
+
+**Outras opções para construir um gráfico de barras**
+
+As figuras que acabamos de fazer apresentam, de modo gráfico, as mesmas informações das tabelas de frequência vistas no início do capítulo sem que fosse necessário construir a tabela de frequência, pois o comando `geom_bar()` já realiza esta contagem.
+
+Entretanto, caso já tivéssemos a tabela de frequência, também poderíamos utilizá-la diretamente. No início do capítulo, construímos a tabela `fbacia_rel`, onde tínhamos `r ncol(fbacia_rel)` colunas: `r paste(names(fbacia_rel), collapse = ", ")`.
+
+Podemos construir gráficos de barras das tabelas `Frequencia` ou `Freq_relativa` da seguinte forma:
+
+```{r}
+ggplot(fbacia_rel, aes(x = Bacia, y = Frequencia)) +
+  geom_bar(stat = "identity")
+```
+
+e 
+
+```{r}
+ggplot(fbacia_rel, aes(x = Bacia, y = Freq_relativa)) +
+  geom_bar(stat = "identity")
+```
+
+Para utilizar diretamente uma tabela de frequências, devemos oferecer a variável do eixo x, do eixo y e, no comando `geom_bar()`, adicionar o argumento `stat = "identity"`. Feito isso, o comando utiliza diretamente os números disponíveis em cada linha da coluna `Frequencia`.
+
+___
+
+**Gráfico de frequência para variáveis categóricas ordenadas**
+
+Para variáveis categóricas ordenadas, valem os mesmos comandos apresentados acima. Usamos a função `geom_bar()` para construir os gráficos de barras. A diferença é que, antes da construção, é necessário que a variável em questão tenha sido transformada para um **fator ordenado**.
+
+Lembrando o que fizemos no início do capítulo, esta transformação pode ser feita para a variável `Trofia` com os comandos:
+
+```{r}
+res <- res |> 
+  mutate(Trofia = factor(Trofia, ordered = TRUE, 
+                         levels = c("Oligotrófico", 
+                                    "Mesotrófico", 
+                                    "Eutrófico")))
+```
+
+Feito isso, o comando `geom_bar()` vai organizar os níveis de acordo com a sequência definida:
+
+```{r}
+ggplot(res, aes(x = Trofia)) +
+  geom_bar()
+```
+
+E caso seja necessário retirar reservatórios com dados faltantes em `Trofia`, podemos fazer:
+
+```{r}
+res |> 
+  drop_na(Trofia) |> 
+  ggplot(aes(x = Trofia)) +
+  geom_bar()
+```
+
+:::{.callout-note}
+
+## Pré-processamento do data-frame para o `ggplot2`
+
+No comando acima, a tabela de dados não foi inserida dentro do comando `ggplot()`. Ela foi inicialmente processada para remoção de `NA`s com a função `drop_na()` e o operador ` |> ` foi utilizado para inserir o resultado do processamento no `ggplot()`. Esta é outra maneira de combinar capacidade de processamento de dados no R com a representação gráfica do pacote `ggplot2`.
+
+:::

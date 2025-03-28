@@ -1,0 +1,24 @@
+---
+title: "Medidas de associação"
+description: "Associações entre diferentes tipos de variáveis."
+categories: ["Estatística", "Análise de Dados", "Visualização de Dados", "Medidas de associação"]
+
+image: "images/medidas_associacao.jpg"
+listing:
+  contents: 
+    - conteudo/medidas_associacao/biquali.qmd
+    - conteudo/medidas_associacao/biquanti.qmd
+    - conteudo/medidas_associacao/biquantquali.qmd
+    # - conteudo/medidas_associacao/series.qmd
+  sort: false
+  type: default
+  fields: 
+    - image
+    - title
+    - description
+    - categories  
+format:
+  html:
+    toc: true
+    number-sections: true
+---
