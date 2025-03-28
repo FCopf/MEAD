@@ -1,0 +1,102 @@
+[
+  {
+    "listing": "/estatistica_descritiva.html",
+    "items": [
+      "/conteudo/estatistica_descritiva/varqualit.html",
+      "/conteudo/estatistica_descritiva/varquant.html",
+      "/conteudo/estatistica_descritiva/tendcentral.html",
+      "/conteudo/estatistica_descritiva/variacao.html",
+      "/conteudo/estatistica_descritiva/quartis.html",
+      "/conteudo/estatistica_descritiva/escorez.html"
+    ]
+  },
+  {
+    "listing": "/introducao_r.html",
+    "items": [
+      "/conteudo/introducao_r/estrutura-linguagem.html",
+      "/conteudo/introducao_r/data-frames.html",
+      "/conteudo/introducao_r/graficos-r.html"
+    ]
+  },
+  {
+    "listing": "/inferencia_estatistica.html",
+    "items": [
+      "/conteudo/inferencia_estatistica/distr_norm.html",
+      "/conteudo/inferencia_estatistica/teorema_central_limite.html",
+      "/conteudo/inferencia_estatistica/int_conf.html"
+    ]
+  },
+  {
+    "listing": "/teste_hipoteses.html",
+    "items": [
+      "/conteudo/teste_hipoteses/intro_testehipot.html",
+      "/conteudo/teste_hipoteses/teste_variancia.html",
+      "/conteudo/teste_hipoteses/teste_t.html"
+    ]
+  },
+  {
+    "listing": "/modelos_probabilisticos.html",
+    "items": [
+      "/conteudo/metodos_probabilisticos/intro-bayes.html"
+    ]
+  },
+  {
+    "listing": "/medidas_associacao.html",
+    "items": [
+      "/conteudo/medidas_associacao/biquali.html",
+      "/conteudo/medidas_associacao/biquanti.html",
+      "/conteudo/medidas_associacao/biquantquali.html"
+    ]
+  },
+  {
+    "listing": "/anova.html",
+    "items": [
+      "/conteudo/anova/anova_simples.html"
+    ]
+  },
+  {
+    "listing": "/estrutura_dados.html",
+    "items": [
+      "/conteudo/estrutura_dados/estrutura_tipo.html"
+    ]
+  },
+  {
+    "listing": "/ciencia_dados.html",
+    "items": [
+      "/conteudo/ciencia_dados/tidyverse.html",
+      "/conteudo/ciencia_dados/import_export.html",
+      "/conteudo/ciencia_dados/pipe.html",
+      "/conteudo/ciencia_dados/transform.html",
+      "/conteudo/ciencia_dados/grafico_ggplot2.html"
+    ]
+  },
+  {
+    "listing": "/amostragem.html",
+    "items": [
+      "/conteudo/amostragem/pop_amostra.html",
+      "/conteudo/amostragem/tipos_amostragem.html"
+    ]
+  },
+  {
+    "listing": "/regressao_linear.html",
+    "items": [
+      "/conteudo/regressao_linear/regressao_linear_simples.html",
+      "/conteudo/regressao_linear/regressao_linear_multipla.html"
+    ]
+  },
+  {
+    "listing": "/index.html",
+    "items": [
+      "/introducao_r.html",
+      "/ciencia_dados.html",
+      "/estrutura_dados.html",
+      "/estatistica_descritiva.html",
+      "/medidas_associacao.html",
+      "/amostragem.html",
+      "/inferencia_estatistica.html",
+      "/teste_hipoteses.html",
+      "/anova.html",
+      "/regressao_linear.html"
+    ]
+  }
+]

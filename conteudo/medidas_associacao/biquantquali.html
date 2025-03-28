@@ -1,0 +1,2090 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.56">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="description" content="Relação entre variáveis categóricas e contínuas, partição da soma dos quadrados, coeficiente de determinação">
+
+<title>Associação entre variáveis quantitativas e qualitativas – Métodos em Estatística e Análise de Dados</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../../styles/custom.css">
+<meta property="og:title" content="Associação entre variáveis quantitativas e qualitativas – Métodos em Estatística e Análise de Dados">
+<meta property="og:description" content="Relação entre variáveis categóricas e contínuas, partição da soma dos quadrados, coeficiente de determinação">
+<meta property="og:image" content="https://github.com/FCopf/MEAD/conteudo/medidas_associacao/images/biquantquali.jpg">
+<meta property="og:site_name" content="Métodos em Estatística e Análise de Dados">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../../images/logo.png" alt="" class="navbar-logo">
+    </a>
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Métodos em Estatística e Análise de Dados</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="https://github.com/FCopf/MEAD"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text">GitHub</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Nesta página</h2>
+   
+  <ul>
+  <li><a href="#visualizando-a-distribuição-de-y-em-diferentes-grupos" id="toc-visualizando-a-distribuição-de-y-em-diferentes-grupos" class="nav-link active" data-scroll-target="#visualizando-a-distribuição-de-y-em-diferentes-grupos"><span class="header-section-number">1</span> Visualizando a distribuição de <span class="math inline">\(Y\)</span> em diferentes grupos</a>
+  <ul class="collapse">
+  <li><a href="#boxplots-para-os-níveis-do-tratamento" id="toc-boxplots-para-os-níveis-do-tratamento" class="nav-link" data-scroll-target="#boxplots-para-os-níveis-do-tratamento"><span class="header-section-number">1.1</span> Boxplots para os níveis do tratamento</a></li>
+  <li><a href="#o-gráfico-de-erros" id="toc-o-gráfico-de-erros" class="nav-link" data-scroll-target="#o-gráfico-de-erros"><span class="header-section-number">1.2</span> O gráfico de erros</a></li>
+  </ul></li>
+  <li><a href="#partição-das-soma-dos-quadrados" id="toc-partição-das-soma-dos-quadrados" class="nav-link" data-scroll-target="#partição-das-soma-dos-quadrados"><span class="header-section-number">2</span> Partição das Soma dos Quadrados</a></li>
+  <li><a href="#medindo-a-associação-entre-y-e-x" id="toc-medindo-a-associação-entre-y-e-x" class="nav-link" data-scroll-target="#medindo-a-associação-entre-y-e-x"><span class="header-section-number">3</span> Medindo a associação entre <span class="math inline">\(Y\)</span> e <span class="math inline">\(X\)</span></a>
+  <ul class="collapse">
+  <li><a href="#o-coeficiente-de-determinação-r2" id="toc-o-coeficiente-de-determinação-r2" class="nav-link" data-scroll-target="#o-coeficiente-de-determinação-r2"><span class="header-section-number">3.1</span> O coeficiente de determinação (<span class="math inline">\(R^2\)</span>)</a></li>
+  </ul></li>
+  <li><a href="#partição-das-soma-dos-quadrados-no-ambiente-r" id="toc-partição-das-soma-dos-quadrados-no-ambiente-r" class="nav-link" data-scroll-target="#partição-das-soma-dos-quadrados-no-ambiente-r"><span class="header-section-number">4</span> Partição das Soma dos Quadrados no ambiente R</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Associação entre variáveis quantitativas e qualitativas</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">Estatística</div>
+    <div class="quarto-category">ANOVA</div>
+    <div class="quarto-category">Análise Quantitativa</div>
+    <div class="quarto-category">Análise Qualitativa</div>
+  </div>
+  </div>
+
+<div>
+  <div class="description">
+    Relação entre variáveis categóricas e contínuas, partição da soma dos quadrados, coeficiente de determinação
+  </div>
+</div>
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Pacotes e funções utilizadas no capítulo
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gt)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gridExtra)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">'scripts/anova_sim.r'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+<p>Neste capítulo vamos descrever a associação entre uma variável <span class="math inline">\(Y\)</span> contínua e uma variável <span class="math inline">\(X\)</span> categórica denominadas respectivamente de variável <strong>dependente</strong> (ou <strong>resposta</strong>) e variável <strong>independente</strong> (ou <strong>preditora</strong>)</p>
+<p>Assumimos <em>explicitamente</em> que <span class="math inline">\(Y\)</span> é função (depende) de <span class="math inline">\(X\)</span> e não o contrário. O nome variável preditora vem do fato que, se <span class="math inline">\(Y\)</span> e <span class="math inline">\(X\)</span> estão associadas, ao conhecemos <span class="math inline">\(X\)</span> somos capazer de <em>predizer</em> a resposta média em <span class="math inline">\(Y\)</span>.</p>
+<section id="visualizando-a-distribuição-de-y-em-diferentes-grupos" class="level2" data-number="1">
+<h2 data-number="1" class="anchored" data-anchor-id="visualizando-a-distribuição-de-y-em-diferentes-grupos"><span class="header-section-number">1</span> Visualizando a distribuição de <span class="math inline">\(Y\)</span> em diferentes grupos</h2>
+<p>Importe a base de dados <code>medley.csv</code> (disponível também em <a href="https://users.monash.edu.au/~murray/BDAR/" target="_blank">Chapter 10 - Single factor classification (ANOVA)</a>) que avalia o impacto da presença de metais pesados na diversidade de espécies de diatomácias em riachos (<span class="citation" data-cites="medleyclements1998">Medley and Clements (<a href="#ref-medleyclements1998" role="doc-biblioref">1998</a>)</span>; <span class="citation" data-cites="queen2002experimental">Queen, Quinn, and Keough (<a href="#ref-queen2002experimental" role="doc-biblioref">2002</a>)</span>; <span class="citation" data-cites="logan2011biostatistical">Logan (<a href="#ref-logan2011biostatistical" role="doc-biblioref">2011</a>)</span>).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>medley <span class="ot">=</span> <span class="fu">read_csv</span>(<span class="st">"https://raw.githubusercontent.com/FCopf/datasets/refs/heads/main/medley.csv"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">STREAM =</span> <span class="fu">factor</span>(STREAM),</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">ZINC =</span> <span class="fu">factor</span>(ZINC, <span class="at">ordered =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>                       <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"BACK"</span>, <span class="st">"LOW"</span>, <span class="st">"MED"</span>, <span class="st">"HIGH"</span>)))</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>var_medley <span class="ot">=</span> <span class="fu">colnames</span>(medley)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>stream_levels <span class="ot">=</span> <span class="fu">levels</span>(medley<span class="sc">$</span>STREAM)</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>n_stream <span class="ot">=</span> <span class="fu">nlevels</span>(medley<span class="sc">$</span>STREAM)</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>zinc_levels <span class="ot">=</span> <span class="fu">levels</span>(medley<span class="sc">$</span>ZINC)</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>n_zinc <span class="ot">=</span> <span class="fu">nlevels</span>(medley<span class="sc">$</span>ZINC)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>medley <span class="sc">|&gt;</span> <span class="fu">gt</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="pbsfyfdbcw" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#pbsfyfdbcw table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#pbsfyfdbcw thead, #pbsfyfdbcw tbody, #pbsfyfdbcw tfoot, #pbsfyfdbcw tr, #pbsfyfdbcw td, #pbsfyfdbcw th {
+  border-style: none;
+}
+
+#pbsfyfdbcw p {
+  margin: 0;
+  padding: 0;
+}
+
+#pbsfyfdbcw .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#pbsfyfdbcw .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#pbsfyfdbcw .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#pbsfyfdbcw .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#pbsfyfdbcw .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#pbsfyfdbcw .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#pbsfyfdbcw .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#pbsfyfdbcw .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#pbsfyfdbcw .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#pbsfyfdbcw .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#pbsfyfdbcw .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#pbsfyfdbcw .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#pbsfyfdbcw .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#pbsfyfdbcw .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#pbsfyfdbcw .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#pbsfyfdbcw .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#pbsfyfdbcw .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#pbsfyfdbcw .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#pbsfyfdbcw .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#pbsfyfdbcw .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#pbsfyfdbcw .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#pbsfyfdbcw .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#pbsfyfdbcw .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#pbsfyfdbcw .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#pbsfyfdbcw .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#pbsfyfdbcw .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#pbsfyfdbcw .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#pbsfyfdbcw .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#pbsfyfdbcw .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#pbsfyfdbcw .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#pbsfyfdbcw .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#pbsfyfdbcw .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#pbsfyfdbcw .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#pbsfyfdbcw .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#pbsfyfdbcw .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#pbsfyfdbcw .gt_left {
+  text-align: left;
+}
+
+#pbsfyfdbcw .gt_center {
+  text-align: center;
+}
+
+#pbsfyfdbcw .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#pbsfyfdbcw .gt_font_normal {
+  font-weight: normal;
+}
+
+#pbsfyfdbcw .gt_font_bold {
+  font-weight: bold;
+}
+
+#pbsfyfdbcw .gt_font_italic {
+  font-style: italic;
+}
+
+#pbsfyfdbcw .gt_super {
+  font-size: 65%;
+}
+
+#pbsfyfdbcw .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#pbsfyfdbcw .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#pbsfyfdbcw .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#pbsfyfdbcw .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#pbsfyfdbcw .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#pbsfyfdbcw .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#pbsfyfdbcw .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#pbsfyfdbcw .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#pbsfyfdbcw div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+
+<table class="gt_table caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<thead>
+<tr class="header gt_col_headings">
+<th id="STREAM" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">STREAM</th>
+<th id="ZINC" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">ZINC</th>
+<th id="DIVERSITY" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">DIVERSITY</th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<td class="gt_row gt_center" headers="STREAM">Eagle</td>
+<td class="gt_row gt_center" headers="ZINC">BACK</td>
+<td class="gt_row gt_right" headers="DIVERSITY">2.27</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="STREAM">Eagle</td>
+<td class="gt_row gt_center" headers="ZINC">HIGH</td>
+<td class="gt_row gt_right" headers="DIVERSITY">1.25</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_center" headers="STREAM">Eagle</td>
+<td class="gt_row gt_center" headers="ZINC">HIGH</td>
+<td class="gt_row gt_right" headers="DIVERSITY">1.15</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="STREAM">Eagle</td>
+<td class="gt_row gt_center" headers="ZINC">MED</td>
+<td class="gt_row gt_right" headers="DIVERSITY">1.62</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_center" headers="STREAM">Blue</td>
+<td class="gt_row gt_center" headers="ZINC">BACK</td>
+<td class="gt_row gt_right" headers="DIVERSITY">1.70</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="STREAM">Blue</td>
+<td class="gt_row gt_center" headers="ZINC">HIGH</td>
+<td class="gt_row gt_right" headers="DIVERSITY">0.63</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_center" headers="STREAM">Blue</td>
+<td class="gt_row gt_center" headers="ZINC">BACK</td>
+<td class="gt_row gt_right" headers="DIVERSITY">2.05</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="STREAM">Blue</td>
+<td class="gt_row gt_center" headers="ZINC">BACK</td>
+<td class="gt_row gt_right" headers="DIVERSITY">1.98</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_center" headers="STREAM">Blue</td>
+<td class="gt_row gt_center" headers="ZINC">HIGH</td>
+<td class="gt_row gt_right" headers="DIVERSITY">1.04</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="STREAM">Blue</td>
+<td class="gt_row gt_center" headers="ZINC">MED</td>
+<td class="gt_row gt_right" headers="DIVERSITY">2.19</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_center" headers="STREAM">Blue</td>
+<td class="gt_row gt_center" headers="ZINC">MED</td>
+<td class="gt_row gt_right" headers="DIVERSITY">2.10</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="STREAM">Snake</td>
+<td class="gt_row gt_center" headers="ZINC">BACK</td>
+<td class="gt_row gt_right" headers="DIVERSITY">2.20</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_center" headers="STREAM">Snake</td>
+<td class="gt_row gt_center" headers="ZINC">MED</td>
+<td class="gt_row gt_right" headers="DIVERSITY">2.06</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="STREAM">Snake</td>
+<td class="gt_row gt_center" headers="ZINC">HIGH</td>
+<td class="gt_row gt_right" headers="DIVERSITY">1.90</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_center" headers="STREAM">Snake</td>
+<td class="gt_row gt_center" headers="ZINC">HIGH</td>
+<td class="gt_row gt_right" headers="DIVERSITY">1.88</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="STREAM">Snake</td>
+<td class="gt_row gt_center" headers="ZINC">HIGH</td>
+<td class="gt_row gt_right" headers="DIVERSITY">0.85</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_center" headers="STREAM">Arkan</td>
+<td class="gt_row gt_center" headers="ZINC">LOW</td>
+<td class="gt_row gt_right" headers="DIVERSITY">1.40</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="STREAM">Arkan</td>
+<td class="gt_row gt_center" headers="ZINC">LOW</td>
+<td class="gt_row gt_right" headers="DIVERSITY">2.18</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_center" headers="STREAM">Arkan</td>
+<td class="gt_row gt_center" headers="ZINC">LOW</td>
+<td class="gt_row gt_right" headers="DIVERSITY">1.83</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="STREAM">Arkan</td>
+<td class="gt_row gt_center" headers="ZINC">LOW</td>
+<td class="gt_row gt_right" headers="DIVERSITY">1.88</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_center" headers="STREAM">Arkan</td>
+<td class="gt_row gt_center" headers="ZINC">MED</td>
+<td class="gt_row gt_right" headers="DIVERSITY">2.02</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="STREAM">Arkan</td>
+<td class="gt_row gt_center" headers="ZINC">MED</td>
+<td class="gt_row gt_right" headers="DIVERSITY">1.94</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_center" headers="STREAM">Arkan</td>
+<td class="gt_row gt_center" headers="ZINC">LOW</td>
+<td class="gt_row gt_right" headers="DIVERSITY">2.10</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="STREAM">Chalk</td>
+<td class="gt_row gt_center" headers="ZINC">LOW</td>
+<td class="gt_row gt_right" headers="DIVERSITY">2.38</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_center" headers="STREAM">Chalk</td>
+<td class="gt_row gt_center" headers="ZINC">HIGH</td>
+<td class="gt_row gt_right" headers="DIVERSITY">1.43</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="STREAM">Chalk</td>
+<td class="gt_row gt_center" headers="ZINC">HIGH</td>
+<td class="gt_row gt_right" headers="DIVERSITY">1.37</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_center" headers="STREAM">Chalk</td>
+<td class="gt_row gt_center" headers="ZINC">MED</td>
+<td class="gt_row gt_right" headers="DIVERSITY">1.75</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="STREAM">Chalk</td>
+<td class="gt_row gt_center" headers="ZINC">LOW</td>
+<td class="gt_row gt_right" headers="DIVERSITY">2.83</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_center" headers="STREAM">Splat</td>
+<td class="gt_row gt_center" headers="ZINC">BACK</td>
+<td class="gt_row gt_right" headers="DIVERSITY">1.53</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="STREAM">Splat</td>
+<td class="gt_row gt_center" headers="ZINC">BACK</td>
+<td class="gt_row gt_right" headers="DIVERSITY">0.76</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_center" headers="STREAM">Splat</td>
+<td class="gt_row gt_center" headers="ZINC">MED</td>
+<td class="gt_row gt_right" headers="DIVERSITY">0.80</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="STREAM">Splat</td>
+<td class="gt_row gt_center" headers="ZINC">LOW</td>
+<td class="gt_row gt_right" headers="DIVERSITY">1.66</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_center" headers="STREAM">Splat</td>
+<td class="gt_row gt_center" headers="ZINC">MED</td>
+<td class="gt_row gt_right" headers="DIVERSITY">0.98</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="STREAM">Splat</td>
+<td class="gt_row gt_center" headers="ZINC">BACK</td>
+<td class="gt_row gt_right" headers="DIVERSITY">1.89</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>A coluna STREAM é uma variável categórica contendo o nome dos <span class="math inline">\(6\)</span> riachos amostrados (Arkan, Blue, Chalk, Eagle, Snake, Splat). A coluna ZINC é uma variável categórica ordinal com <span class="math inline">\(4\)</span> níveis de concentração de zinco na água (BACK &lt; LOW &lt; MED &lt; HIGH). O primeiro nível (BACK) é o nível de referência (<strong>BACKGROUND</strong>). Finalmente, a coluna DIVERSITY é uma variável contínua que contém a diversidade de diatomácieas (medida pelo índice de diversidade de <a href="https://pt.wikipedia.org/wiki/%C3%8Dndice_de_Shannon" target="_blank">Shannon</a> medida de cada uma das 34 amostras.</p>
+<p>Vamos nos concentrar nas variáveis DIVERSITY e ZINC. DIVERSITY será a variável resposta. Em delineamento experimental, dizemos que ZINC é um <strong>tratamento</strong>, isto é, uma condição experimental sob a qual nossa variável dependente <span class="math inline">\(Y\)</span> foi mensurada.</p>
+<p>Para verificarmos a distribuição de diversidade para cada concentração de zinco poderíamos fazer um gráfico de dispersão. A diferença agora é que <span class="math inline">\(X\)</span> trata-se de uma variável categórica ordinal com <span class="math inline">\(4\)</span> níveis.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(medley) <span class="sc">+</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> ZINC, <span class="at">y =</span> DIVERSITY) <span class="sc">+</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>(<span class="at">base_size =</span> <span class="dv">15</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="biquantquali_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<section id="boxplots-para-os-níveis-do-tratamento" class="level3" data-number="1.1">
+<h3 data-number="1.1" class="anchored" data-anchor-id="boxplots-para-os-níveis-do-tratamento"><span class="header-section-number">1.1</span> Boxplots para os níveis do tratamento</h3>
+<p>Não há problema em apresentarmos um gráfico de dispersão. No entanto, em situações deste tipo estamos comumente interessados em representar medidas-resumo que nos permitam comparar os diferentes níveis do tratamento. A forma mais comum de representar esta situação é por meio de um boxplot para cada nível do tratamento.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(medley) <span class="sc">+</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> ZINC, <span class="at">y =</span> DIVERSITY) <span class="sc">+</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>(<span class="at">base_size =</span> <span class="dv">15</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="biquantquali_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Na figura acima estão representadas a mediana, os quartis (<span class="math inline">\(1^o\)</span> e <span class="math inline">\(3^o\)</span>) e os pontos máximo e mínimo para cada nível do tratamento. Alguns pontos extremos podem aparecer isoladamente para indicar que estão muito distantes dos demais. Podemos controlar esta representação com o argumento <code>coef</code> na função <code>geom_boxplot</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(medley) <span class="sc">+</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> ZINC, <span class="at">y =</span> DIVERSITY) <span class="sc">+</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">coef =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>(<span class="at">base_size =</span> <span class="dv">15</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="biquantquali_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Vemos que o boxplot referente ao nível HIGH está em uma posição inferior aos demais, sugerindo que a diversidade de diatomáceas tende a ser mais baixa para níveis elevados de zinco.</p>
+<p>Exitem outras variações que podem nos ajudar a entender melhor os padrões. Podemos sobrepor os pontos individuais sobre os boxplots:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(medley) <span class="sc">+</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> ZINC, <span class="at">y =</span> DIVERSITY) <span class="sc">+</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">coef =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>(<span class="at">base_size =</span> <span class="dv">15</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="biquantquali_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="o-gráfico-de-erros" class="level3" data-number="1.2">
+<h3 data-number="1.2" class="anchored" data-anchor-id="o-gráfico-de-erros"><span class="header-section-number">1.2</span> O gráfico de erros</h3>
+<p>Nas figuras acima representamos os quartis das distribuições. Podemos estar interessados em apresentar somente os <strong>pontos médios</strong> (média aritimética) juntamente com <strong>barras de erro</strong> que representem alguma medida de dispersão (ex. desvio padrão). Para isto é necessário inicialmente criar um <code>data.frame</code> com estas medidas.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>medley_barras <span class="ot">=</span> medley <span class="sc">|&gt;</span> </span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(ZINC) <span class="sc">|&gt;</span> </span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Media =</span> <span class="fu">mean</span>(DIVERSITY),</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">Desvio =</span> <span class="fu">sd</span>(DIVERSITY))</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>medley_barras <span class="sc">|&gt;</span> </span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gt</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="yoohwmnxsj" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#yoohwmnxsj table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#yoohwmnxsj thead, #yoohwmnxsj tbody, #yoohwmnxsj tfoot, #yoohwmnxsj tr, #yoohwmnxsj td, #yoohwmnxsj th {
+  border-style: none;
+}
+
+#yoohwmnxsj p {
+  margin: 0;
+  padding: 0;
+}
+
+#yoohwmnxsj .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#yoohwmnxsj .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#yoohwmnxsj .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#yoohwmnxsj .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#yoohwmnxsj .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#yoohwmnxsj .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#yoohwmnxsj .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#yoohwmnxsj .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#yoohwmnxsj .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#yoohwmnxsj .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#yoohwmnxsj .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#yoohwmnxsj .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#yoohwmnxsj .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#yoohwmnxsj .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#yoohwmnxsj .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#yoohwmnxsj .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#yoohwmnxsj .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#yoohwmnxsj .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#yoohwmnxsj .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#yoohwmnxsj .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#yoohwmnxsj .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#yoohwmnxsj .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#yoohwmnxsj .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#yoohwmnxsj .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#yoohwmnxsj .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#yoohwmnxsj .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#yoohwmnxsj .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#yoohwmnxsj .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#yoohwmnxsj .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#yoohwmnxsj .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#yoohwmnxsj .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#yoohwmnxsj .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#yoohwmnxsj .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#yoohwmnxsj .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#yoohwmnxsj .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#yoohwmnxsj .gt_left {
+  text-align: left;
+}
+
+#yoohwmnxsj .gt_center {
+  text-align: center;
+}
+
+#yoohwmnxsj .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#yoohwmnxsj .gt_font_normal {
+  font-weight: normal;
+}
+
+#yoohwmnxsj .gt_font_bold {
+  font-weight: bold;
+}
+
+#yoohwmnxsj .gt_font_italic {
+  font-style: italic;
+}
+
+#yoohwmnxsj .gt_super {
+  font-size: 65%;
+}
+
+#yoohwmnxsj .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#yoohwmnxsj .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#yoohwmnxsj .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#yoohwmnxsj .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#yoohwmnxsj .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#yoohwmnxsj .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#yoohwmnxsj .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#yoohwmnxsj .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#yoohwmnxsj div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+
+<table class="gt_table caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<thead>
+<tr class="header gt_col_headings">
+<th id="ZINC" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">ZINC</th>
+<th id="Media" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Media</th>
+<th id="Desvio" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Desvio</th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<td class="gt_row gt_center" headers="ZINC">BACK</td>
+<td class="gt_row gt_right" headers="Media">1.797500</td>
+<td class="gt_row gt_right" headers="Desvio">0.4852613</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="ZINC">LOW</td>
+<td class="gt_row gt_right" headers="Media">2.032500</td>
+<td class="gt_row gt_right" headers="Desvio">0.4449960</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_center" headers="ZINC">MED</td>
+<td class="gt_row gt_right" headers="Media">1.717778</td>
+<td class="gt_row gt_right" headers="Desvio">0.5030104</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="ZINC">HIGH</td>
+<td class="gt_row gt_right" headers="Media">1.277778</td>
+<td class="gt_row gt_right" headers="Desvio">0.4268717</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>E em seguida plotar a figura.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(medley_barras, <span class="fu">aes</span>(<span class="at">x =</span> ZINC)) <span class="sc">+</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">y =</span> Media), <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> Media <span class="sc">-</span> Desvio,</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>                    <span class="at">ymax =</span> Media <span class="sc">+</span> Desvio), <span class="at">width =</span> <span class="fl">0.4</span>) <span class="sc">+</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">'DIVERSITY'</span>) <span class="sc">+</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>(<span class="at">base_size =</span> <span class="dv">15</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="biquantquali_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Aqui vemos somente os pontos médios e as barras de erro, que estão à distância de <span class="math inline">\(1\)</span> desvio padrão acima e abaixo da média (<span class="math inline">\(\overline{Y} \pm 1s\)</span>). Embora tenhamos expressado as distâncias utilizado o desvio padrão como medida de variação, poderíamos ter utilizado outras medidas como o <strong>erro padrão</strong> ou o <strong>intervalo de confiança</strong> O importante é sempre deixar claro qual medida de variação está semdo representada no gráfico de erros (Veja: <a href="https://www.nature.com/articles/nmeth.2659" target="_blank">Krzywinski &amp; Altman, 2013 - Error bars - Points of Significance</a>).</p>
+</section>
+</section>
+<section id="partição-das-soma-dos-quadrados" class="level2" data-number="2">
+<h2 data-number="2" class="anchored" data-anchor-id="partição-das-soma-dos-quadrados"><span class="header-section-number">2</span> Partição das Soma dos Quadrados</h2>
+<p>Ao representarmos a distribuição de uma variável <span class="math inline">\(Y\)</span> contínua em função de uma variável <span class="math inline">\(X\)</span> categórica, geralmente estamos interessados em determinar se os diferentes níveis de <span class="math inline">\(X\)</span> (diferentes grupos) têm médias similares ou se ao menos um dos níveis têm média diferente dos demais. Queremos uma medida que nos permita diferenciar situações como as apresentadas abaixo.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="biquantquali_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="768"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Na figura <span class="math inline">\(A\)</span> todos os grupos são provenientes da mesma distribuição e têm médias aproximadamente iguais (<span class="math inline">\(\overline{Y}_A \approx  \overline{Y}_B \approx \overline{Y}_C \approx \overline{Y}_D\)</span>). Na figura <span class="math inline">\(B\)</span> o segundo grupo tem média mais elevada que os demais, e na da figura <span class="math inline">\(C\)</span>, todas as médias parecem ser diferentes entre si (<span class="math inline">\(\overline{Y}_A \ne  \overline{Y}_B \ne \overline{Y}_C \ne \overline{Y}_D\)</span>).</p>
+<p>Para mensurar o grau de associação entre <span class="math inline">\(Y\)</span> e <span class="math inline">\(X\)</span> e entender como podemos diferenciar as situações acima, vamos introduzir o processo de <strong>Partição da Soma dos Quadrados</strong>.</p>
+<p>Suponha a situção abaixo:</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="biquantquali_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="768"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Notações
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>Temos <span class="math inline">\(k = 3\)</span> grupos (<code>A</code>, <code>B</code> ou <code>C</code>) e para cada grupo <span class="math inline">\(n =  5\)</span> observações. Denotamos por <span class="math inline">\(n_{ij}\)</span> o número de observações dentro de cada grupo, em que <span class="math inline">\(i\)</span> é a <em>i-ésima</em> observação (<span class="math inline">\(i = 1\)</span> a <span class="math inline">\(5\)</span>) do <em>j-ésimo</em> grupo (<span class="math inline">\(j = 1\)</span> a <span class="math inline">\(3\)</span> - grupos <code>A</code> ao <code>C</code>). Neste exemplo, o número de observações em cada grupo é o mesmo (<span class="math inline">\(n_1 = n_2 = n_3 = n\)</span>), de modo que o total de observações é dado por:</li>
+</ul>
+<p><span class="math inline">\(N = k \times n = n_1 + n_2 + n_3 = 15\)</span></p>
+<ul>
+<li><p>A média de cada grupo será denotada por <span class="math inline">\(\overline{Y}_j\)</span>, que neste exemplo são: <span class="math inline">\(Y_1 = 20.64\)</span> (grupo <code>A</code>), <span class="math inline">\(Y_2 = 28.68\)</span> (grupo <code>B</code>) e <span class="math inline">\(Y_3 = 12.18\)</span> (grupo <code>C</code>).</p></li>
+<li><p>Vamos denotar por <span class="math inline">\(\overline{\overline{Y}}\)</span> a <strong>Grande Média</strong>, isto é, a média geral de todas as observações independente do grupo de origem.</p></li>
+</ul>
+<p><span class="math display">\[\overline{\overline{Y}} = \sum_{j = 1}^{k}\sum_{i = 1}^{n}\frac{Y_{ij}}{N} = \frac{\overline{Y_1} + \overline{Y_2} + \overline{Y_3}}{3} = 20.5\]</span></p>
+</div>
+</div>
+<p>Podemos agora observar estes elementos no gráfico de dispersão.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="biquantquali_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="768"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Em seguida, precisamos calcular <span class="math inline">\(3\)</span> quantias, a <strong>Soma dos Quadrados Totais</strong> (<span class="math inline">\(SQ_{Total}\)</span>), a <strong>Soma dos Quadrados dos Tratamentos</strong> <span class="math inline">\(SQ_{Trat}\)</span> e a <strong>Soma dos Quadrados dos Resíduos</strong> <span class="math inline">\(SQ_{Res}\)</span>.</p>
+<ol type="i">
+<li><strong>Soma dos Quadrados Totais</strong> <span class="math inline">\(SQ_{Total}\)</span>: mede as diferenças entre <span class="math inline">\(Y_{ij}\)</span> e <span class="math inline">\(\overline{\overline{Y}}\)</span>. Temos nesta expressão o somatório dos desvios ao quadrado de todas as observações com relação à grand, fig.align=‘center’, fig.width=8, fig.height=4e média <strong>independente</strong> do grupo de origem de cada observação.</li>
+</ol>
+<p><span class="math display">\[SQ_{Total} = \sum_{j = 1}^{k}\sum_{i = 1}^{n}(Y_{ij} - \overline{\overline{Y}})^2\]</span></p>
+<ol start="2" type="i">
+<li><strong>Soma dos Quadrados dos Tratamentos</strong> <span class="math inline">\(SQ_{Trat}\)</span>: mede as diferenças entre as <strong>médias dos tratamentos</strong> <span class="math inline">\(\overline{Y}_j\)</span> e <span class="math inline">\(\overline{\overline{Y}}\)</span>, sendo portanto os desvios ao quadrado da média de cada tratamento subtraída da grande média. <span class="math inline">\(SQ_{Trat}\)</span> também é chamada de soma dos quadrados <strong>entre grupos</strong> ou <strong>entre tratamentos</strong></li>
+</ol>
+<p><span class="math display">\[SQ_{Trat} = \sum_{j = 1}^{k}\sum_{i = 1}^{n_{j}}(\overline{Y}_{j} - \overline{\overline{Y}})^2 = \sum_{j = 1}^{k}n_{j}(\overline{Y}_{j} - \overline{\overline{Y}})^2\]</span></p>
+<ol start="3" type="i">
+<li><strong>Soma dos Quadrados dos Resíduos</strong> <span class="math inline">\(SQ_{Res}\)</span>: mede as diferenças entre cada observação <span class="math inline">\(Y_{ij}\)</span> e a média de seu próprio grupo <span class="math inline">\(\overline{Y}_{j}\)</span>. <span class="math inline">\(SQ_{Res}\)</span> também é chamada de soma dos quadrados <strong>dentro dos grupos</strong> ou <strong>dentro dos tratamentos</strong></li>
+</ol>
+<p><span class="math display">\[SQ_{Res} = \sum_{j = 1}^{k}\sum_{i = 1}^{n_{j}}(Y_{ij} - \overline{Y}_{j})^2\]</span></p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+A característica aditiva das somas dos quadrados
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A partição da soma dos quadrados consiste em decompor a <strong>variação total</strong> do experimento em uma parcela atribuída à variação <strong>entre tratamentos</strong> e outra parcela da variação <strong>dentro dos tratamentos</strong>. Isto é possível pois as somas dos quadrados definidas acima podem ser expressas de forma aditiva como:</p>
+<p><span class="math display">\[SQ_{Total} = SQ_{Trat} + SQ_{Res}\]</span></p>
+<p>Deste modo, é possível demostrar que:</p>
+<p><span class="math inline">\(\sum_{j = 1}^{k}\sum_{i = 1}^{n}(Y_{ij} - \overline{\overline{Y}})^2 = \sum_{j = 1}^{k}n_{j}(Y_{j} - \overline{\overline{Y}})^2 + \sum_{j = 1}^{k}\sum_{i = 1}^{n}(Y_{ij} - \overline{Y}_{j})^2\)</span></p>
+</div>
+</div>
+</section>
+<section id="medindo-a-associação-entre-y-e-x" class="level2" data-number="3">
+<h2 data-number="3" class="anchored" data-anchor-id="medindo-a-associação-entre-y-e-x"><span class="header-section-number">3</span> Medindo a associação entre <span class="math inline">\(Y\)</span> e <span class="math inline">\(X\)</span></h2>
+<p>A característica aditiva das somas dos quadrados pode ser utilizada para mensurar o grau de dependência de <span class="math inline">\(Y_{ij}\)</span> com respeito aos diferentes tratamentos. Compare as duas figuras abaixo:</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="biquantquali_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="768"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>A soma dos quadrados dentro dos grupos é a mesma nas duas figuras (<span class="math inline">\(SQ_{Res} = 362.6\)</span>). No entanto, na figura da esquerda, em que as médias dos tratamentos são similares (e consequentemente próximas à grande média), a soma dos quadrados entre os tratamentos é muito menor (<span class="math inline">\(SQ_{Trat}^{esquerda} = 15.8\)</span>) que na figura da direita, em que as médias dos tratamentos estão distantes entre si (<span class="math inline">\(SQ_{Trat}^{direita} = 680.8\)</span>). É desta forma que a partição das somas dos quadrados nos permite diferenciar situações em que: i - a média dos grupos <strong>depende</strong> dos níveis do tratamento (figura da direita); de situações em que ii - a média <strong>não depende</strong> dos níveis do tratamento (figura da esquerda).</p>
+<section id="o-coeficiente-de-determinação-r2" class="level3" data-number="3.1">
+<h3 data-number="3.1" class="anchored" data-anchor-id="o-coeficiente-de-determinação-r2"><span class="header-section-number">3.1</span> O coeficiente de determinação (<span class="math inline">\(R^2\)</span>)</h3>
+<p>Podemos expressar a relação entre <span class="math inline">\(SQ_{Trat}\)</span> e <span class="math inline">\(SQ_{Total}\)</span> pela expressão:</p>
+<hr>
+<p><span class="math display">\[R^2 = \frac{SQ_{Trat}}{SQ_{Trat} + SQ_{Res}} = \frac{SQ_{Trat}}{SQ_{Total}}\]</span></p>
+<hr>
+<p><span class="math inline">\(R^2\)</span> é chamado de <strong>coeficiente de determinação</strong> e varia entre <span class="math inline">\(0\)</span> e <span class="math inline">\(1\)</span>. Se <span class="math inline">\(R^2 = 0\)</span> toda a variação em <span class="math inline">\(Y\)</span> é causada por <span class="math inline">\(SQ_{Res}\)</span> (<span class="math inline">\(\overline{\overline{Y}} = \overline{Y}_1 = \overline{Y}_2 = \cdots = \overline{Y}_k\)</span>). À medida que as médias dos tratamentos se distanciam umas das outras, <span class="math inline">\(R^2\)</span> se aproxima de <span class="math inline">\(1\)</span> pois a maior parte da variação em <span class="math inline">\(Y\)</span> é causada por <span class="math inline">\(SQ_{Trat}\)</span>.</p>
+</section>
+</section>
+<section id="partição-das-soma-dos-quadrados-no-ambiente-r" class="level2" data-number="4">
+<h2 data-number="4" class="anchored" data-anchor-id="partição-das-soma-dos-quadrados-no-ambiente-r"><span class="header-section-number">4</span> Partição das Soma dos Quadrados no ambiente R</h2>
+<p>Voltando ao conjundo de dados <code>medley.csv</code>, uma forma de obter os somatórios dos quadrados no R é utilizando a função <code>aov</code> (mas veja também a função <code>lm</code>).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">aov</span>(DIVERSITY <span class="sc">~</span> ZINC, <span class="at">data =</span> medley)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Call:
+   aov(formula = DIVERSITY ~ ZINC, data = medley)
+
+Terms:
+                    ZINC Residuals
+Sum of Squares  2.566612  6.516411
+Deg. of Freedom        3        30
+
+Residual standard error: 0.4660619
+Estimated effects may be unbalanced</code></pre>
+</div>
+</div>
+<p>O resultado retorna a soma dos quadrados dos tratamentos (neste caso a coluna <code>ZINC</code>) e dos resíduos (coluna <code>Residuals</code>). Como o <span class="math inline">\(SQ_{Total}\)</span> é simplesmente a soma dos dois anteriores, podemos obtê-lo facilmente:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>sq <span class="ot">=</span> <span class="fu">aov</span>(DIVERSITY <span class="sc">~</span> ZINC, <span class="at">data =</span> medley)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>SQTrat <span class="ot">=</span> <span class="fu">anova</span>(sq)<span class="sc">$</span><span class="st">`</span><span class="at">Sum Sq</span><span class="st">`</span>[<span class="dv">1</span>]</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>SQRes <span class="ot">=</span> <span class="fu">anova</span>(sq)<span class="sc">$</span><span class="st">`</span><span class="at">Sum Sq</span><span class="st">`</span>[<span class="dv">2</span>]</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>SQTotal <span class="ot">=</span> SQTrat <span class="sc">+</span> SQRes</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>SQTotal</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 9.083024</code></pre>
+</div>
+</div>
+<p>Por fim, o <span class="math inline">\(R^2\)</span> pode ser calculado por:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>R2 <span class="ot">=</span> SQTrat <span class="sc">/</span> SQTotal</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>R2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.2825725</code></pre>
+</div>
+</div>
+
+
+
+</section>
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-logan2011biostatistical" class="csl-entry" role="listitem">
+Logan, Murray. 2011. <em>Biostatistical Design and Analysis Using r: A Practical Guide</em>. John Wiley &amp; Sons.
+</div>
+<div id="ref-medleyclements1998" class="csl-entry" role="listitem">
+Medley, C. N., and W. H. Clements. 1998. <span>“Responses of Diatom Communities to Heavy Metals in Streams: The Influence of Longitudinal Variation.”</span> <em>Ecological Applications</em> 9: 631–44.
+</div>
+<div id="ref-queen2002experimental" class="csl-entry" role="listitem">
+Queen, Jerry P, Gerry P Quinn, and Michael J Keough. 2002. <em>Experimental Design and Data Analysis for Biologists</em>. Cambridge university press.
+</div>
+</div></section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/github\.com\/FCopf\/MEAD");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

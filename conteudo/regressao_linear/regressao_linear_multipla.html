@@ -1,0 +1,1634 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.56">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="baseado no livro Experimental Design and Data Analysis for Biologists">
+<meta name="description" content="Regressão linear múltipla: determinação, seleção de variáveis, pressupostos e diagnósticos.">
+
+<title>Regressão Linear Múltipla – Métodos em Estatística e Análise de Dados</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../../styles/custom.css">
+<meta property="og:title" content="Regressão Linear Múltipla – Métodos em Estatística e Análise de Dados">
+<meta property="og:description" content="Regressão linear múltipla: determinação, seleção de variáveis, pressupostos e diagnósticos.">
+<meta property="og:image" content="https://github.com/FCopf/MEAD/conteudo/regressao_linear/images/regressao_linear_multipla.jpg">
+<meta property="og:site_name" content="Métodos em Estatística e Análise de Dados">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../../images/logo.png" alt="" class="navbar-logo">
+    </a>
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Métodos em Estatística e Análise de Dados</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="https://github.com/FCopf/MEAD"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text">GitHub</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Nesta página</h2>
+   
+  <ul>
+  <li><a href="#abundância-de-aves-em-fragmentos-de-floresta" id="toc-abundância-de-aves-em-fragmentos-de-floresta" class="nav-link active" data-scroll-target="#abundância-de-aves-em-fragmentos-de-floresta"><span class="header-section-number">1</span> Abundância de aves em fragmentos de floresta</a></li>
+  <li><a href="#gráficos-de-dispersão-entre-abund-e-cada-uma-das-demais-variáveis-preditoras" id="toc-gráficos-de-dispersão-entre-abund-e-cada-uma-das-demais-variáveis-preditoras" class="nav-link" data-scroll-target="#gráficos-de-dispersão-entre-abund-e-cada-uma-das-demais-variáveis-preditoras"><span class="header-section-number">2</span> Gráficos de dispersão entre ABUND e cada uma das demais variáveis preditoras</a></li>
+  <li><a href="#multicolinearidade-as-variáveis-preditoras-são-correlacionadas-entre-si" id="toc-multicolinearidade-as-variáveis-preditoras-são-correlacionadas-entre-si" class="nav-link" data-scroll-target="#multicolinearidade-as-variáveis-preditoras-são-correlacionadas-entre-si"><span class="header-section-number">3</span> Multicolinearidade: as variáveis preditoras são correlacionadas entre si?</a></li>
+  <li><a href="#o-modelo-de-regressão-múltipla" id="toc-o-modelo-de-regressão-múltipla" class="nav-link" data-scroll-target="#o-modelo-de-regressão-múltipla"><span class="header-section-number">4</span> O modelo de regressão múltipla</a></li>
+  <li><a href="#hipótese-nula-e-comparação-de-modelos" id="toc-hipótese-nula-e-comparação-de-modelos" class="nav-link" data-scroll-target="#hipótese-nula-e-comparação-de-modelos"><span class="header-section-number">5</span> Hipótese nula e comparação de modelos</a></li>
+  <li><a href="#coeficiente-de-determinação-r2" id="toc-coeficiente-de-determinação-r2" class="nav-link" data-scroll-target="#coeficiente-de-determinação-r2"><span class="header-section-number">6</span> Coeficiente de determinação (<span class="math inline">\(R^2\)</span>)</a></li>
+  <li><a href="#pressupostos-da-regressão-linear-múltipla" id="toc-pressupostos-da-regressão-linear-múltipla" class="nav-link" data-scroll-target="#pressupostos-da-regressão-linear-múltipla"><span class="header-section-number">7</span> Pressupostos da regressão linear múltipla</a>
+  <ul class="collapse">
+  <li><a href="#normalidade-dos-resíduos" id="toc-normalidade-dos-resíduos" class="nav-link" data-scroll-target="#normalidade-dos-resíduos"><span class="header-section-number">7.1</span> Normalidade dos resíduos</a></li>
+  <li><a href="#gráfico-de-resíduos" id="toc-gráfico-de-resíduos" class="nav-link" data-scroll-target="#gráfico-de-resíduos"><span class="header-section-number">7.2</span> Gráfico de resíduos</a></li>
+  <li><a href="#índice-de-alavancagem-leverage" id="toc-índice-de-alavancagem-leverage" class="nav-link" data-scroll-target="#índice-de-alavancagem-leverage"><span class="header-section-number">7.3</span> Índice de Alavancagem (Leverage)</a></li>
+  <li><a href="#índice-de-alavancagem-de-cook-dcook" id="toc-índice-de-alavancagem-de-cook-dcook" class="nav-link" data-scroll-target="#índice-de-alavancagem-de-cook-dcook"><span class="header-section-number">7.4</span> Índice de Alavancagem de Cook (Dcook)</a></li>
+  </ul></li>
+  <li><a href="#outros-dignósticos" id="toc-outros-dignósticos" class="nav-link" data-scroll-target="#outros-dignósticos"><span class="header-section-number">8</span> Outros dignósticos</a>
+  <ul class="collapse">
+  <li><a href="#resíduos-versus-variáveis-preditoras" id="toc-resíduos-versus-variáveis-preditoras" class="nav-link" data-scroll-target="#resíduos-versus-variáveis-preditoras"><span class="header-section-number">8.1</span> Resíduos <em>versus</em> variáveis preditoras</a></li>
+  <li><a href="#resíduos-dos-modelos-reduzidos-versus-variáveis-preditoras" id="toc-resíduos-dos-modelos-reduzidos-versus-variáveis-preditoras" class="nav-link" data-scroll-target="#resíduos-dos-modelos-reduzidos-versus-variáveis-preditoras"><span class="header-section-number">8.2</span> Resíduos dos modelos reduzidos versus variáveis preditoras</a></li>
+  </ul></li>
+  <li><a href="#mais-sobre-multicolinearidade" id="toc-mais-sobre-multicolinearidade" class="nav-link" data-scroll-target="#mais-sobre-multicolinearidade"><span class="header-section-number">9</span> Mais sobre multicolinearidade</a></li>
+  <li><a href="#tranformações" id="toc-tranformações" class="nav-link" data-scroll-target="#tranformações"><span class="header-section-number">10</span> Tranformações</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Regressão Linear Múltipla</h1>
+</div>
+
+<div>
+  <div class="description">
+    Regressão linear múltipla: determinação, seleção de variáveis, pressupostos e diagnósticos.
+  </div>
+</div>
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Autor</div>
+    <div class="quarto-title-meta-contents">
+             <p>baseado no livro <a href="https://www.cambridge.org/highereducation/books/experimental-design-and-data-analysis-for-biologists/BAF276114278FF40A7ED1B0FE77D691A#overview" target="_blank">Experimental Design and Data Analysis for Biologists</a> </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Pacotes, funções e base de dados utilizadas
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(GGally)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gt)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+<section id="abundância-de-aves-em-fragmentos-de-floresta" class="level2" data-number="1">
+<h2 data-number="1" class="anchored" data-anchor-id="abundância-de-aves-em-fragmentos-de-floresta"><span class="header-section-number">1</span> Abundância de aves em fragmentos de floresta</h2>
+<p><span class="citation" data-cites="loyn1987effects">Loyn (<a href="#ref-loyn1987effects" role="doc-biblioref">1987</a>)</span> conduziu um estudo para entender quais características do habitat estavam relacionadas à abundância de aves da floresta (acesse o artigo <a href="https://github.com/FCopf/datasets/blob/main/Loyn1987fragments.pdf" target="_blank">aqui</a>). Para isso, ele selecionou 56 fragmentos de floresta no sudeste de Victoria, Austrália, e registrou a abundância de aves da floresta (<strong>ABUND</strong>) em cada fragmento como variável de resposta.</p>
+<p>As variáveis preditoras registradas para cada fragmento incluíram:</p>
+<ul>
+<li>Área do fragmento (ha): <strong>AREA</strong></li>
+<li>Distância ao fragmento mais próximo (km): <strong>DIST</strong></li>
+<li>Distância ao fragmento maior mais próximo (km):<strong>LDIST</strong></li>
+<li>Número de anos desde que o fragmento foi isolado por desmatamento (anos):<strong>YR.ISOL</strong></li>
+<li>Índice de histórico de pastagem, de 1 (leve) a 5 (pesado):<strong>GRAZE</strong></li>
+<li>Altitude média (m):<strong>ALT</strong></li>
+</ul>
+<p>Inicialmente, vamos nos concentrar nas variáveis <strong>YR.ISOL</strong>, <strong>GRAZE</strong> e <strong>ALT</strong>.</p>
+<p>Importe a base de dados <code>loyn.csv</code></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>loyn <span class="ot">=</span> <span class="fu">read_csv</span>(<span class="st">"https://raw.githubusercontent.com/FCopf/datasets/refs/heads/main/loyn.csv"</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(loyn) <span class="sc">|&gt;</span> <span class="fu">gt</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fegysvbddc" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#fegysvbddc table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#fegysvbddc thead, #fegysvbddc tbody, #fegysvbddc tfoot, #fegysvbddc tr, #fegysvbddc td, #fegysvbddc th {
+  border-style: none;
+}
+
+#fegysvbddc p {
+  margin: 0;
+  padding: 0;
+}
+
+#fegysvbddc .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#fegysvbddc .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#fegysvbddc .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#fegysvbddc .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#fegysvbddc .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#fegysvbddc .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#fegysvbddc .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#fegysvbddc .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#fegysvbddc .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#fegysvbddc .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#fegysvbddc .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#fegysvbddc .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#fegysvbddc .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#fegysvbddc .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#fegysvbddc .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#fegysvbddc .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#fegysvbddc .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#fegysvbddc .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#fegysvbddc .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#fegysvbddc .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#fegysvbddc .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#fegysvbddc .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#fegysvbddc .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#fegysvbddc .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#fegysvbddc .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#fegysvbddc .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#fegysvbddc .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#fegysvbddc .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#fegysvbddc .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#fegysvbddc .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#fegysvbddc .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#fegysvbddc .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#fegysvbddc .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#fegysvbddc .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#fegysvbddc .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#fegysvbddc .gt_left {
+  text-align: left;
+}
+
+#fegysvbddc .gt_center {
+  text-align: center;
+}
+
+#fegysvbddc .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#fegysvbddc .gt_font_normal {
+  font-weight: normal;
+}
+
+#fegysvbddc .gt_font_bold {
+  font-weight: bold;
+}
+
+#fegysvbddc .gt_font_italic {
+  font-style: italic;
+}
+
+#fegysvbddc .gt_super {
+  font-size: 65%;
+}
+
+#fegysvbddc .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#fegysvbddc .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#fegysvbddc .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#fegysvbddc .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#fegysvbddc .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#fegysvbddc .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#fegysvbddc .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#fegysvbddc .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#fegysvbddc div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+
+<table class="gt_table caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<thead>
+<tr class="header gt_col_headings">
+<th id="ABUND" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">ABUND</th>
+<th id="AREA" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">AREA</th>
+<th id="YR.ISOL" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">YR.ISOL</th>
+<th id="DIST" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">DIST</th>
+<th id="LDIST" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">LDIST</th>
+<th id="GRAZE" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">GRAZE</th>
+<th id="ALT" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">ALT</th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<td class="gt_row gt_right" headers="ABUND">5.3</td>
+<td class="gt_row gt_right" headers="AREA">0.1</td>
+<td class="gt_row gt_right" headers="YR.ISOL">1968</td>
+<td class="gt_row gt_right" headers="DIST">39</td>
+<td class="gt_row gt_right" headers="LDIST">39</td>
+<td class="gt_row gt_right" headers="GRAZE">2</td>
+<td class="gt_row gt_right" headers="ALT">160</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_right" headers="ABUND">2.0</td>
+<td class="gt_row gt_right" headers="AREA">0.5</td>
+<td class="gt_row gt_right" headers="YR.ISOL">1920</td>
+<td class="gt_row gt_right" headers="DIST">234</td>
+<td class="gt_row gt_right" headers="LDIST">234</td>
+<td class="gt_row gt_right" headers="GRAZE">5</td>
+<td class="gt_row gt_right" headers="ALT">60</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_right" headers="ABUND">1.5</td>
+<td class="gt_row gt_right" headers="AREA">0.5</td>
+<td class="gt_row gt_right" headers="YR.ISOL">1900</td>
+<td class="gt_row gt_right" headers="DIST">104</td>
+<td class="gt_row gt_right" headers="LDIST">311</td>
+<td class="gt_row gt_right" headers="GRAZE">5</td>
+<td class="gt_row gt_right" headers="ALT">140</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_right" headers="ABUND">17.1</td>
+<td class="gt_row gt_right" headers="AREA">1.0</td>
+<td class="gt_row gt_right" headers="YR.ISOL">1966</td>
+<td class="gt_row gt_right" headers="DIST">66</td>
+<td class="gt_row gt_right" headers="LDIST">66</td>
+<td class="gt_row gt_right" headers="GRAZE">3</td>
+<td class="gt_row gt_right" headers="ALT">160</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_right" headers="ABUND">13.8</td>
+<td class="gt_row gt_right" headers="AREA">1.0</td>
+<td class="gt_row gt_right" headers="YR.ISOL">1918</td>
+<td class="gt_row gt_right" headers="DIST">246</td>
+<td class="gt_row gt_right" headers="LDIST">246</td>
+<td class="gt_row gt_right" headers="GRAZE">5</td>
+<td class="gt_row gt_right" headers="ALT">140</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_right" headers="ABUND">14.1</td>
+<td class="gt_row gt_right" headers="AREA">1.0</td>
+<td class="gt_row gt_right" headers="YR.ISOL">1965</td>
+<td class="gt_row gt_right" headers="DIST">234</td>
+<td class="gt_row gt_right" headers="LDIST">285</td>
+<td class="gt_row gt_right" headers="GRAZE">3</td>
+<td class="gt_row gt_right" headers="ALT">130</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</section>
+<section id="gráficos-de-dispersão-entre-abund-e-cada-uma-das-demais-variáveis-preditoras" class="level2" data-number="2">
+<h2 data-number="2" class="anchored" data-anchor-id="gráficos-de-dispersão-entre-abund-e-cada-uma-das-demais-variáveis-preditoras"><span class="header-section-number">2</span> Gráficos de dispersão entre ABUND e cada uma das demais variáveis preditoras</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>plt_gr <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(loyn) <span class="sc">+</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">y =</span> ABUND, <span class="at">x =</span> GRAZE) <span class="sc">+</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">span =</span> <span class="dv">1</span>)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>plt_al <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(loyn) <span class="sc">+</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">y =</span> ABUND, <span class="at">x =</span> ALT) <span class="sc">+</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">span =</span> <span class="dv">1</span>)</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>plt_yr <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(loyn) <span class="sc">+</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">y =</span> ABUND, <span class="at">x =</span> YR.ISOL) <span class="sc">+</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">span =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>plt_gr <span class="sc">+</span> plt_al <span class="sc">+</span> plt_yr</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="regressao_linear_multipla_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="768"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="multicolinearidade-as-variáveis-preditoras-são-correlacionadas-entre-si" class="level2" data-number="3">
+<h2 data-number="3" class="anchored" data-anchor-id="multicolinearidade-as-variáveis-preditoras-são-correlacionadas-entre-si"><span class="header-section-number">3</span> Multicolinearidade: as variáveis preditoras são correlacionadas entre si?</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggpairs</span>(loyn <span class="sc">|&gt;</span> <span class="fu">select</span>(GRAZE, ALT, YR.ISOL))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="regressao_linear_multipla_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>As variáveis <strong>ALT</strong> versus <strong>GRAZE</strong> e <strong>GRAZE</strong> versus <strong>YR.ISOL</strong> parecem ter um grau de correlação moderado entre si.</p>
+</section>
+<section id="o-modelo-de-regressão-múltipla" class="level2" data-number="4">
+<h2 data-number="4" class="anchored" data-anchor-id="o-modelo-de-regressão-múltipla"><span class="header-section-number">4</span> O modelo de regressão múltipla</h2>
+<p>O modelo de regressão linear múltipla é dado por:</p>
+<p><span class="math display">\[ABUND_i = \beta_0 + \beta_1 ALT_i + \beta_2 YR.ISIOL_i + \epsilon_i\]</span></p>
+<p>No R pode ser ajustado por:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>mfull <span class="ot">&lt;-</span> <span class="fu">lm</span>(ABUND <span class="sc">~</span> ALT <span class="sc">+</span> YR.ISOL, <span class="at">data  =</span> loyn)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>mfull</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = ABUND ~ ALT + YR.ISOL, data = loyn)
+
+Coefficients:
+(Intercept)          ALT      YR.ISOL  
+ -348.47698      0.07006      0.18348  </code></pre>
+</div>
+</div>
+<p>O resumo do modelo pode ser visto com a função <code>summary</code></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mfull)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = ABUND ~ ALT + YR.ISOL, data = loyn)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-18.9745  -6.4690   0.6168   7.4408  24.0155 
+
+Coefficients:
+              Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept) -348.47698   93.73407  -3.718 0.000486 ***
+ALT            0.07006    0.02852   2.457 0.017329 *  
+YR.ISOL        0.18348    0.04852   3.781 0.000398 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 8.953 on 53 degrees of freedom
+Multiple R-squared:  0.3297,    Adjusted R-squared:  0.3044 
+F-statistic: 13.03 on 2 and 53 DF,  p-value: 2.49e-05</code></pre>
+</div>
+</div>
+</section>
+<section id="hipótese-nula-e-comparação-de-modelos" class="level2" data-number="5">
+<h2 data-number="5" class="anchored" data-anchor-id="hipótese-nula-e-comparação-de-modelos"><span class="header-section-number">5</span> Hipótese nula e comparação de modelos</h2>
+<p>A hipótese nula (<span class="math inline">\(H_0\)</span>) básica que podemos testar ao ajustar um modelo de regressão linear múltipla é que todas as inclinações de regressão parciais são iguais a zero, ou seja, <span class="math inline">\(H_0: \beta_1 = \beta_2 = \cdots = \beta_j = 0\)</span>. Neste exemplo, <span class="math inline">\(H_0\)</span> é que o coeficiente de inclinação dos níveis de pastagem e os anos de isolamento do fragmento sejam ambos iguais a zero e, consequentemente, não têm influência sobre a abundância.</p>
+<p>Testamos a hipótese nula com a ANOVA na regressão múltipla, que divide a variação total de <span class="math inline">\(Y\)</span> em dois componentes: a variação explicada pela regressão linear com <span class="math inline">\(X_1\)</span>, <span class="math inline">\(X_2\)</span>, <span class="math inline">\(\cdots\)</span>, <span class="math inline">\(X_j\)</span> e a variação residual.</p>
+<p>Se <span class="math inline">\(H_0\)</span> for verdadeira, tanto o quadrado médio da regressão <span class="math inline">\(QM_{Regressão}\)</span> quanto o quadrado médio do resíduo (<span class="math inline">\(QM_{Resíduo}\)</span>) estimarão <span class="math inline">\(\sigma^2\)</span>, e a razão <span class="math inline">\(F\)</span> entre eles será igual a 1. Se <span class="math inline">\(H_0\)</span> for falsa, pelo menos uma das inclinações de regressão parciais não será igual a zero e <span class="math inline">\(QM_{Regressão}\)</span> estimará <span class="math inline">\(\sigma^2\)</span> mais um termo <span class="math inline">\(QM_{Regressão}\)</span> o que representa essas inclinações de regressão parciais. Portanto, a razão <span class="math inline">\(F = \frac{QM_{Regressão}}{QM_{Regressão}} &gt; 1\)</span>. Neste caso, a decisão de aceitar <span class="math inline">\(H_0\)</span> é feita pela comparação do <span class="math inline">\(F\)</span> calculado com a distribuição <span class="math inline">\(F\)</span> apropriada, da mesma forma que fazemos com a regressão linear simples ou com a Análise de Variância.</p>
+<p>O resultado da razão <span class="math inline">\(F\)</span> aparece no comando <code>summary</code>, que no exemplo acima é F = 13.035, com valor de p = 2.5^{-5}.</p>
+<p>Também podemos testar as hipóteses nulas sobre cada coeficiente de regressão parcial, ou seja, de que qualquer <span class="math inline">\(\beta_1\)</span> seja igual a zero. Para isto, podemos usar a estratégia de comparação de modelos em que o modelo completo (aquele com todas as variáveis) é comparado com o modelo reduzido (aquele sem a variável <span class="math inline">\(X_1\)</span> de interesse).</p>
+<p>Para testar o efeito da altitude, por exemplo, o modelo reduzido é:</p>
+<p><span class="math inline">\(ABUND_i = \beta_0 + \beta_2 YR.ISIOL_i + \epsilon_i\)</span></p>
+<p>O modelo completo tem soma dos quadrados (<span class="math inline">\(SQ\)</span>) maior que o modelo reduzido. Para comparar o ganho extra que o modelo completo tem sobre o modelo reduzido podemos fazer:</p>
+<p><span class="math inline">\(SS_{extra} = SS_{Regressão_{completo}} - SS_{Regressão_{reduzido}}\)</span></p>
+<p>Em seguida, calculamos o quadrado médio extra como <span class="math inline">\(QM_{extra} = \frac{SS_{extra}}{gl}\)</span> e usamos o teste <span class="math inline">\(F\)</span> como:</p>
+<p><span class="math inline">\(F = \frac{QM_{extra}}{QM_{Resíduo_{completo}}}\)</span></p>
+<p>O mesmo pode ser feito para a variável <span class="math inline">\(YR.ISOL\)</span>.</p>
+<p>No R, podemos testar os efeitos dos coeficientes parciais de regressão com o comando <code>drop1</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">drop1</span>(mfull, <span class="at">test =</span> <span class="st">'F'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Single term deletions
+
+Model:
+ABUND ~ ALT + YR.ISOL
+        Df Sum of Sq    RSS    AIC F value    Pr(&gt;F)    
+&lt;none&gt;               4248.3 248.42                      
+ALT      1    483.79 4732.1 252.46  6.0355 0.0173292 *  
+YR.ISOL  1   1146.10 5394.4 259.80 14.2982 0.0003979 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+</div>
+<p>Vemos aqui que os dois componentes (<strong>ALT</strong> e <strong>YR.ISOL</strong>) adicionam uma variação explicada significativa, isto é, para os dois coeficientes <span class="math inline">\(p \le 0,005\)</span>.</p>
+<p>Note que o teste o teste F de comparação de modelos foi equivalente ao teste <span class="math inline">\(t\)</span> aplicado a cada coeficiente e que pode ser visto no resultado da função summary, sendo <span class="math inline">\(F = t^2\)</span>. No entanto, a estratégia de comparação de modelos apresentada aqui permite a comparação não somente de coeficientes isolados, mas de qualquer combinação específica dos coeficientes em comparação com o modelo completo.</p>
+</section>
+<section id="coeficiente-de-determinação-r2" class="level2" data-number="6">
+<h2 data-number="6" class="anchored" data-anchor-id="coeficiente-de-determinação-r2"><span class="header-section-number">6</span> Coeficiente de determinação (<span class="math inline">\(R^2\)</span>)</h2>
+<p>Na regressão múltipla, o coeficiente de determinação <span class="math inline">\(R^2\)</span> mede a proporção da variabilidade total da variável resposta que é explicada pelas variáveis preditoras. No entanto, <span class="math inline">\(R^2\)</span> tende a aumentar à medida que mais preditores são adicionados ao modelo, mesmo que não sejam significativos. Para corrigir essa inflação, utilizamos o coeficiente de determinação ajustado (<span class="math inline">\(R^2_{ajustado}\)</span>), que ajusta o <span class="math inline">\(R^2\)</span> considerando o número de preditores no modelo e o tamanho da amostra. O <span class="math inline">\(R^2_{ajustado}\)</span> penaliza a adição de preditores irrelevantes, proporcionando uma avaliação mais precisa da qualidade do ajuste do modelo e pode ser obtido pela expressão:</p>
+<p><span class="math inline">\(R^2_{ajustado} = 1 - \frac{(1-R^2)(n-1)}{n-k-1}\)</span></p>
+<p>No resultado da função <code>summary</code> vemos que o <span class="math inline">\(R^2 = 0.33\)</span> e o <span class="math inline">\(R^2_{ajustado} = 0.304\)</span>.</p>
+</section>
+<section id="pressupostos-da-regressão-linear-múltipla" class="level2" data-number="7">
+<h2 data-number="7" class="anchored" data-anchor-id="pressupostos-da-regressão-linear-múltipla"><span class="header-section-number">7</span> Pressupostos da regressão linear múltipla</h2>
+<section id="normalidade-dos-resíduos" class="level3" data-number="7.1">
+<h3 data-number="7.1" class="anchored" data-anchor-id="normalidade-dos-resíduos"><span class="header-section-number">7.1</span> Normalidade dos resíduos</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>loyn <span class="ot">&lt;-</span> loyn <span class="sc">|&gt;</span> </span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">rst =</span> <span class="fu">rstudent</span>(mfull),</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">yaj =</span> <span class="fu">fitted</span>(mfull))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(loyn) <span class="sc">+</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> rst, <span class="at">y =</span> <span class="fu">after_stat</span>(density)) <span class="sc">+</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">10</span>, <span class="at">density =</span> <span class="cn">TRUE</span>, <span class="at">color =</span> <span class="st">'white'</span>) <span class="sc">+</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">color =</span> <span class="st">'darkblue'</span>, <span class="at">linewidth =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="regressao_linear_multipla_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">shapiro.test</span>(loyn<span class="sc">$</span>rst)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Shapiro-Wilk normality test
+
+data:  loyn$rst
+W = 0.97409, p-value = 0.2687</code></pre>
+</div>
+</div>
+</section>
+<section id="gráfico-de-resíduos" class="level3" data-number="7.2">
+<h3 data-number="7.2" class="anchored" data-anchor-id="gráfico-de-resíduos"><span class="header-section-number">7.2</span> Gráfico de resíduos</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(loyn) <span class="sc">+</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> yaj, <span class="at">y =</span> rst) <span class="sc">+</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">color =</span> <span class="st">"blue"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="regressao_linear_multipla_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="índice-de-alavancagem-leverage" class="level3" data-number="7.3">
+<h3 data-number="7.3" class="anchored" data-anchor-id="índice-de-alavancagem-leverage"><span class="header-section-number">7.3</span> Índice de Alavancagem (Leverage)</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>infl <span class="ot">&lt;-</span> <span class="fu">influence.measures</span>(mfull)<span class="sc">$</span>infmat <span class="sc">|&gt;</span> </span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.data.frame</span>()</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(infl) <span class="sc">+</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">y =</span> hat, <span class="at">x =</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(infl)) <span class="sc">+</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">'Leverage'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="regressao_linear_multipla_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="índice-de-alavancagem-de-cook-dcook" class="level3" data-number="7.4">
+<h3 data-number="7.4" class="anchored" data-anchor-id="índice-de-alavancagem-de-cook-dcook"><span class="header-section-number">7.4</span> Índice de Alavancagem de Cook (Dcook)</h3>
+<p>O índice de alavancagem de Cook é uma medida que combina a magnitude do efeito de alavancagem de uma observação com o quanto essa observação influencia a estimativa dos coeficientes de regressão. Uma observação com <span class="math inline">\(D_{Cook} &gt; 1\)</span> é frequentemente considerada influente e devem ser examinada para avaliar seu impacto no modelo.</p>
+<p>Para obter o índice de alavancagem de Cook em R:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(infl) <span class="sc">+</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">y =</span> cook.d, <span class="at">x =</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(infl)) <span class="sc">+</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">'Distância de Cook'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="regressao_linear_multipla_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="outros-dignósticos" class="level2" data-number="8">
+<h2 data-number="8" class="anchored" data-anchor-id="outros-dignósticos"><span class="header-section-number">8</span> Outros dignósticos</h2>
+<section id="resíduos-versus-variáveis-preditoras" class="level3" data-number="8.1">
+<h3 data-number="8.1" class="anchored" data-anchor-id="resíduos-versus-variáveis-preditoras"><span class="header-section-number">8.1</span> Resíduos <em>versus</em> variáveis preditoras</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(loyn) <span class="sc">+</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> ALT, <span class="at">y =</span> rst) <span class="sc">+</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="regressao_linear_multipla_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(loyn) <span class="sc">+</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> YR.ISOL, <span class="at">y =</span> rst) <span class="sc">+</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="regressao_linear_multipla_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="resíduos-dos-modelos-reduzidos-versus-variáveis-preditoras" class="level3" data-number="8.2">
+<h3 data-number="8.2" class="anchored" data-anchor-id="resíduos-dos-modelos-reduzidos-versus-variáveis-preditoras"><span class="header-section-number">8.2</span> Resíduos dos modelos reduzidos versus variáveis preditoras</h3>
+<p>Neste gráficos, ajustamos os modelos reduzidos excluindo uma variável preditora por vez e plotamos os resíduos deste modelo com a variável preditora excluída. Uma tendência neste gráfico indica que a inclusão da variável no modelo ajudaria a reduzir a variação residual.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>mpalt <span class="ot">&lt;-</span> <span class="fu">lm</span>(ABUND <span class="sc">~</span> YR.ISOL, <span class="at">data  =</span> loyn) <span class="co"># Modelo reduzido sem ALT</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">rstudent</span>(mpalt) <span class="sc">~</span> loyn<span class="sc">$</span>ALT)</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="fu">lm</span>(<span class="fu">rstudent</span>(mpalt) <span class="sc">~</span> loyn<span class="sc">$</span>ALT))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="regressao_linear_multipla_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>mpisol <span class="ot">&lt;-</span> <span class="fu">lm</span>(ABUND <span class="sc">~</span> ALT, <span class="at">data  =</span> loyn) <span class="co"># Modelo reduzido sem YR.ISOL</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">rstudent</span>(mpisol) <span class="sc">~</span> loyn<span class="sc">$</span>YR.ISOL)</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="fu">lm</span>(<span class="fu">rstudent</span>(mpisol) <span class="sc">~</span> loyn<span class="sc">$</span>YR.ISOL))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="regressao_linear_multipla_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="mais-sobre-multicolinearidade" class="level2" data-number="9">
+<h2 data-number="9" class="anchored" data-anchor-id="mais-sobre-multicolinearidade"><span class="header-section-number">9</span> Mais sobre multicolinearidade</h2>
+<p>Variáveis preditoras correlacionadas entre si caracteriza a multicolinearidade. Quando severa, a multicolinearidade pode afetar a estimativa dos parâmetros da regressão, pois pequenas alterações nos dados ou inclusão/remoção de variáveis podem causar grandes mudanças nos coeficientes estimados da regressão. Além disso, a presença de multicolinearidade pode inflar os erros padrões dos coeficientes de regressão, resultando em um modelo globalmente significativo, mas com coeficientes individuais que não são estatisticamente diferentes de zero.</p>
+<p>Avaliar uma matriz de correlação entre pares de variáveis preditoras pode ser a primeira e mais simples forma de explorar a presença de colinearidade. Outra forma é avaliar a tolerância de cada variável preditora <span class="math inline">\(X_j\)</span> por meio de <span class="math inline">\(1 - R^2_j\)</span>, em que <span class="math inline">\(R^2_j\)</span> é o coeficiente de determinação do modelo em que <span class="math inline">\(X_j\)</span> é relacionada às demais <span class="math inline">\(1 - p\)</span> variáveis preditoras. Geralmente, esta tolerância é expressa na forma do índice de inflação da variação (<em>variance inflation factor</em> - <span class="math inline">\(VIF\)</span>) para cada variável preditora, em que:</p>
+<p><span class="math display">\[VIF_j =\frac{1}{1 - R^2_j}\]</span></p>
+<p>Valores elevados indicam que a presença de colinearidade devido a variável <span class="math inline">\(X_j\)</span>. Diferente níveis de corte são propostos como indicadores da presença de multicolinearidade <span class="math inline">\(VIF &gt; 5\)</span>, <span class="math inline">\(VIF &gt; 10\)</span> ou <span class="math inline">\(VIF &gt; 20\)</span></p>
+<p>Todos os coeficientes <span class="math inline">\(VIF_j\)</span> podem ser encontrados em uma única operação calculando a inversa da matriz de correlação, <span class="math inline">\(\mathbb{R^{1}}\)</span> entre as variáveis de interesse. Os elementos diagonais dessa matriz inversa são os coeficientes <span class="math inline">\(VIF_j\)</span>. Vimos que <strong>GRAZE</strong> era correlacionada com <strong>ALT</strong> e com <strong>YR.ISOL</strong>. Os ceoficientes <span class="math inline">\(VIF\)</span> para estas variáveis podem ser obtidos por:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>vif <span class="ot">&lt;-</span> loyn <span class="sc">|&gt;</span> </span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(GRAZE, ALT, YR.ISOL) <span class="sc">|&gt;</span> </span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cor</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">solve</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">diag</span>()</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>vif</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   GRAZE      ALT  YR.ISOL 
+1.904799 1.200372 1.679995 </code></pre>
+</div>
+</div>
+<p>O <span class="math inline">\(VIF\)</span> para <strong>GRAZE</strong> é maior que os demais, porém longe do limite <span class="math inline">\(VIF &gt; 5\)</span>. Vejamos entretanto o que ocorre com o modelo para abundância se inserimos estas três variáveis:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>mfull2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(ABUND <span class="sc">~</span> GRAZE <span class="sc">+</span> ALT <span class="sc">+</span> YR.ISOL, <span class="at">data =</span> loyn)</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mfull2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = ABUND ~ GRAZE + ALT + YR.ISOL, data = loyn)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-19.5498  -4.8951   0.6504   4.7798  20.2384 
+
+Coefficients:
+             Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept) -73.58185  107.24995  -0.686 0.495712    
+GRAZE        -4.01692    0.99881  -4.022 0.000188 ***
+ALT           0.03285    0.02679   1.226 0.225618    
+YR.ISOL       0.05143    0.05393   0.954 0.344719    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 7.894 on 52 degrees of freedom
+Multiple R-squared:  0.4887,    Adjusted R-squared:  0.4592 
+F-statistic: 16.57 on 3 and 52 DF,  p-value: 1.106e-07</code></pre>
+</div>
+</div>
+<p>Note que agora, somente <strong>GRAZE</strong> aparece com coeficiente estatísticamente diferente de <span class="math inline">\(0\)</span> e <span class="math inline">\(R^2_{ajustado}\)</span> aumenta de 0.304 para 0.459</p>
+</section>
+<section id="tranformações" class="level2" data-number="10">
+<h2 data-number="10" class="anchored" data-anchor-id="tranformações"><span class="header-section-number">10</span> Tranformações</h2>
+<p>Transformações podem frequentemente ser eficazes se a distribuição em situações em que as variáveis preditoras apresentem distribuições assimétricas. Vamos incluir a <strong>AREA</strong> no modelo de regressão. Vejamos os graficos de disperção entre as variáveis preditoras.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggpairs</span>(loyn <span class="sc">|&gt;</span> <span class="fu">select</span>(AREA, GRAZE, ALT, YR.ISOL))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="regressao_linear_multipla_files/figure-html/unnamed-chunk-24-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Há uma relação fortemente assimétrica da variável área, em que poucos framentos são muito maiores. Vejamos as associações par a par utilizando a transfomação <span class="math inline">\(log(AREA)\)</span></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>loyn<span class="sc">$</span>lAREA <span class="ot">&lt;-</span> <span class="fu">log</span>(loyn<span class="sc">$</span>AREA)</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggpairs</span>(loyn <span class="sc">|&gt;</span> <span class="fu">select</span>(lAREA, GRAZE, ALT, YR.ISOL))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="regressao_linear_multipla_files/figure-html/unnamed-chunk-25-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>A transformação resolveu o problema da assimetria.</p>
+<p>Vamos ajustar agora o modelo de regressão:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>mfull3 <span class="ot">&lt;-</span> <span class="fu">lm</span>(ABUND <span class="sc">~</span> lAREA <span class="sc">+</span> GRAZE <span class="sc">+</span> ALT <span class="sc">+</span> YR.ISOL, <span class="at">data =</span> loyn)</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mfull3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = ABUND ~ lAREA + GRAZE + ALT + YR.ISOL, data = loyn)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-14.4245  -3.3341   0.6227   2.6759  15.3290 
+
+Coefficients:
+              Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept) -141.88574   86.23728  -1.645   0.1061    
+lAREA          3.07303    0.55118   5.575 9.41e-07 ***
+GRAZE         -1.60127    0.90538  -1.769   0.0829 .  
+ALT            0.02586    0.02136   1.210   0.2317    
+YR.ISOL        0.07991    0.04323   1.848   0.0703 .  
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 6.283 on 51 degrees of freedom
+Multiple R-squared:  0.6823,    Adjusted R-squared:  0.6574 
+F-statistic: 27.39 on 4 and 51 DF,  p-value: 3.671e-12</code></pre>
+</div>
+</div>
+<p>O resultado indica que somente o <span class="math inline">\(log(AREA)\)</span> seja importante para predizer a abundância. Entretanto, lembre-se que havia uma certo padrão de colinearidade entre <strong>GRAZE</strong>, <strong>ALT</strong> a <strong>YR.ISOL</strong>. Teste retirar uma a uma estas variáveis do modelo e avalie os resultados.</p>
+
+
+
+</section>
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-loyn1987effects" class="csl-entry" role="listitem">
+Loyn, RH. 1987. <span>“Effects of Patch Area and Habitat on Bird Abundances, Species Numbers and Tree Health in Fragmented Victorian Forests.”</span> <em>DA Saunders, GW Arnold, A. A. Burbidge, and AJM Hopkins, Eds Nature Conservation: The Role of Remnants of Native Vegetation</em>, 65–77.
+</div>
+</div></section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/github\.com\/FCopf\/MEAD");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

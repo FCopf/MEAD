@@ -1,0 +1,3278 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.56">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="description" content="Análise da associação entre variáveis qualitativas, tabelas de contingência e índice de qui-quadrado.">
+
+<title>Associação entre duas variáveis qualitativas – Métodos em Estatística e Análise de Dados</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../../styles/custom.css">
+<meta property="og:title" content="Associação entre duas variáveis qualitativas – Métodos em Estatística e Análise de Dados">
+<meta property="og:description" content="Análise da associação entre variáveis qualitativas, tabelas de contingência e índice de qui-quadrado.">
+<meta property="og:image" content="https://github.com/FCopf/MEAD/conteudo/medidas_associacao/images/biquali.jpg">
+<meta property="og:site_name" content="Métodos em Estatística e Análise de Dados">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../../images/logo.png" alt="" class="navbar-logo">
+    </a>
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Métodos em Estatística e Análise de Dados</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="https://github.com/FCopf/MEAD"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text">GitHub</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Nesta página</h2>
+   
+  <ul>
+  <li><a href="#tabelas-de-frequência-e-gráficos-de-barras" id="toc-tabelas-de-frequência-e-gráficos-de-barras" class="nav-link active" data-scroll-target="#tabelas-de-frequência-e-gráficos-de-barras"><span class="header-section-number">1</span> Tabelas de frequência e gráficos de barras</a></li>
+  <li><a href="#tabelas-de-contingência" id="toc-tabelas-de-contingência" class="nav-link" data-scroll-target="#tabelas-de-contingência"><span class="header-section-number">2</span> Tabelas de contingência</a></li>
+  <li><a href="#o-gráfico-de-barras-para-duas-variáveis-qualitativas" id="toc-o-gráfico-de-barras-para-duas-variáveis-qualitativas" class="nav-link" data-scroll-target="#o-gráfico-de-barras-para-duas-variáveis-qualitativas"><span class="header-section-number">3</span> O gráfico de barras para duas variáveis qualitativas</a></li>
+  <li><a href="#medindo-a-discrepância-com-o-índice-de-chi2-de-pearson" id="toc-medindo-a-discrepância-com-o-índice-de-chi2-de-pearson" class="nav-link" data-scroll-target="#medindo-a-discrepância-com-o-índice-de-chi2-de-pearson"><span class="header-section-number">4</span> Medindo a discrepância com o índice de <span class="math inline">\(\chi^2\)</span> de Pearson</a></li>
+  <li><a href="#o-índice-de-chi2-em-uma-tabela-de-contigência" id="toc-o-índice-de-chi2-em-uma-tabela-de-contigência" class="nav-link" data-scroll-target="#o-índice-de-chi2-em-uma-tabela-de-contigência"><span class="header-section-number">5</span> O índice de <span class="math inline">\(\chi^2\)</span> em uma tabela de contigência</a></li>
+  <li><a href="#valores-de-chi2-quando-existe-associação" id="toc-valores-de-chi2-quando-existe-associação" class="nav-link" data-scroll-target="#valores-de-chi2-quando-existe-associação"><span class="header-section-number">6</span> Valores de <span class="math inline">\(\chi^2\)</span> quando existe associação</a></li>
+  <li><a href="#variações-do-índice-de-chi2" id="toc-variações-do-índice-de-chi2" class="nav-link" data-scroll-target="#variações-do-índice-de-chi2"><span class="header-section-number">7</span> Variações do índice de <span class="math inline">\(\chi^2\)</span></a></li>
+  <li><a href="#obtendo-o-índice-de-chi2-de-uma-tabela-de-dados" id="toc-obtendo-o-índice-de-chi2-de-uma-tabela-de-dados" class="nav-link" data-scroll-target="#obtendo-o-índice-de-chi2-de-uma-tabela-de-dados"><span class="header-section-number">8</span> Obtendo o índice de <span class="math inline">\(\chi^2\)</span> de uma tabela de dados</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Associação entre duas variáveis qualitativas</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">Estatística</div>
+    <div class="quarto-category">Análise Qualitativa</div>
+    <div class="quarto-category">Tabelas de Contingência</div>
+  </div>
+  </div>
+
+<div>
+  <div class="description">
+    Análise da associação entre variáveis qualitativas, tabelas de contingência e índice de qui-quadrado.
+  </div>
+</div>
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Pacotes e funções utilizadas no capítulo
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gt)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gridExtra)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">'scripts/assoc_municipies.r'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+<p>Imagine que haverá uma obra de revitalização de uma área na região central da cidade. A obra implicará na melhoria de acesso, de segurança e na oferta de serviços. Entretanto como levará tempo para ser concluída, haverá ações de remoção de moradias irregulares, interdição de ruas e avenidas por longos períodos, etc. A prefeitura encomenda uma pesquisa para saber a opinião dos munícipes. A cada entrevistado são feitas duas perguntas:</p>
+<ol type="1">
+<li>Qual sua opinião sobre a necessidade de realização da obra?</li>
+</ol>
+<ul class="task-list">
+<li><label><input type="checkbox">A favor</label></li>
+<li><label><input type="checkbox">Contra</label></li>
+</ul>
+<ol start="2" type="1">
+<li>Você reside na região diretamente afetada:</li>
+</ol>
+<ul class="task-list">
+<li><label><input type="checkbox">Residente</label></li>
+<li><label><input type="checkbox">Não-Residente</label></li>
+</ul>
+<p>A base de dados completa está disponível em <a href="https://github.com/FCopf/datasets" target="_blank">datasets</a></p>
+<p>Com estas entrevistas desejamos responder à seguinte questão:</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Questão do capítulo
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Moradores <code>Residentes</code> da região central têm uma opinião <strong>consistentemente</strong> diferente de moradores <code>Não-residentes</code> no que se refere a ser <code>A favor</code> ou <code>Contra</code> a obra?</p>
+</div>
+</div>
+<p>Importe a base de dados</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>mun <span class="ot">=</span> <span class="fu">read_delim</span>(<span class="st">'https://raw.githubusercontent.com/FCopf/datasets/refs/heads/main/Entrevista_municipes.csv'</span>,</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>                  <span class="at">delim =</span> <span class="st">','</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>n_amostra <span class="ot">=</span> <span class="dv">12</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>n <span class="ot">=</span> <span class="fu">nrow</span>(mun)  <span class="co"># Número de entrevistados</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Após entrevistar 200 pessoas selecionadas ao acaso de uma lista da moradores da cidade, foi construída uma tabela com três colunas: <code>Entrevistado</code> (sequência numérica do primeiro ao último respondente), <code>Opinião</code> e <code>Moradia</code>.</p>
+<p>Veja os primeiros 12 resultados das entrevistas:</p>
+<div class="cell">
+<div id="tbl-municipies" class="cell quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-municipies-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tabela&nbsp;1: Respostas dos primeiros munícipies entrevistados.
+</figcaption>
+<div aria-describedby="tbl-municipies-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<div id="fnuymumczz" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#fnuymumczz table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#fnuymumczz thead, #fnuymumczz tbody, #fnuymumczz tfoot, #fnuymumczz tr, #fnuymumczz td, #fnuymumczz th {
+  border-style: none;
+}
+
+#fnuymumczz p {
+  margin: 0;
+  padding: 0;
+}
+
+#fnuymumczz .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#fnuymumczz .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#fnuymumczz .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#fnuymumczz .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#fnuymumczz .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#fnuymumczz .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#fnuymumczz .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#fnuymumczz .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#fnuymumczz .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#fnuymumczz .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#fnuymumczz .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#fnuymumczz .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#fnuymumczz .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#fnuymumczz .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#fnuymumczz .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#fnuymumczz .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#fnuymumczz .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#fnuymumczz .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#fnuymumczz .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#fnuymumczz .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#fnuymumczz .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#fnuymumczz .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#fnuymumczz .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#fnuymumczz .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#fnuymumczz .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#fnuymumczz .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#fnuymumczz .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#fnuymumczz .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#fnuymumczz .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#fnuymumczz .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#fnuymumczz .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#fnuymumczz .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#fnuymumczz .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#fnuymumczz .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#fnuymumczz .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#fnuymumczz .gt_left {
+  text-align: left;
+}
+
+#fnuymumczz .gt_center {
+  text-align: center;
+}
+
+#fnuymumczz .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#fnuymumczz .gt_font_normal {
+  font-weight: normal;
+}
+
+#fnuymumczz .gt_font_bold {
+  font-weight: bold;
+}
+
+#fnuymumczz .gt_font_italic {
+  font-style: italic;
+}
+
+#fnuymumczz .gt_super {
+  font-size: 65%;
+}
+
+#fnuymumczz .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#fnuymumczz .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#fnuymumczz .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#fnuymumczz .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#fnuymumczz .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#fnuymumczz .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#fnuymumczz .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#fnuymumczz .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#fnuymumczz div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+
+<table class="gt_table do-not-create-environment cell caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<thead>
+<tr class="header gt_col_headings">
+<th id="Entrevistado" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Entrevistado</th>
+<th id="Opiniao" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">Opiniao</th>
+<th id="Moradia" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">Moradia</th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<td class="gt_row gt_right" headers="Entrevistado">1</td>
+<td class="gt_row gt_left" headers="Opiniao">A favor</td>
+<td class="gt_row gt_left" headers="Moradia">Residente</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_right" headers="Entrevistado">2</td>
+<td class="gt_row gt_left" headers="Opiniao">A favor</td>
+<td class="gt_row gt_left" headers="Moradia">Residente</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_right" headers="Entrevistado">3</td>
+<td class="gt_row gt_left" headers="Opiniao">A favor</td>
+<td class="gt_row gt_left" headers="Moradia">Residente</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_right" headers="Entrevistado">4</td>
+<td class="gt_row gt_left" headers="Opiniao">A favor</td>
+<td class="gt_row gt_left" headers="Moradia">Residente</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_right" headers="Entrevistado">5</td>
+<td class="gt_row gt_left" headers="Opiniao">Contra</td>
+<td class="gt_row gt_left" headers="Moradia">Não-Residente</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_right" headers="Entrevistado">6</td>
+<td class="gt_row gt_left" headers="Opiniao">Contra</td>
+<td class="gt_row gt_left" headers="Moradia">Residente</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_right" headers="Entrevistado">7</td>
+<td class="gt_row gt_left" headers="Opiniao">A favor</td>
+<td class="gt_row gt_left" headers="Moradia">Não-Residente</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_right" headers="Entrevistado">8</td>
+<td class="gt_row gt_left" headers="Opiniao">Contra</td>
+<td class="gt_row gt_left" headers="Moradia">Não-Residente</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_right" headers="Entrevistado">9</td>
+<td class="gt_row gt_left" headers="Opiniao">A favor</td>
+<td class="gt_row gt_left" headers="Moradia">Não-Residente</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_right" headers="Entrevistado">10</td>
+<td class="gt_row gt_left" headers="Opiniao">A favor</td>
+<td class="gt_row gt_left" headers="Moradia">Não-Residente</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_right" headers="Entrevistado">11</td>
+<td class="gt_row gt_left" headers="Opiniao">A favor</td>
+<td class="gt_row gt_left" headers="Moradia">Residente</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_right" headers="Entrevistado">12</td>
+<td class="gt_row gt_left" headers="Opiniao">A favor</td>
+<td class="gt_row gt_left" headers="Moradia">Não-Residente</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</figure>
+</div>
+</div>
+<p>Estão descritos na <a href="#tbl-municipies" class="quarto-xref">Tabela&nbsp;1</a> os resultados das primeiras 12 entrevistas, onde é possível ver ao menos uma combinação de todas as possíveis respostas. O entrevistado pode ser:</p>
+<ul>
+<li><p><code>A favor</code> e ser <code>Residente</code> da região;</p></li>
+<li><p><code>A favor</code> e ser <code>Não-Residente</code>;</p></li>
+<li><p><code>Contra</code> e ser <code>Residente</code>;</p></li>
+<li><p><code>Contra</code> e ser <code>Não-Residente</code>.</p></li>
+</ul>
+<section id="tabelas-de-frequência-e-gráficos-de-barras" class="level2" data-number="1">
+<h2 data-number="1" class="anchored" data-anchor-id="tabelas-de-frequência-e-gráficos-de-barras"><span class="header-section-number">1</span> Tabelas de frequência e gráficos de barras</h2>
+<p>Inicialmente, vamos representar cada uma das variáveis por meio de uma tabela de frequência dos 200 entrevistados.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>resumo_opiniao <span class="ot">=</span> mun <span class="sc">|&gt;</span> </span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Opiniao) <span class="sc">|&gt;</span> </span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Op_n =</span> <span class="fu">n</span>()) <span class="sc">|&gt;</span> </span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Op_rel =</span> Op_n<span class="sc">/</span><span class="fu">sum</span>(Op_n))</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>resumo_opiniao <span class="sc">|&gt;</span> </span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gt</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div id="dskgnltmsm" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#dskgnltmsm table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#dskgnltmsm thead, #dskgnltmsm tbody, #dskgnltmsm tfoot, #dskgnltmsm tr, #dskgnltmsm td, #dskgnltmsm th {
+  border-style: none;
+}
+
+#dskgnltmsm p {
+  margin: 0;
+  padding: 0;
+}
+
+#dskgnltmsm .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#dskgnltmsm .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#dskgnltmsm .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#dskgnltmsm .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#dskgnltmsm .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#dskgnltmsm .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#dskgnltmsm .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#dskgnltmsm .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#dskgnltmsm .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#dskgnltmsm .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#dskgnltmsm .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#dskgnltmsm .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#dskgnltmsm .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#dskgnltmsm .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#dskgnltmsm .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#dskgnltmsm .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#dskgnltmsm .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#dskgnltmsm .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#dskgnltmsm .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#dskgnltmsm .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#dskgnltmsm .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#dskgnltmsm .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#dskgnltmsm .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#dskgnltmsm .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#dskgnltmsm .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#dskgnltmsm .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#dskgnltmsm .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#dskgnltmsm .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#dskgnltmsm .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#dskgnltmsm .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#dskgnltmsm .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#dskgnltmsm .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#dskgnltmsm .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#dskgnltmsm .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#dskgnltmsm .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#dskgnltmsm .gt_left {
+  text-align: left;
+}
+
+#dskgnltmsm .gt_center {
+  text-align: center;
+}
+
+#dskgnltmsm .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#dskgnltmsm .gt_font_normal {
+  font-weight: normal;
+}
+
+#dskgnltmsm .gt_font_bold {
+  font-weight: bold;
+}
+
+#dskgnltmsm .gt_font_italic {
+  font-style: italic;
+}
+
+#dskgnltmsm .gt_super {
+  font-size: 65%;
+}
+
+#dskgnltmsm .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#dskgnltmsm .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#dskgnltmsm .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#dskgnltmsm .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#dskgnltmsm .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#dskgnltmsm .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#dskgnltmsm .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#dskgnltmsm .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#dskgnltmsm div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+
+<table class="gt_table caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<thead>
+<tr class="header gt_col_headings">
+<th id="Opiniao" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">Opiniao</th>
+<th id="Op_n" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Op_n</th>
+<th id="Op_rel" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Op_rel</th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<td class="gt_row gt_left" headers="Opiniao">A favor</td>
+<td class="gt_row gt_right" headers="Op_n">144</td>
+<td class="gt_row gt_right" headers="Op_rel">0.72</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Opiniao">Contra</td>
+<td class="gt_row gt_right" headers="Op_n">56</td>
+<td class="gt_row gt_right" headers="Op_rel">0.28</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>Das <span class="math inline">\(200\)</span> respostas tivemos <span class="math inline">\(144\)</span> pessoas <code>A favor</code> (<span class="math inline">\(72\%\)</span>) e <span class="math inline">\(56\)</span> pessoas <code>Contra</code> (<span class="math inline">\(28\%\)</span>).</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>resumo_opiniao <span class="ot">=</span> mun <span class="sc">|&gt;</span> </span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Opiniao) <span class="sc">|&gt;</span> </span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Op_n =</span> <span class="fu">n</span>()) <span class="sc">|&gt;</span> </span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Op_rel =</span> Op_n<span class="sc">/</span><span class="fu">sum</span>(Op_n))</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>resumo_opiniao <span class="sc">|&gt;</span> </span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gt</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div id="wunghioxrm" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#wunghioxrm table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#wunghioxrm thead, #wunghioxrm tbody, #wunghioxrm tfoot, #wunghioxrm tr, #wunghioxrm td, #wunghioxrm th {
+  border-style: none;
+}
+
+#wunghioxrm p {
+  margin: 0;
+  padding: 0;
+}
+
+#wunghioxrm .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#wunghioxrm .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#wunghioxrm .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#wunghioxrm .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#wunghioxrm .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#wunghioxrm .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#wunghioxrm .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#wunghioxrm .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#wunghioxrm .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#wunghioxrm .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#wunghioxrm .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#wunghioxrm .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#wunghioxrm .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#wunghioxrm .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#wunghioxrm .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#wunghioxrm .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#wunghioxrm .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#wunghioxrm .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#wunghioxrm .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#wunghioxrm .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#wunghioxrm .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#wunghioxrm .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#wunghioxrm .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#wunghioxrm .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#wunghioxrm .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#wunghioxrm .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#wunghioxrm .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#wunghioxrm .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#wunghioxrm .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#wunghioxrm .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#wunghioxrm .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#wunghioxrm .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#wunghioxrm .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#wunghioxrm .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#wunghioxrm .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#wunghioxrm .gt_left {
+  text-align: left;
+}
+
+#wunghioxrm .gt_center {
+  text-align: center;
+}
+
+#wunghioxrm .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#wunghioxrm .gt_font_normal {
+  font-weight: normal;
+}
+
+#wunghioxrm .gt_font_bold {
+  font-weight: bold;
+}
+
+#wunghioxrm .gt_font_italic {
+  font-style: italic;
+}
+
+#wunghioxrm .gt_super {
+  font-size: 65%;
+}
+
+#wunghioxrm .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#wunghioxrm .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#wunghioxrm .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#wunghioxrm .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#wunghioxrm .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#wunghioxrm .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#wunghioxrm .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#wunghioxrm .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#wunghioxrm div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+
+<table class="gt_table caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<thead>
+<tr class="header gt_col_headings">
+<th id="Opiniao" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">Opiniao</th>
+<th id="Op_n" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Op_n</th>
+<th id="Op_rel" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Op_rel</th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<td class="gt_row gt_left" headers="Opiniao">A favor</td>
+<td class="gt_row gt_right" headers="Op_n">144</td>
+<td class="gt_row gt_right" headers="Op_rel">0.72</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Opiniao">Contra</td>
+<td class="gt_row gt_right" headers="Op_n">56</td>
+<td class="gt_row gt_right" headers="Op_rel">0.28</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>Com relação ao local de residência:</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>resumo_morad <span class="ot">=</span> mun <span class="sc">|&gt;</span> </span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Moradia) <span class="sc">|&gt;</span> </span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Morad_n =</span> <span class="fu">n</span>()) <span class="sc">|&gt;</span> </span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Morad_rel =</span> Morad_n<span class="sc">/</span><span class="fu">sum</span>(Morad_n))</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>resumo_morad <span class="sc">|&gt;</span> </span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gt</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div id="kpsfodkwil" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#kpsfodkwil table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#kpsfodkwil thead, #kpsfodkwil tbody, #kpsfodkwil tfoot, #kpsfodkwil tr, #kpsfodkwil td, #kpsfodkwil th {
+  border-style: none;
+}
+
+#kpsfodkwil p {
+  margin: 0;
+  padding: 0;
+}
+
+#kpsfodkwil .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#kpsfodkwil .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#kpsfodkwil .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#kpsfodkwil .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#kpsfodkwil .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#kpsfodkwil .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#kpsfodkwil .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#kpsfodkwil .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#kpsfodkwil .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#kpsfodkwil .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#kpsfodkwil .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#kpsfodkwil .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#kpsfodkwil .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#kpsfodkwil .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#kpsfodkwil .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#kpsfodkwil .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#kpsfodkwil .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#kpsfodkwil .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#kpsfodkwil .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#kpsfodkwil .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#kpsfodkwil .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#kpsfodkwil .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#kpsfodkwil .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#kpsfodkwil .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#kpsfodkwil .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#kpsfodkwil .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#kpsfodkwil .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#kpsfodkwil .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#kpsfodkwil .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#kpsfodkwil .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#kpsfodkwil .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#kpsfodkwil .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#kpsfodkwil .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#kpsfodkwil .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#kpsfodkwil .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#kpsfodkwil .gt_left {
+  text-align: left;
+}
+
+#kpsfodkwil .gt_center {
+  text-align: center;
+}
+
+#kpsfodkwil .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#kpsfodkwil .gt_font_normal {
+  font-weight: normal;
+}
+
+#kpsfodkwil .gt_font_bold {
+  font-weight: bold;
+}
+
+#kpsfodkwil .gt_font_italic {
+  font-style: italic;
+}
+
+#kpsfodkwil .gt_super {
+  font-size: 65%;
+}
+
+#kpsfodkwil .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#kpsfodkwil .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#kpsfodkwil .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#kpsfodkwil .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#kpsfodkwil .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#kpsfodkwil .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#kpsfodkwil .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#kpsfodkwil .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#kpsfodkwil div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+
+<table class="gt_table caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<thead>
+<tr class="header gt_col_headings">
+<th id="Moradia" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">Moradia</th>
+<th id="Morad_n" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Morad_n</th>
+<th id="Morad_rel" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Morad_rel</th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<td class="gt_row gt_left" headers="Moradia">Não-Residente</td>
+<td class="gt_row gt_right" headers="Morad_n">117</td>
+<td class="gt_row gt_right" headers="Morad_rel">0.585</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Moradia">Residente</td>
+<td class="gt_row gt_right" headers="Morad_n">83</td>
+<td class="gt_row gt_right" headers="Morad_rel">0.415</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>Responderam à entrevistas um total de <span class="math inline">\(117\)</span> pessoas <code>Não-Residente</code> (<span class="math inline">\(58.5\%\)</span>) e <span class="math inline">\(83\)</span> pessoas <code>Residente</code> (<span class="math inline">\(41.5\%\)</span>)</p>
+<p>Se visualizarmos estes totais em gráficos de barras individuais teremos:</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>plt_op <span class="ot">=</span> <span class="fu">ggplot</span>(mun, <span class="fu">aes</span>(<span class="at">x =</span> Opiniao)) <span class="sc">+</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">fill =</span> <span class="st">'darkblue'</span>, <span class="at">color =</span> <span class="st">'white'</span>) <span class="sc">+</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_cartesian</span>(<span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">150</span>)) <span class="sc">+</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">'Número de respostas'</span>) <span class="sc">+</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>(<span class="at">base_size =</span> <span class="dv">15</span>)</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>plt_morad <span class="ot">=</span> <span class="fu">ggplot</span>(mun, <span class="fu">aes</span>(<span class="at">x =</span> Moradia)) <span class="sc">+</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">fill =</span> <span class="st">'darkred'</span>, <span class="at">color =</span> <span class="st">'white'</span>) <span class="sc">+</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_cartesian</span>(<span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">150</span>)) <span class="sc">+</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">'Número de respostas'</span>) <span class="sc">+</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>(<span class="at">base_size =</span> <span class="dv">15</span>)</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>plt_op <span class="sc">+</span> plt_morad</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div id="fig-municipies-indiv" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-municipies-indiv-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="biquali_files/figure-html/fig-municipies-indiv-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-municipies-indiv-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;1: Respostas dos munícipies entrevistados para cada questão separadamente.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Existe portanto um predomínio de pessoas <code>A Favor</code> e um ligeiro predomínio de entrevistados <code>Não-Residentes</code>.</p>
+<p>Para responder à questão do capítulo, precisamos verificar se existe alguma <strong>associação</strong> entre as respostas dadas às duas perguntas explorando a <em>distribuição conjunta</em> dos totais respondidos.</p>
+</section>
+<section id="tabelas-de-contingência" class="level2" data-number="2">
+<h2 data-number="2" class="anchored" data-anchor-id="tabelas-de-contingência"><span class="header-section-number">2</span> Tabelas de contingência</h2>
+<p>Tabelas de contigência são organizadas para verificarmos a associação entre duas variáveis qualitativas. São conhecidas também como tabelas de <em>dupla entrada</em>. Nas colunas estão os níveis da variável <span class="math inline">\(X\)</span> e nas linhas os níveis da variável <span class="math inline">\(Y\)</span>.</p>
+<p>Para nosso exemplo, podemos fazer simplesmente:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>tcont <span class="ot">=</span> <span class="fu">table</span>(mun<span class="sc">$</span>Opiniao, mun<span class="sc">$</span>Moradia)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>tcont</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>         
+          Não-Residente Residente
+  A favor            81        63
+  Contra             36        20</code></pre>
+</div>
+</div>
+<p>Temos:</p>
+<ul>
+<li><p>81 - A favor e Não-Residente;</p></li>
+<li><p>63 - A favor e Residente;</p></li>
+<li><p>36 - Contra e Não-Residente;</p></li>
+<li><p>20 - Contra e Residente</p></li>
+</ul>
+<p>Podemos ver os totais marginais das linhas:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>tcont_linhas <span class="ot">=</span> <span class="fu">apply</span>(tcont, <span class="dv">1</span>, sum)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>tcont_linhas</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>A favor  Contra 
+    144      56 </code></pre>
+</div>
+</div>
+<p>Ou os totais marginais das colunas:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>tcont_colunas <span class="ot">=</span> <span class="fu">apply</span>(tcont, <span class="dv">2</span>, sum)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>tcont_colunas</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Não-Residente     Residente 
+          117            83 </code></pre>
+</div>
+</div>
+<p>Que são justamente os totais que verificamos nas distribuições individuais.</p>
+<p>Se quisermos ver as frequências relativas <em>marginais</em> podemos fazer:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>trel_linha <span class="ot">=</span> <span class="fu">prop.table</span>(tcont, <span class="dv">1</span>)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>trel_linha</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>         
+          Não-Residente Residente
+  A favor     0.5625000 0.4375000
+  Contra      0.6428571 0.3571429</code></pre>
+</div>
+</div>
+<p>Neste caso estamos vendo as <strong>frequências relativas das linhas</strong>, isto é, cada linha nesta tabela soma <span class="math inline">\(1\)</span>. O que vemos nesta tabela é que:</p>
+<ul>
+<li><p>dos <span class="math inline">\(144\)</span> entrevistados que são A favor, cerca de <span class="math inline">\(56.25\%\)</span> são Não-Residente, enquanto os demais <span class="math inline">\(43.75\%\)</span> são Residente</p></li>
+<li><p>dos <span class="math inline">\(56\)</span> entrevistados que são Contra, cerca de <span class="math inline">\(64.29\%\)</span> são Não-Residente, enquanto os demais <span class="math inline">\(35.71\%\)</span> são Residente</p></li>
+</ul>
+<p>Podemos fazer exatamente o mesmo olhando para as <strong>frequências marginais por colunas</strong>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>trel_coluna <span class="ot">=</span> <span class="fu">prop.table</span>(tcont, <span class="dv">2</span>)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>trel_coluna</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>         
+          Não-Residente Residente
+  A favor     0.6923077 0.7590361
+  Contra      0.3076923 0.2409639</code></pre>
+</div>
+</div>
+<p>Neste caso são as <strong>colunas</strong> que somam <span class="math inline">\(1\)</span>, portanto:</p>
+<ul>
+<li><p>dos <span class="math inline">\(117\)</span> entrevistados que são Não-Residente, cerca de <span class="math inline">\(69.23\%\)</span> são A favor, enquanto os demais <span class="math inline">\(30.77\%\)</span> são Contra</p></li>
+<li><p>dos <span class="math inline">\(83\)</span> entrevistados que são Residente, cerca de <span class="math inline">\(75.9\%\)</span> são A favor, enquanto os demais <span class="math inline">\(75.9\%\)</span> são Contra</p></li>
+</ul>
+<p>Podemos finalmente ver a frequência relativa conjunta:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>trel_conjunta <span class="ot">=</span> <span class="fu">prop.table</span>(tcont)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>trel_conjunta</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>         
+          Não-Residente Residente
+  A favor         0.405     0.315
+  Contra          0.180     0.100</code></pre>
+</div>
+</div>
+<p>Em que o somatório das linhas é igual a:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>tcont_linhas <span class="sc">/</span> <span class="fu">sum</span>(tcont_linhas)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>A favor  Contra 
+   0.72    0.28 </code></pre>
+</div>
+</div>
+<p>indicando os valores relativos das opiniões <code>A Favor</code> e <code>Contra</code>.</p>
+<p>O somatório das colunas é igual a:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>tcont_colunas <span class="sc">/</span> <span class="fu">sum</span>(tcont_colunas)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Não-Residente     Residente 
+        0.585         0.415 </code></pre>
+</div>
+</div>
+<p>indicando os valores relativos de <code>Não-Residentes</code> e <code>Residentes</code>.</p>
+<p>Na tabela de frequência relativa conjunta, o somatório total da tabela deve ser igual a <span class="math inline">\(1\)</span>.</p>
+</section>
+<section id="o-gráfico-de-barras-para-duas-variáveis-qualitativas" class="level2" data-number="3">
+<h2 data-number="3" class="anchored" data-anchor-id="o-gráfico-de-barras-para-duas-variáveis-qualitativas"><span class="header-section-number">3</span> O gráfico de barras para duas variáveis qualitativas</h2>
+<p>Existem várias formas de gerar um gráfico de barras combinando as duas variáveis. Se quisermos utilizar a própria tabela de contingência obtida a partir do comando <code>table(mun$Opiniao, mun$Moradia)</code>, podemos utilizar o comando <code>barplot()</code>. Por outro lado, se quisermos utilizar a tabela original de dados (objeto <code>mun</code>) podemos fazer uso do pacote ggplot2:</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>plt_bar1 <span class="ot">=</span> <span class="fu">ggplot</span>(mun) <span class="sc">+</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> Moradia, <span class="at">fill =</span> Opiniao) <span class="sc">+</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">color =</span> <span class="st">'white'</span>, <span class="at">position =</span> <span class="st">'dodge'</span>) <span class="sc">+</span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">'Contra'</span> <span class="ot">=</span> <span class="st">'darkred'</span>,</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>                               <span class="st">'A favor'</span> <span class="ot">=</span> <span class="st">'darkblue'</span>)) <span class="sc">+</span></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_cartesian</span>(<span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">80</span>)) <span class="sc">+</span></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">'Número de respostas'</span>) <span class="sc">+</span></span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>(<span class="at">base_size =</span> <span class="dv">15</span>)</span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>plt_bar1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div id="fig-municipies" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-municipies-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="biquali_files/figure-html/fig-municipies-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-municipies-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;2: Respostas dos munícipies entrevistados combinando local de moradia e opinião.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Veja que nesta figura, existem mais opiniões <code>A favor</code>, <strong>independente</strong> do entrevistado ser ou não residente da região central. Este padrão é o mesmo que observamos no gráfico da variável <code>Opinião</code> isoladamente, o que sugere <strong>não haver</strong> associação entre as variáveis <code>Opinião</code> e <code>Moradia</code>. Ao que parece, a opinião de um entrevistado sobre a construção da obra <strong>não depende</strong> de seu local de moradia.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Exemplos de associações entre duas variáveis
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Abaixo são apresentadas quatro situações em que <strong>existe</strong> associação <code>Opinião</code> e <code>Moradia</code>.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="biquali_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p>Em todos estes exemplos, note que a relação as opiniões <code>A favor</code> ou <code>Contra</code> <em>dependem</em> se o entrevistado é ou não <code>Residente</code> na região. Esses padrões configuram diferentes tipos de associação entre as variáveis <code>Opinião</code> e <code>Moradia</code>, a saber:</p>
+<ul>
+<li><p>Figura A: <code>Não-Residentes</code> tendem a ser <code>A favor</code> e <code>Residentes</code> são em sua maioria <code>Contra</code>;</p></li>
+<li><p>Figura B: todos tendem a ser <code>Contra</code>, mas a diferença de opiniões é maior entre os <code>Residentes</code>;</p></li>
+<li><p>Figura C: <code>Não-Residentes</code> tendem a ser <code>Contra</code>, enquanto não parece haver diferenças entre os <code>Residentes</code>;</p></li>
+<li><p>Figura D: <code>Residentes</code> tendem a ser <code>A favor</code>, enquanto não parece haver diferenças entre os <code>Residentes</code>;</p></li>
+</ul>
+</section>
+<section id="medindo-a-discrepância-com-o-índice-de-chi2-de-pearson" class="level2" data-number="4">
+<h2 data-number="4" class="anchored" data-anchor-id="medindo-a-discrepância-com-o-índice-de-chi2-de-pearson"><span class="header-section-number">4</span> Medindo a discrepância com o índice de <span class="math inline">\(\chi^2\)</span> de Pearson</h2>
+<p>O índice de qui-quadrado (<span class="math inline">\(\chi^2\)</span>) mede a discrepância entre os valores <strong>observados</strong> e os valores <strong>esperados</strong> em uma tabela de contingência.</p>
+<p>Digamos que um município tenha <span class="math inline">\(20\%\)</span> de sua população morando em área Rural e os outros <span class="math inline">\(80\%\)</span> em área Urbana. Se fizermos uma amostragem <em>ao acaso</em> dos moradores é esperado que esta frequência relativa se reflita na amostra. Neste caso se sorteamos <span class="math inline">\(200\)</span> pessoas, seria esperado:</p>
+<ul>
+<li><p>Zona Rural: <span class="math inline">\(40\)</span> moradores</p></li>
+<li><p>Zona Urbana <span class="math inline">\(160\)</span> moradores</p></li>
+</ul>
+<p>Entretando, se fazemos um sorteio ao acaso, haverá alguma variação ao redor destes valores, de modo que as frequências observadas (<span class="math inline">\(o\)</span>) deverão ser diferentes das esperadas (<span class="math inline">\(e\)</span>). O <span class="math inline">\(\chi^2\)</span> mede a discrepância entre <span class="math inline">\(o\)</span> e <span class="math inline">\(e\)</span> para cada célula de uma tabela de contigência como:</p>
+<p><span class="math display">\[\chi^2 = \sum_{i=1}^{n}\frac{(o_i - e_i)^2}{e_i}\]</span> Para uma tabela de frequências, devemos determinar portanto os valores de <span class="math inline">\(o_i\)</span> e <span class="math inline">\(e_i\)</span>.</p>
+<p>Suponha que uma amostra de <span class="math inline">\(200\)</span> moradores tenha resultado em:</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">10</span>)</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>nor <span class="ot">=</span> <span class="fu">sum</span>(<span class="fu">rbinom</span>(<span class="at">n =</span> n, <span class="at">size =</span> <span class="dv">1</span>, <span class="at">prob =</span> pr))</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>Moradia_obs <span class="ot">=</span> <span class="fu">data.frame</span>(<span class="at">Regiao =</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="st">'Rural'</span>, nor),</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>                           <span class="fu">rep</span>(<span class="st">'Urbana'</span>, n <span class="sc">-</span> nor)))</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>tb_dfo <span class="ot">=</span> <span class="fu">table</span>(Moradia_obs)</span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>tb_dfo</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Regiao
+ Rural Urbana 
+    31    169 </code></pre>
+</div>
+</div>
+<p>As frequências observadas e esperadas serão:</p>
+<ul>
+<li>Zona Rural:</li>
+</ul>
+<p><span class="math inline">\(o_{Rural} = 31\)</span></p>
+<p><span class="math inline">\(e_{Rural} = 0.2 \times 200 = 40\)</span></p>
+<ul>
+<li>Zona Urbana</li>
+</ul>
+<p><span class="math inline">\(o_{Urbana} = 169\)</span></p>
+<p><span class="math inline">\(e_{Urbana} = 0.8 \times 200 = 160\)</span></p>
+<p>De modo que o valor de <span class="math inline">\(\chi^2\)</span> será:</p>
+<p><span class="math inline">\(\chi^2 = \frac{(31 - 40)^2}{40} + \frac{(169 - 160)^2}{160} = \frac{(-9)^2}{40} + \frac{(9)^2}{160} = 2.025 + 0.50625 = 2.53125\)</span></p>
+</section>
+<section id="o-índice-de-chi2-em-uma-tabela-de-contigência" class="level2" data-number="5">
+<h2 data-number="5" class="anchored" data-anchor-id="o-índice-de-chi2-em-uma-tabela-de-contigência"><span class="header-section-number">5</span> O índice de <span class="math inline">\(\chi^2\)</span> em uma tabela de contigência</h2>
+<p>No exemplo acima, as contagens esperadas foram definidas a partir de um <em>modelo</em> que dizia que as populações rurais e urbanas se dividiam nas proporções <span class="math inline">\(20\%:80\%\)</span>. Em uma tabela de contigência, a hipótese em verificação é a de que <strong>não há associação entre <span class="math inline">\(X\)</span> e <span class="math inline">\(Y\)</span></strong>. Se for assim, é esperado que as frequências conjuntas sejam <em>porporcionais às frequências marginais</em>. Vamos apresentar esta ideia utilizando uma notação geral para tabelas de contingência e, em seguida, discutir com um exemplo.</p>
+<p>A tabela <a href="#tbl-contigencia" class="quarto-xref">Tabela&nbsp;2</a> apresenta <span class="math inline">\(r\)</span> linhas por <span class="math inline">\(s\)</span> colunas com as contagens de todas as combinações dos níveis da variável <span class="math inline">\(X\)</span> (Níveis <span class="math inline">\(A_{1}\)</span> a <span class="math inline">\(A_{r}\)</span>) e da variável <span class="math inline">\(Y\)</span> (Níveis <span class="math inline">\(B_{1}\)</span> a <span class="math inline">\(B_{s}\)</span>). Os totais marginais de <span class="math inline">\(X\)</span> e <span class="math inline">\(Y\)</span> são expressos respectivamente na última coluna e na última linha.</p>
+<div id="tbl-contigencia" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-contigencia-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tabela&nbsp;2: Representação de uma tabela de contigência.
+</figcaption>
+<div aria-describedby="tbl-contigencia-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 10%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">X ⟍ Y</th>
+<th style="text-align: center;"><span class="math inline">\(B_{1}\)</span></th>
+<th style="text-align: center;"><span class="math inline">\(B_{2}\)</span></th>
+<th style="text-align: center;"><span class="math inline">\(\cdots\)</span></th>
+<th style="text-align: center;"><span class="math inline">\(B_{j}\)</span></th>
+<th style="text-align: center;"><span class="math inline">\(\cdots\)</span></th>
+<th style="text-align: center;"><span class="math inline">\(B_{s}\)</span></th>
+<th style="text-align: center;">Totais em <span class="math inline">\(X\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">\(A_{1}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(n_{11}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(n_{12}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\cdots\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(n_{1j}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\cdots\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(n_{1s}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(n_{1.}\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="math inline">\(A_{2}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(n_{21}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(n_{22}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\cdots\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(n_{2j}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\cdots\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(n_{2s}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(n_{2.}\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">\(\vdots\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\vdots\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\vdots\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\vdots\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\vdots\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\vdots\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\vdots\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\vdots\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="math inline">\(A_{i}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(n_{i1}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(n_{i2}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\cdots\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(n_{ij}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\cdots\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(n_{is}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(n_{i.}\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">\(\vdots\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\vdots\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\vdots\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\vdots\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\cdots\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\cdots\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\vdots\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\vdots\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="math inline">\(A_{r}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(n_{r1}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(n_{r2}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\cdots\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(n_{rj}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\cdots\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(n_{rs}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(n_{r.}\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Totais em <span class="math inline">\(Y\)</span></strong></td>
+<td style="text-align: center;"><span class="math inline">\(n_{.1}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(n_{.2}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\cdots\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(n_{.j}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\cdots\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(n_{rs}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(n\)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<p>Sob a hipótese de <strong>não-associação</strong> entre <span class="math inline">\(X\)</span> e <span class="math inline">\(Y\)</span> teremos que:</p>
+<p><span class="math inline">\(\frac{n_{i1}}{n_{.1}} = \frac{n_{i2}}{n_{.2}} = \cdots = \frac{n_{is}}{n_{.s}} = \frac{n_{i.}}{n}\)</span></p>
+<p>e assim:</p>
+<p><span class="math inline">\(\frac{n_{ij}}{n_{.j}} = \frac{n_{i.}}{n}\)</span></p>
+<p>Deste modo:</p>
+<p><span class="math inline">\(n_{ij}^{e} = \frac{n_{i.} \times n_{.j}}{n}\)</span></p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Observações
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A notação <span class="math inline">\(n_{ij}^{e}\)</span> está sendo utilizada para denotar que a expressão acima determina a contagem de cada célula da tabela <strong>sob a hipótese de não associação</strong> e portanto, se refere ao <strong>valor esperado</strong> de <span class="math inline">\(n_{ij}\)</span>.</p>
+</div>
+</div>
+<p>Tendo definido os valores esperados em uma tabela de contingência de <span class="math inline">\(r \times s\)</span>, o <span class="math inline">\(\chi^2\)</span> é dado por:</p>
+<p><span class="math display">\[\chi^2 = \sum_{i=1}^{r}\sum_{j=1}^{s}\frac{(n_{ij} - n_{ij}^{e})^2}{n_{ij}^{e}}\]</span></p>
+<p><strong>Retornando ao exemplo das entrevistas</strong></p>
+<p>A tabela de contingência contendo os dados <strong>observados</strong> do início do capítulo pode ser escrita como:</p>
+<div id="tbl-contigencia-municipies" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-contigencia-municipies-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tabela&nbsp;3: Resultados das entrevistas dos 200 munícipies.
+</figcaption>
+<div aria-describedby="tbl-contigencia-municipies-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th>Não-Residente</th>
+<th>Residente</th>
+<th>Total Opinião</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>A favor</td>
+<td>81</td>
+<td>63</td>
+<td>144</td>
+</tr>
+<tr class="even">
+<td>Contra</td>
+<td>36</td>
+<td>20</td>
+<td>56</td>
+</tr>
+<tr class="odd">
+<td>Total Moradia</td>
+<td>117</td>
+<td>83</td>
+<td>200</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<p>Os Valores esperados na linha <span class="math inline">\(i\)</span> e coluna <span class="math inline">\(j\)</span> são:</p>
+<ul>
+<li>Linha <span class="math inline">\(1\)</span> - Coluna <span class="math inline">\(1\)</span> (<code>Não-Residente</code> - <code>A favor</code>):</li>
+</ul>
+<p><span class="math inline">\(n_{ii}^{e} = \frac{n_{1.} \times n_{.1}}{n} =  \frac{144 \times 117}{200} = 84.24\)</span></p>
+<ul>
+<li>Linha <span class="math inline">\(1\)</span> - Coluna <span class="math inline">\(2\)</span> (<code>Residente</code> - <code>A favor</code>):</li>
+</ul>
+<p><span class="math inline">\(n_{ii}^{e} = \frac{n_{1.} \times n_{.2}}{n} =  \frac{144 \times 83}{200} = 59.76\)</span></p>
+<ul>
+<li>Linha <span class="math inline">\(2\)</span> - Coluna <span class="math inline">\(1\)</span> (<code>Não-Residente</code> - <code>Contra</code>):</li>
+</ul>
+<p><span class="math inline">\(n_{ii}^{e} = \frac{n_{2.} \times n_{.1}}{n} =  \frac{56 \times 117}{200} = 32.76\)</span></p>
+<ul>
+<li>Linha <span class="math inline">\(2\)</span> - Coluna <span class="math inline">\(2\)</span> (<code>Residente</code> - <code>Contra</code>):</li>
+</ul>
+<p><span class="math inline">\(n_{ii}^{e} = \frac{n_{2.} \times n_{.2}}{n} =  \frac{56 \times 83}{200} = 23.24\)</span></p>
+<p>De modo que a tabela com os valores <strong>esperados</strong> será:</p>
+<div id="tbl-contigencia-municipies-esperado" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-contigencia-municipies-esperado-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tabela&nbsp;4: Valores esperados na hipótese de <strong>não-associação</strong> entre <code>Opiniao</code> e locals de <code>Moradia</code> dos 200 munícipies entrevistados.
+</figcaption>
+<div aria-describedby="tbl-contigencia-municipies-esperado-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th>Não-Residente</th>
+<th>Residente</th>
+<th>Total Opinião</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>A favor</td>
+<td>84.24</td>
+<td>59.76</td>
+<td>144</td>
+</tr>
+<tr class="even">
+<td>Contra</td>
+<td>32.76</td>
+<td>23.24</td>
+<td>56</td>
+</tr>
+<tr class="odd">
+<td>Total Moradia</td>
+<td>117</td>
+<td>83</td>
+<td>200</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<p>Finalmente, o valor de <span class="math inline">\(\chi^2\)</span> pode ser calculado por:</p>
+<p><span class="math inline">\(\chi^2 = \frac{(81 - 84.24)^2}{84.24} + \frac{(36 - 32.76)^2}{84.24} + \frac{(63 - 59.76)^2}{84.24} + \frac{(20 - 23.24)^2}{84.24} = 1.072\)</span></p>
+</section>
+<section id="valores-de-chi2-quando-existe-associação" class="level2" data-number="6">
+<h2 data-number="6" class="anchored" data-anchor-id="valores-de-chi2-quando-existe-associação"><span class="header-section-number">6</span> Valores de <span class="math inline">\(\chi^2\)</span> quando existe associação</h2>
+<p>O valor de <span class="math inline">\(\chi^2\)</span> será zero somente se os valores observados forem <strong>exatamente</strong> iguais aos valores esperados. Pequenas discrepâncias irão gerar valores de <span class="math inline">\(\chi^2\)</span> acima de zero, que se tornarão mais altos à medida que aumentam as diferenças entre <span class="math inline">\(n_{ij}\)</span> e <span class="math inline">\(n_{ij}^e\)</span>.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Quantificando as associações
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Abaixo estão diferentes exemplos em que existe associação entre <code>Opinião</code> e <code>Moradia</code>. Compare os valores e os gráficos abaixo aos que fizemos no exemplo do capítulo e veja que todos os valores de <span class="math inline">\(\chi^2\)</span> são mais elevados.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="biquali_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<hr>
+<ul>
+<li>Tente aplicar a fórmula do <span class="math inline">\(\chi^2\)</span> para chegar aos resultados apresentados em cada exemplo.</li>
+</ul>
+</div>
+</div>
+</section>
+<section id="variações-do-índice-de-chi2" class="level2" data-number="7">
+<h2 data-number="7" class="anchored" data-anchor-id="variações-do-índice-de-chi2"><span class="header-section-number">7</span> Variações do índice de <span class="math inline">\(\chi^2\)</span></h2>
+<p>O valor de <span class="math inline">\(\chi^2\)</span> aumenta com o tamanho da amostra, o que torna difícil comparações entre diferentes estudos. Para corrigir este efeito existe o <strong>coeficiente de contigência de Pearson (<span class="math inline">\(C\)</span>)</strong> que é baseado no resultado de <span class="math inline">\(\chi^2\)</span></p>
+<p><span class="math display">\[C = \sqrt{\frac{\chi^2}{\chi^2 + n}}\]</span></p>
+<p>em que <span class="math inline">\(n\)</span> é o tamanho da amostra.</p>
+<p>O valor máximo de <span class="math inline">\(C\)</span> depende do número de linhas (<span class="math inline">\(r\)</span>) e de colunas (<span class="math inline">\(s\)</span>) na tabela de contingêcia. Podemos definir um coeficiente que esteja limitado entre <span class="math inline">\(0\)</span> e <span class="math inline">\(1\)</span>:</p>
+<p><span class="math display">\[T = \sqrt{\frac{\frac{\chi^2}{n}}{(r-1) \times (s-1)}}\]</span> O valor <span class="math inline">\(T = 0\)</span> ocorre quando <strong>não há</strong> associação (<span class="math inline">\(\chi^2 = 0\)</span>) e o valor máximo de <span class="math inline">\(T = 1\)</span> só será atingido se houver associação e <span class="math inline">\(r = s\)</span></p>
+</section>
+<section id="obtendo-o-índice-de-chi2-de-uma-tabela-de-dados" class="level2" data-number="8">
+<h2 data-number="8" class="anchored" data-anchor-id="obtendo-o-índice-de-chi2-de-uma-tabela-de-dados"><span class="header-section-number">8</span> Obtendo o índice de <span class="math inline">\(\chi^2\)</span> de uma tabela de dados</h2>
+<p>A função para o cálculo do <span class="math inline">\(\chi^2\)</span> no R é <code>chisq.test</code> e pode ser utilizada a partir da tabela de contigência gerada pela função <code>table</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>tcont <span class="ot">=</span> <span class="fu">table</span>(mun<span class="sc">$</span>Opiniao, mun<span class="sc">$</span>Moradia)</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(tcont)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Pearson's Chi-squared test with Yates' continuity correction
+
+data:  tcont
+X-squared = 0.76697, df = 1, p-value = 0.3812</code></pre>
+</div>
+</div>
+<p>O resultado mostra o o valor de <span class="math inline">\(\chi^2\)</span> calculado (<code>X-squared</code>) e outras duas quantias denominadas de <strong>graus de liberdade</strong> (<code>df</code>) e <strong>valor de p</strong> (<code>p-value</code>), tópicos abordados em <em>inferência estatística</em>.</p>
+<p>Note que o resultado é diferente do que obtivemos neste capítulo. Isto ocorre pois, por padrão, a função utiliza a <a href="https://en.wikipedia.org/wiki/Yates%27s_correction_for_continuity" target="_blank">correção de Yates</a>, em que <span class="math inline">\(\chi_{Yates}^{2}\)</span> é calculado por:</p>
+<p><span class="math display">\[\chi_{Yates}^{2} = \sum_{i=1}^{r}\sum_{j=1}^{s}\frac{(|n_{ij} - n_{ij}^{e}| - 0,5)^2}{n_{ij}^{e}}\]</span></p>
+<p>O termo <span class="math inline">\(|n_{ij} - n_{ij}^{e}|\)</span> se refere ao módulo da distância entre os valores observados e calculados.</p>
+<p>Se quisermos obter exatamente os resultados descritos no exemplo deste capítulo, basta fazermos:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(tcont, <span class="at">correct =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Pearson's Chi-squared test
+
+data:  tcont
+X-squared = 1.0724, df = 1, p-value = 0.3004</code></pre>
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/github\.com\/FCopf\/MEAD");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

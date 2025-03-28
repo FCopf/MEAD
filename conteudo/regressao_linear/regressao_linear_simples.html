@@ -1,0 +1,2611 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.56">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="description" content="Modelos de regressão linear simples, ANOVA da regressão, coeficientes de determinação e diagnósticos da regressão.">
+
+<title>Regressão Linear Simples – Métodos em Estatística e Análise de Dados</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../../styles/custom.css">
+<meta property="og:title" content="Regressão Linear Simples – Métodos em Estatística e Análise de Dados">
+<meta property="og:description" content="Modelos de regressão linear simples, ANOVA da regressão, coeficientes de determinação e diagnósticos da regressão.">
+<meta property="og:image" content="https://github.com/FCopf/MEAD/conteudo/regressao_linear/images/regressao_linear_simples.jpg">
+<meta property="og:site_name" content="Métodos em Estatística e Análise de Dados">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../../images/logo.png" alt="" class="navbar-logo">
+    </a>
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Métodos em Estatística e Análise de Dados</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="https://github.com/FCopf/MEAD"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text">GitHub</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Nesta página</h2>
+   
+  <ul>
+  <li><a href="#modelo-geral-de-regressão" id="toc-modelo-geral-de-regressão" class="nav-link active" data-scroll-target="#modelo-geral-de-regressão"><span class="header-section-number">1</span> Modelo geral de regressão</a>
+  <ul class="collapse">
+  <li><a href="#porção-determinística" id="toc-porção-determinística" class="nav-link" data-scroll-target="#porção-determinística"><span class="header-section-number">1.1</span> Porção determinística</a></li>
+  <li><a href="#porção-estocástica" id="toc-porção-estocástica" class="nav-link" data-scroll-target="#porção-estocástica"><span class="header-section-number">1.2</span> Porção estocástica</a></li>
+  </ul></li>
+  <li><a href="#ajuste-dos-dados-ao-modelo-de-regressão" id="toc-ajuste-dos-dados-ao-modelo-de-regressão" class="nav-link" data-scroll-target="#ajuste-dos-dados-ao-modelo-de-regressão"><span class="header-section-number">2</span> Ajuste dos dados ao modelo de regressão</a>
+  <ul class="collapse">
+  <li><a href="#método-dos-mínimos-quadrados" id="toc-método-dos-mínimos-quadrados" class="nav-link" data-scroll-target="#método-dos-mínimos-quadrados"><span class="header-section-number">2.1</span> Método dos mínimos quadrados</a></li>
+  <li><a href="#variâncias-covariâncias-e-coeficientes-da-regressão" id="toc-variâncias-covariâncias-e-coeficientes-da-regressão" class="nav-link" data-scroll-target="#variâncias-covariâncias-e-coeficientes-da-regressão"><span class="header-section-number">2.2</span> Variâncias, covariâncias e coeficientes da regressão</a></li>
+  <li><a href="#exemplo-de-ajuste-ao-modelo-de-regressão" id="toc-exemplo-de-ajuste-ao-modelo-de-regressão" class="nav-link" data-scroll-target="#exemplo-de-ajuste-ao-modelo-de-regressão"><span class="header-section-number">2.3</span> Exemplo de ajuste ao modelo de regressão</a></li>
+  </ul></li>
+  <li><a href="#testes-de-hipóteses-na-regressão-linear-simples" id="toc-testes-de-hipóteses-na-regressão-linear-simples" class="nav-link" data-scroll-target="#testes-de-hipóteses-na-regressão-linear-simples"><span class="header-section-number">3</span> Testes de hipóteses na regressão linear simples</a>
+  <ul class="collapse">
+  <li><a href="#teste-sobre-beta_1" id="toc-teste-sobre-beta_1" class="nav-link" data-scroll-target="#teste-sobre-beta_1"><span class="header-section-number">3.1</span> Teste sobre <span class="math inline">\(\beta_1\)</span></a></li>
+  <li><a href="#análise-de-variância-da-regressão" id="toc-análise-de-variância-da-regressão" class="nav-link" data-scroll-target="#análise-de-variância-da-regressão"><span class="header-section-number">3.2</span> Análise de variância da regressão</a></li>
+  </ul></li>
+  <li><a href="#coeficiente-de-determinação-r2" id="toc-coeficiente-de-determinação-r2" class="nav-link" data-scroll-target="#coeficiente-de-determinação-r2"><span class="header-section-number">4</span> Coeficiente de determinação <span class="math inline">\(R^2\)</span></a></li>
+  <li><a href="#intervalo-de-confiança-de-y" id="toc-intervalo-de-confiança-de-y" class="nav-link" data-scroll-target="#intervalo-de-confiança-de-y"><span class="header-section-number">5</span> Intervalo de confiança de <span class="math inline">\(Y\)</span></a></li>
+  <li><a href="#pressupostos-da-regressão-linear-simples" id="toc-pressupostos-da-regressão-linear-simples" class="nav-link" data-scroll-target="#pressupostos-da-regressão-linear-simples"><span class="header-section-number">6</span> Pressupostos da regressão linear simples</a>
+  <ul class="collapse">
+  <li><a href="#relação-funcional-linear" id="toc-relação-funcional-linear" class="nav-link" data-scroll-target="#relação-funcional-linear"><span class="header-section-number">6.1</span> Relação funcional linear</a></li>
+  <li><a href="#independência" id="toc-independência" class="nav-link" data-scroll-target="#independência"><span class="header-section-number">6.2</span> Independência</a></li>
+  <li><a href="#variável-x-é-medida-sem-erros" id="toc-variável-x-é-medida-sem-erros" class="nav-link" data-scroll-target="#variável-x-é-medida-sem-erros"><span class="header-section-number">6.3</span> Variável <span class="math inline">\(X\)</span> é medida sem erros</a></li>
+  <li><a href="#distribuição-normal-dos-resíduos" id="toc-distribuição-normal-dos-resíduos" class="nav-link" data-scroll-target="#distribuição-normal-dos-resíduos"><span class="header-section-number">6.4</span> Distribuição normal dos resíduos</a></li>
+  <li><a href="#variância-residual-constante" id="toc-variância-residual-constante" class="nav-link" data-scroll-target="#variância-residual-constante"><span class="header-section-number">6.5</span> Variância residual constante</a></li>
+  </ul></li>
+  <li><a href="#diagnósticos-da-regressão" id="toc-diagnósticos-da-regressão" class="nav-link" data-scroll-target="#diagnósticos-da-regressão"><span class="header-section-number">7</span> Diagnósticos da regressão</a>
+  <ul class="collapse">
+  <li><a href="#gráfico-de-resíduos" id="toc-gráfico-de-resíduos" class="nav-link" data-scroll-target="#gráfico-de-resíduos"><span class="header-section-number">7.1</span> Gráfico de resíduos</a></li>
+  <li><a href="#histograma-dos-resíduos" id="toc-histograma-dos-resíduos" class="nav-link" data-scroll-target="#histograma-dos-resíduos"><span class="header-section-number">7.2</span> Histograma dos resíduos</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Regressão Linear Simples</h1>
+</div>
+
+<div>
+  <div class="description">
+    Modelos de regressão linear simples, ANOVA da regressão, coeficientes de determinação e diagnósticos da regressão.
+  </div>
+</div>
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Pacotes, funções e base de dados utilizadas
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gt)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+<p>Um modelo de regressão linear nos permite verificar se há uma relação funcional entre variáveis quantitativas. Nesta relação, uma variável é denominada <strong>dependente</strong> (ou <strong>variável resposta</strong> - <span class="math inline">\(Y\)</span>) e as demais <strong>independentes</strong> (ou <strong>variáveis preditoras</strong> - <span class="math inline">\(X\)</span>). Portanto, ao ajustar um modelo de regressão linear, estamos assumindo que existe uma relação estatística de <strong>dependencia</strong> de <span class="math inline">\(Y\)</span> como <em>função</em> das variáveis preditoras em <span class="math inline">\(X\)</span>. No modelo de regressão linear <strong>simples</strong> temos somente <strong>uma</strong> variável preditora e sua relação funcional com <span class="math inline">\(Y\)</span> é dada por:</p>
+<p><span class="math display">\[Y_i = \beta_0 + \beta_1X_i + \epsilon_i\]</span></p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>st <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"https://raw.githubusercontent.com/FCopf/datasets/refs/heads/main/HubbardBrook_wide.csv"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">rename</span>(<span class="at">FlowD =</span> WS2_Flow_Defosrested, <span class="at">FlowR =</span> WS3_Flow_reference, </span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">RainD =</span> WS2_precipitation, <span class="at">RainR =</span> WS3_precipitation) <span class="sc">|&gt;</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">FlowD =</span> FlowD <span class="sc">/</span> <span class="dv">100</span>, <span class="at">FlowR =</span> FlowR <span class="sc">/</span> <span class="dv">100</span>,</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>           <span class="at">RainD =</span> RainD <span class="sc">/</span> <span class="dv">10</span>, <span class="at">RainR =</span> RainR <span class="sc">/</span> <span class="dv">10</span>) <span class="sc">|&gt;</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    (\(df) df[<span class="sc">-</span><span class="dv">31</span>, ])()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>Considere novamente os dados sobre pluviosidade anual e vazão em uma bacia hidrográfica americada, medidos entre os anos de 1958 e 1987 (disponível em: <a href="https://tiee.esa.org/vol/v1/data_sets/hubbard/hubbard_overview.html">tiee.esa.org</a>). Vamos avaliar a relação entre a vazão na bacia e os volumes de chuva.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="cnmgqnczej" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#cnmgqnczej table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#cnmgqnczej thead, #cnmgqnczej tbody, #cnmgqnczej tfoot, #cnmgqnczej tr, #cnmgqnczej td, #cnmgqnczej th {
+  border-style: none;
+}
+
+#cnmgqnczej p {
+  margin: 0;
+  padding: 0;
+}
+
+#cnmgqnczej .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#cnmgqnczej .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#cnmgqnczej .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#cnmgqnczej .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#cnmgqnczej .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#cnmgqnczej .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#cnmgqnczej .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#cnmgqnczej .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#cnmgqnczej .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#cnmgqnczej .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#cnmgqnczej .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#cnmgqnczej .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#cnmgqnczej .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#cnmgqnczej .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#cnmgqnczej .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#cnmgqnczej .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#cnmgqnczej .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#cnmgqnczej .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#cnmgqnczej .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#cnmgqnczej .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#cnmgqnczej .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#cnmgqnczej .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#cnmgqnczej .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#cnmgqnczej .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#cnmgqnczej .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#cnmgqnczej .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#cnmgqnczej .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#cnmgqnczej .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#cnmgqnczej .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#cnmgqnczej .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#cnmgqnczej .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#cnmgqnczej .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#cnmgqnczej .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#cnmgqnczej .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#cnmgqnczej .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#cnmgqnczej .gt_left {
+  text-align: left;
+}
+
+#cnmgqnczej .gt_center {
+  text-align: center;
+}
+
+#cnmgqnczej .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#cnmgqnczej .gt_font_normal {
+  font-weight: normal;
+}
+
+#cnmgqnczej .gt_font_bold {
+  font-weight: bold;
+}
+
+#cnmgqnczej .gt_font_italic {
+  font-style: italic;
+}
+
+#cnmgqnczej .gt_super {
+  font-size: 65%;
+}
+
+#cnmgqnczej .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#cnmgqnczej .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#cnmgqnczej .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#cnmgqnczej .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#cnmgqnczej .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#cnmgqnczej .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#cnmgqnczej .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#cnmgqnczej .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#cnmgqnczej div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+
+<table class="gt_table caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<thead>
+<tr class="header gt_col_headings">
+<th id="Year" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Year</th>
+<th id="FlowD" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">FlowD</th>
+<th id="FlowR" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">FlowR</th>
+<th id="Diference" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Diference</th>
+<th id="RainD" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">RainD</th>
+<th id="RainR" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">RainR</th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<td class="gt_row gt_right" headers="Year">1958</td>
+<td class="gt_row gt_right" headers="FlowD">645.15</td>
+<td class="gt_row gt_right" headers="FlowR">567.36</td>
+<td class="gt_row gt_right" headers="Diference">7779</td>
+<td class="gt_row gt_right" headers="RainD">1167.5</td>
+<td class="gt_row gt_right" headers="RainR">1161.0</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_right" headers="Year">1959</td>
+<td class="gt_row gt_right" headers="FlowD">1012.05</td>
+<td class="gt_row gt_right" headers="FlowR">918.23</td>
+<td class="gt_row gt_right" headers="Diference">9382</td>
+<td class="gt_row gt_right" headers="RainD">1482.6</td>
+<td class="gt_row gt_right" headers="RainR">1479.1</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_right" headers="Year">1960</td>
+<td class="gt_row gt_right" headers="FlowD">825.22</td>
+<td class="gt_row gt_right" headers="FlowR">752.06</td>
+<td class="gt_row gt_right" headers="Diference">7316</td>
+<td class="gt_row gt_right" headers="RainD">1321.3</td>
+<td class="gt_row gt_right" headers="RainR">1325.3</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_right" headers="Year">1961</td>
+<td class="gt_row gt_right" headers="FlowD">470.05</td>
+<td class="gt_row gt_right" headers="FlowR">436.25</td>
+<td class="gt_row gt_right" headers="Diference">3380</td>
+<td class="gt_row gt_right" headers="RainD">979.7</td>
+<td class="gt_row gt_right" headers="RainR">978.9</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_right" headers="Year">1962</td>
+<td class="gt_row gt_right" headers="FlowD">777.31</td>
+<td class="gt_row gt_right" headers="FlowR">699.29</td>
+<td class="gt_row gt_right" headers="Diference">7802</td>
+<td class="gt_row gt_right" headers="RainD">1232.2</td>
+<td class="gt_row gt_right" headers="RainR">1230.6</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_right" headers="Year">1963</td>
+<td class="gt_row gt_right" headers="FlowD">773.64</td>
+<td class="gt_row gt_right" headers="FlowR">662.58</td>
+<td class="gt_row gt_right" headers="Diference">11106</td>
+<td class="gt_row gt_right" headers="RainD">1138.6</td>
+<td class="gt_row gt_right" headers="RainR">1151.7</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_right" headers="Year">1964</td>
+<td class="gt_row gt_right" headers="FlowD">712.15</td>
+<td class="gt_row gt_right" headers="FlowR">630.45</td>
+<td class="gt_row gt_right" headers="Diference">8170</td>
+<td class="gt_row gt_right" headers="RainD">1175.4</td>
+<td class="gt_row gt_right" headers="RainR">1175.2</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_right" headers="Year">1965</td>
+<td class="gt_row gt_right" headers="FlowD">598.85</td>
+<td class="gt_row gt_right" headers="FlowR">546.69</td>
+<td class="gt_row gt_right" headers="Diference">5216</td>
+<td class="gt_row gt_right" headers="RainD">1115.2</td>
+<td class="gt_row gt_right" headers="RainR">1120.6</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_right" headers="Year">1966</td>
+<td class="gt_row gt_right" headers="FlowD">1189.34</td>
+<td class="gt_row gt_right" headers="FlowR">726.73</td>
+<td class="gt_row gt_right" headers="Diference">46261</td>
+<td class="gt_row gt_right" headers="RainD">1222.3</td>
+<td class="gt_row gt_right" headers="RainR">1223.2</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_right" headers="Year">1967</td>
+<td class="gt_row gt_right" headers="FlowD">1131.85</td>
+<td class="gt_row gt_right" headers="FlowR">780.76</td>
+<td class="gt_row gt_right" headers="Diference">35109</td>
+<td class="gt_row gt_right" headers="RainD">1315.1</td>
+<td class="gt_row gt_right" headers="RainR">1296.8</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_right" headers="Year">1968</td>
+<td class="gt_row gt_right" headers="FlowD">1056.54</td>
+<td class="gt_row gt_right" headers="FlowR">762.84</td>
+<td class="gt_row gt_right" headers="Diference">29370</td>
+<td class="gt_row gt_right" headers="RainD">1268.2</td>
+<td class="gt_row gt_right" headers="RainR">1285.2</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_right" headers="Year">1969</td>
+<td class="gt_row gt_right" headers="FlowD">1347.61</td>
+<td class="gt_row gt_right" headers="FlowR">998.68</td>
+<td class="gt_row gt_right" headers="Diference">34893</td>
+<td class="gt_row gt_right" headers="RainD">1368.5</td>
+<td class="gt_row gt_right" headers="RainR">1403.5</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_right" headers="Year">1970</td>
+<td class="gt_row gt_right" headers="FlowD">905.47</td>
+<td class="gt_row gt_right" headers="FlowR">697.53</td>
+<td class="gt_row gt_right" headers="Diference">20794</td>
+<td class="gt_row gt_right" headers="RainD">1184.1</td>
+<td class="gt_row gt_right" headers="RainR">1201.5</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_right" headers="Year">1971</td>
+<td class="gt_row gt_right" headers="FlowD">800.56</td>
+<td class="gt_row gt_right" headers="FlowR">676.19</td>
+<td class="gt_row gt_right" headers="Diference">12437</td>
+<td class="gt_row gt_right" headers="RainD">1164.2</td>
+<td class="gt_row gt_right" headers="RainR">1173.4</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_right" headers="Year">1972</td>
+<td class="gt_row gt_right" headers="FlowD">1005.90</td>
+<td class="gt_row gt_right" headers="FlowR">885.91</td>
+<td class="gt_row gt_right" headers="Diference">11999</td>
+<td class="gt_row gt_right" headers="RainD">1431.3</td>
+<td class="gt_row gt_right" headers="RainR">1424.0</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_right" headers="Year">1973</td>
+<td class="gt_row gt_right" headers="FlowD">1585.73</td>
+<td class="gt_row gt_right" headers="FlowR">1396.43</td>
+<td class="gt_row gt_right" headers="Diference">18930</td>
+<td class="gt_row gt_right" headers="RainD">1804.0</td>
+<td class="gt_row gt_right" headers="RainR">1792.8</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_right" headers="Year">1974</td>
+<td class="gt_row gt_right" headers="FlowD">998.20</td>
+<td class="gt_row gt_right" headers="FlowR">890.45</td>
+<td class="gt_row gt_right" headers="Diference">10775</td>
+<td class="gt_row gt_right" headers="RainD">1406.8</td>
+<td class="gt_row gt_right" headers="RainR">1408.9</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_right" headers="Year">1975</td>
+<td class="gt_row gt_right" headers="FlowD">1086.33</td>
+<td class="gt_row gt_right" headers="FlowR">939.52</td>
+<td class="gt_row gt_right" headers="Diference">14681</td>
+<td class="gt_row gt_right" headers="RainD">1422.4</td>
+<td class="gt_row gt_right" headers="RainR">1448.6</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_right" headers="Year">1976</td>
+<td class="gt_row gt_right" headers="FlowD">1142.59</td>
+<td class="gt_row gt_right" headers="FlowR">1022.06</td>
+<td class="gt_row gt_right" headers="Diference">12053</td>
+<td class="gt_row gt_right" headers="RainD">1511.4</td>
+<td class="gt_row gt_right" headers="RainR">1516.0</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_right" headers="Year">1977</td>
+<td class="gt_row gt_right" headers="FlowD">966.25</td>
+<td class="gt_row gt_right" headers="FlowR">843.75</td>
+<td class="gt_row gt_right" headers="Diference">12250</td>
+<td class="gt_row gt_right" headers="RainD">1382.7</td>
+<td class="gt_row gt_right" headers="RainR">1388.2</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_right" headers="Year">1978</td>
+<td class="gt_row gt_right" headers="FlowD">722.04</td>
+<td class="gt_row gt_right" headers="FlowR">613.79</td>
+<td class="gt_row gt_right" headers="Diference">10825</td>
+<td class="gt_row gt_right" headers="RainD">1087.9</td>
+<td class="gt_row gt_right" headers="RainR">1085.7</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_right" headers="Year">1979</td>
+<td class="gt_row gt_right" headers="FlowD">1136.17</td>
+<td class="gt_row gt_right" headers="FlowR">1036.93</td>
+<td class="gt_row gt_right" headers="Diference">9924</td>
+<td class="gt_row gt_right" headers="RainD">1417.0</td>
+<td class="gt_row gt_right" headers="RainR">1432.7</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_right" headers="Year">1980</td>
+<td class="gt_row gt_right" headers="FlowD">585.22</td>
+<td class="gt_row gt_right" headers="FlowR">548.28</td>
+<td class="gt_row gt_right" headers="Diference">3694</td>
+<td class="gt_row gt_right" headers="RainD">1087.9</td>
+<td class="gt_row gt_right" headers="RainR">1101.1</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_right" headers="Year">1981</td>
+<td class="gt_row gt_right" headers="FlowD">1129.09</td>
+<td class="gt_row gt_right" headers="FlowR">1093.91</td>
+<td class="gt_row gt_right" headers="Diference">3518</td>
+<td class="gt_row gt_right" headers="RainD">1631.5</td>
+<td class="gt_row gt_right" headers="RainR">1664.9</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_right" headers="Year">1982</td>
+<td class="gt_row gt_right" headers="FlowD">802.73</td>
+<td class="gt_row gt_right" headers="FlowR">756.12</td>
+<td class="gt_row gt_right" headers="Diference">4661</td>
+<td class="gt_row gt_right" headers="RainD">1088.2</td>
+<td class="gt_row gt_right" headers="RainR">1114.4</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_right" headers="Year">1983</td>
+<td class="gt_row gt_right" headers="FlowD">917.13</td>
+<td class="gt_row gt_right" headers="FlowR">889.35</td>
+<td class="gt_row gt_right" headers="Diference">2778</td>
+<td class="gt_row gt_right" headers="RainD">1436.6</td>
+<td class="gt_row gt_right" headers="RainR">1451.8</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_right" headers="Year">1984</td>
+<td class="gt_row gt_right" headers="FlowD">1000.54</td>
+<td class="gt_row gt_right" headers="FlowR">970.65</td>
+<td class="gt_row gt_right" headers="Diference">2989</td>
+<td class="gt_row gt_right" headers="RainD">1396.8</td>
+<td class="gt_row gt_right" headers="RainR">1403.5</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_right" headers="Year">1985</td>
+<td class="gt_row gt_right" headers="FlowD">634.76</td>
+<td class="gt_row gt_right" headers="FlowR">627.84</td>
+<td class="gt_row gt_right" headers="Diference">692</td>
+<td class="gt_row gt_right" headers="RainD">1128.4</td>
+<td class="gt_row gt_right" headers="RainR">1137.2</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_right" headers="Year">1986</td>
+<td class="gt_row gt_right" headers="FlowD">987.99</td>
+<td class="gt_row gt_right" headers="FlowR">960.94</td>
+<td class="gt_row gt_right" headers="Diference">2705</td>
+<td class="gt_row gt_right" headers="RainD">1364.0</td>
+<td class="gt_row gt_right" headers="RainR">1372.3</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_right" headers="Year">1987</td>
+<td class="gt_row gt_right" headers="FlowD">790.47</td>
+<td class="gt_row gt_right" headers="FlowR">797.09</td>
+<td class="gt_row gt_right" headers="Diference">-662</td>
+<td class="gt_row gt_right" headers="RainD">1222.1</td>
+<td class="gt_row gt_right" headers="RainR">1234.6</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>É razoável supor que em anos de mais chuva, seriam esperadas maiores vazões e que anos mais secos resultassem menores volumes de vazão. Para verificar esta suposição vamos fazer um gráfico de dispersão entre vazão e chuva.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="regressao_linear_simples_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="576"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>O gráfico sugere que a suposição faz sentido. Volumes baixos de chuva estão associados a volumes baixos de vazão e vice versa. O gráfico sugrere ainda que a relação funcional é <strong>linear</strong>. Nestas condições, faz sentido tentar modelar a relação entre estas variáveis por meio de um modelo de regressão linear simples.</p>
+<p>Ao ajustar um modelo de regressão, vemos que a linha em azul é a que melhor descreve a relação linear entre as variáveis.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="regressao_linear_simples_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="576"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Esta linha nos permite obter uma estimativa sobre a vazão esperada (<span class="math inline">\(Y\)</span>) para qualquer <strong>dado</strong> volume de chuva (<span class="math inline">\(X\)</span>). Neste exemplo, a equação que melhor associa vazão e chuva é:</p>
+<p><span class="math display">\[Y_i = -571.98 + 1.05 X_i\]</span></p>
+<p>O valor de <span class="math inline">\(\beta_1 = 1.05\)</span> nos diz que para um aumento de 1 mm/area/ano de chuva, a vazão aumentará 1.05 mm/area/ano. <span class="math inline">\(\beta_1\)</span> é conhecido como <strong>coeficiente de inclinação da reta</strong> e nos fornece magnitude da variação em <span class="math inline">\(Y\)</span> para um aumento de <strong>1 unidade</strong> em <span class="math inline">\(X\)</span>.</p>
+<p>Esta equação prevê por exemplo, que para um volume de chuva igual a 1400 mm/area/ano a vazão na bacia será de 898 mm/area/ano. <em>Faça as contas para conferir</em>.</p>
+<p><span class="math display">\[898.02 = -571.98 + 1.05 \times 1400\]</span></p>
+<p>A reta descreve portanto os valores <strong>preditos</strong> de vazão para cada nível de chuva.</p>
+<section id="modelo-geral-de-regressão" class="level2" data-number="1">
+<h2 data-number="1" class="anchored" data-anchor-id="modelo-geral-de-regressão"><span class="header-section-number">1</span> Modelo geral de regressão</h2>
+<p>A estrutura de um modelo de regressão é dada por:</p>
+<p><span class="math display">\[Y_i = f(X_i, \beta) + \epsilon_i\]</span></p>
+<p>onde <span class="math inline">\(f(X_i, \beta)\)</span> representa a parte <strong>determinística</strong> e <span class="math inline">\(\epsilon\)</span> a parte <strong>estocástica</strong>. O sulfixo <em>i</em> nos diz que esta expressão é dada para <strong>cada par de observação</strong> <span class="math inline">\((Y,X)\)</span>.</p>
+<section id="porção-determinística" class="level3" data-number="1.1">
+<h3 data-number="1.1" class="anchored" data-anchor-id="porção-determinística"><span class="header-section-number">1.1</span> Porção determinística</h3>
+<p>A porção determinística é um modelo matemático que descreve a relação funcional entre <span class="math inline">\(X\)</span> e <span class="math inline">\(Y\)</span>. Os parâmetros <span class="math inline">\(\beta\)</span>’s determinam a intensidade do efeito de <span class="math inline">\(X\)</span> sobre <span class="math inline">\(Y\)</span>. Na regressão linear <strong>simples</strong> temos somente uma variável <span class="math inline">\(X\)</span>, e a relação funcional é dada pela <strong>equação da reta</strong>. No modelo de regressão linear <strong>múltipla</strong> existe mais de uma variável <span class="math inline">\(X\)</span>. Finalmente, nos modelos de regressão <strong>não-lineares</strong> a relação funcional pode ser representada por outros modelos matemáticos (ex. função potência <span class="math inline">\(Y = \beta_0X^{\beta_1}\)</span>).</p>
+<p>Na regressão linear simples, o parâmetro <span class="math inline">\(\beta_1\)</span> é geralmente o de maior interesse. Este parâmetro nos dirá se a relação será crescente (<span class="math inline">\(\beta_1 &gt; 0\)</span>), decrescente (<span class="math inline">\(\beta_1 &lt; 0\)</span>) ou nula (<span class="math inline">\(\beta_1 = 0\)</span>). <span class="math inline">\(\beta_0\)</span> é o <span class="math inline">\(\textbf{intercepto}\)</span> e expressa o ponto em <span class="math inline">\(Y\)</span> em que a reta cruza o eixo das ordenadas.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="regressao_linear_simples_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="480"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="porção-estocástica" class="level3" data-number="1.2">
+<h3 data-number="1.2" class="anchored" data-anchor-id="porção-estocástica"><span class="header-section-number">1.2</span> Porção estocástica</h3>
+<p>A porção estocástica, é representada pelo <strong>resíduo</strong> ou <strong>erro</strong>. A cada observação <span class="math inline">\(Y_i\)</span> está associado um valor de resíduo correspondente (<span class="math inline">\(\epsilon_i\)</span>), dado pela distância vertical entre <span class="math inline">\(Y_i\)</span> e o valor predito <span class="math inline">\(\hat{Y_i}\)</span> sobre a reta de regressão.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="regressao_linear_simples_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="576"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>No modelo de regressão linear que veremos aqui, os resídos são uma <strong>variável aleatória</strong> prevenientes de uma distribuição normal de probabilidades com média <span class="math inline">\(\mu = 0\)</span> e variância <span class="math inline">\(\sigma^2\)</span> constante ao longo da reta de regressão, <span class="math inline">\(N(0, \sigma^2)\)</span>.</p>
+<div id="fig-regre2" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-regre2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/Regre2.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-regre2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;1: Resíduo normalmente distribuído ao longo da reta de regressão.
+</figcaption>
+</figure>
+</div>
+</section>
+</section>
+<section id="ajuste-dos-dados-ao-modelo-de-regressão" class="level2" data-number="2">
+<h2 data-number="2" class="anchored" data-anchor-id="ajuste-dos-dados-ao-modelo-de-regressão"><span class="header-section-number">2</span> Ajuste dos dados ao modelo de regressão</h2>
+<p>O ajuste de dados observados a um modelo de regressão requer a obtenção de estimativas para <span class="math inline">\(\beta_0\)</span>, <span class="math inline">\(\beta_1\)</span> e <span class="math inline">\(\sigma^2\)</span>, denotadas respectivamente por <span class="math inline">\(\hat{\beta_0}\)</span>, <span class="math inline">\(\hat{\beta_1}\)</span> e <span class="math inline">\(\hat{\sigma}^2\)</span>. Note que o símbolo <span class="math inline">\(\hat{}\)</span> significa que estamos falando de <strong>estimativas</strong> obtidas a partir de dados amostrais e não dos parâmetros populacionais.</p>
+<p>Ao obter estas estimativas, podemos encontrar valores <strong>ajustados</strong> de <span class="math inline">\(Y\)</span> para um dados valor de <span class="math inline">\(X\)</span>. Os valores ajustados de <span class="math inline">\(Y\)</span> são denotados por <span class="math inline">\(\hat{Y}\)</span>.</p>
+<p><span class="math display">\[\hat{Y_i} = \hat{\beta_0} + \hat{\beta_1}X_i\]</span></p>
+<section id="método-dos-mínimos-quadrados" class="level3" data-number="2.1">
+<h3 data-number="2.1" class="anchored" data-anchor-id="método-dos-mínimos-quadrados"><span class="header-section-number">2.1</span> Método dos mínimos quadrados</h3>
+<p>O <strong>Método dos Mínimos Quadrados</strong> (<span class="math inline">\(MMQ\)</span>) é uma das formas disponíveis para calcularmos <span class="math inline">\(\hat{\beta_0}\)</span>, <span class="math inline">\(\hat{\beta_1}\)</span> e <span class="math inline">\(\hat{\sigma}^2\)</span>. O <span class="math inline">\(MMQ\)</span> envolve encontrar a combinação de <span class="math inline">\(\hat{\beta_0}\)</span> e <span class="math inline">\(\hat{\beta_1}\)</span> que minimiza a <strong>Soma dos Quadrados dos Resíduos</strong> (<span class="math inline">\(SQ_{Resíduo}\)</span>), ou seja, que minimizam a quantia:</p>
+<p><span class="math display">\[SQ_{Resíduo} = \sum{(Y_i-\hat{Y_ i})^2} = \sum{(Y_i-(\hat{\beta_0} + \hat{\beta_1}X_i))^2}\]</span></p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="regressao_linear_simples_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="768"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Nas figuras acima, a linha da esquerda (<span class="math inline">\(SQ_{Resíduo} = \sum{\epsilon_i^2} = 37\)</span>) está claramente melhor ajustada à nuvem de pontos, o que se expressa em um menor somatório dos quadrados dos resíduos (<span class="math inline">\(SQ_{Resíduo} = \sum{\epsilon_i^2} = 37\)</span>) quando comparado com o ajuste da figura à direita (<span class="math inline">\(SQ_{Resíduo} = \sum{\epsilon_i^2} = 145\)</span>).</p>
+</section>
+<section id="variâncias-covariâncias-e-coeficientes-da-regressão" class="level3" data-number="2.2">
+<h3 data-number="2.2" class="anchored" data-anchor-id="variâncias-covariâncias-e-coeficientes-da-regressão"><span class="header-section-number">2.2</span> Variâncias, covariâncias e coeficientes da regressão</h3>
+<p>Para estimarmos os coeficientes da regressão <span class="math inline">\(\beta_0\)</span> e <span class="math inline">\(\beta_1\)</span> devemos retomar o conceito de <strong>variância amostral</strong> e introduzir o conceito de <strong>covariância amostral</strong>.</p>
+<p>A variância amostral de <span class="math inline">\(Y\)</span> por exemplo, pode ser obtida subtraindo cada observação em <span class="math inline">\(Y\)</span> de sua média (<span class="math inline">\(\overline{Y}\)</span>) e elevando esta subtração ao quadrado <span class="math inline">\((Y_i - \overline{Y})^2\)</span>. Ao somar para todos os valores de <span class="math inline">\(Y_i\)</span> teremos o <strong>somatório dos quadrados de <span class="math inline">\(Y\)</span></strong> (<span class="math inline">\(SQ_Y\)</span>).</p>
+<p><span class="math display">\[SQ_Y = \sum_{i-1}^{n} (Y_i - \overline{Y})^2 = \sum_{i-1}^{n}(Y_i - \overline{Y}) (Y_i - \overline{Y})\]</span></p>
+<p>Dividindo <span class="math inline">\(SQ_Y\)</span> por <span class="math inline">\(n-1\)</span> teremos a <strong>variância amostral de <span class="math inline">\(Y\)</span></strong> (<span class="math inline">\(s^2_Y\)</span>).</p>
+<p><span class="math display">\[s^2_Y = \frac{\sum_{i-1}^{n} (Y_i - \overline{Y})^2}{n-1}\]</span></p>
+<p>Adotando o mesmo procedimento para <span class="math inline">\(X\)</span>, podemos calcular o <strong>somatório dos quadrados de <span class="math inline">\(X\)</span></strong> (<span class="math inline">\(SQ_X\)</span>).</p>
+<p><span class="math display">\[SQ_X = \sum_{i-1}^{n} (X_i - \overline{X})^2 = \sum_{i-1}^{n}(X_i - \overline{X}) (X_i - \overline{X})\]</span></p>
+<p>e a <strong>variância amostral de <span class="math inline">\(X\)</span></strong> (<span class="math inline">\(s^2_X\)</span>).</p>
+<p><span class="math display">\[s^2_X = \frac{\sum_{i-1}^{n} (X_i - \overline{X})^2}{n-1}\]</span></p>
+<p>Combinando as duas ideias, teremos o <strong>produto cruzado de <span class="math inline">\(Y\)</span> e <span class="math inline">\(X\)</span></strong> (<span class="math inline">\(SQ_{YX}\)</span>)</p>
+<p><span class="math display">\[SQ_{YX} = \sum_{i-1}^{n}(Y_i - \overline{Y}) (X_i - \overline{X})\]</span></p>
+<p>e a <strong>covariância amostral entre <span class="math inline">\(Y\)</span> e <span class="math inline">\(X\)</span></strong> (<span class="math inline">\(s_{YX}\)</span>).</p>
+<p><span class="math display">\[s_{YX} = \frac{\sum_{i-1}^{n}(Y_i - \overline{Y}) (X_i - \overline{X})}{n-1}\]</span></p>
+<p>O estimador <span class="math inline">\(\hat{\beta_1}\)</span> nada mais é que a covariância entre <span class="math inline">\(Y\)</span> e <span class="math inline">\(X\)</span> <strong>padronizada</strong> pela variância de <span class="math inline">\(X\)</span>.</p>
+<p><span class="math display">\[\hat{\beta_1} = \frac{s_{YX}}{s^2_X} = \frac{\frac{SQ_{XY}}{n-1}}{\frac{SQ_X}{n-1}} = \frac{SQ_{XY}}{SQ_X} = \frac{\sum{(Y_i - \overline{Y})(X_i - \overline{X})}}{\sum{(X_i - \overline{X})^2}}\]</span></p>
+<p><span class="math display">\[\hat{\beta_1} = \frac{\sum{(Y_i - \overline{Y})(X_i - \overline{X})}}{\sum{(X_i - \overline{X})^2}}\]</span></p>
+<p>Após encontrar <span class="math inline">\(\hat{\beta_1}\)</span>, podemos calcular <span class="math inline">\(\hat{\beta_0}\)</span> sabendo que a melhor reta de regressão passará <strong>necessariamente</strong> pelo ponto médio de <span class="math inline">\(X\)</span> e de <span class="math inline">\(Y\)</span>. Deste modo temos:</p>
+<p><span class="math display">\[\hat{\beta_0} = \overline{Y} - \hat{\beta_1}\overline{X}\]</span></p>
+<p>Calculados <span class="math inline">\(\hat{\beta_1}\)</span> e <span class="math inline">\(\hat{\beta_0}\)</span>, podemos encontrar os valores ajustados de <span class="math inline">\(Y\)</span> para cada valor de <span class="math inline">\(X\)</span> que serão utilizados para construir a reta de regressão. <span class="math inline">\(\hat{Y_i}\)</span> será dado por:</p>
+<p><span class="math display">\[\hat{Y_i} = \hat{\beta_0} + \hat{\beta_1}X_i\]</span></p>
+<p>Por fim, a variância residual <span class="math inline">\(s^2\)</span> é dada por:</p>
+<p><span class="math display">\[s^2 = QM_{Resíduo} = \frac{SQ_{Resíduo}}{n-2} = \frac{\sum{(Y_i-\hat{Y_ i})^2}}{n-2}\]</span></p>
+</section>
+<section id="exemplo-de-ajuste-ao-modelo-de-regressão" class="level3" data-number="2.3">
+<h3 data-number="2.3" class="anchored" data-anchor-id="exemplo-de-ajuste-ao-modelo-de-regressão"><span class="header-section-number">2.3</span> Exemplo de ajuste ao modelo de regressão</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>rk <span class="ot">=</span> <span class="fu">read_csv</span>(<span class="st">'https://raw.githubusercontent.com/FCopf/datasets/refs/heads/main/RIKZ.csv'</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>rks <span class="ot">=</span> rk <span class="sc">|&gt;</span> </span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  (\(df) df[<span class="fu">seq</span>(<span class="dv">3</span>,<span class="dv">43</span>,<span class="at">by =</span> <span class="dv">5</span>),])()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Considere a tabela abaixo com os dados de riqueza da macro-fauna praial (número de espécies) e de um índice de exposição às ondas (NAP). Os dados foram obtidos em 2002 na costa da Holanda em nove praias <span class="citation" data-cites="zuur2009mixed">(<a href="#ref-zuur2009mixed" role="doc-biblioref">Zuur et al. 2009</a>)</span>. Valores negativos de NAP se referem a locais mais expostos e valores positivos a locais menos expostos à ação das ondas.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>rks <span class="sc">|&gt;</span> </span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Richness, NAP) <span class="sc">|&gt;</span> </span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gt</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="mibrwmclla" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#mibrwmclla table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#mibrwmclla thead, #mibrwmclla tbody, #mibrwmclla tfoot, #mibrwmclla tr, #mibrwmclla td, #mibrwmclla th {
+  border-style: none;
+}
+
+#mibrwmclla p {
+  margin: 0;
+  padding: 0;
+}
+
+#mibrwmclla .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#mibrwmclla .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#mibrwmclla .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#mibrwmclla .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#mibrwmclla .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#mibrwmclla .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#mibrwmclla .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#mibrwmclla .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#mibrwmclla .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#mibrwmclla .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#mibrwmclla .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#mibrwmclla .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#mibrwmclla .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#mibrwmclla .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#mibrwmclla .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#mibrwmclla .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#mibrwmclla .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#mibrwmclla .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#mibrwmclla .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#mibrwmclla .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#mibrwmclla .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#mibrwmclla .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#mibrwmclla .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#mibrwmclla .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#mibrwmclla .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#mibrwmclla .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#mibrwmclla .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#mibrwmclla .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#mibrwmclla .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#mibrwmclla .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#mibrwmclla .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#mibrwmclla .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#mibrwmclla .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#mibrwmclla .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#mibrwmclla .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#mibrwmclla .gt_left {
+  text-align: left;
+}
+
+#mibrwmclla .gt_center {
+  text-align: center;
+}
+
+#mibrwmclla .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#mibrwmclla .gt_font_normal {
+  font-weight: normal;
+}
+
+#mibrwmclla .gt_font_bold {
+  font-weight: bold;
+}
+
+#mibrwmclla .gt_font_italic {
+  font-style: italic;
+}
+
+#mibrwmclla .gt_super {
+  font-size: 65%;
+}
+
+#mibrwmclla .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#mibrwmclla .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#mibrwmclla .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#mibrwmclla .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#mibrwmclla .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#mibrwmclla .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#mibrwmclla .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#mibrwmclla .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#mibrwmclla div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+
+<table class="gt_table caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<thead>
+<tr class="header gt_col_headings">
+<th id="Richness" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Richness</th>
+<th id="NAP" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">NAP</th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<td class="gt_row gt_right" headers="Richness">13</td>
+<td class="gt_row gt_right" headers="NAP">-1.336</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_right" headers="Richness">8</td>
+<td class="gt_row gt_right" headers="NAP">0.635</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_right" headers="Richness">4</td>
+<td class="gt_row gt_right" headers="NAP">-0.201</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_right" headers="Richness">3</td>
+<td class="gt_row gt_right" headers="NAP">0.460</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_right" headers="Richness">6</td>
+<td class="gt_row gt_right" headers="NAP">0.729</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_right" headers="Richness">1</td>
+<td class="gt_row gt_right" headers="NAP">2.222</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_right" headers="Richness">1</td>
+<td class="gt_row gt_right" headers="NAP">1.375</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_right" headers="Richness">7</td>
+<td class="gt_row gt_right" headers="NAP">-1.005</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_right" headers="Richness">3</td>
+<td class="gt_row gt_right" headers="NAP">-0.002</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>O gráfico de dispersão sugere uma relação negativa e possivelmente linear, em que a riqueza de espécies diminui com o aumento no grau de exposição. Vamos ajustar um modelo de regressão a estes pontos calculando <span class="math inline">\(\hat{\beta_0}\)</span>, <span class="math inline">\(\hat{\beta_1}\)</span> e <span class="math inline">\(\hat{\sigma}^2\)</span>.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="regressao_linear_simples_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="576"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Os passos intermediários envolvem o cálculo do somatórios dos quadrados de X:</p>
+<p><span class="math display">\[SQ_X = \sum{(X_i - \overline{X})^2}\]</span></p>
+<p>de Y:</p>
+<p><span class="math display">\[SQ_Y = \sum{(Y_i - \overline{Y})^2}\]</span></p>
+<p>e do somatório dos produtos cruzados de X e Y:</p>
+<p><span class="math display">\[SQ_{XY} = \sum{(X_i - \overline{X}) (Y_i - \overline{Y})}\]</span></p>
+<p>Estes passos são descritos na tabela a seguir.</p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 5%">
+<col style="width: 3%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 27%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: right;">Richness</th>
+<th style="text-align: right;">NAP</th>
+<th style="text-align: right;"><span class="math inline">\((X_i - \overline{X})\)</span></th>
+<th style="text-align: right;"><span class="math inline">\((Y_i - \overline{Y})\)</span></th>
+<th style="text-align: right;"><span class="math inline">\((X_i - \overline{X})^2\)</span></th>
+<th style="text-align: right;"><span class="math inline">\((Y_i - \overline{Y})^2\)</span></th>
+<th style="text-align: right;"><span class="math inline">\((X_i - \overline{X})(Y_i - \overline{Y})\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">13</td>
+<td style="text-align: right;">-1.34</td>
+<td style="text-align: right;">-1.66</td>
+<td style="text-align: right;">7.89</td>
+<td style="text-align: right;">2.74</td>
+<td style="text-align: right;">62.23</td>
+<td style="text-align: right;">-13.06</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">0.64</td>
+<td style="text-align: right;">0.32</td>
+<td style="text-align: right;">2.89</td>
+<td style="text-align: right;">0.10</td>
+<td style="text-align: right;">8.35</td>
+<td style="text-align: right;">0.91</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">-0.20</td>
+<td style="text-align: right;">-0.52</td>
+<td style="text-align: right;">-1.11</td>
+<td style="text-align: right;">0.27</td>
+<td style="text-align: right;">1.23</td>
+<td style="text-align: right;">0.58</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">0.46</td>
+<td style="text-align: right;">0.14</td>
+<td style="text-align: right;">-2.11</td>
+<td style="text-align: right;">0.02</td>
+<td style="text-align: right;">4.46</td>
+<td style="text-align: right;">-0.30</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">0.73</td>
+<td style="text-align: right;">0.41</td>
+<td style="text-align: right;">0.89</td>
+<td style="text-align: right;">0.17</td>
+<td style="text-align: right;">0.79</td>
+<td style="text-align: right;">0.36</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2.22</td>
+<td style="text-align: right;">1.90</td>
+<td style="text-align: right;">-4.11</td>
+<td style="text-align: right;">3.62</td>
+<td style="text-align: right;">16.90</td>
+<td style="text-align: right;">-7.82</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1.38</td>
+<td style="text-align: right;">1.06</td>
+<td style="text-align: right;">-4.11</td>
+<td style="text-align: right;">1.11</td>
+<td style="text-align: right;">16.90</td>
+<td style="text-align: right;">-4.34</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">-1.00</td>
+<td style="text-align: right;">-1.32</td>
+<td style="text-align: right;">1.89</td>
+<td style="text-align: right;">1.75</td>
+<td style="text-align: right;">3.57</td>
+<td style="text-align: right;">-2.50</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">-0.32</td>
+<td style="text-align: right;">-2.11</td>
+<td style="text-align: right;">0.10</td>
+<td style="text-align: right;">4.46</td>
+<td style="text-align: right;">0.68</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Após os cálculos, os valores estimados são:</p>
+<p><span class="math display">\[\hat{\beta_1} = \frac{\sum{(X_i - \overline{X})(Y_i - \overline{Y})}}{\sum{(X_i - \overline{X})^2}} = \frac{-25.49}{9.88} = -2.58\]</span></p>
+<p><span class="math display">\[\hat{\beta_0} = \overline{Y} - \hat{\beta_1}\overline{X} = 5.11 -2.58 \times 0.32 = 5.94\]</span></p>
+<p><span class="math display">\[\hat{\sigma}^2 = QM_{Resíduo} = \frac{SQ_{Resíduo}}{n-2} = \frac{\sum{(Y_i-\hat{Y_ i})^2}}{n-2} = \frac{53.11}{7} = 7.59\]</span></p>
+<p>De modo que a melhor reta de regressão é dada por:</p>
+<p><span class="math display">\[Richness = 5.94 -2.58 \times NAP\]</span></p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="regressao_linear_simples_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="576"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="testes-de-hipóteses-na-regressão-linear-simples" class="level2" data-number="3">
+<h2 data-number="3" class="anchored" data-anchor-id="testes-de-hipóteses-na-regressão-linear-simples"><span class="header-section-number">3</span> Testes de hipóteses na regressão linear simples</h2>
+<p>Até o momento, apresentamos uma discussão sobre o método para calcular os estimadores <span class="math inline">\(\hat{\beta_0}\)</span>, <span class="math inline">\(\hat{\beta_1}\)</span> e <span class="math inline">\(\hat{\sigma}\)</span>. Entretanto, como nossas observações provêm de <strong>amostras</strong>, estas estimativas estão sujeitas à variação inerente às observações de que dispomos e certamente não serão iguais ao valor da <strong>população estatística</strong>. Devemos portanto, entender quais evidências estes estimadores nos fornecem para a existência de um efeito de <span class="math inline">\(X\)</span> sobre <span class="math inline">\(Y\)</span>, ou seja, para rejeitarmos a hipótese nula em favor de <span class="math inline">\(H_A\)</span>.</p>
+<section id="teste-sobre-beta_1" class="level3" data-number="3.1">
+<h3 data-number="3.1" class="anchored" data-anchor-id="teste-sobre-beta_1"><span class="header-section-number">3.1</span> Teste sobre <span class="math inline">\(\beta_1\)</span></h3>
+<p>Na regressão linear simples, o efeito de <span class="math inline">\(X\)</span> sobre <span class="math inline">\(Y\)</span> depende do valor de <span class="math inline">\(\beta_1\)</span></p>
+<p><span class="math inline">\(Y_i = \beta + \beta_1X_i + \epsilon_i\)</span></p>
+<p>A não existência de um efeito implica em <span class="math inline">\(\beta_1 = 0\)</span> e consequentemente:</p>
+<p><span class="math inline">\(Y_i = \beta_0 + 0 \times X_i + \epsilon_i\)</span> <span class="math inline">\(\rightarrow\)</span> <span class="math inline">\(Y = \beta_0 + \epsilon_i\)</span></p>
+<p>Portanto, as hipóteses nula e alternativa seriam:</p>
+<p><span class="math inline">\(H_0: \beta_1 = 0\)</span></p>
+<p><span class="math inline">\(H_A: \beta_1 \ne 0\)</span></p>
+<p>Segundo <span class="math inline">\(H_0\)</span>, a inclinação da reta <span class="math inline">\(populacional\)</span> não é diferente de zero e o valor estimado <span class="math inline">\(\hat{\beta_1}\)</span> ocorreu puramente ao acaso, como efeito da variação amostral. Para testar esta hipótese, utilizamos a <strong>distribuição de t</strong> de modo que:</p>
+<p><span class="math display">\[t = \frac{\hat{\beta_1} - \beta_1}{s_{\hat{\beta_1}}}\]</span></p>
+<p>Como segundo <span class="math inline">\(H_0\)</span>, <span class="math inline">\(\beta_1  = 0\)</span> a expressão fica:</p>
+<p><span class="math display">\[t = \frac{\hat{\beta_1} - 0}{s_{\hat{\beta_1}}} = \frac{\hat{\beta_1}}{s_{\hat{\beta_1}}}\]</span></p>
+<p><span class="math inline">\(s_{\hat{\beta_1}}\)</span> é o <strong>erro padrão</strong> de <span class="math inline">\(\beta_1\)</span> calculado por:</p>
+<p><span class="math display">\[s_{\hat{\beta_1}} = \sqrt{\frac{\hat{\sigma}^2}{\sum{(X_i-\overline{X})^2}}}\]</span></p>
+<p>No exemplo sobre a fauna praial estamos interessados em testar a hipótese de que a riqueza de espécies esteja associada ao grau de exposição às ondas. Em regressão linear, esta hipótese pode ser expressa por:</p>
+<p><span class="math display">\[t = \frac{\hat{\beta_1}}{s_{\hat{\beta_1}}} = \frac{-2.58}{0.88} = -2.944\]</span></p>
+<p>Que na distribuição de t fica:</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="regressao_linear_simples_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="768"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Se nosso nível de significancia <span class="math inline">\(\alpha = 0.05\)</span>, então a probabilidade <span class="math inline">\(p = 0.011 + 0.011 = 0.022\)</span> indica que devemos <strong>rejeitar</strong> <span class="math inline">\(H_0\)</span> e aceitar que <strong>existe</strong> uma relação entre Riqueza de espécies e NAP.</p>
+</section>
+<section id="análise-de-variância-da-regressão" class="level3" data-number="3.2">
+<h3 data-number="3.2" class="anchored" data-anchor-id="análise-de-variância-da-regressão"><span class="header-section-number">3.2</span> Análise de variância da regressão</h3>
+<p>Como já dizemos, a estrutura de um modelo de regressão é dada por um componente sistemático expresso como função de <span class="math inline">\(X\)</span> (<span class="math inline">\(\beta_0 + \beta_1X_i\)</span>) e um componente aleatório expresso pelos resíduos do modelo (<span class="math inline">\(\epsilon_i\)</span>). A variação total em <span class="math inline">\(Y\)</span> no modelo de regressão portanto, pode ser atribuída a ambos os efeitos de <span class="math inline">\(X\)</span> e do resíduo. Estas quantias de variação podem mensuradas pelos somatório dos quadrados abaixo.</p>
+<p>Soma dos quadrados <strong>totais</strong>:</p>
+<p><span class="math inline">\(SQ_Y = \sum{(Y_i - \overline{Y})^2}\)</span></p>
+<p>Soma dos quadrados da <strong>regressão</strong>:</p>
+<p><span class="math inline">\(SQ_{Regressão}= \sum{(\hat{Y_i} - \overline{Y})^2}\)</span></p>
+<p>E soma dos quadrados do <strong>resíduo</strong>:</p>
+<p><span class="math inline">\(SQ_{Resíduo}= \sum{(Y_i - \hat{Y_i})^2}\)</span></p>
+<p>Pode-se mostrar ainda que vale a expressão:</p>
+<p><span class="math display">\[SQ_Y = SQ_{Regressão} + SQ_{Resíduo}\]</span> A decomposição destas quantias é conhecida <strong>partição das somas dos quadrados</strong> e nos permitem comparar a influência de <span class="math inline">\(X\)</span> com a influência do puro acaso sobre a variabilidade em <span class="math inline">\(Y\)</span>. Se todos os pontos estiverem perfeitamente sobre a reta, então toda a variação em <span class="math inline">\(Y\)</span> seria atribuída à influência de <span class="math inline">\(X\)</span>. Por outro lado, à medida que aumenta a distância média dos pontos acima e abaixo da curva, aumenta a parcela atribuída ao <strong>acaso</strong>.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="regressao_linear_simples_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="768"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Estes <strong>componentes de variação</strong> podem ser organizados em uma Tabela de <strong>Análise de Variância (ANOVA)</strong>. <span class="math inline">\(n\)</span> se refere ao número de amostras.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 9%">
+<col style="width: 18%">
+<col style="width: 18%">
+<col style="width: 18%">
+<col style="width: 18%">
+<col style="width: 18%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Fonte de variação</th>
+<th style="text-align: center;">SQ</th>
+<th style="text-align: center;">gl</th>
+<th style="text-align: center;">QM</th>
+<th style="text-align: center;">F</th>
+<th style="text-align: center;">p</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Regressão</td>
+<td style="text-align: center;"><span class="math inline">\(SQ_{Regressão}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(gl_{Regressão}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(QM_{Regressão} = \frac{SQ_{Regressão}}{gl_{Regressão}}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\frac{QM_{Regressão}}{QM_{Resíduo}}\)</span></td>
+<td style="text-align: center;">Probabilidade associada à cauda da distribuição F</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Resíduo</td>
+<td style="text-align: center;"><span class="math inline">\(SQ_{Resíduo}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(gl_{Resíduo}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(QM_{Resíduo} = \frac{SQ_{Resíduo}}{gl_{Resíduo}}\)</span></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Total</td>
+<td style="text-align: center;"><span class="math inline">\(SQ_{Y}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(gl_{Y}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(QM_{Y} = \frac{SQ_{Y}}{gl_{Y}}\)</span></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+</tbody>
+</table>
+<p>As coluna <span class="math inline">\(gl\)</span> se refer aos graus de liberdade nos modelo de regressão, a semelhança do que discutimos para o teste t de Student. A coluna <strong>QM</strong> (<strong>Quadrado médio</strong>) apresenta os estimadores de variância da regressão (<span class="math inline">\(QM_{Regressão}\)</span>), do resíduo (<span class="math inline">\(QM_{Resíduo}\)</span>) e total (<span class="math inline">\(QM_{Y}\)</span>).</p>
+<section id="a-distribuição-f" class="level4" data-number="3.2.1">
+<h4 data-number="3.2.1" class="anchored" data-anchor-id="a-distribuição-f"><span class="header-section-number">3.2.1</span> A distribuição F</h4>
+<p>O valor de <span class="math inline">\(F\)</span> na tabela se refere a <strong>distribuição de probabilidade F</strong>. Esta distribuição de probabilidades é esperada para a razão entre duas variâncias amostrais. No caso da regressão linear, estas são a <strong>variância da regressão</strong> (<span class="math inline">\(QM_{Regressão}\)</span> no numerador) e a <strong>variância residual</strong> (<span class="math inline">\(QM_{Resíduo}\)</span> no denominador). Diferente da distribuiçao t, a distribuição F tem um formato assimétrico, sendo que o grau de assimetria depende dos graus de liberdade do numerador e do denominador. O valor de <span class="math inline">\(p\)</span> na tabela se refere à área sob a distribuição F, <strong>acima</strong> do valor de <span class="math inline">\(F\)</span> calculado. Na ANOVA da regressão, um valor de <span class="math inline">\(p &lt; \alpha\)</span> nos leva a rejeitar a hipótese nula e assumir que a variável <span class="math inline">\(X\)</span> <strong>exerce</strong> algum efeito sobre <span class="math inline">\(Y\)</span>.</p>
+<blockquote class="blockquote">
+<p>O símbolo <span class="math inline">\(F\)</span> foi dado em homenagem a Ronald Aylmer Fisher o estatístico e geneticista Britânico do início do séc. XX, que entre inúmeras outras contribuições, desenvolveu a Análise de Variância. Fisher é descrito como <em>“a genius who almost single-handedly created the foundations for modern statistical science”</em> <span class="citation" data-cites="halt1998history">(<a href="#ref-halt1998history" role="doc-biblioref">Halt 1998</a>)</span> e como <em>“the single most important figure in 20th century statistics”</em> <span class="citation" data-cites="efron1998r">(<a href="#ref-efron1998r" role="doc-biblioref">Efron 1998</a>)</span>. Ver <a href="https://en.wikipedia.org/wiki/Ronald_Fisher">Ronald Aylmer Fisher</a>.</p>
+</blockquote>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="regressao_linear_simples_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="576"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Os resultados da ANOVA para os dados da fauna praial nos dá os seguintes valores. <em>Confira os cálculos</em>.</p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Fonte de variação</th>
+<th style="text-align: right;">SQ</th>
+<th style="text-align: right;">gl</th>
+<th style="text-align: right;">QM</th>
+<th style="text-align: right;">F</th>
+<th style="text-align: right;">p</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Regressão</td>
+<td style="text-align: right;">65.68</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">65.68</td>
+<td style="text-align: right;">8.64</td>
+<td style="text-align: right;">0.022</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Resíduo</td>
+<td style="text-align: right;">53.21</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">7.60</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Total</td>
+<td style="text-align: right;">118.89</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">14.86</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>O valor de <span class="math inline">\(p = 0.022\)</span> <strong>abaixo</strong> do nível de significância <span class="math inline">\(\alpha = 0.05\)</span>, nos leva a rejeitar a hipótese nula em favor da alternativa, concluindo que o índice de exposição às ondas <strong>interfere</strong> sobre a riqueza da macro-fauna. O valor de <span class="math inline">\(p\)</span> foi identico ao obtido no teste de hipóteses de <span class="math inline">\(\beta_1\)</span>. No modelo de regressão linear <strong>simples</strong> isto é necessariamente verdadeiro, pois toda a variação associada à regressão é devida ao efeito do coeficiente <span class="math inline">\(\beta_1\)</span>. Por outro lado, nos modelos de regressão <strong>múltipla</strong>, em que temos:</p>
+<p><span class="math display">\[Y_i = \beta_0 + \beta_1X_{i1} + \beta_1X_{i2} + \cdots + \beta_mX_{im} + \epsilon_i\]</span></p>
+<p>esta relação não é mais observada, pois existem múltiplos coeficientes agindo sobre a variação em <span class="math inline">\(Y\)</span>.</p>
+</section>
+</section>
+</section>
+<section id="coeficiente-de-determinação-r2" class="level2" data-number="4">
+<h2 data-number="4" class="anchored" data-anchor-id="coeficiente-de-determinação-r2"><span class="header-section-number">4</span> Coeficiente de determinação <span class="math inline">\(R^2\)</span></h2>
+<p>Uma vez que toda a variação observada em Y pode ser alocada aos efeitos da <strong>reta de regressão</strong> e e do <strong>resíduo</strong> podemos fazer a seguinte questão:</p>
+<blockquote class="blockquote">
+<p>Qual parcela da variação na Riqueza é explicada <strong>exclusivamente</strong> pelo modelo de regressão?</p>
+</blockquote>
+<p>Esta pergunta pode ser respondida calculando o que denominamos de <strong>coeficiente de determinção</strong> ou simplesmente <span class="math inline">\(R^2\)</span>:</p>
+<p><span class="math display">\[R^2 = \frac{SQ_{Regressão}}{SQ_Y} = 1 - \frac{SQ_{Resíduo}}{SQ_Y}\]</span></p>
+<p>O valor de <span class="math inline">\(SQ_{Regressão}\)</span> mede a variação <strong>explicada exclusivamente</strong> pela regressão, <span class="math inline">\(SQ_{Resíduo}\)</span> a <strong>variação residual</strong> e <span class="math inline">\(SQ_Y\)</span> mede a <strong>variação total</strong> em <span class="math inline">\(Y\)</span>. Ao dividir <span class="math inline">\(SQ_{Resíduo}\)</span> por <span class="math inline">\(SQ_Y\)</span>, o <span class="math inline">\(r^2\)</span> nos informa sobre qual a <strong>fração</strong> da variação total é explicada somente pela reta de regressão.</p>
+<p>Npo exemplo da fauna praial:</p>
+<p><span class="math display">\[R^2 = 1 - \frac{53.11}{118.89} = 0.5533\]</span></p>
+<p>O que significa que aproximadamente 55.33% da variação na riqueza é explicada pela variação no grau de exposição às ondas (NAP). Não sabemos a que se deve o restante da variação e, no contexto do modelo de regressão, assumimos ser uma variação aleatória inerente a cada observação (<span class="math inline">\(\epsilon_i\)</span>). Esta variação aleatória, como dito, segue uma distribuição normal com ponto central sobre a reta e variância data por <span class="math inline">\(\sigma^2\)</span>. Este pressuposto é fundamental para a discussão do próximo ponto a respeito do <strong>intervalo de confiança de <span class="math inline">\(Y\)</span></strong></p>
+</section>
+<section id="intervalo-de-confiança-de-y" class="level2" data-number="5">
+<h2 data-number="5" class="anchored" data-anchor-id="intervalo-de-confiança-de-y"><span class="header-section-number">5</span> Intervalo de confiança de <span class="math inline">\(Y\)</span></h2>
+<p>Como nem todos os pontos caem perfeitamente sobre a reta, seria interessante que pudéssemos obter um intervalo de confiança de <span class="math inline">\(Y\)</span> para um dado valor de <span class="math inline">\(X\)</span>. A amplitude deste intervalo irá depender da <strong>variância dos valores ajustados</strong> (<span class="math inline">\(s^2_{Y|X}\)</span>) de <span class="math inline">\(Y\)</span>, calculada por:</p>
+<p><span class="math display">\[s^2_{Y|X} = s^2(\frac{1}{n} + \frac{(X_i-\overline{X})^2}{SQ_X})\]</span></p>
+<p>do modo que:</p>
+<p><span class="math display">\[s_{Y|X} = \sqrt{s^2(\frac{1}{n} + \frac{(X_i-\overline{X})^2}{SQ_X})}\]</span></p>
+<p>Note pela expressão acima que o <span class="math inline">\(s_{Y|X}\)</span> diminui quanto:</p>
+<ol type="1">
+<li>a variância residual <span class="math inline">\(s^2\)</span> diminui;</li>
+<li>o tamanho amostral <span class="math inline">\(n\)</span> aumenta.</li>
+<li>o dado valor de <span class="math inline">\(X_i\)</span> está próximo à média, pois neste caso <span class="math inline">\((X_i-\overline{X})\)</span> diminui.</li>
+</ol>
+<p>Encontrado <span class="math inline">\(s_{Y|X}\)</span>, o intervalo de confiança de <span class="math inline">\(Y\)</span> é dado por:</p>
+<p><span class="math display">\[IC_{Y} = \hat{Y}\pm t_{(\alpha, n-2)} \times s_{Y|X}\]</span></p>
+<p>Para os dados da macrofauna, vamos exemplificar o cálculo de <span class="math inline">\(IC_{95\%}\)</span> para a <span class="math inline">\(4^a\)</span> observação da tabela, em que Richness = 3 e NAP = 0.46.</p>
+<p>Lembre-se que já estimamos anteriormente a variância residual destes dados (<span class="math inline">\(s^2 = 7.59\)</span>). Como temos 9 observações, o valor de <span class="math inline">\(t_{(\alpha, n-2)} = 2.36\)</span>, portanto:</p>
+<p><span class="math inline">\(s_{Y|X} = \sqrt{s^2(\frac{1}{n} + \frac{(X_i-\overline{X})^2}{SQ_X})} = 0.93\)</span></p>
+<p>O valor estimado de riqueza neste ponto é 4.75, portanto:</p>
+<p><span class="math inline">\(IC_{Y} = \hat{Y} \pm t_{(\alpha, n-2)} \times s_{Y|X} = 4.75 \pm 2.36 \times 0.93\)</span></p>
+<p><span class="math inline">\(IC_{Y} = 4.75 \pm 2.19\)</span></p>
+<p><span class="math inline">\(IC_{Y_{limite superior}} = 6.94\)</span></p>
+<p><span class="math inline">\(IC_{Y_{limite inferior}} = 2.56\)</span></p>
+<p>Podemos calcular intervalos destes para todos os pontos observados como expresso na tabela abaixo.</p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 12%">
+<col style="width: 8%">
+<col style="width: 13%">
+<col style="width: 20%">
+<col style="width: 22%">
+<col style="width: 22%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: right;">Richness</th>
+<th style="text-align: right;">NAP</th>
+<th style="text-align: right;"><span class="math inline">\(\hat{Y}\)</span></th>
+<th style="text-align: right;"><span class="math inline">\(s_{Y \mid X}\)</span></th>
+<th style="text-align: right;"><span class="math inline">\(IC_{inferior}\)</span></th>
+<th style="text-align: right;"><span class="math inline">\(IC_{superior}\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">13</td>
+<td style="text-align: right;">-1.34</td>
+<td style="text-align: right;">9.40</td>
+<td style="text-align: right;">1.72</td>
+<td style="text-align: right;">5.34</td>
+<td style="text-align: right;">13.46</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">0.64</td>
+<td style="text-align: right;">4.29</td>
+<td style="text-align: right;">0.96</td>
+<td style="text-align: right;">2.02</td>
+<td style="text-align: right;">6.56</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">-0.20</td>
+<td style="text-align: right;">6.46</td>
+<td style="text-align: right;">1.03</td>
+<td style="text-align: right;">4.04</td>
+<td style="text-align: right;">8.88</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">0.46</td>
+<td style="text-align: right;">4.75</td>
+<td style="text-align: right;">0.93</td>
+<td style="text-align: right;">2.56</td>
+<td style="text-align: right;">6.94</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">0.73</td>
+<td style="text-align: right;">4.06</td>
+<td style="text-align: right;">0.99</td>
+<td style="text-align: right;">1.73</td>
+<td style="text-align: right;">6.39</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2.22</td>
+<td style="text-align: right;">0.21</td>
+<td style="text-align: right;">1.90</td>
+<td style="text-align: right;">-4.29</td>
+<td style="text-align: right;">4.71</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1.38</td>
+<td style="text-align: right;">2.38</td>
+<td style="text-align: right;">1.30</td>
+<td style="text-align: right;">-0.70</td>
+<td style="text-align: right;">5.46</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">-1.00</td>
+<td style="text-align: right;">8.52</td>
+<td style="text-align: right;">1.48</td>
+<td style="text-align: right;">5.02</td>
+<td style="text-align: right;">12.02</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">5.94</td>
+<td style="text-align: right;">0.96</td>
+<td style="text-align: right;">3.67</td>
+<td style="text-align: right;">8.21</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>E representá-los graficamente, juntamente com os valores ajustados de Y.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="regressao_linear_simples_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="480"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Note que na figura acima, estão representados os valores observados de riqueza de espécies (em preto), os valores ajustados (azul) e os intervalos a 95% (vermelho). Os valores ajustados são aqueles utilizados para construir a <strong>reta de regressão</strong>. O intervalo não costuma ser representados por pontos individuais, mas por uma banda que delimita a área que restringe o intervalo de confiança ao nível <span class="math inline">\(1 - \alpha\)</span> como na figura abaixo.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="regressao_linear_simples_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="480"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>A banda mais estreita próxima ao ponto médio de <span class="math inline">\(X\)</span>, reflete o ponto comentado anteriormente, de que quanto mais próximo ao centro da distibuição de pontos, mais confiança temos sobre os limites máximos e mínimos que um valor de <span class="math inline">\(Y\)</span> pode assumir. Do mesmo modo, esta confiança <strong>diminui</strong> à medida que nos aproximamos dos extremos dos valores observados em <span class="math inline">\(X\)</span>.</p>
+</section>
+<section id="pressupostos-da-regressão-linear-simples" class="level2" data-number="6">
+<h2 data-number="6" class="anchored" data-anchor-id="pressupostos-da-regressão-linear-simples"><span class="header-section-number">6</span> Pressupostos da regressão linear simples</h2>
+<p>Ao realizar uma regressão linear simples, devemos assumir como verdadeiros alguns pressupostos.</p>
+<ol type="1">
+<li>O modelo linear descreve adequadamente a relação funcional entre <span class="math inline">\(X\)</span> e <span class="math inline">\(Y\)</span>;</li>
+<li>Cada par de observação <span class="math inline">\((X,Y)\)</span> é independente dos demais;</li>
+<li>A variável <span class="math inline">\(X\)</span> é medida sem erros;</li>
+<li>Os resíduos têm distribuição normal, e;</li>
+<li>A variância residual <span class="math inline">\(\sigma^2\)</span> é constante ao longo dos valores de <span class="math inline">\(X\)</span>.</li>
+</ol>
+<section id="relação-funcional-linear" class="level3" data-number="6.1">
+<h3 data-number="6.1" class="anchored" data-anchor-id="relação-funcional-linear"><span class="header-section-number">6.1</span> Relação funcional linear</h3>
+<p>Caso a relação funcional entre <span class="math inline">\(X\)</span> e <span class="math inline">\(Y\)</span> assuma uma forma diferente de <span class="math inline">\(Y_i = \beta_0 + \beta_1X_i\)</span>, o modelo de regressão não é mais válido, pois a estimativa de erro irá conter, além do componente aleatório residual, um componente <strong>sistemático</strong>. Este componente terá efeito sobre influência sobre a predição do modelo, sobretudo nos extremos das observações. Por modelo linear, entendemos aqueles em que os coeficientes <span class="math inline">\(\beta\)</span> aparecem de forma aditiva. Modelos em que os componentes aparecem de outro modo na equação como potência ou no denominador de uma equação são exemplos de modelos não-lineares. Abaixo estão dois exemplos de relações <strong>não-lineares</strong> comumente observadas em fenômenos ambientais:</p>
+<p>Equação potência: <span class="math inline">\(Y_i = \beta_0 X_i^{\beta_1}\)</span></p>
+<p>Modelo de Michaelis-Menten: <span class="math inline">\(Y_i = \frac{\beta_0 X_i}{\beta_1 + X_i}\)</span></p>
+</section>
+<section id="independência" class="level3" data-number="6.2">
+<h3 data-number="6.2" class="anchored" data-anchor-id="independência"><span class="header-section-number">6.2</span> Independência</h3>
+<p>A falta de independência pode ocorrer como resultado do delineamento amostral inapropriado para a questão em teste. A falta de independência torna crítico o uso de uma distribuição de probabilidade para o cálculo do intervalo de confiança (distribuição <span class="math inline">\(t\)</span>) e para o teste de hipóteses (distribuições <span class="math inline">\(t\)</span> e <span class="math inline">\(F\)</span> ). Casos clássicos de falta de independência são aqueles em que as observações são denominadas como <strong>pseudoréplicas</strong> <span class="citation" data-cites="hurlbert1984pseudoreplication">(<a href="#ref-hurlbert1984pseudoreplication" role="doc-biblioref">Hurlbert 1984</a>)</span>. Após a publicação clássica de <a href="https://esajournals.onlinelibrary.wiley.com/doi/abs/10.2307/1942661">Hurlbert</a>, muito tem sido dito sobre pseudoreplicação. Em experimentos de campo, a falta de independência ocorre geralmente como resultados da proximidade espacial entre as réplicas ou sobre séries temporais.</p>
+</section>
+<section id="variável-x-é-medida-sem-erros" class="level3" data-number="6.3">
+<h3 data-number="6.3" class="anchored" data-anchor-id="variável-x-é-medida-sem-erros"><span class="header-section-number">6.3</span> Variável <span class="math inline">\(X\)</span> é medida sem erros</h3>
+<p>Veja que a parcela residual do modelo de regressão se refere à distância <strong>vertical</strong> de <span class="math inline">\(Y_i\)</span>, para um dados valor de <span class="math inline">\(X\)</span>. Isto implica que os níveis de <span class="math inline">\(X\)</span> são <strong>previamente</strong> definidos. Quando existe variabilidade aleatória tanto em <span class="math inline">\(Y\)</span> quanto em <span class="math inline">\(X\)</span>, o modelo correto para a estimativa dos parâmetros da regressão é conhecido como <strong>Modelo II</strong> de regressão. Este pressuposto é frequêntemente ignorado em delineamentos de regressão, sobretudo em estudos observacionais, o que não parece ser particularmente problemático.</p>
+</section>
+<section id="distribuição-normal-dos-resíduos" class="level3" data-number="6.4">
+<h3 data-number="6.4" class="anchored" data-anchor-id="distribuição-normal-dos-resíduos"><span class="header-section-number">6.4</span> Distribuição normal dos resíduos</h3>
+<p>Assim como no pressuposto de independência, assumir que os resíduos têm uma distribuição normal permite o uso da distribuição <span class="math inline">\(F\)</span> pra o teste de hipótese e da distribuiçãio <span class="math inline">\(t\)</span> para o cálculo do intervalo de confiança. Uma distribuição de erros diferente da distribuição normal terá influência sobre o cálculo da amplitude do intervalo de confiança.</p>
+</section>
+<section id="variância-residual-constante" class="level3" data-number="6.5">
+<h3 data-number="6.5" class="anchored" data-anchor-id="variância-residual-constante"><span class="header-section-number">6.5</span> Variância residual constante</h3>
+<p>Caso, a variância <span class="math inline">\(\sigma\)</span> não seja constante ao longo da reta de regressão, o cálculo do intervalo de confiança e o resultado do teste de hipóteses são afetados. Uma vez diagnosticada uma variância <strong>não-constante</strong> existem modelos de regressão que podem ser apicados para incorporar este efeito em suas estimativas <span class="citation" data-cites="zuur2009mixed">(<a href="#ref-zuur2009mixed" role="doc-biblioref">Zuur et al. 2009</a>)</span>.</p>
+</section>
+</section>
+<section id="diagnósticos-da-regressão" class="level2" data-number="7">
+<h2 data-number="7" class="anchored" data-anchor-id="diagnósticos-da-regressão"><span class="header-section-number">7</span> Diagnósticos da regressão</h2>
+<p>O diagnóstivo da regressão é composto por observações e testes que ajudam a decidirmos se a regressão linear foi um bom modelo para ajustar a um conjunto de dados particular. Um bom modelo neste contexto significa um modelo que atendeu aos pressuostos descritos acima. Esta verificação passa pela observação de padrões nos <strong>resíduos</strong> da regressão, ou seja, pela observação da parcela estocástica do modelo.</p>
+<section id="gráfico-de-resíduos" class="level3" data-number="7.1">
+<h3 data-number="7.1" class="anchored" data-anchor-id="gráfico-de-resíduos"><span class="header-section-number">7.1</span> Gráfico de resíduos</h3>
+<p>O primeiro diagnóstico da regressão é conhecido como <strong>gráfico de resíduos</strong>, que consiste em um gráfico de dispersão entre os resíduos e o valor ajustado <span class="math inline">\(\hat{Y}\)</span>. Abaixo estão os gráficos de resíduos que surge quando ajustamos uma reta a dados que apresentam uma <strong>relação linear</strong>, uma <strong>função potência</strong>, uma <strong>função assintótica</strong> e uma relação linear porém comm <strong>variância heterogênea</strong>.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="regressao_linear_simples_files/figure-html/unnamed-chunk-23-1.png" class="img-fluid figure-img" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Nas primeiras duas figuras, em que a relação é linear, vemos um padrão crescente de <span class="math inline">\(Y\)</span> como função de <span class="math inline">\(X\)</span> (figura da esquerda), em que os pontos estão aleatóriamente acima e abaixo da reta de regressão. Este padrão se reflete em um gráfico de resíduos (figura da direita) em que os pontos ficam aleatóriamente acima e abaixo de zero expressando resíduos positivos e negativos respectivamente. Em uma situação em que os pontos estivessem <strong>perfeitamente</strong> sobre a reta, os resíduos seriam todos iguais a zero e o gráfico de resíduos mostraria todos os pontos alinhados horizontalmente em zero.</p>
+<p>Quando a relação é potência e tentamos ajustar uma reta sobre, vemos que inicialmente os resíduos sao positivos, o seja, estão acima da reta. Os resíduos se tornam negativos no centro da nuvem de pontos e novamente positivos ao final do gráfico. Este padrão é mais evidente no gráfico de resíduos, que mostra um componente <strong>sistemático</strong> dos resíduos como fução do valor ajustado. Ao usar uma regressão linear neste caso, iríamos subestimar <strong>consistentemente</strong> os valores de Y nos extremos da figura e superestimlá-los no trecho central. Portanto, uma reta de regressão, quando ajustada a um conjunto de dados que expressa um padrão <strong>não-linear</strong>, não é capaz de isolar adequadamente as parcelas aleatórias e sistemáticas da relação entre <span class="math inline">\(Y\)</span> e <span class="math inline">\(X\)</span>. Isto pode ser corrigido aplicando-se uma regressão <strong>não-linear</strong> aos dados.</p>
+<p>Quando a relação é assintótica, o resultado do ajuste foi inverso ao anterior. De fato, resultados análogos serão observados senpre que tentarmos ajustra uma regressão linear a dados que expressam padrões não-lineares.</p>
+<p>No último exemplo (variância heterogênea) os pontos tendem a se afastar consistentemente da reta de regressão conforme aumentam os valores de <span class="math inline">\(X\)</span>. Isto denota que o pressuposto de variância <span class="math inline">\(\sigma^2\)</span> constante não é válido nesta relação. Isto pode ser corrigido aplicando-se um modelo de regressão linear com variância heterogênea.</p>
+</section>
+<section id="histograma-dos-resíduos" class="level3" data-number="7.2">
+<h3 data-number="7.2" class="anchored" data-anchor-id="histograma-dos-resíduos"><span class="header-section-number">7.2</span> Histograma dos resíduos</h3>
+<p>Outro diagnóstico da regressão consiste em fazer um histograma dos gráficos de resíduos. Um histograma, aproximadamente simétrico ao redor de zero o que sugere que o pressuposto de normalidade dos resíduos é válido neste caso. Existem testes formais de normalidade cmo o teste de <strong>Kolmogorov Smirnov</strong> ou o teste de <strong>Shapiro-Wilk</strong>.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="regressao_linear_simples_files/figure-html/unnamed-chunk-24-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+
+
+
+</section>
+</section>
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-efron1998r" class="csl-entry" role="listitem">
+Efron, B. 1998. <span>“R. A. Fisher in the 21st Century. Invited Paper Presented at the 1996 r.a. Fisher Lecture.”</span> <em>Statistical Science</em> 13 (2): 95–122.
+</div>
+<div id="ref-halt1998history" class="csl-entry" role="listitem">
+Halt, A. 1998. <span>“A History of Mathematical Statistics.”</span> Wiley, New York.
+</div>
+<div id="ref-hurlbert1984pseudoreplication" class="csl-entry" role="listitem">
+Hurlbert, Stuart H. 1984. <span>“Pseudoreplication and the Design of Ecological Field Experiments.”</span> <em>Ecological Monographs</em> 54 (2): 187–211.
+</div>
+<div id="ref-zuur2009mixed" class="csl-entry" role="listitem">
+Zuur, Alain, Elena N Ieno, Neil Walker, Anatoly A Saveliev, and Graham M Smith. 2009. <em>Mixed Effects Models and Extensions in Ecology with r</em>. Springer Science &amp; Business Media.
+</div>
+</div></section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/github\.com\/FCopf\/MEAD");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

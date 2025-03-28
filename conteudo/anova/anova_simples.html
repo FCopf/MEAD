@@ -1,0 +1,3322 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.56">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="description" content="Análise de variância, partição da soma de quadrados, teste F.">
+
+<title>Análise de variância de um fator – Métodos em Estatística e Análise de Dados</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../../styles/custom.css">
+<meta property="og:title" content="Análise de variância de um fator – Métodos em Estatística e Análise de Dados">
+<meta property="og:description" content="Análise de variância, partição da soma de quadrados, teste F.">
+<meta property="og:image" content="https://github.com/FCopf/MEAD/conteudo/anova/images/anova_simples.jpg">
+<meta property="og:site_name" content="Métodos em Estatística e Análise de Dados">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../../images/logo.png" alt="" class="navbar-logo">
+    </a>
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Métodos em Estatística e Análise de Dados</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="https://github.com/FCopf/MEAD"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text">GitHub</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Nesta página</h2>
+   
+  <ul>
+  <li><a href="#o-modelo-da-anova-e-as-hipóteses-estatísticas" id="toc-o-modelo-da-anova-e-as-hipóteses-estatísticas" class="nav-link active" data-scroll-target="#o-modelo-da-anova-e-as-hipóteses-estatísticas"><span class="header-section-number">1</span> O modelo da ANOVA e as hipóteses estatísticas</a></li>
+  <li><a href="#partição-das-soma-dos-quadrados" id="toc-partição-das-soma-dos-quadrados" class="nav-link" data-scroll-target="#partição-das-soma-dos-quadrados"><span class="header-section-number">2</span> Partição das Soma dos Quadrados</a></li>
+  <li><a href="#medindo-a-associação-entre-y-e-x" id="toc-medindo-a-associação-entre-y-e-x" class="nav-link" data-scroll-target="#medindo-a-associação-entre-y-e-x"><span class="header-section-number">3</span> Medindo a associação entre <span class="math inline">\(Y\)</span> e <span class="math inline">\(X\)</span></a></li>
+  <li><a href="#quadrados-médios-e-graus-de-liberdade" id="toc-quadrados-médios-e-graus-de-liberdade" class="nav-link" data-scroll-target="#quadrados-médios-e-graus-de-liberdade"><span class="header-section-number">4</span> Quadrados médios e graus de liberdade</a></li>
+  <li><a href="#estatística-f-e-teste-de-hipóteses" id="toc-estatística-f-e-teste-de-hipóteses" class="nav-link" data-scroll-target="#estatística-f-e-teste-de-hipóteses"><span class="header-section-number">5</span> Estatística <span class="math inline">\(F\)</span> e teste de hipóteses</a>
+  <ul class="collapse">
+  <li><a href="#nível-de-significância" id="toc-nível-de-significância" class="nav-link" data-scroll-target="#nível-de-significância"><span class="header-section-number">5.1</span> Nível de significância</a></li>
+  </ul></li>
+  <li><a href="#um-exemplo-de-anova-os-níveis-de-metais-pesados-afetam-a-diversidade-de-espécies" id="toc-um-exemplo-de-anova-os-níveis-de-metais-pesados-afetam-a-diversidade-de-espécies" class="nav-link" data-scroll-target="#um-exemplo-de-anova-os-níveis-de-metais-pesados-afetam-a-diversidade-de-espécies"><span class="header-section-number">6</span> Um exemplo de ANOVA: os níveis de metais pesados afetam a diversidade de espécies?</a>
+  <ul class="collapse">
+  <li><a href="#calculando-a-anova" id="toc-calculando-a-anova" class="nav-link" data-scroll-target="#calculando-a-anova"><span class="header-section-number">6.1</span> Calculando a ANOVA</a></li>
+  </ul></li>
+  <li><a href="#testes-a-posteriori-de-comparação-de-médias-o-teste-de-tukey" id="toc-testes-a-posteriori-de-comparação-de-médias-o-teste-de-tukey" class="nav-link" data-scroll-target="#testes-a-posteriori-de-comparação-de-médias-o-teste-de-tukey"><span class="header-section-number">7</span> Testes a <em>posteriori</em> de comparação de médias: o teste de <em>Tukey</em></a></li>
+  <li><a href="#ajustando-a-anova-no-r" id="toc-ajustando-a-anova-no-r" class="nav-link" data-scroll-target="#ajustando-a-anova-no-r"><span class="header-section-number">8</span> Ajustando a ANOVA no R</a></li>
+  <li><a href="#pressupostos-da-anova" id="toc-pressupostos-da-anova" class="nav-link" data-scroll-target="#pressupostos-da-anova"><span class="header-section-number">9</span> Pressupostos da ANOVA</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Análise de variância de um fator</h1>
+</div>
+
+<div>
+  <div class="description">
+    Análise de variância, partição da soma de quadrados, teste F.
+  </div>
+</div>
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Pacotes, funções e base de dados utilizadas
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gt)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">'scripts/anova_sim.r'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+<p>A <em>Análise de Variância</em> (<strong>ANOVA</strong>) desenvolvida por <a href="https://en.wikipedia.org/wiki/Ronald_Fisher" target="_blank">R. A. Fisher</a> aplica-se à uma classe de desenho experimental em que a variável resposta <span class="math inline">\(Y\)</span> é <em>contínua</em> e a variável explanatória <span class="math inline">\(X\)</span> é <em>categórica</em> com <span class="math inline">\(2\)</span> ou mais níveis. A ANOVA nos permite testar a hipótese de que duas ou mais médias amostrais (<span class="math inline">\(\overline{Y}_i\)</span>) tenham sido obtidas de uma mesma população estatística com média <span class="math inline">\(\mu\)</span>. Alternativamente, podemos concluir que as médias amostrais diferem umas das outras, de tal forma que devemos assumir que foram amostradas a partir de <strong>diferentes populações estatísticas</strong>, nas quais ao menos um <span class="math inline">\(\mu_i\)</span> seja diferente dos demais. Iremos denominar estas duas possibilidades de <strong>hipótese estatísticas</strong> sobre a relação entre as médias populacionais.</p>
+<section id="o-modelo-da-anova-e-as-hipóteses-estatísticas" class="level2" data-number="1">
+<h2 data-number="1" class="anchored" data-anchor-id="o-modelo-da-anova-e-as-hipóteses-estatísticas"><span class="header-section-number">1</span> O modelo da ANOVA e as hipóteses estatísticas</h2>
+<p>O modelo pode ser representado por:</p>
+<p><span class="math display">\[Y_{ij} = \mu + A_i + \epsilon_{ij}\]</span></p>
+<p>onde <span class="math inline">\(Y_{ij}\)</span> é a variável resposta associada à observação <span class="math inline">\(i\)</span> do tratamento <span class="math inline">\(j\)</span>, <span class="math inline">\(\mu\)</span> representa a média geral e <span class="math inline">\(A_i\)</span> o efeito do tratamento <span class="math inline">\(i\)</span>. O termo <span class="math inline">\(\epsilon_{ij}\)</span> é denominado de <strong>resíduo</strong> (ou <em>erro</em>) associado a cada observação, que assumimos ter distribuição normal com média zero e variância constante.</p>
+<p><span class="math display">\[\epsilon \sim \mathcal{N}(0, \sigma^2)\]</span></p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Hipóteses estatísticas no modelo de ANOVA
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><span class="math inline">\(H_0: \mu_1 = \mu_2 = \mu_3 =.... = \mu_k\)</span> (HIPÓTESE NULA)</p>
+<p><span class="math inline">\(H_a\)</span>: ao menos um par de médias é diferente (HIPÓTESE ALTERNATIVA)</p>
+</div>
+</div>
+<p>A hipótese nula (<span class="math inline">\(H_0\)</span>) define a ausência de diferenças entre as médias populacionais enquanto a hipótese alternativa (<span class="math inline">\(H_a\)</span>) refere-se a qualquer possibilidade diferente de <span class="math inline">\(H_0\)</span>. Se temos exatamente dois níveis em <span class="math inline">\(X\)</span>, a comparação de médias pode ser feita por meio de um teste <span class="math inline">\(t\)</span>. Por outro lado, quando temos <strong>mais</strong> de dois níveis em <span class="math inline">\(X\)</span>, devemos utilizar o modelo de ANOVA.</p>
+</section>
+<section id="partição-das-soma-dos-quadrados" class="level2" data-number="2">
+<h2 data-number="2" class="anchored" data-anchor-id="partição-das-soma-dos-quadrados"><span class="header-section-number">2</span> Partição das Soma dos Quadrados</h2>
+<p>Ao representarmos a distribuição de uma variável <span class="math inline">\(Y\)</span> contínua em função de uma variável <span class="math inline">\(X\)</span> categórica, geralmente estamos interessados em determinar se os diferentes níveis de <span class="math inline">\(X\)</span> (diferentes grupos) têm médias similares ou se ao menos um dos níveis têm média diferente dos demais. Queremos uma medida que nos permita diferenciar situações como as apresentadas abaixo.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="anova_simples_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="768"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Na figura <span class="math inline">\(A\)</span> todos os grupos são provenientes da mesma distribuição e têm médias aproximadamente iguais (<span class="math inline">\(\overline{Y}_A \approx  \overline{Y}_B \approx \overline{Y}_C \approx \overline{Y}_D\)</span>) e as diferenças são provinientes unicamente da variabilidade amostral. Na figura <span class="math inline">\(B\)</span> o segundo grupo tem média mais elevada que os demais, enquanto na figura <span class="math inline">\(C\)</span>, todas as médias parecem ser diferentes entre si (<span class="math inline">\(\overline{Y}_A \ne  \overline{Y}_B \ne \overline{Y}_C \ne \overline{Y}_D\)</span>).</p>
+<p>Para mensurar o grau de associação entre <span class="math inline">\(Y\)</span> e <span class="math inline">\(X\)</span> de modo a diferenciar as situações acima, vamos introduzir o processo de <strong>Partição da Soma dos Quadrados</strong>.</p>
+<p>Suponha a situção abaixo:</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="anova_simples_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="768"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Notações
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>Temos <span class="math inline">\(k = 3\)</span> grupos (<code>A</code>, <code>B</code> ou <code>C</code>) e para cada grupo <span class="math inline">\(n =  5\)</span> observações. Denotamos por <span class="math inline">\(n_{ij}\)</span> o número de observações dentro de cada grupo, em que <span class="math inline">\(i\)</span> é a <em>i-ésima</em> observação (<span class="math inline">\(i = 1\)</span> a <span class="math inline">\(5\)</span>) do <em>j-ésimo</em> grupo (<span class="math inline">\(j = 1\)</span> a <span class="math inline">\(3\)</span> - grupos <code>A</code> ao <code>C</code>). Neste exemplo, o número de observações em cada grupo é o mesmo (<span class="math inline">\(n_1 = n_2 = n_3 = n\)</span>), de modo que o total de observações é dado por:</li>
+</ul>
+<p><span class="math inline">\(N = k \times n = n_1 + n_2 + n_3 = 15\)</span></p>
+<ul>
+<li><p>A média de cada grupo será denotada por <span class="math inline">\(\overline{Y}_j\)</span>, que neste exemplo são: <span class="math inline">\(Y_1 = 20.64\)</span> (grupo <code>A</code>), <span class="math inline">\(Y_2 = 28.68\)</span> (grupo <code>B</code>) e <span class="math inline">\(Y_3 = 12.18\)</span> (grupo <code>C</code>).</p></li>
+<li><p>Vamos denotar por <span class="math inline">\(\overline{\overline{Y}}\)</span> a <strong>Grande Média</strong>, isto é, a média geral de todas as observações independente do grupo de origem.</p></li>
+</ul>
+<p><span class="math display">\[\overline{\overline{Y}} = \sum_{j = 1}^{k}\sum_{i = 1}^{n}\frac{Y_{ij}}{N} = \frac{\overline{Y_1} + \overline{Y_2} + \overline{Y_3}}{3} = 20.5\]</span></p>
+</div>
+</div>
+<p>Podemos agora observar estes elementos no gráfico de dispersão.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="anova_simples_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="768"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Em seguida, precisamos calcular <span class="math inline">\(3\)</span> quantias, a <strong>Soma dos Quadrados Totais</strong> (<span class="math inline">\(SQ_{Total}\)</span>), a <strong>Soma dos Quadrados dos Tratamentos</strong> <span class="math inline">\(SQ_{Trat}\)</span> e a <strong>Soma dos Quadrados dos Resíduos</strong> <span class="math inline">\(SQ_{Res}\)</span>.</p>
+<ol type="i">
+<li><strong>Soma dos Quadrados Totais</strong> <span class="math inline">\(SQ_{Total}\)</span>: mede as diferenças entre <span class="math inline">\(Y_{ij}\)</span> e <span class="math inline">\(\overline{\overline{Y}}\)</span>. Temos nesta expressão o somatório dos desvios ao quadrado de todas as observações com relação à grande média <strong>independente</strong> do grupo de origem de cada observação.</li>
+</ol>
+<p><span class="math display">\[SQ_{Total} = \sum_{j = 1}^{k}\sum_{i = 1}^{n}(Y_{ij} - \overline{\overline{Y}})^2\]</span></p>
+<ol start="2" type="i">
+<li><strong>Soma dos Quadrados dos Tratamentos</strong> <span class="math inline">\(SQ_{Trat}\)</span>: mede as diferenças entre as <strong>médias dos tratamentos</strong> <span class="math inline">\(\overline{Y}_j\)</span> e <span class="math inline">\(\overline{\overline{Y}}\)</span>, sendo portanto os desvios ao quadrado da média de cada tratamento subtraída da grande média. <span class="math inline">\(SQ_{Trat}\)</span> também é chamada de soma dos quadrados <strong>entre grupos</strong> ou <strong>entre tratamentos</strong></li>
+</ol>
+<p><span class="math display">\[SQ_{Trat} = \sum_{j = 1}^{k}\sum_{i = 1}^{n_{j}}(\overline{Y}_{j} - \overline{\overline{Y}})^2 = \sum_{j = 1}^{k}n_{j}(\overline{Y}_{j} - \overline{\overline{Y}})^2\]</span></p>
+<ol start="3" type="i">
+<li><strong>Soma dos Quadrados dos Resíduos</strong> <span class="math inline">\(SQ_{Res}\)</span>: mede as diferenças entre cada observação <span class="math inline">\(Y_{ij}\)</span> e a média de seu próprio grupo <span class="math inline">\(\overline{Y}_{j}\)</span>. <span class="math inline">\(SQ_{Res}\)</span> também é chamada de soma dos quadrados <strong>dentro dos grupos</strong> ou <strong>dentro dos tratamentos</strong></li>
+</ol>
+<p><span class="math display">\[SQ_{Res} = \sum_{j = 1}^{k}\sum_{i = 1}^{n_{j}}(Y_{ij} - \overline{Y}_{j})^2\]</span></p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+A característica aditiva das somas dos quadrados
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A partição da soma dos quadrados consiste em decompor a <strong>variação total</strong> do experimento em uma parcela atribuída à variação <strong>entre tratamentos</strong> e outra parcela da variação <strong>dentro dos tratamentos</strong>. Isto é possível pois as somas dos quadrados definidas acima podem ser expressas de forma aditiva como:</p>
+<p><span class="math display">\[SQ_{Total} = SQ_{Trat} + SQ_{Res}\]</span></p>
+<p>Deste modo, é possível demostrar que:</p>
+<p><span class="math inline">\(\sum_{j = 1}^{k}\sum_{i = 1}^{n}(Y_{ij} - \overline{\overline{Y}})^2 = \sum_{j = 1}^{k}n_{j}(Y_{j} - \overline{\overline{Y}})^2 + \sum_{j = 1}^{k}\sum_{i = 1}^{n}(Y_{ij} - \overline{Y}_{j})^2\)</span></p>
+</div>
+</div>
+</section>
+<section id="medindo-a-associação-entre-y-e-x" class="level2" data-number="3">
+<h2 data-number="3" class="anchored" data-anchor-id="medindo-a-associação-entre-y-e-x"><span class="header-section-number">3</span> Medindo a associação entre <span class="math inline">\(Y\)</span> e <span class="math inline">\(X\)</span></h2>
+<p>A característica aditiva das somas dos quadrados pode ser utilizada para mensurar o grau de dependência de <span class="math inline">\(Y_{ij}\)</span> com respeito aos diferentes tratamentos. Compare as duas figuras abaixo:</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="anova_simples_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="768"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>A soma dos quadrados dentro dos grupos é a mesma nas duas figuras (<span class="math inline">\(SQ_{Res} = 362.6\)</span>). No entanto, na figura da esquerda, em que as médias dos tratamentos são similares (e consequentemente próximas à grande média), a soma dos quadrados entre os tratamentos é muito menor (<span class="math inline">\(SQ_{Trat}^{esquerda} = 15.8\)</span>) que na figura da direita, em que as médias dos tratamentos estão distantes entre si (<span class="math inline">\(SQ_{Trat}^{direita} = 680.8\)</span>). É desta forma que a partição das somas dos quadrados nos permite diferenciar situações em que: i - a média dos grupos <strong>depende</strong> dos níveis do tratamento (figura da direita); de situações em que ii - a média <strong>não depende</strong> dos níveis do tratamento (figura da esquerda).</p>
+</section>
+<section id="quadrados-médios-e-graus-de-liberdade" class="level2" data-number="4">
+<h2 data-number="4" class="anchored" data-anchor-id="quadrados-médios-e-graus-de-liberdade"><span class="header-section-number">4</span> Quadrados médios e graus de liberdade</h2>
+<p>Para que os somatórios dos quadrados expressem uma medida de variação é necessário corrigi-los em função dos <strong>graus de liberdade (<span class="math inline">\(gl\)</span>)</strong>, obtendo assim os <strong>Quadrados médios</strong> conforme abaixo:</p>
+<ol type="i">
+<li><strong>Quadrado Médio Total (<span class="math inline">\(QM_{Total}\)</span>)</strong></li>
+</ol>
+<p><span class="math display">\[QM_{Total} = \frac{SQ_{Total}}{gl_{Total}}\]</span></p>
+<p>em que <span class="math inline">\(gl_{Total} = N - 1\)</span></p>
+<ol start="2" type="i">
+<li><strong>Quadrado Médio dos Tratamentos (<span class="math inline">\(QM_{Trat}\)</span>)</strong></li>
+</ol>
+<p><span class="math display">\[QM_{Trat} = \frac{SQ_{Trat}}{gl_{Trat}}\]</span></p>
+<p>em que <span class="math inline">\(gl_{Trat} = k - 1\)</span></p>
+<ol start="3" type="i">
+<li><strong>Quadrado Médio dos Resíduos (<span class="math inline">\(QM_{Res}\)</span>)</strong></li>
+</ol>
+<p><span class="math display">\[QM_{Res} = \frac{SQ_{Res}}{gl_{Res}}\]</span></p>
+<p>em que <span class="math inline">\(gl_{Res} = N-k\)</span></p>
+<p>Assim como a soma dos quadrados, os graus de liberdade também têm característica aditiva.</p>
+<p><span class="math display">\[gl_{Total} = gl_{Trat} + gl_{Res} = (k - 1) + (N - K) = N - 1\]</span></p>
+<p>Os quadrados médios que são estimativas de variâncias. Compare por exemplo a expressão do <span class="math inline">\(QM_{Total}\)</span> com a fórmula da variância amostral (<span class="math inline">\(s^2\)</span>) e verá que excetuando mudanças de notação, as expressões são essencialmente as mesmas.</p>
+</section>
+<section id="estatística-f-e-teste-de-hipóteses" class="level2" data-number="5">
+<h2 data-number="5" class="anchored" data-anchor-id="estatística-f-e-teste-de-hipóteses"><span class="header-section-number">5</span> Estatística <span class="math inline">\(F\)</span> e teste de hipóteses</h2>
+<p>Uma vez que os quadrados médios são estimativas de variância, uma estatística de teste apropriada é:</p>
+<p><span class="math display">\[F_{calculado} = \frac{QM_{Trat}}{QM_{Res}}\]</span></p>
+<p>A estatística <span class="math inline">\(F\)</span> (ou razão-<span class="math inline">\(F\)</span>) está associada à <strong>distribuição de probabilidades <span class="math inline">\(F\)</span></strong> e nos permite comparar a variância associada ao tratamento com a variância associada aos resíduos. Com o valor de <span class="math inline">\(F_{calculado}\)</span>, o teste de hipóteses é possível após a definição do <strong>nível de significância</strong> <span class="math inline">\(\alpha\)</span>.</p>
+<section id="nível-de-significância" class="level3" data-number="5.1">
+<h3 data-number="5.1" class="anchored" data-anchor-id="nível-de-significância"><span class="header-section-number">5.1</span> Nível de significância</h3>
+<p>Assim como discutimos nos testes <span class="math inline">\(Z\)</span> e <span class="math inline">\(t\)</span>, o valor de <span class="math inline">\(\alpha\)</span> estabelece um limite de aceitação para <span class="math inline">\(H_0\)</span>, isto é, um limite a partir do qual a estatística do teste se torna <strong>tão extrema</strong> que nos leva a assumir que <span class="math inline">\(H_0\)</span> é improvável, devendo portanto ser rejeitada em favor de <span class="math inline">\(H_a\)</span>. Este passo é possível pois o valor de <span class="math inline">\(F_{calculado}\)</span> pode ser associado à distribuição <span class="math inline">\(F\)</span> de probabilidades, o que nos permite calcular a probabilidade:</p>
+<p><span class="math display">\[P(F_{calculado}) \le \alpha\]</span></p>
+<p>Para facilitar a notação denominaremos <span class="math inline">\(P(F_{calculado})\)</span> simplesmente de <strong>valor de <span class="math inline">\(p\)</span></strong> expresso em vermelho na figura abaixo:</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tomada de decisão na ANOVA
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Se <span class="math inline">\(p &gt; \alpha\)</span> –&gt; <strong>ACEITAMOS <span class="math inline">\(H_0\)</span></strong></p>
+<p>Se <span class="math inline">\(p \le \alpha\)</span> –&gt; <strong>REJEITAMOS <span class="math inline">\(H_0\)</span></strong> (e assumimos <span class="math inline">\(H_a\)</span> como verdadeira)</p>
+</div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="anova_simples_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="768"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Tradicionalmente utiliza-se <span class="math inline">\(\alpha = 0.05\)</span>. Neste caso, <span class="math inline">\(H_0\)</span> seria rejeitada somente de <span class="math inline">\(p \le 0.05\)</span>. Em algumas situações podemos utilizar <span class="math inline">\(\alpha = 0.01\)</span>, o que torna o experimento mais rigoroso, isto é, menos propenso ao <strong>erro do tipo I</strong>.</p>
+</section>
+</section>
+<section id="um-exemplo-de-anova-os-níveis-de-metais-pesados-afetam-a-diversidade-de-espécies" class="level2" data-number="6">
+<h2 data-number="6" class="anchored" data-anchor-id="um-exemplo-de-anova-os-níveis-de-metais-pesados-afetam-a-diversidade-de-espécies"><span class="header-section-number">6</span> Um exemplo de ANOVA: os níveis de metais pesados afetam a diversidade de espécies?</h2>
+<p>Importe a base de dados <code>medley.csv</code> (disponível também em <a href="https://users.monash.edu.au/~murray/BDAR/" target="_blank">Chapter 10 - Single factor classification (ANOVA)</a>) que avalia o impacto da presença de metais pesados na diversidade de espécies de diatomácias em riachos (<span class="citation" data-cites="medleyclements1998">Medley and Clements (<a href="#ref-medleyclements1998" role="doc-biblioref">1998</a>)</span>; <span class="citation" data-cites="queen2002experimental">Queen, Quinn, and Keough (<a href="#ref-queen2002experimental" role="doc-biblioref">2002</a>)</span>; <span class="citation" data-cites="logan2011biostatistical">Logan (<a href="#ref-logan2011biostatistical" role="doc-biblioref">2011</a>)</span>).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>medley <span class="ot">=</span> <span class="fu">read_csv</span>(<span class="st">"https://raw.githubusercontent.com/FCopf/datasets/refs/heads/main/medley.csv"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">STREAM =</span> <span class="fu">factor</span>(STREAM),</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">ZINC =</span> <span class="fu">factor</span>(ZINC, <span class="at">ordered =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>                       <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"BACK"</span>, <span class="st">"LOW"</span>, <span class="st">"MED"</span>, <span class="st">"HIGH"</span>)))</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>var_medley <span class="ot">=</span> <span class="fu">colnames</span>(medley)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>stream_levels <span class="ot">=</span> <span class="fu">levels</span>(medley<span class="sc">$</span>STREAM)</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>n_stream <span class="ot">=</span> <span class="fu">nlevels</span>(medley<span class="sc">$</span>STREAM)</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>zinc_levels <span class="ot">=</span> <span class="fu">levels</span>(medley<span class="sc">$</span>ZINC)</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>n_zinc <span class="ot">=</span> <span class="fu">nlevels</span>(medley<span class="sc">$</span>ZINC)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>medley <span class="sc">|&gt;</span> <span class="fu">gt</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="jyloatcfjj" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#jyloatcfjj table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#jyloatcfjj thead, #jyloatcfjj tbody, #jyloatcfjj tfoot, #jyloatcfjj tr, #jyloatcfjj td, #jyloatcfjj th {
+  border-style: none;
+}
+
+#jyloatcfjj p {
+  margin: 0;
+  padding: 0;
+}
+
+#jyloatcfjj .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#jyloatcfjj .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#jyloatcfjj .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#jyloatcfjj .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#jyloatcfjj .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#jyloatcfjj .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#jyloatcfjj .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#jyloatcfjj .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#jyloatcfjj .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#jyloatcfjj .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#jyloatcfjj .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#jyloatcfjj .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#jyloatcfjj .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#jyloatcfjj .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#jyloatcfjj .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#jyloatcfjj .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#jyloatcfjj .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#jyloatcfjj .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#jyloatcfjj .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#jyloatcfjj .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#jyloatcfjj .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#jyloatcfjj .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#jyloatcfjj .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#jyloatcfjj .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#jyloatcfjj .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#jyloatcfjj .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#jyloatcfjj .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#jyloatcfjj .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#jyloatcfjj .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#jyloatcfjj .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#jyloatcfjj .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#jyloatcfjj .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#jyloatcfjj .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#jyloatcfjj .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#jyloatcfjj .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#jyloatcfjj .gt_left {
+  text-align: left;
+}
+
+#jyloatcfjj .gt_center {
+  text-align: center;
+}
+
+#jyloatcfjj .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#jyloatcfjj .gt_font_normal {
+  font-weight: normal;
+}
+
+#jyloatcfjj .gt_font_bold {
+  font-weight: bold;
+}
+
+#jyloatcfjj .gt_font_italic {
+  font-style: italic;
+}
+
+#jyloatcfjj .gt_super {
+  font-size: 65%;
+}
+
+#jyloatcfjj .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#jyloatcfjj .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#jyloatcfjj .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#jyloatcfjj .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#jyloatcfjj .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#jyloatcfjj .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#jyloatcfjj .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#jyloatcfjj .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#jyloatcfjj div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+
+<table class="gt_table caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<thead>
+<tr class="header gt_col_headings">
+<th id="STREAM" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">STREAM</th>
+<th id="ZINC" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">ZINC</th>
+<th id="DIVERSITY" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">DIVERSITY</th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<td class="gt_row gt_center" headers="STREAM">Eagle</td>
+<td class="gt_row gt_center" headers="ZINC">BACK</td>
+<td class="gt_row gt_right" headers="DIVERSITY">2.27</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="STREAM">Eagle</td>
+<td class="gt_row gt_center" headers="ZINC">HIGH</td>
+<td class="gt_row gt_right" headers="DIVERSITY">1.25</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_center" headers="STREAM">Eagle</td>
+<td class="gt_row gt_center" headers="ZINC">HIGH</td>
+<td class="gt_row gt_right" headers="DIVERSITY">1.15</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="STREAM">Eagle</td>
+<td class="gt_row gt_center" headers="ZINC">MED</td>
+<td class="gt_row gt_right" headers="DIVERSITY">1.62</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_center" headers="STREAM">Blue</td>
+<td class="gt_row gt_center" headers="ZINC">BACK</td>
+<td class="gt_row gt_right" headers="DIVERSITY">1.70</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="STREAM">Blue</td>
+<td class="gt_row gt_center" headers="ZINC">HIGH</td>
+<td class="gt_row gt_right" headers="DIVERSITY">0.63</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_center" headers="STREAM">Blue</td>
+<td class="gt_row gt_center" headers="ZINC">BACK</td>
+<td class="gt_row gt_right" headers="DIVERSITY">2.05</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="STREAM">Blue</td>
+<td class="gt_row gt_center" headers="ZINC">BACK</td>
+<td class="gt_row gt_right" headers="DIVERSITY">1.98</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_center" headers="STREAM">Blue</td>
+<td class="gt_row gt_center" headers="ZINC">HIGH</td>
+<td class="gt_row gt_right" headers="DIVERSITY">1.04</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="STREAM">Blue</td>
+<td class="gt_row gt_center" headers="ZINC">MED</td>
+<td class="gt_row gt_right" headers="DIVERSITY">2.19</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_center" headers="STREAM">Blue</td>
+<td class="gt_row gt_center" headers="ZINC">MED</td>
+<td class="gt_row gt_right" headers="DIVERSITY">2.10</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="STREAM">Snake</td>
+<td class="gt_row gt_center" headers="ZINC">BACK</td>
+<td class="gt_row gt_right" headers="DIVERSITY">2.20</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_center" headers="STREAM">Snake</td>
+<td class="gt_row gt_center" headers="ZINC">MED</td>
+<td class="gt_row gt_right" headers="DIVERSITY">2.06</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="STREAM">Snake</td>
+<td class="gt_row gt_center" headers="ZINC">HIGH</td>
+<td class="gt_row gt_right" headers="DIVERSITY">1.90</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_center" headers="STREAM">Snake</td>
+<td class="gt_row gt_center" headers="ZINC">HIGH</td>
+<td class="gt_row gt_right" headers="DIVERSITY">1.88</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="STREAM">Snake</td>
+<td class="gt_row gt_center" headers="ZINC">HIGH</td>
+<td class="gt_row gt_right" headers="DIVERSITY">0.85</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_center" headers="STREAM">Arkan</td>
+<td class="gt_row gt_center" headers="ZINC">LOW</td>
+<td class="gt_row gt_right" headers="DIVERSITY">1.40</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="STREAM">Arkan</td>
+<td class="gt_row gt_center" headers="ZINC">LOW</td>
+<td class="gt_row gt_right" headers="DIVERSITY">2.18</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_center" headers="STREAM">Arkan</td>
+<td class="gt_row gt_center" headers="ZINC">LOW</td>
+<td class="gt_row gt_right" headers="DIVERSITY">1.83</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="STREAM">Arkan</td>
+<td class="gt_row gt_center" headers="ZINC">LOW</td>
+<td class="gt_row gt_right" headers="DIVERSITY">1.88</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_center" headers="STREAM">Arkan</td>
+<td class="gt_row gt_center" headers="ZINC">MED</td>
+<td class="gt_row gt_right" headers="DIVERSITY">2.02</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="STREAM">Arkan</td>
+<td class="gt_row gt_center" headers="ZINC">MED</td>
+<td class="gt_row gt_right" headers="DIVERSITY">1.94</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_center" headers="STREAM">Arkan</td>
+<td class="gt_row gt_center" headers="ZINC">LOW</td>
+<td class="gt_row gt_right" headers="DIVERSITY">2.10</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="STREAM">Chalk</td>
+<td class="gt_row gt_center" headers="ZINC">LOW</td>
+<td class="gt_row gt_right" headers="DIVERSITY">2.38</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_center" headers="STREAM">Chalk</td>
+<td class="gt_row gt_center" headers="ZINC">HIGH</td>
+<td class="gt_row gt_right" headers="DIVERSITY">1.43</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="STREAM">Chalk</td>
+<td class="gt_row gt_center" headers="ZINC">HIGH</td>
+<td class="gt_row gt_right" headers="DIVERSITY">1.37</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_center" headers="STREAM">Chalk</td>
+<td class="gt_row gt_center" headers="ZINC">MED</td>
+<td class="gt_row gt_right" headers="DIVERSITY">1.75</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="STREAM">Chalk</td>
+<td class="gt_row gt_center" headers="ZINC">LOW</td>
+<td class="gt_row gt_right" headers="DIVERSITY">2.83</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_center" headers="STREAM">Splat</td>
+<td class="gt_row gt_center" headers="ZINC">BACK</td>
+<td class="gt_row gt_right" headers="DIVERSITY">1.53</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="STREAM">Splat</td>
+<td class="gt_row gt_center" headers="ZINC">BACK</td>
+<td class="gt_row gt_right" headers="DIVERSITY">0.76</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_center" headers="STREAM">Splat</td>
+<td class="gt_row gt_center" headers="ZINC">MED</td>
+<td class="gt_row gt_right" headers="DIVERSITY">0.80</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="STREAM">Splat</td>
+<td class="gt_row gt_center" headers="ZINC">LOW</td>
+<td class="gt_row gt_right" headers="DIVERSITY">1.66</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_center" headers="STREAM">Splat</td>
+<td class="gt_row gt_center" headers="ZINC">MED</td>
+<td class="gt_row gt_right" headers="DIVERSITY">0.98</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="STREAM">Splat</td>
+<td class="gt_row gt_center" headers="ZINC">BACK</td>
+<td class="gt_row gt_right" headers="DIVERSITY">1.89</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>A coluna STREAM é uma variável categórica contendo o nome dos <span class="math inline">\(6\)</span> riachos amostrados (Arkan, Blue, Chalk, Eagle, Snake, Splat). A coluna ZINC é uma variável categórica ordinal com <span class="math inline">\(4\)</span> níveis de concentração de zinco na água (BACK &lt; LOW &lt; MED &lt; HIGH). O primeiro nível (BACK) é o nível de referência. Finalmente, a coluna DIVERSITY é uma variável contínua que contém a diversidade de diatomácieas medida pelo índice de <a href="https://pt.wikipedia.org/wiki/%C3%8Dndice_de_Shannon" target="_blank">Shannon</a> em cada uma das 34 amostras.</p>
+<p>Vamos nos concentrar nas variáveis DIVERSITY e ZINC. DIVERSITY será a variável resposta. Dizemos que ZINC é um <strong>tratamento</strong>, isto é, uma condição experimental (ou observacional) sob a qual a variável dependente <span class="math inline">\(Y\)</span> foi medida.</p>
+<p>Para verificarmos a distribuição de diversidade para cada concentração de zinco vamos fazer um boxplot da variável <code>DIVERSITY</code> em função de <code>ZINC</code>.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(medley) <span class="sc">+</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> ZINC, <span class="at">y =</span> DIVERSITY) <span class="sc">+</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">coef =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>(<span class="at">base_size =</span> <span class="dv">15</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="anova_simples_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Vemos que a concentração HIGH aparenta ter menor diversidade que as demais concentralções. A ANOVA nos permitirá testar esta suposição.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Hipópteses estatísticas
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><span class="math inline">\(H_0: \mu_{BACK} = \mu_{LOW} = \mu_{MED}  = \mu_{HIGH}\)</span></p>
+<p><span class="math inline">\(H_a\)</span>: ao menos um <span class="math inline">\(\mu\)</span> é diferente</p>
+<p><span class="math inline">\(\alpha = 0.05\)</span></p>
+</div>
+</div>
+<section id="calculando-a-anova" class="level3" data-number="6.1">
+<h3 data-number="6.1" class="anchored" data-anchor-id="calculando-a-anova"><span class="header-section-number">6.1</span> Calculando a ANOVA</h3>
+<p><strong>i. Somatórios dos quadrados</strong></p>
+<p><span class="math inline">\(SQ_{Trat} = \sum_{j = 1}^{k}\sum_{i = 1}^{n_{j}}(\overline{Y}_{j} - \overline{\overline{Y}})^2 = 2.5666124\)</span></p>
+<p><span class="math inline">\(SQ_{Res} = \sum_{j = 1}^{k}\sum_{i = 1}^{n_{j}}(Y_{ij} - \overline{Y}_{j})^2 = 6.5164111\)</span></p>
+<p><strong>ii. Graus de liberdade</strong></p>
+<p><span class="math inline">\(gl_{Trat} = k - 1 = 3\)</span></p>
+<p><span class="math inline">\(gl_{Res} = N-k = 30\)</span></p>
+<p><strong>iii. Quadrados médios</strong></p>
+<p><span class="math inline">\(QM_{Trat} = \frac{SQ_{Trat}}{gl_{Trat}} = 0.8555375\)</span></p>
+<p><span class="math inline">\(QM_{Res} = \frac{SQ_{Res}}{gl_{Res}} = 0.2172137\)</span></p>
+<p><strong>iv. Estatística <span class="math inline">\(F\)</span></strong></p>
+<p><span class="math inline">\(F_{calculado} = \frac{QM_{Trat}}{QM_{Res}} = 3.939\)</span></p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tabela da ANOVA**
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>As quantias acima são tradicionalmente expressas em uma <strong>Tabela de ANOVA</strong>.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>aov_ex <span class="ot">=</span> <span class="fu">aov</span>(DIVERSITY <span class="sc">~</span> ZINC, <span class="at">data =</span> medley)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>anova_ex <span class="ot">=</span> <span class="fu">anova</span>(aov_ex)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell">
+<div id="tbl-anova" class="cell quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-anova-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tabela&nbsp;1: Tabela da ANOVA para a base de dados medley.
+</figcaption>
+<div aria-describedby="tbl-anova-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output-display">
+<div id="fottzlywfy" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#fottzlywfy table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#fottzlywfy thead, #fottzlywfy tbody, #fottzlywfy tfoot, #fottzlywfy tr, #fottzlywfy td, #fottzlywfy th {
+  border-style: none;
+}
+
+#fottzlywfy p {
+  margin: 0;
+  padding: 0;
+}
+
+#fottzlywfy .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#fottzlywfy .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#fottzlywfy .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#fottzlywfy .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#fottzlywfy .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#fottzlywfy .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#fottzlywfy .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#fottzlywfy .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#fottzlywfy .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#fottzlywfy .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#fottzlywfy .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#fottzlywfy .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#fottzlywfy .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#fottzlywfy .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#fottzlywfy .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#fottzlywfy .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#fottzlywfy .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#fottzlywfy .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#fottzlywfy .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#fottzlywfy .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#fottzlywfy .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#fottzlywfy .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#fottzlywfy .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#fottzlywfy .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#fottzlywfy .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#fottzlywfy .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#fottzlywfy .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#fottzlywfy .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#fottzlywfy .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#fottzlywfy .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#fottzlywfy .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#fottzlywfy .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#fottzlywfy .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#fottzlywfy .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#fottzlywfy .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#fottzlywfy .gt_left {
+  text-align: left;
+}
+
+#fottzlywfy .gt_center {
+  text-align: center;
+}
+
+#fottzlywfy .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#fottzlywfy .gt_font_normal {
+  font-weight: normal;
+}
+
+#fottzlywfy .gt_font_bold {
+  font-weight: bold;
+}
+
+#fottzlywfy .gt_font_italic {
+  font-style: italic;
+}
+
+#fottzlywfy .gt_super {
+  font-size: 65%;
+}
+
+#fottzlywfy .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#fottzlywfy .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#fottzlywfy .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#fottzlywfy .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#fottzlywfy .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#fottzlywfy .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#fottzlywfy .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#fottzlywfy .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#fottzlywfy div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+
+<table class="gt_table do-not-create-environment cell caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<thead>
+<tr class="header gt_col_headings">
+<th id="Df" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Df</th>
+<th id="Sum-Sq" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Sum Sq</th>
+<th id="Mean-Sq" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Mean Sq</th>
+<th id="F-value" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">F value</th>
+<th id="Pr(>F)" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Pr(&gt;F)</th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<td class="gt_row gt_right" headers="Df">3</td>
+<td class="gt_row gt_right" headers="Sum Sq">2.566612</td>
+<td class="gt_row gt_right" headers="Mean Sq">0.8555375</td>
+<td class="gt_row gt_right" headers="F value">3.93869</td>
+<td class="gt_row gt_right" headers="Pr(>F)">0.01755956</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_right" headers="Df">30</td>
+<td class="gt_row gt_right" headers="Sum Sq">6.516411</td>
+<td class="gt_row gt_right" headers="Mean Sq">0.2172137</td>
+<td class="gt_row gt_right" headers="F value">NA</td>
+<td class="gt_row gt_right" headers="Pr(>F)">NA</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</figure>
+</div>
+</div>
+<p>em que:</p>
+<p><code>Df</code>: graus de liberdade</p>
+<p><code>Sum Sq</code>: soma dos quadrados</p>
+<p><code>Mean Sq</code>: quadrados médios</p>
+<p><code>F value</code>: valor de <span class="math inline">\(F_{calculado}\)</span></p>
+<p><code>Pr(&gt;F)</code>: valor de p</p>
+<p>A primeira linha refere-se aos valores associados aos tratamentos e a segunda linha aos resíduos. Note que o cômputo de <span class="math inline">\(SQ_{Total}\)</span>, <span class="math inline">\(gl_{Total}\)</span> e <span class="math inline">\(QM_{Total}\)</span> não é realmente necessário.</p>
+</div>
+</div>
+<p>O valor de <span class="math inline">\(p = 0.0175596\)</span> mostrado na <a href="#tbl-anova" class="quarto-xref">Tabela&nbsp;1</a> refere-se à área na distribuição <span class="math inline">\(F\)</span> que fica acima de <span class="math inline">\(F_{calculado}\)</span> e que está representado em vermelho na <a href="#fig-Fdist-medley" class="quarto-xref">Figura&nbsp;1</a>.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div id="fig-Fdist-medley" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-Fdist-medley-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="anova_simples_files/figure-html/fig-Fdist-medley-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="768">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-Fdist-medley-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;1: Distribuição F com indicação do valor de p.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Ao verificar que <span class="math inline">\(p \le \alpha\)</span>, nossa conclusão deve ser de <strong>REJEITAR <span class="math inline">\(H_0\)</span></strong>, pois <span class="math inline">\(F_{calculado}\)</span> é muito extremo para ser resultante da hipótese nula. Neste caso, assumimos que a <span class="math inline">\(H_a\)</span> é mais condizente com a estrutura dos dados, de modo que os tratamentos devem ser provenientes de populações estatísticas com diferentes médias <span class="math inline">\(\mu\)</span>.</p>
+</section>
+</section>
+<section id="testes-a-posteriori-de-comparação-de-médias-o-teste-de-tukey" class="level2" data-number="7">
+<h2 data-number="7" class="anchored" data-anchor-id="testes-a-posteriori-de-comparação-de-médias-o-teste-de-tukey"><span class="header-section-number">7</span> Testes a <em>posteriori</em> de comparação de médias: o teste de <em>Tukey</em></h2>
+<p>Tendo rejeitado <span class="math inline">\(H_0\)</span> concluímos que ao menos 1 par médias é diferente entre si. Nos resta saber quais pares são estatisticamente diferentes, o que nos leva a buscar por um teste que permita fazer comparações <strong>par-a-par</strong>. Os testes a <em>posteriori</em> são uma alternativa.</p>
+<p>Entre os diferentes testes a <em>posteriori</em> na literatura discutiremos o <a href="https://en.wikipedia.org/wiki/Tukey%27s_range_test" target="_blank">teste de Tukey</a>, em que o objetivo é estabelecer uma <em>Diferença Honesta Significativa</em> (<em>DHS</em>) entre um dado par de médias. Considerando a diferença entre um par de médias e o erro padrão das diferenças de médias, a estatística do teste de Tukey é:</p>
+<p><span class="math display">\[q = \frac{\overline{Y}_1 - \overline{Y}_2}{SE}\]</span></p>
+<p>em que:</p>
+<p><span class="math display">\[SE = \sqrt{\frac{QM_{Res}}{2}(\frac{1}{n_1} + \frac{1}{n_2})}\]</span></p>
+<p>onde:</p>
+<p><span class="math inline">\(q\)</span>: é e estatística do teste</p>
+<p><span class="math inline">\(\overline{Y}_1\)</span>: é a maior das médias do par consideraddo;</p>
+<p><span class="math inline">\(\overline{Y}_2\)</span>: é a menor das médias do par consideraddo</p>
+<p><span class="math inline">\(QM_{Res}\)</span>: é quadrado médio do resíduo obtido na ANOVA, e;</p>
+<p><span class="math inline">\(n_1\)</span>, <span class="math inline">\(n_2\)</span>: os tamanhos amostrais de cada grupo envolvido na comparação.</p>
+<p>O valor crítico de <span class="math inline">\(q\)</span> pode ser obtido de uma <strong>tabela estatística da distribuição de amplitude normalizada</strong> (<em>studentized range q table</em>). Para um dado <span class="math inline">\(\alpha\)</span>, o valor desejado de <span class="math inline">\(q\)</span> é encontrado cruzando a linha contento o número <span class="math inline">\(k\)</span> de tratamentos do experimento com a linha contendo os graus de liberdade do resíduo (<span class="math inline">\(gl_{Res}\)</span>). Veja um exemplo desta tabela no link: <a href="https://www.real-statistics.com/statistics-tables/studentized-range-q-table/" target="_blank">Studentized Range q Table</a>.</p>
+<p>Em nosso exemplo, os valores de <span class="math inline">\(q\)</span> entre os pares de médias serão:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>Tukey_tab <span class="sc">|&gt;</span> </span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gt</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cols_label</span>(</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">combinacoes =</span> <span class="st">"Combinações"</span>,</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">diff =</span> <span class="st">"Diferença"</span>,</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">n1 =</span> <span class="st">"n1"</span>,</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">n2 =</span> <span class="st">"n2"</span>,</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">se =</span> <span class="st">"Erro Padrão"</span>,</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">q =</span> <span class="st">"Estatística q"</span>,</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">H0 =</span> <span class="st">"Decisão"</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span> </span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fmt_number</span>(</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">columns =</span> <span class="fu">c</span>(diff, se, q),</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">decimals =</span> <span class="dv">3</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span> </span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tab_style</span>(</span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">style =</span> <span class="fu">cell_fill</span>(<span class="at">color =</span> <span class="st">"orange"</span>),</span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">locations =</span> <span class="fu">cells_body</span>(</span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>      <span class="at">columns =</span> H0,</span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>      <span class="at">rows =</span> q <span class="sc">&gt;=</span> qc</span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span> </span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tab_options</span>(</span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>    <span class="at">table.width =</span> <span class="st">"100%"</span>,</span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>    <span class="at">column_labels.font.weight =</span> <span class="st">"bold"</span></span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="hlywxfzgsj" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#hlywxfzgsj table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#hlywxfzgsj thead, #hlywxfzgsj tbody, #hlywxfzgsj tfoot, #hlywxfzgsj tr, #hlywxfzgsj td, #hlywxfzgsj th {
+  border-style: none;
+}
+
+#hlywxfzgsj p {
+  margin: 0;
+  padding: 0;
+}
+
+#hlywxfzgsj .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: 100%;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#hlywxfzgsj .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#hlywxfzgsj .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#hlywxfzgsj .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#hlywxfzgsj .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#hlywxfzgsj .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#hlywxfzgsj .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#hlywxfzgsj .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: bold;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#hlywxfzgsj .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: bold;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#hlywxfzgsj .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#hlywxfzgsj .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#hlywxfzgsj .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#hlywxfzgsj .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#hlywxfzgsj .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#hlywxfzgsj .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#hlywxfzgsj .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#hlywxfzgsj .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#hlywxfzgsj .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#hlywxfzgsj .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#hlywxfzgsj .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#hlywxfzgsj .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#hlywxfzgsj .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#hlywxfzgsj .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#hlywxfzgsj .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#hlywxfzgsj .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#hlywxfzgsj .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#hlywxfzgsj .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#hlywxfzgsj .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#hlywxfzgsj .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#hlywxfzgsj .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#hlywxfzgsj .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#hlywxfzgsj .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#hlywxfzgsj .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#hlywxfzgsj .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#hlywxfzgsj .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#hlywxfzgsj .gt_left {
+  text-align: left;
+}
+
+#hlywxfzgsj .gt_center {
+  text-align: center;
+}
+
+#hlywxfzgsj .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#hlywxfzgsj .gt_font_normal {
+  font-weight: normal;
+}
+
+#hlywxfzgsj .gt_font_bold {
+  font-weight: bold;
+}
+
+#hlywxfzgsj .gt_font_italic {
+  font-style: italic;
+}
+
+#hlywxfzgsj .gt_super {
+  font-size: 65%;
+}
+
+#hlywxfzgsj .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#hlywxfzgsj .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#hlywxfzgsj .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#hlywxfzgsj .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#hlywxfzgsj .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#hlywxfzgsj .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#hlywxfzgsj .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#hlywxfzgsj .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#hlywxfzgsj div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+
+<table class="gt_table caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<thead>
+<tr class="header gt_col_headings">
+<th id="combinacoes" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">Combinações</th>
+<th id="diff" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Diferença</th>
+<th id="n1" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">n1</th>
+<th id="n2" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">n2</th>
+<th id="se" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Erro Padrão</th>
+<th id="q" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Estatística q</th>
+<th id="H0" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">Decisão</th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<td class="gt_row gt_left" headers="combinacoes">LOW-BACK</td>
+<td class="gt_row gt_right" headers="diff">0.235</td>
+<td class="gt_row gt_right" headers="n1">8</td>
+<td class="gt_row gt_right" headers="n2">8</td>
+<td class="gt_row gt_right" headers="se">0.165</td>
+<td class="gt_row gt_right" headers="q">1.426</td>
+<td class="gt_row gt_left" headers="H0">Aceita H0</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="combinacoes">MED-BACK</td>
+<td class="gt_row gt_right" headers="diff">0.080</td>
+<td class="gt_row gt_right" headers="n1">8</td>
+<td class="gt_row gt_right" headers="n2">8</td>
+<td class="gt_row gt_right" headers="se">0.165</td>
+<td class="gt_row gt_right" headers="q">0.484</td>
+<td class="gt_row gt_left" headers="H0">Aceita H0</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="combinacoes">HIGH-BACK</td>
+<td class="gt_row gt_right" headers="diff">0.520</td>
+<td class="gt_row gt_right" headers="n1">9</td>
+<td class="gt_row gt_right" headers="n2">8</td>
+<td class="gt_row gt_right" headers="se">0.160</td>
+<td class="gt_row gt_right" headers="q">3.246</td>
+<td class="gt_row gt_left" headers="H0">Aceita H0</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="combinacoes">MED-LOW</td>
+<td class="gt_row gt_right" headers="diff">0.315</td>
+<td class="gt_row gt_right" headers="n1">9</td>
+<td class="gt_row gt_right" headers="n2">8</td>
+<td class="gt_row gt_right" headers="se">0.160</td>
+<td class="gt_row gt_right" headers="q">1.965</td>
+<td class="gt_row gt_left" headers="H0">Aceita H0</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="combinacoes">HIGH-LOW</td>
+<td class="gt_row gt_right" headers="diff">0.755</td>
+<td class="gt_row gt_right" headers="n1">9</td>
+<td class="gt_row gt_right" headers="n2">8</td>
+<td class="gt_row gt_right" headers="se">0.160</td>
+<td class="gt_row gt_right" headers="q">4.713</td>
+<td class="gt_row gt_left" headers="H0" style="background-color: #FFA500">Rejeita H0</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="combinacoes">HIGH-MED</td>
+<td class="gt_row gt_right" headers="diff">0.440</td>
+<td class="gt_row gt_right" headers="n1">9</td>
+<td class="gt_row gt_right" headers="n2">9</td>
+<td class="gt_row gt_right" headers="se">0.155</td>
+<td class="gt_row gt_right" headers="q">2.832</td>
+<td class="gt_row gt_left" headers="H0">Aceita H0</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>O limite crítico para o valor de <span class="math inline">\(q\)</span> tabelado é <span class="math inline">\(q_{0.95,30,4} = 3.845\)</span> (veja em: <a href="https://www.real-statistics.com/statistics-tables/studentized-range-q-table/" target="_blank">Studentized Range q Table</a>), deste modo somente a comparação entre HIGH-LOW sugere ter médias significativamente diferentes.</p>
+</section>
+<section id="ajustando-a-anova-no-r" class="level2" data-number="8">
+<h2 data-number="8" class="anchored" data-anchor-id="ajustando-a-anova-no-r"><span class="header-section-number">8</span> Ajustando a ANOVA no R</h2>
+<p>A ANOVA no R pode ser feita com o comando <code>aov</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>ajuste <span class="ot">=</span> <span class="fu">aov</span>(DIVERSITY <span class="sc">~</span> ZINC, <span class="at">data =</span> medley)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>ajuste</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Call:
+   aov(formula = DIVERSITY ~ ZINC, data = medley)
+
+Terms:
+                    ZINC Residuals
+Sum of Squares  2.566612  6.516411
+Deg. of Freedom        3        30
+
+Residual standard error: 0.4660619
+Estimated effects may be unbalanced</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Fórmula no R
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A notação de fórmula no R é escrita como: <code>Y ~ X</code>onde lê-se <strong><span class="math inline">\(Y\)</span> é função de <span class="math inline">\(X\)</span></strong>.</p>
+</div>
+</div>
+<p>O comando acima fez os cálculos da ANOVA, isto é, computou as somas dos quadrados, os graus de liberdade, os quadrados médios, o <span class="math inline">\(F_{calculado}\)</span> e o valor de <span class="math inline">\(p\)</span>. Para visualizarmos a tabela da ANOVA escrevemos:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(ajuste)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Analysis of Variance Table
+
+Response: DIVERSITY
+          Df Sum Sq Mean Sq F value  Pr(&gt;F)  
+ZINC       3 2.5666 0.85554  3.9387 0.01756 *
+Residuals 30 6.5164 0.21721                  
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+</div>
+<p>Note que os resultados coincidem com o que apresentamos anteriormente. Como o valor de <span class="math inline">\(p\)</span> foi menor que <span class="math inline">\(\alpha = 0.05\)</span>, concluimos que a ANOVA foi significativa, isto é, indicou que ao menos um par de médias difere entre si. Podemos fazer o teste a <em>posteriori</em> de Tukey com o comando:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>alfa <span class="ot">=</span> <span class="fl">0.05</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">TukeyHSD</span>(ajuste, <span class="at">conf.level =</span> <span class="dv">1</span><span class="sc">-</span>alfa)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Tukey multiple comparisons of means
+    95% family-wise confidence level
+
+Fit: aov(formula = DIVERSITY ~ ZINC, data = medley)
+
+$ZINC
+                 diff        lwr         upr     p adj
+LOW-BACK   0.23500000 -0.3986367  0.86863665 0.7457444
+MED-BACK  -0.07972222 -0.6955064  0.53606192 0.9847376
+HIGH-BACK -0.51972222 -1.1355064  0.09606192 0.1218677
+MED-LOW   -0.31472222 -0.9305064  0.30106192 0.5153456
+HIGH-LOW  -0.75472222 -1.3705064 -0.13893808 0.0116543
+HIGH-MED  -0.44000000 -1.0373984  0.15739837 0.2095597</code></pre>
+</div>
+</div>
+<p>O resultado apresenta todas as comparações possíveis entre os grupos, mostrando as diferenças de médias, seus intervalos de confiança a <span class="math inline">\(95\%\)</span> e os valores de <span class="math inline">\(p\)</span>, indicando quais destas diferenças são significativas (<span class="math inline">\(p \le \alpha\)</span>). Nvamente, estes resultados nos permitem concluir que somente o par <code>HIGH-LOW</code> difere entre si, pois <code>p adj &lt; 0.05</code>.</p>
+<p>O gráfico abaixo facilita a visualização das comparações, sobretudo em situações com muitos pares de médias envolvidos:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">TukeyHSD</span>(ajuste))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="anova_simples_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Neste gráfico, são consideradas estatisticamente significativas as comparações em que o intervalo de confiança <strong>não inclui o zero</strong>.</p>
+</section>
+<section id="pressupostos-da-anova" class="level2" data-number="9">
+<h2 data-number="9" class="anchored" data-anchor-id="pressupostos-da-anova"><span class="header-section-number">9</span> Pressupostos da ANOVA</h2>
+<p>Os pressupostos da ANOVA são:</p>
+<ol type="1">
+<li><p>As observações são independentes e;</p></li>
+<li><p>A variância dos resíduos é homogênea e;</p></li>
+<li><p>Os resíduos têm distribuição normal com média <span class="math inline">\(0\)</span> e variância consante <span class="math inline">\(\sigma^2\)</span>.</p></li>
+</ol>
+<p>Vamos inicialmente testar o pressuposto de homogeneidade de variâncias com um teste <span class="math inline">\(F\)</span>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>medley <span class="sc">|&gt;</span> <span class="fu">group_by</span>(ZINC) <span class="sc">|&gt;</span> </span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Var =</span> <span class="fu">var</span>(DIVERSITY)) <span class="sc">|&gt;</span> </span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gt</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fxnbmrvnfa" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#fxnbmrvnfa table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#fxnbmrvnfa thead, #fxnbmrvnfa tbody, #fxnbmrvnfa tfoot, #fxnbmrvnfa tr, #fxnbmrvnfa td, #fxnbmrvnfa th {
+  border-style: none;
+}
+
+#fxnbmrvnfa p {
+  margin: 0;
+  padding: 0;
+}
+
+#fxnbmrvnfa .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#fxnbmrvnfa .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#fxnbmrvnfa .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#fxnbmrvnfa .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#fxnbmrvnfa .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#fxnbmrvnfa .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#fxnbmrvnfa .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#fxnbmrvnfa .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#fxnbmrvnfa .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#fxnbmrvnfa .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#fxnbmrvnfa .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#fxnbmrvnfa .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#fxnbmrvnfa .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#fxnbmrvnfa .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#fxnbmrvnfa .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#fxnbmrvnfa .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#fxnbmrvnfa .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#fxnbmrvnfa .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#fxnbmrvnfa .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#fxnbmrvnfa .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#fxnbmrvnfa .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#fxnbmrvnfa .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#fxnbmrvnfa .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#fxnbmrvnfa .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#fxnbmrvnfa .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#fxnbmrvnfa .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#fxnbmrvnfa .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#fxnbmrvnfa .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#fxnbmrvnfa .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#fxnbmrvnfa .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#fxnbmrvnfa .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#fxnbmrvnfa .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#fxnbmrvnfa .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#fxnbmrvnfa .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#fxnbmrvnfa .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#fxnbmrvnfa .gt_left {
+  text-align: left;
+}
+
+#fxnbmrvnfa .gt_center {
+  text-align: center;
+}
+
+#fxnbmrvnfa .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#fxnbmrvnfa .gt_font_normal {
+  font-weight: normal;
+}
+
+#fxnbmrvnfa .gt_font_bold {
+  font-weight: bold;
+}
+
+#fxnbmrvnfa .gt_font_italic {
+  font-style: italic;
+}
+
+#fxnbmrvnfa .gt_super {
+  font-size: 65%;
+}
+
+#fxnbmrvnfa .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#fxnbmrvnfa .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#fxnbmrvnfa .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#fxnbmrvnfa .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#fxnbmrvnfa .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#fxnbmrvnfa .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#fxnbmrvnfa .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#fxnbmrvnfa .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#fxnbmrvnfa div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+
+<table class="gt_table caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<thead>
+<tr class="header gt_col_headings">
+<th id="ZINC" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">ZINC</th>
+<th id="Var" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Var</th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<td class="gt_row gt_center" headers="ZINC">BACK</td>
+<td class="gt_row gt_right" headers="Var">0.2354786</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="ZINC">LOW</td>
+<td class="gt_row gt_right" headers="Var">0.1980214</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_center" headers="ZINC">MED</td>
+<td class="gt_row gt_right" headers="Var">0.2530194</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="ZINC">HIGH</td>
+<td class="gt_row gt_right" headers="Var">0.1822194</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>Note que a maior variância é <span class="math inline">\(0.2530194\)</span> e a menor <span class="math inline">\(0.1822194\)</span>.</p>
+<p>O teste <span class="math inline">\(F\)</span> consiste em dividir a maior variância pela menor:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>vmax <span class="ot">=</span> medley<span class="sc">$</span>DIVERSITY[medley<span class="sc">$</span>ZINC <span class="sc">==</span> <span class="st">"MED"</span>]</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>vmin <span class="ot">=</span> medley<span class="sc">$</span>DIVERSITY[medley<span class="sc">$</span>ZINC <span class="sc">==</span> <span class="st">"HIGH"</span>]</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="fu">var.test</span>(vmax, vmin)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    F test to compare two variances
+
+data:  vmax and vmin
+F = 1.3885, num df = 8, denom df = 8, p-value = 0.6534
+alternative hypothesis: true ratio of variances is not equal to 1
+95 percent confidence interval:
+ 0.3132103 6.1557698
+sample estimates:
+ratio of variances 
+          1.388543 </code></pre>
+</div>
+</div>
+<p>A maior variância foi 1.39 vezes maior que a menor variância e o test F sugere que esta diferença é <strong>não-significativa</strong> a <span class="math inline">\(5\%\)</span> (<span class="math inline">\(p &lt; 0.05\)</span>). Isto indica que as variâncias são homogêneas.</p>
+<p>A verificação visual de que as variâncias são homogêneas pode também ser inspecionada pelo <strong>gráfico de resíduos</strong>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">rstudent</span>(ajuste) <span class="sc">~</span> <span class="fu">fitted</span>(ajuste), <span class="at">pch =</span> <span class="dv">16</span>)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="dv">0</span>, <span class="at">col =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="anova_simples_files/figure-html/unnamed-chunk-25-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Em seguida avaliamos o histograma dos resíduos e aplicamos um teste de normalidade (ex. teste de Shapiro-Wilk) para verificar se o pressuposto de normalidade pode ser aceito.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(<span class="fu">rstudent</span>(ajuste), <span class="at">breaks =</span> <span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="anova_simples_files/figure-html/unnamed-chunk-26-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">shapiro.test</span>(<span class="fu">rstudent</span>(ajuste))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Shapiro-Wilk normality test
+
+data:  rstudent(ajuste)
+W = 0.96696, p-value = 0.3828</code></pre>
+</div>
+</div>
+<p>Neste caso, o valor de <span class="math inline">\(p &gt; 0.05\)</span> indica não haver desvio da normalidade.</p>
+
+
+
+</section>
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-logan2011biostatistical" class="csl-entry" role="listitem">
+Logan, Murray. 2011. <em>Biostatistical Design and Analysis Using r: A Practical Guide</em>. John Wiley &amp; Sons.
+</div>
+<div id="ref-medleyclements1998" class="csl-entry" role="listitem">
+Medley, C. N., and W. H. Clements. 1998. <span>“Responses of Diatom Communities to Heavy Metals in Streams: The Influence of Longitudinal Variation.”</span> <em>Ecological Applications</em> 9: 631–44.
+</div>
+<div id="ref-queen2002experimental" class="csl-entry" role="listitem">
+Queen, Jerry P, Gerry P Quinn, and Michael J Keough. 2002. <em>Experimental Design and Data Analysis for Biologists</em>. Cambridge university press.
+</div>
+</div></section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/github\.com\/FCopf\/MEAD");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

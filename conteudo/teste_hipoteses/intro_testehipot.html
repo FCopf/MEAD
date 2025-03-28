@@ -1,0 +1,988 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.56">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="description" content="Hipóteses nula/alternativa, erros do Tipo I/II, valor do p e nível de significância">
+
+<title>Introdução ao Teste de Hipóteses – Métodos em Estatística e Análise de Dados</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../../styles/custom.css">
+<meta property="og:title" content="Introdução ao Teste de Hipóteses – Métodos em Estatística e Análise de Dados">
+<meta property="og:description" content="Hipóteses nula/alternativa, erros do Tipo I/II, valor do p e nível de significância">
+<meta property="og:image" content="https://github.com/FCopf/MEAD/conteudo/teste_hipoteses/images/intro_testehipot.jpg">
+<meta property="og:site_name" content="Métodos em Estatística e Análise de Dados">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../../images/logo.png" alt="" class="navbar-logo">
+    </a>
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Métodos em Estatística e Análise de Dados</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="https://github.com/FCopf/MEAD"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text">GitHub</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Nesta página</h2>
+   
+  <ul>
+  <li><a href="#probabilidade-e-teste-de-hipóteses" id="toc-probabilidade-e-teste-de-hipóteses" class="nav-link active" data-scroll-target="#probabilidade-e-teste-de-hipóteses"><span class="header-section-number">1</span> Probabilidade e teste de hipóteses</a>
+  <ul class="collapse">
+  <li><a href="#um-modelo-de-distribuição-das-médias-amostrais-para-testar-h_0" id="toc-um-modelo-de-distribuição-das-médias-amostrais-para-testar-h_0" class="nav-link" data-scroll-target="#um-modelo-de-distribuição-das-médias-amostrais-para-testar-h_0"><span class="header-section-number">1.1</span> Um modelo de distribuição das médias amostrais para testar <span class="math inline">\(H_0\)</span></a></li>
+  <li><a href="#definindo-o-limite-de-rejeição-para-h_0-nivel-de-significância-alpha" id="toc-definindo-o-limite-de-rejeição-para-h_0-nivel-de-significância-alpha" class="nav-link" data-scroll-target="#definindo-o-limite-de-rejeição-para-h_0-nivel-de-significância-alpha"><span class="header-section-number">1.2</span> Definindo o limite de rejeição para <span class="math inline">\(H_0\)</span>: nivel de significância <span class="math inline">\(\alpha\)</span></a></li>
+  </ul></li>
+  <li><a href="#exemplificando-um-teste-de-hipóteses-o-teste-z" id="toc-exemplificando-um-teste-de-hipóteses-o-teste-z" class="nav-link" data-scroll-target="#exemplificando-um-teste-de-hipóteses-o-teste-z"><span class="header-section-number">2</span> Exemplificando um teste de hipóteses: o teste <span class="math inline">\(Z\)</span></a></li>
+  <li><a href="#tomada-de-decisão-sobre-h_0-nível-de-significância" id="toc-tomada-de-decisão-sobre-h_0-nível-de-significância" class="nav-link" data-scroll-target="#tomada-de-decisão-sobre-h_0-nível-de-significância"><span class="header-section-number">3</span> Tomada de decisão sobre <span class="math inline">\(H_0\)</span>: nível de significância</a></li>
+  <li><a href="#erros-de-decisão-em-um-teste-de-hipóteses" id="toc-erros-de-decisão-em-um-teste-de-hipóteses" class="nav-link" data-scroll-target="#erros-de-decisão-em-um-teste-de-hipóteses"><span class="header-section-number">4</span> Erros de decisão em um teste de hipóteses</a></li>
+  <li><a href="#estabelecendo-a-hipótese-alternativa-testes-bilaterais-vs-unilaterais" id="toc-estabelecendo-a-hipótese-alternativa-testes-bilaterais-vs-unilaterais" class="nav-link" data-scroll-target="#estabelecendo-a-hipótese-alternativa-testes-bilaterais-vs-unilaterais"><span class="header-section-number">5</span> Estabelecendo a hipótese alternativa: testes bilaterais <em>vs</em> unilaterais</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Introdução ao Teste de Hipóteses</h1>
+</div>
+
+<div>
+  <div class="description">
+    Hipóteses nula/alternativa, erros do Tipo I/II, valor do p e nível de significância
+  </div>
+</div>
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Pacotes, funções e base de dados utilizadas
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+<p>Um dos objetivos centrais em estatística é fazer inferências válidas para a <strong>população</strong> examinando as características de uma <strong>amostra</strong>. Considere as afirmações abaixo:</p>
+<blockquote class="blockquote">
+<p><em>A fragmentação de habitats reduz a diversidade de espécies</em>;</p>
+</blockquote>
+<blockquote class="blockquote">
+<p><em>Em níveis elevados de poluentes, a mortalidade de um determinado organismo aumenta</em>;</p>
+</blockquote>
+<blockquote class="blockquote">
+<p><em>A remoção da área de mangue implica na redução da captura de carbono</em>.</p>
+</blockquote>
+<p>Todas estas afirmações são na realidade <strong>hipóteses</strong>, sobre um ou mais parâmetros de uma população estatística que podem ser testadas por meio de experimentos adequados. A experimentação nos permite tirar conclusões sobre determitada hipótese com base na amostra. Mais especificamente, queremos saber se os dados em mãos nos permitem ou não refutar uma hipótese inicial. Portanto, se desejamos fazer uma inferência sobre um parâmetro da população estatística (ex.: sua média <span class="math inline">\(\mu\)</span>), devemos iniciar com uma afirmação sobre a posição deste parâmetro, que denominamos de <strong>hipótese nula</strong> (<span class="math inline">\(H_0\)</span>).</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Um exemplo
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<blockquote class="blockquote">
+<p>Imagine que um modelo de climático estabeleça que a pluviosidade média entre junho e agosto nas cidades litorâneas do estado de São Paulo seja de <span class="math inline">\(110\)</span> mm/mês.</p>
+</blockquote>
+<p>Um cientista acredita que o modelo têm falhas e resolve tomar algumas observações sobre chuva mensal a fim de testar esta afirmação. Este cientista inicia formulando as <strong>hipóteses estatísticas</strong>, definindo o <strong>limite de rejeição</strong>, conduzindo o <strong>experimento</strong>, e por fim realizando o <strong>teste de hipóteses</strong>.</p>
+<ol type="1">
+<li><strong>Hipoteses estatísticas</strong>: inicialmente é necessário estabelecer o que chamamos de hipótese nula. Se uma análise estatística concluir que a hipótese nula deve ser <strong>falsa</strong>, então precisaremos ter me mãos uma hipótese <strong>alternativa</strong> (<span class="math inline">\(H_a\)</span>). Assim, no caso de rejeição de <span class="math inline">\(H_0\)</span>, passaremos a assumir <span class="math inline">\(H_a\)</span> como <strong>verdadeira</strong>. Neste exemplo teríamos:</li>
+</ol>
+<p><span class="math inline">\(H_0: \mu = 110\)</span> mm de chuva (HIPÓTESE NULA)</p>
+<p><span class="math inline">\(H_a: \mu \ne 110\)</span> mm de chuva (HIPÓTESE ALTERNATIVA)</p>
+<ol start="2" type="1">
+<li><p><strong>Limite de rejeição</strong>: é o limite a partir do qual iremos conlcuir que <span class="math inline">\(H_0\)</span> é falsa. Este limite está baseado no que denominamos de <strong>nível de significância</strong> (<span class="math inline">\(\alpha\)</span>) sobre o qual iremos falar adiante.</p></li>
+<li><p><strong>Experimentação</strong>: tomar amostras sobre o fenômeno em questão que nos permita tirar alguma conlusão sobre a veracidade de de <span class="math inline">\(H_0\)</span>. Note que as hipóteses nula e alternativa se referem a predições sobre a posição da <strong>média populaçional</strong> <span class="math inline">\(\mu\)</span>, que é justamente a informação que não temos, mas sobre a qual queremos conhecer. Como não temos acesso à <span class="math inline">\(\mu\)</span>, nossa opção é tomar amostras do fenômeno (i.e.&nbsp;quantidade de chuva em diferentes localidades), calcular a média amostral <span class="math inline">\(\overline{X}\)</span> e compará-la com a média populacional descrita em <span class="math inline">\(H_0\)</span>.</p></li>
+<li><p><strong>Teste de hipóteses</strong>: é o teste formal que nos permite dizer, com base nos resultados do experimento se há evidências suficiente para rejeitar <span class="math inline">\(H_0\)</span>. Se não houver, concluímos que <span class="math inline">\(H_0\)</span> é verdadeira. Caso contrário assumimos <span class="math inline">\(H_0\)</span> como falsa e acitamos a hipótese alternativa <span class="math inline">\(H_a\)</span>.</p></li>
+</ol>
+</div>
+</div>
+<section id="probabilidade-e-teste-de-hipóteses" class="level2" data-number="1">
+<h2 data-number="1" class="anchored" data-anchor-id="probabilidade-e-teste-de-hipóteses"><span class="header-section-number">1</span> Probabilidade e teste de hipóteses</h2>
+<p>A média <span class="math inline">\(\overline{X}\)</span> de uma amostra será nossa melhor evidência a respeito de <span class="math inline">\(\mu\)</span>. Tendo este valor, podemos nos perguntar:</p>
+<blockquote class="blockquote">
+<p>O valor obtido de <span class="math inline">\(\overline{X}\)</span> é condizente com o esperado segundo <span class="math inline">\(H_0\)</span>?</p>
+</blockquote>
+<p>Caso <span class="math inline">\(\overline{X}\)</span> esteja <strong>muito próximo</strong> a <span class="math inline">\(\mu\)</span>, não há evidências para rejeitar <span class="math inline">\(H_0\)</span>. Por outro lado, um valor de <span class="math inline">\(\overline{X}\)</span> muito distante de <span class="math inline">\(\mu\)</span> irá colocar em dúvida a afirmação estabelecida em <span class="math inline">\(H_0\)</span>. O ponto relevante aqui é decidirmos <em>quão distante de <span class="math inline">\(\mu\)</span> deve estar <span class="math inline">\(\overline{X}\)</span> para que rejeitemos <span class="math inline">\(H_0\)</span>?</em> Esta resposta poderá ser respondida <strong>somente</strong> com o auxílio de um modelo probabilístico aplicado ao experimento em questão.</p>
+<p>Seja <span class="math inline">\(H_0\)</span> verdadeira, é esperado que a probabilidade de <span class="math inline">\(\overline{X}\)</span> estar próximo a <span class="math inline">\(\mu\)</span> é alta. Portanto, uma pergunta melhor formulada seria:</p>
+<blockquote class="blockquote">
+<p>Sendo <span class="math inline">\(H_0\)</span> <strong>verdadeira</strong>, qual é a probabilidade de que uma determinada média amostral <span class="math inline">\(\overline{X}\)</span> esteja tão ou mais distante de <span class="math inline">\(\mu\)</span> quanto o observado em nossa amostra particular?</p>
+</blockquote>
+<section id="um-modelo-de-distribuição-das-médias-amostrais-para-testar-h_0" class="level3" data-number="1.1">
+<h3 data-number="1.1" class="anchored" data-anchor-id="um-modelo-de-distribuição-das-médias-amostrais-para-testar-h_0"><span class="header-section-number">1.1</span> Um modelo de distribuição das médias amostrais para testar <span class="math inline">\(H_0\)</span></h3>
+<p>A pergunta feita acima é de natureza probabilística, de modo que para respondê-la iremos precisar estabelecer um <strong>modelo probabilístico</strong> para a distribuição das médias amostrais. De acordo com o que temos discutido até este ponto, <strong>Teorema Central do Limite (TCL)</strong> estabelece que a distribuição normal é um bom modelo neste situação.</p>
+<p>Desta forma, para um <span class="math inline">\(H_0\)</span> verdadeiro, seria esperado que a distribuição das médias amostrais resultantes de um procedimento experimental tivesse o formato de um distribuição normal, centrada em <span class="math inline">\(110\)</span> mm. Segundo o TCL, a distribuição seria centrada em <span class="math inline">\(\mu\)</span> e o desvio padrão seria definido pelo <strong>erro padrão da média</strong>, isto é, <span class="math inline">\(\sigma_{\overline{X}} = \frac{\sigma}{\sqrt{n}}\)</span>.</p>
+<p>Digamos ainda que o modelo climático estabeleça que desvio padrão para a quantidade de chuva seja <span class="math inline">\(\sigma = 30\)</span>. Neste caso, o erro padrão seria de <span class="math inline">\(\sigma_{\mu} = \frac{30}{\sqrt{n}}\)</span>.</p>
+<p>Feito isto, temos em mãos o <strong>modelo probabilístico</strong> que, aliado a uma amostra particular, nos permitirá concluir se há evidências para rejeitar <span class="math inline">\(H_0\)</span> em favor de <span class="math inline">\(H_a\)</span>.</p>
+</section>
+<section id="definindo-o-limite-de-rejeição-para-h_0-nivel-de-significância-alpha" class="level3" data-number="1.2">
+<h3 data-number="1.2" class="anchored" data-anchor-id="definindo-o-limite-de-rejeição-para-h_0-nivel-de-significância-alpha"><span class="header-section-number">1.2</span> Definindo o limite de rejeição para <span class="math inline">\(H_0\)</span>: nivel de significância <span class="math inline">\(\alpha\)</span></h3>
+<p>Segundo a distribuição normal, a probabilidade do valor observado <span class="math inline">\(\overline{X}\)</span> estar <strong>tão ou mais distante</strong> de <span class="math inline">\(\mu\)</span> na distribuição <span class="math inline">\(Z\)</span> é calculando por:</p>
+<p><span class="math display">\[z = \frac{\overline{X} - \mu}{\sigma_{\overline{X}}}\]</span></p>
+<p>O valor de <span class="math inline">\(z\)</span> calculado é chamado de <strong>estatitica do teste</strong>. Com o uso da Tabela <span class="math inline">\(Z\)</span>, esta estatística será utilizada para encontrar:</p>
+<p><span class="math display">\[P(Z \ge z) = P(\overline{X} \ge \mu)\]</span> A probabilidade <span class="math inline">\(P(Z \ge z)\)</span> é encontrada na <strong>distribuição normal padronizada</strong> em que <span class="math inline">\(Z \sim \mathcal{N}(0,\,\frac{\sigma}{\sqrt{n}})\)</span> e como nossa pergunta se refere à <strong>distância</strong> entre <span class="math inline">\(\overline{X}\)</span> e <span class="math inline">\(\mu\)</span>, devemos encontar também <span class="math inline">\(P(Z \le -z)\)</span>, de modo que a probabilidade que nos interessa é denominada de <strong>valor de p</strong> de um teste de hipóteses:</p>
+<p><span class="math display">\[p = P(Z \ge |z|)\]</span></p>
+<p>O valor de <span class="math inline">\(p\)</span> é a área destacada em vermelho da distribuição normal padronizada:</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-limite-rej" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-limite-rej-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="intro_testehipot_files/figure-html/fig-limite-rej-1.png" class="img-fluid figure-img" width="768">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-limite-rej-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;1: Representação da área de rejeição na distribuição Z.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>A área destacada em vermelho diminui conforme <span class="math inline">\(\overline{X}\)</span> se distancia de <span class="math inline">\(\mu\)</span> e aumenta se <span class="math inline">\(\overline{X}\)</span> está próximo a <span class="math inline">\(\mu\)</span>.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+O valor de p e nível de significância
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Mede a probabilidade de encontrarmos <span class="math inline">\(\overline{X}\)</span> tão ou mais distante de <span class="math inline">\(\mu\)</span>, <strong>assumindo</strong> que <span class="math inline">\(H_0\)</span> seja verdadeira. Se <span class="math inline">\(p\)</span> for muito pequeno, a probabilidade de que <span class="math inline">\(\overline{X}\)</span> seja condizente com <span class="math inline">\(H_0\)</span> diminui. Neste caso dizemos que é <strong>improvável</strong> que <span class="math inline">\(\overline{X}\)</span> seja proviniente de <span class="math inline">\(H_0\)</span>, o que nos leva levando a <strong>rejeitar</strong> a hipótese nula em favor de <span class="math inline">\(H_a\)</span>.</p>
+<p>A decisão de rejeitar <span class="math inline">\(H_0\)</span> depende do <strong>limite de rejeição</strong> <span class="math inline">\(\alpha\)</span>, também chamado de <strong>nivel crítico</strong> ou <strong>nível de significância</strong>. A definir o valor de <span class="math inline">\(\alpha\)</span>, a conclusão de um teste estatístico se dá por (<a href="#fig-limite-rej-alfa" class="quarto-xref">Figura&nbsp;2</a>):</p>
+<ul>
+<li><p>Se <span class="math inline">\(p &gt; \alpha\)</span> –&gt; <strong>ACEITAMOS <span class="math inline">\(H_0\)</span></strong>, <span class="math inline">\(\overline{X}\)</span> está próximo de <span class="math inline">\(\mu\)</span></p></li>
+<li><p>Se <span class="math inline">\(p \le \alpha\)</span> –&gt; <strong>REJEITAMOS <span class="math inline">\(H_0\)</span></strong>, <span class="math inline">\(\overline{X}\)</span> está distante de <span class="math inline">\(\mu\)</span>. A assumimos <span class="math inline">\(H_a\)</span> como verdadeira.</p></li>
+</ul>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-limite-rej-alfa" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-limite-rej-alfa-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="intro_testehipot_files/figure-html/fig-limite-rej-alfa-1.png" class="img-fluid figure-img" width="768">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-limite-rej-alfa-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;2: Efeito do nível de significancia sobre a área de rejeição em um teste de hipótese.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="exemplificando-um-teste-de-hipóteses-o-teste-z" class="level2" data-number="2">
+<h2 data-number="2" class="anchored" data-anchor-id="exemplificando-um-teste-de-hipóteses-o-teste-z"><span class="header-section-number">2</span> Exemplificando um teste de hipóteses: o teste <span class="math inline">\(Z\)</span></h2>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Descrição do problema
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Digamos que o número de batimentos cardíacos por minuto de um adulto em repouso tenha média <span class="math inline">\(\mu = 65\)</span> e desvio padrão <span class="math inline">\(\sigma = 9\)</span>. Você imagina que o sedentarismo altera o batimento médio de um adulto.</p>
+</div>
+</div>
+<ol type="1">
+<li><strong>Hipóteses estatíticas</strong>:</li>
+</ol>
+<p><span class="math inline">\(H_0: \mu = 65\)</span> batimentos por minuto</p>
+<p><span class="math inline">\(H_a: \mu \ne 65\)</span> batimentos por minuto</p>
+<ol start="2" type="1">
+<li><strong>Limite de rejeição</strong>: determinamos o nível de significância (<span class="math inline">\(\alpha\)</span>) do teste como <span class="math inline">\(\alpha = 0,05\)</span>.</li>
+</ol>
+<blockquote class="blockquote">
+<p>IMPORTANTE: O nível de significância <span class="math inline">\(\alpha\)</span> deve ser determinado <strong>antes</strong> da tomada de dados.</p>
+</blockquote>
+<ol start="3" type="1">
+<li><strong>Experimento</strong>: selecionamos uma amostra <strong>aleatória</strong> selecionando <em>ao acaso</em> <span class="math inline">\(n = 15\)</span> pessoas de hábito sedentário e medimos seus batimentos cardíacos. Os resultados são:</li>
+</ol>
+<p>Amostra: 65, 73, 56, 71, 69, 69, 68, 59, 73, 68, 69, 64, 67, 64, 66</p>
+<p>que nos dá uma média amostral de:</p>
+<p><span class="math inline">\(\overline{X} = \frac{\sum{X_i}}{n} = \frac{65+73+56+71+69+69+68+59+73+68+69+64+67+64+66}{15} = 66.73\)</span> batimentos por minuto;</p>
+<p>e um erro padrão de:</p>
+<p><span class="math inline">\(\sigma_{\mu} = \frac{\sigma}{\sqrt{n}} = \frac{9}{3.87} = 2.32\)</span></p>
+<ol start="4" type="1">
+<li><strong>Teste de hipóteses</strong>: com estes resultados encontramos o valor correspondente de Z.</li>
+</ol>
+<p><span class="math inline">\(z = \frac{\overline{X} - \mu}{\sigma_{\mu}} = \frac{66.73 - 65}{2.32} = 0.75\)</span></p>
+<p>e utilizando a <a href="https://github.com/FCopf/datasets/blob/main/Tabela_Z.pdf" target="_blank">Tabela Z</a> , encontramos a probabilidade de obtermos valores tão ou mais extremos que <span class="math inline">\(-0.75\)</span> e <span class="math inline">\(+0.75\)</span>.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-limite-tz" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-limite-tz-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="intro_testehipot_files/figure-html/fig-limite-tz-1.png" class="img-fluid figure-img" width="768">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-limite-tz-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;3: Área de rejeição para z = 0,75.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Com isto, a probabilidade de encontarmos valores tão ou mais extermos que <span class="math inline">\(\overline{X} = 66.73\)</span> foi calculada em <span class="math inline">\(0.227 + 0.227 =\)</span> <strong>0.453</strong>.</p>
+<p>Neste exemplo, a <strong>estatística do teste</strong> foi <span class="math inline">\(z = 0.75\)</span> o a probabilidade associada <span class="math inline">\(p = 0.453\)</span>.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Teste Z no R
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">65</span>, <span class="dv">73</span>, <span class="dv">56</span>, <span class="dv">71</span>, <span class="dv">69</span>, <span class="dv">69</span>, <span class="dv">68</span>, <span class="dv">59</span>, <span class="dv">73</span>, <span class="dv">68</span>, <span class="dv">69</span>, <span class="dv">64</span>, <span class="dv">67</span>, <span class="dv">64</span>, <span class="dv">66</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>Xm <span class="ot">&lt;-</span> <span class="fu">mean</span>(X)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">pnorm</span>(<span class="at">q =</span> Xm, <span class="at">mean =</span> <span class="dv">65</span>, <span class="at">sd =</span> <span class="dv">9</span><span class="sc">/</span><span class="fu">sqrt</span>(<span class="dv">15</span>), <span class="at">lower.tail =</span> <span class="cn">FALSE</span>) <span class="sc">*</span> <span class="dv">2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.4557231</code></pre>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="tomada-de-decisão-sobre-h_0-nível-de-significância" class="level2" data-number="3">
+<h2 data-number="3" class="anchored" data-anchor-id="tomada-de-decisão-sobre-h_0-nível-de-significância"><span class="header-section-number">3</span> Tomada de decisão sobre <span class="math inline">\(H_0\)</span>: nível de significância</h2>
+<p>No exemplo anterior, obtivemos <span class="math inline">\(p =\)</span> <strong>0.453</strong>. Isto significa que:</p>
+<blockquote class="blockquote">
+<p>sendo <span class="math inline">\(H_0\)</span> <strong>verdadeira</strong>, existe uma probabilidade igual a <span class="math inline">\(0.453\)</span> de que a média de uma amostra com <span class="math inline">\(n = 15\)</span> esteja tão ou mais distante de <span class="math inline">\(\mu = 65\)</span> como observado neste experimento.</p>
+</blockquote>
+<p>Se aceitarmos que esta probabilidade é <strong>alta</strong>, então não há motivo para buscar por outras explicações. Por outro lado, se concluirmos que esta probabilidade é <strong>baixa</strong>, estamos dizendo que resultado obtido é <strong>improvável</strong> segundo a hipótese nula. Neste caso, devemos recorrer à hipótese <strong>alternativa</strong> para explicar o fenômeno.</p>
+<p>Para decidir se a probabilidade obtida é alta ou baixa, devemos compará-la ao nível de significância <span class="math inline">\(\alpha\)</span> pré-estabelecido. <span class="math inline">\(H_0\)</span> será aceita somente se a probabilidade encontrada for <strong>maior</strong> que <span class="math inline">\(\alpha\)</span>. Por outro lado, se nossa probabilidade for <strong>menor ou igual</strong> a <span class="math inline">\(\alpha\)</span>, considerarmos os resultados improváveis segundo a hipótese nula e <strong>rejeitamos</strong> <span class="math inline">\(H_0\)</span> em favor de <span class="math inline">\(H_a\)</span>.</p>
+<p>Um nível crítico comumente utilizado é <span class="math inline">\(\alpha = 0.05\)</span>. No exemplo acima a probabilidade foi de 0.453, um valor muito acima de <span class="math inline">\(0.05\)</span>. Dizemos portanto, que a média amostral <span class="math inline">\(\overline{X}\)</span> não está tão distante do <span class="math inline">\(\mu\)</span> a ponto de rejeitarmos <span class="math inline">\(H_0\)</span>.</p>
+<blockquote class="blockquote">
+<p>Concluimos que, neste exemplo, <span class="math inline">\(\overline{X} = 66.73\)</span> não nos fornece evidência suficiente para rejeitar <span class="math inline">\(H_0\)</span>.</p>
+</blockquote>
+</section>
+<section id="erros-de-decisão-em-um-teste-de-hipóteses" class="level2" data-number="4">
+<h2 data-number="4" class="anchored" data-anchor-id="erros-de-decisão-em-um-teste-de-hipóteses"><span class="header-section-number">4</span> Erros de decisão em um teste de hipóteses</h2>
+<p>A interpretação da probabilidade final esta associada à situação em que <span class="math inline">\(H_0\)</span> seja verdadeira.</p>
+<p>Isto nos leva perguntar: <em>o que esperar caso <span class="math inline">\(H_0\)</span> seja falsa</em>?</p>
+<p>Como não sabemos de fato, de <span class="math inline">\(H_0\)</span> é verdadeira ou não, a tomada de decisão sobre um resultado de um teste estatístico pode nos levar às seguintes situações:</p>
+<div id="tbl-erros" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-erros-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tabela&nbsp;1: Erros de decisão em um teste de hipótestes
+</figcaption>
+<div aria-describedby="tbl-erros-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 40%">
+<col style="width: 40%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: center;"><span class="math inline">\(H_0\)</span> Verdadeira</th>
+<th style="text-align: center;"><span class="math inline">\(H_0\)</span> Falsa</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">\(H_0\)</span> é rejeitada</td>
+<td style="text-align: center;"><span class="math inline">\(\alpha\)</span> (<span class="math inline">\(\textbf{Erro Tipo I}\)</span>)</td>
+<td style="text-align: center;">Decisão correta (<span class="math inline">\(1-\beta\)</span>)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="math inline">\(H_0\)</span> é aceita</td>
+<td style="text-align: center;">Decisão correta (<span class="math inline">\(1-\alpha\)</span>)</td>
+<td style="text-align: center;"><span class="math inline">\(\beta\)</span> (<span class="math inline">\(\textbf{Erro Tipo II}\)</span>)</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<p>A <a href="#tbl-erros" class="quarto-xref">Tabela&nbsp;1</a> nos mostra os tipos de erros aos quais estamos sujeitos ao realizar um teste de hipótese. Podemos rejeitar <span class="math inline">\(H_0\)</span>, ainda que ela seja verdadeira. O nivel de significância adotado, estabele que a probabilidade disto acontecer é <span class="math inline">\(\alpha\)</span>. Se rejeitarmos <span class="math inline">\(H_0\)</span> quando ela é verdadeira, estaremos incorrendo em um erro de decisão que denominamos de <strong>Erro Tipo I</strong>. Consequentemente, temos uma probabilidade de <span class="math inline">\(1 - \alpha\)</span> de aceitar corretamente <span class="math inline">\(H_0\)</span> quando ela é verdadeira. Estabelecer um <span class="math inline">\(\alpha = 0,05\)</span> nos garante que iremos incorrer no erro do tipo I em somente <span class="math inline">\(5\%\)</span> das vezes que o experimento for realizado.</p>
+<p>Um outra situação ocorre quando aceitamos erroneamente a hipótese nula que é <strong>falsa</strong>, incorrendo no <strong>Erro Tipo II</strong>. O erro do tipo II tem probabilidade <span class="math inline">\(\beta\)</span> de acontecer. O complementar desta probabilidade (<span class="math inline">\(1-\beta\)</span>) é denominado de <strong>Poder do Teste</strong>. Um teste poderoso é portanto, aquele que tem elevada probabilidade de rejeitar <span class="math inline">\(H_0\)</span> quando ela é falsa.</p>
+<p>As figuras abaixo representam as distribuições das médias amostrais e os erros do tipos I e II quando o <span class="math inline">\(H_0\)</span> é verdadeira (<span class="math inline">\(\mu_a = \mu\)</span>) e quando <span class="math inline">\(H_0\)</span> é falsa (<span class="math inline">\(\mu_a &gt; \mu\)</span>).</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div id="fig-alfa-beta" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-alfa-beta-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="intro_testehipot_files/figure-html/fig-alfa-beta-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="768">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-alfa-beta-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;4: Relação entre o erro tipo I (<span class="math inline">\(\alpha\)</span>) e o erro tipos II (<span class="math inline">\(\beta\)</span>), ao aceitar ou rejeitar <span class="math inline">\(H_0\)</span>.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Idealmente em um teste estatístico, seria interessante reduzir ao máximo os erros do tipo I e II. Ao reduzirmos o erro do tipo I, diminuindo <span class="math inline">\(\alpha\)</span> teremos um teste mais rigoroso que raramente iria errar ao rejeitar um <span class="math inline">\(H_0\)</span> verdadeiro (Figura A). Entretanto, este teste também <strong>raramente</strong> iria rejeitar <span class="math inline">\(H_0\)</span> ainda que ele seja falso (Figura B). Consequentemente, ao diminuir o valor de <span class="math inline">\(\alpha\)</span> ficamos menos propensos a cometer o erro do tipo I, porém <strong>mais propensos</strong> a incorrer no erro tipo II, isto é, não rejeitar uma <span class="math inline">\(H_0\)</span> falsa.</p>
+<p>Dadas estas características, o único modo que reduzir os dois tipos de erros <strong>simultaneamente</strong> é aumentando o tamanho amostral <span class="math inline">\(n\)</span> pois, neste caso, reduzimos o erro padrão (<span class="math inline">\(\sigma_{\overline{X}}\)</span>) e consequentemente a sobreposição entre as duas curvas acima.</p>
+</section>
+<section id="estabelecendo-a-hipótese-alternativa-testes-bilaterais-vs-unilaterais" class="level2" data-number="5">
+<h2 data-number="5" class="anchored" data-anchor-id="estabelecendo-a-hipótese-alternativa-testes-bilaterais-vs-unilaterais"><span class="header-section-number">5</span> Estabelecendo a hipótese alternativa: testes bilaterais <em>vs</em> unilaterais</h2>
+<p>A hipótese alternativa estabelece nossa expectativa para a explicação dos resultados de um experimento no caso de <span class="math inline">\(H_0\)</span> ser falsa. Os testes que descrevemos acima são chamados <strong>testes bilaterais ou bicaudais</strong>. Isto significa que sendo <span class="math inline">\(H_0\)</span> falsa, podemos esperar que a média populacional esteja tanto acima quanto abaixo de <span class="math inline">\(\mu\)</span>. Existem situações, no entanto, para as quais já temos uma expectativa <em>a priori</em> com base no conhecimento prévio sobre o fenêmeno estudado.</p>
+<p>Voltemos ao exemplo sobre a frequência cardíaca. Sabemos que o sedentarismo, tende a elevar a frequência cardíaca em repouso. Deste modo, o problema poderia ser estabelecido da seguinte forma.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Descrição do problema
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Digamos que o número de batimentos cardíacos por minuto de um adulto em repouso tenha média <span class="math inline">\(\mu = 65\)</span> e desvio padrão <span class="math inline">\(\sigma = 9\)</span>. A literatura sugere que o <strong>sedentarismo</strong> aumenta o batimento médio de um adulto.</p>
+</div>
+</div>
+<p>O problema agora estabelece que no caso de rejeição de <span class="math inline">\(H_0\)</span>, a frequência cardíaca deveia ser maior que 65 batimentos por minuto. Deste modo teremos como hipóteses estatísticas:</p>
+<ol type="1">
+<li><strong>Hipóteses estatíticas</strong>:</li>
+</ol>
+<p><span class="math inline">\(H_0: \mu = 65\)</span> batimentos por minuto</p>
+<p><span class="math inline">\(H_a: \mu \gt 65\)</span> batimentos por minuto</p>
+<p>A mudança aqui está em <span class="math inline">\(H_a\)</span> que estabelece que na hipótese de rejeição de <span class="math inline">\(H_0\)</span>, esperamos <strong>somente</strong> que a frequencia cardíaca aumente.</p>
+<p>Esta modificação na construção das hipóteses estatísticas tem implicação na definição do limite de rejeição.</p>
+<ol start="2" type="1">
+<li><strong>Limite de rejeição</strong>: se definimos <span class="math inline">\(\alpha = 0,05\)</span>, e <span class="math inline">\(H_a: \mu \gt 65\)</span>, temos que a área de rejeição será expressa <strong>acima</strong> de 65 batimentos por minuto.</li>
+</ol>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-norm-unil" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-norm-unil-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="intro_testehipot_files/figure-html/fig-norm-unil-1.png" class="img-fluid figure-img" width="768">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-norm-unil-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;5: Área de rejeição em um teste unilateral com <span class="math inline">\(\alpha = 0,05\)</span>.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Note portanto, que a diferença entre um teste bilateral e um teste unilateral está na definição dá área que expressa a zona de rejeição, <span class="math inline">\(\alpha\)</span> para <span class="math inline">\(H_0\)</span>. Nos teste bilaterais, a área de rejeição é distribuída acima e abaixo de <span class="math inline">\(\mu\)</span> (<a href="#fig-limite-rej-alfa" class="quarto-xref">Figura&nbsp;2</a>), enquanto nos teste unilaterais, a área estará toda acima ou abaixo de <span class="math inline">\(\mu\)</span>, a depender do que foi estabelecido em <span class="math inline">\(H_a\)</span> (<a href="#fig-norm-unil" class="quarto-xref">Figura&nbsp;5</a>).</p>
+<hr>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Vídeo-aulas
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/LJJVcdAag24" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/github\.com\/FCopf\/MEAD");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
