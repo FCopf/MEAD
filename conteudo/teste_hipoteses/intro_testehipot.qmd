@@ -248,7 +248,7 @@ $\sigma_{\mu} = \frac{\sigma}{\sqrt{n}} = \frac{`r dp`}{`r round(sqrt(n),2)`} = 
 
 $z = \frac{\overline{X} - \mu}{\sigma_{\mu}} = \frac{`r round(mean(BM),2)` - `r mu`}{`r round(ep,2)`} = `r round(z,2)`$
 
-e utilizando a <a href="https://github.com/FCopf/datasets/blob/master/Tabela_Z.pdf" target="_blank">Tabela Z</a> , encontramos a probabilidade de obtermos valores tão ou mais extremos que $-`r round(z,2)`$ e $+`r round(z,2)`$.
+e utilizando a <a href="https://github.com/FCopf/datasets/blob/main/Tabela_Z.pdf" target="_blank">Tabela Z</a> , encontramos a probabilidade de obtermos valores tão ou mais extremos que $-`r round(z,2)`$ e $+`r round(z,2)`$.
 
 ``` {r}
 #| echo: false

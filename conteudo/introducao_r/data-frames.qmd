@@ -16,7 +16,7 @@ Embora seja possivel criar um data frame entrando com os dados diretamente via l
 
 ```{r}
 #| echo: false
-dbenv <- read.csv("https://raw.githubusercontent.com/FCopf/datasets/master/dbenv.csv")
+dbenv <- read.csv("https://raw.githubusercontent.com/FCopf/datasets/refs/heads/main/dbenv.csv")
 ```
 
 Um arquivo do tipo `.csv` pode ser lido com a função `read.csv`. Faça o download do conjunto de dados `dbenv.csv` disponível no repositório [datasets](https://github.com/FCopf/datasets) e salve-o em sua pasta de trabalho (ex. `"C:/seu_caminho/Introducao_R")`. Ao abrir o arquivo em algum editor de texto verá que ele é composto por $`r nrow(dbenv)`$ *linhas* por $`r ncol(dbenv)`$ *colunas*.
@@ -31,7 +31,7 @@ dbenv <- read.csv(file = "C:/seu_caminho/Introducao_R/dbenv.csv",
 
 ```{r}
 #| echo: false
-dbenv <- read.csv(file = "https://raw.githubusercontent.com/FCopf/datasets/master/dbenv.csv", 
+dbenv <- read.csv(file = "https://raw.githubusercontent.com/FCopf/datasets/refs/heads/main/dbenv.csv", 
                  header = TRUE, dec = '.', 
                  sep = ',')
 ```
@@ -53,7 +53,7 @@ Como este arquivo está em um repositório na nuvem, poderia ser lido acessando 
 
 ```{r}
 #| eval: false
-dbenv <- read.csv(file = "https://raw.githubusercontent.com/FCopf/datasets/master/dbenv.csv", 
+dbenv <- read.csv(file = "https://raw.githubusercontent.com/FCopf/datasets/refs/heads/main/dbenv.csv", 
                  header = TRUE, dec = '.', 
                  sep = ',')
 ```
@@ -278,6 +278,7 @@ write.table(media.trecho, file = "C:/seu_caminho/Introducao_R/Mediaportecho.csv"
 
 ```{r}
 #| echo: false
+#| eval: false
 write.table(media.trecho, 
             file = "Mediaportecho.csv",  
             sep = ",", dec = '.', row.names = FALSE, col.names = TRUE)

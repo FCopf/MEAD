@@ -182,7 +182,7 @@ A @tbl-haddon-tiger apresenta dados da pesca do camarão tigre e do camarão rei
 Importe a base de dados `ctigre_haddon.csv`
 
 ```{r}
-tigre = read_delim('https://github.com/FCopf/datasets/raw/refs/heads/master/ctigre_haddon.csv')
+tigre = read_delim('https://raw.githubusercontent.com/FCopf/datasets/refs/heads/main/ctigre_haddon.csv')
 rtk = cor(tigre$Tiger, tigre$King)
 stk = cov(tigre$Tiger, tigre$King)
 ```

@@ -28,7 +28,7 @@ Ao amostrar uma população estatística por meio de um experimento, seremos cap
 
 ::: {#fig-amostr-inf1}
 
-![](img/amostragem_inferencia_1.png)
+![](images/amostragem_inferencia_1.png)
 
 Processo de amostragem e inferência estatística.
 :::
@@ -37,7 +37,7 @@ Neste processo, o resultado de um experimento pode ser visto como uma observaç�
 
 ::: {#fig-amostr-inf1}
 
-![](img/amostragem_inferencia_2.png)
+![](images/amostragem_inferencia_2.png)
 
 Distribuição das médias amostrais provenientes de um experimento.
 :::
@@ -243,8 +243,6 @@ Com base no TCL, uma amostra de $n = 10$ terá média normalmente distribuída c
 $Z_{\overline{L}} = \frac{\overline{L} - \mu}{\sigma_{\mu}} = \frac{\overline{L} - \mu}{\frac{\sigma}{\sqrt{n}}}$
 
 $Z_{\overline{L}} = \frac{52,4 - `r mu`}{\frac{`r sigma`}{\sqrt{`r n1`}}} = `r round(zi,2)`$
-
-> Note que o denomidador aqui é *diferente* do que fizemos no @sec-norm, pois aqui estamos falando da distribuição das **médias amostrais** $\overline{L}$ e não nas observações individuais $L$.
 
 Se buscarmos na Tabela Z, veremos que a área da distribuição normal padronizada abaixo de $`r round(zi,2)`$ é de $0,975$. Consequentemente $P(\overline{L} > 52,4) = 1 - 0,975 = 0,025$
 

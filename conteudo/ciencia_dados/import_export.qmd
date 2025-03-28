@@ -18,11 +18,11 @@ Existem diversas funções no pacote ```readr```(veja [aqui](https://readr.tidyv
 
 A função ```read_delim()``` oferece mais controle sobre o tipo de delimitador de colunas (*vírgulas*, *tabulações*, *ponto-e-vírgula*, entre outros) ou o identificador decimal (*vírgulas* ou *ponto*).
 
-Carrege o pacote ```readr``` e importe o arquivo ```res.csv``` disponível no repositório [datasets](https://github.com/FCopf/datasets) do <i class="bi bi-github"></i>. É possível importar o arquivo diretamente do repositório:
+Carrege o pacote ```readr``` e importe o arquivo ```Reservatorios_Parana_parcial.csv``` disponível no repositório [datasets](https://github.com/FCopf/datasets) do <i class="bi bi-github"></i>. É possível importar o arquivo diretamente do repositório:
 
 ```{r}
 library(readr)
-res = read_delim(file = "https://github.com/FCopf/datasets/raw/refs/heads/master/Reservatorios_Parana_parcial.csv",
+res = read_delim(file = "https://raw.githubusercontent.com/FCopf/datasets/refs/heads/main/Reservatorios_Parana_parcial.csv",
                   delim = ',',
                   locale = locale(decimal_mark = '.',
                                   encoding = 'latin1'))
@@ -30,11 +30,11 @@ res = read_delim(file = "https://github.com/FCopf/datasets/raw/refs/heads/master
 
 
 ::: {.callout-note}
-Se optar por fazer o download do arquivo, basta acessar pelo link ([res](https://github.com/FCopf/datasets/blob/master/Reservatorios_Parana_parcial.csv)), salvá-lo em seu diretório de trabalho e importar com o comando:
+Se optar por fazer o download do arquivo, basta acessar pelo link ([Reservatorios_Parana_parcial.csv](https://raw.githubusercontent.com/FCopf/datasets/refs/heads/main/Reservatorios_Parana_parcial.csv)), salvá-lo em seu diretório de trabalho e importar com o comando:
 
 ```{r}
 #| eval: false
-res = read_delim(file = "res.csv", delim = ",")
+res = read_delim(file = "Reservatorios_Parana_parcial.csv.csv", delim = ",")
 ```
 
 :::
@@ -57,7 +57,7 @@ A função para exportar data frames no pacote ```readr``` é ```write_delim()``
 
 ```{r}
 write_delim(res[1:10, 3:5],
-            file = "dbenv_parcial.csv", 
+            file = "Reservatorios_Parana_parcial.csv", 
             delim = ',')
 ```
 

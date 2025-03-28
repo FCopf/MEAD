@@ -17,7 +17,7 @@ listing:
     - teste_hipoteses.qmd
     - anova.qmd
     - regressao_linear.qmd
-    - modelos_probabilisticos.qmd    
+    # - modelos_probabilisticos.qmd    
   sort: false
   type: grid
   fields:

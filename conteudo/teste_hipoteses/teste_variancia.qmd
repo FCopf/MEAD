@@ -15,9 +15,6 @@ execute:
 ## Pacotes, funções e base de dados utilizadas no capítulo
 
 ```{r}
-# Instalação
-# install.packages("remotes")
-# remotes::install_github("romunov/AED")
 library(gt)
 library(tidyverse)
 library(patchwork)
@@ -32,7 +29,7 @@ A @tbl-rikz-richness é proviniente de um estudo em que foi analizada a riqueza 
 #| code-fold: true
 #| label: tbl-rikz-richness
 #| tbl-cap: 'Riqueza da macro-fauna em duas praias da costa Holandesa. Dados completos no arquivo "RIKZ" do pacote "AED".'
-RIKZ <- read_csv('https://github.com/FCopf/datasets/raw/refs/heads/master/RIKZ.csv')
+RIKZ <- read_csv('https://raw.githubusercontent.com/FCopf/datasets/refs/heads/main/RIKZ.csv')
 
 S <- RIKZ |> 
   subset(Beach == 5 | Beach == 8) |> 

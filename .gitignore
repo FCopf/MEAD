@@ -24,6 +24,7 @@ Rplots.pdf
 # bookdown (caso use em conjunto com Quarto)
 _bookdown_files/
 
+
 # renv
 renv/library/
 renv/python/
@@ -66,3 +67,5 @@ venv/
 *.toc
 *.bak
 
+
+/.quarto/

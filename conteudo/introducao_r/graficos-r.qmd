@@ -27,9 +27,9 @@ As funções gráficas discutidas nesta seção estão disponíveis no pacote `g
 
 ## Doubs river dataset
 
-Para demonstrar algumas ferramentas gráficas, será utilizado o conjunto de dados *Doubs River data*, disponível no pacote `ade4` [@dray2015ade]. Esse conjunto de dados foi apresentado na seção anterior sobre manipulação de data frames, onde foi importado o arquivo [dbenv.csv](https://raw.githubusercontent.com/FCopf/datasets/master/dbenv.csv). Agora, será usado o conjunto de dados completo.
+Para demonstrar algumas ferramentas gráficas, será utilizado o conjunto de dados *Doubs River data*, disponível no pacote `ade4` [@dray2015ade]. Esse conjunto de dados foi apresentado na seção anterior sobre manipulação de data frames, onde foi importado o arquivo [dbenv.csv](https://raw.githubusercontent.com/FCopf/datasets/refs/heads/main/dbenv.csv). Agora, será usado o conjunto de dados completo.
 
-O conjunto de dados do [Rio Doubs](https://pt.wikipedia.org/wiki/Rio_Doubs) [@Verneaux1973] consiste de amostras sequenciais da cabeceira à foz do rio, em condições que variam de águas bem oxigenadas e oligotróficas a águas eutróficas e desprovidas de oxigênio. O conjunto de dados é uma lista com quatro data frames:
+O conjunto de dados do [Rio Doubs](https://pt.wikipedia.org/wiki/Rio_Doubs) [@verneaux1973] consiste de amostras sequenciais da cabeceira à foz do rio, em condições que variam de águas bem oxigenadas e oligotróficas a águas eutróficas e desprovidas de oxigênio. O conjunto de dados é uma lista com quatro data frames:
 
 1.  `$env`: data frame com variáveis ambientais relacionadas à hidrologia, geomorfologia e química do
 

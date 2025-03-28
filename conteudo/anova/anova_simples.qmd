@@ -431,7 +431,7 @@ Tradicionalmente utiliza-se $\alpha = 0.05$. Neste caso, $H_0$ seria rejeitada s
 Importe a base de dados `medley.csv` (disponível também em [Chapter 10 - Single factor classification (ANOVA)](https://users.monash.edu.au/~murray/BDAR/){target="_blank"}) que avalia o impacto da presença de metais pesados na diversidade de espécies de diatomácias em riachos (@medleyclements1998; @queen2002experimental; @logan2011biostatistical).
 
 ```{r}
-medley = read_csv("https://github.com/FCopf/datasets/raw/refs/heads/master/medley.csv") |> 
+medley = read_csv("https://raw.githubusercontent.com/FCopf/datasets/refs/heads/main/medley.csv") |> 
   mutate(STREAM = factor(STREAM),
          ZINC = factor(ZINC, ordered = TRUE,
                        levels = c("BACK", "LOW", "MED", "HIGH")))

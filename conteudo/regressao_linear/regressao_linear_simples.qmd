@@ -29,7 +29,7 @@ $$Y_i = \beta_0 + \beta_1X_i + \epsilon_i$$
 
 ```{r}
 #| code-fold: true
-st <- read_csv("https://github.com/FCopf/datasets/raw/refs/heads/master/HubbardBrook_wide.csv") |>
+st <- read_csv("https://raw.githubusercontent.com/FCopf/datasets/refs/heads/main/HubbardBrook_wide.csv") |>
     rename(FlowD = WS2_Flow_Defosrested, FlowR = WS3_Flow_reference, 
            RainD = WS2_precipitation, RainR = WS3_precipitation) |>
     mutate(FlowD = FlowD / 100, FlowR = FlowR / 100,
@@ -200,7 +200,7 @@ No modelo de regressão linear que veremos aqui, os resídos são uma **variáve
 
 ::: {#fig-regre2}
 
-![](imgages/Regre2.png)
+![](images/Regre2.png)
 
 Resíduo normalmente distribuído ao longo da reta de regressão.
 
@@ -311,7 +311,7 @@ $$s^2 = QM_{Resíduo} = \frac{SQ_{Resíduo}}{n-2} = \frac{\sum{(Y_i-\hat{Y_ i})^
 ### Exemplo de ajuste ao modelo de regressão
 
 ```{r}
-rk = read_csv('https://github.com/FCopf/datasets/raw/refs/heads/master/RIKZ.csv')
+rk = read_csv('https://raw.githubusercontent.com/FCopf/datasets/refs/heads/main/RIKZ.csv')
 rks = rk |> 
   (\(df) df[seq(3,43,by = 5),])()
 ```

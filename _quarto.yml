@@ -4,7 +4,7 @@ project:
 website:
   title: "Métodos em Estatística e Análise de Dados"
   description: "Conteúdos introdutórios e intermediários sobre estatística aplicada e análise de dados."
-  site-url: "https://www"
+  site-url: "https://github.com/FCopf/MEAD"
 
   repo-url: https://github.com/FCopf/MEAD
   open-graph: true
@@ -14,7 +14,7 @@ website:
     background: "#285c34"
     search: true
     logo: "images/logo.png"
-    right: # Content on the right side of the navbar
+    right: # Content on the right https://github.com/FCopf/MEADhe navbar
        - icon: github
          href: https://github.com/FCopf/MEAD
          text: "GitHub"
@@ -29,5 +29,9 @@ format:
     number-sections: true
     code-copy: true
     code-overflow: wrap
+
+# Configura projeto para ser executado apenas localmente
+execute:
+  freeze: auto
 
 bibliography: references.bib

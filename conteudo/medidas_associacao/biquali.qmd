@@ -52,7 +52,7 @@ Moradores `Residentes` da região central têm uma opinião **consistentemente**
 Importe a base de dados
 
 ```{r}
-mun = read_delim('https://github.com/FCopf/datasets/raw/refs/heads/master/Entrevista_municipes.csv',
+mun = read_delim('https://raw.githubusercontent.com/FCopf/datasets/refs/heads/main/Entrevista_municipes.csv',
                   delim = ',')
 
 n_amostra = 12

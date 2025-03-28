@@ -42,7 +42,7 @@ O **teste t de Student** é utilizado em substituição ao **teste $Z$** quando 
 
 ::: {#fig-Z_vs_T_distribution}
 
-![](img/Z_vs_T_distribution.png)
+![](images/Z_vs_T_distribution.png)
 
 Teste Z versus teste t. Estatística do teste e distribuição de probabilidades.
 :::
@@ -175,7 +175,7 @@ A rejeição uo aceitação da hipótese nula em um teste $t$ pode ser feita por
 
 Atualmente, o uso da tabela $t$ têm finalidade em grande parte didática e, por este motivo, vamos apresentá-lo aqui rapidamente. No entanto, fora da sala de aula, o teste $t$ será invariavelmente conduzido por meio de um software estatístico este método que permitirá a obtenção do valor exato de $p$.
 
-Na <a href="https://github.com/FCopf/amostragem-inferencia/blob/main/files/Tabela_t.pdf" target="_blank">Tabela t</a>, a primeira coluna mostra os *graus de liberdade* de $1$ a $120$. O cabeçalho da tabela de $90\%$ a $0,1\%$ mostra a área na distribuição de $t$ nas caldas inferior e superior.
+Na <a href="https://github.com/FCopf/datasets/blob/main/Tabela_t.pdf" target="_blank">Tabela t</a>, a primeira coluna mostra os *graus de liberdade* de $1$ a $120$. O cabeçalho da tabela de $90\%$ a $0,1\%$ mostra a área na distribuição de $t$ nas caldas inferior e superior.
 
 Vamos retornar ao exemplo da moedas de $R\$0,10$ para exemplificar sua utilização. Neste exemplo a tinhamos $`r n`$ ($gl = `r df`$ graus de liberdade) e o teste foi feito com $\alpha =0,05$. Se buscarmos na linha $gl = `r df`$ e a coluna $5\%$ ($\alpha = 0,05$), encontraremos o valor $t = 2,3646$. Este é o chamado $t$ **crítico** ($t_{crítico}$). Acima deste valor e abaixo de sua contraparte negativa temos exatamente $5\%$ da área na disribuição $t$. Deste modo, qualquer valor calulado **maior** que $t_{crítico}$ estará mais para a extremidade da distribuição e consequentemente estará associado a **menores** valores de probabilidade. Neste sentido:
 

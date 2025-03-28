@@ -26,7 +26,7 @@ library(gt)
 
 ## Abundância de aves em fragmentos de floresta
 
-@loyn1987effects conduziu um estudo para entender quais características do habitat estavam relacionadas à abundância de aves da floresta (acesse o artigo <a href="https://github.com/FCopf/datasets/blob/master/Loyn1987fragments.pdf" target="_blank">aqui</a>). Para isso, ele selecionou 56 fragmentos de floresta no sudeste de Victoria, Austrália, e registrou a abundância de aves da floresta (**ABUND**) em cada fragmento como variável de resposta.
+@loyn1987effects conduziu um estudo para entender quais características do habitat estavam relacionadas à abundância de aves da floresta (acesse o artigo <a href="https://github.com/FCopf/datasets/blob/main/Loyn1987fragments.pdf" target="_blank">aqui</a>). Para isso, ele selecionou 56 fragmentos de floresta no sudeste de Victoria, Austrália, e registrou a abundância de aves da floresta (**ABUND**) em cada fragmento como variável de resposta.
 
 As variáveis preditoras registradas para cada fragmento incluíram:
 
@@ -44,7 +44,7 @@ Importe a base de dados `loyn.csv`
 
 
 ```{r}
-loyn = read_csv("https://github.com/FCopf/datasets/raw/refs/heads/master/loyn.csv")
+loyn = read_csv("https://raw.githubusercontent.com/FCopf/datasets/refs/heads/main/loyn.csv")
 
 head(loyn) |> gt()
 ```

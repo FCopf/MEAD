@@ -43,7 +43,7 @@ library(tidyr)
 Faça um histograma dos dados de vazão da tabela `HubbardBrook.csv` ([datasets](https://github.com/FCopf/datasets)).
 
 ```{r}
-hbrook <- read_csv("https://raw.githubusercontent.com/FCopf/datasets/master/HubbardBrook.csv")
+hbrook <- read_csv("https://raw.githubusercontent.com/FCopf/datasets/refs/heads/main/HubbardBrook.csv")
 hbrook
 ```
 

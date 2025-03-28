@@ -40,7 +40,7 @@ Neste capítulo  iremos discutir pela primeira vez o modelo de distribuição no
 Importe a base de dados `altura2022.csv`
 
 ```{r}
-ie = read_delim("https://github.com/FCopf/datasets/raw/refs/heads/master/altura2022.csv")
+ie = read_delim("https://raw.githubusercontent.com/FCopf/datasets/refs/heads/main/altura2022.csv")
 ```
 
 
@@ -538,7 +538,7 @@ $P(\frac{m - \mu}{\sigma} \le Z \le \frac{n - \mu}{\sigma}) = \alpha$
 Ao utilizarmos um software estatístico não é necessário fazer esta transformação. A transformação $Z$ era necessária na ausência de ferramentas computacionais, ou seja, quando a única opção era utilizarmos a Tabela $Z$ para evitar cálculos tediosos considerando cada combinação de $\mu$ e $\sigma$. 
 
 
-A <a href="https://github.com/FCopf/datasets/blob/master/Tabela_Z.pdf" target="_blank">Tabela Z</a> disponibiliza os valores de probabilidade para um grande número de valores e é apresentada na grande maioria dos livros de estatística.
+A <a href="https://github.com/FCopf/datasets/blob/main/Tabela_Z.pdf" target="_blank">Tabela Z</a> disponibiliza os valores de probabilidade para um grande número de valores e é apresentada na grande maioria dos livros de estatística.
 
 Você pode utilizar a Tabela $Z$ para encontrar $P(X \le 1.5)$. Note que o valor transformado é $z_{1.5} = `r round(z_1.5,3)`$. Este será o valor que iremos buscar na tabela. Para isto:
 
@@ -559,7 +559,7 @@ As comunidades de peixes em riachos de cabeceira são compostas por espécies de
 Importe a base de dados `rhamdioglanis.csv`
 
 ```{r}
-rh <- read_delim('https://github.com/FCopf/datasets/raw/refs/heads/master/rhamdioglanis.csv', delim = ';',
+rh <- read_delim('https://raw.githubusercontent.com/FCopf/datasets/refs/heads/main/rhamdioglanis.csv', delim = ';',
                  locale = locale(decimal_mark = ','))
 ```
 

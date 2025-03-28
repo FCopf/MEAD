@@ -166,7 +166,7 @@ iris |>
 Importe o conjuntoi de dados `Reservatorios_Parana_parcial.csv`:
 
 ```{r}
-res = read_delim(file = "https://github.com/FCopf/datasets/raw/refs/heads/master/Reservatorios_Parana_parcial.csv",
+res = read_delim(file = "https://raw.githubusercontent.com/FCopf/datasets/refs/heads/main/Reservatorios_Parana_parcial.csv",
                   delim = ',',
                   locale = locale(decimal_mark = '.',
                                   encoding = 'latin1'))
@@ -278,8 +278,8 @@ Considere os arquivos `regiao.csv` e `habitat.csv` do repositório [datasets](ht
 
 
 ```{r}
-regiao <- read_csv("https://raw.githubusercontent.com/FCopf/datasets/master/regiao.csv")
-habitat <- read_csv("https://raw.githubusercontent.com/FCopf/datasets/master/habitat.csv")
+regiao <- read_csv("https://raw.githubusercontent.com/FCopf/datasets/refs/heads/main/regiao.csv")
+habitat <- read_csv("https://raw.githubusercontent.com/FCopf/datasets/refs/heads/main/habitat.csv")
 regiao
 habitat
 ```
@@ -393,7 +393,7 @@ A tabela `HubbardBrook.csv` ([datasets](https://github.com/FCopf/datasets)) cont
 
 
 ```{r}
-hbrook <- read_csv("https://raw.githubusercontent.com/FCopf/datasets/master/HubbardBrook.csv")
+hbrook <- read_csv("https://raw.githubusercontent.com/FCopf/datasets/refs/heads/main/HubbardBrook.csv")
 hbrook
 ```
 

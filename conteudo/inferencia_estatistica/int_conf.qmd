@@ -53,7 +53,7 @@ Se desejamos definir o intervalo de confiança a 95% precisamos garantir que haj
 
 > O valor $z_{\alpha/2} = 1.96$ foi retirado da Tabela $Z$ como o módulo do valor de $z$ que delimida uma área inferior igual a $0.025$. 
 
-Se queremos um nível de confiança diferente, basta ajustar o valor de $\alpha$. Por exemplo, se queremos um nível de significância a 99%, fixamos $\alpha$ em $0.01$ e portanto $z = 2.58$. Da mesma forma, o $IC_{90\%}$ poderá ser obtido com $\alpha = 0.10$ e consequentemente $z = 1.64$. Estes e outros limites descrevem as probabilidades em uma distribuição normal padronizada, que podem ser obtidos com o uso da maioria dos softwares estatísticos, além de estarem incluso na <a href="https://github.com/FCopf/datasets/blob/master/Tabela_Z.pdf" target="_blank">Tabela Z</a>, encontrada na grande maioria dos livros de estatística básica.
+Se queremos um nível de confiança diferente, basta ajustar o valor de $\alpha$. Por exemplo, se queremos um nível de significância a 99%, fixamos $\alpha$ em $0.01$ e portanto $z = 2.58$. Da mesma forma, o $IC_{90\%}$ poderá ser obtido com $\alpha = 0.10$ e consequentemente $z = 1.64$. Estes e outros limites descrevem as probabilidades em uma distribuição normal padronizada, que podem ser obtidos com o uso da maioria dos softwares estatísticos, além de estarem incluso na <a href="https://github.com/FCopf/datasets/blob/main/Tabela_Z.pdf" target="_blank">Tabela Z</a>, encontrada na grande maioria dos livros de estatística básica.
 
 ```{r}
 #| code-fold: true
@@ -63,7 +63,7 @@ Se queremos um nível de confiança diferente, basta ajustar o valor de $\alpha$
 normal_empirica_gg(xlabels = c(-4:4))
 ```
 
-Para o cálculo do intervalo de confiança, assumimos que as médias amostrais seguem uma distribuição normal com média $\mu$ e desvio padrão $\frac{\sigma}{\sqrt{n}}$. Ao fazer isso, estamos aplicando o Teorema Central do Limite (TCL) (@sec-tcl). Geralmente, não temos os valores de $\mu$ e $\sigma$, por isso utilizamos os valores de $\overline{X}$ e $s$, calculados a partir de nossa amostra. Quando o tamanho das amostras é grande ($n \geq 30$), é aceitável utilizar o valor de $z_{\alpha/2}$. Assim::
+Para o cálculo do intervalo de confiança, assumimos que as médias amostrais seguem uma distribuição normal com média $\mu$ e desvio padrão $\frac{\sigma}{\sqrt{n}}$. Ao fazer isso, estamos aplicando o Teorema Central do Limite (TCL). Geralmente, não temos os valores de $\mu$ e $\sigma$, por isso utilizamos os valores de $\overline{X}$ e $s$, calculados a partir de nossa amostra. Quando o tamanho das amostras é grande ($n \geq 30$), é aceitável utilizar o valor de $z_{\alpha/2}$. Assim::
 
 $$IC_{1-\alpha} = \overline{X} \pm z_{\alpha/2} \times \frac{s}{\sqrt{n}}$$
 
