@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.5.56">
+<meta name="generator" content="quarto-1.6.42">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -38,10 +38,10 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-2f5df379a58b258e96c21c0638c20c03.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-56195d72f8d3b777927accdd212e5afb.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -213,7 +213,7 @@ window.Quarto = {
 
 <div class="quarto-listing quarto-listing-container-default" id="listing-listing">
 <div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-listing-file-modified-sort="1743166720848" data-listing-reading-time-sort="20" data-listing-word-count-sort="3825">
+<div class="quarto-post image-right" data-index="0" data-listing-file-modified-sort="1743285827144" data-listing-reading-time-sort="20" data-listing-word-count-sort="3825">
 <div class="thumbnail">
 <p><a href="./conteudo/teste_hipoteses/intro_testehipot.html" class="no-external"></a></p><a href="./conteudo/teste_hipoteses/intro_testehipot.html" class="no-external">
 <p><img loading="lazy" src="./conteudo/teste_hipoteses/images/intro_testehipot.jpg" class="thumbnail-image"></p>
@@ -235,7 +235,7 @@ window.Quarto = {
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="1" data-listing-file-modified-sort="1743166720848" data-listing-reading-time-sort="7" data-listing-word-count-sort="1368">
+<div class="quarto-post image-right" data-index="1" data-listing-file-modified-sort="1743285827144" data-listing-reading-time-sort="7" data-listing-word-count-sort="1368">
 <div class="thumbnail">
 <p><a href="./conteudo/teste_hipoteses/teste_variancia.html" class="no-external"></a></p><a href="./conteudo/teste_hipoteses/teste_variancia.html" class="no-external">
 <p><img loading="lazy" src="./conteudo/teste_hipoteses/images/teste_variancia.jpg" class="thumbnail-image"></p>
@@ -257,7 +257,7 @@ window.Quarto = {
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="2" data-listing-file-modified-sort="1743166720848" data-listing-reading-time-sort="12" data-listing-word-count-sort="2230">
+<div class="quarto-post image-right" data-index="2" data-listing-file-modified-sort="1743285827144" data-listing-reading-time-sort="12" data-listing-word-count-sort="2230">
 <div class="thumbnail">
 <p><a href="./conteudo/teste_hipoteses/teste_t.html" class="no-external"></a></p><a href="./conteudo/teste_hipoteses/teste_t.html" class="no-external">
 <p><img loading="lazy" src="./conteudo/teste_hipoteses/images/teste_t.jpg" class="thumbnail-image"></p>
@@ -366,8 +366,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   });
   clipboard.on('success', onCopySuccess);
   if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-    // For code content inside modals, clipBoardJS needs to be initialized with a container option
-    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
     const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
       text: getTextToCopy,
       container: window.document.getElementById('quarto-embedded-source-code-modal')
@@ -478,7 +476,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       if (window.Quarto?.typesetMath) {
         window.Quarto.typesetMath(note);
       }
-      // TODO in 1.5, we should make sure this works without a callout special case
       if (note.classList.contains("callout")) {
         return note.outerHTML;
       } else {
