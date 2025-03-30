@@ -11,7 +11,7 @@ website:
 
   # Navbar configuration
   navbar:
-    background: "#285c34"
+    background: "#3b8170"
     search: true
     logo: "images/logo.png"
     right: # Content on the right https://github.com/FCopf/MEADhe navbar
