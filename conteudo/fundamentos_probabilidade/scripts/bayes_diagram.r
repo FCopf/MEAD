@@ -1,10 +1,17 @@
 library(DiagrammeR)
 library(purrr)
 
-bayes_probability_tree <- function(prior, true_positive, true_negative,
-                                   edges_names = NULL,
-                                   node_lab = TRUE,
-                                   digitos = 3) {
+bayes_probability_tree <- function(
+  prior, A = "A", B = "B",
+  true_positive, true_negative,
+  edges_names = NULL,
+  node_lab = TRUE,
+  digitos = 3,
+  node_width = 1.2,
+  node_height = 1.2,
+  node_fontsize = 16,
+  edges_fontsize = 14
+) {
   
   # Verificação de validade das probabilidades
   if (any(c(prior, true_positive, true_negative) <= 0 | c(prior, true_positive, true_negative) >= 1)) {
@@ -32,8 +39,8 @@ bayes_probability_tree <- function(prior, true_positive, true_negative,
     if (node_lab) {
       node_labels <- c(
         "Início",
-        "Folha", "Galho",
-        "Folha", "Galho", "Galho", "Folha",
+        A, B,
+        A, B, B, A,
         b1, b2, b4, b3
       )
     } else {
@@ -46,17 +53,20 @@ bayes_probability_tree <- function(prior, true_positive, true_negative,
   }
 
   # Nomes das arestas
+  Px <- function(X) {paste("P(", X, ")", sep = "")}
+  Px_cond <- function(X, Cond) {paste("P(", X, "|", Cond, ")", sep = "")}
+    
   if (is.null(edges_names)) {
-    edges_names <- c("P(Folha)", "P(Galho)",
-                     "P(Folha|Folha)", "P(Galho|Folha)",
-                     "P(Folha|Galho)", "P(Galho|Galho)",
+    edges_names <- c(Px(A), Px(A),
+                     Px_cond(A,A), Px_cond(B,A),
+                     Px_cond(A,B), Px_cond(B,B),
                      "", "", "", "")
   } else if (length(edges_names) != 10) {
     stop("edges_names deve ter exatamente 10 elementos.", call. = FALSE)
   }
 
   # Criando grafo
-  graph <- create_graph() %>%
+  graph <- create_graph() |> 
     add_n_nodes(
       n = 11,
       label = node_labels,
@@ -64,12 +74,18 @@ bayes_probability_tree <- function(prior, true_positive, true_negative,
       node_aes = node_aes(
         shape = "circle",
         x = c(0, 3, 3, 6, 6, 6, 6, 8, 8, 8, 8),
-        y = c(0, 2, -2, 3, 1, -3, -1, 3, 1, -3, -1)
+        y = c(0, 2, -2, 3, 1, -3, -1, 3, 1, -3, -1),
+        width = node_width,
+        height = node_height,
+        fontsize = node_fontsize,
+        fillcolor = "#4e73a3",
+        style = "filled"
       )
-    ) %>%
-    add_edges_w_string("1->2 1->3 2->4 2->5 3->6 3->7 4->8 5->9 6->10 7->11") %>%
-    set_edge_attrs("label", edges_names)
+    ) |> 
+    add_edges_w_string("1->2 1->3 2->4 2->5 3->6 3->7 4->8 5->9 6->10 7->11") |> 
+    set_edge_attrs("label", edges_names) |> 
+    set_edge_attrs("fontsize", edges_fontsize)
 
   # Renderizando o gráfico
   render_graph(graph)
-}
+  }

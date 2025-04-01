@@ -1,5 +1,5 @@
 ---
-title: Probabilidade Condicional
+title: Probabilidade Condicional e independência
 description: Fundamentos de Probabilidade
 categories: ["probabilidade condicional", "eventos dependentes", "teorema de Bayes", "diagrama de árvore"]
 image: "images/probabilidade_condicional.png"
@@ -13,3 +13,197 @@ format:
   html:
     self-contained: false
 ---
+:::{.callout-tip collapse="true"}
+## Pacotes e funções utilizadas
+
+```{r}
+#| output: false
+library(tidyverse)
+library(gt)
+library(ggVennDiagram)
+source("scripts/tree_diagram.r")
+source("scripts/conditional_tree.r")
+```
+:::
+
+```{r}
+#| echo: false
+nfolha = 0:6
+ngalho = 0:4
+```
+
+```{r}
+#| echo: false
+omega <- paste("(", c(paste("F", nfolha, sep=''), paste("G", ngalho, sep='')), ")", sep = '')
+omega_text <- paste(omega, collapse = ", ")
+eventos <- list(
+  A = paste("(F", nfolha,")", sep = ''),
+  B = c("(F3)","(F4)","(F5)","(F6)","(G3)","(G4)")
+)
+```
+
+Consideremos o experimento *“virar uma estrutura (folha ou galho) e contar o número de itens”*:
+
+$\Omega = \{`r omega_text`\}$
+
+Definimos:
+
+- Evento $A$: “virar uma folha”, isto é,  
+  $$A = \{\texttt{`r paste(eventos[[1]], collapse = ", ")`}\}.$$
+
+- Evento $B$: “obter mais de 3 itens”, isto é,  
+  $$B = \{\texttt{`r paste(eventos[[2]], collapse = ", ")`}\}.$$
+
+O diagrama de Venn a seguir representa esses conjuntos:
+
+```{r}
+#| echo: false
+#| fig-align: "center"
+#| width: 8
+#| height: 5
+ggVennDiagram(eventos, fill = NA, label = NULL) + 
+  annotate(
+    geom="text", 
+    x = c(+0.0, -2.5, +2.5, -2.2, +0.0, +2.2, +0.0, -4.0, +3.5, -4.3, -2.2, +2.2), 
+    y = c(-3.1, -1.0, -1.0, +2.0, +0.8, +2.0, +3.3, +8.0, +8.0, +6.5, +5.0, +5.0), 
+    label = omega,
+    color = "red", size = 5
+  ) +
+  theme(legend.position = "none")
+```
+
+Após podemos perguntar:
+
+> Qual a probabilidade de que tenham sido obtidos **mais de 3 itens**?
+
+Ao informarmos que a estrutura era uma folha, sabemos que nem todos os eventos de $\Omega$ podem ter ocorrido. Neste exemplo, *somente* as `r length(eventos[[1]])` observações do evento e $A$ consistem de uma folha:
+
+Destas, apenas `r length(C)` possuem mais de 3 itens, de modo a resposta à pergunta seria $\frac{`r length(C)`}{`r length(eventos[[1]])`}$. Este resultado é conhecido como **probabilidade condicional**, denotada pelo símbolo ($|$). Neste exemplo específico estamos perguntando:
+
+> **Dado** que $A$ OCORREU, qual a probabilidade de que $B$ tenha ocorrido? Simbolicamente, esta questão é escrita como $P(B|A)$.
+
+$$P(B|A) = \frac{`r length(C)`}{`r length(eventos[[1]])`} = `r round(length(C)/length(eventos[[1]]),2)`$$
+
+Esta probabilidade condicional foi calculada pelo número de observações favoráveis à intersecção de $A$ e $B$ ($\#A \cap B$) *relativa* ao número de observações do evento $A$ ($\#A$). Isto significa ao sabermos parte dos resultados, o espaço amostral inicial inicial foi **reduzido**, neste caso, ao espaço coincidente com $A$. Portanto, temos que:
+
+Suponha que queiramos a probabilidade de obter **mais de 3 itens**. Se informamos previamente que a estrutura sorteada era uma folha (evento $A$), reduzimos o espaço amostral apenas aos casos de $A$. Sejam $C = A \cap B$. Então, a probabilidade de $B$ dado $A$ será:
+
+$$P(B \mid A) \;=\; \frac{\#(A \cap B)}{\#(A)} \;=\; \frac{\texttt{`r length(C)`}}{\texttt{`r length(eventos[[1]])`}} = \texttt{`r round(length(C)/length(eventos[[1]]),2)`}$$
+
+A **probabilidade condicional** pode ser expressa genericamente como:
+
+$$P(B \mid A) = \frac{P(A \cap B)}{P(A)}$$
+
+o que também permite calcular
+
+$$P(A \cap B) = P(A) \times P(B \mid A)$$
+
+Quando lidamos com experimentos em etapas ou eventos sequenciais, um **diagrama de árvore** ajuda a visualizar cada estágio, indicando as probabilidades e as condicionais:
+
+
+```{r}
+#| echo: false
+#| fig-align: "center"
+#| width: 8
+#| height: 5
+conditional_tree()
+```
+
+Nesse diagrama, cada ramo representa um cenário: por exemplo, ao ocorrer $A$, $B$ pode acontecer com $P(B \mid A)$, resultando na intersecção $A \cap B$. Assim, o diagrama possibilita mapear todos os cenários possíveis de maneira organizada.
+
+```{r}
+#| echo: false
+my_code <- bayes_tree_diagram(
+  A_name = "A",
+  B_name = "B",
+  pA = 0.58,
+  pB = 0.5,
+  pAB = 0.0833,
+  digits = 3
+)
+```
+
+
+`r my_code`
+
+
+## Eventos independentes
+
+No experimento “virar uma estrutura e contar o número de itens”, temos:
+
+$$\begin{aligned}
+P(A) &= \texttt{`r round(length(eventos[[1]])/length(omega),2)`},\\
+P(\overline{A}) &= 1 - P(A),\\
+P(B) &= \texttt{`r round(length(eventos[[2]])/length(omega),2)`},\\
+P(\overline{B}) &= 1 - P(B).
+\end{aligned}$$
+
+Seja $P(B \mid A) = \texttt{`r round(length(C)/length(eventos[[1]]),2)`}$. Note que $P(B) \neq P(B \mid A)$, indicando que $A$ e $B$ são **eventos dependentes**.
+
+### Exemplo de eventos independentes
+
+Dois eventos $A$ e $B$ são **independentes** quando conhecer a ocorrência de um deles **não altera** a probabilidade do outro, ou seja, $P(B) = P(B \mid A)$.
+
+Considere a matriz:
+
+
+```{r}
+#| echo: false
+visita_df <- tibble(
+  idade = c("Até 20", "Mais de 20"),
+  `Da cidade` = c(30, 60),
+  `De fora da cidade` = c(170, 340)
+)
+visita = as.matrix(visita_df[,-1])
+N = sum(visita)
+idade <- apply(visita,1,sum)
+regi <- apply(visita,2,sum)
+```
+
+```{r}
+# echo: false
+visita_df |> 
+  gt()
+```
+
+Suponhamos que foram investigadas `r N` pessoas, classificadas por idade e local de origem. Nesse contexto:
+
+- $A$: ter até 20 anos; $\overline{A}$: ter mais de 20 anos.  
+- $B$: ser da cidade; $\overline{B}$: ser de fora da cidade.
+
+As probabilidades são:
+
+$$\begin{aligned}
+P(A) &= \frac{\texttt{`r visita[1,1] + visita[1,2]`}}{\texttt{`r N`}}, \quad
+P(\overline{A}) \;=\; \frac{\texttt{`r visita[2,1] + visita[2,2]`}}{\texttt{`r N`}},\\
+P(B) &= \frac{\texttt{`r visita[1,1] + visita[2,1]`}}{\texttt{`r N`}}, \quad
+P(\overline{B}) \;=\; \frac{\texttt{`r visita[1,2] + visita[2,2]`}}{\texttt{`r N`}}.
+\end{aligned}$$
+
+Sabendo, por exemplo, que a pessoa tem mais de 20 anos, a probabilidade de ela ser da cidade é:
+
+$$P(B \mid A) = \frac{\texttt{`r visita[2,1]`}}{\texttt{`r visita[2,1] + visita[2,2]`}}.$$
+
+Se $P(B) = P(B \mid A)$, então idade e origem são independentes; do contrário, são dependentes.
+
+
+## Eventos independentes *vs* mutuamente exclusivos
+
+- Dois eventos são **mutuamente exclusivos** quando $P(A \cap B) = 0$. Se ambos ocorrerem, excluem-se mutuamente. Logo, se $A$ ocorre, $B$ não pode ocorrer. Nesse caso, $P(B \mid A) = 0$, caracterizando dependência, pois a informação de $A$ **determina** que $B$ não ocorrerá.
+
+- Dois eventos são **independentes** se $P(A \cap B) = P(A)\times P(B)$. Isso significa que conhecer $A$ não altera a probabilidade de $B$. Se $P(A)$ e $P(B)$ forem não nulos, então não podem ser ao mesmo tempo mutuamente exclusivos **e** independentes.
+
+A representação de eventos mutuamente exclusivos no diagrama de árvore é ilustrada por $P(B \mid A)=0$, pois, ao ocorrer $A$, já se sabe que $B$ não ocorrerá. Assim, *mutuamente exclusivos* implica dependência. Se não há exclusividade, os eventos podem ou não ser independentes, dependendo de $P(B)$ em relação a $P(B \mid A)$.
+
+```{r}
+#| echo: false
+conditional_tree(prob_text = expression(
+  P(A),
+  P(bar(A)),
+  P(B~"|"~A) == 0,
+  P(bar(B)~"|"~A) == 1,
+  P(B~"|"~bar(A)),
+  P(bar(B)~"|"~bar(A))
+),
+final_text = rep(" ",4))
+```

@@ -20,7 +20,7 @@ format:
 #| output: false
 library(tidyverse)
 library(ggVennDiagram)
-source("scripts/bayes_diagram.r")
+source("scripts/tree_diagram.r")
 ```
 :::
 
@@ -40,10 +40,6 @@ Vamos às possibilidades. Denominemos por $F$ ou $G$ o evento de encontrar respe
 #| include: false
 omega <- paste("(",c(paste("F",nfolha, sep=''), paste("G",ngalho, sep='')),")", sep = '')
 omega_text <- paste(omega, collapse = ", ")
-```
-
-```{r}
-#| include: false
 eventos <- list(A = paste("(F", nfolha,")", sep = ''),
               B = c("(F3)","(F4)","(F5)","(F6)","(G3)","(G4)")
                 )
@@ -150,16 +146,18 @@ $\Omega = \{(galho, galho), (galho, folha), (folha, galho), (folha, folha)\}$
 
 e pode ser representado visualmente por um diagrama de árvore.
 
-![](images/tree_diagram.png)
-
 ```{r}
-#| echo: false
-# bayes_probability_tree(
-#   prior = 0.07,
-#   true_positive = 0.95,
-#   true_negative = 0.98,
-#   node_lab = TRUE
-# )
+my_code <- bayes_tree_diagram(
+  A_name = "Folha",
+  B_name = "Galho",
+  pA = 0.58,
+  pB = 0.5,
+  pAB = 0.33,
+  digits = 3
+)
 ```
+
+
+`r my_code`
 
 O diagrama de árvore é útil para representar resultados possíveis de um experimento com etapas consecutivas, mostrando visualmente cada caminho possível.
