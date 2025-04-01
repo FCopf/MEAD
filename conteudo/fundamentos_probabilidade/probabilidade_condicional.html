@@ -6,9 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="description" content="Fundamentos do teste de hipóteses, erros do tipo I e II e valor de p.">
+<meta name="description" content="Fundamentos de Probabilidade">
 
-<title>Teste de hipóteses – Métodos em Estatística e Análise de Dados</title>
+<title>Probabilidade Condicional – Métodos em Estatística e Análise de Dados</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -24,24 +24,22 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-listing/list.min.js"></script>
-<script src="site_libs/quarto-listing/quarto-listing.js"></script>
-<script src="site_libs/quarto-html/quarto.js"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-2f5df379a58b258e96c21c0638c20c03.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-fd75e10d688f5043d524a95775cfac05.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-2f5df379a58b258e96c21c0638c20c03.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-fd75e10d688f5043d524a95775cfac05.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -69,71 +67,15 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
-<script>
 
-  window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-listing .list');
-    if (!listingTargetEl) {
-      // No listing discovered, do not attach.
-      return; 
-    }
 
-    const options = {
-      valueNames: ['listing-image','listing-title','listing-description','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
-      
-      searchColumns: ["listing-title","listing-author","listing-image","listing-description"],
-    };
-
-    window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
-
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  });
-
-  window.addEventListener('hashchange',() => {
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  })
-  </script>
-
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
-
-<link rel="stylesheet" href="styles/custom.css">
-<meta property="og:title" content="Teste de hipóteses – Métodos em Estatística e Análise de Dados">
-<meta property="og:description" content="Fundamentos do teste de hipóteses, erros do tipo I e II e valor de p.">
-<meta property="og:image" content="https://github.com/FCopf/MEAD/images/teste_hipoteses.jpg">
+<link rel="stylesheet" href="../../styles/custom.css">
+<meta property="og:title" content="Probabilidade Condicional – Métodos em Estatística e Análise de Dados">
+<meta property="og:description" content="Fundamentos de Probabilidade">
+<meta property="og:image" content="https://github.com/FCopf/MEAD/conteudo/fundamentos_probabilidade/images/probabilidade_condicional.png">
 <meta property="og:site_name" content="Métodos em Estatística e Análise de Dados">
+<meta property="og:image:height" content="1024">
+<meta property="og:image:width" content="1536">
 </head>
 
 <body class="nav-fixed">
@@ -143,10 +85,10 @@ window.Quarto = {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a href="./index.html" class="navbar-brand navbar-brand-logo">
-    <img src="./images/logo_white.png" alt="" class="navbar-logo">
+    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../../images/logo_white.png" alt="" class="navbar-logo">
     </a>
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">Métodos em Estatística e Análise de Dados</span>
     </a>
   </div>
@@ -180,17 +122,18 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Teste de hipóteses</h1>
+<h1 class="title">Probabilidade Condicional</h1>
   <div class="quarto-categories">
-    <div class="quarto-category">Inferência Estatística</div>
-    <div class="quarto-category">Teste de hipóteses</div>
-    <div class="quarto-category">Análise de Dados</div>
+    <div class="quarto-category">probabilidade condicional</div>
+    <div class="quarto-category">eventos dependentes</div>
+    <div class="quarto-category">teorema de Bayes</div>
+    <div class="quarto-category">diagrama de árvore</div>
   </div>
   </div>
 
 <div>
   <div class="description">
-    Fundamentos do teste de hipóteses, erros do tipo I e II e valor de p.
+    Fundamentos de Probabilidade
   </div>
 </div>
 
@@ -210,80 +153,7 @@ window.Quarto = {
 
 
 
-
-<div class="quarto-listing quarto-listing-container-default" id="listing-listing">
-<div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-listing-file-modified-sort="1743472792267" data-listing-reading-time-sort="20" data-listing-word-count-sort="3825">
-<div class="thumbnail">
-<p><a href="./conteudo/teste_hipoteses/intro_testehipot.html" class="no-external"></a></p><a href="./conteudo/teste_hipoteses/intro_testehipot.html" class="no-external">
-<p><img loading="lazy" src="./conteudo/teste_hipoteses/images/intro_testehipot.jpg" class="thumbnail-image"></p>
-</a><p><a href="./conteudo/teste_hipoteses/intro_testehipot.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./conteudo/teste_hipoteses/intro_testehipot.html" class="no-external">Introdução ao Teste de Hipóteses</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./conteudo/teste_hipoteses/intro_testehipot.html" class="no-external"></a>
-</div>
-<div class="listing-description">
-<a href="./conteudo/teste_hipoteses/intro_testehipot.html" class="no-external">Hipóteses nula/alternativa, erros do Tipo I/II, valor do p e nível de significância</a>
-</div>
-</div>
-<div class="metadata">
-<p><a href="./conteudo/teste_hipoteses/intro_testehipot.html" class="no-external"></a></p><a href="./conteudo/teste_hipoteses/intro_testehipot.html" class="no-external">
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="1" data-listing-file-modified-sort="1743472792267" data-listing-reading-time-sort="7" data-listing-word-count-sort="1368">
-<div class="thumbnail">
-<p><a href="./conteudo/teste_hipoteses/teste_variancia.html" class="no-external"></a></p><a href="./conteudo/teste_hipoteses/teste_variancia.html" class="no-external">
-<p><img loading="lazy" src="./conteudo/teste_hipoteses/images/teste_variancia.jpg" class="thumbnail-image"></p>
-</a><p><a href="./conteudo/teste_hipoteses/teste_variancia.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./conteudo/teste_hipoteses/teste_variancia.html" class="no-external">Comparando variâncias</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./conteudo/teste_hipoteses/teste_variancia.html" class="no-external"></a>
-</div>
-<div class="listing-description">
-<a href="./conteudo/teste_hipoteses/teste_variancia.html" class="no-external">Comparando variâncias, teste F e teste de Levene.</a>
-</div>
-</div>
-<div class="metadata">
-<p><a href="./conteudo/teste_hipoteses/teste_variancia.html" class="no-external"></a></p><a href="./conteudo/teste_hipoteses/teste_variancia.html" class="no-external">
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="2" data-listing-file-modified-sort="1743472792267" data-listing-reading-time-sort="12" data-listing-word-count-sort="2230">
-<div class="thumbnail">
-<p><a href="./conteudo/teste_hipoteses/teste_t.html" class="no-external"></a></p><a href="./conteudo/teste_hipoteses/teste_t.html" class="no-external">
-<p><img loading="lazy" src="./conteudo/teste_hipoteses/images/teste_t.jpg" class="thumbnail-image"></p>
-</a><p><a href="./conteudo/teste_hipoteses/teste_t.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./conteudo/teste_hipoteses/teste_t.html" class="no-external">Comparando médias: teste t de Student</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./conteudo/teste_hipoteses/teste_t.html" class="no-external"></a>
-</div>
-<div class="listing-description">
-<a href="./conteudo/teste_hipoteses/teste_t.html" class="no-external">Comparando médias testes t para uma amostra, grupos independentes e medidas pareadas.</a>
-</div>
-</div>
-<div class="metadata">
-<p><a href="./conteudo/teste_hipoteses/teste_t.html" class="no-external"></a></p><a href="./conteudo/teste_hipoteses/teste_t.html" class="no-external">
-</a>
-</div>
-</div>
-</div>
-<div class="listing-no-matching d-none">
-No matching items
-</div>
-</div></main> <!-- /main -->
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {

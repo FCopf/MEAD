@@ -476,6 +476,34 @@
     "text": "9 Pressupostos da ANOVA\nOs pressupostos da ANOVA são:\n\nAs observações são independentes e;\nA variância dos resíduos é homogênea e;\nOs resíduos têm distribuição normal com média \\(0\\) e variância consante \\(\\sigma^2\\).\n\nVamos inicialmente testar o pressuposto de homogeneidade de variâncias com um teste \\(F\\).\n\nmedley |&gt; group_by(ZINC) |&gt; \n  summarise(Var = var(DIVERSITY)) |&gt; \n  gt()\n\n\n\n\n\n\n\nZINC\nVar\n\n\n\n\nBACK\n0.2354786\n\n\nLOW\n0.1980214\n\n\nMED\n0.2530194\n\n\nHIGH\n0.1822194\n\n\n\n\n\n\n\nNote que a maior variância é \\(0.2530194\\) e a menor \\(0.1822194\\).\nO teste \\(F\\) consiste em dividir a maior variância pela menor:\n\nvmax = medley$DIVERSITY[medley$ZINC == \"MED\"]\nvmin = medley$DIVERSITY[medley$ZINC == \"HIGH\"]\nvar.test(vmax, vmin)\n\n\n    F test to compare two variances\n\ndata:  vmax and vmin\nF = 1.3885, num df = 8, denom df = 8, p-value = 0.6534\nalternative hypothesis: true ratio of variances is not equal to 1\n95 percent confidence interval:\n 0.3132103 6.1557698\nsample estimates:\nratio of variances \n          1.388543 \n\n\nA maior variância foi 1.39 vezes maior que a menor variância e o test F sugere que esta diferença é não-significativa a \\(5\\%\\) (\\(p &lt; 0.05\\)). Isto indica que as variâncias são homogêneas.\nA verificação visual de que as variâncias são homogêneas pode também ser inspecionada pelo gráfico de resíduos:\n\nplot(rstudent(ajuste) ~ fitted(ajuste), pch = 16)\nabline(h = 0, col = 2)\n\n\n\n\n\n\n\n\nEm seguida avaliamos o histograma dos resíduos e aplicamos um teste de normalidade (ex. teste de Shapiro-Wilk) para verificar se o pressuposto de normalidade pode ser aceito.\n\nhist(rstudent(ajuste), breaks = 10)\n\n\n\n\n\n\n\nshapiro.test(rstudent(ajuste))\n\n\n    Shapiro-Wilk normality test\n\ndata:  rstudent(ajuste)\nW = 0.96696, p-value = 0.3828\n\n\nNeste caso, o valor de \\(p &gt; 0.05\\) indica não haver desvio da normalidade."
   },
   {
+    "objectID": "conteudo/fundamentos_probabilidade/espaco_amostral.html",
+    "href": "conteudo/fundamentos_probabilidade/espaco_amostral.html",
+    "title": "Espaço de Possibilidades de um experimento",
+    "section": "",
+    "text": "Pacotes e funções utilizadas\n\n\n\n\n\n\nlibrary(tidyverse)\nlibrary(gt)\nConsidere uma pesquisa para determinar os locais de ocorrência de uma espécie de peixe endêmica de riachos costeiros de Mata Atlântica no sudeste do Brasil. A pesquisa envolve amostrar trechos de riachos em diferentes bacias hidrográficas da região. Ao amostrar um determinado riacho, o pesquisador não sabe antecipadamente se irá ou não encontrar a espécie. Em probabilidade, chamamos esse ato de experimento aleatório, pois o resultado só é conhecido após a realização.\nEmbora não saibamos o resultado de um experimento específico, sabemos quais são os resultados possíveis. Neste exemplo, vamos assumir que existem apenas dois resultados para o ato de amostrar um riacho: ou a espécie ocorre, ou não ocorre.\nNo caso em questão:\n\\(\\Omega = {(ocorre), (não-ocorre)}\\)"
+  },
+  {
+    "objectID": "conteudo/fundamentos_probabilidade/espaco_amostral.html#probabilidades-de-um-evento",
+    "href": "conteudo/fundamentos_probabilidade/espaco_amostral.html#probabilidades-de-um-evento",
+    "title": "Espaço de Possibilidades de um experimento",
+    "section": "1 Probabilidades de um evento",
+    "text": "1 Probabilidades de um evento\nMesmo sem saber o resultado de um experimento particular, podemos perguntar sobre a chance de cada evento ocorrer. Em termos probabilísticos, estamos interessados em \\(P(ocorre)\\). Quando \\(P(ocorre) = 0\\), significa que a espécie jamais ocorre nos riachos; quando \\(P(ocorre) = 1\\), significa que a espécie ocorre em todos os riachos. Na prática, a probabilidade ficará entre esses extremos: \\(0 \\le P(ocorre) \\le 1\\).\nPodemos estimar essa probabilidade empiricamente. Suponha que planejamos amostrar um determinado número de riachos, observando quantas vezes a espécie é capturada.\nDigamos que em certo dia foram amostrados 10 riachos e a espécie foi registrada em 4 deles. Nossa estimativa da probabilidade de ocorrência será:\n\\[P(ocorre) = \\frac{\\#ocorres}{\\#riachos} = \\frac{4}{10} = 0.4\\]\nNaturalmente, como os dois eventos no espaço amostral são \\((ocorre)\\) e \\((não-ocorre)\\), a probabilidade de não-ocorrência é:\n\\[P(não-ocorre) = 1 - \\frac{\\#não-ocorre}{\\#riachos} = 1 - \\frac{4}{10} = 0.6\\]\ne, sendo eventos mutuamente exclusivos e exaustivos (não podem ocorrer juntos e são as únicas possibilidades), temos:\n\\[P(ocorre) + P(não-ocorre) = 1 = P(\\Omega)\\]\nA probabilidade de não-ocorrência também é conhecida como complemento de \\(P(ocorre)\\), frequentemente denotado por \\(P(\\overline{ocorre})\\):\n\\[P(não-ocorre) = P(\\overline{ocorre})\\]\n\n1.1 Estimando probabilidades\nA estimativa acima descreve o resultado para um conjunto fixo de 10 riachos. No entanto, se continuarmos a amostrar novos riachos, essa estimativa pode variar, pois eventualmente encontraremos mais (ou menos) riachos com a espécie presente. Assim, com um número finito de observações, nossa estimativa não será exatamente igual à probabilidade real.\nSuponha que repetimos o experimento em 30 riachos. A cada nova amostra coletada, calculamos a fração acumulada de ocorrências:\n\n\n\n\n\n\n\n\nObservações\nOcorrência acumulada\nP(ocorre)\n\n\n\n\n1\n0\n0.0000000\n\n\n2\n0\n0.0000000\n\n\n3\n1\n0.3333333\n\n\n4\n1\n0.2500000\n\n\n5\n1\n0.2000000\n\n\n6\n2\n0.3333333\n\n\n7\n2\n0.2857143\n\n\n8\n3\n0.3750000\n\n\n9\n4\n0.4444444\n\n\n10\n4\n0.4000000\n\n\n11\n4\n0.3636364\n\n\n12\n4\n0.3333333\n\n\n13\n4\n0.3076923\n\n\n14\n4\n0.2857143\n\n\n15\n4\n0.2666667\n\n\n16\n5\n0.3125000\n\n\n17\n5\n0.2941176\n\n\n18\n5\n0.2777778\n\n\n19\n5\n0.2631579\n\n\n20\n5\n0.2500000\n\n\n21\n5\n0.2380952\n\n\n22\n5\n0.2272727\n\n\n23\n5\n0.2173913\n\n\n24\n5\n0.2083333\n\n\n25\n5\n0.2000000\n\n\n26\n6\n0.2307692\n\n\n27\n6\n0.2222222\n\n\n28\n6\n0.2142857\n\n\n29\n6\n0.2068966\n\n\n30\n7\n0.2333333\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nNote como a estimativa de \\(P(ocorre)\\) oscila. Espera-se que este valor gradualmente aproxime-se para probabilidade real à medida que o número de observações cresce.\n\n\n\n\n\n\nLei dos Grandes Números\n\n\n\nA Lei dos Grandes Números afirma que, à medida que o número de repetições de um experimento aleatório cresce, a frequência relativa de um evento tende a se aproximar da probabilidade real desse evento. Portanto, se continuarmos amostrando mais riachos, a proporção de vezes em que a espécie ocorre deve convergir para a probabilidade verdadeira de ocorrência."
+  },
+  {
+    "objectID": "conteudo/fundamentos_probabilidade/combina_probabilidades.html",
+    "href": "conteudo/fundamentos_probabilidade/combina_probabilidades.html",
+    "title": "Combinando as probabilidades de eventos",
+    "section": "",
+    "text": "Pacotes e funções utilizadas\n\n\n\n\n\n\nlibrary(tidyverse)\nlibrary(ggVennDiagram)\nsource(\"scripts/bayes_diagram.r\")"
+  },
+  {
+    "objectID": "conteudo/fundamentos_probabilidade/combina_probabilidades.html#eventos-complexos",
+    "href": "conteudo/fundamentos_probabilidade/combina_probabilidades.html#eventos-complexos",
+    "title": "Combinando as probabilidades de eventos",
+    "section": "1 Eventos complexos",
+    "text": "1 Eventos complexos\nConsideremos a seguinte situação: existem dois tipos de estruturas principais sob as quais um animal aquático busca suas presas: folhas e galhos. Folhas podem ter entre 0 e 6 itens, enquanto galhos podem ter entre 0 e 4 itens. Ao virar uma dessas estruturas, o predador consome todos os itens encontrados. Embora seja um exemplo altamente hipotético, ele ilustra nossa discussão. A pergunta que nos interessa é: ao virar uma estrutura, de quantos itens o predador poderá se alimentar?\nVamos às possibilidades. Denominemos por \\(F\\) ou \\(G\\) o evento de encontrar respectivamente uma folha ou um galho, e por \\(0\\) a \\(n\\), o número de itens presentes. O espaço amostral do experimento virar uma estrutura e contar o número de itens consiste em:\n\\[\\Omega = \\{\\text{(F0), (F1), (F2), (F3), (F4), (F5), (F6), (G0), (G1), (G2), (G3), (G4)}\\}.\\]\nNeste experimento, temos \\(\\text{12}\\) eventos simples e mutuamente exclusivos.\nConsidere agora o evento \\(A\\): “virar uma folha”, que pode ocorrer ao observar F0 ou F1 ou F2 ou F3 ou F4 ou F5 ou F6.\n\\[A = \\{\\text{(F0), (F1), (F2), (F3), (F4), (F5), (F6)}\\}.\\]\n\n1.1 Representação de eventos: diagrama de Venn\nUma forma de visualizar o espaço amostral e seus eventos é por meio de diagramas de Venn. Para isso, vamos considerar também o evento \\(B\\): “encontrar mais de 3 itens”, que consiste em:\n\\[B = \\{\\text{(F3), (F4), (F5), (F6), (G3), (G4)}\\}.\\]\nObservando \\(A\\) e \\(B\\) em um Diagrama de Venn, temos:\n\n\n\n\n\n\n\n\n\nCada um desses é um evento complexo, pois resulta de uma combinação de eventos simples. O evento \\(B\\), por exemplo, ocorre quando se encontra uma folha OU um galho com 3 ou mais itens, enquanto \\(A\\) ocorre quando a estrutura virada for uma folha com \\(0\\) OU \\(1\\) OU \\(2\\) OU \\(3\\) OU \\(4\\) OU \\(5\\) OU \\(6\\) itens.\nTais eventos complexos são formados pela união de eventos simples. A declaração OU significa que qualquer uma das observações permite concluir que o evento ocorreu. Assim, \\(A\\) pode ocorrer de 7 maneiras e \\(B\\) de 6 maneiras distintas.\nObserve que as ocorrências \\((G0)\\), \\((G1)\\) e \\((G2)\\) não pertencem a \\(A\\) nem a \\(B\\), embora façam parte do espaço amostral \\(\\Omega\\).\nConsidere agora o evento \\(C\\): “virar uma folha com mais de 3 itens”. Ele pode ocorrer ao observar F3 ou F4 ou F5 ou F6. No diagrama de Venn, vemos que essas possibilidades constituem a intersecção de \\(A\\) e \\(B\\). Em notação de teoria de conjuntos, a união é representada por \\(\\cup\\) e a intersecção por \\(\\cap\\). Portanto, podemos escrever \\(C\\) como:\n\\[C = A \\cap B.\\]\n\n\n1.2 Probabilidade de eventos simples\nConsiderando o experimento virar uma estrutura e contar o número de itens, qual seria a probabilidade de cada observação? Para isso, lembremos que:\n\nO espaço amostral consiste em \\(N = \\text{12}\\) observações.\nDefiniremos um modelo de probabilidade para cada uma dessas observações.\n\nNeste tópico, vamos assumir um modelo de probabilidade uniforme, ou seja, cada observação tem a mesma probabilidade \\(\\frac{1}{N}\\).\nDessa forma, a probabilidade de o evento \\(A\\) ocorrer é dada pelo número de resultados favoráveis a \\(A\\) dividido pelo número total de resultados no espaço amostral. Como \\(A\\) consiste de 7 observações:\n\\[P(A) = \\frac{7}{12} = 0.58\\]\nNaturalmente, a probabilidade de \\(A\\) não ocorrer é:\n\\[P(\\overline{A}) = 1 - \\frac{7}{12} = 1 - 0.58 = 0.42\\]\nO símbolo \\(\\overline{A}\\) representa todas as observações que não pertencem a \\(A\\).\nConsidere a probabilidade de \\(B\\):\n\\[P(B) = \\frac{6}{12} = 0.5\\]\ne de \\(C = A \\cap B\\):\n\\[P(C) = P(A \\cap B) = \\frac{4}{12} = 0.33\\]\n\n\n1.3 Probabilidade da união de eventos\nO evento \\(A \\cup B\\) consiste em todas as observações que estejam em \\(A\\) ou \\(B\\):\n\\(A \\cup B = \\{(F0),(F1),(F2),(F3),(F4),(F5),(F6),(G3),(G4) \\}\\)\nPortanto, há 9 ocorrências em \\(A \\cup B\\), e:\n\\[P(A \\cup B) = \\frac{9}{12} = 0.75\\]\nSabemos que:\n\\(P(A \\cup B) = P(A) + P(B) - P(A \\cap B)\\)\n\n\n1.4 Representação de eventos: diagrama de árvore\nConsidere agora o experimento “virar duas estruturas e verificar o tipo de estrutura”. O espaço amostral desse novo experimento consiste em 4 observações:\n\\(\\Omega = \\{(galho, galho), (galho, folha), (folha, galho), (folha, folha)\\}\\)\ne pode ser representado visualmente por um diagrama de árvore.\n\nO diagrama de árvore é útil para representar resultados possíveis de um experimento com etapas consecutivas, mostrando visualmente cada caminho possível."
+  },
+  {
     "objectID": "conteudo/ciencia_dados/transform.html",
     "href": "conteudo/ciencia_dados/transform.html",
     "title": "Transformação de Dados",
@@ -686,60 +714,11 @@
     "text": "Descrevendo populações e amostras\n\n\n\n\n\nConceitos de população estatística, unidade amostral, amostra, parâmetros e estimadores.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nAmostrando uma População Estatística\n\n\n\n\n\nMétodos de amostragem aleatória simples, estratificada e sistemática. Conceitos de erro amostral, precisão e acurácia.\n\n\n\n\n\n\n\n\n\nNo matching items"
   },
   {
-    "objectID": "anova.html",
-    "href": "anova.html",
-    "title": "Análise de variância",
+    "objectID": "modelos_probabilisticos.html",
+    "href": "modelos_probabilisticos.html",
+    "title": "Métodos em Probabilidade e Estatística",
     "section": "",
-    "text": "Análise de variância de um fator\n\n\n\n\n\nAnálise de variância, partição da soma de quadrados, teste F.\n\n\n\n\n\n\n\n\n\nNo matching items"
-  },
-  {
-    "objectID": "introducao_r.html",
-    "href": "introducao_r.html",
-    "title": "Introdução ao R",
-    "section": "",
-    "text": "Estrutura da linguagem\n\n\n\n\n\n\nR\n\n\nProgramação\n\n\n\nIntrodução ao R: estrutura da linguagem, operações básicas e tipo de objetos como vetores, data frames, matrizes e listas.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n(Básico da) Manipulação de data frames\n\n\n\n\n\n\nR\n\n\nProgramação\n\n\nManipulação de dados\n\n\nData frames\n\n\n\nIntrodução à manipulação de data frames no R: importação de dados, seleção de linhas e colunas, criação de novas variáveis\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n(Básico da) Visualização gráfica\n\n\n\n\n\n\nR\n\n\nProgramação\n\n\nGráficos em R\n\n\nVisualização de dados\n\n\n\nIntrodução à visualização gráfica no R: gráficos de barras, histogramas, boxplots, gráficos de dispersão e exportação de figuras.\n\n\n\n\n\n\n\n\n\nNo matching items"
-  },
-  {
-    "objectID": "regressao_linear.html",
-    "href": "regressao_linear.html",
-    "title": "Modelos de Regressão linear",
-    "section": "",
-    "text": "Regressão Linear Simples\n\n\n\n\n\nModelos de regressão linear simples, ANOVA da regressão, coeficientes de determinação e diagnósticos da regressão.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nRegressão Linear Múltipla\n\n\n\n\n\nRegressão linear múltipla: determinação, seleção de variáveis, pressupostos e diagnósticos.\n\n\n\n\n\n\n\n\n\nNo matching items"
-  },
-  {
-    "objectID": "teste_hipoteses.html",
-    "href": "teste_hipoteses.html",
-    "title": "Teste de hipóteses",
-    "section": "",
-    "text": "Introdução ao Teste de Hipóteses\n\n\n\n\n\nHipóteses nula/alternativa, erros do Tipo I/II, valor do p e nível de significância\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nComparando variâncias\n\n\n\n\n\nComparando variâncias, teste F e teste de Levene.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nComparando médias: teste t de Student\n\n\n\n\n\nComparando médias testes t para uma amostra, grupos independentes e medidas pareadas.\n\n\n\n\n\n\n\n\n\nNo matching items"
-  },
-  {
-    "objectID": "medidas_associacao.html",
-    "href": "medidas_associacao.html",
-    "title": "Medidas de associação",
-    "section": "",
-    "text": "Associação entre duas variáveis qualitativas\n\n\n\n\n\n\nEstatística\n\n\nAnálise Qualitativa\n\n\nTabelas de Contingência\n\n\n\nAnálise da associação entre variáveis qualitativas, tabelas de contingência e índice de qui-quadrado.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nAssociação entre duas variáveis quantitativas\n\n\n\n\n\n\nEstatística\n\n\nAnálise Quantitativa\n\n\nCovariância\n\n\nCorrelação\n\n\n\nRelação entre variáveis quantitativas, covariância e correlação linear de Pearson.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nAssociação entre variáveis quantitativas e qualitativas\n\n\n\n\n\n\nEstatística\n\n\nANOVA\n\n\nAnálise Quantitativa\n\n\nAnálise Qualitativa\n\n\n\nRelação entre variáveis categóricas e contínuas, partição da soma dos quadrados, coeficiente de determinação\n\n\n\n\n\n\n\n\n\nNo matching items"
-  },
-  {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Métodos em Estatística e Análise de Dados",
-    "section": "",
-    "text": "Introdução ao R\n\n\n\nR\n\n\nProgramação\n\n\nObjetos em R\n\n\nManipulação de Dados\n\n\nData frames\n\n\nGráficos em R\n\n\nVisualização de Dados\n\n\n\nEstrutura da linguagem, manipulação e visualização de dados.\n\n\n\n\n\n\n\n\n\n\n\n\n\nCiência de Dados em R\n\n\n\nCiência de Dados\n\n\nR\n\n\nTidyverse\n\n\n\nIntrodução à ciência de dados em R, incluindo manipulação, transformação e visualização de dados.\n\n\n\n\n\n\n\n\n\n\n\n\n\nEstrutura de dados\n\n\n\nR\n\n\nEstrutura de Dados\n\n\n\nFundamentos da estrutura de dados, abordando tipos de variáveis, níveis de mensuração\n\n\n\n\n\n\n\n\n\n\n\n\n\nEstatística descritiva\n\n\n\nEstatística\n\n\nR\n\n\n\nRepresentação de variáveis, medidas de tendência central e variação\n\n\n\n\n\n\n\n\n\n\n\n\n\nMedidas de associação\n\n\n\nEstatística\n\n\nAnálise de Dados\n\n\nVisualização de Dados\n\n\nMedidas de associação\n\n\n\nAssociações entre diferentes tipos de variáveis.\n\n\n\n\n\n\n\n\n\n\n\n\n\nAmostragem\n\n\n\nestatística\n\n\namostragem\n\n\n\nIntrodução aos conceitos fundamentais de amostragem em estatística.\n\n\n\n\n\n\n\n\n\n\n\n\n\nInferência estatística\n\n\n\nEstatística\n\n\nInferência Estatística\n\n\n\nFundamentos da inferência estatística, teorema central do limite e intervalos de confiança.\n\n\n\n\n\n\n\n\n\n\n\n\n\nTeste de hipóteses\n\n\n\nInferência Estatística\n\n\nTeste de hipóteses\n\n\nAnálise de Dados\n\n\n\nFundamentos do teste de hipóteses, erros do tipo I e II e valor de p.\n\n\n\n\n\n\n\n\n\n\n\n\n\nAnálise de variância\n\n\n\nComparação de Médias\n\n\nANOVA\n\n\n\nModelos de ANOVA para compararção de médias: ANOVA simples, em blocos e fatorial.\n\n\n\n\n\n\n\n\n\n\n\n\n\nModelos de Regressão linear\n\n\n\nRegressão Linear\n\n\nEstatística\n\n\nModelagem Preditiva\n\n\n\nRelações entre variáveis dependentes e independentes, previsão e análise de padrões para dados contínuos.\n\n\n\n\n\n\n\nNo matching items"
-  },
-  {
-    "objectID": "estatistica_descritiva.html",
-    "href": "estatistica_descritiva.html",
-    "title": "Estatística descritiva",
-    "section": "",
-    "text": "Descrevendo variáveis qualitativas\n\n\n\n\n\n\nR\n\n\nAnálise de Dados\n\n\nEstatística Descritiva\n\n\nVariáveis Qualitativas\n\n\nVisualização de Dados\n\n\n\nExploração de variáveis qualitativas, incluindo categóricas ordenadas e não ordenadas, tabelas de frequência e representações gráficas com gráficos de barras.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nDescrevendo variáveis quantitativas\n\n\n\n\n\n\nR\n\n\nCiência de Dados\n\n\nAnálise de Dados\n\n\nEstatística Descritiva\n\n\nVariáveis Quantitativas\n\n\nDistribuição de Frequência\n\n\n\nDescrição de variáveis quantitativas utilizando tabelas de frequência, histogramas e gráficos de frequência acumulada.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nMedidas de tendência central\n\n\n\n\n\n\nR\n\n\nAnálise de Dados\n\n\nEstatística Descritiva\n\n\nTendência Central\n\n\nDistribuição de Dados\n\n\n\nCálculo e interpretação de medidas de tendência central, como média, mediana, moda e ponto médio, incluindo seu impacto em distribuições simétricas e assimétricas.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nMedidas de variação\n\n\n\n\n\n\nR\n\n\nAnálise de Dados\n\n\nEstatística Descritiva\n\n\nVariabilidade de Dados\n\n\nAnálise de Dispersão\n\n\n\nIntrodução às medidas de variação, como variância, desvio padrão, coeficiente de variação e amplitude, com exemplos práticos.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nMedidas de posição: quartis\n\n\n\n\n\n\nR\n\n\nAnálise de Dados\n\n\nEstatística Descritiva\n\n\nVariabilidade de Dados\n\n\nAnálise de Dispersão\n\n\n\nIntrodução às medidas de variação, como variância, desvio padrão, coeficiente de variação e amplitude, com exemplos práticos.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nMedidas de posição: transformação Z\n\n\n\n\n\n\nR\n\n\nAnálise de Dados\n\n\nEstatística Descritiva\n\n\nPadronização de Dados\n\n\nÍndice Z\n\n\n\nTransformação e interpretação do índice Z para padronizar distribuições, destacando sua relação com a média e o desvio padrão.\n\n\n\n\n\n\n\n\n\nNo matching items"
-  },
-  {
-    "objectID": "inferencia_estatistica.html",
-    "href": "inferencia_estatistica.html",
-    "title": "Inferência estatística",
-    "section": "",
-    "text": "O modelo de distribuição normal\n\n\n\n\n\nIntrodução à distribuição normal de probabilidades, características, aplicações e cálculo de probabilidades no contexto da inferência estatística.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nDistribuição das médias amostrais\n\n\n\n\n\nTeorema central do limite e a distribuição das médias amostrais.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nEstimando a média populacional\n\n\n\n\n\nIntervalos de confiança para estimar a média populacional, introdução à distribuição t de Student.\n\n\n\n\n\n\n\n\n\nNo matching items"
+    "text": "Introdução à Inferência Bayesiana\n\n\n\n\n\nIntrodução à inferência bayesiana e contagem de possibilidades\n\n\n\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "ciencia_dados.html",
@@ -749,11 +728,67 @@
     "text": "Os pacotes em tidyverse\n\n\n\n\n\n\nCiência de Dados”\n\n\nR\n\n\nTidyverse\n\n\n\nVisão geral dos pacotes do Tidyverse para importação, organização, transformação e visualização de dados.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nImportando/Exportando dados\n\n\n\n\n\n\nCiência de Dados\n\n\nR\n\n\nTidyverse\n\n\nImportação/Exportação de dados\n\n\n\nTécnicas de importação e exportação de dados usando o pacote readr do Tidyverse.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nOperadores pipe\n\n\n\n\n\n\nCiência de Dados\n\n\nR\n\n\nTidyverse\n\n\nTransformação de dados\n\n\n\nUso de operadores pipe para simplificar o fluxo de transformação de dados em R.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nTransformação de Dados\n\n\n\n\n\n\nCiência de Dados\n\n\nR\n\n\nTidyverse\n\n\n\nTidyverse - manipulação, transformação, visualização de dados.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nGráficos em camadas\n\n\n\n\n\n\nCiência de Dados\n\n\nR\n\n\nTidyverse\n\n\nVisualização gráfica\n\n\n\nCriação de gráficos no R com o ggplot2, incluindo histogramas, boxplots e gráficos de dispersão.\n\n\n\n\n\n\n\n\n\nNo matching items"
   },
   {
-    "objectID": "modelos_probabilisticos.html",
-    "href": "modelos_probabilisticos.html",
-    "title": "Métodos em Probabilidade e Estatística",
+    "objectID": "inferencia_estatistica.html",
+    "href": "inferencia_estatistica.html",
+    "title": "Inferência estatística",
     "section": "",
-    "text": "Introdução à Inferência Bayesiana\n\n\n\n\n\nIntrodução à inferência bayesiana e contagem de possibilidades\n\n\n\n\n\n\n\n\n\nNo matching items"
+    "text": "O modelo de distribuição normal\n\n\n\n\n\nIntrodução à distribuição normal de probabilidades, características, aplicações e cálculo de probabilidades no contexto da inferência estatística.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nDistribuição das médias amostrais\n\n\n\n\n\nTeorema central do limite e a distribuição das médias amostrais.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nEstimando a média populacional\n\n\n\n\n\nIntervalos de confiança para estimar a média populacional, introdução à distribuição t de Student.\n\n\n\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "estatistica_descritiva.html",
+    "href": "estatistica_descritiva.html",
+    "title": "Estatística descritiva",
+    "section": "",
+    "text": "Descrevendo variáveis qualitativas\n\n\n\n\n\n\nR\n\n\nAnálise de Dados\n\n\nEstatística Descritiva\n\n\nVariáveis Qualitativas\n\n\nVisualização de Dados\n\n\n\nExploração de variáveis qualitativas, incluindo categóricas ordenadas e não ordenadas, tabelas de frequência e representações gráficas com gráficos de barras.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nDescrevendo variáveis quantitativas\n\n\n\n\n\n\nR\n\n\nCiência de Dados\n\n\nAnálise de Dados\n\n\nEstatística Descritiva\n\n\nVariáveis Quantitativas\n\n\nDistribuição de Frequência\n\n\n\nDescrição de variáveis quantitativas utilizando tabelas de frequência, histogramas e gráficos de frequência acumulada.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nMedidas de tendência central\n\n\n\n\n\n\nR\n\n\nAnálise de Dados\n\n\nEstatística Descritiva\n\n\nTendência Central\n\n\nDistribuição de Dados\n\n\n\nCálculo e interpretação de medidas de tendência central, como média, mediana, moda e ponto médio, incluindo seu impacto em distribuições simétricas e assimétricas.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nMedidas de variação\n\n\n\n\n\n\nR\n\n\nAnálise de Dados\n\n\nEstatística Descritiva\n\n\nVariabilidade de Dados\n\n\nAnálise de Dispersão\n\n\n\nIntrodução às medidas de variação, como variância, desvio padrão, coeficiente de variação e amplitude, com exemplos práticos.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nMedidas de posição: quartis\n\n\n\n\n\n\nR\n\n\nAnálise de Dados\n\n\nEstatística Descritiva\n\n\nVariabilidade de Dados\n\n\nAnálise de Dispersão\n\n\n\nIntrodução às medidas de variação, como variância, desvio padrão, coeficiente de variação e amplitude, com exemplos práticos.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nMedidas de posição: transformação Z\n\n\n\n\n\n\nR\n\n\nAnálise de Dados\n\n\nEstatística Descritiva\n\n\nPadronização de Dados\n\n\nÍndice Z\n\n\n\nTransformação e interpretação do índice Z para padronizar distribuições, destacando sua relação com a média e o desvio padrão.\n\n\n\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Métodos em Estatística e Análise de Dados",
+    "section": "",
+    "text": "Introdução ao R\n\n\n\nR\n\n\nProgramação\n\n\nObjetos em R\n\n\nManipulação de Dados\n\n\nData frames\n\n\nGráficos em R\n\n\nVisualização de Dados\n\n\n\nEstrutura da linguagem, manipulação e visualização de dados.\n\n\n\n\n\n\n\n\n\n\n\n\n\nCiência de Dados em R\n\n\n\nCiência de Dados\n\n\nR\n\n\nTidyverse\n\n\n\nIntrodução à ciência de dados em R, incluindo manipulação, transformação e visualização de dados.\n\n\n\n\n\n\n\n\n\n\n\n\n\nEstrutura de dados\n\n\n\nR\n\n\nEstrutura de Dados\n\n\n\nFundamentos da estrutura de dados, abordando tipos de variáveis, níveis de mensuração\n\n\n\n\n\n\n\n\n\n\n\n\n\nEstatística descritiva\n\n\n\nEstatística\n\n\nR\n\n\n\nRepresentação de variáveis, medidas de tendência central e variação\n\n\n\n\n\n\n\n\n\n\n\n\n\nMedidas de associação\n\n\n\nEstatística\n\n\nAnálise de Dados\n\n\nVisualização de Dados\n\n\nMedidas de associação\n\n\n\nAssociações entre diferentes tipos de variáveis.\n\n\n\n\n\n\n\n\n\n\n\n\n\nAmostragem\n\n\n\nestatística\n\n\namostragem\n\n\n\nIntrodução aos conceitos fundamentais de amostragem em estatística.\n\n\n\n\n\n\n\n\n\n\n\n\n\nFundamentos de probabilidades\n\n\n\nespaço amostral\n\n\nunião\n\n\nintersecção\n\n\neventos independentes\n\n\nprobabilidade condicional\n\n\nTeorema de Bayes\n\n\n\nDefinição de probabilidade, probabilidade de eventos independentes, probabilidade condicional e Teorema de Bayes\n\n\n\n\n\n\n\n\n\n\n\n\n\nInferência estatística\n\n\n\nEstatística\n\n\nInferência Estatística\n\n\n\nFundamentos da inferência estatística, teorema central do limite e intervalos de confiança.\n\n\n\n\n\n\n\n\n\n\n\n\n\nTeste de hipóteses\n\n\n\nInferência Estatística\n\n\nTeste de hipóteses\n\n\nAnálise de Dados\n\n\n\nFundamentos do teste de hipóteses, erros do tipo I e II e valor de p.\n\n\n\n\n\n\n\n\n\n\n\n\n\nAnálise de variância\n\n\n\nComparação de Médias\n\n\nANOVA\n\n\n\nModelos de ANOVA para compararção de médias: ANOVA simples, em blocos e fatorial.\n\n\n\n\n\n\n\n\n\n\n\n\n\nModelos de Regressão linear\n\n\n\nRegressão Linear\n\n\nEstatística\n\n\nModelagem Preditiva\n\n\n\nRelações entre variáveis dependentes e independentes, previsão e análise de padrões para dados contínuos.\n\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "medidas_associacao.html",
+    "href": "medidas_associacao.html",
+    "title": "Medidas de associação",
+    "section": "",
+    "text": "Associação entre duas variáveis qualitativas\n\n\n\n\n\n\nEstatística\n\n\nAnálise Qualitativa\n\n\nTabelas de Contingência\n\n\n\nAnálise da associação entre variáveis qualitativas, tabelas de contingência e índice de qui-quadrado.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nAssociação entre duas variáveis quantitativas\n\n\n\n\n\n\nEstatística\n\n\nAnálise Quantitativa\n\n\nCovariância\n\n\nCorrelação\n\n\n\nRelação entre variáveis quantitativas, covariância e correlação linear de Pearson.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nAssociação entre variáveis quantitativas e qualitativas\n\n\n\n\n\n\nEstatística\n\n\nANOVA\n\n\nAnálise Quantitativa\n\n\nAnálise Qualitativa\n\n\n\nRelação entre variáveis categóricas e contínuas, partição da soma dos quadrados, coeficiente de determinação\n\n\n\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "teste_hipoteses.html",
+    "href": "teste_hipoteses.html",
+    "title": "Teste de hipóteses",
+    "section": "",
+    "text": "Introdução ao Teste de Hipóteses\n\n\n\n\n\nHipóteses nula/alternativa, erros do Tipo I/II, valor do p e nível de significância\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nComparando variâncias\n\n\n\n\n\nComparando variâncias, teste F e teste de Levene.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nComparando médias: teste t de Student\n\n\n\n\n\nComparando médias testes t para uma amostra, grupos independentes e medidas pareadas.\n\n\n\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "regressao_linear.html",
+    "href": "regressao_linear.html",
+    "title": "Modelos de Regressão linear",
+    "section": "",
+    "text": "Regressão Linear Simples\n\n\n\n\n\nModelos de regressão linear simples, ANOVA da regressão, coeficientes de determinação e diagnósticos da regressão.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nRegressão Linear Múltipla\n\n\n\n\n\nRegressão linear múltipla: determinação, seleção de variáveis, pressupostos e diagnósticos.\n\n\n\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "introducao_r.html",
+    "href": "introducao_r.html",
+    "title": "Introdução ao R",
+    "section": "",
+    "text": "Estrutura da linguagem\n\n\n\n\n\n\nR\n\n\nProgramação\n\n\n\nIntrodução ao R: estrutura da linguagem, operações básicas e tipo de objetos como vetores, data frames, matrizes e listas.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n(Básico da) Manipulação de data frames\n\n\n\n\n\n\nR\n\n\nProgramação\n\n\nManipulação de dados\n\n\nData frames\n\n\n\nIntrodução à manipulação de data frames no R: importação de dados, seleção de linhas e colunas, criação de novas variáveis\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n(Básico da) Visualização gráfica\n\n\n\n\n\n\nR\n\n\nProgramação\n\n\nGráficos em R\n\n\nVisualização de dados\n\n\n\nIntrodução à visualização gráfica no R: gráficos de barras, histogramas, boxplots, gráficos de dispersão e exportação de figuras.\n\n\n\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "anova.html",
+    "href": "anova.html",
+    "title": "Análise de variância",
+    "section": "",
+    "text": "Análise de variância de um fator\n\n\n\n\n\nAnálise de variância, partição da soma de quadrados, teste F.\n\n\n\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "fundamentos_probabilidade.html",
+    "href": "fundamentos_probabilidade.html",
+    "title": "Fundamentos de probabilidades",
+    "section": "",
+    "text": "Espaço de Possibilidades de um experimento\n\n\n\n\n\n\nespaço amostral\n\n\nevento\n\n\nexperimento aleatório\n\n\ndefinição de probabilidade\n\n\n\nFundamentos de Probabilidade\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nCombinando as probabilidades de eventos\n\n\n\n\n\n\neventos complexos\n\n\ndiagrama de Venn\n\n\nDiagrama de árvore\n\n\nunião de eventos\n\n\n\nFundamentos de Probabilidade\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nProbabilidade Condicional\n\n\n\n\n\n\nprobabilidade condicional\n\n\neventos dependentes\n\n\nteorema de Bayes\n\n\ndiagrama de árvore\n\n\n\nFundamentos de Probabilidade\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nTeorema de Bayes\n\n\n\n\n\n\nteorema de Bayes\n\n\nprobabilidade condicional\n\n\neventos dependentes\n\n\n\nFundamentos de Probabilidade\n\n\n\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "estrutura_dados.html",

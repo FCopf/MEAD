@@ -2,174 +2,194 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://github.com/FCopf/MEAD/conteudo/introducao_r/data-frames.html</loc>
-    <lastmod>2025-03-30T17:46:56.392Z</lastmod>
+    <lastmod>2025-04-01T01:59:52.240Z</lastmod>
   </url>
   <url>
     <loc>https://github.com/FCopf/MEAD/conteudo/introducao_r/graficos-r.html</loc>
-    <lastmod>2025-03-30T17:46:56.392Z</lastmod>
+    <lastmod>2025-04-01T01:59:52.240Z</lastmod>
   </url>
   <url>
     <loc>https://github.com/FCopf/MEAD/conteudo/medidas_associacao/biquanti.html</loc>
-    <lastmod>2025-03-30T17:46:56.396Z</lastmod>
+    <lastmod>2025-04-01T01:59:52.244Z</lastmod>
   </url>
   <url>
     <loc>https://github.com/FCopf/MEAD/conteudo/medidas_associacao/biquantquali.html</loc>
-    <lastmod>2025-03-30T17:46:56.396Z</lastmod>
+    <lastmod>2025-04-01T01:59:52.244Z</lastmod>
   </url>
   <url>
     <loc>https://github.com/FCopf/MEAD/conteudo/amostragem/pop_amostra.html</loc>
-    <lastmod>2025-03-30T17:46:56.362Z</lastmod>
+    <lastmod>2025-04-01T01:59:52.183Z</lastmod>
   </url>
   <url>
     <loc>https://github.com/FCopf/MEAD/conteudo/estatistica_descritiva/quartis.html</loc>
-    <lastmod>2025-03-30T17:46:56.381Z</lastmod>
+    <lastmod>2025-04-01T01:59:52.201Z</lastmod>
   </url>
   <url>
     <loc>https://github.com/FCopf/MEAD/conteudo/estatistica_descritiva/variacao.html</loc>
-    <lastmod>2025-03-30T17:46:56.381Z</lastmod>
+    <lastmod>2025-04-01T01:59:52.202Z</lastmod>
   </url>
   <url>
     <loc>https://github.com/FCopf/MEAD/conteudo/estatistica_descritiva/tendcentral.html</loc>
-    <lastmod>2025-03-30T17:46:56.381Z</lastmod>
+    <lastmod>2025-04-01T01:59:52.202Z</lastmod>
   </url>
   <url>
     <loc>https://github.com/FCopf/MEAD/conteudo/inferencia_estatistica/int_conf.html</loc>
-    <lastmod>2025-03-30T17:46:56.392Z</lastmod>
+    <lastmod>2025-04-01T01:59:52.240Z</lastmod>
   </url>
   <url>
     <loc>https://github.com/FCopf/MEAD/conteudo/inferencia_estatistica/teorema_central_limite.html</loc>
-    <lastmod>2025-03-30T17:46:56.392Z</lastmod>
+    <lastmod>2025-04-01T01:59:52.240Z</lastmod>
   </url>
   <url>
     <loc>https://github.com/FCopf/MEAD/conteudo/teste_hipoteses/intro_testehipot.html</loc>
-    <lastmod>2025-03-30T17:46:56.420Z</lastmod>
+    <lastmod>2025-04-01T01:59:52.267Z</lastmod>
   </url>
   <url>
     <loc>https://github.com/FCopf/MEAD/conteudo/anova/anova_simples.html</loc>
-    <lastmod>2025-03-30T17:46:56.363Z</lastmod>
+    <lastmod>2025-04-01T01:59:52.183Z</lastmod>
+  </url>
+  <url>
+    <loc>https://github.com/FCopf/MEAD/conteudo/fundamentos_probabilidade/espaco_amostral.html</loc>
+    <lastmod>2025-04-01T01:59:52.204Z</lastmod>
+  </url>
+  <url>
+    <loc>https://github.com/FCopf/MEAD/conteudo/fundamentos_probabilidade/combina_probabilidades.html</loc>
+    <lastmod>2025-04-01T01:59:52.204Z</lastmod>
   </url>
   <url>
     <loc>https://github.com/FCopf/MEAD/conteudo/ciencia_dados/transform.html</loc>
-    <lastmod>2025-03-30T17:46:56.375Z</lastmod>
+    <lastmod>2025-04-01T01:59:52.196Z</lastmod>
   </url>
   <url>
     <loc>https://github.com/FCopf/MEAD/conteudo/ciencia_dados/tidyverse.html</loc>
-    <lastmod>2025-03-30T17:46:56.375Z</lastmod>
+    <lastmod>2025-04-01T01:59:52.196Z</lastmod>
   </url>
   <url>
     <loc>https://github.com/FCopf/MEAD/conteudo/regressao_linear/regressao_linear_multipla.html</loc>
-    <lastmod>2025-03-30T17:46:56.416Z</lastmod>
+    <lastmod>2025-04-01T01:59:52.263Z</lastmod>
   </url>
   <url>
     <loc>https://github.com/FCopf/MEAD/conteudo/estrutura_dados/estrutura_tipo.html</loc>
-    <lastmod>2025-03-30T17:46:56.382Z</lastmod>
+    <lastmod>2025-04-01T01:59:52.202Z</lastmod>
   </url>
   <url>
     <loc>https://github.com/FCopf/MEAD/amostragem.html</loc>
-    <lastmod>2025-03-30T17:46:56.357Z</lastmod>
-  </url>
-  <url>
-    <loc>https://github.com/FCopf/MEAD/anova.html</loc>
-    <lastmod>2025-03-30T17:46:56.357Z</lastmod>
-  </url>
-  <url>
-    <loc>https://github.com/FCopf/MEAD/introducao_r.html</loc>
-    <lastmod>2025-03-30T17:46:56.438Z</lastmod>
-  </url>
-  <url>
-    <loc>https://github.com/FCopf/MEAD/regressao_linear.html</loc>
-    <lastmod>2025-03-30T17:46:56.438Z</lastmod>
-  </url>
-  <url>
-    <loc>https://github.com/FCopf/MEAD/teste_hipoteses.html</loc>
-    <lastmod>2025-03-30T17:46:56.439Z</lastmod>
-  </url>
-  <url>
-    <loc>https://github.com/FCopf/MEAD/medidas_associacao.html</loc>
-    <lastmod>2025-03-30T17:46:56.438Z</lastmod>
-  </url>
-  <url>
-    <loc>https://github.com/FCopf/MEAD/index.html</loc>
-    <lastmod>2025-03-30T17:46:56.438Z</lastmod>
-  </url>
-  <url>
-    <loc>https://github.com/FCopf/MEAD/estatistica_descritiva.html</loc>
-    <lastmod>2025-03-30T17:46:56.420Z</lastmod>
-  </url>
-  <url>
-    <loc>https://github.com/FCopf/MEAD/inferencia_estatistica.html</loc>
-    <lastmod>2025-03-30T17:46:56.438Z</lastmod>
-  </url>
-  <url>
-    <loc>https://github.com/FCopf/MEAD/ciencia_dados.html</loc>
-    <lastmod>2025-03-30T17:46:56.357Z</lastmod>
+    <lastmod>2025-04-01T01:59:52.178Z</lastmod>
   </url>
   <url>
     <loc>https://github.com/FCopf/MEAD/modelos_probabilisticos.html</loc>
-    <lastmod>2025-03-30T17:46:56.438Z</lastmod>
+    <lastmod>2025-04-01T01:59:52.292Z</lastmod>
+  </url>
+  <url>
+    <loc>https://github.com/FCopf/MEAD/ciencia_dados.html</loc>
+    <lastmod>2025-04-01T01:59:52.178Z</lastmod>
+  </url>
+  <url>
+    <loc>https://github.com/FCopf/MEAD/inferencia_estatistica.html</loc>
+    <lastmod>2025-04-01T01:59:52.292Z</lastmod>
+  </url>
+  <url>
+    <loc>https://github.com/FCopf/MEAD/estatistica_descritiva.html</loc>
+    <lastmod>2025-04-01T01:59:52.267Z</lastmod>
+  </url>
+  <url>
+    <loc>https://github.com/FCopf/MEAD/index.html</loc>
+    <lastmod>2025-04-01T01:59:52.292Z</lastmod>
+  </url>
+  <url>
+    <loc>https://github.com/FCopf/MEAD/medidas_associacao.html</loc>
+    <lastmod>2025-04-01T01:59:52.292Z</lastmod>
+  </url>
+  <url>
+    <loc>https://github.com/FCopf/MEAD/teste_hipoteses.html</loc>
+    <lastmod>2025-04-01T01:59:52.294Z</lastmod>
+  </url>
+  <url>
+    <loc>https://github.com/FCopf/MEAD/regressao_linear.html</loc>
+    <lastmod>2025-04-01T01:59:52.292Z</lastmod>
+  </url>
+  <url>
+    <loc>https://github.com/FCopf/MEAD/introducao_r.html</loc>
+    <lastmod>2025-04-01T01:59:52.292Z</lastmod>
+  </url>
+  <url>
+    <loc>https://github.com/FCopf/MEAD/anova.html</loc>
+    <lastmod>2025-04-01T01:59:52.178Z</lastmod>
+  </url>
+  <url>
+    <loc>https://github.com/FCopf/MEAD/fundamentos_probabilidade.html</loc>
+    <lastmod>2025-04-01T01:59:52.267Z</lastmod>
   </url>
   <url>
     <loc>https://github.com/FCopf/MEAD/estrutura_dados.html</loc>
-    <lastmod>2025-03-30T17:46:56.420Z</lastmod>
+    <lastmod>2025-04-01T01:59:52.267Z</lastmod>
   </url>
   <url>
     <loc>https://github.com/FCopf/MEAD/conteudo/regressao_linear/regressao_linear_simples.html</loc>
-    <lastmod>2025-03-30T17:46:56.417Z</lastmod>
+    <lastmod>2025-04-01T01:59:52.263Z</lastmod>
   </url>
   <url>
     <loc>https://github.com/FCopf/MEAD/conteudo/ciencia_dados/pipe.html</loc>
-    <lastmod>2025-03-30T17:46:56.375Z</lastmod>
+    <lastmod>2025-04-01T01:59:52.196Z</lastmod>
   </url>
   <url>
     <loc>https://github.com/FCopf/MEAD/conteudo/ciencia_dados/import_export.html</loc>
-    <lastmod>2025-03-30T17:46:56.375Z</lastmod>
+    <lastmod>2025-04-01T01:59:52.196Z</lastmod>
   </url>
   <url>
     <loc>https://github.com/FCopf/MEAD/conteudo/ciencia_dados/grafico_ggplot2.html</loc>
-    <lastmod>2025-03-30T17:46:56.370Z</lastmod>
+    <lastmod>2025-04-01T01:59:52.190Z</lastmod>
+  </url>
+  <url>
+    <loc>https://github.com/FCopf/MEAD/conteudo/fundamentos_probabilidade/probabilidade_condicional.html</loc>
+    <lastmod>2025-04-01T01:59:52.231Z</lastmod>
+  </url>
+  <url>
+    <loc>https://github.com/FCopf/MEAD/conteudo/fundamentos_probabilidade/teorema_bayes.html</loc>
+    <lastmod>2025-04-01T01:59:52.231Z</lastmod>
   </url>
   <url>
     <loc>https://github.com/FCopf/MEAD/conteudo/teste_hipoteses/teste_t.html</loc>
-    <lastmod>2025-03-30T17:46:56.420Z</lastmod>
+    <lastmod>2025-04-01T01:59:52.267Z</lastmod>
   </url>
   <url>
     <loc>https://github.com/FCopf/MEAD/conteudo/teste_hipoteses/teste_variancia.html</loc>
-    <lastmod>2025-03-30T17:46:56.420Z</lastmod>
+    <lastmod>2025-04-01T01:59:52.267Z</lastmod>
   </url>
   <url>
     <loc>https://github.com/FCopf/MEAD/conteudo/inferencia_estatistica/distr_norm.html</loc>
-    <lastmod>2025-03-30T17:46:56.384Z</lastmod>
+    <lastmod>2025-04-01T01:59:52.231Z</lastmod>
   </url>
   <url>
     <loc>https://github.com/FCopf/MEAD/conteudo/estatistica_descritiva/varquant.html</loc>
-    <lastmod>2025-03-30T17:46:56.381Z</lastmod>
+    <lastmod>2025-04-01T01:59:52.202Z</lastmod>
   </url>
   <url>
     <loc>https://github.com/FCopf/MEAD/conteudo/estatistica_descritiva/escorez.html</loc>
-    <lastmod>2025-03-30T17:46:56.375Z</lastmod>
+    <lastmod>2025-04-01T01:59:52.196Z</lastmod>
   </url>
   <url>
     <loc>https://github.com/FCopf/MEAD/conteudo/estatistica_descritiva/varqualit.html</loc>
-    <lastmod>2025-03-30T17:46:56.381Z</lastmod>
+    <lastmod>2025-04-01T01:59:52.202Z</lastmod>
   </url>
   <url>
     <loc>https://github.com/FCopf/MEAD/conteudo/metodos_probabilisticos/intro-bayes.html</loc>
-    <lastmod>2025-03-30T17:46:56.403Z</lastmod>
+    <lastmod>2025-04-01T01:59:52.251Z</lastmod>
   </url>
   <url>
     <loc>https://github.com/FCopf/MEAD/conteudo/amostragem/tipos_amostragem.html</loc>
-    <lastmod>2025-03-30T17:46:56.363Z</lastmod>
+    <lastmod>2025-04-01T01:59:52.183Z</lastmod>
   </url>
   <url>
     <loc>https://github.com/FCopf/MEAD/conteudo/medidas_associacao/biquali.html</loc>
-    <lastmod>2025-03-30T17:46:56.396Z</lastmod>
+    <lastmod>2025-04-01T01:59:52.244Z</lastmod>
   </url>
   <url>
     <loc>https://github.com/FCopf/MEAD/conteudo/medidas_associacao/series.html</loc>
-    <lastmod>2025-03-30T17:46:56.400Z</lastmod>
+    <lastmod>2025-04-01T01:59:52.248Z</lastmod>
   </url>
   <url>
     <loc>https://github.com/FCopf/MEAD/conteudo/introducao_r/estrutura-linguagem.html</loc>
-    <lastmod>2025-03-30T17:46:56.392Z</lastmod>
+    <lastmod>2025-04-01T01:59:52.240Z</lastmod>
   </url>
 </urlset>

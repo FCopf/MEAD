@@ -6,9 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="description" content="Fundamentos do teste de hipóteses, erros do tipo I e II e valor de p.">
+<meta name="description" content="Definição de probabilidade, probabilidade de eventos independentes, probabilidade condicional e Teorema de Bayes">
 
-<title>Teste de hipóteses – Métodos em Estatística e Análise de Dados</title>
+<title>Fundamentos de probabilidades – Métodos em Estatística e Análise de Dados</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -130,10 +130,12 @@ window.Quarto = {
 </script>
 
 <link rel="stylesheet" href="styles/custom.css">
-<meta property="og:title" content="Teste de hipóteses – Métodos em Estatística e Análise de Dados">
-<meta property="og:description" content="Fundamentos do teste de hipóteses, erros do tipo I e II e valor de p.">
-<meta property="og:image" content="https://github.com/FCopf/MEAD/images/teste_hipoteses.jpg">
+<meta property="og:title" content="Fundamentos de probabilidades – Métodos em Estatística e Análise de Dados">
+<meta property="og:description" content="Definição de probabilidade, probabilidade de eventos independentes, probabilidade condicional e Teorema de Bayes">
+<meta property="og:image" content="https://github.com/FCopf/MEAD/images/fundamentos_probabilidade.png">
 <meta property="og:site_name" content="Métodos em Estatística e Análise de Dados">
+<meta property="og:image:height" content="1024">
+<meta property="og:image:width" content="1536">
 </head>
 
 <body class="nav-fixed">
@@ -180,17 +182,20 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Teste de hipóteses</h1>
+<h1 class="title">Fundamentos de probabilidades</h1>
   <div class="quarto-categories">
-    <div class="quarto-category">Inferência Estatística</div>
-    <div class="quarto-category">Teste de hipóteses</div>
-    <div class="quarto-category">Análise de Dados</div>
+    <div class="quarto-category">espaço amostral</div>
+    <div class="quarto-category">união</div>
+    <div class="quarto-category">intersecção</div>
+    <div class="quarto-category">eventos independentes</div>
+    <div class="quarto-category">probabilidade condicional</div>
+    <div class="quarto-category">Teorema de Bayes</div>
   </div>
   </div>
 
 <div>
   <div class="description">
-    Fundamentos do teste de hipóteses, erros do tipo I e II e valor de p.
+    Definição de probabilidade, probabilidade de eventos independentes, probabilidade condicional e Teorema de Bayes
   </div>
 </div>
 
@@ -213,69 +218,144 @@ window.Quarto = {
 
 <div class="quarto-listing quarto-listing-container-default" id="listing-listing">
 <div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-listing-file-modified-sort="1743472792267" data-listing-reading-time-sort="20" data-listing-word-count-sort="3825">
+<div class="quarto-post image-right" data-index="0" data-categories="ZXNwYSVDMyVBN28lMjBhbW9zdHJhbCUyQ2V2ZW50byUyQ2V4cGVyaW1lbnRvJTIwYWxlYXQlQzMlQjNyaW8lMkNkZWZpbmklQzMlQTclQzMlQTNvJTIwZGUlMjBwcm9iYWJpbGlkYWRl" data-listing-file-modified-sort="1743472792204" data-listing-reading-time-sort="4" data-listing-word-count-sort="761">
 <div class="thumbnail">
-<p><a href="./conteudo/teste_hipoteses/intro_testehipot.html" class="no-external"></a></p><a href="./conteudo/teste_hipoteses/intro_testehipot.html" class="no-external">
-<p><img loading="lazy" src="./conteudo/teste_hipoteses/images/intro_testehipot.jpg" class="thumbnail-image"></p>
-</a><p><a href="./conteudo/teste_hipoteses/intro_testehipot.html" class="no-external"></a></p>
+<p><a href="./conteudo/fundamentos_probabilidade/espaco_amostral.html" class="no-external"></a></p><a href="./conteudo/fundamentos_probabilidade/espaco_amostral.html" class="no-external">
+<p><img loading="lazy" src="./conteudo/fundamentos_probabilidade/images/espaco_amostral.png" class="thumbnail-image"></p>
+</a><p><a href="./conteudo/fundamentos_probabilidade/espaco_amostral.html" class="no-external"></a></p>
 </div>
 <div class="body">
 <h3 class="no-anchor listing-title">
-<a href="./conteudo/teste_hipoteses/intro_testehipot.html" class="no-external">Introdução ao Teste de Hipóteses</a>
+<a href="./conteudo/fundamentos_probabilidade/espaco_amostral.html" class="no-external">Espaço de Possibilidades de um experimento</a>
 </h3>
 <div class="listing-subtitle">
-<a href="./conteudo/teste_hipoteses/intro_testehipot.html" class="no-external"></a>
+<a href="./conteudo/fundamentos_probabilidade/espaco_amostral.html" class="no-external"></a>
+</div>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('ZXNwYSVDMyVBN28lMjBhbW9zdHJhbA=='); return false;">
+espaço amostral
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('ZXZlbnRv'); return false;">
+evento
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('ZXhwZXJpbWVudG8lMjBhbGVhdCVDMyVCM3Jpbw=='); return false;">
+experimento aleatório
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('ZGVmaW5pJUMzJUE3JUMzJUEzbyUyMGRlJTIwcHJvYmFiaWxpZGFkZQ=='); return false;">
+definição de probabilidade
+</div>
 </div>
 <div class="listing-description">
-<a href="./conteudo/teste_hipoteses/intro_testehipot.html" class="no-external">Hipóteses nula/alternativa, erros do Tipo I/II, valor do p e nível de significância</a>
+<a href="./conteudo/fundamentos_probabilidade/espaco_amostral.html" class="no-external">Fundamentos de Probabilidade</a>
 </div>
 </div>
 <div class="metadata">
-<p><a href="./conteudo/teste_hipoteses/intro_testehipot.html" class="no-external"></a></p><a href="./conteudo/teste_hipoteses/intro_testehipot.html" class="no-external">
+<p><a href="./conteudo/fundamentos_probabilidade/espaco_amostral.html" class="no-external"></a></p><a href="./conteudo/fundamentos_probabilidade/espaco_amostral.html" class="no-external">
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="1" data-listing-file-modified-sort="1743472792267" data-listing-reading-time-sort="7" data-listing-word-count-sort="1368">
+<div class="quarto-post image-right" data-index="1" data-categories="ZXZlbnRvcyUyMGNvbXBsZXhvcyUyQ2RpYWdyYW1hJTIwZGUlMjBWZW5uJTJDRGlhZ3JhbWElMjBkZSUyMCVDMyVBMXJ2b3JlJTJDdW5pJUMzJUEzbyUyMGRlJTIwZXZlbnRvcw==" data-listing-file-modified-sort="1743472792204" data-listing-reading-time-sort="5" data-listing-word-count-sort="891">
 <div class="thumbnail">
-<p><a href="./conteudo/teste_hipoteses/teste_variancia.html" class="no-external"></a></p><a href="./conteudo/teste_hipoteses/teste_variancia.html" class="no-external">
-<p><img loading="lazy" src="./conteudo/teste_hipoteses/images/teste_variancia.jpg" class="thumbnail-image"></p>
-</a><p><a href="./conteudo/teste_hipoteses/teste_variancia.html" class="no-external"></a></p>
+<p><a href="./conteudo/fundamentos_probabilidade/combina_probabilidades.html" class="no-external"></a></p><a href="./conteudo/fundamentos_probabilidade/combina_probabilidades.html" class="no-external">
+<p><img loading="lazy" src="./conteudo/fundamentos_probabilidade/images/eventos_complexos.png" class="thumbnail-image"></p>
+</a><p><a href="./conteudo/fundamentos_probabilidade/combina_probabilidades.html" class="no-external"></a></p>
 </div>
 <div class="body">
 <h3 class="no-anchor listing-title">
-<a href="./conteudo/teste_hipoteses/teste_variancia.html" class="no-external">Comparando variâncias</a>
+<a href="./conteudo/fundamentos_probabilidade/combina_probabilidades.html" class="no-external">Combinando as probabilidades de eventos</a>
 </h3>
 <div class="listing-subtitle">
-<a href="./conteudo/teste_hipoteses/teste_variancia.html" class="no-external"></a>
+<a href="./conteudo/fundamentos_probabilidade/combina_probabilidades.html" class="no-external"></a>
+</div>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('ZXZlbnRvcyUyMGNvbXBsZXhvcw=='); return false;">
+eventos complexos
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('ZGlhZ3JhbWElMjBkZSUyMFZlbm4='); return false;">
+diagrama de Venn
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('RGlhZ3JhbWElMjBkZSUyMCVDMyVBMXJ2b3Jl'); return false;">
+Diagrama de árvore
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('dW5pJUMzJUEzbyUyMGRlJTIwZXZlbnRvcw=='); return false;">
+união de eventos
+</div>
 </div>
 <div class="listing-description">
-<a href="./conteudo/teste_hipoteses/teste_variancia.html" class="no-external">Comparando variâncias, teste F e teste de Levene.</a>
+<a href="./conteudo/fundamentos_probabilidade/combina_probabilidades.html" class="no-external">Fundamentos de Probabilidade</a>
 </div>
 </div>
 <div class="metadata">
-<p><a href="./conteudo/teste_hipoteses/teste_variancia.html" class="no-external"></a></p><a href="./conteudo/teste_hipoteses/teste_variancia.html" class="no-external">
+<p><a href="./conteudo/fundamentos_probabilidade/combina_probabilidades.html" class="no-external"></a></p><a href="./conteudo/fundamentos_probabilidade/combina_probabilidades.html" class="no-external">
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="2" data-listing-file-modified-sort="1743472792267" data-listing-reading-time-sort="12" data-listing-word-count-sort="2230">
+<div class="quarto-post image-right" data-index="2" data-categories="cHJvYmFiaWxpZGFkZSUyMGNvbmRpY2lvbmFsJTJDZXZlbnRvcyUyMGRlcGVuZGVudGVzJTJDdGVvcmVtYSUyMGRlJTIwQmF5ZXMlMkNkaWFncmFtYSUyMGRlJTIwJUMzJUExcnZvcmU=" data-listing-file-modified-sort="1743472792231" data-listing-reading-time-sort="1" data-listing-word-count-sort="1">
 <div class="thumbnail">
-<p><a href="./conteudo/teste_hipoteses/teste_t.html" class="no-external"></a></p><a href="./conteudo/teste_hipoteses/teste_t.html" class="no-external">
-<p><img loading="lazy" src="./conteudo/teste_hipoteses/images/teste_t.jpg" class="thumbnail-image"></p>
-</a><p><a href="./conteudo/teste_hipoteses/teste_t.html" class="no-external"></a></p>
+<p><a href="./conteudo/fundamentos_probabilidade/probabilidade_condicional.html" class="no-external"></a></p><a href="./conteudo/fundamentos_probabilidade/probabilidade_condicional.html" class="no-external">
+<p><img loading="lazy" src="./conteudo/fundamentos_probabilidade/images/probabilidade_condicional.png" class="thumbnail-image"></p>
+</a><p><a href="./conteudo/fundamentos_probabilidade/probabilidade_condicional.html" class="no-external"></a></p>
 </div>
 <div class="body">
 <h3 class="no-anchor listing-title">
-<a href="./conteudo/teste_hipoteses/teste_t.html" class="no-external">Comparando médias: teste t de Student</a>
+<a href="./conteudo/fundamentos_probabilidade/probabilidade_condicional.html" class="no-external">Probabilidade Condicional</a>
 </h3>
 <div class="listing-subtitle">
-<a href="./conteudo/teste_hipoteses/teste_t.html" class="no-external"></a>
+<a href="./conteudo/fundamentos_probabilidade/probabilidade_condicional.html" class="no-external"></a>
+</div>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('cHJvYmFiaWxpZGFkZSUyMGNvbmRpY2lvbmFs'); return false;">
+probabilidade condicional
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('ZXZlbnRvcyUyMGRlcGVuZGVudGVz'); return false;">
+eventos dependentes
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('dGVvcmVtYSUyMGRlJTIwQmF5ZXM='); return false;">
+teorema de Bayes
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('ZGlhZ3JhbWElMjBkZSUyMCVDMyVBMXJ2b3Jl'); return false;">
+diagrama de árvore
+</div>
 </div>
 <div class="listing-description">
-<a href="./conteudo/teste_hipoteses/teste_t.html" class="no-external">Comparando médias testes t para uma amostra, grupos independentes e medidas pareadas.</a>
+<a href="./conteudo/fundamentos_probabilidade/probabilidade_condicional.html" class="no-external">Fundamentos de Probabilidade</a>
 </div>
 </div>
 <div class="metadata">
-<p><a href="./conteudo/teste_hipoteses/teste_t.html" class="no-external"></a></p><a href="./conteudo/teste_hipoteses/teste_t.html" class="no-external">
+<p><a href="./conteudo/fundamentos_probabilidade/probabilidade_condicional.html" class="no-external"></a></p><a href="./conteudo/fundamentos_probabilidade/probabilidade_condicional.html" class="no-external">
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="3" data-categories="dGVvcmVtYSUyMGRlJTIwQmF5ZXMlMkNwcm9iYWJpbGlkYWRlJTIwY29uZGljaW9uYWwlMkNldmVudG9zJTIwZGVwZW5kZW50ZXM=" data-listing-file-modified-sort="1743472792231" data-listing-reading-time-sort="1" data-listing-word-count-sort="1">
+<div class="thumbnail">
+<p><a href="./conteudo/fundamentos_probabilidade/teorema_bayes.html" class="no-external"></a></p><a href="./conteudo/fundamentos_probabilidade/teorema_bayes.html" class="no-external">
+<p><img loading="lazy" src="./conteudo/fundamentos_probabilidade/images/teorema_bayes.png" class="thumbnail-image"></p>
+</a><p><a href="./conteudo/fundamentos_probabilidade/teorema_bayes.html" class="no-external"></a></p>
+</div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="./conteudo/fundamentos_probabilidade/teorema_bayes.html" class="no-external">Teorema de Bayes</a>
+</h3>
+<div class="listing-subtitle">
+<a href="./conteudo/fundamentos_probabilidade/teorema_bayes.html" class="no-external"></a>
+</div>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('dGVvcmVtYSUyMGRlJTIwQmF5ZXM='); return false;">
+teorema de Bayes
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('cHJvYmFiaWxpZGFkZSUyMGNvbmRpY2lvbmFs'); return false;">
+probabilidade condicional
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('ZXZlbnRvcyUyMGRlcGVuZGVudGVz'); return false;">
+eventos dependentes
+</div>
+</div>
+<div class="listing-description">
+<a href="./conteudo/fundamentos_probabilidade/teorema_bayes.html" class="no-external">Fundamentos de Probabilidade</a>
+</div>
+</div>
+<div class="metadata">
+<p><a href="./conteudo/fundamentos_probabilidade/teorema_bayes.html" class="no-external"></a></p><a href="./conteudo/fundamentos_probabilidade/teorema_bayes.html" class="no-external">
 </a>
 </div>
 </div>
