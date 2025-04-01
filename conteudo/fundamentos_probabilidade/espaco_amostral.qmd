@@ -1,0 +1,151 @@
+---
+title: Espaço de Possibilidades de um experimento
+description: Fundamentos de Probabilidade
+categories: ["espaço amostral", "evento", "experimento aleatório", "definição de probabilidade"]
+image: "images/espaco_amostral.png"
+execute:
+  echo: true
+  warning: false
+  include: true
+  message: false
+---
+
+:::{.callout-tip collapse="true"}
+## Pacotes e funções utilizadas
+
+```{r}
+#| output: false
+library(tidyverse)
+library(gt)
+```
+:::
+
+```{r}
+#| include: false
+#| echo: false
+espaco <- function(dimensionX, dimensionY){
+  par(mai = c(0,0,0,0))
+  plot(1:6, type = "n", ylim = c(-1,dimensionY+1), xlim = c(-1,dimensionX+1), axes = FALSE, ylab = '', xlab = '')
+  rect(xleft=0, ybottom=0, xright=dimensionX, ytop=dimensionY)
+  segments(x0=1:(dimensionX-1), x1=1:(dimensionX-1), y0=0, y1=dimensionY)
+  segments(y0=1:(dimensionY-1), y1=1:(dimensionY-1), x0=0, x1=dimensionX)
+  text(x=seq(0.5, dimensionX-0.5, by=1), y=dimensionY+0.5, labels=1:dimensionX, font=2, cex=1.1)
+  text(y=seq(dimensionY-0.5, 0.5, by=-1), x=-0.5, labels=1:dimensionY, font=2, cex=1.1)
+}
+
+evento <- function(evX0, evX1, evY0, evY1, ev_col = rgb(red = 0.1, green = 0.1, blue = 0.5, alpha = 0.4),
+                   name = "A", ev_font = 2, ev_cex = 1.2){
+  rect(xleft=evX0, xright=evX1, ybottom=evY0, ytop=evY1, col=ev_col)
+  text(x=evX0+0.5, y=evY0+0.5, labels=name, font=ev_font, cex=ev_cex)
+}
+
+sizeX = sizeY = 10
+```
+
+Considere uma pesquisa para determinar os locais de ocorrência de uma espécie de peixe endêmica de riachos costeiros de Mata Atlântica no sudeste do Brasil. A pesquisa envolve amostrar trechos de riachos em diferentes bacias hidrográficas da região. Ao amostrar um determinado riacho, o pesquisador não sabe antecipadamente se irá ou não encontrar a espécie. Em probabilidade, chamamos esse ato de **experimento aleatório**, pois o resultado só é conhecido **após** a realização. 
+
+Embora não saibamos o resultado de um experimento específico, sabemos **quais** são os resultados possíveis. Neste exemplo, vamos assumir que existem apenas dois resultados para o ato de amostrar um riacho: ou a espécie *ocorre*, ou *não ocorre*.
+
+- **Evento**: cada resultado (ocorre ou não-ocorre).
+- **Espaço amostral**: conjunto de **todas** as possibilidades de um experimento. Usualmente denotado por $\Omega$.
+
+No caso em questão:
+
+$\Omega = {(ocorre), (não-ocorre)}$
+
+::: {.callout-note title="Definições"}
+**Experimento aleatório**: aquele cujos possíveis resultados são conhecidos, mas só observados **após** a realização do experimento.  
+**Espaço amostral**: o conjunto de **todas** as possibilidades de um experimento aleatório.  
+**Evento**: cada resultado específico do experimento.
+:::
+
+## Probabilidades de um evento
+
+Mesmo sem saber o resultado de um experimento particular, podemos perguntar sobre a *chance* de cada evento ocorrer. Em termos probabilísticos, estamos interessados em $P(ocorre)$. Quando $P(ocorre) = 0$, significa que a espécie jamais ocorre nos riachos; quando $P(ocorre) = 1$, significa que a espécie ocorre em todos os riachos. Na prática, a probabilidade ficará entre esses extremos: $0 \le P(ocorre) \le 1$.
+
+Podemos estimar essa probabilidade empiricamente. Suponha que planejamos amostrar um determinado número de riachos, observando quantas vezes a espécie é capturada.
+
+```{r}
+#| include: false
+#| echo: false
+n <- 10
+p <- 0.1
+set.seed(7)
+nocorrencias <- rbinom(n=1, size=n, prob=p)
+pe <- nocorrencias / n
+```
+
+Digamos que em certo dia foram amostrados `r n` riachos e a espécie foi registrada em `r nocorrencias` deles. Nossa **estimativa** da probabilidade de ocorrência será:
+
+$$P(ocorre) = \frac{\#ocorres}{\#riachos} = \frac{`r nocorrencias`}{`r n`} = `r pe`$$
+
+Naturalmente, como os dois eventos no espaço amostral são $(ocorre)$ e $(não-ocorre)$, a probabilidade de não-ocorrência é:
+
+$$P(não-ocorre) = 1 - \frac{\#não-ocorre}{\#riachos} = 1 - \frac{`r (nocorrencias)`}{`r n`} = `r 1-pe`$$
+
+e, sendo eventos mutuamente exclusivos e exaustivos (não podem ocorrer juntos e são as únicas possibilidades), temos:
+
+$$P(ocorre) + P(não-ocorre) = `r pe + (1-pe)` = P(\Omega)$$
+
+
+A probabilidade de não-ocorrência também é conhecida como **complemento** de $P(ocorre)$, frequentemente denotado por $P(\overline{ocorre})$:
+
+$$P(não-ocorre) = P(\overline{ocorre})$$
+
+
+### Estimando probabilidades
+
+A estimativa acima descreve o resultado para um conjunto fixo de `r n` riachos. No entanto, se continuarmos a amostrar novos riachos, essa estimativa pode variar, pois eventualmente encontraremos mais (ou menos) riachos com a espécie presente. Assim, com um número **finito** de observações, nossa estimativa não será exatamente igual à probabilidade real.
+
+```{r}
+#| include: false
+#| echo: false
+riachos <- 30
+p <- 0.3
+set.seed(8)
+nriachos <- 1:riachos
+ocorres <- rbinom(n=riachos, size=1, prob=p)
+sum_ocorres <- cumsum(ocorres)
+p_ocorres <- sum_ocorres / nriachos
+```
+
+Suponha que repetimos o experimento em `r riachos` riachos. A cada nova amostra coletada, calculamos a fração acumulada de ocorrências:
+
+```{r}
+#| include: true
+#| echo: false
+experimento <- tibble(
+  Observações = nriachos,
+  `Ocorrência acumulada` = sum_ocorres,
+  `P(ocorre)` = p_ocorres
+)
+
+experimento |> 
+  gt()
+```
+
+```{r}
+#| include: true
+#| echo: false
+#| fig-align: 'center'
+#| height: 5
+#| width: 7
+ggplot(experimento, aes(x = Observações, y = `P(ocorre)`)) +
+  geom_point() +
+  geom_line(linetype = "dashed") +
+  labs(
+    x = "Número de observações",
+    y = expression(hat(P)~"(ocorrência)")
+  ) +
+  scale_x_continuous(breaks = seq(0, riachos, by = 2)) +
+  theme_classic()
+```
+
+Note como a estimativa de $P(ocorre)$ oscila. Espera-se que este valor gradualmente aproxime-se para probabilidade real à medida que o número de observações cresce.
+
+::: {.callout-note}
+### Lei dos Grandes Números
+
+A **Lei dos Grandes Números** afirma que, à medida que o número de repetições de um experimento aleatório cresce, a frequência relativa de um evento tende a se aproximar da probabilidade real desse evento. Portanto, se continuarmos amostrando mais riachos, a proporção de vezes em que a espécie ocorre deve convergir para a probabilidade verdadeira de ocorrência.
+:::
+

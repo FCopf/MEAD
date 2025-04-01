@@ -1,0 +1,15 @@
+---
+title: Probabilidade Condicional
+description: Fundamentos de Probabilidade
+categories: ["probabilidade condicional", "eventos dependentes", "teorema de Bayes", "diagrama de árvore"]
+image: "images/probabilidade_condicional.png"
+execute:
+  echo: true
+  warning: false
+  include: true
+  message: false
+
+format:
+  html:
+    self-contained: false
+---

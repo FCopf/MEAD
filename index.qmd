@@ -13,10 +13,12 @@ listing:
     - estatistica_descritiva.qmd
     - medidas_associacao.qmd
     - amostragem.qmd
+    - fundamentos_probabilidade.qmd
     - inferencia_estatistica.qmd
     - teste_hipoteses.qmd
     - anova.qmd
     - regressao_linear.qmd
+    
     # - modelos_probabilisticos.qmd    
   sort: false
   type: grid

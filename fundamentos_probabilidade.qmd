@@ -1,0 +1,24 @@
+---
+title: "Fundamentos de probabilidades"
+description: "Definição de probabilidade, probabilidade de eventos independentes, probabilidade condicional e Teorema de Bayes"
+categories: ["espaço amostral", "união", "intersecção", "eventos independentes", "probabilidade condicional", "Teorema de Bayes"]
+
+image: "images/fundamentos_probabilidade.png"
+listing:
+  contents:
+    - conteudo/fundamentos_probabilidade/espaco_amostral.qmd    
+    - conteudo/fundamentos_probabilidade/combina_probabilidades.qmd
+    - conteudo/fundamentos_probabilidade/probabilidade_condicional.qmd
+    - conteudo/fundamentos_probabilidade/teorema_bayes.qmd
+  sort: false
+  type: default
+  fields: 
+    - image
+    - title
+    - description
+    - categories
+format:
+  html:
+    toc: true
+    number-sections: true
+---

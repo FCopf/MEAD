@@ -1,0 +1,15 @@
+---
+title: Teorema de Bayes
+description: Fundamentos de Probabilidade
+categories: ["teorema de Bayes", "probabilidade condicional", "eventos dependentes"]
+image: "images/teorema_bayes.png"
+execute:
+  echo: true
+  warning: false
+  include: true
+  message: false
+
+format:
+  html:
+    self-contained: false
+---
