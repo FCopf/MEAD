@@ -8,7 +8,7 @@
 
 <meta name="description" content="Fundamentos de Probabilidade">
 
-<title>Probabilidade Condicional – Métodos em Estatística e Análise de Dados</title>
+<title>Probabilidade Condicional e independência – Métodos em Estatística e Análise de Dados</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -68,9 +102,38 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../../styles/custom.css">
-<meta property="og:title" content="Probabilidade Condicional – Métodos em Estatística e Análise de Dados">
+<meta property="og:title" content="Probabilidade Condicional e independência – Métodos em Estatística e Análise de Dados">
 <meta property="og:description" content="Fundamentos de Probabilidade">
 <meta property="og:image" content="https://github.com/FCopf/MEAD/conteudo/fundamentos_probabilidade/images/probabilidade_condicional.png">
 <meta property="og:site_name" content="Métodos em Estatística e Análise de Dados">
@@ -114,15 +177,25 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Nesta página</h2>
+   
+  <ul>
+  <li><a href="#eventos-independentes" id="toc-eventos-independentes" class="nav-link active" data-scroll-target="#eventos-independentes"><span class="header-section-number">1</span> Eventos independentes</a>
+  <ul class="collapse">
+  <li><a href="#exemplo-de-eventos-independentes" id="toc-exemplo-de-eventos-independentes" class="nav-link" data-scroll-target="#exemplo-de-eventos-independentes"><span class="header-section-number">1.1</span> Exemplo de eventos independentes</a></li>
+  </ul></li>
+  <li><a href="#eventos-independentes-vs-mutuamente-exclusivos" id="toc-eventos-independentes-vs-mutuamente-exclusivos" class="nav-link" data-scroll-target="#eventos-independentes-vs-mutuamente-exclusivos"><span class="header-section-number">2</span> Eventos independentes <em>vs</em> mutuamente exclusivos</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Probabilidade Condicional</h1>
+<h1 class="title">Probabilidade Condicional e independência</h1>
   <div class="quarto-categories">
     <div class="quarto-category">probabilidade condicional</div>
     <div class="quarto-category">eventos dependentes</div>
@@ -150,8 +223,731 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Pacotes e funções utilizadas
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gt)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggVennDiagram)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"scripts/tree_diagram.r"</span>)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"scripts/conditional_tree.r"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+<p>Consideremos o experimento <em>“virar uma estrutura (folha ou galho) e contar o número de itens”</em>:</p>
+<p><span class="math inline">\(\Omega = \{(F0), (F1), (F2), (F3), (F4), (F5), (F6), (G0), (G1), (G2), (G3), (G4)\}\)</span></p>
+<p>Definimos:</p>
+<ul>
+<li><p>Evento <span class="math inline">\(A\)</span>: “virar uma folha”, isto é,<br>
+<span class="math display">\[A = \{\texttt{(F0), (F1), (F2), (F3), (F4), (F5), (F6)}\}.\]</span></p></li>
+<li><p>Evento <span class="math inline">\(B\)</span>: “obter mais de 3 itens”, isto é,<br>
+<span class="math display">\[B = \{\texttt{(F3), (F4), (F5), (F6), (G3), (G4)}\}.\]</span></p></li>
+</ul>
+<p>O diagrama de Venn a seguir representa esses conjuntos:</p>
+<div class="cell" data-layout-align="center" width="8" height="5">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="probabilidade_condicional_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Após podemos perguntar:</p>
+<blockquote class="blockquote">
+<p>Qual a probabilidade de que tenham sido obtidos <strong>mais de 3 itens</strong>?</p>
+</blockquote>
+<p>Ao informarmos que a estrutura era uma folha, sabemos que nem todos os eventos de <span class="math inline">\(\Omega\)</span> podem ter ocorrido. Neste exemplo, <em>somente</em> as 7 observações do evento e <span class="math inline">\(A\)</span> consistem de uma folha:</p>
+<p>Destas, apenas 1 possuem mais de 3 itens, de modo a resposta à pergunta seria <span class="math inline">\(\frac{1}{7}\)</span>. Este resultado é conhecido como <strong>probabilidade condicional</strong>, denotada pelo símbolo (<span class="math inline">\(|\)</span>). Neste exemplo específico estamos perguntando:</p>
+<blockquote class="blockquote">
+<p><strong>Dado</strong> que <span class="math inline">\(A\)</span> OCORREU, qual a probabilidade de que <span class="math inline">\(B\)</span> tenha ocorrido? Simbolicamente, esta questão é escrita como <span class="math inline">\(P(B|A)\)</span>.</p>
+</blockquote>
+<p><span class="math display">\[P(B|A) = \frac{1}{7} = 0.14\]</span></p>
+<p>Esta probabilidade condicional foi calculada pelo número de observações favoráveis à intersecção de <span class="math inline">\(A\)</span> e <span class="math inline">\(B\)</span> (<span class="math inline">\(\#A \cap B\)</span>) <em>relativa</em> ao número de observações do evento <span class="math inline">\(A\)</span> (<span class="math inline">\(\#A\)</span>). Isto significa ao sabermos parte dos resultados, o espaço amostral inicial inicial foi <strong>reduzido</strong>, neste caso, ao espaço coincidente com <span class="math inline">\(A\)</span>. Portanto, temos que:</p>
+<p>Suponha que queiramos a probabilidade de obter <strong>mais de 3 itens</strong>. Se informamos previamente que a estrutura sorteada era uma folha (evento <span class="math inline">\(A\)</span>), reduzimos o espaço amostral apenas aos casos de <span class="math inline">\(A\)</span>. Sejam <span class="math inline">\(C = A \cap B\)</span>. Então, a probabilidade de <span class="math inline">\(B\)</span> dado <span class="math inline">\(A\)</span> será:</p>
+<p><span class="math display">\[P(B \mid A) \;=\; \frac{\#(A \cap B)}{\#(A)} \;=\; \frac{\texttt{1}}{\texttt{7}} = \texttt{0.14}\]</span></p>
+<p>A <strong>probabilidade condicional</strong> pode ser expressa genericamente como:</p>
+<p><span class="math display">\[P(B \mid A) = \frac{P(A \cap B)}{P(A)}\]</span></p>
+<p>o que também permite calcular</p>
+<p><span class="math display">\[P(A \cap B) = P(A) \times P(B \mid A)\]</span></p>
+<p>Quando lidamos com experimentos em etapas ou eventos sequenciais, um <strong>diagrama de árvore</strong> ajuda a visualizar cada estágio, indicando as probabilidades e as condicionais:</p>
+<div class="cell" data-layout-align="center" width="8" height="5">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="probabilidade_condicional_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Nesse diagrama, cada ramo representa um cenário: por exemplo, ao ocorrer <span class="math inline">\(A\)</span>, <span class="math inline">\(B\)</span> pode acontecer com <span class="math inline">\(P(B \mid A)\)</span>, resultando na intersecção <span class="math inline">\(A \cap B\)</span>. Assim, o diagrama possibilita mapear todos os cenários possíveis de maneira organizada.</p>
+<div class="cell" data-layout-align="default">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode dot code-with-copy"><code class="sourceCode dot"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">digraph</span> <span class="va">G</span> <span class="ot">{</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co">  </span><span class="kw">node</span><span class="co"> </span><span class="ot">[</span><span class="at">shape</span><span class="ot">=</span><span class="va">circle</span><span class="co">, </span><span class="at">fontsize</span><span class="ot">=</span><span class="dv">8</span><span class="ot">];</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co">  </span><span class="kw">edge</span><span class="co"> </span><span class="ot">[</span><span class="at">fontsize</span><span class="ot">=</span><span class="dv">8</span><span class="ot">];</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co">  </span><span class="va">Root</span><span class="co"> </span><span class="ot">[</span><span class="at">label</span><span class="ot">=</span><span class="st">"Início"</span><span class="ot">];</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co">  </span><span class="va">A</span><span class="co"> </span><span class="ot">[</span><span class="at">label</span><span class="ot">=</span><span class="st">"A"</span><span class="ot">];</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co">  </span><span class="va">B</span><span class="co"> </span><span class="ot">[</span><span class="at">label</span><span class="ot">=</span><span class="st">"B"</span><span class="ot">];</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co">  </span><span class="va">AA</span><span class="co"> </span><span class="ot">[</span><span class="at">label</span><span class="ot">=</span><span class="st">"A\n0.497"</span><span class="ot">];</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co">  </span><span class="va">AB</span><span class="co"> </span><span class="ot">[</span><span class="at">label</span><span class="ot">=</span><span class="st">"B\n0.083"</span><span class="ot">];</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="co">  </span><span class="va">BA</span><span class="co"> </span><span class="ot">[</span><span class="at">label</span><span class="ot">=</span><span class="st">"A\n0.083"</span><span class="ot">];</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="co">  </span><span class="va">BB</span><span class="co"> </span><span class="ot">[</span><span class="at">label</span><span class="ot">=</span><span class="st">"B\n0.417"</span><span class="ot">];</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="co">  </span><span class="va">Root</span><span class="co"> </span><span class="ot">-&gt;</span><span class="co"> </span><span class="va">A</span><span class="co"> </span><span class="ot">[</span><span class="at">label</span><span class="ot">=</span><span class="st">"P(A)"</span><span class="ot">];</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="co">  </span><span class="va">Root</span><span class="co"> </span><span class="ot">-&gt;</span><span class="co"> </span><span class="va">B</span><span class="co"> </span><span class="ot">[</span><span class="at">label</span><span class="ot">=</span><span class="st">"P(B)"</span><span class="ot">];</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="co">  </span><span class="va">A</span><span class="co"> </span><span class="ot">-&gt;</span><span class="co"> </span><span class="va">AA</span><span class="co"> </span><span class="ot">[</span><span class="at">label</span><span class="ot">=</span><span class="st">"P(A|A)"</span><span class="ot">];</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="co">  </span><span class="va">A</span><span class="co"> </span><span class="ot">-&gt;</span><span class="co"> </span><span class="va">AB</span><span class="co"> </span><span class="ot">[</span><span class="at">label</span><span class="ot">=</span><span class="st">"P(B|A)"</span><span class="ot">];</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="co">  </span><span class="va">B</span><span class="co"> </span><span class="ot">-&gt;</span><span class="co"> </span><span class="va">BA</span><span class="co"> </span><span class="ot">[</span><span class="at">label</span><span class="ot">=</span><span class="st">"P(A|B)"</span><span class="ot">];</span></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="co">  </span><span class="va">B</span><span class="co"> </span><span class="ot">-&gt;</span><span class="co"> </span><span class="va">BB</span><span class="co"> </span><span class="ot">[</span><span class="at">label</span><span class="ot">=</span><span class="st">"P(B|B)"</span><span class="ot">];</span></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="ot">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<svg width="672" height="480" viewbox="0.00 0.00 254.08 225.05" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" style="; max-width: none; max-height: none">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 221.05)">
+<title>G</title>
+<polygon fill="white" stroke="transparent" points="-4,4 -4,-221.05 250.08,-221.05 250.08,4 -4,4"></polygon>
+<!-- Root -->
+<g id="node1" class="node">
+<title>Root</title>
+<ellipse fill="none" stroke="black" cx="122.04" cy="-196.17" rx="20.77" ry="20.77"></ellipse>
+<text text-anchor="middle" x="122.04" y="-193.77" font-family="Times,serif" font-size="8.00">Início</text>
+</g>
+<!-- A -->
+<g id="node2" class="node">
+<title>A</title>
+<ellipse fill="none" stroke="black" cx="90.04" cy="-111.68" rx="18" ry="18"></ellipse>
+<text text-anchor="middle" x="90.04" y="-109.28" font-family="Times,serif" font-size="8.00">A</text>
+</g>
+<!-- Root&#45;&gt;A -->
+<g id="edge1" class="edge">
+<title>Root-&gt;A</title>
+<path fill="none" stroke="black" d="M114.78,-176.45C110.39,-165.12 104.72,-150.53 99.92,-138.16"></path>
+<polygon fill="black" stroke="black" points="103.18,-136.88 96.3,-128.82 96.66,-139.41 103.18,-136.88"></polygon>
+<text text-anchor="middle" x="114.82" y="-150.08" font-family="Times,serif" font-size="8.00">P(A)</text>
+</g>
+<!-- B -->
+<g id="node3" class="node">
+<title>B</title>
+<ellipse fill="none" stroke="black" cx="156.04" cy="-111.68" rx="18" ry="18"></ellipse>
+<text text-anchor="middle" x="156.04" y="-109.28" font-family="Times,serif" font-size="8.00">B</text>
+</g>
+<!-- Root&#45;&gt;B -->
+<g id="edge2" class="edge">
+<title>Root-&gt;B</title>
+<path fill="none" stroke="black" d="M129.76,-176.45C134.46,-165.05 140.52,-150.33 145.64,-137.91"></path>
+<polygon fill="black" stroke="black" points="148.93,-139.13 149.5,-128.55 142.45,-136.46 148.93,-139.13"></polygon>
+<text text-anchor="middle" x="149.6" y="-150.08" font-family="Times,serif" font-size="8.00">P(B)</text>
+</g>
+<!-- AA -->
+<g id="node4" class="node">
+<title>AA</title>
+<ellipse fill="none" stroke="black" cx="24.04" cy="-24.04" rx="24.08" ry="24.08"></ellipse>
+<text text-anchor="middle" x="24.04" y="-26.44" font-family="Times,serif" font-size="8.00">A</text>
+<text text-anchor="middle" x="24.04" y="-16.84" font-family="Times,serif" font-size="8.00">0.497</text>
+</g>
+<!-- A&#45;&gt;AA -->
+<g id="edge3" class="edge">
+<title>A-&gt;AA</title>
+<path fill="none" stroke="black" d="M79.44,-96.92C70.03,-84.72 56.02,-66.54 44.45,-51.52"></path>
+<polygon fill="black" stroke="black" points="47.19,-49.34 38.31,-43.56 41.65,-53.62 47.19,-49.34"></polygon>
+<text text-anchor="middle" x="74.51" y="-68.48" font-family="Times,serif" font-size="8.00">P(A|A)</text>
+</g>
+<!-- AB -->
+<g id="node5" class="node">
+<title>AB</title>
+<ellipse fill="none" stroke="black" cx="90.04" cy="-24.04" rx="24.08" ry="24.08"></ellipse>
+<text text-anchor="middle" x="90.04" y="-26.44" font-family="Times,serif" font-size="8.00">B</text>
+<text text-anchor="middle" x="90.04" y="-16.84" font-family="Times,serif" font-size="8.00">0.083</text>
+</g>
+<!-- A&#45;&gt;AB -->
+<g id="edge4" class="edge">
+<title>A-&gt;AB</title>
+<path fill="none" stroke="black" d="M90.04,-93.35C90.04,-83.3 90.04,-70.29 90.04,-58.33"></path>
+<polygon fill="black" stroke="black" points="93.54,-58.19 90.04,-48.19 86.54,-58.19 93.54,-58.19"></polygon>
+<text text-anchor="middle" x="101.29" y="-68.48" font-family="Times,serif" font-size="8.00">P(B|A)</text>
+</g>
+<!-- BA -->
+<g id="node6" class="node">
+<title>BA</title>
+<ellipse fill="none" stroke="black" cx="156.04" cy="-24.04" rx="24.08" ry="24.08"></ellipse>
+<text text-anchor="middle" x="156.04" y="-26.44" font-family="Times,serif" font-size="8.00">A</text>
+<text text-anchor="middle" x="156.04" y="-16.84" font-family="Times,serif" font-size="8.00">0.083</text>
+</g>
+<!-- B&#45;&gt;BA -->
+<g id="edge5" class="edge">
+<title>B-&gt;BA</title>
+<path fill="none" stroke="black" d="M156.04,-93.35C156.04,-83.3 156.04,-70.29 156.04,-58.33"></path>
+<polygon fill="black" stroke="black" points="159.54,-58.19 156.04,-48.19 152.54,-58.19 159.54,-58.19"></polygon>
+<text text-anchor="middle" x="167.29" y="-68.48" font-family="Times,serif" font-size="8.00">P(A|B)</text>
+</g>
+<!-- BB -->
+<g id="node7" class="node">
+<title>BB</title>
+<ellipse fill="none" stroke="black" cx="222.04" cy="-24.04" rx="24.08" ry="24.08"></ellipse>
+<text text-anchor="middle" x="222.04" y="-26.44" font-family="Times,serif" font-size="8.00">B</text>
+<text text-anchor="middle" x="222.04" y="-16.84" font-family="Times,serif" font-size="8.00">0.417</text>
+</g>
+<!-- B&#45;&gt;BB -->
+<g id="edge6" class="edge">
+<title>B-&gt;BB</title>
+<path fill="none" stroke="black" d="M166.65,-96.92C176.05,-84.72 190.06,-66.54 201.63,-51.52"></path>
+<polygon fill="black" stroke="black" points="204.44,-53.62 207.77,-43.56 198.89,-49.34 204.44,-53.62"></polygon>
+<text text-anchor="middle" x="200.07" y="-68.48" font-family="Times,serif" font-size="8.00">P(B|B)</text>
+</g>
+</g>
+</svg>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<section id="eventos-independentes" class="level2" data-number="1">
+<h2 data-number="1" class="anchored" data-anchor-id="eventos-independentes"><span class="header-section-number">1</span> Eventos independentes</h2>
+<p>No experimento “virar uma estrutura e contar o número de itens”, temos:</p>
+<p><span class="math display">\[\begin{aligned}
+P(A) &amp;= \texttt{0.58},\\
+P(\overline{A}) &amp;= 1 - P(A),\\
+P(B) &amp;= \texttt{0.5},\\
+P(\overline{B}) &amp;= 1 - P(B).
+\end{aligned}\]</span></p>
+<p>Seja <span class="math inline">\(P(B \mid A) = \texttt{0.14}\)</span>. Note que <span class="math inline">\(P(B) \neq P(B \mid A)\)</span>, indicando que <span class="math inline">\(A\)</span> e <span class="math inline">\(B\)</span> são <strong>eventos dependentes</strong>.</p>
+<section id="exemplo-de-eventos-independentes" class="level3" data-number="1.1">
+<h3 data-number="1.1" class="anchored" data-anchor-id="exemplo-de-eventos-independentes"><span class="header-section-number">1.1</span> Exemplo de eventos independentes</h3>
+<p>Dois eventos <span class="math inline">\(A\)</span> e <span class="math inline">\(B\)</span> são <strong>independentes</strong> quando conhecer a ocorrência de um deles <strong>não altera</strong> a probabilidade do outro, ou seja, <span class="math inline">\(P(B) = P(B \mid A)\)</span>.</p>
+<p>Considere a matriz:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># echo: false</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>visita_df <span class="sc">|&gt;</span> </span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gt</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="bblreogzep" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#bblreogzep table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#bblreogzep thead, #bblreogzep tbody, #bblreogzep tfoot, #bblreogzep tr, #bblreogzep td, #bblreogzep th {
+  border-style: none;
+}
+
+#bblreogzep p {
+  margin: 0;
+  padding: 0;
+}
+
+#bblreogzep .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#bblreogzep .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#bblreogzep .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#bblreogzep .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#bblreogzep .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#bblreogzep .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#bblreogzep .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#bblreogzep .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#bblreogzep .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#bblreogzep .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#bblreogzep .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#bblreogzep .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#bblreogzep .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#bblreogzep .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#bblreogzep .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#bblreogzep .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#bblreogzep .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#bblreogzep .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#bblreogzep .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#bblreogzep .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#bblreogzep .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#bblreogzep .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#bblreogzep .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#bblreogzep .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#bblreogzep .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#bblreogzep .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#bblreogzep .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#bblreogzep .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#bblreogzep .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#bblreogzep .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#bblreogzep .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#bblreogzep .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#bblreogzep .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#bblreogzep .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#bblreogzep .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#bblreogzep .gt_left {
+  text-align: left;
+}
+
+#bblreogzep .gt_center {
+  text-align: center;
+}
+
+#bblreogzep .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#bblreogzep .gt_font_normal {
+  font-weight: normal;
+}
+
+#bblreogzep .gt_font_bold {
+  font-weight: bold;
+}
+
+#bblreogzep .gt_font_italic {
+  font-style: italic;
+}
+
+#bblreogzep .gt_super {
+  font-size: 65%;
+}
+
+#bblreogzep .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#bblreogzep .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#bblreogzep .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#bblreogzep .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#bblreogzep .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#bblreogzep .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#bblreogzep .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#bblreogzep .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#bblreogzep div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+
+<table class="gt_table caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<thead>
+<tr class="gt_col_headings header">
+<th id="idade" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">idade</th>
+<th id="Da-cidade" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Da cidade</th>
+<th id="De-fora-da-cidade" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">De fora da cidade</th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<td class="gt_row gt_left" headers="idade">Até 20</td>
+<td class="gt_row gt_right" headers="Da cidade">30</td>
+<td class="gt_row gt_right" headers="De fora da cidade">170</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="idade">Mais de 20</td>
+<td class="gt_row gt_right" headers="Da cidade">60</td>
+<td class="gt_row gt_right" headers="De fora da cidade">340</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>Suponhamos que foram investigadas 600 pessoas, classificadas por idade e local de origem. Nesse contexto:</p>
+<ul>
+<li><span class="math inline">\(A\)</span>: ter até 20 anos; <span class="math inline">\(\overline{A}\)</span>: ter mais de 20 anos.<br>
+</li>
+<li><span class="math inline">\(B\)</span>: ser da cidade; <span class="math inline">\(\overline{B}\)</span>: ser de fora da cidade.</li>
+</ul>
+<p>As probabilidades são:</p>
+<p><span class="math display">\[\begin{aligned}
+P(A) &amp;= \frac{\texttt{200}}{\texttt{600}}, \quad
+P(\overline{A}) \;=\; \frac{\texttt{400}}{\texttt{600}},\\
+P(B) &amp;= \frac{\texttt{90}}{\texttt{600}}, \quad
+P(\overline{B}) \;=\; \frac{\texttt{510}}{\texttt{600}}.
+\end{aligned}\]</span></p>
+<p>Sabendo, por exemplo, que a pessoa tem mais de 20 anos, a probabilidade de ela ser da cidade é:</p>
+<p><span class="math display">\[P(B \mid A) = \frac{\texttt{60}}{\texttt{400}}.\]</span></p>
+<p>Se <span class="math inline">\(P(B) = P(B \mid A)\)</span>, então idade e origem são independentes; do contrário, são dependentes.</p>
+</section>
+</section>
+<section id="eventos-independentes-vs-mutuamente-exclusivos" class="level2" data-number="2">
+<h2 data-number="2" class="anchored" data-anchor-id="eventos-independentes-vs-mutuamente-exclusivos"><span class="header-section-number">2</span> Eventos independentes <em>vs</em> mutuamente exclusivos</h2>
+<ul>
+<li><p>Dois eventos são <strong>mutuamente exclusivos</strong> quando <span class="math inline">\(P(A \cap B) = 0\)</span>. Se ambos ocorrerem, excluem-se mutuamente. Logo, se <span class="math inline">\(A\)</span> ocorre, <span class="math inline">\(B\)</span> não pode ocorrer. Nesse caso, <span class="math inline">\(P(B \mid A) = 0\)</span>, caracterizando dependência, pois a informação de <span class="math inline">\(A\)</span> <strong>determina</strong> que <span class="math inline">\(B\)</span> não ocorrerá.</p></li>
+<li><p>Dois eventos são <strong>independentes</strong> se <span class="math inline">\(P(A \cap B) = P(A)\times P(B)\)</span>. Isso significa que conhecer <span class="math inline">\(A\)</span> não altera a probabilidade de <span class="math inline">\(B\)</span>. Se <span class="math inline">\(P(A)\)</span> e <span class="math inline">\(P(B)\)</span> forem não nulos, então não podem ser ao mesmo tempo mutuamente exclusivos <strong>e</strong> independentes.</p></li>
+</ul>
+<p>A representação de eventos mutuamente exclusivos no diagrama de árvore é ilustrada por <span class="math inline">\(P(B \mid A)=0\)</span>, pois, ao ocorrer <span class="math inline">\(A\)</span>, já se sabe que <span class="math inline">\(B\)</span> não ocorrerá. Assim, <em>mutuamente exclusivos</em> implica dependência. Se não há exclusividade, os eventos podem ou não ser independentes, dependendo de <span class="math inline">\(P(B)\)</span> em relação a <span class="math inline">\(P(B \mid A)\)</span>.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="probabilidade_condicional_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
