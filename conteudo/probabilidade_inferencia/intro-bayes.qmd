@@ -67,7 +67,7 @@ Após a primeira retirada resultar em 🔵, os três caminhos brancos na parte i
 
 Dos caminhos restantes na @fig-2-3, não podemos ter certeza de qual desses três caminhos os dados reais seguiram, pois não podemos identificar as bolas individualmente, apenas por sua cor. Entretanto, considerando a hipótese de que o saco contém [🔵⚪⚪⚪], podemos ter certeza de que os dados seguiram um desses três caminhos, pois são os únicos compatíveis tanto com nosso conhecimento prévio (4 bolinhas, azuis ou brancas) quanto com a sequência de dados observada (⚪ → ⚪ → 🔵).
 
-![Após eliminar caminhos inconsistentes com a sequência observada, apenas 3 dos 64 caminhos permanecem.](images/Fig_2_3.png){#fig-2-3 width=70% style="display: block; margin-left: auto; margin-right: auto;"}
+![Após eliminar caminhos inconsistentes com a sequência observada, apenas 3 dos 64 caminhos permanecem. Extraído de @mcelreath2018statistical.](images/Fig_2_3.png){#fig-2-3 width=70% style="display: block; margin-left: auto; margin-right: auto;"}
 
 ## Avaliando as demais hipóteses
 
@@ -77,7 +77,7 @@ Para as hipóteses restantes, isto é, [🔵🔵⚪⚪] ou [🔵🔵🔵⚪], o 
 
 A @fig-leque4 mostra o leque completo para as três hipóteses compatíveis com os dados observados: [🔵⚪⚪⚪], [🔵🔵⚪⚪] e [🔵🔵🔵⚪].
 
-![Caminhos de composição possível para cada hipótese logicamente compatível com a sequência observada.](images/Fig_2_4.png){#fig-leque4 width=70% style="display: block; margin-left: auto; margin-right: auto;"}
+![Caminhos de composição possível para cada hipótese logicamente compatível com a sequência observada. Extraído de @mcelreath2018statistical.](images/Fig_2_4.png){#fig-leque4 width=70% style="display: block; margin-left: auto; margin-right: auto;"}
 
 Agora, contamos todas as maneiras pelas quais cada hipótese poderia produzir os dados observados. Para uma bolinha azul e três brancas, existem três maneiras (como já contamos). Para duas bolinhas azuis e duas brancas, há oito caminhos consistentes com a sequência. Para três bolinhas azuis e uma branca, há nove caminhos que sobrevivem às observações.
 
