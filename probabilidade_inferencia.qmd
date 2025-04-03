@@ -3,10 +3,10 @@ title: "Métodos em Probabilidade e Estatística"
 description: "Distribuições de Probabilidade e Inferência Bayesiana."
 categories: ["Distribuições de Probabilidade", "Inferência Bayesiana", "Distribuição a priori", "Distribuição posterior"]
 
-image: "images/modelos_probabilisticos.png"
+image: "images/probabilidade_inferencia.png"
 listing:
   contents:
-    - conteudo/metodos_probabilisticos/intro-bayes.qmd    
+    - conteudo/probabilidade_inferencia/intro-bayes.qmd    
   sort: false
   type: default
   fields: 

@@ -23,7 +23,7 @@ website:
 format:
   html:
     theme:
-        light: zephyr
+      light: zephyr
     css: styles/custom.css
     toc: true
     number-sections: true
