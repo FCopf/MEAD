@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.6.42">
+<meta name="generator" content="quarto-1.6.43">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -70,7 +70,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-2f5df379a58b258e96c21c0638c20c03.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-d4d76bf8491c20bad77d141916dc28e1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../../site_libs/bootstrap/bootstrap-fd75e10d688f5043d524a95775cfac05.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
@@ -185,9 +185,8 @@ window.Quarto = {
   <li><a href="#eventos-complexos" id="toc-eventos-complexos" class="nav-link active" data-scroll-target="#eventos-complexos"><span class="header-section-number">1</span> Eventos complexos</a>
   <ul class="collapse">
   <li><a href="#representação-de-eventos-diagrama-de-venn" id="toc-representação-de-eventos-diagrama-de-venn" class="nav-link" data-scroll-target="#representação-de-eventos-diagrama-de-venn"><span class="header-section-number">1.1</span> Representação de eventos: diagrama de Venn</a></li>
-  <li><a href="#probabilidade-de-eventos-simples" id="toc-probabilidade-de-eventos-simples" class="nav-link" data-scroll-target="#probabilidade-de-eventos-simples"><span class="header-section-number">1.2</span> Probabilidade de eventos simples</a></li>
+  <li><a href="#probabilidade-de-eventos-complexos" id="toc-probabilidade-de-eventos-complexos" class="nav-link" data-scroll-target="#probabilidade-de-eventos-complexos"><span class="header-section-number">1.2</span> Probabilidade de eventos complexos</a></li>
   <li><a href="#probabilidade-da-união-de-eventos" id="toc-probabilidade-da-união-de-eventos" class="nav-link" data-scroll-target="#probabilidade-da-união-de-eventos"><span class="header-section-number">1.3</span> Probabilidade da união de eventos</a></li>
-  <li><a href="#representação-de-eventos-diagrama-de-árvore" id="toc-representação-de-eventos-diagrama-de-árvore" class="nav-link" data-scroll-target="#representação-de-eventos-diagrama-de-árvore"><span class="header-section-number">1.4</span> Representação de eventos: diagrama de árvore</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -239,21 +238,23 @@ Pacotes e funções utilizadas
 <div class="callout-body-container callout-body">
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggVennDiagram)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"scripts/bayes_diagram.r"</span>)</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"scripts/tree_diagram.r"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggVennDiagram)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </div>
 </div>
 <section id="eventos-complexos" class="level2" data-number="1">
 <h2 data-number="1" class="anchored" data-anchor-id="eventos-complexos"><span class="header-section-number">1</span> Eventos complexos</h2>
-<p>Consideremos a seguinte situação: existem dois tipos de estruturas principais sob as quais um animal aquático busca suas presas: <em>folhas</em> e <em>galhos</em>. Folhas podem ter entre 0 e 6 itens, enquanto galhos podem ter entre 0 e 4 itens. Ao virar uma dessas estruturas, o predador consome <em>todos</em> os itens encontrados. Embora seja um exemplo altamente hipotético, ele ilustra nossa discussão. A pergunta que nos interessa é: ao virar uma estrutura, de quantos itens o predador poderá se alimentar?</p>
-<p>Vamos às possibilidades. Denominemos por <span class="math inline">\(F\)</span> ou <span class="math inline">\(G\)</span> o evento de encontrar respectivamente uma folha ou um galho, e por <span class="math inline">\(0\)</span> a <span class="math inline">\(n\)</span>, o número de itens presentes. O espaço amostral do experimento <em>virar uma estrutura e contar o número de itens</em> consiste em:</p>
+<p>Consideremos a seguinte situação: há dois tipos principais de estruturas nas quais um animal aquático pode procurar suas presas: <em>folhas</em> e <em>galhos</em>. As folhas podem conter entre 0 e 6 itens, enquanto os galhos podem conter entre 0 e 4 itens. Ao virar qualquer uma dessas estruturas, o predador consome <strong>todos</strong> os itens encontrados. Embora seja um exemplo altamente hipotético, ele serve para ilustrar nossa discussão. A pergunta que nos interessa é: ao virar uma dessas estruturas, de quantos itens o predador poderá se alimentar?</p>
+<p>Vejamos as possibilidades. Denotemos por <span class="math inline">\(F\)</span> ou <span class="math inline">\(G\)</span> o evento de encontrar, respectivamente, uma folha ou um galho, e por <span class="math inline">\(0\)</span> a <span class="math inline">\(n\)</span> o número de itens presentes. O espaço amostral do experimento — virar uma estrutura e contar quantos itens há — é dado por:</p>
 <p><span class="math display">\[\Omega = \{\text{(F0), (F1), (F2), (F3), (F4), (F5), (F6), (G0), (G1), (G2), (G3), (G4)}\}.\]</span></p>
-<p>Neste experimento, temos <span class="math inline">\(\text{12}\)</span> eventos <strong>simples e mutuamente exclusivos</strong>.</p>
-<p>Considere agora o evento <span class="math inline">\(A\)</span>: <em>“virar uma folha”</em>, que pode ocorrer ao observar F0 ou F1 ou F2 ou F3 ou F4 ou F5 ou F6.</p>
+<p>Note que há <span class="math inline">\(\text{12}\)</span> eventos <strong>simples e mutuamente exclusivos</strong>.</p>
+<p>Considere agora o evento <span class="math inline">\(A\)</span>: <em>“virar uma folha”</em>, que ocorre quando observamos F0 ou F1 ou F2 ou F3 ou F4 ou F5 ou F6. Em notação de conjunto:</p>
 <p><span class="math display">\[A = \{\text{(F0), (F1), (F2), (F3), (F4), (F5), (F6)}\}.\]</span></p>
+<p>O evento <span class="math inline">\(A\)</span> é um <strong>evento complexo</strong>, pois consiste na <strong>união</strong> de vários eventos simples. Ou seja, podemos dizer que <span class="math inline">\(A\)</span> acontece se a estrutura virada for uma folha com <span class="math inline">\(0\)</span> <strong>OU</strong> <span class="math inline">\(1\)</span> <strong>OU</strong> <span class="math inline">\(2\)</span> <strong>OU</strong> <span class="math inline">\(3\)</span> <strong>OU</strong> <span class="math inline">\(4\)</span> <strong>OU</strong> <span class="math inline">\(5\)</span> <strong>OU</strong> <span class="math inline">\(6\)</span> itens. A palavra <strong>OU</strong> indica que basta qualquer uma dessas possibilidades para o evento ser considerado realizado, o que significa que <span class="math inline">\(A\)</span> pode ocorrer de 7 maneiras diferentes.</p>
+<p>Assim, podemos representar <span class="math inline">\(A\)</span> pela expressão:</p>
+<p><span class="math display">\[A = F0 \cup F1 \cup F2 \cup F3 \cup F4 \cup F5 \cup F6,\]</span></p>
+<p>onde, o símbolo <span class="math inline">\(\cap\)</span> é sendo lido como <strong>OU</strong>.</p>
 <section id="representação-de-eventos-diagrama-de-venn" class="level3" data-number="1.1">
 <h3 data-number="1.1" class="anchored" data-anchor-id="representação-de-eventos-diagrama-de-venn"><span class="header-section-number">1.1</span> Representação de eventos: diagrama de Venn</h3>
 <p>Uma forma de visualizar o espaço amostral e seus eventos é por meio de <strong>diagramas de Venn</strong>. Para isso, vamos considerar também o evento <span class="math inline">\(B\)</span>: <em>“encontrar mais de 3 itens”</em>, que consiste em:</p>
@@ -268,180 +269,39 @@ Pacotes e funções utilizadas
 </div>
 </div>
 </div>
-<p>Cada um desses é um <strong>evento complexo</strong>, pois resulta de uma combinação de eventos simples. O evento <span class="math inline">\(B\)</span>, por exemplo, ocorre quando se encontra uma folha <strong>OU</strong> um galho com 3 ou mais itens, enquanto <span class="math inline">\(A\)</span> ocorre quando a estrutura virada for uma folha com <span class="math inline">\(0\)</span> <strong>OU</strong> <span class="math inline">\(1\)</span> <strong>OU</strong> <span class="math inline">\(2\)</span> <strong>OU</strong> <span class="math inline">\(3\)</span> <strong>OU</strong> <span class="math inline">\(4\)</span> <strong>OU</strong> <span class="math inline">\(5\)</span> <strong>OU</strong> <span class="math inline">\(6\)</span> itens.</p>
-<p>Tais eventos complexos são formados pela <strong>união</strong> de eventos simples. A declaração <strong>OU</strong> significa que qualquer uma das observações permite concluir que o evento ocorreu. Assim, <span class="math inline">\(A\)</span> pode ocorrer de 7 maneiras e <span class="math inline">\(B\)</span> de 6 maneiras distintas.</p>
+<p>O evento <span class="math inline">\(B\)</span> também é um evento complexo que ocorre quando se encontra uma folha <strong>OU</strong> um galho que tenham 3 ou mais itens.</p>
 <p>Observe que as ocorrências <span class="math inline">\((G0)\)</span>, <span class="math inline">\((G1)\)</span> e <span class="math inline">\((G2)\)</span> <strong>não</strong> pertencem a <span class="math inline">\(A\)</span> nem a <span class="math inline">\(B\)</span>, embora façam parte do espaço amostral <span class="math inline">\(\Omega\)</span>.</p>
-<p>Considere agora o evento <span class="math inline">\(C\)</span>: <em>“virar uma folha com mais de 3 itens”</em>. Ele pode ocorrer ao observar F3 ou F4 ou F5 ou F6. No diagrama de Venn, vemos que essas possibilidades constituem a <strong>intersecção</strong> de <span class="math inline">\(A\)</span> e <span class="math inline">\(B\)</span>. Em notação de teoria de conjuntos, a união é representada por <span class="math inline">\(\cup\)</span> e a intersecção por <span class="math inline">\(\cap\)</span>. Portanto, podemos escrever <span class="math inline">\(C\)</span> como:</p>
+<p>Considere agora o evento <span class="math inline">\(C\)</span>: <em>“virar uma folha com mais de 3 itens”</em>. Ele pode ocorrer ao observar F3 ou F4 ou F5 ou F6. No diagrama de Venn, vemos que essas possibilidades constituem a <strong>intersecção</strong> de <span class="math inline">\(A\)</span> e <span class="math inline">\(B\)</span> representada por <span class="math inline">\(\cap\)</span>. Portanto, podemos escrever <span class="math inline">\(C\)</span> como:</p>
 <p><span class="math display">\[C = A \cap B.\]</span></p>
 </section>
-<section id="probabilidade-de-eventos-simples" class="level3" data-number="1.2">
-<h3 data-number="1.2" class="anchored" data-anchor-id="probabilidade-de-eventos-simples"><span class="header-section-number">1.2</span> Probabilidade de eventos simples</h3>
+<section id="probabilidade-de-eventos-complexos" class="level3" data-number="1.2">
+<h3 data-number="1.2" class="anchored" data-anchor-id="probabilidade-de-eventos-complexos"><span class="header-section-number">1.2</span> Probabilidade de eventos complexos</h3>
 <p>Considerando o experimento <em>virar uma estrutura e contar o número de itens</em>, qual seria a probabilidade de cada observação? Para isso, lembremos que:</p>
 <ol type="1">
 <li><p>O espaço amostral consiste em <span class="math inline">\(N = \text{12}\)</span> observações.</p></li>
 <li><p>Definiremos um <em>modelo de probabilidade</em> para cada uma dessas observações.</p></li>
 </ol>
 <p>Neste tópico, vamos assumir um modelo de probabilidade <strong>uniforme</strong>, ou seja, cada observação tem a <strong>mesma</strong> probabilidade <span class="math inline">\(\frac{1}{N}\)</span>.</p>
-<p>Dessa forma, a probabilidade de o evento <span class="math inline">\(A\)</span> ocorrer é dada pelo número de resultados favoráveis a <span class="math inline">\(A\)</span> dividido pelo número total de resultados no espaço amostral. Como <span class="math inline">\(A\)</span> consiste de 7 observações:</p>
+<p>Dessa forma, a probabilidade do evento <span class="math inline">\(A\)</span> ocorrer é dada pelo número de resultados favoráveis a <span class="math inline">\(A\)</span> dividido pelo número total de resultados no espaço amostral. Como <span class="math inline">\(A\)</span> consiste de 7 observações:</p>
 <p><span class="math display">\[P(A) = \frac{7}{12} = 0.58\]</span></p>
 <p>Naturalmente, a probabilidade de <span class="math inline">\(A\)</span> <strong>não ocorrer</strong> é:</p>
 <p><span class="math display">\[P(\overline{A}) = 1 - \frac{7}{12} = 1 - 0.58 = 0.42\]</span></p>
 <p>O símbolo <span class="math inline">\(\overline{A}\)</span> representa todas as observações que <strong>não</strong> pertencem a <span class="math inline">\(A\)</span>.</p>
-<p>Considere a probabilidade de <span class="math inline">\(B\)</span>:</p>
+<p>Considere também a probabilidade de <span class="math inline">\(B\)</span> que consiste de 6 observações:</p>
 <p><span class="math display">\[P(B) = \frac{6}{12} = 0.5\]</span></p>
-<p>e de <span class="math inline">\(C = A \cap B\)</span>:</p>
+<p>Vemos também que o evento <span class="math inline">\(C = A \cap B\)</span>, consiste de 4 observações e portanto:</p>
 <p><span class="math display">\[P(C) = P(A \cap B) = \frac{4}{12} = 0.33\]</span></p>
 </section>
 <section id="probabilidade-da-união-de-eventos" class="level3" data-number="1.3">
 <h3 data-number="1.3" class="anchored" data-anchor-id="probabilidade-da-união-de-eventos"><span class="header-section-number">1.3</span> Probabilidade da união de eventos</h3>
 <p>O evento <span class="math inline">\(A \cup B\)</span> consiste em todas as observações que estejam em <span class="math inline">\(A\)</span> <strong>ou</strong> <span class="math inline">\(B\)</span>:</p>
 <p><span class="math inline">\(A \cup B = \{(F0),(F1),(F2),(F3),(F4),(F5),(F6),(G3),(G4) \}\)</span></p>
-<p>Portanto, há 9 ocorrências em <span class="math inline">\(A \cup B\)</span>, e:</p>
+<p>Há 9 ocorrências em <span class="math inline">\(A \cup B\)</span>, de modo que:</p>
 <p><span class="math display">\[P(A \cup B) = \frac{9}{12} = 0.75\]</span></p>
-<p>Sabemos que:</p>
-<p><span class="math inline">\(P(A \cup B) = P(A) + P(B) - P(A \cap B)\)</span></p>
-</section>
-<section id="representação-de-eventos-diagrama-de-árvore" class="level3" data-number="1.4">
-<h3 data-number="1.4" class="anchored" data-anchor-id="representação-de-eventos-diagrama-de-árvore"><span class="header-section-number">1.4</span> Representação de eventos: diagrama de árvore</h3>
-<p>Considere agora o experimento <em>“virar duas estruturas e verificar o tipo de estrutura”</em>. O espaço amostral desse novo experimento consiste em 4 observações:</p>
-<p><span class="math inline">\(\Omega = \{(galho, galho), (galho, folha), (folha, galho), (folha, folha)\}\)</span></p>
-<p>e pode ser representado visualmente por um diagrama de árvore.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>my_code <span class="ot">&lt;-</span> <span class="fu">bayes_tree_diagram</span>(</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">A_name =</span> <span class="st">"Folha"</span>,</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">B_name =</span> <span class="st">"Galho"</span>,</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">pA =</span> <span class="fl">0.58</span>,</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">pB =</span> <span class="fl">0.5</span>,</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">pAB =</span> <span class="fl">0.33</span>,</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">digits =</span> <span class="dv">3</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell" data-layout-align="default">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode dot code-with-copy"><code class="sourceCode dot"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">digraph</span> <span class="va">G</span> <span class="ot">{</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co">  </span><span class="kw">node</span><span class="co"> </span><span class="ot">[</span><span class="at">shape</span><span class="ot">=</span><span class="va">circle</span><span class="co">, </span><span class="at">fontsize</span><span class="ot">=</span><span class="dv">8</span><span class="ot">];</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co">  </span><span class="kw">edge</span><span class="co"> </span><span class="ot">[</span><span class="at">fontsize</span><span class="ot">=</span><span class="dv">8</span><span class="ot">];</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co">  </span><span class="va">Root</span><span class="co"> </span><span class="ot">[</span><span class="at">label</span><span class="ot">=</span><span class="st">"Início"</span><span class="ot">];</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co">  </span><span class="va">A</span><span class="co"> </span><span class="ot">[</span><span class="at">label</span><span class="ot">=</span><span class="st">"Folha"</span><span class="ot">];</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co">  </span><span class="va">B</span><span class="co"> </span><span class="ot">[</span><span class="at">label</span><span class="ot">=</span><span class="st">"Galho"</span><span class="ot">];</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co">  </span><span class="va">AA</span><span class="co"> </span><span class="ot">[</span><span class="at">label</span><span class="ot">=</span><span class="st">"Folha\n0.250"</span><span class="ot">];</span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co">  </span><span class="va">AB</span><span class="co"> </span><span class="ot">[</span><span class="at">label</span><span class="ot">=</span><span class="st">"Galho\n0.330"</span><span class="ot">];</span></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="co">  </span><span class="va">BA</span><span class="co"> </span><span class="ot">[</span><span class="at">label</span><span class="ot">=</span><span class="st">"Folha\n0.330"</span><span class="ot">];</span></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="co">  </span><span class="va">BB</span><span class="co"> </span><span class="ot">[</span><span class="at">label</span><span class="ot">=</span><span class="st">"Galho\n0.170"</span><span class="ot">];</span></span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="co">  </span><span class="va">Root</span><span class="co"> </span><span class="ot">-&gt;</span><span class="co"> </span><span class="va">A</span><span class="co"> </span><span class="ot">[</span><span class="at">label</span><span class="ot">=</span><span class="st">"P(Folha)"</span><span class="ot">];</span></span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="co">  </span><span class="va">Root</span><span class="co"> </span><span class="ot">-&gt;</span><span class="co"> </span><span class="va">B</span><span class="co"> </span><span class="ot">[</span><span class="at">label</span><span class="ot">=</span><span class="st">"P(Galho)"</span><span class="ot">];</span></span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="co">  </span><span class="va">A</span><span class="co"> </span><span class="ot">-&gt;</span><span class="co"> </span><span class="va">AA</span><span class="co"> </span><span class="ot">[</span><span class="at">label</span><span class="ot">=</span><span class="st">"P(Folha|Folha)"</span><span class="ot">];</span></span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="co">  </span><span class="va">A</span><span class="co"> </span><span class="ot">-&gt;</span><span class="co"> </span><span class="va">AB</span><span class="co"> </span><span class="ot">[</span><span class="at">label</span><span class="ot">=</span><span class="st">"P(Galho|Folha)"</span><span class="ot">];</span></span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="co">  </span><span class="va">B</span><span class="co"> </span><span class="ot">-&gt;</span><span class="co"> </span><span class="va">BA</span><span class="co"> </span><span class="ot">[</span><span class="at">label</span><span class="ot">=</span><span class="st">"P(Folha|Galho)"</span><span class="ot">];</span></span>
-<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a><span class="co">  </span><span class="va">B</span><span class="co"> </span><span class="ot">-&gt;</span><span class="co"> </span><span class="va">BB</span><span class="co"> </span><span class="ot">[</span><span class="at">label</span><span class="ot">=</span><span class="st">"P(Galho|Galho)"</span><span class="ot">];</span></span>
-<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a><span class="ot">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<p></p><figure class="figure"><p></p>
-<div>
-<svg width="672" height="480" viewbox="0.00 0.00 280.68 232.00" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" style="; max-width: none; max-height: none">
-<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 228)">
-<title>G</title>
-<polygon fill="white" stroke="transparent" points="-4,4 -4,-228 276.68,-228 276.68,4 -4,4"></polygon>
-<!-- Root -->
-<g id="node1" class="node">
-<title>Root</title>
-<ellipse fill="none" stroke="black" cx="130.2" cy="-203.11" rx="20.77" ry="20.77"></ellipse>
-<text text-anchor="middle" x="130.2" y="-200.71" font-family="Times,serif" font-size="8.00">Início</text>
-</g>
-<!-- A -->
-<g id="node2" class="node">
-<title>A</title>
-<ellipse fill="none" stroke="black" cx="95.2" cy="-116.25" rx="19.73" ry="19.73"></ellipse>
-<text text-anchor="middle" x="95.2" y="-113.85" font-family="Times,serif" font-size="8.00">Folha</text>
-</g>
-<!-- Root&#45;&gt;A -->
-<g id="edge1" class="edge">
-<title>Root-&gt;A</title>
-<path fill="none" stroke="black" d="M120.6,-184.24C117.42,-177.99 113.98,-170.88 111.2,-164.23 108.62,-158.08 106.14,-151.35 103.93,-144.95"></path>
-<polygon fill="black" stroke="black" points="107.2,-143.69 100.71,-135.31 100.56,-145.91 107.2,-143.69"></polygon>
-<text text-anchor="middle" x="125.2" y="-157.03" font-family="Times,serif" font-size="8.00">P(Folha)</text>
-</g>
-<!-- B -->
-<g id="node3" class="node">
-<title>B</title>
-<ellipse fill="none" stroke="black" cx="167.2" cy="-116.25" rx="20.25" ry="20.25"></ellipse>
-<text text-anchor="middle" x="167.2" y="-113.85" font-family="Times,serif" font-size="8.00">Galho</text>
-</g>
-<!-- Root&#45;&gt;B -->
-<g id="edge2" class="edge">
-<title>Root-&gt;B</title>
-<path fill="none" stroke="black" d="M138.23,-183.7C143.21,-172.28 149.7,-157.4 155.27,-144.61"></path>
-<polygon fill="black" stroke="black" points="158.52,-145.9 159.31,-135.34 152.11,-143.11 158.52,-145.9"></polygon>
-<text text-anchor="middle" x="164.86" y="-157.03" font-family="Times,serif" font-size="8.00">P(Galho)</text>
-</g>
-<!-- AA -->
-<g id="node4" class="node">
-<title>AA</title>
-<ellipse fill="none" stroke="black" cx="24.2" cy="-25.14" rx="24.4" ry="24.4"></ellipse>
-<text text-anchor="middle" x="24.2" y="-27.54" font-family="Times,serif" font-size="8.00">Folha</text>
-<text text-anchor="middle" x="24.2" y="-17.94" font-family="Times,serif" font-size="8.00">0.250</text>
-</g>
-<!-- A&#45;&gt;AA -->
-<g id="edge3" class="edge">
-<title>A-&gt;AA</title>
-<path fill="none" stroke="black" d="M77.74,-106.23C66.57,-99.68 52.51,-89.88 43.37,-77.88 39.05,-72.19 35.62,-65.43 32.92,-58.7"></path>
-<polygon fill="black" stroke="black" points="36.12,-57.25 29.49,-48.99 29.52,-59.58 36.12,-57.25"></polygon>
-<text text-anchor="middle" x="68.11" y="-70.68" font-family="Times,serif" font-size="8.00">P(Folha|Folha)</text>
-</g>
-<!-- AB -->
-<g id="node5" class="node">
-<title>AB</title>
-<ellipse fill="none" stroke="black" cx="95.2" cy="-25.14" rx="25.28" ry="25.28"></ellipse>
-<text text-anchor="middle" x="95.2" y="-27.54" font-family="Times,serif" font-size="8.00">Galho</text>
-<text text-anchor="middle" x="95.2" y="-17.94" font-family="Times,serif" font-size="8.00">0.330</text>
-</g>
-<!-- A&#45;&gt;AB -->
-<g id="edge4" class="edge">
-<title>A-&gt;AB</title>
-<path fill="none" stroke="black" d="M95.2,-96.35C95.2,-86 95.2,-72.84 95.2,-60.72"></path>
-<polygon fill="black" stroke="black" points="98.7,-60.44 95.2,-50.44 91.7,-60.44 98.7,-60.44"></polygon>
-<text text-anchor="middle" x="119.78" y="-70.68" font-family="Times,serif" font-size="8.00">P(Galho|Folha)</text>
-</g>
-<!-- BA -->
-<g id="node6" class="node">
-<title>BA</title>
-<ellipse fill="none" stroke="black" cx="167.2" cy="-25.14" rx="24.4" ry="24.4"></ellipse>
-<text text-anchor="middle" x="167.2" y="-27.54" font-family="Times,serif" font-size="8.00">Folha</text>
-<text text-anchor="middle" x="167.2" y="-17.94" font-family="Times,serif" font-size="8.00">0.330</text>
-</g>
-<!-- B&#45;&gt;BA -->
-<g id="edge5" class="edge">
-<title>B-&gt;BA</title>
-<path fill="none" stroke="black" d="M167.2,-95.48C167.2,-85.01 167.2,-71.86 167.2,-59.84"></path>
-<polygon fill="black" stroke="black" points="170.7,-59.65 167.2,-49.65 163.7,-59.65 170.7,-59.65"></polygon>
-<text text-anchor="middle" x="191.78" y="-70.68" font-family="Times,serif" font-size="8.00">P(Folha|Galho)</text>
-</g>
-<!-- BB -->
-<g id="node7" class="node">
-<title>BB</title>
-<ellipse fill="none" stroke="black" cx="239.2" cy="-25.14" rx="25.28" ry="25.28"></ellipse>
-<text text-anchor="middle" x="239.2" y="-27.54" font-family="Times,serif" font-size="8.00">Galho</text>
-<text text-anchor="middle" x="239.2" y="-17.94" font-family="Times,serif" font-size="8.00">0.170</text>
-</g>
-<!-- B&#45;&gt;BB -->
-<g id="edge6" class="edge">
-<title>B-&gt;BB</title>
-<path fill="none" stroke="black" d="M184.81,-105.36C195.35,-98.72 208.37,-89.13 217.2,-77.88 221.61,-72.25 225.3,-65.61 228.32,-59"></path>
-<polygon fill="black" stroke="black" points="231.68,-60.03 232.27,-49.45 225.21,-57.35 231.68,-60.03"></polygon>
-<text text-anchor="middle" x="247.44" y="-70.68" font-family="Times,serif" font-size="8.00">P(Galho|Galho)</text>
-</g>
-</g>
-</svg>
-</div>
-<p></p></figure><p></p>
-</div>
-</div>
-</div>
-<p>O diagrama de árvore é útil para representar resultados possíveis de um experimento com etapas consecutivas, mostrando visualmente cada caminho possível.</p>
+<p>Do diagrama de Venn, fica fácil verificar que o número de eventos em <span class="math inline">\(A \cup B\)</span> pode ser obtido pelo número de eventos em <span class="math inline">\(A\)</span> somados ao número de eventos em <span class="math inline">\(B\)</span> e subtraído pelo número de evendos que ocorrem em ambos (<span class="math inline">\(A \cap B\)</span>).</p>
+<p>Assim:</p>
+<p><span class="math display">\[P(A \cup B) = P(A) + P(B) - P(A \cap B)\]</span></p>
+<p><span class="math display">\[P(A \cup B) = 0.58 + 0.5 - 0.33 = 0.75\]</span></p>
 
 
 </section>
