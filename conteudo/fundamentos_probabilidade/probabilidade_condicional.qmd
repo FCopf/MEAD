@@ -21,7 +21,6 @@ format:
 library(tidyverse)
 library(gt)
 library(ggVennDiagram)
-source("scripts/tree_diagram.r")
 source("scripts/conditional_tree.r")
 ```
 :::
@@ -40,21 +39,30 @@ eventos <- list(
   A = paste("(F", nfolha,")", sep = ''),
   B = c("(F3)","(F4)","(F5)","(F6)","(G3)","(G4)")
 )
+PA = length(eventos[[1]])/length(omega)
+PB = length(eventos[[2]])/length(omega)
+AsumB = c(eventos$A,eventos$B)
+C = AsumB[duplicated(AsumB)]
+PC = round(length(C)/length(omega),2)
+PB_dado_A = PC / PA
 ```
+
+
+## Probabilidade Condicional
 
 Consideremos o experimento *“virar uma estrutura (folha ou galho) e contar o número de itens”*:
 
 $\Omega = \{`r omega_text`\}$
 
-Definimos:
+Sejam definidos os eventos:
 
-- Evento $A$: “virar uma folha”, isto é,  
-  $$A = \{\texttt{`r paste(eventos[[1]], collapse = ", ")`}\}.$$
+- $A$: “virar uma folha”:  
+  $$A = \{\text{`r paste(eventos[[1]], collapse = ", ")`}\}.$$
 
-- Evento $B$: “obter mais de 3 itens”, isto é,  
-  $$B = \{\texttt{`r paste(eventos[[2]], collapse = ", ")`}\}.$$
+- $B$: “obter 3 ou mais itens”:  
+  $$B = \{\text{`r paste(eventos[[2]], collapse = ", ")`}\}.$$
 
-O diagrama de Venn a seguir representa esses conjuntos:
+Que podem ser representados no diagrama de Venn:
 
 ```{r}
 #| echo: false
@@ -72,31 +80,29 @@ ggVennDiagram(eventos, fill = NA, label = NULL) +
   theme(legend.position = "none")
 ```
 
-Após podemos perguntar:
+Podemos perguntar:
 
-> Qual a probabilidade de que tenham sido obtidos **mais de 3 itens**?
+> Considerando que tenha sido virada uma folha, qual a probabilidade de que tenham sido obtidos **mais de 3 itens**?
 
-Ao informarmos que a estrutura era uma folha, sabemos que nem todos os eventos de $\Omega$ podem ter ocorrido. Neste exemplo, *somente* as `r length(eventos[[1]])` observações do evento e $A$ consistem de uma folha:
+Ao informar que a estrutura era uma folha, sabemos que nem todos os eventos de $\Omega$ podem ter ocorrido. Neste exemplo, *somente* as `r length(eventos[[1]])` observações do evento e $A$ consistem de uma folha.
 
 Destas, apenas `r length(C)` possuem mais de 3 itens, de modo a resposta à pergunta seria $\frac{`r length(C)`}{`r length(eventos[[1]])`}$. Este resultado é conhecido como **probabilidade condicional**, denotada pelo símbolo ($|$). Neste exemplo específico estamos perguntando:
 
-> **Dado** que $A$ OCORREU, qual a probabilidade de que $B$ tenha ocorrido? Simbolicamente, esta questão é escrita como $P(B|A)$.
+> **Dado** que $A$ OCORREU, qual a probabilidade de que $B$ ocorra? Simbolicamente, esta questão é escrita como $P(B|A)$ e lida como **probabilidade de $B$ dado $A$**.
 
 $$P(B|A) = \frac{`r length(C)`}{`r length(eventos[[1]])`} = `r round(length(C)/length(eventos[[1]]),2)`$$
 
-Esta probabilidade condicional foi calculada pelo número de observações favoráveis à intersecção de $A$ e $B$ ($\#A \cap B$) *relativa* ao número de observações do evento $A$ ($\#A$). Isto significa ao sabermos parte dos resultados, o espaço amostral inicial inicial foi **reduzido**, neste caso, ao espaço coincidente com $A$. Portanto, temos que:
+Esta probabilidade condicional foi calculada pelo número de observações favoráveis à intersecção de $A$ e $B$ ($A \cap B$) **relativa** ao número de observações do evento $A$. Isto significa que ao sabermos parte dos resultados, o espaço amostral inicial foi **reduzido**, neste caso, ao espaço coincidente com $A$.
 
-Suponha que queiramos a probabilidade de obter **mais de 3 itens**. Se informamos previamente que a estrutura sorteada era uma folha (evento $A$), reduzimos o espaço amostral apenas aos casos de $A$. Sejam $C = A \cap B$. Então, a probabilidade de $B$ dado $A$ será:
-
-$$P(B \mid A) \;=\; \frac{\#(A \cap B)}{\#(A)} \;=\; \frac{\texttt{`r length(C)`}}{\texttt{`r length(eventos[[1]])`}} = \texttt{`r round(length(C)/length(eventos[[1]]),2)`}$$
-
-A **probabilidade condicional** pode ser expressa genericamente como:
+Deste modo, a **probabilidade condicional** pode ser expressacomo:
 
 $$P(B \mid A) = \frac{P(A \cap B)}{P(A)}$$
 
-o que também permite calcular
+que neste exemplo será:
 
-$$P(A \cap B) = P(A) \times P(B \mid A)$$
+$$P(B \mid A) = \frac{P(A \cap B)}{P(A)} = \frac{`r length(C)`}{`r length(eventos[[1]])`} = `r round(PB_dado_A,2)`$$
+
+## Representação de eventos: diagrama de árvore
 
 Quando lidamos com experimentos em etapas ou eventos sequenciais, um **diagrama de árvore** ajuda a visualizar cada estágio, indicando as probabilidades e as condicionais:
 
@@ -111,41 +117,23 @@ conditional_tree()
 
 Nesse diagrama, cada ramo representa um cenário: por exemplo, ao ocorrer $A$, $B$ pode acontecer com $P(B \mid A)$, resultando na intersecção $A \cap B$. Assim, o diagrama possibilita mapear todos os cenários possíveis de maneira organizada.
 
-```{r}
-#| echo: false
-my_code <- bayes_tree_diagram(
-  A_name = "A",
-  B_name = "B",
-  pA = 0.58,
-  pB = 0.5,
-  pAB = 0.0833,
-  digits = 3
-)
-```
-
-
-`r my_code`
-
-
 ## Eventos independentes
 
-No experimento “virar uma estrutura e contar o número de itens”, temos:
+Dois eventos $A$ e $B$ são **independentes** quando conhecer a ocorrência de um deles **não altera** a probabilidade do outro, ou seja, conhecer $A$ não nos diz nada sobre a probabilidade de ocorrência de $B$, de modo que $P(B) = P(B \mid A)$.
 
-$$\begin{aligned}
-P(A) &= \texttt{`r round(length(eventos[[1]])/length(omega),2)`},\\
-P(\overline{A}) &= 1 - P(A),\\
-P(B) &= \texttt{`r round(length(eventos[[2]])/length(omega),2)`},\\
-P(\overline{B}) &= 1 - P(B).
-\end{aligned}$$
+No experimento “virar uma estrutura e contar o número de itens”, temos por exemplo.
 
-Seja $P(B \mid A) = \texttt{`r round(length(C)/length(eventos[[1]]),2)`}$. Note que $P(B) \neq P(B \mid A)$, indicando que $A$ e $B$ são **eventos dependentes**.
+$P(B) = `r round(PB,2)`$
+
+e que
+
+$P(B \mid A) = `r round(PB_dado_A,2)`$
+
+Portanto, ao sabermos que a estrutura virada foi uma folha, a probalidade de que tenham sido observados 3 ou mais items foi alterada.
+
+Os eventos $A$ e $B$ são portanto **eventos dependentes** em que $P(B) \neq P(B \mid A)$.
 
 ### Exemplo de eventos independentes
-
-Dois eventos $A$ e $B$ são **independentes** quando conhecer a ocorrência de um deles **não altera** a probabilidade do outro, ou seja, $P(B) = P(B \mid A)$.
-
-Considere a matriz:
-
 
 ```{r}
 #| echo: false
@@ -160,31 +148,36 @@ idade <- apply(visita,1,sum)
 regi <- apply(visita,2,sum)
 ```
 
-```{r}
-# echo: false
-visita_df |> 
-  gt()
-```
-
-Suponhamos que foram investigadas `r N` pessoas, classificadas por idade e local de origem. Nesse contexto:
+Suponha que foram investigadas `r N` pessoas, classificadas por idade e local de origem. Nesse contexto temos os eventos:
 
 - $A$: ter até 20 anos; $\overline{A}$: ter mais de 20 anos.  
 - $B$: ser da cidade; $\overline{B}$: ser de fora da cidade.
 
+Considere a matriz:
+
+```{r}
+#| echo: false
+visita_df |> 
+  gt()
+```
+
+
+
 As probabilidades são:
 
-$$\begin{aligned}
-P(A) &= \frac{\texttt{`r visita[1,1] + visita[1,2]`}}{\texttt{`r N`}}, \quad
-P(\overline{A}) \;=\; \frac{\texttt{`r visita[2,1] + visita[2,2]`}}{\texttt{`r N`}},\\
-P(B) &= \frac{\texttt{`r visita[1,1] + visita[2,1]`}}{\texttt{`r N`}}, \quad
-P(\overline{B}) \;=\; \frac{\texttt{`r visita[1,2] + visita[2,2]`}}{\texttt{`r N`}}.
-\end{aligned}$$
+$P(A) = \frac{`r visita[1,1] + visita[1,2]`}{`r N`} = `r round((visita[1,1] + visita[1,2])/N,2)`$
+
+$P(\overline{A}) \;=\; \frac{`r visita[2,1] + visita[2,2]`}{`r N`} = `r round((visita[2,1] + visita[2,2])/N,2)`$
+
+$P(B) = \frac{`r visita[1,1] + visita[2,1]`}{`r N`} = `r round((visita[1,1] + visita[2,1])/N,2)`$
+
+$P(\overline{B}) \;=\; \frac{`r visita[1,2] + visita[2,2]`}{`r N`} = `r round((visita[1,2] + visita[2,2])/N,2)`$
 
 Sabendo, por exemplo, que a pessoa tem mais de 20 anos, a probabilidade de ela ser da cidade é:
 
-$$P(B \mid A) = \frac{\texttt{`r visita[2,1]`}}{\texttt{`r visita[2,1] + visita[2,2]`}}.$$
+$$P(B \mid A) = \frac{`r visita[2,1]`}{`r visita[2,1] + visita[2,2]`} = `r round(visita[2,1]/N,2)`.$$
 
-Se $P(B) = P(B \mid A)$, então idade e origem são independentes; do contrário, são dependentes.
+Uma vez que $P(B) = P(B \mid A)$, então $A$ e $B$ são eventos independentes.
 
 
 ## Eventos independentes *vs* mutuamente exclusivos
@@ -193,7 +186,7 @@ Se $P(B) = P(B \mid A)$, então idade e origem são independentes; do contrário
 
 - Dois eventos são **independentes** se $P(A \cap B) = P(A)\times P(B)$. Isso significa que conhecer $A$ não altera a probabilidade de $B$. Se $P(A)$ e $P(B)$ forem não nulos, então não podem ser ao mesmo tempo mutuamente exclusivos **e** independentes.
 
-A representação de eventos mutuamente exclusivos no diagrama de árvore é ilustrada por $P(B \mid A)=0$, pois, ao ocorrer $A$, já se sabe que $B$ não ocorrerá. Assim, *mutuamente exclusivos* implica dependência. Se não há exclusividade, os eventos podem ou não ser independentes, dependendo de $P(B)$ em relação a $P(B \mid A)$.
+A representação de eventos mutuamente exclusivos no diagrama de árvore é ilustrada por $P(B \mid A)=0$, pois, ao ocorrer $A$, já se sabe que $B$ não ocorrerá. Assim, eventos *mutuamente exclusivos* implica serem eventos dependentes. Se não há exclusividade, os eventos podem ou não ser independentes, dependendo de $P(B)$ em relação a $P(B \mid A)$.
 
 ```{r}
 #| echo: false
