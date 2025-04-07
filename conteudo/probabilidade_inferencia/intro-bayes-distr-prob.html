@@ -262,10 +262,11 @@ Tabela&nbsp;1: <strong>Distribuição de probabilidade <em>a priori</em> sobre o
 <hr>
 <section id="distribuições-a-priori-a-posteriori-e-verossimilhança" class="level2" data-number="1">
 <h2 data-number="1" class="anchored" data-anchor-id="distribuições-a-priori-a-posteriori-e-verossimilhança"><span class="header-section-number">1</span> Distribuições <em>a priori</em>, <em>a posteriori</em> e <em>verossimilhança</em></h2>
-<p>Suponha que realizamos três observações da caixa e a sequência registrada seja [🔵, ⚪, 🔵] – ou seja, obtivemos <strong>N = 2</strong> bolas azuis. Para atualizar nosso conhecimento sobre a composição da caixa, combinamos nossa distribuição <em>a priori</em> com a verossimilhança de cada hipótese. A verossimilhança é calculada a partir da contagem do número de maneiras em que cada hipótese pode gerar a sequência observada. Em seguida, aplicamos a regra de Bayes, que nos fornece a distribuição <em>a posteriori</em> por meio da fórmula:</p>
-<p><span class="math display">\[\text{Posterior}_i = \frac{\text{Priori}_i \times P_i}{\sum_{j} \left(\text{Priori}_j \times P_j\right)},\]</span></p>
+<p>Suponha que realizamos três observações da caixa e a sequência registrada seja [🔵, ⚪, 🔵] – ou seja, duas bolas azuis. Para atualizar nosso conhecimento sobre a composição da caixa, combinamos nossa distribuição <em>a priori</em> com a verossimilhança de cada hipótese. A verossimilhança é calculada a partir da contagem do número de maneiras em que cada hipótese pode gerar a sequência observada. Em seguida, aplicamos a regra de Bayes, que nos fornece a distribuição <em>a posteriori</em> por meio da fórmula:</p>
+<p><span id="eq-bayes"><span class="math display">\[\text{Posterior}_i = \frac{\text{Priori}_i \times P_i}{\sum_{j} \left(\text{Priori}_j \times P_j\right)}, \tag{1}\]</span></span></p>
 <p>onde <span class="math inline">\(P_i\)</span> representa, de forma proporcional, o número de caminhos possíveis para que a hipótese <span class="math inline">\(i\)</span> gere a sequência [🔵, ⚪, 🔵].</p>
-<p>Na tabela a seguir, apresentamos os cálculos para cada hipótese:</p>
+<p>A equação <a href="#eq-bayes" class="quarto-xref">Equation&nbsp;1</a> indica que, para cada valor que <span class="math inline">\(N\)</span> pode assumir, julgamos sua plausibilidade como proporcional ao número de maneiras pelas quais esse valor pode ter gerado os dados, multiplicado pela sua evidência anterior (a distribuição <em>a priori</em>). Esse produto – representado na <a href="#tbl-posteriori" class="quarto-xref">Tabela&nbsp;2</a> por <span class="math inline">\(\text{Priori}_i \times P_i\)</span> – é então <em>normalizado</em>, dividindo cada um deles pelo somatório <span class="math inline">\(\sum (1/5 \times \text{Nº de caminhos})\)</span>. Essa normalização gera a distribuição <strong>a posteriori</strong>, que reflete nosso conhecimento atualizado após a incorporação das evidências observadas.</p>
+<p>Na <a href="#tbl-posteriori" class="quarto-xref">Tabela&nbsp;2</a>, a coluna <em>“Maneiras de produzir N = 2 [🔵⚪🔵]”</em> indica o número de caminhos possíveis para que cada hipótese gere a sequência observada. Note que as hipóteses [⚪⚪⚪⚪] e [🔵🔵🔵🔵] não conseguem gerar a sequência (ou seja, possuem verossimilhança zero).</p>
 <div id="tbl-posteriori" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-posteriori-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -330,17 +331,28 @@ Tabela&nbsp;2: <strong>Tabela: Atualização da distribuição de probabilidade 
 </div>
 </figure>
 </div>
-<p>Na <a href="#tbl-posteriori" class="quarto-xref">Tabela&nbsp;2</a>, a coluna <em>“Maneiras de produzir N = 2 [🔵⚪🔵]”</em> indica o número de caminhos possíveis para que cada hipótese gere a sequência observada. Note que as hipóteses [⚪⚪⚪⚪] e [🔵🔵🔵🔵] não conseguem gerar a sequência (ou seja, possuem verossimilhança zero).</p>
-<div id="86b1fc72" class="cell" data-execution_count="1">
+<p>Dessa forma, a plausibilidade de cada hipótese é convertida em <strong>probabilidades</strong> – valores não negativos cuja soma é igual a 1 – para cada uma das hipóteses sobre o conteúdo da caixa. O resultado final da inferência bayesiana é fornecer uma base probabilística para a tomada de decisão sobre um fenômeno parcialmente desconhecido, expressando o quão plausível é cada hipótese à luz dos dados disponíveis (<a href="#fig-priori-posteriori" class="quarto-xref">Figura&nbsp;1</a>).</p>
+<div id="cell-fig-priori-posteriori" class="cell" data-execution_count="1">
 <div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="intro-bayes-distr-prob_files/figure-html/cell-2-output-1.png" width="710" height="279" class="figure-img"></p>
+<div id="fig-priori-posteriori" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-priori-posteriori-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="intro-bayes-distr-prob_files/figure-html/fig-priori-posteriori-output-1.png" width="710" height="279" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-priori-posteriori-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;1: Distribuição a priori (esquerda) e a posteriori (direita) para o número de bolas azuis. A priori, as hipóteses têm probabilidade uniforme; a posteriori, a observação [🔵, ⚪, 🔵] atualiza a plausibilidade, favorecendo hipóteses intermediárias
+</figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p>Ao normalizarmos os produtos <span class="math inline">\(\text{Priori}_i \times P_i\)</span> — isto é, dividindo cada um deles pelo somatório <span class="math inline">\(\sum (1/5 \times \text{Nº de caminhos})\)</span> — obtemos a distribuição <strong>a posteriori</strong>, que representa nosso conhecimento atualizado após considerar as evidências observadas. O resultado final da inferência bayesiana é a atribuição de <strong>probabilidades</strong> — valores não negativos, cuja soma é igual a 1 — a cada uma das hipóteses possíveis sobre o conteúdo da caixa. Essas probabilidades expressam, de forma quantitativa, o quão plausível é cada hipótese à luz dos dados disponíveis.</p>
+<p>Esses conceitos possuem nomenclaturas específicas, e vale a pena aprendê-los, pois você os encontrará repetidamente:</p>
+<ul>
+<li>A conjectura sobre o número de bolinhas azuis <span class="math inline">\(N\)</span> é chamada de <strong>valor do parâmetro</strong> – uma maneira de indexar as possíveis explicações para os dados.</li>
+<li>O número relativo de maneiras pelo qual esse parâmetro pode produzir os dados é chamado de <strong>verossimilhança</strong> (<em>likelihood</em>). Essa medida é obtida ao enumerar todas as sequências de dados possíveis e, em seguida, descartar aquelas que não são compatíveis com os dados observados.</li>
+<li>A plausibilidade anterior de um valor específico é denominada <strong>distribuição de probabilidade a priori</strong>.</li>
+<li>A plausibilidade atualizada de um valor específico, após a incorporação dos dados, é denominada <strong>distribuição de probabilidade a posteriori</strong>, utilizada para inferir a probabilidade de cada hipótese ou conjunto de hipóteses sobre o parâmetro.</li>
+</ul>
 
 
 
