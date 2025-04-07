@@ -175,7 +175,7 @@ $P(\overline{B}) \;=\; \frac{`r visita[1,2] + visita[2,2]`}{`r N`} = `r round((v
 
 Sabendo, por exemplo, que a pessoa tem mais de 20 anos, a probabilidade de ela ser da cidade é:
 
-$$P(B \mid A) = \frac{`r visita[2,1]`}{`r visita[2,1] + visita[2,2]`} = `r round(visita[2,1]/N,2)`.$$
+$$P(B \mid A) = \frac{`r visita[2,1]`}{`r sum(visita[2,])`} = `r round(visita[2,1]/sum(visita[2,]),2)`.$$
 
 Uma vez que $P(B) = P(B \mid A)$, então $A$ e $B$ são eventos independentes.
 

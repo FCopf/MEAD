@@ -1,0 +1,102 @@
+---
+title: "Introdução à Inferência Bayesiana"  
+subtitle: "De contagens a probabilidades"  
+description: Texto adaptado do segundo capítulo (*Small Worlds and Large Worlds*) do livro **Statistical Rethinking – A Bayesian Course with Examples in R and Stan** [@mcelreath2018statistical] e material disponível em [**Statistical Rethinking course and book package**](https://github.com/rmcelreath/rethinking){target="_blank"}  
+Categories: ["Probabilidade", "Inferência bayesiana", "teorema de Bayes"]
+
+image: "images/intro-bayes-distr-prob.png"  
+execute:  
+  echo: false  
+  warning: false  
+  include: true  
+  message: false  
+
+---
+
+---
+
+Voltemos ao problema das bolinhas de gude. Temos uma caixa contendo quatro bolinhas, que podem ser azuis ou brancas. Sabemos que há exatamente quatro bolinhas, mas não conhecemos a distribuição entre as cores, pois podemos ver apenas uma bolinha por vez através de um orifício. Para estimar quantas bolas de cada cor há na caixa, fazemos uma observação, misturamos as bolinhas, fazemos outra observação e assim por diante. Antes de realizarmos qualquer observação, podemos listar cinco configurações possíveis para o conteúdo da caixa:
+
+1. [⚪⚪⚪⚪]  
+2. [🔵⚪⚪⚪]  
+3. [🔵🔵⚪⚪]  
+4. [🔵🔵🔵⚪]  
+5. [🔵🔵🔵🔵]
+
+Nosso objetivo é *estimar o número $N$ de bolas azuis*, o qual pode variar, neste exemplo, de 0 a 4. Como não dispomos de conhecimento prévio sobre a composição da caixa antes da primeira observação, adotamos uma distribuição *a priori* uniforme entre as hipóteses. Assim, cada hipótese recebe uma probabilidade de $p = \frac{1}{5}$.
+
+| **Hipótese** | **N** | **Priori** |
+|:------------:|:-----:|:----------:|
+| [⚪⚪⚪⚪]   |  0    | $1/5$    |
+| [🔵⚪⚪⚪]   |  1    | $1/5$    |
+| [🔵🔵⚪⚪]   |  2    | $1/5$    |
+| [🔵🔵🔵⚪]   |  3    | $1/5$    |
+| [🔵🔵🔵🔵]   |  4    | $1/5$    |
+
+: **Distribuição de probabilidade *a priori* sobre o conteúdo da caixa** {#tbl-priori} 
+
+---
+
+## Distribuições *a priori*, *a posteriori* e *verossimilhança*
+
+Suponha que realizamos três observações da caixa e a sequência registrada seja [🔵, ⚪, 🔵] – ou seja, obtivemos **N = 2** bolas azuis. Para atualizar nosso conhecimento sobre a composição da caixa, combinamos nossa distribuição *a priori* com a verossimilhança de cada hipótese. A verossimilhança é calculada a partir da contagem do número de maneiras em que cada hipótese pode gerar a sequência observada. Em seguida, aplicamos a regra de Bayes, que nos fornece a distribuição *a posteriori* por meio da fórmula:
+
+$$\text{Posterior}_i = \frac{\text{Priori}_i \times P_i}{\sum_{j} \left(\text{Priori}_j \times P_j\right)},$$
+
+onde $P_i$ representa, de forma proporcional, o número de caminhos possíveis para que a hipótese $i$ gere a sequência [🔵, ⚪, 🔵].
+
+Na tabela a seguir, apresentamos os cálculos para cada hipótese:
+
+| **Hipótese** | **N** | **Priori** | **Maneiras de produzir N = 2 [🔵⚪🔵]** | **Posterior** |
+|:------------:|:-----:|:----------:|:---------------------------------------:|:-------------:|
+| [⚪⚪⚪⚪]   |  0    | $1/5$    | $0 \times 4 \times 0 = 0$             | $\dfrac{(1/5 \times 0)}{\sum (1/5 \times \text{Nº de caminhos})} = 0$  |
+| [🔵⚪⚪⚪]   |  1    | $1/5$    | $1 \times 3 \times 1 = 3$             | $\dfrac{(1/5 \times 3)}{\sum (1/5 \times \text{Nº de caminhos})} = 0.15$  |
+| [🔵🔵⚪⚪]   |  2    | $1/5$    | $2 \times 2 \times 2 = 8$             | $\dfrac{(1/5 \times 8)}{\sum (1/5 \times \text{Nº de caminhos})} = 0.40$  |
+| [🔵🔵🔵⚪]   |  3    | $1/5$    | $3 \times 1 \times 3 = 9$             | $\dfrac{(1/5 \times 9)}{\sum (1/5 \times \text{Nº de caminhos})} = 0.45$  |
+| [🔵🔵🔵🔵]   |  4    | $1/5$    | $4 \times 0 \times 4 = 0$             | $\dfrac{(1/5 \times 0)}{\sum (1/5 \times \text{Nº de caminhos})} = 0$  |
+
+: **Tabela: Atualização da distribuição de probabilidade combinando a priori e verossimilhança** {#tbl-posteriori} 
+
+Na @tbl-posteriori, a coluna *“Maneiras de produzir N = 2 [🔵⚪🔵]”* indica o número de caminhos possíveis para que cada hipótese gere a sequência observada. Note que as hipóteses [⚪⚪⚪⚪] e [🔵🔵🔵🔵] não conseguem gerar a sequência (ou seja, possuem verossimilhança zero). 
+
+```{python}
+import matplotlib.pyplot as plt
+import numpy as np
+
+# Número de bolas azuis possíveis (0 a 4)
+N = np.array([0, 1, 2, 3, 4])
+
+# Distribuição a priori uniforme
+prior = np.full_like(N, 1/5, dtype=float)
+
+# Número de caminhos (verossimilhança proporcional) para [🔵, ⚪, 🔵]
+likelihood = np.array([0, 3, 8, 9, 0])
+
+# Produto da priori pela verossimilhança proporcional
+unnormalized_posterior = prior * likelihood
+
+# Normalização
+posterior = unnormalized_posterior / unnormalized_posterior.sum()
+
+# Plot
+fig, axs = plt.subplots(1, 2, figsize=(2.5*3, 3), sharey=True)
+
+# Gráfico da distribuição a priori
+axs[0].bar(N, prior)
+axs[0].set_title("Distribuição a priori")
+axs[0].set_xlabel("Número de bolas azuis (N)")
+axs[0].set_ylabel("Probabilidade")
+axs[0].set_xticks(N)
+
+# Gráfico da distribuição a posteriori
+axs[1].bar(N, posterior)
+axs[1].set_title("Distribuição a posteriori")
+axs[1].set_xlabel("Número de bolas azuis (N)")
+axs[1].set_xticks(N)
+
+plt.tight_layout()
+plt.show()
+
+```
+
+Ao normalizarmos os produtos $\text{Priori}_i \times P_i$ — isto é, dividindo cada um deles pelo somatório $\sum (1/5 \times \text{Nº de caminhos})$ — obtemos a distribuição **a posteriori**, que representa nosso conhecimento atualizado após considerar as evidências observadas. O resultado final da inferência bayesiana é a atribuição de **probabilidades** — valores não negativos, cuja soma é igual a 1 — a cada uma das hipóteses possíveis sobre o conteúdo da caixa. Essas probabilidades expressam, de forma quantitativa, o quão plausível é cada hipótese à luz dos dados disponíveis.
