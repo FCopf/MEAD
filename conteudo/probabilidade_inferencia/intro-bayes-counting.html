@@ -6,7 +6,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="description" content="Introdução à inferência bayesiana e contagem de possibilidades">
+<meta name="description" content="Texto adaptado do segundo capítulo (Small Worlds and Large Worlds) do livro Statistical Rethinking – A Bayesian Course with Examples in R and Stan (McElreath 2018) e material disponível em Statistical Rethinking course and book package">
 
 <title>Introdução à Inferência Bayesiana – Métodos em Estatística e Análise de Dados</title>
 <style>
@@ -120,11 +120,11 @@ window.Quarto = {
 
 <link rel="stylesheet" href="../../styles/custom.css">
 <meta property="og:title" content="Introdução à Inferência Bayesiana – Métodos em Estatística e Análise de Dados">
-<meta property="og:description" content="Introdução à inferência bayesiana e contagem de possibilidades">
-<meta property="og:image" content="https://github.com/FCopf/MEAD/conteudo/probabilidade_inferencia/images/intro-bayes.png">
+<meta property="og:description" content="Texto adaptado do segundo capítulo (Small Worlds and Large Worlds) do livro Statistical Rethinking – A Bayesian Course with Examples in R and Stan (McElreath 2018) e material disponível em Statistical Rethinking course and book package">
+<meta property="og:image" content="https://github.com/FCopf/MEAD/conteudo/probabilidade_inferencia/images/intro-bayes-conting.png">
 <meta property="og:site_name" content="Métodos em Estatística e Análise de Dados">
 <meta property="og:image:height" content="1024">
-<meta property="og:image:width" content="1024">
+<meta property="og:image:width" content="1536">
 </head>
 
 <body class="nav-fixed">
@@ -170,11 +170,8 @@ window.Quarto = {
   <ul>
   <li><a href="#um-leque-de-possibilidades" id="toc-um-leque-de-possibilidades" class="nav-link active" data-scroll-target="#um-leque-de-possibilidades"><span class="header-section-number">1</span> Um leque de possibilidades</a></li>
   <li><a href="#avaliando-as-evidências" id="toc-avaliando-as-evidências" class="nav-link" data-scroll-target="#avaliando-as-evidências"><span class="header-section-number">2</span> Avaliando as evidências</a></li>
-  <li><a href="#avaliando-as-demais-hipóteses" id="toc-avaliando-as-demais-hipóteses" class="nav-link" data-scroll-target="#avaliando-as-demais-hipóteses"><span class="header-section-number">3</span> Avaliando as demais hipóteses</a>
-  <ul class="collapse">
-  <li><a href="#atualizando-o-conhecimento" id="toc-atualizando-o-conhecimento" class="nav-link" data-scroll-target="#atualizando-o-conhecimento"><span class="header-section-number">3.1</span> Atualizando o conhecimento</a></li>
-  <li><a href="#de-contagens-a-probabilidades" id="toc-de-contagens-a-probabilidades" class="nav-link" data-scroll-target="#de-contagens-a-probabilidades"><span class="header-section-number">3.2</span> De contagens a probabilidades</a></li>
-  </ul></li>
+  <li><a href="#avaliando-as-demais-hipóteses" id="toc-avaliando-as-demais-hipóteses" class="nav-link" data-scroll-target="#avaliando-as-demais-hipóteses"><span class="header-section-number">3</span> Avaliando as demais hipóteses</a></li>
+  <li><a href="#atualizando-o-conhecimento" id="toc-atualizando-o-conhecimento" class="nav-link" data-scroll-target="#atualizando-o-conhecimento"><span class="header-section-number">4</span> Atualizando o conhecimento</a></li>
   </ul>
 </nav>
     </div>
@@ -184,12 +181,12 @@ window.Quarto = {
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
 <h1 class="title">Introdução à Inferência Bayesiana</h1>
-<p class="subtitle lead">Texto adaptado do segundo capítulo (<em>Small Worlds and Large Worlds</em>) do livro <em>Statistical Rethinking – A Bayesian Course with Examples in R and Stan</em> <span class="citation" data-cites="mcelreath2018statistical">(<a href="#ref-mcelreath2018statistical" role="doc-biblioref">McElreath 2018</a>)</span> e material disponível em <a href="https://github.com/rmcelreath/rethinking" target="_blank">Statistical Rethinking course and book package</a></p>
+<p class="subtitle lead">Contando possibilidades</p>
 </div>
 
 <div>
   <div class="description">
-    Introdução à inferência bayesiana e contagem de possibilidades
+    Texto adaptado do segundo capítulo (<em>Small Worlds and Large Worlds</em>) do livro <strong>Statistical Rethinking – A Bayesian Course with Examples in R and Stan</strong> <span class="citation" data-cites="mcelreath2018statistical">(<a href="#ref-mcelreath2018statistical" role="doc-biblioref">McElreath 2018</a>)</span> e material disponível em <a href="https://github.com/rmcelreath/rethinking" target="_blank"><strong>Statistical Rethinking course and book package</strong></a>
   </div>
 </div>
 
@@ -207,8 +204,8 @@ window.Quarto = {
 
 
 <hr>
-<p>A inferência bayesiana, em essência, é uma forma de contar e comparar as diferentes maneiras pelas quais algo pode acontecer. A seguir, vamos desenvolver os princípios da inferência bayesiana de forma simples e intuitiva.</p>
-<p>Imagine que temos um saco contendo <strong>quatro</strong> bolinhas de gude, que podem ser <strong>azuis</strong> ou <strong>brancas</strong>. Sabemos que há exatamente quatro bolinhas, mas não conhecemos a distribuição entre as cores. Com base nessa informação, podemos listar cinco configurações possíveis:</p>
+<p>A inferência bayesiana, em essência, é uma forma de contar e comparar as diferentes maneiras pelas quais algo pode acontecer. A seguir, vamos desenvolver os princípios da inferência bayesiana de forma simples e intuitiva utilizando o princípio da contagem.</p>
+<p>Imagine que temos uma caixa contendo <strong>quatro</strong> bolinhas de gude, que podem ser <strong>azuis</strong> ou <strong>brancas</strong>. Sabemos que há exatamente quatro bolinhas, mas não conhecemos a distribuição entre as cores. Com base nessa informação, podemos listar cinco configurações possíveis:</p>
 <ol type="1">
 <li>[⚪⚪⚪⚪]<br>
 </li>
@@ -220,12 +217,12 @@ window.Quarto = {
 </li>
 <li>[🔵🔵🔵🔵]</li>
 </ol>
-<p>Essas são todas as possibilidades compatíveis com o que sabemos sobre o conteúdo do saco — o conhecimento <em>a priori</em>. Chamamos essas cinco configurações de <strong>hipóteses</strong>.</p>
-<p>Nosso objetivo será descobrir qual dessas hipóteses é mais plausível, à medida que obtivermos evidências sobre o conteúdo do saco.</p>
+<p>Essas são todas as possibilidades compatíveis com o que sabemos sobre o conteúdo da caixa — o conhecimento <em>a priori</em>. Chamamos essas cinco configurações de <strong>hipóteses</strong>.</p>
+<p>Nosso objetivo será descobrir qual dessas hipóteses é mais plausível à medida que obtivermos evidências sobre o conteúdo da caixa.</p>
 <section id="um-leque-de-possibilidades" class="level2" data-number="1">
 <h2 data-number="1" class="anchored" data-anchor-id="um-leque-de-possibilidades"><span class="header-section-number">1</span> Um leque de possibilidades</h2>
-<p>Retiramos uma única bolinha do saco e depois a devolvemos. Antes de dizer qual foi a cor observada, vamos entender como essa observação nos ajuda a alcançar nosso objetivo, avaliando-a à luz de cada uma das hipóteses.</p>
-<p>Vamos começar assumindo que seja verdadeira a situação (2) [🔵⚪⚪⚪]. Nesse caso, teríamos 1 possibilidade de observar a bola azul e 3 possibilidades de retirar uma bola branca (<a href="#fig-leque1" class="quarto-xref">Figura&nbsp;1</a>).</p>
+<p>A caixa possui um orifício pelo qual podemos ver apenas uma bolinha por vez. Assim, a única forma de obter evidências sobre o conteúdo da caixa será fazer uma observação, misturar as bolinhas, fazer outra observação e assim por diante. Antes de iniciar esse processo, vamos entender como cada observação nos ajuda a alcançar nosso objetivo, avaliando-as à luz das hipóteses sobre o conteúdo da caixa.</p>
+<p>Vamos começar assumindo que seja verdadeira a situação (2) [🔵⚪⚪⚪]. Nesse caso, teríamos 1 possibilidade de observar a bolinha azul e 3 possibilidades de observar uma bolinha branca (<a href="#fig-leque1" class="quarto-xref">Figura&nbsp;1</a>).</p>
 <div id="fig-leque1" class="quarto-float quarto-figure quarto-figure-center anchored" style="display: block; margin-left: auto; margin-right: auto;">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-leque1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -249,7 +246,7 @@ Dica útil
 <p>Observe que, embora as três bolinhas brancas pareçam iguais do ponto de vista dos dados (pois apenas registramos suas cores), elas são eventos <strong>diferentes</strong>. Isso é importante, pois significa que há três maneiras a mais de observar ⚪ do que 🔵.</p>
 </div>
 </div>
-<p>Retiramos agora uma <em>segunda</em> bolinha, observamos sua cor e a devolvemos ao saco. Isso expande nosso leque de possibilidades em mais uma camada (<a href="#fig-leque2" class="quarto-xref">Figura&nbsp;2</a>). Agora existem 16 caminhos possíveis (um para cada par de retiradas), pois na segunda retirada, cada um dos caminhos acima se ramifica em outros quatro caminhos possíveis.</p>
+<p>Observamos agora uma <em>segunda</em> bolinha. Isso expande nosso leque de possibilidades em mais uma camada (<a href="#fig-leque2" class="quarto-xref">Figura&nbsp;2</a>). Agora existem 16 caminhos possíveis (um para cada par de observações), pois, na segunda observação, cada um dos caminhos anteriores se ramifica em outros quatro caminhos possíveis.</p>
 <div id="fig-leque2" class="quarto-float quarto-figure quarto-figure-center anchored" style="display: block; margin-left: auto; margin-right: auto;">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-leque2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -260,7 +257,7 @@ Figura&nbsp;2: Os 16 caminhos possíveis, assumindo que existam três bolinhas b
 </figcaption>
 </figure>
 </div>
-<p>Ao retirar uma <em>terceira</em> bolinha do saco, a terceira camada é construída da mesma forma, e agora temos <span class="math inline">\(4^3 = 64\)</span> caminhos possíveis para uma sequência de observações de cores em um saco com 4 bolinhas (<a href="#fig-leque3" class="quarto-xref">Figura&nbsp;3</a>).</p>
+<p>Ao observar uma <em>terceira</em> bolinha da caixa, a terceira camada é construída da mesma forma, e agora temos <span class="math inline">\(4^3 = 64\)</span> caminhos possíveis para uma sequência de observações de cores em uma caixa com 4 bolinhas (<a href="#fig-leque3" class="quarto-xref">Figura&nbsp;3</a>).</p>
 <div id="fig-leque3" class="quarto-float quarto-figure quarto-figure-center anchored" style="display: block; margin-left: auto; margin-right: auto;">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-leque3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -271,29 +268,29 @@ Figura&nbsp;3: Os 64 caminhos possíveis, assumindo que existam três bolinhas b
 </figcaption>
 </figure>
 </div>
-<div class="callout callout-style-default callout-warning callout-titled" title="Importante">
+<div class="callout callout-style-default callout-warning callout-titled" title="Pressuposto Importante">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Importante
+Pressuposto Importante
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Acreditamos que, ao sacudir o saco, cada bolinha tem a mesma chance de ser retirada, independentemente de qual tenha saído anteriormente. Por isso, cada caminho do leque é igualmente provável de ser observado.</p>
+<p>Acreditamos que, ao sacudir a caixa, cada bolinha tem a mesma chance de ser observada pelo orifício, independentemente de qual tenha saído anteriormente. Por isso, cada caminho do leque é igualmente provável de ser observado.</p>
 </div>
 </div>
 </section>
 <section id="avaliando-as-evidências" class="level2" data-number="2">
 <h2 data-number="2" class="anchored" data-anchor-id="avaliando-as-evidências"><span class="header-section-number">2</span> Avaliando as evidências</h2>
-<p>À medida que retiramos uma nova bolinha do saco e observamos sua cor, alguns desses caminhos são logicamente eliminados.</p>
-<p>Suponha que a sequência de cores tenha sido:</p>
+<p>À medida que observamos a cor de uma nova bolinha da caixa, alguns desses caminhos são logicamente eliminados.</p>
+<p>Suponha que a sequência de cores observada tenha sido:</p>
 <p><strong>1ª bolinha:</strong> 🔵<br>
 <strong>2ª bolinha:</strong> ⚪<br>
 <strong>3ª bolinha:</strong> 🔵</p>
-<p>Após a primeira retirada resultar em 🔵, os três caminhos brancos na parte inferior do leque são imediatamente eliminados. A segunda retirada produziu ⚪, então um dos caminhos possíveis na segunda camada foi eliminado, restando os outros três que se ramificam do primeiro caminho azul. Após a terceira observação, cada um dos três caminhos restantes na segunda camada só segue em direção à bolinha azul na terceira camada. Assim, assumindo que o saco contenha [🔵⚪⚪⚪], existe um total de três maneiras para a sequência [⚪ → ⚪ → 🔵] aparecer. Todas as outras possibilidades foram descartadas à medida que as evidências surgiam.</p>
-<p>Dos caminhos restantes na <a href="#fig-2-3" class="quarto-xref">Figura&nbsp;4</a>, não podemos ter certeza de qual desses três caminhos os dados reais seguiram, pois não podemos identificar as bolas individualmente, apenas por sua cor. Entretanto, considerando a hipótese de que o saco contém [🔵⚪⚪⚪], podemos ter certeza de que os dados seguiram um desses três caminhos, pois são os únicos compatíveis tanto com nosso conhecimento prévio (4 bolinhas, azuis ou brancas) quanto com a sequência de dados observada (⚪ → ⚪ → 🔵).</p>
+<p>Após a primeira retirada resultar em 🔵, os três caminhos que levariam à observação de uma bolinha branca na primeira camada são imediatamente eliminados. Na segunda retirada, obtivemos ⚪, de modo que um dos caminhos possíveis na segunda camada foi eliminado, restando os três caminhos que se ramificam a partir do primeiro caminho azul. Após a terceira observação, cada um dos três caminhos restantes na segunda camada segue somente para a bolinha azul na terceira camada. Assim, assumindo que a caixa contenha [🔵⚪⚪⚪], existe um total de três maneiras para a sequência [🔵 → ⚪ → 🔵] aparecer. Todas as outras possibilidades foram descartadas à medida que as evidências surgiam.</p>
+<p>Dos caminhos restantes na <a href="#fig-2-3" class="quarto-xref">Figura&nbsp;4</a>, não podemos ter certeza de qual dos três caminhos os dados reais seguiram, pois não podemos identificar as bolinhas individualmente, apenas por sua cor. Entretanto, considerando a hipótese de que a caixa contenha [🔵⚪⚪⚪], podemos afirmar que os dados seguiram um desses três caminhos, pois são os únicos compatíveis tanto com nosso conhecimento prévio (4 bolinhas, azuis ou brancas) quanto com a sequência de dados observada ([🔵 → ⚪ → 🔵]).</p>
 <div id="fig-2-3" class="quarto-float quarto-figure quarto-figure-center anchored" style="display: block; margin-left: auto; margin-right: auto;">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-2-3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -307,8 +304,8 @@ Figura&nbsp;4: Após eliminar caminhos inconsistentes com a sequência observada
 </section>
 <section id="avaliando-as-demais-hipóteses" class="level2" data-number="3">
 <h2 data-number="3" class="anchored" data-anchor-id="avaliando-as-demais-hipóteses"><span class="header-section-number">3</span> Avaliando as demais hipóteses</h2>
-<p>Considerando que o saco contenha [🔵⚪⚪⚪], verificamos que apenas três dos 64 caminhos possíveis poderiam gerar a sequência [⚪ → ⚪ → 🔵]. Falta agora aplicar a mesma lógica às demais hipóteses. Por exemplo, considere [⚪⚪⚪⚪]. Há zero maneiras de essa hipótese produzir os dados observados, pois um único 🔵 já é logicamente incompatível com ela. A hipótese [🔵🔵🔵🔵] também não pode produzir a sequência, pois há ao menos uma ⚪ observada. Assim, podemos eliminar essas duas hipóteses, pois nenhuma delas fornece sequer um único caminho consistente com os dados.</p>
-<p>Para as hipóteses restantes, isto é, [🔵🔵⚪⚪] ou [🔵🔵🔵⚪], o leque de possibilidades se abre novamente.</p>
+<p>Considerando que a caixa contenha [🔵⚪⚪⚪], verificamos que apenas três dos 64 caminhos possíveis poderiam gerar a sequência [🔵 → ⚪ → 🔵]. Falta agora aplicar a mesma lógica às demais hipóteses. Por exemplo, considere [⚪⚪⚪⚪]. Há zero maneiras de essa hipótese produzir os dados observados, pois uma única 🔵 já é logicamente incompatível com ela. A hipótese [🔵🔵🔵🔵] também não pode produzir a sequência, pois há ao menos uma ⚪ observada. Assim, podemos eliminar essas duas hipóteses, pois nenhuma delas fornece sequer um único caminho consistente com os dados.</p>
+<p>Para as hipóteses restantes, isto é, [🔵🔵⚪⚪] e [🔵🔵🔵⚪], o leque de possibilidades se abre novamente.</p>
 <p>A <a href="#fig-leque4" class="quarto-xref">Figura&nbsp;5</a> mostra o leque completo para as três hipóteses compatíveis com os dados observados: [🔵⚪⚪⚪], [🔵🔵⚪⚪] e [🔵🔵🔵⚪].</p>
 <div id="fig-leque4" class="quarto-float quarto-figure quarto-figure-center anchored" style="display: block; margin-left: auto; margin-right: auto;">
 <figure class="quarto-float quarto-float-fig figure">
@@ -321,39 +318,39 @@ Figura&nbsp;5: Caminhos de composição possível para cada hipótese logicament
 </figure>
 </div>
 <p>Agora, contamos todas as maneiras pelas quais cada hipótese poderia produzir os dados observados. Para uma bolinha azul e três brancas, existem três maneiras (como já contamos). Para duas bolinhas azuis e duas brancas, há oito caminhos consistentes com a sequência. Para três bolinhas azuis e uma branca, há nove caminhos que sobrevivem às observações.</p>
-<p>Consideramos deste modo, as cinco hipóteses diferentes sobre o conteúdo do saco, variando de zero bolinhas 🔵 a quatro bolinhas 🔵 e, para cada uma dessas hipóteses, contamos quantas possibilidades (ou “caminhos”) poderiam potencialmente produzir a sequência observada.</p>
+<p>Consideramos, assim, as cinco hipóteses diferentes sobre o conteúdo da caixa, variando de zero bolinhas 🔵 a quatro bolinhas 🔵 e, para cada uma dessas hipóteses, contamos quantas possibilidades (ou “caminhos”) poderiam potencialmente produzir a sequência observada.</p>
 <div id="tbl-caminhos1" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-caminhos1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Tabela&nbsp;1: <strong>Total de maneiras pelas quais cada hipótese pode gerar a sequência [⚪ → ⚪ → 🔵].</strong>
+Tabela&nbsp;1: <strong>Total de maneiras pelas quais cada hipótese pode gerar a sequência [🔵 → ⚪ → 🔵].</strong>
 </figcaption>
 <div aria-describedby="tbl-caminhos1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <table class="caption-top table">
 <thead>
 <tr class="header">
 <th><strong>Hipótese</strong></th>
-<th><strong>Maneiras de produzir ⚪ → ⚪ → 🔵</strong></th>
+<th><strong>Maneiras de produzir [🔵 → ⚪ → 🔵]</strong></th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>[⚪⚪⚪⚪]</td>
+<td>1. [⚪⚪⚪⚪]</td>
 <td><span class="math inline">\(0 \times 4 \times 0 = 0\)</span></td>
 </tr>
 <tr class="even">
-<td>[🔵⚪⚪⚪]</td>
+<td>2. [🔵⚪⚪⚪]</td>
 <td><span class="math inline">\(1 \times 3 \times 1 = 3\)</span></td>
 </tr>
 <tr class="odd">
-<td>[🔵🔵⚪⚪]</td>
+<td>3. [🔵🔵⚪⚪]</td>
 <td><span class="math inline">\(2 \times 2 \times 2 = 8\)</span></td>
 </tr>
 <tr class="even">
-<td>[🔵🔵🔵⚪]</td>
+<td>4. [🔵🔵🔵⚪]</td>
 <td><span class="math inline">\(3 \times 1 \times 3 = 9\)</span></td>
 </tr>
 <tr class="odd">
-<td>[🔵🔵🔵🔵]</td>
+<td>5. [🔵🔵🔵🔵]</td>
 <td><span class="math inline">\(4 \times 0 \times 4 = 0\)</span></td>
 </tr>
 </tbody>
@@ -361,62 +358,59 @@ Tabela&nbsp;1: <strong>Total de maneiras pelas quais cada hipótese pode gerar a
 </div>
 </figure>
 </div>
-<p>Observe que o número de maneiras de produzir os dados, para cada hipótese, pode ser obtido contando-se as ramificações em cada camada do leque de possibilidades e, em seguida, multiplicando esses valores (<a href="#tbl-caminhos1" class="quarto-xref">Tabela&nbsp;1</a>). Isso é apenas um recurso computacional. Ele nos diz a mesma coisa que a <a href="#fig-leque4" class="quarto-xref">Figura&nbsp;5</a>, mas sem precisar desenhar todo o diagrama. O fato de multiplicarmos os números não altera o sentido de estarmos apenas contando caminhos logicamente possíveis.</p>
-<section id="atualizando-o-conhecimento" class="level3" data-number="3.1">
-<h3 data-number="3.1" class="anchored" data-anchor-id="atualizando-o-conhecimento"><span class="header-section-number">3.1</span> Atualizando o conhecimento</h3>
-<p>Comparando tais contagens, obtemos parte de uma solução para avaliar a plausibilidade relativa de cada hipótese sobre a composição do saco. Mas essa é apenas parte da solução, porque para comparar essas contagens devemos primeiro saber como essas hipóteses poderiam, por si mesmas, ser realizadas. Podemos argumentar que não temos razão para preferir uma hipótese em detrimento de outra e, assim, tratá-las como <em>igualmente plausíveis</em>, comparando as contagens diretamente. Ou podemos ter motivos para fazer diferente.</p>
-<p>Às vezes, temos informações adicionais sobre a plausibilidade de cada hipótese. Essas informações podem vir do conhecimento sobre como o conteúdo do saco foi gerado ou de dados anteriores. Seja qual for a fonte, seria útil ter uma forma de combinar diferentes fontes de informação para atualizar as plausibilidades. Felizmente, há uma solução natural para lidar com informações prévias, caso elas existam: simplesmente multiplicamos as contagens.</p>
-<p>Para compreender esse processo, suponha que estejamos dispostos a considerar cada hipótese como igualmente plausível. Assim, comparamos as contagens de maneiras pelas quais cada hipótese é compatível com os dados observados. Essa comparação sugere que [🔵🔵🔵⚪] é ligeiramente mais plausível que [🔵🔵⚪⚪] e cerca de três vezes mais plausível que [🔵⚪⚪⚪]. A partir desse momento, estas serão nossas contagens iniciais, que utilizaremos como conhecimento prévio em atualizações futuras. Vamos chamar estas contagens de <strong>priors</strong>.</p>
-<p>Agora, suponha que retiramos outra bolinha do saco e observamos a cor: 🔵. Temos duas opções. Podemos começar tudo de novo, desenhando um diagrama com quatro camadas para traçar os caminhos compatíveis com a sequência [⚪ → ⚪ → 🔵 → 🔵]. Ou podemos pegar as contagens anteriores — as <strong>priors</strong> — e apenas atualizá-las de acordo com a nova observação. Esses dois métodos são matematicamente idênticos, desde que a nova evidência seja logicamente independente das observações anteriores.</p>
-<p>Assim, fazemos o seguinte: para cada hipótese, listamos as maneiras anteriores de produzir as observações (a <em>prior</em>) e multiplicamos pelo número de maneiras de produzir a nova evidência 🔵:</p>
+<p>Observe que o número de maneiras de produzir os dados, para cada hipótese, pode ser obtido contando as ramificações em cada camada do leque de possibilidades e, em seguida, multiplicando esses valores (<a href="#tbl-caminhos1" class="quarto-xref">Tabela&nbsp;1</a>). Isso é apenas um recurso computacional. Ele nos diz a mesma coisa que a <a href="#fig-leque4" class="quarto-xref">Figura&nbsp;5</a>, mas sem precisar desenhar todo o diagrama. O fato de multiplicarmos os números não altera o sentido de estarmos apenas contando caminhos logicamente possíveis.</p>
+</section>
+<section id="atualizando-o-conhecimento" class="level2" data-number="4">
+<h2 data-number="4" class="anchored" data-anchor-id="atualizando-o-conhecimento"><span class="header-section-number">4</span> Atualizando o conhecimento</h2>
+<p>Suponha que o experimento anterior, sumarizado na <a href="#tbl-caminhos1" class="quarto-xref">Tabela&nbsp;1</a>, tenha sido finalizado. Isso nos diz que, por ora, temos evidências melhores para as hipóteses 3 e 4, isto é, de que a caixa contenha 2 ou 3 bolinhas azuis. Para ajudar a diferenciar essas duas possibilidades ainda mais, resolvemos continuar o experimento e amostrar outra bolinha, o que resultou na observação de uma bolinha azul. Como se trata de um novo experimento, poderíamos recomeçar todo o processo. No entanto, há uma forma melhor de aproveitar o conhecimento adquirido <em>a priori</em> — para cada hipótese, listamos as maneiras anteriores de produzir as observações (o <em>prior</em>) e multiplicamos pelo número de maneiras de produzir a nova evidência 🔵:</p>
 <div id="tbl-caminhos2" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-caminhos2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Tabela&nbsp;2: <strong>Total de maneiras pelas quais cada hipótese pode gerar a sequência completa [⚪ → ⚪ → 🔵 → 🔵], combinando a contagem anterior com a nova evidência.</strong>
+Tabela&nbsp;2: <strong>Total de maneiras pelas quais cada hipótese pode gerar a sequência completa [🔵 → ⚪ → 🔵 → 🔵], combinando a contagem anterior com a nova evidência.</strong>
 </figcaption>
 <div aria-describedby="tbl-caminhos2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <table class="caption-top table">
 <colgroup>
-<col style="width: 17%">
-<col style="width: 30%">
-<col style="width: 28%">
-<col style="width: 23%">
+<col style="width: 16%">
+<col style="width: 24%">
+<col style="width: 37%">
+<col style="width: 20%">
 </colgroup>
 <thead>
 <tr class="header">
-<th style="text-align: left;"><strong>Hipótese</strong></th>
+<th><strong>Hipótese</strong></th>
 <th style="text-align: center;"><strong>Contagem anterior (prior)</strong></th>
-<th style="text-align: center;"><strong>Maneiras de produzir 🔵</strong></th>
-<th style="text-align: center;"><strong>Nova contagem</strong></th>
+<th style="text-align: center;"><strong>Maneiras de produzir a nova observação 🔵</strong></th>
+<th style="text-align: center;"><strong>Contagem posterior</strong></th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">[⚪⚪⚪⚪]</td>
+<td>1. [⚪⚪⚪⚪]</td>
 <td style="text-align: center;">0</td>
 <td style="text-align: center;">0</td>
 <td style="text-align: center;"><span class="math inline">\(0 \times 0 = 0\)</span></td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">[🔵⚪⚪⚪]</td>
+<td>2. [🔵⚪⚪⚪]</td>
 <td style="text-align: center;">3</td>
 <td style="text-align: center;">1</td>
 <td style="text-align: center;"><span class="math inline">\(3 \times 1 = 3\)</span></td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">[🔵🔵⚪⚪]</td>
+<td>3. [🔵🔵⚪⚪]</td>
 <td style="text-align: center;">8</td>
 <td style="text-align: center;">2</td>
 <td style="text-align: center;"><span class="math inline">\(8 \times 2 = 16\)</span></td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">[🔵🔵🔵⚪]</td>
+<td>4. [🔵🔵🔵⚪]</td>
 <td style="text-align: center;">9</td>
 <td style="text-align: center;">3</td>
 <td style="text-align: center;"><span class="math inline">\(9 \times 3 = 27\)</span></td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">[🔵🔵🔵🔵]</td>
+<td>5. [🔵🔵🔵🔵]</td>
 <td style="text-align: center;">0</td>
 <td style="text-align: center;">4</td>
 <td style="text-align: center;"><span class="math inline">\(0 \times 4 = 0\)</span></td>
@@ -426,19 +420,19 @@ Tabela&nbsp;2: <strong>Total de maneiras pelas quais cada hipótese pode gerar a
 </div>
 </figure>
 </div>
-<p>As novas contagens na coluna da direita de <a href="#tbl-caminhos2" class="quarto-xref">Tabela&nbsp;2</a> resumem todas as evidências para cada hipótese antes de uma nova observação. À medida que novos dados chegam e desde que sejam independentes dos anteriores, o total de caminhos logicamente possíveis para explicar tanto as observações antigas quanto as novas pode ser calculado pela multiplicação das contagens atuais pelas anteriores.</p>
-<p>Em outras palavras, sempre que contamos <span class="math inline">\(W_\text{prior}\)</span> maneiras de uma hipótese produzir observações anteriores <span class="math inline">\(D_\text{prior}\)</span> e, em seguida, obtemos novas observações <span class="math inline">\(D_\text{novo}\)</span> que a mesma hipótese pode produzir de <span class="math inline">\(W_\text{novo}\)</span> maneiras, a quantidade total de formas possíveis para essa hipótese explicar <strong>todas</strong> as observações é simplesmente <span class="math inline">\(W_\text{prior} \times W_\text{novo}\)</span>. Por exemplo, na <a href="#tbl-caminhos2" class="quarto-xref">Tabela&nbsp;2</a>, a hipótese [🔵🔵⚪⚪] apresenta <span class="math inline">\(W_\text{prior} = 8\)</span> maneiras de gerar as observações anteriores [⚪⚪🔵] e <span class="math inline">\(W_\text{novo} = 2\)</span> maneiras de gerar a nova observação [🔵]. Logo, <span class="math inline">\(8 \times 2 = 16\)</span> caminhos possíveis para explicar tanto os dados antigos quanto os novos.</p>
-<div class="callout callout-style-default callout-warning callout-titled" title="Importante">
+<p>A nova contagem na coluna da direita da <a href="#tbl-caminhos2" class="quarto-xref">Tabela&nbsp;2</a> resume as evidências a favor de cada hipótese, de modo que sejam compatíveis tanto com as observações anteriores quanto com a nova observação. Portanto, à medida que novos dados chegam e, desde que sejam independentes dos anteriores, o total de caminhos logicamente possíveis para explicar tanto as observações antigas quanto as novas pode ser calculado pela multiplicação das contagens anteriores pelas novas.</p>
+<p>Em outras palavras, sempre que temos <span class="math inline">\(W_\text{prior}\)</span> maneiras de uma hipótese produzir observações anteriores (<span class="math inline">\(D_\text{prior}\)</span>) e, em seguida, obtemos novas observações (<span class="math inline">\(D_\text{novo}\)</span>) que essa mesma hipótese pode produzir de <span class="math inline">\(W_\text{novo}\)</span> maneiras, a quantidade total de formas possíveis para essa hipótese explicar tanto os dados antigos quanto os novos é dada simplesmente por <span class="math inline">\(W_\text{prior} \times W_\text{novo}\)</span>. Por exemplo, na <a href="#tbl-caminhos2" class="quarto-xref">Tabela&nbsp;2</a>, a hipótese [🔵🔵⚪⚪] apresenta <span class="math inline">\(W_\text{prior} = 8\)</span> maneiras de gerar as observações anteriores [🔵 → ⚪ → 🔵] e <span class="math inline">\(W_\text{novo} = 2\)</span> maneiras de gerar a nova observação [🔵]. Logo, <span class="math inline">\(8 \times 2 = 16\)</span> caminhos possíveis para explicar tanto os dados antigos quanto os novos.</p>
+<div class="callout callout-style-default callout-warning callout-titled" title="Combinando evidências">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Importante
+Combinando evidências
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>No exemplo acima, os dados antigos e os novos são do mesmo tipo (bolinhas retiradas do saco). Entretanto, não há motivo para excluir a situação em que os dados antigos e os novos tenham sido obtidos de forma diferente. Suponha, por exemplo, que alguém da fábrica de bolinhas informe que as azuis são raras. Para cada saco contendo [🔵🔵🔵⚪], a fábrica produz dois sacos contendo [🔵🔵⚪⚪] e três sacos contendo [🔵⚪⚪⚪]. Também garante que cada saco contenha pelo menos uma bolinha azul e uma bolinha branca. Com essa nova informação, podemos atualizar nossas contagens novamente <a href="#tbl-caminhos3" class="quarto-xref">Tabela&nbsp;3</a>.</p>
+<p>No exemplo acima, os dados antigos e os novos são do mesmo tipo (bolinhas observadas na caixa). Entretanto, não há motivo para excluir a situação em que os dados antigos e os novos tenham sido obtidos de forma diferente. Suponha, por exemplo, que alguém da fábrica de bolinhas informe que as azuis são raras. Para cada caixa contendo [🔵🔵🔵⚪], a fábrica produz duas caixas contendo [🔵🔵⚪⚪] e três caixas contendo [🔵⚪⚪⚪]. Também garante que cada caixa contenha pelo menos uma bolinha azul e uma bolinha branca. Com essa nova informação, podemos atualizar nossas contagens novamente (<a href="#tbl-caminhos3" class="quarto-xref">Tabela&nbsp;3</a>).</p>
 <div id="tbl-caminhos3" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-caminhos3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -447,46 +441,46 @@ Tabela&nbsp;3: <strong>Contagens atualizadas após incorporar a nova observaçã
 <div aria-describedby="tbl-caminhos3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <table class="caption-top table">
 <colgroup>
-<col style="width: 18%">
-<col style="width: 31%">
-<col style="width: 29%">
-<col style="width: 20%">
+<col style="width: 14%">
+<col style="width: 25%">
+<col style="width: 44%">
+<col style="width: 15%">
 </colgroup>
 <thead>
 <tr class="header">
-<th style="text-align: left;"><strong>Hipótese</strong></th>
+<th><strong>Hipótese</strong></th>
 <th style="text-align: center;"><strong>Contagem anterior (prior)</strong></th>
-<th style="text-align: center;"><strong>Maneiras de produzir 🔵</strong></th>
+<th style="text-align: center;"><strong>Maneiras de produzir 🔵 informadas pela fábrica</strong></th>
 <th style="text-align: center;"><strong>Nova contagem</strong></th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">[⚪⚪⚪⚪]</td>
+<td>1. [⚪⚪⚪⚪]</td>
 <td style="text-align: center;">0</td>
 <td style="text-align: center;">0</td>
 <td style="text-align: center;"><span class="math inline">\(0 \times 0 = 0\)</span></td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">[🔵⚪⚪⚪]</td>
+<td>2. [🔵⚪⚪⚪]</td>
 <td style="text-align: center;">3</td>
 <td style="text-align: center;">3</td>
 <td style="text-align: center;"><span class="math inline">\(3 \times 3 = 9\)</span></td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">[🔵🔵⚪⚪]</td>
+<td>3. [🔵🔵⚪⚪]</td>
 <td style="text-align: center;">16</td>
 <td style="text-align: center;">2</td>
 <td style="text-align: center;"><span class="math inline">\(16 \times 2 = 32\)</span></td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">[🔵🔵🔵⚪]</td>
+<td>4. [🔵🔵🔵⚪]</td>
 <td style="text-align: center;">27</td>
 <td style="text-align: center;">1</td>
 <td style="text-align: center;"><span class="math inline">\(27 \times 1 = 27\)</span></td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">[🔵🔵🔵🔵]</td>
+<td>5. [🔵🔵🔵🔵]</td>
 <td style="text-align: center;">0</td>
 <td style="text-align: center;">0</td>
 <td style="text-align: center;"><span class="math inline">\(0 \times 0 = 0\)</span></td>
@@ -496,86 +490,12 @@ Tabela&nbsp;3: <strong>Contagens atualizadas após incorporar a nova observaçã
 </div>
 </figure>
 </div>
-<p>Agora, à luz dessa informação inicial, a hipótese [🔵🔵⚪⚪] torna-se ligeiramente mais plausível do que [🔵🔵🔵⚪].</p>
+<p>Agora, à luz dessa informação adicional, a hipótese [🔵🔵⚪⚪] torna-se ligeiramente mais plausível do que [🔵🔵🔵⚪].</p>
 </div>
 </div>
-</section>
-<section id="de-contagens-a-probabilidades" class="level3" data-number="3.2">
-<h3 data-number="3.2" class="anchored" data-anchor-id="de-contagens-a-probabilidades"><span class="header-section-number">3.2</span> De contagens a probabilidades</h3>
-<p>Quase sempre é impraticável usar essas contagens em situações reais. Por isso, costumamos padronizá-las em <strong>probabilidades</strong>. Isso faz sentido porque apenas os valores relativos importam. Em termos relativos, as proporções entre as contagens 3, 8 e 9 são as mesmas que em 30, 80 e 90. Além disso, à medida que a quantidade de dados cresce, as contagens tornam-se muito grandes e difíceis de manipular. Por fim, se estivermos lidando com variáveis contínuas, não é sequer possível “contar” caminhos, e precisamos pensar em <em>espaços de possibilidades</em>.</p>
-<p>Felizmente, existe uma forma matemática de comprimir tudo isso. Definimos a plausibilidade atualizada de cada composição possível, depois de observar os dados, como sendo:</p>
-<p><span class="math display">\[\text{plausibilidade de [🔵⚪⚪⚪] após observar ⚪⚪🔵} \;\;\]</span> <span class="math display">\[\propto \;\;\]</span> <span class="math display">\[\text{(maneiras que [🔵⚪⚪⚪] pode produzir ⚪⚪🔵)} \;\]</span> <span class="math display">\[\times\;\]</span> <span class="math display">\[\text{(plausibilidade anterior de [🔵⚪⚪⚪])}.\]</span></p>
-<p>O símbolo <span class="math inline">\(\propto\)</span> significa “proporcional a”.</p>
-<p>Retomando a <a href="#tbl-caminhos2" class="quarto-xref">Tabela&nbsp;2</a>, em vez de descrever o conhecimento <em>a priori</em> por contagens absolutas, podemos descrevê-lo por frequências relativas, de modo que elas somem 1. Ao fazer isso, o resultado das multiplicações será diferente em valores absolutos, mas manterá a mesma relação de plausibilidade entre as hipóteses. Por fim, podemos normalizar esses valores, obtendo a probabilidade de cada hipótese à luz das novas informações, como na <a href="#tbl-caminhos4" class="quarto-xref">Tabela&nbsp;4</a>.</p>
-<div id="tbl-caminhos4" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-tbl figure">
-<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-caminhos4-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Tabela&nbsp;4: <strong>Atualização das plausibilidades relativas com base em uma nova evidência, seguida de normalização para obtenção das probabilidades associadas a cada hipótese.</strong>
-</figcaption>
-<div aria-describedby="tbl-caminhos4-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<table class="caption-top table">
-<colgroup>
-<col style="width: 16%">
-<col style="width: 10%">
-<col style="width: 25%">
-<col style="width: 18%">
-<col style="width: 29%">
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: left;"><strong>Hipótese</strong></th>
-<th style="text-align: center;"><strong>Prior</strong></th>
-<th style="text-align: center;"><strong>Maneiras de produzir 🔵</strong></th>
-<th style="text-align: center;"><strong>Plausibilidade</strong></th>
-<th style="text-align: center;"><strong>Plausibilidade normalizada</strong></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">[⚪⚪⚪⚪]</td>
-<td style="text-align: center;">0.00</td>
-<td style="text-align: center;">0</td>
-<td style="text-align: center;"><span class="math inline">\(0.00 \times 0 = 0.00\)</span></td>
-<td style="text-align: center;">0.000</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">[🔵⚪⚪⚪]</td>
-<td style="text-align: center;">0.15</td>
-<td style="text-align: center;">1</td>
-<td style="text-align: center;"><span class="math inline">\(0.15 \times 1 = 0.15\)</span></td>
-<td style="text-align: center;">0.065</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">[🔵🔵⚪⚪]</td>
-<td style="text-align: center;">0.40</td>
-<td style="text-align: center;">2</td>
-<td style="text-align: center;"><span class="math inline">\(0.40 \times 2 = 0.80\)</span></td>
-<td style="text-align: center;">0.348</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">[🔵🔵🔵⚪]</td>
-<td style="text-align: center;">0.45</td>
-<td style="text-align: center;">3</td>
-<td style="text-align: center;"><span class="math inline">\(0.45 \times 3 = 1.35\)</span></td>
-<td style="text-align: center;">0.587</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">[🔵🔵🔵🔵]</td>
-<td style="text-align: center;">0.00</td>
-<td style="text-align: center;">4</td>
-<td style="text-align: center;"><span class="math inline">\(0.00 \times 4 = 0.00\)</span></td>
-<td style="text-align: center;">0.000</td>
-</tr>
-</tbody>
-</table>
-</div>
-</figure>
-</div>
-<p>O resultado final da inferência é a atribuição de <strong>probabilidades</strong> — números não negativos, que somam 1 — a cada uma das hipóteses concorrentes.</p>
 
 
 
-</section>
 </section>
 
 <div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">

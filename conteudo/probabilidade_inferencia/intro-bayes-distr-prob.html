@@ -6,9 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="description" content="Fundamentos da estrutura de dados, abordando tipos de variáveis, níveis de mensuração">
+<meta name="description" content="Texto adaptado do segundo capítulo (Small Worlds and Large Worlds) do livro Statistical Rethinking – A Bayesian Course with Examples in R and Stan (McElreath 2018) e material disponível em Statistical Rethinking course and book package">
 
-<title>Estrutura de dados – Métodos em Estatística e Análise de Dados</title>
+<title>Introdução à Inferência Bayesiana – Métodos em Estatística e Análise de Dados</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -21,27 +21,45 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-listing/list.min.js"></script>
-<script src="site_libs/quarto-listing/quarto-listing.js"></script>
-<script src="site_libs/quarto-html/quarto.js"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-d4d76bf8491c20bad77d141916dc28e1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-fd75e10d688f5043d524a95775cfac05.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-d4d76bf8491c20bad77d141916dc28e1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-fd75e10d688f5043d524a95775cfac05.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -69,35 +87,6 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
-<script>
-
-  window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-listing .list');
-    if (!listingTargetEl) {
-      // No listing discovered, do not attach.
-      return; 
-    }
-
-    const options = {
-      valueNames: ['listing-image','listing-title','listing-description','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
-      
-      searchColumns: ["listing-title","listing-author","listing-image","listing-description"],
-    };
-
-    window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
-
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  });
-
-  window.addEventListener('hashchange',() => {
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  })
-  </script>
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
@@ -129,11 +118,13 @@ window.Quarto = {
 };
 </script>
 
-<link rel="stylesheet" href="styles/custom.css">
-<meta property="og:title" content="Estrutura de dados – Métodos em Estatística e Análise de Dados">
-<meta property="og:description" content="Fundamentos da estrutura de dados, abordando tipos de variáveis, níveis de mensuração">
-<meta property="og:image" content="https://github.com/FCopf/MEAD/images/estrutura_dados.jpg">
+<link rel="stylesheet" href="../../styles/custom.css">
+<meta property="og:title" content="Introdução à Inferência Bayesiana – Métodos em Estatística e Análise de Dados">
+<meta property="og:description" content="Texto adaptado do segundo capítulo (Small Worlds and Large Worlds) do livro Statistical Rethinking – A Bayesian Course with Examples in R and Stan (McElreath 2018) e material disponível em Statistical Rethinking course and book package">
+<meta property="og:image" content="https://github.com/FCopf/MEAD/conteudo/probabilidade_inferencia/images/intro-bayes-distr-prob.png">
 <meta property="og:site_name" content="Métodos em Estatística e Análise de Dados">
+<meta property="og:image:height" content="1024">
+<meta property="og:image:width" content="1536">
 </head>
 
 <body class="nav-fixed">
@@ -143,10 +134,10 @@ window.Quarto = {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a href="./index.html" class="navbar-brand navbar-brand-logo">
-    <img src="./images/logo_white.png" alt="" class="navbar-logo">
+    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../../images/logo_white.png" alt="" class="navbar-logo">
     </a>
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">Métodos em Estatística e Análise de Dados</span>
     </a>
   </div>
@@ -172,24 +163,27 @@ window.Quarto = {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Nesta página</h2>
+   
+  <ul>
+  <li><a href="#distribuições-a-priori-a-posteriori-e-verossimilhança" id="toc-distribuições-a-priori-a-posteriori-e-verossimilhança" class="nav-link active" data-scroll-target="#distribuições-a-priori-a-posteriori-e-verossimilhança"><span class="header-section-number">1</span> Distribuições <em>a priori</em>, <em>a posteriori</em> e <em>verossimilhança</em></a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Estrutura de dados</h1>
-  <div class="quarto-categories">
-    <div class="quarto-category">R</div>
-    <div class="quarto-category">Estrutura de Dados</div>
-  </div>
-  </div>
+<h1 class="title">Introdução à Inferência Bayesiana</h1>
+<p class="subtitle lead">De contagens a probabilidades</p>
+</div>
 
 <div>
   <div class="description">
-    Fundamentos da estrutura de dados, abordando tipos de variáveis, níveis de mensuração
+    Texto adaptado do segundo capítulo (<em>Small Worlds and Large Worlds</em>) do livro <strong>Statistical Rethinking – A Bayesian Course with Examples in R and Stan</strong> <span class="citation" data-cites="mcelreath2018statistical">(<a href="#ref-mcelreath2018statistical" role="doc-biblioref">McElreath 2018</a>)</span> e material disponível em <a href="https://github.com/rmcelreath/rethinking" target="_blank"><strong>Statistical Rethinking course and book package</strong></a>
   </div>
 </div>
 
@@ -206,56 +200,157 @@ window.Quarto = {
 </header>
 
 
+<hr>
+<p>Voltemos ao problema das bolinhas de gude. Temos uma caixa contendo quatro bolinhas, que podem ser azuis ou brancas. Sabemos que há exatamente quatro bolinhas, mas não conhecemos a distribuição entre as cores, pois podemos ver apenas uma bolinha por vez através de um orifício. Para estimar quantas bolas de cada cor há na caixa, fazemos uma observação, misturamos as bolinhas, fazemos outra observação e assim por diante. Antes de realizarmos qualquer observação, podemos listar cinco configurações possíveis para o conteúdo da caixa:</p>
+<ol type="1">
+<li>[⚪⚪⚪⚪]<br>
+</li>
+<li>[🔵⚪⚪⚪]<br>
+</li>
+<li>[🔵🔵⚪⚪]<br>
+</li>
+<li>[🔵🔵🔵⚪]<br>
+</li>
+<li>[🔵🔵🔵🔵]</li>
+</ol>
+<p>Nosso objetivo é <em>estimar o número <span class="math inline">\(N\)</span> de bolas azuis</em>, o qual pode variar, neste exemplo, de 0 a 4. Como não dispomos de conhecimento prévio sobre a composição da caixa antes da primeira observação, adotamos uma distribuição <em>a priori</em> uniforme entre as hipóteses. Assim, cada hipótese recebe uma probabilidade de <span class="math inline">\(p = \frac{1}{5}\)</span>.</p>
+<div id="tbl-priori" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-priori-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tabela&nbsp;1: <strong>Distribuição de probabilidade <em>a priori</em> sobre o conteúdo da caixa</strong>
+</figcaption>
+<div aria-describedby="tbl-priori-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: center;"><strong>Hipótese</strong></th>
+<th style="text-align: center;"><strong>N</strong></th>
+<th style="text-align: center;"><strong>Priori</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">[⚪⚪⚪⚪]</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;"><span class="math inline">\(1/5\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">[🔵⚪⚪⚪]</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;"><span class="math inline">\(1/5\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">[🔵🔵⚪⚪]</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;"><span class="math inline">\(1/5\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">[🔵🔵🔵⚪]</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;"><span class="math inline">\(1/5\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">[🔵🔵🔵🔵]</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;"><span class="math inline">\(1/5\)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<hr>
+<section id="distribuições-a-priori-a-posteriori-e-verossimilhança" class="level2" data-number="1">
+<h2 data-number="1" class="anchored" data-anchor-id="distribuições-a-priori-a-posteriori-e-verossimilhança"><span class="header-section-number">1</span> Distribuições <em>a priori</em>, <em>a posteriori</em> e <em>verossimilhança</em></h2>
+<p>Suponha que realizamos três observações da caixa e a sequência registrada seja [🔵, ⚪, 🔵] – ou seja, obtivemos <strong>N = 2</strong> bolas azuis. Para atualizar nosso conhecimento sobre a composição da caixa, combinamos nossa distribuição <em>a priori</em> com a verossimilhança de cada hipótese. A verossimilhança é calculada a partir da contagem do número de maneiras em que cada hipótese pode gerar a sequência observada. Em seguida, aplicamos a regra de Bayes, que nos fornece a distribuição <em>a posteriori</em> por meio da fórmula:</p>
+<p><span class="math display">\[\text{Posterior}_i = \frac{\text{Priori}_i \times P_i}{\sum_{j} \left(\text{Priori}_j \times P_j\right)},\]</span></p>
+<p>onde <span class="math inline">\(P_i\)</span> representa, de forma proporcional, o número de caminhos possíveis para que a hipótese <span class="math inline">\(i\)</span> gere a sequência [🔵, ⚪, 🔵].</p>
+<p>Na tabela a seguir, apresentamos os cálculos para cada hipótese:</p>
+<div id="tbl-posteriori" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-posteriori-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tabela&nbsp;2: <strong>Tabela: Atualização da distribuição de probabilidade combinando a priori e verossimilhança</strong>
+</figcaption>
+<div aria-describedby="tbl-posteriori-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 15%">
+<col style="width: 7%">
+<col style="width: 13%">
+<col style="width: 46%">
+<col style="width: 16%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;"><strong>Hipótese</strong></th>
+<th style="text-align: center;"><strong>N</strong></th>
+<th style="text-align: center;"><strong>Priori</strong></th>
+<th style="text-align: center;"><strong>Maneiras de produzir N = 2 [🔵⚪🔵]</strong></th>
+<th style="text-align: center;"><strong>Posterior</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">[⚪⚪⚪⚪]</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;"><span class="math inline">\(1/5\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(0 \times 4 \times 0 = 0\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\dfrac{(1/5 \times 0)}{\sum (1/5 \times \text{Nº de caminhos})} = 0\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">[🔵⚪⚪⚪]</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;"><span class="math inline">\(1/5\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(1 \times 3 \times 1 = 3\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\dfrac{(1/5 \times 3)}{\sum (1/5 \times \text{Nº de caminhos})} = 0.15\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">[🔵🔵⚪⚪]</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;"><span class="math inline">\(1/5\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(2 \times 2 \times 2 = 8\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\dfrac{(1/5 \times 8)}{\sum (1/5 \times \text{Nº de caminhos})} = 0.40\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">[🔵🔵🔵⚪]</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;"><span class="math inline">\(1/5\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(3 \times 1 \times 3 = 9\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\dfrac{(1/5 \times 9)}{\sum (1/5 \times \text{Nº de caminhos})} = 0.45\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">[🔵🔵🔵🔵]</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;"><span class="math inline">\(1/5\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(4 \times 0 \times 4 = 0\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\dfrac{(1/5 \times 0)}{\sum (1/5 \times \text{Nº de caminhos})} = 0\)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<p>Na <a href="#tbl-posteriori" class="quarto-xref">Tabela&nbsp;2</a>, a coluna <em>“Maneiras de produzir N = 2 [🔵⚪🔵]”</em> indica o número de caminhos possíveis para que cada hipótese gere a sequência observada. Note que as hipóteses [⚪⚪⚪⚪] e [🔵🔵🔵🔵] não conseguem gerar a sequência (ou seja, possuem verossimilhança zero).</p>
+<div id="86b1fc72" class="cell" data-execution_count="1">
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="intro-bayes-distr-prob_files/figure-html/cell-2-output-1.png" width="710" height="279" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Ao normalizarmos os produtos <span class="math inline">\(\text{Priori}_i \times P_i\)</span> — isto é, dividindo cada um deles pelo somatório <span class="math inline">\(\sum (1/5 \times \text{Nº de caminhos})\)</span> — obtemos a distribuição <strong>a posteriori</strong>, que representa nosso conhecimento atualizado após considerar as evidências observadas. O resultado final da inferência bayesiana é a atribuição de <strong>probabilidades</strong> — valores não negativos, cuja soma é igual a 1 — a cada uma das hipóteses possíveis sobre o conteúdo da caixa. Essas probabilidades expressam, de forma quantitativa, o quão plausível é cada hipótese à luz dos dados disponíveis.</p>
 
 
 
+</section>
 
-<div class="quarto-listing quarto-listing-container-default" id="listing-listing">
-<div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-categories="Q2klQzMlQUFuY2lhJTIwZGUlMjBEYWRvcyUyQ1IlMkNFc3RydXR1cmElMjBkZSUyMERhZG9zJTJDVGlwb3MlMjBkZSUyMERhZG9zJTJDQW4lQzMlQTFsaXNlJTIwZGUlMjBEYWRvcw==" data-listing-file-modified-sort="1744042220812" data-listing-reading-time-sort="11" data-listing-word-count-sort="2046">
-<div class="thumbnail">
-<p><a href="./conteudo/estrutura_dados/estrutura_tipo.html" class="no-external"></a></p><a href="./conteudo/estrutura_dados/estrutura_tipo.html" class="no-external">
-<p><img loading="lazy" src="./conteudo/estrutura_dados/images/estrutura_tipo.jpg" class="thumbnail-image"></p>
-</a><p><a href="./conteudo/estrutura_dados/estrutura_tipo.html" class="no-external"></a></p>
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-mcelreath2018statistical" class="csl-entry" role="listitem">
+McElreath, Richard. 2018. <em>Statistical Rethinking: A Bayesian Course with Examples in r and Stan</em>. Chapman; Hall/CRC.
 </div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./conteudo/estrutura_dados/estrutura_tipo.html" class="no-external">Estrutura e tipos de dados</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./conteudo/estrutura_dados/estrutura_tipo.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('Q2klQzMlQUFuY2lhJTIwZGUlMjBEYWRvcw=='); return false;">
-Ciência de Dados
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('Ug=='); return false;">
-R
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('RXN0cnV0dXJhJTIwZGUlMjBEYWRvcw=='); return false;">
-Estrutura de Dados
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('VGlwb3MlMjBkZSUyMERhZG9z'); return false;">
-Tipos de Dados
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('QW4lQzMlQTFsaXNlJTIwZGUlMjBEYWRvcw=='); return false;">
-Análise de Dados
-</div>
-</div>
-<div class="listing-description">
-<a href="./conteudo/estrutura_dados/estrutura_tipo.html" class="no-external">Estruturas de dados, categorização de variáveis, níveis de mensuração e estratégias práticas para tratar valores ausentes em tabelas</a>
-</div>
-</div>
-<div class="metadata">
-<p><a href="./conteudo/estrutura_dados/estrutura_tipo.html" class="no-external"></a></p><a href="./conteudo/estrutura_dados/estrutura_tipo.html" class="no-external">
-</a>
-</div>
-</div>
-</div>
-<div class="listing-no-matching d-none">
-No matching items
-</div>
-</div></main> <!-- /main -->
+</div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
