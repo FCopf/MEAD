@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="pt" xml:lang="pt"><head>
 
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.6.43">
@@ -108,17 +108,17 @@ div.csl-indent {
   ],
   "show-item-context": false,
   "language": {
-    "search-no-results-text": "No results",
-    "search-matching-documents-text": "matching documents",
-    "search-copy-link-title": "Copy link to search",
-    "search-hide-matches-text": "Hide additional matches",
-    "search-more-match-text": "more match in this document",
-    "search-more-matches-text": "more matches in this document",
-    "search-clear-button-title": "Clear",
+    "search-no-results-text": "Nenhum resultado",
+    "search-matching-documents-text": "documentos correspondentes",
+    "search-copy-link-title": "Copiar link para a busca",
+    "search-hide-matches-text": "Esconder correspondências adicionais",
+    "search-more-match-text": "mais correspondência neste documento",
+    "search-more-matches-text": "mais correspondências neste documento",
+    "search-clear-button-title": "Limpar",
     "search-text-placeholder": "",
-    "search-detached-cancel-button-title": "Cancel",
-    "search-submit-button-title": "Submit",
-    "search-label": "Search"
+    "search-detached-cancel-button-title": "Cancelar",
+    "search-submit-button-title": "Enviar",
+    "search-label": "Procurar"
   }
 }</script>
 
@@ -173,8 +173,8 @@ window.Quarto = {
     <span class="navbar-title">Métodos em Estatística e Análise de Dados</span>
     </a>
   </div>
-            <div id="quarto-search" class="" title="Search"></div>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+            <div id="quarto-search" class="" title="Procurar"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Alternar de navegação" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
@@ -277,7 +277,7 @@ Pacotes, funções e base de dados utilizadas
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gt)</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </div>
@@ -286,13 +286,13 @@ Pacotes, funções e base de dados utilizadas
 <p><span class="math display">\[Y_i = \beta_0 + \beta_1X_i + \epsilon_i\]</span></p>
 <div class="cell">
 <details class="code-fold">
-<summary>Code</summary>
+<summary>Código</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>st <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"https://raw.githubusercontent.com/FCopf/datasets/refs/heads/main/HubbardBrook_wide.csv"</span>) <span class="sc">|&gt;</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">rename</span>(<span class="at">FlowD =</span> WS2_Flow_Defosrested, <span class="at">FlowR =</span> WS3_Flow_reference, </span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">RainD =</span> WS2_precipitation, <span class="at">RainR =</span> WS3_precipitation) <span class="sc">|&gt;</span></span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">FlowD =</span> FlowD <span class="sc">/</span> <span class="dv">100</span>, <span class="at">FlowR =</span> FlowR <span class="sc">/</span> <span class="dv">100</span>,</span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>           <span class="at">RainD =</span> RainD <span class="sc">/</span> <span class="dv">10</span>, <span class="at">RainR =</span> RainR <span class="sc">/</span> <span class="dv">10</span>) <span class="sc">|&gt;</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    (\(df) df[<span class="sc">-</span><span class="dv">31</span>, ])()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    (\(df) df[<span class="sc">-</span><span class="dv">31</span>, ])()</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <p>Considere novamente os dados sobre pluviosidade anual e vazão em uma bacia hidrográfica americada, medidos entre os anos de 1958 e 1987 (disponível em: <a href="https://tiee.esa.org/vol/v1/data_sets/hubbard/hubbard_overview.html">tiee.esa.org</a>). Vamos avaliar a relação entre a vazão na bacia e os volumes de chuva.</p>
@@ -1127,13 +1127,13 @@ Figura&nbsp;1: Resíduo normalmente distribuído ao longo da reta de regressão.
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>rk <span class="ot">=</span> <span class="fu">read_csv</span>(<span class="st">'https://raw.githubusercontent.com/FCopf/datasets/refs/heads/main/RIKZ.csv'</span>)</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>rks <span class="ot">=</span> rk <span class="sc">|&gt;</span> </span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  (\(df) df[<span class="fu">seq</span>(<span class="dv">3</span>,<span class="dv">43</span>,<span class="at">by =</span> <span class="dv">5</span>),])()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  (\(df) df[<span class="fu">seq</span>(<span class="dv">3</span>,<span class="dv">43</span>,<span class="at">by =</span> <span class="dv">5</span>),])()</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Considere a tabela abaixo com os dados de riqueza da macro-fauna praial (número de espécies) e de um índice de exposição às ondas (NAP). Os dados foram obtidos em 2002 na costa da Holanda em nove praias <span class="citation" data-cites="zuur2009mixed">(<a href="#ref-zuur2009mixed" role="doc-biblioref">Zuur et al. 2009</a>)</span>. Valores negativos de NAP se referem a locais mais expostos e valores positivos a locais menos expostos à ação das ondas.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>rks <span class="sc">|&gt;</span> </span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Richness, NAP) <span class="sc">|&gt;</span> </span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gt</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gt</span>()</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div id="mibrwmclla" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>#mibrwmclla table {
@@ -2169,18 +2169,18 @@ Figura&nbsp;1: Resíduo normalmente distribuído ao longo da reta de regressão.
 </section>
 </section>
 
-<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">Referências</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
 <div id="ref-efron1998r" class="csl-entry" role="listitem">
-Efron, B. 1998. <span>“R. A. Fisher in the 21st Century. Invited Paper Presented at the 1996 r.a. Fisher Lecture.”</span> <em>Statistical Science</em> 13 (2): 95–122.
+Efron, B. 1998. <span>«R. A. Fisher in the 21st century. Invited paper presented at the 1996 R.A. Fisher lecture»</span>. <em>Statistical Science</em> 13 (2): 95–122.
 </div>
 <div id="ref-halt1998history" class="csl-entry" role="listitem">
-Halt, A. 1998. <span>“A History of Mathematical Statistics.”</span> Wiley, New York.
+Halt, A. 1998. <span>«A History of Mathematical Statistics»</span>. Wiley, New York.
 </div>
 <div id="ref-hurlbert1984pseudoreplication" class="csl-entry" role="listitem">
-Hurlbert, Stuart H. 1984. <span>“Pseudoreplication and the Design of Ecological Field Experiments.”</span> <em>Ecological Monographs</em> 54 (2): 187–211.
+Hurlbert, Stuart H. 1984. <span>«Pseudoreplication and the design of ecological field experiments»</span>. <em>Ecological monographs</em> 54 (2): 187–211.
 </div>
 <div id="ref-zuur2009mixed" class="csl-entry" role="listitem">
-Zuur, Alain, Elena N Ieno, Neil Walker, Anatoly A Saveliev, and Graham M Smith. 2009. <em>Mixed Effects Models and Extensions in Ecology with r</em>. Springer Science &amp; Business Media.
+Zuur, Alain, Elena N Ieno, Neil Walker, Anatoly A Saveliev, e Graham M Smith. 2009. <em>Mixed effects models and extensions in ecology with R</em>. Springer Science &amp; Business Media.
 </div>
 </div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -2226,12 +2226,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // flash "checked"
     button.classList.add('code-copy-button-checked');
     var currentTitle = button.getAttribute("title");
-    button.setAttribute("title", "Copied!");
+    button.setAttribute("title", "Copiada");
     let tooltip;
     if (window.bootstrap) {
       button.setAttribute("data-bs-toggle", "tooltip");
       button.setAttribute("data-bs-placement", "left");
-      button.setAttribute("data-bs-title", "Copied!");
+      button.setAttribute("data-bs-title", "Copiada");
       tooltip = new bootstrap.Tooltip(button, 
         { trigger: "manual", 
           customClass: "code-copy-button-tooltip",

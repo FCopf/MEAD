@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="pt" xml:lang="pt"><head>
 
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.6.43">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="description" content="Texto adaptado do segundo capítulo (Small Worlds and Large Worlds) do livro Statistical Rethinking – A Bayesian Course with Examples in R and Stan (McElreath 2018) e material disponível em Statistical Rethinking course and book package">
+<meta name="description" content="Conteúdo baseado em McElreath (2018)">
 
 <title>Introdução à Inferência Bayesiana – Métodos em Estatística e Análise de Dados</title>
 <style>
@@ -74,17 +74,17 @@ div.csl-indent {
   ],
   "show-item-context": false,
   "language": {
-    "search-no-results-text": "No results",
-    "search-matching-documents-text": "matching documents",
-    "search-copy-link-title": "Copy link to search",
-    "search-hide-matches-text": "Hide additional matches",
-    "search-more-match-text": "more match in this document",
-    "search-more-matches-text": "more matches in this document",
-    "search-clear-button-title": "Clear",
+    "search-no-results-text": "Nenhum resultado",
+    "search-matching-documents-text": "documentos correspondentes",
+    "search-copy-link-title": "Copiar link para a busca",
+    "search-hide-matches-text": "Esconder correspondências adicionais",
+    "search-more-match-text": "mais correspondência neste documento",
+    "search-more-matches-text": "mais correspondências neste documento",
+    "search-clear-button-title": "Limpar",
     "search-text-placeholder": "",
-    "search-detached-cancel-button-title": "Cancel",
-    "search-submit-button-title": "Submit",
-    "search-label": "Search"
+    "search-detached-cancel-button-title": "Cancelar",
+    "search-submit-button-title": "Enviar",
+    "search-label": "Procurar"
   }
 }</script>
 
@@ -120,7 +120,7 @@ window.Quarto = {
 
 <link rel="stylesheet" href="../../styles/custom.css">
 <meta property="og:title" content="Introdução à Inferência Bayesiana – Métodos em Estatística e Análise de Dados">
-<meta property="og:description" content="Texto adaptado do segundo capítulo (Small Worlds and Large Worlds) do livro Statistical Rethinking – A Bayesian Course with Examples in R and Stan (McElreath 2018) e material disponível em Statistical Rethinking course and book package">
+<meta property="og:description" content="Conteúdo baseado em McElreath (2018)">
 <meta property="og:image" content="https://github.com/FCopf/MEAD/conteudo/probabilidade_inferencia/images/intro-bayes-distr-prob.png">
 <meta property="og:site_name" content="Métodos em Estatística e Análise de Dados">
 <meta property="og:image:height" content="1024">
@@ -141,8 +141,8 @@ window.Quarto = {
     <span class="navbar-title">Métodos em Estatística e Análise de Dados</span>
     </a>
   </div>
-            <div id="quarto-search" class="" title="Search"></div>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+            <div id="quarto-search" class="" title="Procurar"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Alternar de navegação" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
@@ -183,7 +183,7 @@ window.Quarto = {
 
 <div>
   <div class="description">
-    Texto adaptado do segundo capítulo (<em>Small Worlds and Large Worlds</em>) do livro <strong>Statistical Rethinking – A Bayesian Course with Examples in R and Stan</strong> <span class="citation" data-cites="mcelreath2018statistical">(<a href="#ref-mcelreath2018statistical" role="doc-biblioref">McElreath 2018</a>)</span> e material disponível em <a href="https://github.com/rmcelreath/rethinking" target="_blank"><strong>Statistical Rethinking course and book package</strong></a>
+    Conteúdo baseado em <span class="citation" data-cites="mcelreath2018statistical">McElreath (<a href="#ref-mcelreath2018statistical" role="doc-biblioref">2018</a>)</span>
   </div>
 </div>
 
@@ -265,12 +265,12 @@ Tabela&nbsp;1: <strong>Distribuição de probabilidade <em>a priori</em> sobre o
 <p>Suponha que realizamos três observações da caixa e a sequência registrada seja [🔵, ⚪, 🔵] – ou seja, duas bolas azuis. Para atualizar nosso conhecimento sobre a composição da caixa, combinamos nossa distribuição <em>a priori</em> com a verossimilhança de cada hipótese. A verossimilhança é calculada a partir da contagem do número de maneiras em que cada hipótese pode gerar a sequência observada. Em seguida, aplicamos a regra de Bayes, que nos fornece a distribuição <em>a posteriori</em> por meio da fórmula:</p>
 <p><span id="eq-bayes"><span class="math display">\[\text{Posterior}_i = \frac{\text{Priori}_i \times P_i}{\sum_{j} \left(\text{Priori}_j \times P_j\right)}, \tag{1}\]</span></span></p>
 <p>onde <span class="math inline">\(P_i\)</span> representa, de forma proporcional, o número de caminhos possíveis para que a hipótese <span class="math inline">\(i\)</span> gere a sequência [🔵, ⚪, 🔵].</p>
-<p>A equação <a href="#eq-bayes" class="quarto-xref">Equation&nbsp;1</a> indica que, para cada valor que <span class="math inline">\(N\)</span> pode assumir, julgamos sua plausibilidade como proporcional ao número de maneiras pelas quais esse valor pode ter gerado os dados, multiplicado pela sua evidência anterior (a distribuição <em>a priori</em>). Esse produto – representado na <a href="#tbl-posteriori" class="quarto-xref">Tabela&nbsp;2</a> por <span class="math inline">\(\text{Priori}_i \times P_i\)</span> – é então <em>normalizado</em>, dividindo cada um deles pelo somatório <span class="math inline">\(\sum (1/5 \times \text{Nº de caminhos})\)</span>. Essa normalização gera a distribuição <strong>a posteriori</strong>, que reflete nosso conhecimento atualizado após a incorporação das evidências observadas.</p>
+<p>A equação <a href="#eq-bayes" class="quarto-xref">Equação&nbsp;1</a> indica que, para cada valor que <span class="math inline">\(N\)</span> pode assumir, julgamos sua plausibilidade como proporcional ao número de maneiras pelas quais esse valor pode ter gerado os dados, multiplicado pela sua evidência anterior (a distribuição <em>a priori</em>). Esse produto – representado na <a href="#tbl-posteriori" class="quarto-xref">Tabela&nbsp;2</a> por <span class="math inline">\(\text{Priori}_i \times P_i\)</span> – é então <em>normalizado</em>, dividindo cada um deles pelo somatório <span class="math inline">\(\sum (1/5 \times \text{Nº de caminhos})\)</span>. Essa normalização gera a distribuição <strong>a posteriori</strong>, que reflete nosso conhecimento atualizado após a incorporação das evidências observadas.</p>
 <p>Na <a href="#tbl-posteriori" class="quarto-xref">Tabela&nbsp;2</a>, a coluna <em>“Maneiras de produzir N = 2 [🔵⚪🔵]”</em> indica o número de caminhos possíveis para que cada hipótese gere a sequência observada. Note que as hipóteses [⚪⚪⚪⚪] e [🔵🔵🔵🔵] não conseguem gerar a sequência (ou seja, possuem verossimilhança zero).</p>
 <div id="tbl-posteriori" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-posteriori-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Tabela&nbsp;2: <strong>Tabela: Atualização da distribuição de probabilidade combinando a priori e verossimilhança</strong>
+Tabela&nbsp;2: <strong>Atualização da distribuição de probabilidade combinando a priori e verossimilhança</strong>
 </figcaption>
 <div aria-describedby="tbl-posteriori-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <table class="caption-top table">
@@ -358,9 +358,9 @@ Figura&nbsp;1: Distribuição a priori (esquerda) e a posteriori (direita) para 
 
 </section>
 
-<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">Referências</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
 <div id="ref-mcelreath2018statistical" class="csl-entry" role="listitem">
-McElreath, Richard. 2018. <em>Statistical Rethinking: A Bayesian Course with Examples in r and Stan</em>. Chapman; Hall/CRC.
+McElreath, Richard. 2018. <em>Statistical rethinking: A Bayesian course with examples in R and Stan</em>. Chapman; Hall/CRC.
 </div>
 </div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -406,12 +406,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // flash "checked"
     button.classList.add('code-copy-button-checked');
     var currentTitle = button.getAttribute("title");
-    button.setAttribute("title", "Copied!");
+    button.setAttribute("title", "Copiada");
     let tooltip;
     if (window.bootstrap) {
       button.setAttribute("data-bs-toggle", "tooltip");
       button.setAttribute("data-bs-placement", "left");
-      button.setAttribute("data-bs-title", "Copied!");
+      button.setAttribute("data-bs-title", "Copiada");
       tooltip = new bootstrap.Tooltip(button, 
         { trigger: "manual", 
           customClass: "code-copy-button-tooltip",

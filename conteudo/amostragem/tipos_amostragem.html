@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="pt" xml:lang="pt"><head>
 
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.6.43">
@@ -88,17 +88,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   ],
   "show-item-context": false,
   "language": {
-    "search-no-results-text": "No results",
-    "search-matching-documents-text": "matching documents",
-    "search-copy-link-title": "Copy link to search",
-    "search-hide-matches-text": "Hide additional matches",
-    "search-more-match-text": "more match in this document",
-    "search-more-matches-text": "more matches in this document",
-    "search-clear-button-title": "Clear",
+    "search-no-results-text": "Nenhum resultado",
+    "search-matching-documents-text": "documentos correspondentes",
+    "search-copy-link-title": "Copiar link para a busca",
+    "search-hide-matches-text": "Esconder correspondências adicionais",
+    "search-more-match-text": "mais correspondência neste documento",
+    "search-more-matches-text": "mais correspondências neste documento",
+    "search-clear-button-title": "Limpar",
     "search-text-placeholder": "",
-    "search-detached-cancel-button-title": "Cancel",
-    "search-submit-button-title": "Submit",
-    "search-label": "Search"
+    "search-detached-cancel-button-title": "Cancelar",
+    "search-submit-button-title": "Enviar",
+    "search-label": "Procurar"
   }
 }</script>
 
@@ -153,8 +153,8 @@ window.Quarto = {
     <span class="navbar-title">Métodos em Estatística e Análise de Dados</span>
     </a>
   </div>
-            <div id="quarto-search" class="" title="Search"></div>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+            <div id="quarto-search" class="" title="Procurar"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Alternar de navegação" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
@@ -236,7 +236,7 @@ Pacotes, funções e base de dados utilizadas no capítulo
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gt)</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </div>
@@ -248,13 +248,13 @@ Pacotes, funções e base de dados utilizadas no capítulo
 <p>É aquela em que cada elemento da população tem a mesma probabilidade de ser selecionado para compor a amostra. Se a população consiste de <span class="math inline">\(1000\)</span> elementos, cada um terá uma probabilidade de <span class="math inline">\(\frac{1}{1000}\)</span> de ser escolhido. Isto isenta o pesquisador de tomar qualquer decisão com base em julgamentos pré-concebidos, sobre quais elementos devem ou não compor a amostra.</p>
 <div class="cell">
 <details class="code-fold">
-<summary>Code</summary>
+<summary>Código</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>pop <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">10</span>, <span class="dv">14</span>, <span class="dv">19</span>, <span class="dv">27</span>, <span class="dv">28</span>, <span class="dv">29</span>, <span class="dv">41</span>, <span class="dv">42</span>, <span class="dv">43</span>)</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>N <span class="ot">=</span> <span class="fu">length</span>(pop)</span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>Am1 <span class="ot">=</span> <span class="fu">sort</span>(pop)[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>]</span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2</span>)</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>Am2 <span class="ot">=</span> <span class="fu">sample</span>(pop, <span class="at">size =</span> <span class="dv">5</span>, <span class="at">replace =</span> F)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>Am2 <span class="ot">=</span> <span class="fu">sample</span>(pop, <span class="at">size =</span> <span class="dv">5</span>, <span class="at">replace =</span> F)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <p>Suponha uma população hipotética de somente <span class="math inline">\(10\)</span> elementos:</p>
@@ -314,14 +314,14 @@ Figura&nbsp;1: Representação dos conceitos de precisão e acurácia.
 <p>Para esta população em particular nós conhecemos a média populacional (<span class="math inline">\(\mu\)</span> = 25.6), de modo que será possível compará-la com as estimativas amostrais.</p>
 <div class="cell">
 <details class="code-fold">
-<summary>Code</summary>
+<summary>Código</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">4</span>)</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">=</span> <span class="dv">5</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>Am1 <span class="ot">=</span> <span class="fu">sample</span>(pop, <span class="at">size =</span> n, <span class="at">replace =</span> F)</span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>somaAm1 <span class="ot">=</span> <span class="fu">paste</span>(Am1, <span class="at">collapse =</span> <span class="st">"+"</span>)</span>
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>mp <span class="ot">=</span> <span class="fu">round</span>(<span class="fu">mean</span>(pop),<span class="dv">1</span>)</span>
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>mAm1 <span class="ot">=</span> <span class="fu">round</span>(<span class="fu">mean</span>(Am1),<span class="dv">1</span>)</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>E1 <span class="ot">=</span> mAm1 <span class="sc">-</span> mp</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>E1 <span class="ot">=</span> mAm1 <span class="sc">-</span> mp</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <p>Vamos tomar uma amostra aleatória de tamanho <span class="math inline">\(n = 5\)</span>:</p>
@@ -333,12 +333,12 @@ Figura&nbsp;1: Representação dos conceitos de precisão e acurácia.
 <p>Se tomarmos outra amostra aleatória, teremos outro conjunto de unidades amostrais, e consequentemente, um <span class="math inline">\(\overline{X}\)</span> e um erro amostral diferentes. Por exemplo:</p>
 <div class="cell">
 <details class="code-fold">
-<summary>Code</summary>
+<summary>Código</summary>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">3</span>)</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">=</span> <span class="dv">5</span></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>Am2 <span class="ot">=</span> <span class="fu">sample</span>(pop, <span class="at">size =</span> n, <span class="at">replace =</span> F)</span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>mAm2 <span class="ot">=</span> <span class="fu">round</span>(<span class="fu">mean</span>(Am2),<span class="dv">1</span>)</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>E2 <span class="ot">=</span> mAm2 <span class="sc">-</span> mp</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>E2 <span class="ot">=</span> mAm2 <span class="sc">-</span> mp</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <p><strong>Amostra 2</strong>: <span class="math inline">\(27, 29, 19, 10, 14\)</span></p>
@@ -349,10 +349,10 @@ Figura&nbsp;1: Representação dos conceitos de precisão e acurácia.
 <h3 data-number="4.2" class="anchored" data-anchor-id="acurácia"><span class="header-section-number">4.2</span> Acurácia</h3>
 <div class="cell">
 <details class="code-fold">
-<summary>Code</summary>
+<summary>Código</summary>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>N <span class="ot">=</span> <span class="fu">length</span>(pop)</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">=</span> <span class="dv">5</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>CT <span class="ot">=</span> <span class="fu">choose</span>(N,n)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>CT <span class="ot">=</span> <span class="fu">choose</span>(N,n)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <p>Até agora, analisamos duas amostras diferentes da população. Porém, quantas amostras distintas seriam possíveis? Para uma amostragem <strong>sem reposição</strong>, a teoria combinatória nos diz que são possíveis:</p>
@@ -360,18 +360,18 @@ Figura&nbsp;1: Representação dos conceitos de precisão e acurácia.
 <p>formas diferentes de combinarmos <span class="math inline">\(N = 10\)</span> elementos em amostras de tamanho <span class="math inline">\(n = 5\)</span>.</p>
 <div class="cell">
 <details class="code-fold">
-<summary>Code</summary>
+<summary>Código</summary>
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">8</span>)</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>R <span class="ot">=</span> <span class="dv">8</span></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>A15 <span class="ot">=</span> <span class="fu">replicate</span>(<span class="at">n =</span> R, <span class="fu">sample</span>(pop, <span class="at">size =</span> n, <span class="at">replace =</span> F))</span>
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(A15) <span class="ot">=</span> <span class="fu">paste</span>(<span class="st">"A"</span>, <span class="dv">1</span><span class="sc">:</span><span class="fu">ncol</span>(A15), <span class="at">sep =</span> <span class="st">""</span>)</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>Medias <span class="ot">=</span> <span class="fu">round</span>(<span class="fu">apply</span>(A15, <span class="dv">2</span>, mean),<span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>Medias <span class="ot">=</span> <span class="fu">round</span>(<span class="fu">apply</span>(A15, <span class="dv">2</span>, mean),<span class="dv">2</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <p>Inicialmente vamos avaliar a questão com um número menor. Sejam por exemplo, 8 amostras tomadas aleatoriamente, gerando os resultados a seguir:</p>
 <div class="cell">
 <details class="code-fold">
-<summary>Code</summary>
+<summary>Código</summary>
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>A15 <span class="sc">|&gt;</span> </span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.data.frame</span>() <span class="sc">|&gt;</span> </span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_column</span>(<span class="st">'Obs'</span> <span class="ot">=</span> <span class="fu">rep</span>(<span class="st">''</span>, <span class="at">times =</span> <span class="fu">nrow</span>(A15)), <span class="at">.before =</span> <span class="st">'A1'</span>) <span class="sc">|&gt;</span> </span>
@@ -385,7 +385,7 @@ Figura&nbsp;1: Representação dos conceitos de precisão e acurácia.
 <span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span> </span>
 <span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cols_width</span>(</span>
 <span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">everything</span>() <span class="sc">~</span> <span class="fu">px</span>(<span class="dv">150</span>)</span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div id="tbl-amostr-pop" class="cell quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
@@ -939,11 +939,11 @@ Tabela&nbsp;1: Oito amostras de tamanho n = 5 da população estatística.
 <p>Os resultados das 252 médias possíveis podem ser vistos a seguir ordenados da menor para a maior média possível:</p>
 <div class="cell">
 <details class="code-fold">
-<summary>Code</summary>
+<summary>Código</summary>
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>Allcomb <span class="ot">=</span> <span class="fu">combn</span>(<span class="at">x =</span> pop, <span class="at">m =</span> <span class="dv">5</span>)</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>M_Allcomb <span class="ot">=</span> <span class="fu">apply</span>(Allcomb,<span class="dv">2</span>,mean)</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>M_Allcomb_round <span class="ot">=</span> <span class="fu">round</span>(M_Allcomb,<span class="dv">1</span>)</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="fu">matrix</span>(M_Allcomb_round,<span class="at">nc =</span> <span class="dv">14</span>, <span class="at">byrow =</span> T))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="fu">matrix</span>(M_Allcomb_round,<span class="at">nc =</span> <span class="dv">14</span>, <span class="at">byrow =</span> T))</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
@@ -1260,7 +1260,7 @@ Tabela&nbsp;1: Oito amostras de tamanho n = 5 da população estatística.
 <p>Podemos avaliar graficamente a distribuição das médias amostrais através de um histograma. A grande maioria das médias amostrais concentra-se na porção intermediária do gráfico entre estes limites. Por exemplo, somente 3.2% das observações estão acima de 33.8. Da mesma forma, somente 3.2% das observações estão abaixo de 17.4</p>
 <div class="cell">
 <details class="code-fold">
-<summary>Code</summary>
+<summary>Código</summary>
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>M_Allcomb_df <span class="ot">=</span> <span class="fu">data.frame</span>(<span class="at">M =</span> <span class="fu">as.numeric</span>(M_Allcomb))</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>gp5 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(M_Allcomb_df, <span class="fu">aes</span>(<span class="at">x =</span> M)) <span class="sc">+</span></span>
@@ -1271,7 +1271,7 @@ Tabela&nbsp;1: Oito amostras de tamanho n = 5 da população estatística.
 <span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Frequência"</span>) <span class="sc">+</span></span>
 <span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span>
 <span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>gp5</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>gp5</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div id="fig-hist-medias252" class="quarto-float quarto-figure quarto-figure-center anchored">
@@ -1292,12 +1292,12 @@ Figura&nbsp;2: Histograma das 252 médias amostrais obtidas a partis de amostras
 <h3 data-number="4.3" class="anchored" data-anchor-id="precisão-o-erro-padrão-da-média-sigma_overlinex"><span class="header-section-number">4.3</span> Precisão: o erro padrão da média (<span class="math inline">\(\sigma_{\overline{X}}\)</span>)</h3>
 <div class="cell">
 <details class="code-fold">
-<summary>Code</summary>
+<summary>Código</summary>
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>n2 <span class="ot">=</span> <span class="dv">7</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>Allcomb7 <span class="ot">=</span> <span class="fu">combn</span>(<span class="at">x =</span> pop, <span class="at">m =</span> n2)</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>M_Allcomb7 <span class="ot">=</span> <span class="fu">apply</span>(Allcomb7,<span class="dv">2</span>,mean)</span>
 <span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>M_Allcomb7_round <span class="ot">=</span> <span class="fu">round</span>(M_Allcomb7,<span class="dv">1</span>)</span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>CT2 <span class="ot">=</span> <span class="fu">choose</span>(N,n2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>CT2 <span class="ot">=</span> <span class="fu">choose</span>(N,n2)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <p>Suponha agora que tomemos ao acaso amostras com <span class="math inline">\(n = 7\)</span> desta mesma população. Existem ao todo:</p>
@@ -1305,8 +1305,8 @@ Figura&nbsp;2: Histograma das 252 médias amostrais obtidas a partis de amostras
 <p>amostras diferentes de tamanho <span class="math inline">\(n = 7\)</span> que podem ser retiradas de uma população de tamanho <span class="math inline">\(n = 10\)</span>. Se tomarmos estas 120 amostras e calcularmos suas respectivas médias amostrais, teremos os resultados abaixo:</p>
 <div class="cell">
 <details class="code-fold">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="fu">matrix</span>(M_Allcomb7_round,<span class="at">nc =</span> <span class="dv">12</span>, <span class="at">byrow =</span> T))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="fu">matrix</span>(M_Allcomb7_round,<span class="at">nc =</span> <span class="dv">12</span>, <span class="at">byrow =</span> T))</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
@@ -1471,7 +1471,7 @@ Figura&nbsp;2: Histograma das 252 médias amostrais obtidas a partis de amostras
 </div>
 <div class="cell">
 <details class="code-fold">
-<summary>Code</summary>
+<summary>Código</summary>
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>M_Allcomb7_df <span class="ot">=</span> <span class="fu">data.frame</span>(<span class="at">M =</span> <span class="fu">as.numeric</span>(M_Allcomb7))</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>gp7 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(M_Allcomb7_df, <span class="fu">aes</span>(<span class="at">x =</span> M)) <span class="sc">+</span></span>
@@ -1482,7 +1482,7 @@ Figura&nbsp;2: Histograma das 252 médias amostrais obtidas a partis de amostras
 <span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Frequência"</span>) <span class="sc">+</span></span>
 <span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span>
 <span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>gp7</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>gp7</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div id="fig-hist-medias120" class="quarto-float quarto-figure quarto-figure-center anchored">
@@ -1499,14 +1499,14 @@ Figura&nbsp;3: Histograma das 120 médias amostrais obtidas a partis de amostras
 </div>
 <div class="cell">
 <details class="code-fold">
-<summary>Code</summary>
+<summary>Código</summary>
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>mu_pop <span class="ot">=</span> <span class="fu">mean</span>(pop)</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>N <span class="ot">=</span> <span class="fu">length</span>(pop)</span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>var_pop <span class="ot">=</span> <span class="fu">mean</span>((pop <span class="sc">-</span> mu_pop)<span class="sc">^</span><span class="dv">2</span>)</span>
 <span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>sigma_pop <span class="ot">=</span> <span class="fu">sqrt</span>(var_pop)</span>
 <span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>ep5 <span class="ot">=</span> sigma_pop<span class="sc">/</span><span class="fu">sqrt</span>(n)</span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>ep7 <span class="ot">=</span> sigma_pop<span class="sc">/</span><span class="fu">sqrt</span>(n2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>ep7 <span class="ot">=</span> sigma_pop<span class="sc">/</span><span class="fu">sqrt</span>(n2)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <p>Se compararmos os histogramas com <span class="math inline">\(n = 5\)</span> e <span class="math inline">\(n = 7\)</span> (<a href="#fig-hist-medias252" class="quarto-xref">Figura&nbsp;2</a> e <a href="#fig-hist-medias120" class="quarto-xref">Figura&nbsp;3</a>), veremos que os dois resultam em estimadores acurados, pois <span class="math inline">\(\mu_{\overline{X}} = \mu\)</span>. No entando, o <strong>intervalo de variação</strong> é menor para amostras de tamanho <span class="math inline">\(n = 7\)</span>. Para esta figura, os valores estão mais concentrados ao redor da média. Portanto, à medida que aumenta o tamanho amostral, diminui a dispersão das médias amostrais ao redor de <span class="math inline">\(\mu\)</span>. Assim, para amostras grandes torna-se mais <strong>improvável</strong> obter uma média amostral distante da média populacional. Dizemos então que conforme aumenta o tamanho amostral, conseguimos estimativas mais precisas.</p>
@@ -1591,12 +1591,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // flash "checked"
     button.classList.add('code-copy-button-checked');
     var currentTitle = button.getAttribute("title");
-    button.setAttribute("title", "Copied!");
+    button.setAttribute("title", "Copiada");
     let tooltip;
     if (window.bootstrap) {
       button.setAttribute("data-bs-toggle", "tooltip");
       button.setAttribute("data-bs-placement", "left");
-      button.setAttribute("data-bs-title", "Copied!");
+      button.setAttribute("data-bs-title", "Copiada");
       tooltip = new bootstrap.Tooltip(button, 
         { trigger: "manual", 
           customClass: "code-copy-button-tooltip",

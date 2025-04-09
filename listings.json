@@ -1,61 +1,38 @@
 [
   {
-    "listing": "/estrutura_dados.html",
+    "listing": "/amostragem.html",
     "items": [
-      "/conteudo/estrutura_dados/estrutura_tipo.html"
+      "/conteudo/amostragem/pop_amostra.html",
+      "/conteudo/amostragem/tipos_amostragem.html"
     ]
   },
   {
-    "listing": "/fundamentos_probabilidade.html",
+    "listing": "/anova.html",
     "items": [
-      "/conteudo/fundamentos_probabilidade/espaco_amostral.html",
-      "/conteudo/fundamentos_probabilidade/combina_probabilidades.html",
-      "/conteudo/fundamentos_probabilidade/probabilidade_condicional.html",
-      "/conteudo/fundamentos_probabilidade/teorema_bayes.html"
+      "/conteudo/anova/anova_simples.html"
     ]
   },
   {
-    "listing": "/ciencia_dados.html",
+    "listing": "/introducao_r.html",
     "items": [
-      "/conteudo/ciencia_dados/tidyverse.html",
-      "/conteudo/ciencia_dados/import_export.html",
-      "/conteudo/ciencia_dados/pipe.html",
-      "/conteudo/ciencia_dados/transform.html",
-      "/conteudo/ciencia_dados/grafico_ggplot2.html"
+      "/conteudo/introducao_r/estrutura-linguagem.html",
+      "/conteudo/introducao_r/data-frames.html",
+      "/conteudo/introducao_r/graficos-r.html"
     ]
   },
   {
-    "listing": "/inferencia_estatistica.html",
+    "listing": "/regressao_linear.html",
     "items": [
-      "/conteudo/inferencia_estatistica/distr_norm.html",
-      "/conteudo/inferencia_estatistica/teorema_central_limite.html",
-      "/conteudo/inferencia_estatistica/int_conf.html"
+      "/conteudo/regressao_linear/regressao_linear_simples.html",
+      "/conteudo/regressao_linear/regressao_linear_multipla.html"
     ]
   },
   {
-    "listing": "/estatistica_descritiva.html",
+    "listing": "/teste_hipoteses.html",
     "items": [
-      "/conteudo/estatistica_descritiva/varqualit.html",
-      "/conteudo/estatistica_descritiva/varquant.html",
-      "/conteudo/estatistica_descritiva/tendcentral.html",
-      "/conteudo/estatistica_descritiva/variacao.html",
-      "/conteudo/estatistica_descritiva/quartis.html",
-      "/conteudo/estatistica_descritiva/escorez.html"
-    ]
-  },
-  {
-    "listing": "/probabilidade_inferencia.html",
-    "items": [
-      "/conteudo/probabilidade_inferencia/intro-bayes-counting.html",
-      "/conteudo/probabilidade_inferencia/intro-bayes-distr-prob.html"
-    ]
-  },
-  {
-    "listing": "/medidas_associacao.html",
-    "items": [
-      "/conteudo/medidas_associacao/biquali.html",
-      "/conteudo/medidas_associacao/biquanti.html",
-      "/conteudo/medidas_associacao/biquantquali.html"
+      "/conteudo/teste_hipoteses/intro_testehipot.html",
+      "/conteudo/teste_hipoteses/teste_variancia.html",
+      "/conteudo/teste_hipoteses/teste_t.html"
     ]
   },
   {
@@ -76,39 +53,63 @@
     ]
   },
   {
-    "listing": "/teste_hipoteses.html",
+    "listing": "/medidas_associacao.html",
     "items": [
-      "/conteudo/teste_hipoteses/intro_testehipot.html",
-      "/conteudo/teste_hipoteses/teste_variancia.html",
-      "/conteudo/teste_hipoteses/teste_t.html"
+      "/conteudo/medidas_associacao/biquali.html",
+      "/conteudo/medidas_associacao/biquanti.html",
+      "/conteudo/medidas_associacao/biquantquali.html"
     ]
   },
   {
-    "listing": "/regressao_linear.html",
+    "listing": "/probabilidade_inferencia.html",
     "items": [
-      "/conteudo/regressao_linear/regressao_linear_simples.html",
-      "/conteudo/regressao_linear/regressao_linear_multipla.html"
+      "/conteudo/probabilidade_inferencia/intro-bayes-counting.html",
+      "/conteudo/probabilidade_inferencia/intro-bayes-distr-prob.html",
+      "/conteudo/probabilidade_inferencia/intro-bayes-modelo-bayesiano.html"
     ]
   },
   {
-    "listing": "/introducao_r.html",
+    "listing": "/estatistica_descritiva.html",
     "items": [
-      "/conteudo/introducao_r/estrutura-linguagem.html",
-      "/conteudo/introducao_r/data-frames.html",
-      "/conteudo/introducao_r/graficos-r.html"
+      "/conteudo/estatistica_descritiva/varqualit.html",
+      "/conteudo/estatistica_descritiva/varquant.html",
+      "/conteudo/estatistica_descritiva/tendcentral.html",
+      "/conteudo/estatistica_descritiva/variacao.html",
+      "/conteudo/estatistica_descritiva/quartis.html",
+      "/conteudo/estatistica_descritiva/escorez.html"
     ]
   },
   {
-    "listing": "/anova.html",
+    "listing": "/inferencia_estatistica.html",
     "items": [
-      "/conteudo/anova/anova_simples.html"
+      "/conteudo/inferencia_estatistica/distr_norm.html",
+      "/conteudo/inferencia_estatistica/teorema_central_limite.html",
+      "/conteudo/inferencia_estatistica/int_conf.html"
     ]
   },
   {
-    "listing": "/amostragem.html",
+    "listing": "/ciencia_dados.html",
     "items": [
-      "/conteudo/amostragem/pop_amostra.html",
-      "/conteudo/amostragem/tipos_amostragem.html"
+      "/conteudo/ciencia_dados/tidyverse.html",
+      "/conteudo/ciencia_dados/import_export.html",
+      "/conteudo/ciencia_dados/pipe.html",
+      "/conteudo/ciencia_dados/transform.html",
+      "/conteudo/ciencia_dados/grafico_ggplot2.html"
+    ]
+  },
+  {
+    "listing": "/fundamentos_probabilidade.html",
+    "items": [
+      "/conteudo/fundamentos_probabilidade/espaco_amostral.html",
+      "/conteudo/fundamentos_probabilidade/combina_probabilidades.html",
+      "/conteudo/fundamentos_probabilidade/probabilidade_condicional.html",
+      "/conteudo/fundamentos_probabilidade/teorema_bayes.html"
+    ]
+  },
+  {
+    "listing": "/estrutura_dados.html",
+    "items": [
+      "/conteudo/estrutura_dados/estrutura_tipo.html"
     ]
   }
 ]

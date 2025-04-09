@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="pt" xml:lang="pt"><head>
 
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.6.43">
@@ -108,17 +108,17 @@ div.csl-indent {
   ],
   "show-item-context": false,
   "language": {
-    "search-no-results-text": "No results",
-    "search-matching-documents-text": "matching documents",
-    "search-copy-link-title": "Copy link to search",
-    "search-hide-matches-text": "Hide additional matches",
-    "search-more-match-text": "more match in this document",
-    "search-more-matches-text": "more matches in this document",
-    "search-clear-button-title": "Clear",
+    "search-no-results-text": "Nenhum resultado",
+    "search-matching-documents-text": "documentos correspondentes",
+    "search-copy-link-title": "Copiar link para a busca",
+    "search-hide-matches-text": "Esconder correspondências adicionais",
+    "search-more-match-text": "mais correspondência neste documento",
+    "search-more-matches-text": "mais correspondências neste documento",
+    "search-clear-button-title": "Limpar",
     "search-text-placeholder": "",
-    "search-detached-cancel-button-title": "Cancel",
-    "search-submit-button-title": "Submit",
-    "search-label": "Search"
+    "search-detached-cancel-button-title": "Cancelar",
+    "search-submit-button-title": "Enviar",
+    "search-label": "Procurar"
   }
 }</script>
 
@@ -173,8 +173,8 @@ window.Quarto = {
     <span class="navbar-title">Métodos em Estatística e Análise de Dados</span>
     </a>
   </div>
-            <div id="quarto-search" class="" title="Search"></div>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+            <div id="quarto-search" class="" title="Procurar"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Alternar de navegação" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
@@ -260,7 +260,7 @@ window.Quarto = {
 <p>As funções gráficas discutidas nesta seção estão disponíveis no pacote <code>graphics</code>, que vem instalado por padrão no R, não sendo necessário instalar pacotes adicionais. Essas funções oferecem elevado controle sobre elementos gráficos (fontes, tamanhos, cores), mas podem ser complexas para criar figuras elaboradas. Apesar de muitas nomenclaturas serem compatíveis para o controle de eixos, títulos e tamanhos de fonte, os argumentos nem sempre são coesos entre os diferentes tipos de gráficos, o que pode dificultar o aprendizado. No entanto, essas funções fornecem uma base sólida sobre a estrutura gráfica no R, permitindo resolver rapidamente muitas situações do dia a dia da análise exploratória.</p>
 <section id="doubs-river-dataset" class="level2" data-number="1">
 <h2 data-number="1" class="anchored" data-anchor-id="doubs-river-dataset"><span class="header-section-number">1</span> Doubs river dataset</h2>
-<p>Para demonstrar algumas ferramentas gráficas, será utilizado o conjunto de dados <em>Doubs River data</em>, disponível no pacote <code>ade4</code> <span class="citation" data-cites="dray2015ade">(<a href="#ref-dray2015ade" role="doc-biblioref">Dray, Dufour, and Thioulouse 2015</a>)</span>. Esse conjunto de dados foi apresentado na seção anterior sobre manipulação de data frames, onde foi importado o arquivo <a href="https://raw.githubusercontent.com/FCopf/datasets/refs/heads/main/dbenv.csv">dbenv.csv</a>. Agora, será usado o conjunto de dados completo.</p>
+<p>Para demonstrar algumas ferramentas gráficas, será utilizado o conjunto de dados <em>Doubs River data</em>, disponível no pacote <code>ade4</code> <span class="citation" data-cites="dray2015ade">(<a href="#ref-dray2015ade" role="doc-biblioref">Dray, Dufour, e Thioulouse 2015</a>)</span>. Esse conjunto de dados foi apresentado na seção anterior sobre manipulação de data frames, onde foi importado o arquivo <a href="https://raw.githubusercontent.com/FCopf/datasets/refs/heads/main/dbenv.csv">dbenv.csv</a>. Agora, será usado o conjunto de dados completo.</p>
 <p>O conjunto de dados do <a href="https://pt.wikipedia.org/wiki/Rio_Doubs">Rio Doubs</a> <span class="citation" data-cites="verneaux1973">(<a href="#ref-verneaux1973" role="doc-biblioref">Verneaux 1973</a>)</span> consiste de amostras sequenciais da cabeceira à foz do rio, em condições que variam de águas bem oxigenadas e oligotróficas a águas eutróficas e desprovidas de oxigênio. O conjunto de dados é uma lista com quatro data frames:</p>
 <ol type="1">
 <li><p><code>$env</code>: data frame com variáveis ambientais relacionadas à hidrologia, geomorfologia e química do</p></li>
@@ -274,47 +274,47 @@ window.Quarto = {
 <li>Instale o pacote <code>ade4</code>:</li>
 </ol>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"ade4"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"ade4"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ol start="2" type="1">
 <li>Carregue o pacote:</li>
 </ol>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ade4)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ade4)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ol start="3" type="1">
 <li>Habilite o conjunto de dados <code>doubs</code></li>
 </ol>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(doubs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(doubs)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ol start="4" type="1">
 <li>Confira se consiste de uma lista:</li>
 </ol>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(doubs)</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(doubs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(doubs)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ol start="5" type="1">
 <li>Leia a descrição do conjunto de dados para conchecê-lo melhor.</li>
 </ol>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>?doubs</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>?doubs</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ol start="6" type="1">
 <li>Extraia os dados ambientais para um novo <code>data.frame</code>:</li>
 </ol>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>ambiente <span class="ot">&lt;-</span> doubs<span class="sc">$</span>env</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>ambiente <span class="ot">&lt;-</span> doubs<span class="sc">$</span>env</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ol start="7" type="1">
-<li>Adicione a este data frame uma nova variável categórica denominada <code>secao</code> com quatro níveis <span class="citation" data-cites="borcard2018numerical">(<a href="#ref-borcard2018numerical" role="doc-biblioref">Borcard, Gillet, and Legendre 2018</a>)</span>.</li>
+<li>Adicione a este data frame uma nova variável categórica denominada <code>secao</code> com quatro níveis <span class="citation" data-cites="borcard2018numerical">(<a href="#ref-borcard2018numerical" role="doc-biblioref">Borcard, Gillet, e Legendre 2018</a>)</span>.</li>
 </ol>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>ambiente<span class="sc">$</span>secao <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="st">"Seção 1"</span>, <span class="dv">16</span>), <span class="fu">rep</span>(<span class="st">"Seção 4"</span>, <span class="dv">14</span>))</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>ambiente<span class="sc">$</span>secao[<span class="fu">c</span>(<span class="dv">5</span>,<span class="dv">9</span>,<span class="dv">17</span>)] <span class="ot">&lt;-</span> <span class="st">"Seção 2"</span></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>ambiente<span class="sc">$</span>secao[<span class="dv">23</span><span class="sc">:</span><span class="dv">25</span>] <span class="ot">&lt;-</span> <span class="st">"Seção 3"</span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>ambiente<span class="sc">$</span>secao <span class="ot">&lt;-</span> <span class="fu">factor</span>(ambiente<span class="sc">$</span>secao)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>ambiente<span class="sc">$</span>secao <span class="ot">&lt;-</span> <span class="fu">factor</span>(ambiente<span class="sc">$</span>secao)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ol start="8" type="1">
 <li>Adicione outra variável categórica, indicando três níveis de saturação de oxigênio em cada ponto.</li>
@@ -322,7 +322,7 @@ window.Quarto = {
 <div class="cell">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>ambiente<span class="sc">$</span>saturacao <span class="ot">&lt;-</span> <span class="fu">cut</span>(ambiente<span class="sc">$</span>oxy, <span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">80</span>, <span class="dv">109</span>, <span class="dv">124</span>), </span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>           <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Pobre"</span>, <span class="st">"Médio"</span>, <span class="st">"Saturado"</span>))</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(ambiente, <span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(ambiente, <span class="dv">10</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   dfs alt   slo  flo pH har pho nit amm oxy bdo   secao saturacao
 1    3 934 6.176   84 79  45   1  20   0 122  27 Seção 1  Saturado
@@ -347,7 +347,7 @@ window.Quarto = {
 <p>Inicialmente, monte uma tabela de frequencia:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>tab1 <span class="ot">&lt;-</span> <span class="fu">table</span>(ambiente<span class="sc">$</span>saturacao)</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>tab1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>tab1</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
    Pobre    Médio Saturado 
@@ -356,7 +356,7 @@ window.Quarto = {
 </div>
 <p>Em seguida represente-a em um gráfico de barras:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(tab1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(tab1)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -371,7 +371,7 @@ window.Quarto = {
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">main =</span> <span class="st">"Concentração de oxigênio"</span>,</span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">ylab =</span> <span class="st">"Frequência"</span>,</span>
 <span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">18</span>), <span class="at">col =</span> <span class="st">"black"</span>)</span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="fu">box</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="fu">box</span>()</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -386,7 +386,7 @@ window.Quarto = {
 <p>Um histograma descreve o padrão de distribuição de uma variável quantitativa a partir da divisão desta variável em <em>intervalos de classe</em>.</p>
 <p>O histograma abaixo para a coluna oxy expressa a saturação de oxigênio (mg/l <span class="math inline">\(\times\)</span> 10).</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(ambiente<span class="sc">$</span>oxy)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(ambiente<span class="sc">$</span>oxy)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
 <div class="cell-output-display">
@@ -400,7 +400,7 @@ window.Quarto = {
 <p>No histograma, o intervalo de classes determina o formato exato do gráfico. No exemplo acima, a escolha foi feita automaticamente. No entanto, é possível definir o intervalo desejado com o argumento <code>breaks</code>:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>classes <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">40</span>, <span class="dv">140</span>, <span class="at">by =</span> <span class="dv">20</span>)</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(ambiente<span class="sc">$</span>oxy, <span class="at">breaks =</span> classes)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(ambiente<span class="sc">$</span>oxy, <span class="at">breaks =</span> classes)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -415,7 +415,7 @@ window.Quarto = {
 <h3 data-number="2.3" class="anchored" data-anchor-id="boxplot"><span class="header-section-number">2.3</span> Boxplot</h3>
 <p>Boxplots oferecem um <em>resumo gráfico</em> da distribuição de uma variável quantitativa. Abaixo está representada a variável oxy.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(ambiente<span class="sc">$</span>oxy)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(ambiente<span class="sc">$</span>oxy)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -426,7 +426,7 @@ window.Quarto = {
 </div>
 <p>A linha do meio representa a <strong>mediana</strong> da variável, enquanto os limites das caixas representam o <span class="math inline">\(1^o\)</span> e <span class="math inline">\(3^o\)</span> quartis e as linhas externas representam os pontos mínimo e máximo. Estes limites podem ser obtidos com o comando:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">quantile</span>(ambiente<span class="sc">$</span>oxy, <span class="at">probs =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.25</span>, <span class="fl">0.5</span>, <span class="fl">0.75</span>, <span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">quantile</span>(ambiente<span class="sc">$</span>oxy, <span class="at">probs =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.25</span>, <span class="fl">0.5</span>, <span class="fl">0.75</span>, <span class="dv">1</span>))</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>    0%    25%    50%    75%   100% 
  41.00  80.25 102.00 109.00 124.00 </code></pre>
@@ -441,7 +441,7 @@ window.Quarto = {
 <p>Um gráfico de barras pode combinar duas variáveis categóricas como <code>secao</code> e <code>saturacao</code>. Inicialmente, monta-se uma tabela de frequência, combinandos as contagens para cada nível das variáveis.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>tab2 <span class="ot">&lt;-</span> <span class="fu">table</span>(ambiente[,<span class="fu">c</span>(<span class="st">"secao"</span>, <span class="st">"saturacao"</span>)])</span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>tab2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>tab2</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>         saturacao
 secao     Pobre Médio Saturado
@@ -457,7 +457,7 @@ secao     Pobre Médio Saturado
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(tab2, <span class="at">legend =</span> <span class="cn">TRUE</span>)</span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(tab2, <span class="at">legend =</span> <span class="cn">TRUE</span>, <span class="at">beside =</span> <span class="cn">TRUE</span>)</span>
 <span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(<span class="fu">t</span>(tab2), <span class="at">legend =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(<span class="fu">t</span>(tab2), <span class="at">legend =</span> <span class="cn">TRUE</span>, <span class="at">beside =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(<span class="fu">t</span>(tab2), <span class="at">legend =</span> <span class="cn">TRUE</span>, <span class="at">beside =</span> <span class="cn">TRUE</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -491,7 +491,7 @@ secao     Pobre Médio Saturado
 <span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a><span class="fu">box</span>()</span>
 <span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(<span class="fu">t</span>(tab2), <span class="at">legend =</span> <span class="cn">TRUE</span>, <span class="at">beside =</span> <span class="cn">TRUE</span>, <span class="at">col =</span> cores, </span>
 <span id="cb22-17"><a href="#cb22-17" aria-hidden="true" tabindex="-1"></a>        <span class="at">ylim =</span> limy2, <span class="at">args.legend =</span> legenda)</span>
-<span id="cb22-18"><a href="#cb22-18" aria-hidden="true" tabindex="-1"></a><span class="fu">box</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb22-18"><a href="#cb22-18" aria-hidden="true" tabindex="-1"></a><span class="fu">box</span>()</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -505,7 +505,7 @@ secao     Pobre Médio Saturado
 <h3 data-number="3.2" class="anchored" data-anchor-id="boxplot-1"><span class="header-section-number">3.2</span> Boxplot</h3>
 <p>O boxplot também pode ser utilizado para representar uma variável <span class="math inline">\(X_1\)</span> para diferentes níveis de uma variável categórica <span class="math inline">\(X_2\)</span>, por exemplo oxy para cada nível de secao.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(oxy <span class="sc">~</span> secao, <span class="at">data =</span> ambiente)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(oxy <span class="sc">~</span> secao, <span class="at">data =</span> ambiente)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -524,7 +524,7 @@ secao     Pobre Médio Saturado
 <h3 data-number="3.3" class="anchored" data-anchor-id="gráfico-de-dispersão"><span class="header-section-number">3.3</span> Gráfico de dispersão</h3>
 <p>Um gráfico de dispersão mostra a associação entre duas variáveis quantitativas, por exemplo, concentração de nitrato (mg/l <span class="math inline">\(\times\)</span> 100) e distância da foz (km <span class="math inline">\(\times\)</span> 10). Neste caso a concentração de nitrato será representada como dependente da distância da foz.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(nit <span class="sc">~</span> dfs, <span class="at">data =</span> ambiente)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(nit <span class="sc">~</span> dfs, <span class="at">data =</span> ambiente)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -540,7 +540,7 @@ secao     Pobre Médio Saturado
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="fu">bquote</span>(<span class="st">"Vazão média mínima (m"</span> <span class="sc">^</span><span class="dv">3</span><span class="sc">/</span><span class="st">"seg x 100)"</span>),</span>
 <span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="fu">bquote</span>(<span class="st">"Concentração de Nitrato (mg"</span><span class="sc">/</span><span class="st">"l x 100)"</span>),</span>
 <span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">pch =</span> <span class="dv">19</span></span>
-<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -559,7 +559,7 @@ secao     Pobre Médio Saturado
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x =</span> doubs<span class="sc">$</span>xy<span class="sc">$</span>x, <span class="at">y =</span> doubs<span class="sc">$</span>xy<span class="sc">$</span>y, <span class="at">type =</span> <span class="st">"l"</span>,</span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"Coordenada em x (km)"</span>, </span>
 <span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">"Coordenada em y (km)"</span>,</span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> <span class="st">"#4287f5"</span>, <span class="at">lwd =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> <span class="st">"#4287f5"</span>, <span class="at">lwd =</span> <span class="dv">3</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -575,7 +575,7 @@ secao     Pobre Médio Saturado
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Note
+Nota
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -592,7 +592,7 @@ Note
 <span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> <span class="st">"#4287f5"</span>, <span class="at">lwd =</span> <span class="dv">3</span>)</span>
 <span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="at">x =</span> pontos_extremos<span class="sc">$</span>x, </span>
 <span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> pontos_extremos<span class="sc">$</span>y,</span>
-<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Cabeceira"</span>, <span class="st">"Foz"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Cabeceira"</span>, <span class="st">"Foz"</span>))</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -612,7 +612,7 @@ Note
 <span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="at">x =</span> doubs<span class="sc">$</span>xy<span class="sc">$</span>x, <span class="at">y =</span> doubs<span class="sc">$</span>xy<span class="sc">$</span>y, <span class="at">pch =</span> <span class="dv">21</span>, </span>
 <span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">bg =</span> secao_cor, <span class="at">cex =</span> <span class="dv">3</span>)</span>
 <span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="at">x =</span> <span class="st">"bottomright"</span>, <span class="at">col =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, </span>
-<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>       <span class="at">legend =</span> <span class="fu">levels</span>(ambiente<span class="sc">$</span>secao), <span class="at">bty =</span> <span class="st">"n"</span>, <span class="at">pch =</span> <span class="dv">19</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>       <span class="at">legend =</span> <span class="fu">levels</span>(ambiente<span class="sc">$</span>secao), <span class="at">bty =</span> <span class="st">"n"</span>, <span class="at">pch =</span> <span class="dv">19</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -637,7 +637,7 @@ Note
 <span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a>     <span class="at">cex =</span> <span class="fl">0.8</span>, <span class="at">font =</span> <span class="dv">2</span>)</span>
 <span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="at">x =</span> <span class="dv">55</span>, <span class="at">y =</span> <span class="dv">220</span>, <span class="at">labels =</span> <span class="st">"Concentração de amônia"</span>)</span>
 <span id="cb29-14"><a href="#cb29-14" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="at">x =</span> <span class="dv">25</span>, <span class="at">y =</span> <span class="dv">120</span>, <span class="at">label =</span> <span class="st">"Foz"</span>)</span>
-<span id="cb29-15"><a href="#cb29-15" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="at">x =</span> <span class="dv">60</span>, <span class="at">y =</span> <span class="dv">20</span>, <span class="at">label =</span> <span class="st">"Cabeceira"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb29-15"><a href="#cb29-15" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="at">x =</span> <span class="dv">60</span>, <span class="at">y =</span> <span class="dv">20</span>, <span class="at">label =</span> <span class="st">"Cabeceira"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -653,7 +653,7 @@ Note
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Note
+Nota
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -678,7 +678,7 @@ Note
 <span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(nit <span class="sc">~</span> dfs, <span class="at">data =</span> ambiente, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">type =</span> <span class="st">"l"</span>, </span>
 <span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a>     <span class="at">lty =</span> <span class="dv">2</span>, <span class="at">lwd =</span> <span class="dv">3</span>)</span>
 <span id="cb30-13"><a href="#cb30-13" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(nit <span class="sc">~</span> dfs, <span class="at">data =</span> ambiente, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">type =</span> <span class="st">"l"</span>, </span>
-<span id="cb30-14"><a href="#cb30-14" aria-hidden="true" tabindex="-1"></a>     <span class="at">lty =</span> <span class="dv">2</span>, <span class="at">lwd =</span> <span class="dv">3</span>, <span class="at">col =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb30-14"><a href="#cb30-14" aria-hidden="true" tabindex="-1"></a>     <span class="at">lty =</span> <span class="dv">2</span>, <span class="at">lwd =</span> <span class="dv">3</span>, <span class="at">col =</span> <span class="dv">2</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="figuras-compostas" class="level2" data-number="6">
@@ -691,7 +691,7 @@ Note
 <span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(nit <span class="sc">~</span> alt, <span class="at">data =</span> ambiente)</span>
 <span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(pH <span class="sc">~</span> alt, <span class="at">data =</span> ambiente)</span>
 <span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(bdo <span class="sc">~</span> alt, <span class="at">data =</span> ambiente)</span>
-<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(oxy <span class="sc">~</span> alt, <span class="at">data =</span> ambiente)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(oxy <span class="sc">~</span> alt, <span class="at">data =</span> ambiente)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -712,11 +712,11 @@ Note
 <span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(alt <span class="sc">~</span> dfs, <span class="at">data =</span> ambiente, <span class="at">pch =</span> <span class="dv">19</span>, <span class="at">type =</span> <span class="st">"b"</span>, </span>
 <span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"Vazão"</span>, <span class="at">ylab =</span> <span class="st">"Elevação"</span>)</span>
 <span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a><span class="fu">dev.off</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a><span class="fu">dev.off</span>()</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>A figura foi salva do diretório atual de sua seção de trabalho. Você pode conferir este diretório com o comando:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">getwd</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">getwd</span>()</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Experimente alterar os argumentos <code>width</code>, <code>height</code>, <code>pointsize</code>, <code>units</code> (com <code>"px"</code>, <code>"in"</code>, <code>"cm"</code> ou <code>"mm"</code>) e <code>res</code>.</p>
 <p>As capacidades gráficas no R incluem ainda muitos outros argumentos. Alguns deles são: cores (<code>col</code>), tipos da fonte (<code>font</code>), tamanhos de símbolos (<code>cex</code>), dos labels (<code>cex.lab</code>), dos rótulos dos eixos (<code>cex.axis</code>), título (<code>main</code>), etc. Pode-se ainda inserir legendas (função <code>legend</code>) e textos (função <code>text</code>). Veja o <strong>help</strong> de cada uma destas funções e a lista de argumentos possíveis para o ambiente gráfico do R em <code>?par</code>. Veja também uma demonstração com <code>demo(graphics)</code>, <code>demo(image)</code>, <code>demo(persp)</code> e <code>demo(plotmath)</code>.</p>
@@ -738,15 +738,15 @@ Note
 
 </section>
 
-<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">Referências</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
 <div id="ref-borcard2018numerical" class="csl-entry" role="listitem">
-Borcard, Daniel, François Gillet, and Pierre Legendre. 2018. <em>Numerical Ecology with r</em>. Springer.
+Borcard, Daniel, François Gillet, e Pierre Legendre. 2018. <em>Numerical ecology with R</em>. Springer.
 </div>
 <div id="ref-dray2015ade" class="csl-entry" role="listitem">
-Dray, S, AB Dufour, and J Thioulouse. 2015. <span>“Ade 4: Analysis of Ecological Data: Exploratory and Euclidean Methods in Environmental Sciences. R Package Version 1.7-2.”</span>
+Dray, S, AB Dufour, e J Thioulouse. 2015. <span>«ade 4: analysis of ecological data: exploratory and Euclidean methods in environmental sciences. R package version 1.7-2»</span>.
 </div>
 <div id="ref-verneaux1973" class="csl-entry" role="listitem">
-Verneaux, Jean. 1973. <span>“Cours d’eau de Franche-Comté (Massif Du Jura). Recherches Écologiques Sur Le Réseau Hydrographique Du Doubs. Essai de Biotypologie.”</span> Thèse d'État, Besançon: Université de Besançon.
+Verneaux, Jean. 1973. <span>«Cours d’eau de Franche-Comté (Massif du Jura). Recherches écologiques sur le réseau hydrographique du Doubs. Essai de biotypologie»</span>. Thèse d'État, Besançon: Université de Besançon.
 </div>
 </div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -792,12 +792,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // flash "checked"
     button.classList.add('code-copy-button-checked');
     var currentTitle = button.getAttribute("title");
-    button.setAttribute("title", "Copied!");
+    button.setAttribute("title", "Copiada");
     let tooltip;
     if (window.bootstrap) {
       button.setAttribute("data-bs-toggle", "tooltip");
       button.setAttribute("data-bs-placement", "left");
-      button.setAttribute("data-bs-title", "Copied!");
+      button.setAttribute("data-bs-title", "Copiada");
       tooltip = new bootstrap.Tooltip(button, 
         { trigger: "manual", 
           customClass: "code-copy-button-tooltip",

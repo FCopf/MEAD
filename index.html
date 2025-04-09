@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="pt" xml:lang="pt"><head>
 
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.6.43">
@@ -20,7 +20,27 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -55,17 +75,17 @@ ul.task-list li input[type="checkbox"] {
   ],
   "show-item-context": false,
   "language": {
-    "search-no-results-text": "No results",
-    "search-matching-documents-text": "matching documents",
-    "search-copy-link-title": "Copy link to search",
-    "search-hide-matches-text": "Hide additional matches",
-    "search-more-match-text": "more match in this document",
-    "search-more-matches-text": "more matches in this document",
-    "search-clear-button-title": "Clear",
+    "search-no-results-text": "Nenhum resultado",
+    "search-matching-documents-text": "documentos correspondentes",
+    "search-copy-link-title": "Copiar link para a busca",
+    "search-hide-matches-text": "Esconder correspondências adicionais",
+    "search-more-match-text": "mais correspondência neste documento",
+    "search-more-matches-text": "mais correspondências neste documento",
+    "search-clear-button-title": "Limpar",
     "search-text-placeholder": "",
-    "search-detached-cancel-button-title": "Cancel",
-    "search-submit-button-title": "Submit",
-    "search-label": "Search"
+    "search-detached-cancel-button-title": "Cancelar",
+    "search-submit-button-title": "Enviar",
+    "search-label": "Procurar"
   }
 }</script>
 <script>
@@ -148,8 +168,8 @@ window.Quarto = {
     <span class="navbar-title">Métodos em Estatística e Análise de Dados</span>
     </a>
   </div>
-            <div id="quarto-search" class="" title="Search"></div>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+            <div id="quarto-search" class="" title="Procurar"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Alternar de navegação" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
@@ -172,7 +192,7 @@ window.Quarto = {
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(12)</span></div><div class="category" data-category="QU5PVkE=">ANOVA <span class="quarto-category-count">(1)</span></div><div class="category" data-category="QW4lQzMlQTFsaXNlJTIwZGUlMjBEYWRvcw==">Análise de Dados <span class="quarto-category-count">(2)</span></div><div class="category" data-category="Q2klQzMlQUFuY2lhJTIwZGUlMjBEYWRvcw==">Ciência de Dados <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Q29tcGFyYSVDMyVBNyVDMyVBM28lMjBkZSUyME0lQzMlQTlkaWFz">Comparação de Médias <span class="quarto-category-count">(1)</span></div><div class="category" data-category="RGF0YSUyMGZyYW1lcw==">Data frames <span class="quarto-category-count">(1)</span></div><div class="category" data-category="RGlzdHJpYnVpJUMzJUE3JUMzJUEzbyUyMGElMjBwcmlvcmk=">Distribuição a priori <span class="quarto-category-count">(1)</span></div><div class="category" data-category="RGlzdHJpYnVpJUMzJUE3JUMzJUEzbyUyMHBvc3Rlcmlvcg==">Distribuição posterior <span class="quarto-category-count">(1)</span></div><div class="category" data-category="RGlzdHJpYnVpJUMzJUE3JUMzJUI1ZXMlMjBkZSUyMFByb2JhYmlsaWRhZGU=">Distribuições de Probabilidade <span class="quarto-category-count">(1)</span></div><div class="category" data-category="RXN0YXQlQzMlQURzdGljYQ==">Estatística <span class="quarto-category-count">(4)</span></div><div class="category" data-category="RXN0cnV0dXJhJTIwZGUlMjBEYWRvcw==">Estrutura de Dados <span class="quarto-category-count">(1)</span></div><div class="category" data-category="R3IlQzMlQTFmaWNvcyUyMGVtJTIwUg==">Gráficos em R <span class="quarto-category-count">(1)</span></div><div class="category" data-category="SW5mZXIlQzMlQUFuY2lhJTIwQmF5ZXNpYW5h">Inferência Bayesiana <span class="quarto-category-count">(1)</span></div><div class="category" data-category="SW5mZXIlQzMlQUFuY2lhJTIwRXN0YXQlQzMlQURzdGljYQ==">Inferência Estatística <span class="quarto-category-count">(2)</span></div><div class="category" data-category="TWFuaXB1bGElQzMlQTclQzMlQTNvJTIwZGUlMjBEYWRvcw==">Manipulação de Dados <span class="quarto-category-count">(1)</span></div><div class="category" data-category="TWVkaWRhcyUyMGRlJTIwYXNzb2NpYSVDMyVBNyVDMyVBM28=">Medidas de associação <span class="quarto-category-count">(1)</span></div><div class="category" data-category="TW9kZWxhZ2VtJTIwUHJlZGl0aXZh">Modelagem Preditiva <span class="quarto-category-count">(1)</span></div><div class="category" data-category="T2JqZXRvcyUyMGVtJTIwUg==">Objetos em R <span class="quarto-category-count">(1)</span></div><div class="category" data-category="UHJvZ3JhbWElQzMlQTclQzMlQTNv">Programação <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Ug==">R <span class="quarto-category-count">(4)</span></div><div class="category" data-category="UmVncmVzcyVDMyVBM28lMjBMaW5lYXI=">Regressão Linear <span class="quarto-category-count">(1)</span></div><div class="category" data-category="VGVvcmVtYSUyMGRlJTIwQmF5ZXM=">Teorema de Bayes <span class="quarto-category-count">(1)</span></div><div class="category" data-category="VGVzdGUlMjBkZSUyMGhpcCVDMyVCM3Rlc2Vz">Teste de hipóteses <span class="quarto-category-count">(1)</span></div><div class="category" data-category="VGlkeXZlcnNl">Tidyverse <span class="quarto-category-count">(1)</span></div><div class="category" data-category="VmlzdWFsaXphJUMzJUE3JUMzJUEzbyUyMGRlJTIwRGFkb3M=">Visualização de Dados <span class="quarto-category-count">(2)</span></div><div class="category" data-category="YW1vc3RyYWdlbQ==">amostragem <span class="quarto-category-count">(1)</span></div><div class="category" data-category="ZXNwYSVDMyVBN28lMjBhbW9zdHJhbA==">espaço amostral <span class="quarto-category-count">(1)</span></div><div class="category" data-category="ZXN0YXQlQzMlQURzdGljYQ==">estatística <span class="quarto-category-count">(1)</span></div><div class="category" data-category="ZXZlbnRvcyUyMGluZGVwZW5kZW50ZXM=">eventos independentes <span class="quarto-category-count">(1)</span></div><div class="category" data-category="aW50ZXJzZWMlQzMlQTclQzMlQTNv">intersecção <span class="quarto-category-count">(1)</span></div><div class="category" data-category="cHJvYmFiaWxpZGFkZSUyMGNvbmRpY2lvbmFs">probabilidade condicional <span class="quarto-category-count">(1)</span></div><div class="category" data-category="dW5pJUMzJUEzbw==">união <span class="quarto-category-count">(1)</span></div></div></div>
+    <h5 class="quarto-listing-category-title">Categorias</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">Tudo <span class="quarto-category-count">(12)</span></div><div class="category" data-category="QU5PVkE=">ANOVA <span class="quarto-category-count">(1)</span></div><div class="category" data-category="QW4lQzMlQTFsaXNlJTIwZGUlMjBEYWRvcw==">Análise de Dados <span class="quarto-category-count">(2)</span></div><div class="category" data-category="Q2klQzMlQUFuY2lhJTIwZGUlMjBEYWRvcw==">Ciência de Dados <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Q29tcGFyYSVDMyVBNyVDMyVBM28lMjBkZSUyME0lQzMlQTlkaWFz">Comparação de Médias <span class="quarto-category-count">(1)</span></div><div class="category" data-category="RGF0YSUyMGZyYW1lcw==">Data frames <span class="quarto-category-count">(1)</span></div><div class="category" data-category="RGlzdHJpYnVpJUMzJUE3JUMzJUEzbyUyMGElMjBwcmlvcmk=">Distribuição a priori <span class="quarto-category-count">(1)</span></div><div class="category" data-category="RGlzdHJpYnVpJUMzJUE3JUMzJUEzbyUyMHBvc3Rlcmlvcg==">Distribuição posterior <span class="quarto-category-count">(1)</span></div><div class="category" data-category="RGlzdHJpYnVpJUMzJUE3JUMzJUI1ZXMlMjBkZSUyMFByb2JhYmlsaWRhZGU=">Distribuições de Probabilidade <span class="quarto-category-count">(1)</span></div><div class="category" data-category="RXN0YXQlQzMlQURzdGljYQ==">Estatística <span class="quarto-category-count">(4)</span></div><div class="category" data-category="RXN0cnV0dXJhJTIwZGUlMjBEYWRvcw==">Estrutura de Dados <span class="quarto-category-count">(1)</span></div><div class="category" data-category="R3IlQzMlQTFmaWNvcyUyMGVtJTIwUg==">Gráficos em R <span class="quarto-category-count">(1)</span></div><div class="category" data-category="SW5mZXIlQzMlQUFuY2lhJTIwQmF5ZXNpYW5h">Inferência Bayesiana <span class="quarto-category-count">(1)</span></div><div class="category" data-category="SW5mZXIlQzMlQUFuY2lhJTIwRXN0YXQlQzMlQURzdGljYQ==">Inferência Estatística <span class="quarto-category-count">(2)</span></div><div class="category" data-category="TWFuaXB1bGElQzMlQTclQzMlQTNvJTIwZGUlMjBEYWRvcw==">Manipulação de Dados <span class="quarto-category-count">(1)</span></div><div class="category" data-category="TWVkaWRhcyUyMGRlJTIwYXNzb2NpYSVDMyVBNyVDMyVBM28=">Medidas de associação <span class="quarto-category-count">(1)</span></div><div class="category" data-category="TW9kZWxhZ2VtJTIwUHJlZGl0aXZh">Modelagem Preditiva <span class="quarto-category-count">(1)</span></div><div class="category" data-category="T2JqZXRvcyUyMGVtJTIwUg==">Objetos em R <span class="quarto-category-count">(1)</span></div><div class="category" data-category="UHJvZ3JhbWElQzMlQTclQzMlQTNv">Programação <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Ug==">R <span class="quarto-category-count">(4)</span></div><div class="category" data-category="UmVncmVzcyVDMyVBM28lMjBMaW5lYXI=">Regressão Linear <span class="quarto-category-count">(1)</span></div><div class="category" data-category="VGVvcmVtYSUyMGRlJTIwQmF5ZXM=">Teorema de Bayes <span class="quarto-category-count">(1)</span></div><div class="category" data-category="VGVzdGUlMjBkZSUyMGhpcCVDMyVCM3Rlc2Vz">Teste de hipóteses <span class="quarto-category-count">(1)</span></div><div class="category" data-category="VGlkeXZlcnNl">Tidyverse <span class="quarto-category-count">(1)</span></div><div class="category" data-category="VmlzdWFsaXphJUMzJUE3JUMzJUEzbyUyMGRlJTIwRGFkb3M=">Visualização de Dados <span class="quarto-category-count">(2)</span></div><div class="category" data-category="YW1vc3RyYWdlbQ==">amostragem <span class="quarto-category-count">(1)</span></div><div class="category" data-category="ZXNwYSVDMyVBN28lMjBhbW9zdHJhbA==">espaço amostral <span class="quarto-category-count">(1)</span></div><div class="category" data-category="ZXN0YXQlQzMlQURzdGljYQ==">estatística <span class="quarto-category-count">(1)</span></div><div class="category" data-category="ZXZlbnRvcyUyMGluZGVwZW5kZW50ZXM=">eventos independentes <span class="quarto-category-count">(1)</span></div><div class="category" data-category="aW50ZXJzZWMlQzMlQTclQzMlQTNv">intersecção <span class="quarto-category-count">(1)</span></div><div class="category" data-category="cHJvYmFiaWxpZGFkZSUyMGNvbmRpY2lvbmFs">probabilidade condicional <span class="quarto-category-count">(1)</span></div><div class="category" data-category="dW5pJUMzJUEzbw==">união <span class="quarto-category-count">(1)</span></div></div></div>
 <!-- main -->
 <main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
 
@@ -183,9 +203,10 @@ window.Quarto = {
 
 
 
+
 <div class="quarto-listing quarto-listing-container-grid" id="listing-listing">
 <div class="list grid quarto-listing-cols-3">
-<div class="g-col-1" data-index="0" data-categories="UiUyQ1Byb2dyYW1hJUMzJUE3JUMzJUEzbyUyQ09iamV0b3MlMjBlbSUyMFIlMkNNYW5pcHVsYSVDMyVBNyVDMyVBM28lMjBkZSUyMERhZG9zJTJDRGF0YSUyMGZyYW1lcyUyQ0dyJUMzJUExZmljb3MlMjBlbSUyMFIlMkNWaXN1YWxpemElQzMlQTclQzMlQTNvJTIwZGUlMjBEYWRvcw==" data-listing-file-modified-sort="1744044811634" data-listing-reading-time-sort="1" data-listing-word-count-sort="1">
+<div class="g-col-1" data-index="0" data-categories="UiUyQ1Byb2dyYW1hJUMzJUE3JUMzJUEzbyUyQ09iamV0b3MlMjBlbSUyMFIlMkNNYW5pcHVsYSVDMyVBNyVDMyVBM28lMjBkZSUyMERhZG9zJTJDRGF0YSUyMGZyYW1lcyUyQ0dyJUMzJUExZmljb3MlMjBlbSUyMFIlMkNWaXN1YWxpemElQzMlQTclQzMlQTNvJTIwZGUlMjBEYWRvcw==" data-listing-file-modified-sort="1744242940556" data-listing-reading-time-sort="1" data-listing-word-count-sort="1">
 <a href="./introducao_r.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
 <p class="card-img-top">
@@ -225,7 +246,7 @@ Estrutura da linguagem, manipulação e visualização de dados.
 </div>
 </a>
 </div>
-<div class="g-col-1" data-index="1" data-categories="Q2klQzMlQUFuY2lhJTIwZGUlMjBEYWRvcyUyQ1IlMkNUaWR5dmVyc2U=" data-listing-file-modified-sort="1744044811500" data-listing-reading-time-sort="1" data-listing-word-count-sort="1">
+<div class="g-col-1" data-index="1" data-categories="Q2klQzMlQUFuY2lhJTIwZGUlMjBEYWRvcyUyQ1IlMkNUaWR5dmVyc2U=" data-listing-file-modified-sort="1744242940421" data-listing-reading-time-sort="1" data-listing-word-count-sort="1">
 <a href="./ciencia_dados.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
 <p class="card-img-top">
@@ -253,7 +274,7 @@ Introdução à ciência de dados em R, incluindo manipulação, transformação
 </div>
 </a>
 </div>
-<div class="g-col-1" data-index="2" data-categories="UiUyQ0VzdHJ1dHVyYSUyMGRlJTIwRGFkb3M=" data-listing-file-modified-sort="1744044811611" data-listing-reading-time-sort="1" data-listing-word-count-sort="1">
+<div class="g-col-1" data-index="2" data-categories="UiUyQ0VzdHJ1dHVyYSUyMGRlJTIwRGFkb3M=" data-listing-file-modified-sort="1744242940533" data-listing-reading-time-sort="1" data-listing-word-count-sort="1">
 <a href="./estrutura_dados.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
 <p class="card-img-top">
@@ -278,7 +299,7 @@ Fundamentos da estrutura de dados, abordando tipos de variáveis, níveis de men
 </div>
 </a>
 </div>
-<div class="g-col-1" data-index="3" data-categories="RXN0YXQlQzMlQURzdGljYSUyQ1I=" data-listing-file-modified-sort="1744044811611" data-listing-reading-time-sort="1" data-listing-word-count-sort="1">
+<div class="g-col-1" data-index="3" data-categories="RXN0YXQlQzMlQURzdGljYSUyQ1I=" data-listing-file-modified-sort="1744242940533" data-listing-reading-time-sort="1" data-listing-word-count-sort="1">
 <a href="./estatistica_descritiva.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
 <p class="card-img-top">
@@ -303,7 +324,7 @@ Representação de variáveis, medidas de tendência central e variação
 </div>
 </a>
 </div>
-<div class="g-col-1" data-index="4" data-categories="RXN0YXQlQzMlQURzdGljYSUyQ0FuJUMzJUExbGlzZSUyMGRlJTIwRGFkb3MlMkNWaXN1YWxpemElQzMlQTclQzMlQTNvJTIwZGUlMjBEYWRvcyUyQ01lZGlkYXMlMjBkZSUyMGFzc29jaWElQzMlQTclQzMlQTNv" data-listing-file-modified-sort="1744044811634" data-listing-reading-time-sort="1" data-listing-word-count-sort="1">
+<div class="g-col-1" data-index="4" data-categories="RXN0YXQlQzMlQURzdGljYSUyQ0FuJUMzJUExbGlzZSUyMGRlJTIwRGFkb3MlMkNWaXN1YWxpemElQzMlQTclQzMlQTNvJTIwZGUlMjBEYWRvcyUyQ01lZGlkYXMlMjBkZSUyMGFzc29jaWElQzMlQTclQzMlQTNv" data-listing-file-modified-sort="1744242940556" data-listing-reading-time-sort="1" data-listing-word-count-sort="1">
 <a href="./medidas_associacao.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
 <p class="card-img-top">
@@ -334,7 +355,7 @@ Associações entre diferentes tipos de variáveis.
 </div>
 </a>
 </div>
-<div class="g-col-1" data-index="5" data-categories="ZXN0YXQlQzMlQURzdGljYSUyQ2Ftb3N0cmFnZW0=" data-listing-file-modified-sort="1744044811500" data-listing-reading-time-sort="1" data-listing-word-count-sort="1">
+<div class="g-col-1" data-index="5" data-categories="ZXN0YXQlQzMlQURzdGljYSUyQ2Ftb3N0cmFnZW0=" data-listing-file-modified-sort="1744242940421" data-listing-reading-time-sort="1" data-listing-word-count-sort="1">
 <a href="./amostragem.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
 <p class="card-img-top">
@@ -359,7 +380,7 @@ Introdução aos conceitos fundamentais de amostragem em estatística.
 </div>
 </a>
 </div>
-<div class="g-col-1" data-index="6" data-categories="ZXNwYSVDMyVBN28lMjBhbW9zdHJhbCUyQ3VuaSVDMyVBM28lMkNpbnRlcnNlYyVDMyVBNyVDMyVBM28lMkNldmVudG9zJTIwaW5kZXBlbmRlbnRlcyUyQ3Byb2JhYmlsaWRhZGUlMjBjb25kaWNpb25hbCUyQ1Rlb3JlbWElMjBkZSUyMEJheWVz" data-listing-file-modified-sort="1744044811611" data-listing-reading-time-sort="1" data-listing-word-count-sort="1">
+<div class="g-col-1" data-index="6" data-categories="ZXNwYSVDMyVBN28lMjBhbW9zdHJhbCUyQ3VuaSVDMyVBM28lMkNpbnRlcnNlYyVDMyVBNyVDMyVBM28lMkNldmVudG9zJTIwaW5kZXBlbmRlbnRlcyUyQ3Byb2JhYmlsaWRhZGUlMjBjb25kaWNpb25hbCUyQ1Rlb3JlbWElMjBkZSUyMEJheWVz" data-listing-file-modified-sort="1744242940533" data-listing-reading-time-sort="1" data-listing-word-count-sort="1">
 <a href="./fundamentos_probabilidade.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
 <p class="card-img-top">
@@ -396,7 +417,7 @@ Definição de probabilidade, probabilidade de eventos independentes, probabilid
 </div>
 </a>
 </div>
-<div class="g-col-1" data-index="7" data-categories="RXN0YXQlQzMlQURzdGljYSUyQ0luZmVyJUMzJUFBbmNpYSUyMEVzdGF0JUMzJUFEc3RpY2E=" data-listing-file-modified-sort="1744044811634" data-listing-reading-time-sort="1" data-listing-word-count-sort="1">
+<div class="g-col-1" data-index="7" data-categories="RXN0YXQlQzMlQURzdGljYSUyQ0luZmVyJUMzJUFBbmNpYSUyMEVzdGF0JUMzJUFEc3RpY2E=" data-listing-file-modified-sort="1744242940556" data-listing-reading-time-sort="1" data-listing-word-count-sort="1">
 <a href="./inferencia_estatistica.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
 <p class="card-img-top">
@@ -421,7 +442,7 @@ Fundamentos da inferência estatística, teorema central do limite e intervalos 
 </div>
 </a>
 </div>
-<div class="g-col-1" data-index="8" data-categories="SW5mZXIlQzMlQUFuY2lhJTIwRXN0YXQlQzMlQURzdGljYSUyQ1Rlc3RlJTIwZGUlMjBoaXAlQzMlQjN0ZXNlcyUyQ0FuJUMzJUExbGlzZSUyMGRlJTIwRGFkb3M=" data-listing-file-modified-sort="1744044811636" data-listing-reading-time-sort="1" data-listing-word-count-sort="1">
+<div class="g-col-1" data-index="8" data-categories="SW5mZXIlQzMlQUFuY2lhJTIwRXN0YXQlQzMlQURzdGljYSUyQ1Rlc3RlJTIwZGUlMjBoaXAlQzMlQjN0ZXNlcyUyQ0FuJUMzJUExbGlzZSUyMGRlJTIwRGFkb3M=" data-listing-file-modified-sort="1744242940558" data-listing-reading-time-sort="1" data-listing-word-count-sort="1">
 <a href="./teste_hipoteses.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
 <p class="card-img-top">
@@ -449,7 +470,7 @@ Fundamentos do teste de hipóteses, erros do tipo I e II e valor de p.
 </div>
 </a>
 </div>
-<div class="g-col-1" data-index="9" data-categories="Q29tcGFyYSVDMyVBNyVDMyVBM28lMjBkZSUyME0lQzMlQTlkaWFzJTJDQU5PVkE=" data-listing-file-modified-sort="1744044811500" data-listing-reading-time-sort="1" data-listing-word-count-sort="1">
+<div class="g-col-1" data-index="9" data-categories="Q29tcGFyYSVDMyVBNyVDMyVBM28lMjBkZSUyME0lQzMlQTlkaWFzJTJDQU5PVkE=" data-listing-file-modified-sort="1744242940421" data-listing-reading-time-sort="1" data-listing-word-count-sort="1">
 <a href="./anova.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
 <p class="card-img-top">
@@ -474,7 +495,7 @@ Modelos de ANOVA para compararção de médias: ANOVA simples, em blocos e fator
 </div>
 </a>
 </div>
-<div class="g-col-1" data-index="10" data-categories="UmVncmVzcyVDMyVBM28lMjBMaW5lYXIlMkNFc3RhdCVDMyVBRHN0aWNhJTJDTW9kZWxhZ2VtJTIwUHJlZGl0aXZh" data-listing-file-modified-sort="1744044811634" data-listing-reading-time-sort="1" data-listing-word-count-sort="1">
+<div class="g-col-1" data-index="10" data-categories="UmVncmVzcyVDMyVBM28lMjBMaW5lYXIlMkNFc3RhdCVDMyVBRHN0aWNhJTJDTW9kZWxhZ2VtJTIwUHJlZGl0aXZh" data-listing-file-modified-sort="1744242940557" data-listing-reading-time-sort="1" data-listing-word-count-sort="1">
 <a href="./regressao_linear.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
 <p class="card-img-top">
@@ -502,13 +523,13 @@ Relações entre variáveis dependentes e independentes, previsão e análise de
 </div>
 </a>
 </div>
-<div class="g-col-1" data-index="11" data-categories="RGlzdHJpYnVpJUMzJUE3JUMzJUI1ZXMlMjBkZSUyMFByb2JhYmlsaWRhZGUlMkNJbmZlciVDMyVBQW5jaWElMjBCYXllc2lhbmElMkNEaXN0cmlidWklQzMlQTclQzMlQTNvJTIwYSUyMHByaW9yaSUyQ0Rpc3RyaWJ1aSVDMyVBNyVDMyVBM28lMjBwb3N0ZXJpb3I=" data-listing-file-modified-sort="1744044811634" data-listing-reading-time-sort="1" data-listing-word-count-sort="1">
+<div class="g-col-1" data-index="11" data-categories="RGlzdHJpYnVpJUMzJUE3JUMzJUI1ZXMlMjBkZSUyMFByb2JhYmlsaWRhZGUlMkNJbmZlciVDMyVBQW5jaWElMjBCYXllc2lhbmElMkNEaXN0cmlidWklQzMlQTclQzMlQTNvJTIwYSUyMHByaW9yaSUyQ0Rpc3RyaWJ1aSVDMyVBNyVDMyVBM28lMjBwb3N0ZXJpb3I=" data-listing-file-modified-sort="1744242940556" data-listing-reading-time-sort="1" data-listing-word-count-sort="1">
 <a href="./probabilidade_inferencia.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
+</a><div class="quarto-grid-item card h-100 card-left"><a href="./probabilidade_inferencia.html" class="quarto-grid-link">
 <p class="card-img-top">
 <img loading="lazy" src="./images/probabilidade_inferencia.png" class="thumbnail-image card-img" style="height: 150px;">
 </p>
-<div class="card-body post-contents">
+</a><div class="card-body post-contents"><a href="./probabilidade_inferencia.html" class="quarto-grid-link">
 <h5 class="no-anchor card-title listing-title">
 Probabilidade e Inferência
 </h5>
@@ -526,18 +547,22 @@ Distribuição a priori
 Distribuição posterior
 </div>
 </div>
-<div class="card-text listing-description">
-Distribuições de Probabilidade e Inferência Bayesiana.
+</a><div class="card-text listing-description"><a href="./probabilidade_inferencia.html" class="quarto-grid-link">
+Conteúdo adaptado do livro <strong>Statistical Rethinking – A Bayesian Course with Examples in R and Stan</strong> <span class="citation" data-cites="mcelreath2018statistical">(</span></a><a href="#ref-mcelreath2018statistical" role="doc-biblioref">McElreath 2018</a>)
 </div>
 </div>
 </div>
-</a>
+
 </div>
 </div>
 <div class="listing-no-matching d-none">
-No matching items
+Nenhum item correspondente
 </div>
-</div></main> <!-- /main -->
+</div><div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">Referências</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-mcelreath2018statistical" class="csl-entry" role="listitem">
+McElreath, Richard. 2018. <em>Statistical rethinking: A Bayesian course with examples in R and Stan</em>. Chapman; Hall/CRC.
+</div>
+</div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -581,12 +606,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // flash "checked"
     button.classList.add('code-copy-button-checked');
     var currentTitle = button.getAttribute("title");
-    button.setAttribute("title", "Copied!");
+    button.setAttribute("title", "Copiada");
     let tooltip;
     if (window.bootstrap) {
       button.setAttribute("data-bs-toggle", "tooltip");
       button.setAttribute("data-bs-placement", "left");
-      button.setAttribute("data-bs-title", "Copied!");
+      button.setAttribute("data-bs-title", "Copiada");
       tooltip = new bootstrap.Tooltip(button, 
         { trigger: "manual", 
           customClass: "code-copy-button-tooltip",
