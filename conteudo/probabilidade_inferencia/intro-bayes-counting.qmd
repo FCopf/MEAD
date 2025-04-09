@@ -1,7 +1,7 @@
 ---
 title: "Introdução à Inferência Bayesiana"  
 subtitle: "Contando possibilidades"  
-description: Texto adaptado do segundo capítulo (*Small Worlds and Large Worlds*) do livro **Statistical Rethinking – A Bayesian Course with Examples in R and Stan** [@mcelreath2018statistical] e material disponível em [**Statistical Rethinking course and book package**](https://github.com/rmcelreath/rethinking){target="_blank"}  
+description: "Conteúdo baseado em @mcelreath2018statistical"
 Categories: ["Probabilidade", "Inferência bayesiana", "Resultados equiprováveis"]
 
 image: "images/intro-bayes-conting.png"  

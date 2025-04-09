@@ -1,0 +1,363 @@
+---
+title: "Introdução à Inferência Bayesiana"  
+subtitle: "Construindo um modelo Bayesiano"  
+description: "Conteúdo baseado em @mcelreath2018statistical"
+Categories: ["Inferência bayesiana", "modelo Binomial", "distribuições de probabilidade"]
+image: "images/intro-bayes-modelo-bayesiano.png"  
+execute:
+  echo: false
+  warning: false
+  include: true
+  message: false
+---
+
+---
+
+Considere um globo representando o planeta Terra, pequeno o suficiente para caber em suas mãos. Seu objetivo é estimar a fração da superfície coberta por água. Para isso, você adota a seguinte estratégia: joga o globo para cima girando e, ao pegá-lo, registra se o ponto tocado pelo seu dedo indicador direito é água (🌊) ou terra (🏜️). Você repete esse procedimento algumas vezes, obtendo uma sequência de $n$ observações.
+
+Você faz quatro lançamentos do globo e conta quantos deles resultam em água. Um possível resultado seria $🌊🌊🏜️🌊$, totalizando 3 observações de água e 1 de terra. Outro resultado possível é $🏜️🏜️🌊🌊$, com 2 observações de água e 2 de terra. Para $n = 4$ observações, existem 16 resultados possíveis (@tbl-proporcao-globo).
+
+| Nº |       Dados       | Nº pontos na água | Proporção de pontos na água |
+|:--:|:-----------------:|:-----------------:|:----------------------------:|
+|  1 | 🏜️ 🏜️ 🏜️ 🏜️      | 0                 | 0/4 = 0.00                   |
+|  2 | 🏜️ 🏜️ 🏜️ 🌊      | 1                 | 1/4 = 0.25                   |
+|  3 | 🏜️ 🏜️ 🌊 🏜️      | 1                 | 1/4 = 0.25                   |
+|  4 | 🏜️ 🌊 🏜️ 🏜️      | 1                 | 1/4 = 0.25                   |
+|  5 | 🌊 🏜️ 🏜️ 🏜️      | 1                 | 1/4 = 0.25                   |
+|  6 | 🏜️ 🏜️ 🌊 🌊      | 2                 | 2/4 = 0.50                   |
+|  7 | 🏜️ 🌊 🏜️ 🌊      | 2                 | 2/4 = 0.50                   |
+|  8 | 🏜️ 🌊 🌊 🏜️      | 2                 | 2/4 = 0.50                   |
+|  9 | 🌊 🏜️ 🏜️ 🌊      | 2                 | 2/4 = 0.50                   |
+| 10 | 🌊 🏜️ 🌊 🏜️      | 2                 | 2/4 = 0.50                   |
+| 11 | 🌊 🌊 🏜️ 🏜️      | 2                 | 2/4 = 0.50                   |
+| 12 | 🏜️ 🌊 🌊 🌊      | 3                 | 3/4 = 0.75                   |
+| 13 | 🌊 🏜️ 🌊 🌊      | 3                 | 3/4 = 0.75                   |
+| 14 | 🌊 🌊 🏜️ 🌊      | 3                 | 3/4 = 0.75                   |
+| 15 | 🌊 🌊 🌊 🏜️      | 3                 | 3/4 = 0.75                   |
+| 16 | 🌊 🌊 🌊 🌊      | 4                 | 4/4 = 1.00                   |
+
+: **Resultados possíveis de 4 observações (terra ou água) com o respectivo número e proporção de observações em água.** {#tbl-proporcao-globo .striped .hover}
+
+Observe que apenas um dos resultados contém 4 observações de terra e somente um contém 4 observações de água. Os demais são variações entre esses extremos.
+
+Podemos reorganizar a tabela para evidenciar todas as combinações que levam ao mesmo número $y_i$ de pontos em água:
+
+| Nº pontos na água ($y_i$) | Dados | Nº de combinações |
+|:---------------------------:|:------|:-----------------|
+| 0 | 🏜️ 🏜️ 🏜️ 🏜️ | 1 |
+| 1 | 🏜️ 🏜️ 🏜️ 🌊 <br> 🏜️ 🌊 🏜️ 🏜️ <br> 🏜️ 🏜️ 🌊 🏜️ <br> 🌊 🏜️ 🏜️ 🏜️ | 4 |
+| 2 | 🏜️ 🏜️ 🌊 🌊 <br> 🏜️ 🌊 🏜️ 🌊 <br> 🏜️ 🌊 🌊 🏜️ <br> 🌊 🏜️ 🏜️ 🌊 <br> 🌊 🏜️ 🌊 🏜️ <br> 🌊 🌊 🏜️ 🏜️ | 6 |
+| 3 | 🏜️ 🌊 🌊 🌊 <br> 🌊 🏜️ 🌊 🌊 <br> 🌊 🌊 🏜️ 🌊 <br> 🌊 🌊 🌊 🏜️ | 4 |
+| 4 | 🌊 🌊 🌊 🌊 | 1 |
+
+: **Combinações que resultam em $y_i$ pontos na água.** {#tbl-combinacao-globo tbl-colwidths="[25,50,25]" .striped .hover}
+
+<br>
+
+Defina $p$ como a probabilidade de observar água e $1 - p$ como a probabilidade de observar terra após cada lançamento do globo.
+
+A última linha da @tbl-combinacao-globo (🌊🌊🌊🌊) tem probabilidade:
+$$P(4) = p \times p \times p \times p.$$
+
+Enquanto a primeira linha (🏜️🏜️🏜️🏜️) ocorre com probabilidade:
+$$P(0) = (1 - p) \times (1 - p) \times (1 - p) \times (1 - p).$$
+
+As linhas correspondentes a $P(1)$, $P(2)$ e $P(3)$ são combinações de $p$ e $(1 - p)$, multiplicadas pelo número de formas pelas quais 1, 2 ou 3 registros de água podem ocorrer em 4 lançamentos.
+
+<br>
+
+| Nº pontos na água ($y_i$) | Dados | Nº de combinações | $P(Y)$ |
+|:---------------------------:|:------|:-----------------:|:--------|
+| 0 | 🏜️ 🏜️ 🏜️ 🏜️ | 1 | $1 \times (1-p) \times (1-p) \times (1-p) \times (1-p)$ |
+| 1 | 🏜️ 🏜️ 🏜️ 🌊 <br> 🏜️ 🌊 🏜️ 🏜️ <br> 🏜️ 🏜️ 🌊 🏜️ <br> 🌊 🏜️ 🏜️ 🏜️ | 4 | $4 \times p \times (1-p) \times (1-p) \times (1-p)$ |
+| 2 | 🏜️ 🏜️ 🌊 🌊 <br> 🏜️ 🌊 🏜️ 🌊 <br> 🏜️ 🌊 🌊 🏜️ <br> 🌊 🏜️ 🏜️ 🌊 <br> 🌊 🏜️ 🌊 🏜️ <br> 🌊 🌊 🏜️ 🏜️ | 6 | $6 \times p \times p \times (1-p) \times (1-p)$ |
+| 3 | 🏜️ 🌊 🌊 🌊 <br> 🌊 🏜️ 🌊 🌊 <br> 🌊 🌊 🏜️ 🌊 <br> 🌊 🌊 🌊 🏜️ | 4 | $4 \times p \times p \times p  \times (1-p)$ |
+| 4 | 🌊 🌊 🌊 🌊 | 1 | $(p) \times p \times p \times p$ |
+
+: **Probabilidade $P(Y)$ de observar diferentes números ($y_i$) de pontos sobre a água.** {#tbl-probabilidade-globo tbl-colwidths="[25,30,15,30]" .striped .hover}
+
+<br>
+
+## O modelo Binomial
+
+A partir das expressões para $P(Y)$ apresentadas na @tbl-probabilidade-globo, obtém-se uma fórmula geral que pode ser escrita como:
+
+$$P(Y \mid n, p) = \binom{n}{Y} \, p^Y (1 - p)^{n - Y}.
+$${#eq-binomial}
+
+**Onde:**
+
+- $Y \in \{0, 1, 2, \dots, n\}$ é o número de observações de 🌊;
+- $n$ é o número total de observações;
+- $p$ é a fração de 🌊 que cobre o globo;
+- $\binom{n}{Y}$ é o coeficiente binomial, calculado por $\frac{n!}{Y!(n - Y)!}$, indicando de quantas maneiras a combinação $p^Y (1 - p)^{n - Y}$ pode ocorrer.
+
+A @eq-binomial fornece a probabilidade de cada resultado possível (número de observações 🌊) em $n$ tentativas, permitindo calcular a probabilidade de **todos** os possíveis resultados do experimento.
+
+## Verossimilhança: a plausibilidade de uma hipótese
+
+```{python}
+#| echo: false
+from math import comb
+import numpy as np
+
+# Definições de n, y e da lista de hipóteses p
+n = 4
+y = 2
+p_list = [0.4, 0.30, 0.80]
+
+# Cálculo das verossimilhanças (ou probabilidades) para cada hipótese
+prob = [round(comb(n, y)*(p**y)*((1 - p)**(n - y)), 2) for p in p_list]
+
+# Identificação da maior verossimilhança e índice
+max_prob = max(prob)
+indice_max = prob.index(max_prob)
+```
+
+
+A partir do modelo binomial, podemos definir a **função de verossimilhança** para um resultado observado. Imagine que, em $n = `{python} n`$ lançamentos, foram observados $y = `{python} y`$ pontos sobre a água. Não sabemos a verdadeira proporção $p$ de água que cobre a Terra; portanto, fazemos conjecturas e avaliamos cada uma com base nas observações.
+
+Por exemplo, se supormos que a proporção verdadeira seja 40% $(p = 0.4)$, a distribuição binomial determina que a probabilidade de observar $y = `{python} y`$ sucessos em $n = `{python} n`$ lançamentos seja:
+
+$$P(Y=`{python} y` \mid `{python} n`, `{python} p_list[0]`) = \binom{`{python} n`}{`{python} y`} \, `{python} p_list[0]`^`{python} y` (1 - `{python} p_list[0]`)^{`{python} n` - `{python} y`} = `{python} prob[0]`$$
+
+Essa hipótese é apenas uma das possíveis. Para ilustrar outras conjecturas, considere:
+
+- Se $p = `{python} p_list[1]`$:
+
+  $P(Y=`{python} y` \mid `{python} n`, `{python} p_list[1]`) = \binom{`{python} n`}{`{python} y`} \, `{python} p_list[1]`^`{python} y` (1 - `{python} p_list[1]`)^{`{python} n` - `{python} y`} = `{python} prob[1]`$
+
+- Se $p = `{python} p_list[2]`$:
+
+  $P(Y=`{python} y` \mid `{python} n`, `{python} p_list[2]`) = \binom{`{python} n`}{`{python} y`} \, `{python} p_list[2]`^`{python} y` (1 - `{python} p_list[2]`)^{`{python} n` - `{python} y`} = `{python} prob[2]`$
+
+Em cada caso, os dados observados $(Y)$ e o número total de observações $(n)$ estão fixos, enquanto o parâmetro $p$ varia conforme a hipótese considerada. Embora a forma matemática seja idêntica à da função de probabilidade binomial, seu uso é diferente. Na função de probabilidade, lemos a probabilidade de $Y$ dado $n$ e $p$, enquanto nos exemplos acima, avaliamos a plausibilidade de diferentes valores de $p$ diante dos dados fixos $Y$ e $n$. 
+
+Para evitar confusões, vamos definir a função de verossimilhança como:
+
+$$
+\mathcal{L}(p \mid n, Y) = \binom{n}{Y} \, p^Y (1 - p)^{n - Y}.
+$$ {#eq-likelihood-binomial}
+
+Assim, as verossimilhanças para as três conjecturas específicas sobre a proporção de água na superfície do globo serão:
+
+- $\mathcal{L}(p = `{python} p_list[1]` \mid `{python} n`, `{python} y`) = `{python} prob[1]`$,
+- $\mathcal{L}(p = `{python} p_list[0]` \mid `{python} n`, `{python} y`) = `{python} prob[0]`$,
+- $\mathcal{L}(p = `{python} p_list[2]` \mid `{python} n`, `{python} y`) = `{python} prob[2]`$.
+
+Dessa forma, entre as três hipóteses levantadas, aquela em que $p = `{python} p_list[indice_max]`$ recebe **maior suporte das evidências**, por estar associada à maior verossimilhança.
+
+Podemos quantificar esse suporte por meio da **razão de verossimilhanças**:
+
+$$RV = \frac{\mathcal{L}(p = `{python} p_list[indice_max]` \mid `{python} n`, `{python} y`)}{\mathcal{L}(p = `{python} p_list[1]` \mid `{python} n`, `{python} y`)} = \frac{`{python} prob[indice_max]`}{`{python} prob[1]`} = `{python} round(prob[indice_max]/prob[1],2)`,$$
+
+o que indica que a hipótese $p = `{python} p_list[indice_max]`$ é aproximadamente $`{python} round(prob[indice_max]/prob[1],2)`$ **vezes mais verossímil** do que a hipótese $p = `{python} p_list[1]`$ com base nos dados observados.
+
+::: {.callout-warning title="Resumo: A Função de Verossimilhança Binomial"}
+
+- A expressão é **formalmente idêntica** à da distribuição binomial, porém interpretada como uma função de $p$ quando os dados $Y$ e $n$ são fixos.
+- A verossimilhança indica a plausibilidade de diferentes valores de $p$ à luz dos dados observados.
+- Na distribuição binomial, lemos: **probabilidade de $Y$ dado $n$ e $p$**.
+- Na função de verossimilhança, interpretamos: **verossimilhança de $p$ dado $n$ e $Y$**.
+- A razão de verossimilhanças pode ser utilizada para quantificar o suporte relativo entre diferentes hipóteses.
+:::
+
+### O perfil de verossimilhança
+
+Acima, foram testadas três conjecturas específicas para a proporção de água na superfície da Terra ($p = `{python} p_list[1]`$, $p = `{python} p_list[0]`$, $p = `{python} p_list[2]`$). Para uma avaliação mais completa, podemos analisar o **perfil de verossimilhança** para uma série de valores de $p$ entre 0 e 1:
+
+```{python}
+#| echo: false
+import numpy as np
+import matplotlib.pyplot as plt
+from math import comb
+
+# Parâmetros do experimento: n e y (reutilizamos do chunk anterior)
+# n = 4; y = 2
+
+# Geração de valores de p no intervalo [0, 1]
+p_vals = np.linspace(0, 1, 100)
+
+# Cálculo da verossimilhança para cada valor de p
+likelihood = [comb(n, y)*(p**y)*((1 - p)**(n - y)) for p in p_vals]
+
+# Plot do gráfico
+plt.plot(p_vals, likelihood)
+plt.xticks(np.arange(0, 1.01, 0.1))
+plt.grid(True, which='both', axis='x', linestyle='--', alpha=0.6)
+plt.xlabel("p")
+plt.ylabel("Verossimilhança")
+plt.title(f"Função de verossimilhança Binomial (n={n}, y={y})")
+plt.show()
+```
+
+O perfil de verossimilhança indica que, à luz dos nossos dados $y = `{python} y`$, a conjectura mais plausível é que a proporção de água que cobre a Terra esteja próxima de 0.5 (neste caso, a verossimilhança máxima é *exatamente* para $p = 0.5$).
+
+## Inferência Bayesiana: distribuições *a priori* e *a posteriori*
+
+No contexto bayesiano, a função de verossimilhança é combinada com uma **distribuição *a priori*** para obter a **distribuição *a posteriori*** do parâmetro $p$.  
+
+Para ilustrar esse processo, retomamos as três conjecturas específicas sobre a proporção de água na superfície do globo e consideramos um caso simples, em que $p$ pode assumir **apenas três valores**: $p = `{python} p_list[1]`$, $p = `{python} p_list[0]`$ e $p = `{python} p_list[2]`$.  
+
+### Hipóteses ($H$) e distribuição *a priori* uniforme
+
+Definimos três hipóteses sobre o parâmetro $p$, cada uma correspondendo a um desses valores:
+
+- $H_1: p = 0.3$
+- $H_2: p = 0.5$
+- $H_3: p = 0.8$
+
+Para começar, vamos assumir que nossa distribuição *a priori* é **uniforme** entre essas três hipóteses, ou seja, não temos motivos para preferir uma à outra. Neste caso:
+
+$$P(p = `{python} p_list[1]`) = P(p = `{python} p_list[0]`) = P(p = `{python} p_list[2]`) = \frac{1}{3}.$$
+
+Suponha que realizamos $n = `{python} n`$ lançamentos do globo e observamos $Y = `{python} y`$ pontos de água. As verossimilhanças para cada hipótese podem ser calculadas a partir da distribuição binomial:
+
+$$\mathcal{L}(p \mid n=4, Y=2)
+= \binom{4}{2}\, p^2 (1 - p)^{2}.$$
+
+Resultando em:
+
+- $\mathcal{L}(p = `{python} p_list[1]` \mid `{python} n`, `{python} y`) = `{python} prob[1]`$
+- $\mathcal{L}(p = `{python} p_list[0]` \mid `{python} n`, `{python} y`) = `{python} prob[0]`$
+- $\mathcal{L}(p = `{python} p_list[2]` \mid `{python} n`, `{python} y`) = `{python} prob[2]`$
+
+### Distribuição *a posteriori*
+
+```{python}
+#| echo: false
+import numpy as np
+
+# 'prob' foi calculado no chunk binom_likelihood_calc
+lD_Hi = np.array(prob)  # verossimilhanças
+priori_hip = np.array([1/3, 1/3, 1/3])
+
+# Numerador: L(D|Hi) * P(Hi)
+P_Hi = lD_Hi * priori_hip
+# Denominador (normalizador): soma de L(D|Hi)*P(Hi) sobre i
+P_H = sum(P_Hi)
+
+# Probabilidades a posteriori
+P_HiD = (lD_Hi * priori_hip) / P_H
+
+# Armazenando para exibir
+lD_Hi_list = lD_Hi.tolist()
+P_H_list = round(P_H.tolist(),2)
+P_Hround = np.round(P_H, 2)
+P_HiD_rounded = np.round(P_HiD, 2)
+
+P_Hi_list = np.round(P_Hi, 2).tolist()
+P_HiD_list = P_HiD_rounded.tolist()
+```
+
+Vamos utilizar uma expressão análoga ao Teorema de Bayes para obter a probabilidade *a posteriori* para cada hipótese $H_i$:
+
+$$P(H_i \mid D)
+= \frac{\mathcal{L}(D \mid H_i) \,\cdot\, P(H_i)}{P(H)},$$
+
+Onde:
+
+- $P(H_i \mid D)$ é a probabilidade *a posteriori* da hipótese $H_i$ atualizada pelas observações.
+- $\mathcal{L}(D \mid H_i)$ é a verossimilhança dos dados $D$ (observações) dada a hipótese $H_i$.
+- $P(H_i)$ é a probabilidade *a priori* da hipótese $H_i$.
+- $P(H)$ a soma ponderada de todas as verossimilhanças pelas suas *priors* (fator de normalização), garantindo que as probabilidades *a posteriori* somem 1.
+
+Em nosso exemplo:
+
+$P(H) = \mathcal{L}(D \mid H_1) \,\cdot\, P(H_1) + \mathcal{L}(D \mid H_2) \,\cdot\, P(H_2) + \mathcal{L}(D \mid H_3) \,\cdot\, P(H_3)$
+
+$P(H) = \sum_{i=1}^{3} \mathcal{L}(D \mid H_i) \,\cdot\, P(H_i)$
+
+
+Uma vez tendo assumindo uma distribuição *a priori* **uniforme** em que $P(H_i) = \frac{1}{3}$, podemos obter as probabilidades *a posteriori* para cada hipótese. Assim temos:
+
+$P(H) = \mathcal{L}(D \mid H_1) \,\cdot\, P(H_1) + \mathcal{L}(D \mid H_2) \,\cdot\, P(H_2) + \mathcal{L}(D \mid H_3) \,\cdot\, P(H_3)$
+
+$P(H) = `{python} lD_Hi_list[1]` \times \frac{1}{3} + `{python} lD_Hi_list[0]` \times \frac{1}{3} + `{python} lD_Hi_list[2]` \times \frac{1}{3}$
+
+$P(H) = `{python} P_Hi_list[1]` + `{python} P_Hi_list[0]` + `{python} P_Hi_list[2]` = `{python} P_H_list`$
+
+De modo que:
+
+$P(`{python} p_list[1]` \mid `{python} n`, `{python} y`) = \frac{`{python} lD_Hi_list[1]` \times \frac{1}{3}}{`{python} P_H_list`} \approx `{python} P_HiD_list[1]`$
+
+$P(`{python} p_list[0]` \mid `{python} n`, `{python} y`) = \frac{`{python} lD_Hi_list[0]` \times \frac{1}{3}}{`{python} P_H_list`} \approx `{python} P_HiD_list[0]`$
+
+$P(`{python} p_list[2]` \mid `{python} n`, `{python} y`) = \frac{`{python} lD_Hi_list[2]` \times \frac{1}{3}}{`{python} P_H_list`} \approx `{python} P_HiD_list[2]`$
+
+Observe que o valor mais alto da probabilidade *a posteriori* está associado a $p = `{python} p_list[indice_max]`$. Além disso, ao calcularmos a razão entre as probabilidades *a posteriori* das hipóteses $P(H_2)$ ($p = `{python} p_list[0]`$) e $P(H_1)$ ($p = `{python} p_list[1]`$):
+
+$$\frac{P(`{python} p_list[indice_max]` \mid `{python} n`, `{python} y`)}{P(`{python} p_list[1]` \mid `{python} n`, `{python} y`)} = \frac{`{python} P_HiD_list[indice_max]`}{`{python} P_HiD_list[1]`} = `{python} round(P_HiD_list[indice_max]/P_HiD_list[1],2)`,$$
+
+obtemos exatamente o mesmo resultado encontrado anteriormente pela razão de verossimilhanças. Isso ocorre porque ao assumimos uma distribuição *a priori* uniforme, **toda a informação que diferencia as hipóteses vem exclusivamente dos dados observados**, refletida nas verossimilhanças.
+
+### Distribuição *a priori* informativa
+
+Suponha agora que há informações prévias indicando que a proporção de água sobre o globo é frequentemente **acima de 0.5**. Especificamente, vamos supor que:
+
+- $P(H_2)$ ($p = `{python} p_list[0]`$) seja **2 vezes maior** que $P(H_1)$ $p = `{python} p_list[1]`$,
+- $P(H_3)$ ($p = `{python} p_list[2]`$) seja **5 vezes maior** que $P(H_1)$ $p = `{python} p_list[1]`$.  
+
+Dessa forma, teremos uma distribuição *a priori* definida como:
+
+$$P(p = `{python} p_list[1]`) = \frac{1}{8}, \quad
+P(p = `{python} p_list[0]`) = \frac{2}{8}, \quad
+P(p = `{python} p_list[2]`) = \frac{5}{8}.$$
+
+
+```{python}
+#| echo: false
+import numpy as np
+
+# 'prob' foi calculado no chunk binom_likelihood_calc
+lD_Hi = np.array(prob)  # verossimilhanças
+priori_hip_inform = np.array([2/8, 1/8, 5/8])#np.array([2/6, 1/6, 3/6])
+
+# Numerador: L(D|Hi) * P(Hi)
+P_Hi_inform = lD_Hi * priori_hip_inform
+# Denominador (normalizador): soma de L(D|Hi)*P(Hi) sobre i
+P_H_inform = sum(P_Hi_inform)
+lD_Hi_list = lD_Hi.tolist()
+P_H_inform_list = round(P_H_inform.tolist(),2)
+
+# Probabilidades a posteriori
+P_HiD_inform = (lD_Hi * priori_hip_inform) / P_H_inform
+
+# Armazenando para exibir
+P_H_inform_round = np.round(P_H_inform, 2)
+P_HiD_inform_rounded = np.round(P_HiD_inform, 2)
+
+P_Hi_inform_list = np.round(P_Hi_inform, 2).tolist()
+P_HiD_inform_list = P_HiD_inform_rounded.tolist()
+
+# Identificação da maior verossimilhança e índice
+max_P_HiD_inform_list = max(P_HiD_inform_list)
+indice_max_P_HiD_inform_list = P_HiD_inform_list.index(max_P_HiD_inform_list)
+```
+
+$P(H) = \mathcal{L}(D \mid H_1) \,\cdot\, P(H_1) + \mathcal{L}(D \mid H_2) \,\cdot\, P(H_2) + \mathcal{L}(D \mid H_3) \,\cdot\, P(H_3)$
+
+$P(H) = `{python} lD_Hi_list[1]` \times \frac{1}{8} + `{python} lD_Hi_list[0]` \times \frac{2}{8} + `{python} lD_Hi_list[2]` \times \frac{5}{8}$
+
+$P(H) = `{python} P_Hi_inform_list[1]` + `{python} P_Hi_inform_list[0]` + `{python} P_Hi_inform_list[2]` = `{python} P_H_inform_list`$
+
+De modo que:
+
+$P(`{python} p_list[1]` \mid `{python} n`, `{python} y`) = \frac{`{python} lD_Hi_list[1]` \times \frac{1}{8}}{`{python} P_H_inform_list`} \approx `{python} P_HiD_inform_list[1]`$
+
+$P(`{python} p_list[0]` \mid `{python} n`, `{python} y`) = \frac{`{python} lD_Hi_list[0]` \times \frac{2}{8}}{`{python} P_H_inform_list`} \approx `{python} P_HiD_inform_list[0]`$
+
+$P(`{python} p_list[2]` \mid `{python} n`, `{python} y`) = \frac{`{python} lD_Hi_list[2]` \times \frac{5}{8}}{`{python} P_H_inform_list`} \approx `{python} P_HiD_inform_list[2]`$
+
+
+Como resultado, observamos que a maior probabilidade *a posteriori* recai sobre a hipótese $p = `{python} p_list[indice_max_P_HiD_inform_list]`$, ainda que exista um suporte similar para $p = `{python} p_list[0]`$. Esse resultado se deve, sobretudo, à **influência da distribuição *a priori***, que atribuiu maior peso à hipótese $H_3$.
+
+
+Portanto, na inferência bayesiana, a distribuição *a posteriori* de uma hipótese é **proporcional ao produto entre sua verossimilhança e sua probabilidade *a priori*** (Eq. @eq-posterior_proporcional):
+
+$$P(H_i \mid D) \;\propto\; \mathcal{L}(H_i \mid D) \cdot P(H_i)$${#eq-posterior_proporcional}
+
+No caso em que a distribuição *a priori* seja uniforme em todo o espaço de hipóteses, a distribuição *a posteriori* será **proporcional apenas à verossimilhança** (Eq. @eq-posterior_proporcional_uniforme):
+
+$$P(H_i \mid D) \;\propto\; \mathcal{L}(H_i \mid D)$${#eq-posterior_proporcional_uniforme}
+

@@ -18,7 +18,7 @@ listing:
     - teste_hipoteses.qmd
     - anova.qmd
     - regressao_linear.qmd
-    - probabilidade_inferencia.qmd    
+    - probabilidade_inferencia.qmd
   sort: false
   type: grid
   fields:

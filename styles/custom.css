@@ -29,5 +29,12 @@
     transform: scale(1.05); /* Slightly enlarge the image on hover */
     transition: transform 0.2s ease-in-out; /* Smooth transition for hover effect */
   }
-  
-  
+
+/* Controle do espaçamento vertical em tabelas flutuantes do Quarto */
+.quarto-float-tbl td,
+.quarto-float-tbl th {
+  line-height: 1.4; /* Espaçamento entre linhas dentro das células */
+  padding-top: 6px; /* Espaço acima do conteúdo da célula */
+  padding-bottom: 6px; /* Espaço abaixo do conteúdo da célula */
+  vertical-align: middle; /* Garante alinhamento vertical centralizado */
+}

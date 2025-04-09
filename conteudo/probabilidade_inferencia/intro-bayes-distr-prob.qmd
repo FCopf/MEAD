@@ -1,7 +1,7 @@
 ---
 title: "Introdução à Inferência Bayesiana"  
 subtitle: "De contagens a probabilidades"  
-description: Texto adaptado do segundo capítulo (*Small Worlds and Large Worlds*) do livro **Statistical Rethinking – A Bayesian Course with Examples in R and Stan** [@mcelreath2018statistical] e material disponível em [**Statistical Rethinking course and book package**](https://github.com/rmcelreath/rethinking){target="_blank"}  
+description: "Conteúdo baseado em @mcelreath2018statistical"  
 Categories: ["Probabilidade", "Inferência bayesiana", "teorema de Bayes"]
 
 image: "images/intro-bayes-distr-prob.png"  
@@ -58,7 +58,7 @@ Na @tbl-posteriori, a coluna *“Maneiras de produzir N = 2 [🔵⚪🔵]”* in
 | [🔵🔵🔵⚪]   |  3    | $1/5$    | $3 \times 1 \times 3 = 9$             | $\dfrac{(1/5 \times 9)}{\sum (1/5 \times \text{Nº de caminhos})} = 0.45$  |
 | [🔵🔵🔵🔵]   |  4    | $1/5$    | $4 \times 0 \times 4 = 0$             | $\dfrac{(1/5 \times 0)}{\sum (1/5 \times \text{Nº de caminhos})} = 0$  |
 
-: **Tabela: Atualização da distribuição de probabilidade combinando a priori e verossimilhança** {#tbl-posteriori} 
+: **Atualização da distribuição de probabilidade combinando a priori e verossimilhança** {#tbl-posteriori} 
 
 Dessa forma, a plausibilidade de cada hipótese é convertida em **probabilidades** – valores não negativos cuja soma é igual a 1 – para cada uma das hipóteses sobre o conteúdo da caixa. O resultado final da inferência bayesiana é fornecer uma base probabilística para a tomada de decisão sobre um fenômeno parcialmente desconhecido, expressando o quão plausível é cada hipótese à luz dos dados disponíveis (@fig-priori-posteriori).
 

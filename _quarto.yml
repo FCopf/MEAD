@@ -1,6 +1,8 @@
 project:
   type: website
 
+lang: pt
+
 website:
   title: "Métodos em Estatística e Análise de Dados"
   description: "Conteúdos introdutórios e intermediários sobre estatística aplicada e análise de dados."

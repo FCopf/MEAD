@@ -1,13 +1,14 @@
 ---
 title: "Probabilidade e Inferência"
-description: "Distribuições de Probabilidade e Inferência Bayesiana."
+description: "Conteúdo adaptado do livro **Statistical Rethinking – A Bayesian Course with Examples in R and Stan** [@mcelreath2018statistical]"
 categories: ["Distribuições de Probabilidade", "Inferência Bayesiana", "Distribuição a priori", "Distribuição posterior"]
 
 image: "images/probabilidade_inferencia.png"
 listing:
   contents:
     - conteudo/probabilidade_inferencia/intro-bayes-counting.qmd
-    - conteudo/probabilidade_inferencia/intro-bayes-distr-prob.qmd    
+    - conteudo/probabilidade_inferencia/intro-bayes-distr-prob.qmd
+    - conteudo/probabilidade_inferencia/intro-bayes-modelo-bayesiano.qmd
   sort: false
   type: default
   fields: 
