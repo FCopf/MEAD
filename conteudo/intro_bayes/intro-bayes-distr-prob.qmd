@@ -1,6 +1,6 @@
 ---
-title: "Introdução à Inferência Bayesiana"  
-subtitle: "De contagens a probabilidades"  
+title: "De contagens a probabilidades"  
+subtitle: "A distribuição *a posteriori*"  
 description: "Conteúdo baseado em @mcelreath2018statistical"  
 Categories: ["Probabilidade", "Inferência bayesiana", "teorema de Bayes"]
 

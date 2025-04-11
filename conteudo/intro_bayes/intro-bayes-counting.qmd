@@ -1,6 +1,6 @@
 ---
-title: "Introdução à Inferência Bayesiana"  
-subtitle: "Contando possibilidades"  
+title: "Contando possibilidades"  
+subtitle: "Evidencias sobre uma hipótese"  
 description: "Conteúdo baseado em @mcelreath2018statistical"
 Categories: ["Probabilidade", "Inferência bayesiana", "Resultados equiprováveis"]
 

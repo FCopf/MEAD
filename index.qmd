@@ -18,7 +18,8 @@ listing:
     - teste_hipoteses.qmd
     - anova.qmd
     - regressao_linear.qmd
-    - probabilidade_inferencia.qmd
+    - intro_bayes.qmd
+    - regressao_linear_bayesiana.qmd
   sort: false
   type: grid
   fields:

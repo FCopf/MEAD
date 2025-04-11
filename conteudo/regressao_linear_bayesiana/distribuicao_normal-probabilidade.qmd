@@ -1,0 +1,203 @@
+---
+title: "O modelo da distribuição normal"  
+subtitle: "Função de densidade e função de probabilidade"  
+description: "Conteúdo baseado em @mcelreath2018statistical"
+Categories: ["Probabilidade", "Inferência bayesiana", "Resultados equiprováveis"]
+
+image: "images/distribuicao_normal-probabilidade.png"
+execute:  
+  echo: true  
+  warning: false  
+  include: true  
+  message: false  
+
+---
+
+
+::: {.callout-tip title="Bibliotecas utilizadas nesta seção" collapse="true"}
+```{python}
+import numpy as np
+import matplotlib.pyplot as plt
+import scipy.stats as st
+```
+:::
+
+![Histograma das alturas de alunos da Escola de Agricultura de Connecticut [@blakeslee1914corn]. $n = 175$ alunos com média $\overline{Y} = 170,94$ cm e desvio padrão $s = 6,86$. Retirado de @crow1997birth."](images/Blakeslee_1914-alturas.png){#fig-alturas_crow1997}
+
+## Simulando uma distribuição de probabilidade normal
+
+Vamos utilizar nosso modelo teórico de probabilidades (a distribuição normal) para prever o que seria esperado para as frequências relativas de alunos de
+diferentes alturas. Para isso precisamos calcular a probabilidade abaixo da curva para diferentes faixas de altura.
+
+Estritamente falando a equação da distribuição normal abaixo:
+
+$$
+f(x) = \frac{1}{\sqrt{2\pi\sigma^2}} e^{-\frac{1}{2} \left(\frac{x - \mu}{\sigma} \right)^2}, \quad x \in \mathbb{R} \mid -\infty \leq x \leq +\infty
+$$
+
+é a **Função de Densidade de Probabilidade (PDF)** da distribuição normal. Com base nesta equação, as probabilidades para intervalos de $X$ são obtidas por meio da Função de **Probabilidade Acumulada (CDF)**.
+
+```{python}
+mi = 170.94
+sigma = 6.86
+
+x = np.linspace(130, 210, 1000)
+pdf = st.norm.pdf(x = x, loc = mi, scale = sigma)
+
+cdf = st.norm.cdf(x = x, loc = mi, scale = sigma)
+
+
+```
+
+A distribuição normal com média $X = `{python} mi`$ e $\sigma = `{python} sigma`$ estão representadas abaixo (PDF - @fig-normal-pdf-cdf-1; CDF - @fig-normal-pdf-cdf-2).
+
+```{python}
+#| label: fig-normal-pdf-cdf
+#| fig-cap: "Distribuição normal de probabilidade"
+#| fig-subcap:
+#|   - "Função de Densidade de Probabilidade (PDF)"
+#|   - "Função de Probabilidade Acumulada (CDF)."
+#| layout-ncol: 2
+
+plt.plot(x, pdf)
+plt.xlabel('Alturas (cm)')
+plt.ylabel('PDF')
+plt.show()
+
+plt.plot(x, cdf)
+plt.xlabel('Alturas (cm)')
+plt.ylabel('CDF')
+plt.show()
+```
+
+## Obtendo probabilidades de uma distribuição normal
+
+### A probabilidade de $X$ ser **menor** ou igual a $x_1$: $P(X \le x_1)$
+
+
+```{python}
+#| label: fig-normal-prob-abaixo
+#| fig-cap: "Distribuição Normal de Probabilidades."
+#| fig-subcap:
+#|   - "Função de Densidade de Probabilidade (PDF)"
+#|   - "Função de Probabilidade Acumulada (CDF)."
+#| layout-ncol: 2
+mi = 170.94
+sigma = 6.86
+x1 = 160
+
+x = np.linspace(130, 210, 1000)
+
+pdf_y = st.norm.pdf(x = x, loc = mi, scale = sigma)
+cdf_y = st.norm.cdf(x = x, loc = mi, scale = sigma)
+p = st.norm.cdf(x = x1, loc=mi, scale=sigma)
+
+plt.plot(x, pdf_y)
+plt.fill_between(x, pdf_y, where = (x <= x1), color='lightblue')
+plt.title(f'$P(X \leq {x1})$ = {np.round(p, 3)}')
+plt.show()
+
+plt.plot(x, cdf_y)
+plt.yticks(np.arange(0, 1.1, 0.1))
+plt.title(f'$F(X = {x1}$) = {np.round(p, 3)}')
+plt.plot([x1, x1], [0, p], color = 'red', linewidth = 3)
+plt.plot([130, x1], [p, p], color = 'red', linewidth = 3)
+plt.show()
+```
+
+### A probabilidade de $X$ ser **maior** ou igual a $x_1$: $P(X \ge x_1)$
+
+```{python}
+#| label: fig-normal-prob-acima
+#| fig-cap: "Distribuição Normal de Probabilidades."
+#| fig-subcap:
+#|   - "Função de Densidade de Probabilidade (PDF)"
+#|   - "Função de Probabilidade Acumulada (CDF)."
+#| layout-ncol: 2
+mi = 170.94
+sigma = 6.86
+x1 = 180
+
+x = np.linspace(130, 210, 1000)
+
+pdf_y = st.norm.pdf(x = x, loc = mi, scale = sigma)
+cdf_y = st.norm.cdf(x = x, loc = mi, scale = sigma)
+p = st.norm.cdf(x = x1, loc=mi, scale=sigma)
+
+plt.plot(x, pdf_y)
+plt.fill_between(x, pdf_y, where = (x >= x1), color='lightblue')
+plt.title(f'$P(X \geq {x1})$ = {np.round(p, 3)}')
+plt.show()
+
+plt.plot(x, cdf_y)
+plt.yticks(np.arange(0, 1.1, 0.1))
+plt.title(f'$F(X = {x1}$) = {np.round(p, 3)}')
+plt.plot([x1, x1], [0, p], color = 'red', linewidth = 3)
+plt.plot([130, x1], [p, p], color = 'red', linewidth = 3)
+plt.show()
+```
+
+### A probabilidade de $X$ estar **entre** $x_1$ e $x_2$: $P(x_1 \le X \le x_2)$
+
+```{python}
+#| label: fig-normal-prob-entre
+#| fig-cap: "Distribuição Normal de Probabilidades."
+#| fig-subcap:
+#|   - "Função de Densidade de Probabilidade (PDF)"
+#|   - "Função de Probabilidade Acumulada (CDF)."
+#| layout-ncol: 2
+mi = 170.94
+sigma = 6.86
+x1 = 160
+x2 = 180
+
+x = np.linspace(130, 210, 1000)
+
+pdf_y = st.norm.pdf(x = x, loc = mi, scale = sigma)
+cdf_y = st.norm.cdf(x = x, loc = mi, scale = sigma)
+p1 = st.norm.cdf(x = x1, loc=mi, scale=sigma)
+p2 = st.norm.cdf(x = x2, loc=mi, scale=sigma)
+p = p2 - p1
+
+plt.plot(x, pdf_y)
+plt.fill_between(x, pdf_y, where = ((x >= x1) & (x <= x2)), color='lightblue')
+plt.title(f'$P({x1} \leq X \leq {x2})$ = {np.round(p, 3)}')
+plt.show()
+
+plt.plot(x, cdf_y)
+plt.yticks(np.arange(0, 1.1, 0.1))
+plt.title(f'$F(X = {x1}$) = {np.round(p, 3)}')
+plt.title(f'$F(X = {x2}$) = {np.round(p, 3)}')
+plt.plot([x1, x1], [0, p1], color = 'red', linewidth = 3)
+plt.plot([130, x1], [p1, p1], color = 'red', linewidth = 3)
+plt.plot([x2, x2], [0, p2], color = 'red', linewidth = 3)
+plt.plot([130, x2], [p2, p2], color = 'red', linewidth = 3)
+plt.show()
+```
+
+### Representando $x_1$ e $x_2$ por $\mu \pm z\sigma$: $P(\mu - z\sigma \le X \le \mu + z\sigma)$
+
+Obs.: $z$ representa o **número de desvios padrões** acima ou abaixo de $\mu$.
+
+
+```{python}
+#| label: fig-normal-prob-z
+#| fig-cap: "Distribuição Normal de Probabilidades."
+mi = 170.94
+sigma = 6.86
+z = 1.96
+x1 = mi - z * sigma
+x2 = mi + z * sigma
+
+x = np.arange(130, 210, 0.001)
+y = st.norm.pdf(x = x, loc = mi, scale = sigma)
+
+p1 = st.norm.cdf(x = x1, loc=mi, scale=sigma)
+p2 = st.norm.cdf(x = x2, loc=mi, scale=sigma)
+p = p2 - p1
+
+plt.plot(x, y)
+plt.fill_between(x, y, where = ((x >= x1) & (x <= x2)), color='lightblue')
+plt.title(f'P($\mu - {z}\sigma \leq X \leq \mu + {z}\sigma$) = {np.round(p, 3)}')
+plt.show()
+```
