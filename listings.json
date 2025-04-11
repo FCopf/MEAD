@@ -49,7 +49,8 @@
       "/teste_hipoteses.html",
       "/anova.html",
       "/regressao_linear.html",
-      "/probabilidade_inferencia.html"
+      "/intro_bayes.html",
+      "/regressao_linear_bayesiana.html"
     ]
   },
   {
@@ -61,11 +62,18 @@
     ]
   },
   {
-    "listing": "/probabilidade_inferencia.html",
+    "listing": "/intro_bayes.html",
     "items": [
-      "/conteudo/probabilidade_inferencia/intro-bayes-counting.html",
-      "/conteudo/probabilidade_inferencia/intro-bayes-distr-prob.html",
-      "/conteudo/probabilidade_inferencia/intro-bayes-modelo-bayesiano.html"
+      "/conteudo/intro_bayes/intro-bayes-counting.html",
+      "/conteudo/intro_bayes/intro-bayes-distr-prob.html",
+      "/conteudo/intro_bayes/intro-bayes-modelo-bayesiano.html"
+    ]
+  },
+  {
+    "listing": "/regressao_linear_bayesiana.html",
+    "items": [
+      "/conteudo/regressao_linear_bayesiana/distribuicao_normal-modelo.html",
+      "/conteudo/regressao_linear_bayesiana/distribuicao_normal-probabilidade.html"
     ]
   },
   {

@@ -8,7 +8,7 @@
 
 <meta name="description" content="Conteúdo baseado em McElreath (2018)">
 
-<title>Introdução à Inferência Bayesiana – Métodos em Estatística e Análise de Dados</title>
+<title>Contando possibilidades – Métodos em Estatística e Análise de Dados</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -119,9 +119,9 @@ window.Quarto = {
 </script>
 
 <link rel="stylesheet" href="../../styles/custom.css">
-<meta property="og:title" content="Introdução à Inferência Bayesiana – Métodos em Estatística e Análise de Dados">
+<meta property="og:title" content="Contando possibilidades – Métodos em Estatística e Análise de Dados">
 <meta property="og:description" content="Conteúdo baseado em McElreath (2018)">
-<meta property="og:image" content="https://github.com/FCopf/MEAD/conteudo/probabilidade_inferencia/images/intro-bayes-distr-prob.png">
+<meta property="og:image" content="https://github.com/FCopf/MEAD/conteudo/intro_bayes/images/intro-bayes-conting.png">
 <meta property="og:site_name" content="Métodos em Estatística e Análise de Dados">
 <meta property="og:image:height" content="1024">
 <meta property="og:image:width" content="1536">
@@ -168,7 +168,10 @@ window.Quarto = {
     <h2 id="toc-title">Nesta página</h2>
    
   <ul>
-  <li><a href="#distribuições-a-priori-a-posteriori-e-verossimilhança" id="toc-distribuições-a-priori-a-posteriori-e-verossimilhança" class="nav-link active" data-scroll-target="#distribuições-a-priori-a-posteriori-e-verossimilhança"><span class="header-section-number">1</span> Distribuições <em>a priori</em>, <em>a posteriori</em> e <em>verossimilhança</em></a></li>
+  <li><a href="#um-leque-de-possibilidades" id="toc-um-leque-de-possibilidades" class="nav-link active" data-scroll-target="#um-leque-de-possibilidades"><span class="header-section-number">1</span> Um leque de possibilidades</a></li>
+  <li><a href="#avaliando-as-evidências" id="toc-avaliando-as-evidências" class="nav-link" data-scroll-target="#avaliando-as-evidências"><span class="header-section-number">2</span> Avaliando as evidências</a></li>
+  <li><a href="#avaliando-as-demais-hipóteses" id="toc-avaliando-as-demais-hipóteses" class="nav-link" data-scroll-target="#avaliando-as-demais-hipóteses"><span class="header-section-number">3</span> Avaliando as demais hipóteses</a></li>
+  <li><a href="#atualizando-o-conhecimento" id="toc-atualizando-o-conhecimento" class="nav-link" data-scroll-target="#atualizando-o-conhecimento"><span class="header-section-number">4</span> Atualizando o conhecimento</a></li>
   </ul>
 </nav>
     </div>
@@ -177,8 +180,8 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Introdução à Inferência Bayesiana</h1>
-<p class="subtitle lead">De contagens a probabilidades</p>
+<h1 class="title">Contando possibilidades</h1>
+<p class="subtitle lead">Evidencias sobre uma hipótese</p>
 </div>
 
 <div>
@@ -201,7 +204,8 @@ window.Quarto = {
 
 
 <hr>
-<p>Voltemos ao problema das bolinhas de gude. Temos uma caixa contendo quatro bolinhas, que podem ser azuis ou brancas. Sabemos que há exatamente quatro bolinhas, mas não conhecemos a distribuição entre as cores, pois podemos ver apenas uma bolinha por vez através de um orifício. Para estimar quantas bolas de cada cor há na caixa, fazemos uma observação, misturamos as bolinhas, fazemos outra observação e assim por diante. Antes de realizarmos qualquer observação, podemos listar cinco configurações possíveis para o conteúdo da caixa:</p>
+<p>A inferência bayesiana, em essência, é uma forma de contar e comparar as diferentes maneiras pelas quais algo pode acontecer. A seguir, vamos desenvolver os princípios da inferência bayesiana de forma simples e intuitiva utilizando o princípio da contagem.</p>
+<p>Imagine que temos uma caixa contendo <strong>quatro</strong> bolinhas de gude, que podem ser <strong>azuis</strong> ou <strong>brancas</strong>. Sabemos que há exatamente quatro bolinhas, mas não conhecemos a distribuição entre as cores. Com base nessa informação, podemos listar cinco configurações possíveis:</p>
 <ol type="1">
 <li>[⚪⚪⚪⚪]<br>
 </li>
@@ -213,146 +217,282 @@ window.Quarto = {
 </li>
 <li>[🔵🔵🔵🔵]</li>
 </ol>
-<p>Nosso objetivo é <em>estimar o número <span class="math inline">\(N\)</span> de bolas azuis</em>, o qual pode variar, neste exemplo, de 0 a 4. Como não dispomos de conhecimento prévio sobre a composição da caixa antes da primeira observação, adotamos uma distribuição <em>a priori</em> uniforme entre as hipóteses. Assim, cada hipótese recebe uma probabilidade de <span class="math inline">\(p = \frac{1}{5}\)</span>.</p>
-<div id="tbl-priori" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-tbl figure">
-<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-priori-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Tabela&nbsp;1: <strong>Distribuição de probabilidade <em>a priori</em> sobre o conteúdo da caixa</strong>
+<p>Essas são todas as possibilidades compatíveis com o que sabemos sobre o conteúdo da caixa — o conhecimento <em>a priori</em>. Chamamos essas cinco configurações de <strong>hipóteses</strong>.</p>
+<p>Nosso objetivo será descobrir qual dessas hipóteses é mais plausível à medida que obtivermos evidências sobre o conteúdo da caixa.</p>
+<section id="um-leque-de-possibilidades" class="level2" data-number="1">
+<h2 data-number="1" class="anchored" data-anchor-id="um-leque-de-possibilidades"><span class="header-section-number">1</span> Um leque de possibilidades</h2>
+<p>A caixa possui um orifício pelo qual podemos ver apenas uma bolinha por vez. Assim, a única forma de obter evidências sobre o conteúdo da caixa será fazer uma observação, misturar as bolinhas, fazer outra observação e assim por diante. Antes de iniciar esse processo, vamos entender como cada observação nos ajuda a alcançar nosso objetivo, avaliando-as à luz das hipóteses sobre o conteúdo da caixa.</p>
+<p>Vamos começar assumindo que seja verdadeira a situação (2) [🔵⚪⚪⚪]. Nesse caso, teríamos 1 possibilidade de observar a bolinha azul e 3 possibilidades de observar uma bolinha branca (<a href="#fig-leque1" class="quarto-xref">Figura&nbsp;1</a>).</p>
+<div id="fig-leque1" class="quarto-float quarto-figure quarto-figure-center anchored" style="display: block; margin-left: auto; margin-right: auto;">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-leque1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/Diagrama_possibilidades_1.png" class="img-fluid figure-img" style="display: block; margin-left: auto; margin-right: auto;;width:20.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-leque1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;1: As quatro possibilidades, assumindo que existam três bolinhas brancas e uma azul. Extraído de <span class="citation" data-cites="mcelreath2018statistical">McElreath (<a href="#ref-mcelreath2018statistical" role="doc-biblioref">2018</a>)</span>.
 </figcaption>
-<div aria-describedby="tbl-priori-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+</figure>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled" title="Dica útil">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Dica útil
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Observe que, embora as três bolinhas brancas pareçam iguais do ponto de vista dos dados (pois apenas registramos suas cores), elas são eventos <strong>diferentes</strong>. Isso é importante, pois significa que há três maneiras a mais de observar ⚪ do que 🔵.</p>
+</div>
+</div>
+<p>Observamos agora uma <em>segunda</em> bolinha. Isso expande nosso leque de possibilidades em mais uma camada (<a href="#fig-leque2" class="quarto-xref">Figura&nbsp;2</a>). Agora existem 16 caminhos possíveis (um para cada par de observações), pois, na segunda observação, cada um dos caminhos anteriores se ramifica em outros quatro caminhos possíveis.</p>
+<div id="fig-leque2" class="quarto-float quarto-figure quarto-figure-center anchored" style="display: block; margin-left: auto; margin-right: auto;">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-leque2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/Diagrama_possibilidades_2.png" class="img-fluid figure-img" style="display: block; margin-left: auto; margin-right: auto;;width:40.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-leque2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;2: Os 16 caminhos possíveis, assumindo que existam três bolinhas brancas e uma azul. Extraído de <span class="citation" data-cites="mcelreath2018statistical">McElreath (<a href="#ref-mcelreath2018statistical" role="doc-biblioref">2018</a>)</span>.
+</figcaption>
+</figure>
+</div>
+<p>Ao observar uma <em>terceira</em> bolinha da caixa, a terceira camada é construída da mesma forma, e agora temos <span class="math inline">\(4^3 = 64\)</span> caminhos possíveis para uma sequência de observações de cores em uma caixa com 4 bolinhas (<a href="#fig-leque3" class="quarto-xref">Figura&nbsp;3</a>).</p>
+<div id="fig-leque3" class="quarto-float quarto-figure quarto-figure-center anchored" style="display: block; margin-left: auto; margin-right: auto;">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-leque3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/Fig_2_2.png" class="img-fluid figure-img" style="display: block; margin-left: auto; margin-right: auto;;width:70.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-leque3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;3: Os 64 caminhos possíveis, assumindo que existam três bolinhas brancas e uma azul. Extraído de <span class="citation" data-cites="mcelreath2018statistical">McElreath (<a href="#ref-mcelreath2018statistical" role="doc-biblioref">2018</a>)</span>.
+</figcaption>
+</figure>
+</div>
+<div class="callout callout-style-default callout-warning callout-titled" title="Pressuposto Importante">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Pressuposto Importante
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Acreditamos que, ao sacudir a caixa, cada bolinha tem a mesma chance de ser observada pelo orifício, independentemente de qual tenha saído anteriormente. Por isso, cada caminho do leque é igualmente provável de ser observado.</p>
+</div>
+</div>
+</section>
+<section id="avaliando-as-evidências" class="level2" data-number="2">
+<h2 data-number="2" class="anchored" data-anchor-id="avaliando-as-evidências"><span class="header-section-number">2</span> Avaliando as evidências</h2>
+<p>À medida que observamos a cor de uma nova bolinha da caixa, alguns desses caminhos são logicamente eliminados.</p>
+<p>Suponha que a sequência de cores observada tenha sido:</p>
+<p><strong>1ª bolinha:</strong> 🔵<br>
+<strong>2ª bolinha:</strong> ⚪<br>
+<strong>3ª bolinha:</strong> 🔵</p>
+<p>Após a primeira retirada resultar em 🔵, os três caminhos que levariam à observação de uma bolinha branca na primeira camada são imediatamente eliminados. Na segunda retirada, obtivemos ⚪, de modo que um dos caminhos possíveis na segunda camada foi eliminado, restando os três caminhos que se ramificam a partir do primeiro caminho azul. Após a terceira observação, cada um dos três caminhos restantes na segunda camada segue somente para a bolinha azul na terceira camada. Assim, assumindo que a caixa contenha [🔵⚪⚪⚪], existe um total de três maneiras para a sequência [🔵 → ⚪ → 🔵] aparecer. Todas as outras possibilidades foram descartadas à medida que as evidências surgiam.</p>
+<p>Dos caminhos restantes na <a href="#fig-2-3" class="quarto-xref">Figura&nbsp;4</a>, não podemos ter certeza de qual dos três caminhos os dados reais seguiram, pois não podemos identificar as bolinhas individualmente, apenas por sua cor. Entretanto, considerando a hipótese de que a caixa contenha [🔵⚪⚪⚪], podemos afirmar que os dados seguiram um desses três caminhos, pois são os únicos compatíveis tanto com nosso conhecimento prévio (4 bolinhas, azuis ou brancas) quanto com a sequência de dados observada ([🔵 → ⚪ → 🔵]).</p>
+<div id="fig-2-3" class="quarto-float quarto-figure quarto-figure-center anchored" style="display: block; margin-left: auto; margin-right: auto;">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-2-3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/Fig_2_3.png" class="img-fluid figure-img" style="display: block; margin-left: auto; margin-right: auto;;width:70.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-2-3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;4: Após eliminar caminhos inconsistentes com a sequência observada, apenas 3 dos 64 caminhos permanecem. Extraído de <span class="citation" data-cites="mcelreath2018statistical">McElreath (<a href="#ref-mcelreath2018statistical" role="doc-biblioref">2018</a>)</span>.
+</figcaption>
+</figure>
+</div>
+</section>
+<section id="avaliando-as-demais-hipóteses" class="level2" data-number="3">
+<h2 data-number="3" class="anchored" data-anchor-id="avaliando-as-demais-hipóteses"><span class="header-section-number">3</span> Avaliando as demais hipóteses</h2>
+<p>Considerando que a caixa contenha [🔵⚪⚪⚪], verificamos que apenas três dos 64 caminhos possíveis poderiam gerar a sequência [🔵 → ⚪ → 🔵]. Falta agora aplicar a mesma lógica às demais hipóteses. Por exemplo, considere [⚪⚪⚪⚪]. Há zero maneiras de essa hipótese produzir os dados observados, pois uma única 🔵 já é logicamente incompatível com ela. A hipótese [🔵🔵🔵🔵] também não pode produzir a sequência, pois há ao menos uma ⚪ observada. Assim, podemos eliminar essas duas hipóteses, pois nenhuma delas fornece sequer um único caminho consistente com os dados.</p>
+<p>Para as hipóteses restantes, isto é, [🔵🔵⚪⚪] e [🔵🔵🔵⚪], o leque de possibilidades se abre novamente.</p>
+<p>A <a href="#fig-leque4" class="quarto-xref">Figura&nbsp;5</a> mostra o leque completo para as três hipóteses compatíveis com os dados observados: [🔵⚪⚪⚪], [🔵🔵⚪⚪] e [🔵🔵🔵⚪].</p>
+<div id="fig-leque4" class="quarto-float quarto-figure quarto-figure-center anchored" style="display: block; margin-left: auto; margin-right: auto;">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-leque4-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/Fig_2_4.png" class="img-fluid figure-img" style="display: block; margin-left: auto; margin-right: auto;;width:70.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-leque4-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;5: Caminhos de composição possível para cada hipótese logicamente compatível com a sequência observada. Extraído de <span class="citation" data-cites="mcelreath2018statistical">McElreath (<a href="#ref-mcelreath2018statistical" role="doc-biblioref">2018</a>)</span>.
+</figcaption>
+</figure>
+</div>
+<p>Agora, contamos todas as maneiras pelas quais cada hipótese poderia produzir os dados observados. Para uma bolinha azul e três brancas, existem três maneiras (como já contamos). Para duas bolinhas azuis e duas brancas, há oito caminhos consistentes com a sequência. Para três bolinhas azuis e uma branca, há nove caminhos que sobrevivem às observações.</p>
+<p>Consideramos, assim, as cinco hipóteses diferentes sobre o conteúdo da caixa, variando de zero bolinhas 🔵 a quatro bolinhas 🔵 e, para cada uma dessas hipóteses, contamos quantas possibilidades (ou “caminhos”) poderiam potencialmente produzir a sequência observada.</p>
+<div id="tbl-caminhos1" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-caminhos1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tabela&nbsp;1: <strong>Total de maneiras pelas quais cada hipótese pode gerar a sequência [🔵 → ⚪ → 🔵].</strong>
+</figcaption>
+<div aria-describedby="tbl-caminhos1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <table class="caption-top table">
 <thead>
 <tr class="header">
-<th style="text-align: center;"><strong>Hipótese</strong></th>
-<th style="text-align: center;"><strong>N</strong></th>
-<th style="text-align: center;"><strong>Priori</strong></th>
+<th><strong>Hipótese</strong></th>
+<th><strong>Maneiras de produzir [🔵 → ⚪ → 🔵]</strong></th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: center;">[⚪⚪⚪⚪]</td>
-<td style="text-align: center;">0</td>
-<td style="text-align: center;"><span class="math inline">\(1/5\)</span></td>
+<td>1. [⚪⚪⚪⚪]</td>
+<td><span class="math inline">\(0 \times 4 \times 0 = 0\)</span></td>
 </tr>
 <tr class="even">
-<td style="text-align: center;">[🔵⚪⚪⚪]</td>
-<td style="text-align: center;">1</td>
-<td style="text-align: center;"><span class="math inline">\(1/5\)</span></td>
+<td>2. [🔵⚪⚪⚪]</td>
+<td><span class="math inline">\(1 \times 3 \times 1 = 3\)</span></td>
 </tr>
 <tr class="odd">
-<td style="text-align: center;">[🔵🔵⚪⚪]</td>
-<td style="text-align: center;">2</td>
-<td style="text-align: center;"><span class="math inline">\(1/5\)</span></td>
+<td>3. [🔵🔵⚪⚪]</td>
+<td><span class="math inline">\(2 \times 2 \times 2 = 8\)</span></td>
 </tr>
 <tr class="even">
-<td style="text-align: center;">[🔵🔵🔵⚪]</td>
-<td style="text-align: center;">3</td>
-<td style="text-align: center;"><span class="math inline">\(1/5\)</span></td>
+<td>4. [🔵🔵🔵⚪]</td>
+<td><span class="math inline">\(3 \times 1 \times 3 = 9\)</span></td>
 </tr>
 <tr class="odd">
-<td style="text-align: center;">[🔵🔵🔵🔵]</td>
-<td style="text-align: center;">4</td>
-<td style="text-align: center;"><span class="math inline">\(1/5\)</span></td>
+<td>5. [🔵🔵🔵🔵]</td>
+<td><span class="math inline">\(4 \times 0 \times 4 = 0\)</span></td>
 </tr>
 </tbody>
 </table>
 </div>
 </figure>
 </div>
-<hr>
-<section id="distribuições-a-priori-a-posteriori-e-verossimilhança" class="level2" data-number="1">
-<h2 data-number="1" class="anchored" data-anchor-id="distribuições-a-priori-a-posteriori-e-verossimilhança"><span class="header-section-number">1</span> Distribuições <em>a priori</em>, <em>a posteriori</em> e <em>verossimilhança</em></h2>
-<p>Suponha que realizamos três observações da caixa e a sequência registrada seja [🔵, ⚪, 🔵] – ou seja, duas bolas azuis. Para atualizar nosso conhecimento sobre a composição da caixa, combinamos nossa distribuição <em>a priori</em> com a verossimilhança de cada hipótese. A verossimilhança é calculada a partir da contagem do número de maneiras em que cada hipótese pode gerar a sequência observada. Em seguida, aplicamos a regra de Bayes, que nos fornece a distribuição <em>a posteriori</em> por meio da fórmula:</p>
-<p><span id="eq-bayes"><span class="math display">\[\text{Posterior}_i = \frac{\text{Priori}_i \times P_i}{\sum_{j} \left(\text{Priori}_j \times P_j\right)}, \tag{1}\]</span></span></p>
-<p>onde <span class="math inline">\(P_i\)</span> representa, de forma proporcional, o número de caminhos possíveis para que a hipótese <span class="math inline">\(i\)</span> gere a sequência [🔵, ⚪, 🔵].</p>
-<p>A equação <a href="#eq-bayes" class="quarto-xref">Equação&nbsp;1</a> indica que, para cada valor que <span class="math inline">\(N\)</span> pode assumir, julgamos sua plausibilidade como proporcional ao número de maneiras pelas quais esse valor pode ter gerado os dados, multiplicado pela sua evidência anterior (a distribuição <em>a priori</em>). Esse produto – representado na <a href="#tbl-posteriori" class="quarto-xref">Tabela&nbsp;2</a> por <span class="math inline">\(\text{Priori}_i \times P_i\)</span> – é então <em>normalizado</em>, dividindo cada um deles pelo somatório <span class="math inline">\(\sum (1/5 \times \text{Nº de caminhos})\)</span>. Essa normalização gera a distribuição <strong>a posteriori</strong>, que reflete nosso conhecimento atualizado após a incorporação das evidências observadas.</p>
-<p>Na <a href="#tbl-posteriori" class="quarto-xref">Tabela&nbsp;2</a>, a coluna <em>“Maneiras de produzir N = 2 [🔵⚪🔵]”</em> indica o número de caminhos possíveis para que cada hipótese gere a sequência observada. Note que as hipóteses [⚪⚪⚪⚪] e [🔵🔵🔵🔵] não conseguem gerar a sequência (ou seja, possuem verossimilhança zero).</p>
-<div id="tbl-posteriori" class="quarto-float quarto-figure quarto-figure-center anchored">
+<p>Observe que o número de maneiras de produzir os dados, para cada hipótese, pode ser obtido contando as ramificações em cada camada do leque de possibilidades e, em seguida, multiplicando esses valores (<a href="#tbl-caminhos1" class="quarto-xref">Tabela&nbsp;1</a>). Isso é apenas um recurso computacional. Ele nos diz a mesma coisa que a <a href="#fig-leque4" class="quarto-xref">Figura&nbsp;5</a>, mas sem precisar desenhar todo o diagrama. O fato de multiplicarmos os números não altera o sentido de estarmos apenas contando caminhos logicamente possíveis.</p>
+</section>
+<section id="atualizando-o-conhecimento" class="level2" data-number="4">
+<h2 data-number="4" class="anchored" data-anchor-id="atualizando-o-conhecimento"><span class="header-section-number">4</span> Atualizando o conhecimento</h2>
+<p>Suponha que o experimento anterior, sumarizado na <a href="#tbl-caminhos1" class="quarto-xref">Tabela&nbsp;1</a>, tenha sido finalizado. Isso nos diz que, por ora, temos evidências melhores para as hipóteses 3 e 4, isto é, de que a caixa contenha 2 ou 3 bolinhas azuis. Para ajudar a diferenciar essas duas possibilidades ainda mais, resolvemos continuar o experimento e amostrar outra bolinha, o que resultou na observação de uma bolinha azul. Como se trata de um novo experimento, poderíamos recomeçar todo o processo. No entanto, há uma forma melhor de aproveitar o conhecimento adquirido <em>a priori</em> — para cada hipótese, listamos as maneiras anteriores de produzir as observações (o <em>prior</em>) e multiplicamos pelo número de maneiras de produzir a nova evidência 🔵:</p>
+<div id="tbl-caminhos2" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
-<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-posteriori-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Tabela&nbsp;2: <strong>Atualização da distribuição de probabilidade combinando a priori e verossimilhança</strong>
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-caminhos2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tabela&nbsp;2: <strong>Total de maneiras pelas quais cada hipótese pode gerar a sequência completa [🔵 → ⚪ → 🔵 → 🔵], combinando a contagem anterior com a nova evidência.</strong>
 </figcaption>
-<div aria-describedby="tbl-posteriori-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div aria-describedby="tbl-caminhos2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <table class="caption-top table">
 <colgroup>
-<col style="width: 15%">
-<col style="width: 7%">
-<col style="width: 13%">
-<col style="width: 46%">
 <col style="width: 16%">
+<col style="width: 24%">
+<col style="width: 37%">
+<col style="width: 20%">
 </colgroup>
 <thead>
 <tr class="header">
-<th style="text-align: center;"><strong>Hipótese</strong></th>
-<th style="text-align: center;"><strong>N</strong></th>
-<th style="text-align: center;"><strong>Priori</strong></th>
-<th style="text-align: center;"><strong>Maneiras de produzir N = 2 [🔵⚪🔵]</strong></th>
-<th style="text-align: center;"><strong>Posterior</strong></th>
+<th><strong>Hipótese</strong></th>
+<th style="text-align: center;"><strong>Contagem anterior (prior)</strong></th>
+<th style="text-align: center;"><strong>Maneiras de produzir a nova observação 🔵</strong></th>
+<th style="text-align: center;"><strong>Contagem posterior</strong></th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: center;">[⚪⚪⚪⚪]</td>
+<td>1. [⚪⚪⚪⚪]</td>
 <td style="text-align: center;">0</td>
-<td style="text-align: center;"><span class="math inline">\(1/5\)</span></td>
-<td style="text-align: center;"><span class="math inline">\(0 \times 4 \times 0 = 0\)</span></td>
-<td style="text-align: center;"><span class="math inline">\(\dfrac{(1/5 \times 0)}{\sum (1/5 \times \text{Nº de caminhos})} = 0\)</span></td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;"><span class="math inline">\(0 \times 0 = 0\)</span></td>
 </tr>
 <tr class="even">
-<td style="text-align: center;">[🔵⚪⚪⚪]</td>
-<td style="text-align: center;">1</td>
-<td style="text-align: center;"><span class="math inline">\(1/5\)</span></td>
-<td style="text-align: center;"><span class="math inline">\(1 \times 3 \times 1 = 3\)</span></td>
-<td style="text-align: center;"><span class="math inline">\(\dfrac{(1/5 \times 3)}{\sum (1/5 \times \text{Nº de caminhos})} = 0.15\)</span></td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">[🔵🔵⚪⚪]</td>
-<td style="text-align: center;">2</td>
-<td style="text-align: center;"><span class="math inline">\(1/5\)</span></td>
-<td style="text-align: center;"><span class="math inline">\(2 \times 2 \times 2 = 8\)</span></td>
-<td style="text-align: center;"><span class="math inline">\(\dfrac{(1/5 \times 8)}{\sum (1/5 \times \text{Nº de caminhos})} = 0.40\)</span></td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">[🔵🔵🔵⚪]</td>
+<td>2. [🔵⚪⚪⚪]</td>
 <td style="text-align: center;">3</td>
-<td style="text-align: center;"><span class="math inline">\(1/5\)</span></td>
-<td style="text-align: center;"><span class="math inline">\(3 \times 1 \times 3 = 9\)</span></td>
-<td style="text-align: center;"><span class="math inline">\(\dfrac{(1/5 \times 9)}{\sum (1/5 \times \text{Nº de caminhos})} = 0.45\)</span></td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;"><span class="math inline">\(3 \times 1 = 3\)</span></td>
 </tr>
 <tr class="odd">
-<td style="text-align: center;">[🔵🔵🔵🔵]</td>
+<td>3. [🔵🔵⚪⚪]</td>
+<td style="text-align: center;">8</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;"><span class="math inline">\(8 \times 2 = 16\)</span></td>
+</tr>
+<tr class="even">
+<td>4. [🔵🔵🔵⚪]</td>
+<td style="text-align: center;">9</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;"><span class="math inline">\(9 \times 3 = 27\)</span></td>
+</tr>
+<tr class="odd">
+<td>5. [🔵🔵🔵🔵]</td>
+<td style="text-align: center;">0</td>
 <td style="text-align: center;">4</td>
-<td style="text-align: center;"><span class="math inline">\(1/5\)</span></td>
-<td style="text-align: center;"><span class="math inline">\(4 \times 0 \times 4 = 0\)</span></td>
-<td style="text-align: center;"><span class="math inline">\(\dfrac{(1/5 \times 0)}{\sum (1/5 \times \text{Nº de caminhos})} = 0\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(0 \times 4 = 0\)</span></td>
 </tr>
 </tbody>
 </table>
 </div>
 </figure>
 </div>
-<p>Dessa forma, a plausibilidade de cada hipótese é convertida em <strong>probabilidades</strong> – valores não negativos cuja soma é igual a 1 – para cada uma das hipóteses sobre o conteúdo da caixa. O resultado final da inferência bayesiana é fornecer uma base probabilística para a tomada de decisão sobre um fenômeno parcialmente desconhecido, expressando o quão plausível é cada hipótese à luz dos dados disponíveis (<a href="#fig-priori-posteriori" class="quarto-xref">Figura&nbsp;1</a>).</p>
-<div id="cell-fig-priori-posteriori" class="cell" data-execution_count="1">
-<div class="cell-output cell-output-display">
-<div id="fig-priori-posteriori" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-priori-posteriori-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="intro-bayes-distr-prob_files/figure-html/fig-priori-posteriori-output-1.png" width="710" height="279" class="figure-img">
+<p>A nova contagem na coluna da direita da <a href="#tbl-caminhos2" class="quarto-xref">Tabela&nbsp;2</a> resume as evidências a favor de cada hipótese, de modo que sejam compatíveis tanto com as observações anteriores quanto com a nova observação. Portanto, à medida que novos dados chegam e, desde que sejam independentes dos anteriores, o total de caminhos logicamente possíveis para explicar tanto as observações antigas quanto as novas pode ser calculado pela multiplicação das contagens anteriores pelas novas.</p>
+<p>Em outras palavras, sempre que temos <span class="math inline">\(W_\text{prior}\)</span> maneiras de uma hipótese produzir observações anteriores (<span class="math inline">\(D_\text{prior}\)</span>) e, em seguida, obtemos novas observações (<span class="math inline">\(D_\text{novo}\)</span>) que essa mesma hipótese pode produzir de <span class="math inline">\(W_\text{novo}\)</span> maneiras, a quantidade total de formas possíveis para essa hipótese explicar tanto os dados antigos quanto os novos é dada simplesmente por <span class="math inline">\(W_\text{prior} \times W_\text{novo}\)</span>. Por exemplo, na <a href="#tbl-caminhos2" class="quarto-xref">Tabela&nbsp;2</a>, a hipótese [🔵🔵⚪⚪] apresenta <span class="math inline">\(W_\text{prior} = 8\)</span> maneiras de gerar as observações anteriores [🔵 → ⚪ → 🔵] e <span class="math inline">\(W_\text{novo} = 2\)</span> maneiras de gerar a nova observação [🔵]. Logo, <span class="math inline">\(8 \times 2 = 16\)</span> caminhos possíveis para explicar tanto os dados antigos quanto os novos.</p>
+<div class="callout callout-style-default callout-warning callout-titled" title="Combinando evidências">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-priori-posteriori-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figura&nbsp;1: Distribuição a priori (esquerda) e a posteriori (direita) para o número de bolas azuis. A priori, as hipóteses têm probabilidade uniforme; a posteriori, a observação [🔵, ⚪, 🔵] atualiza a plausibilidade, favorecendo hipóteses intermediárias
+<div class="callout-title-container flex-fill">
+Combinando evidências
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>No exemplo acima, os dados antigos e os novos são do mesmo tipo (bolinhas observadas na caixa). Entretanto, não há motivo para excluir a situação em que os dados antigos e os novos tenham sido obtidos de forma diferente. Suponha, por exemplo, que alguém da fábrica de bolinhas informe que as azuis são raras. Para cada caixa contendo [🔵🔵🔵⚪], a fábrica produz duas caixas contendo [🔵🔵⚪⚪] e três caixas contendo [🔵⚪⚪⚪]. Também garante que cada caixa contenha pelo menos uma bolinha azul e uma bolinha branca. Com essa nova informação, podemos atualizar nossas contagens novamente (<a href="#tbl-caminhos3" class="quarto-xref">Tabela&nbsp;3</a>).</p>
+<div id="tbl-caminhos3" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-caminhos3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tabela&nbsp;3: <strong>Contagens atualizadas após incorporar a nova observação 🔵 e as informações externas sobre a frequência das hipóteses.</strong>
 </figcaption>
+<div aria-describedby="tbl-caminhos3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 14%">
+<col style="width: 25%">
+<col style="width: 44%">
+<col style="width: 15%">
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>Hipótese</strong></th>
+<th style="text-align: center;"><strong>Contagem anterior (prior)</strong></th>
+<th style="text-align: center;"><strong>Maneiras de produzir 🔵 informadas pela fábrica</strong></th>
+<th style="text-align: center;"><strong>Nova contagem</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1. [⚪⚪⚪⚪]</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;"><span class="math inline">\(0 \times 0 = 0\)</span></td>
+</tr>
+<tr class="even">
+<td>2. [🔵⚪⚪⚪]</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;"><span class="math inline">\(3 \times 3 = 9\)</span></td>
+</tr>
+<tr class="odd">
+<td>3. [🔵🔵⚪⚪]</td>
+<td style="text-align: center;">16</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: center;"><span class="math inline">\(16 \times 2 = 32\)</span></td>
+</tr>
+<tr class="even">
+<td>4. [🔵🔵🔵⚪]</td>
+<td style="text-align: center;">27</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;"><span class="math inline">\(27 \times 1 = 27\)</span></td>
+</tr>
+<tr class="odd">
+<td>5. [🔵🔵🔵🔵]</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;"><span class="math inline">\(0 \times 0 = 0\)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
 </figure>
 </div>
+<p>Agora, à luz dessa informação adicional, a hipótese [🔵🔵⚪⚪] torna-se ligeiramente mais plausível do que [🔵🔵🔵⚪].</p>
 </div>
 </div>
-<p>Esses conceitos possuem nomenclaturas específicas, e vale a pena aprendê-los, pois você os encontrará repetidamente:</p>
-<ul>
-<li>A conjectura sobre o número de bolinhas azuis <span class="math inline">\(N\)</span> é chamada de <strong>valor do parâmetro</strong> – uma maneira de indexar as possíveis explicações para os dados.</li>
-<li>O número relativo de maneiras pelo qual esse parâmetro pode produzir os dados é chamado de <strong>verossimilhança</strong> (<em>likelihood</em>). Essa medida é obtida ao enumerar todas as sequências de dados possíveis e, em seguida, descartar aquelas que não são compatíveis com os dados observados.</li>
-<li>A plausibilidade anterior de um valor específico é denominada <strong>distribuição de probabilidade a priori</strong>.</li>
-<li>A plausibilidade atualizada de um valor específico, após a incorporação dos dados, é denominada <strong>distribuição de probabilidade a posteriori</strong>, utilizada para inferir a probabilidade de cada hipótese ou conjunto de hipóteses sobre o parâmetro.</li>
-</ul>
 
 
 

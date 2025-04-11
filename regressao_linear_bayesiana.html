@@ -6,9 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="description" content="Representação de variáveis, medidas de tendência central e variação">
+<meta name="description" content="Construindo um modelo linear">
 
-<title>Estatística descritiva – Métodos em Estatística e Análise de Dados</title>
+<title>Regressão linear Bayesiana – Métodos em Estatística e Análise de Dados</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -21,7 +21,27 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -81,7 +101,7 @@ ul.task-list li input[type="checkbox"] {
     const options = {
       valueNames: ['listing-image','listing-title','listing-description','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
       
-      searchColumns: ["listing-title","listing-author","listing-image","listing-description"],
+      searchColumns: ["listing-title","listing-author","listing-subtitle","listing-image","listing-description"],
     };
 
     window['quarto-listings'] = window['quarto-listings'] || {};
@@ -130,10 +150,12 @@ window.Quarto = {
 </script>
 
 <link rel="stylesheet" href="styles/custom.css">
-<meta property="og:title" content="Estatística descritiva – Métodos em Estatística e Análise de Dados">
-<meta property="og:description" content="Representação de variáveis, medidas de tendência central e variação">
-<meta property="og:image" content="https://github.com/FCopf/MEAD/images/estatistica_descritiva.jpg">
+<meta property="og:title" content="Regressão linear Bayesiana – Métodos em Estatística e Análise de Dados">
+<meta property="og:description" content="Construindo um modelo linear">
+<meta property="og:image" content="https://github.com/FCopf/MEAD/images/regressao_linear_bayesiana.png">
 <meta property="og:site_name" content="Métodos em Estatística e Análise de Dados">
+<meta property="og:image:height" content="1024">
+<meta property="og:image:width" content="1536">
 </head>
 
 <body class="nav-fixed">
@@ -180,16 +202,18 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Estatística descritiva</h1>
+<h1 class="title">Regressão linear Bayesiana</h1>
   <div class="quarto-categories">
-    <div class="quarto-category">Estatística</div>
-    <div class="quarto-category">R</div>
+    <div class="quarto-category">Modelo normal</div>
+    <div class="quarto-category">Regressão linear</div>
+    <div class="quarto-category">Distribuição a priori</div>
+    <div class="quarto-category">Distribuição posterior</div>
   </div>
   </div>
 
 <div>
   <div class="description">
-    Representação de variáveis, medidas de tendência central e variação
+    Construindo um modelo linear
   </div>
 </div>
 
@@ -210,242 +234,50 @@ window.Quarto = {
 
 
 
+
 <div class="quarto-listing quarto-listing-container-default" id="listing-listing">
 <div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-categories="UiUyQ0FuJUMzJUExbGlzZSUyMGRlJTIwRGFkb3MlMkNFc3RhdCVDMyVBRHN0aWNhJTIwRGVzY3JpdGl2YSUyQ1ZhcmklQzMlQTF2ZWlzJTIwUXVhbGl0YXRpdmFzJTJDVmlzdWFsaXphJUMzJUE3JUMzJUEzbyUyMGRlJTIwRGFkb3M=" data-listing-file-modified-sort="1744407810660" data-listing-reading-time-sort="9" data-listing-word-count-sort="1701">
+<div class="quarto-post image-right" data-index="0" data-listing-file-modified-sort="1744407810744" data-listing-reading-time-sort="5" data-listing-word-count-sort="840">
 <div class="thumbnail">
-<p><a href="./conteudo/estatistica_descritiva/varqualit.html" class="no-external"></a></p><a href="./conteudo/estatistica_descritiva/varqualit.html" class="no-external">
-<p><img loading="lazy" src="./conteudo/estatistica_descritiva/images/varquali.jpg" class="thumbnail-image"></p>
-</a><p><a href="./conteudo/estatistica_descritiva/varqualit.html" class="no-external"></a></p>
+<p><a href="./conteudo/regressao_linear_bayesiana/distribuicao_normal-modelo.html" class="no-external"></a></p><a href="./conteudo/regressao_linear_bayesiana/distribuicao_normal-modelo.html" class="no-external">
+<p><img loading="lazy" src="./conteudo/regressao_linear_bayesiana/images/distribuicao_normal-modelo.png" class="thumbnail-image"></p>
+</a><p><a href="./conteudo/regressao_linear_bayesiana/distribuicao_normal-modelo.html" class="no-external"></a></p>
 </div>
 <div class="body">
 <h3 class="no-anchor listing-title">
-<a href="./conteudo/estatistica_descritiva/varqualit.html" class="no-external">Descrevendo variáveis qualitativas</a>
+<a href="./conteudo/regressao_linear_bayesiana/distribuicao_normal-modelo.html" class="no-external">O modelo da distribuição normal</a>
 </h3>
 <div class="listing-subtitle">
-<a href="./conteudo/estatistica_descritiva/varqualit.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('Ug=='); return false;">
-R
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('QW4lQzMlQTFsaXNlJTIwZGUlMjBEYWRvcw=='); return false;">
-Análise de Dados
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('RXN0YXQlQzMlQURzdGljYSUyMERlc2NyaXRpdmE='); return false;">
-Estatística Descritiva
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('VmFyaSVDMyVBMXZlaXMlMjBRdWFsaXRhdGl2YXM='); return false;">
-Variáveis Qualitativas
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('VmlzdWFsaXphJUMzJUE3JUMzJUEzbyUyMGRlJTIwRGFkb3M='); return false;">
-Visualização de Dados
-</div>
+<a href="./conteudo/regressao_linear_bayesiana/distribuicao_normal-modelo.html" class="no-external">Um modelo para a distribuição de alturas</a>
 </div>
 <div class="listing-description">
-<a href="./conteudo/estatistica_descritiva/varqualit.html" class="no-external">Exploração de variáveis qualitativas, incluindo categóricas ordenadas e não ordenadas, tabelas de frequência e representações gráficas com gráficos de barras.</a>
+<a href="./conteudo/regressao_linear_bayesiana/distribuicao_normal-modelo.html" class="no-external">Conteúdo baseado em <span class="citation" data-cites="mcelreath2018statistical">McElreath (</span></a><a href="#ref-mcelreath2018statistical" role="doc-biblioref">2018</a>)
 </div>
 </div>
 <div class="metadata">
-<p><a href="./conteudo/estatistica_descritiva/varqualit.html" class="no-external"></a></p><a href="./conteudo/estatistica_descritiva/varqualit.html" class="no-external">
+<p><a href="./conteudo/regressao_linear_bayesiana/distribuicao_normal-modelo.html" class="no-external"></a></p><a href="./conteudo/regressao_linear_bayesiana/distribuicao_normal-modelo.html" class="no-external">
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="1" data-categories="UiUyQ0NpJUMzJUFBbmNpYSUyMGRlJTIwRGFkb3MlMkNBbiVDMyVBMWxpc2UlMjBkZSUyMERhZG9zJTJDRXN0YXQlQzMlQURzdGljYSUyMERlc2NyaXRpdmElMkNWYXJpJUMzJUExdmVpcyUyMFF1YW50aXRhdGl2YXMlMkNEaXN0cmlidWklQzMlQTclQzMlQTNvJTIwZGUlMjBGcmVxdSVDMyVBQW5jaWE=" data-listing-file-modified-sort="1744407810660" data-listing-reading-time-sort="8" data-listing-word-count-sort="1479">
+<div class="quarto-post image-right" data-index="1" data-listing-file-modified-sort="1744407810744" data-listing-reading-time-sort="4" data-listing-word-count-sort="718">
 <div class="thumbnail">
-<p><a href="./conteudo/estatistica_descritiva/varquant.html" class="no-external"></a></p><a href="./conteudo/estatistica_descritiva/varquant.html" class="no-external">
-<p><img loading="lazy" src="./conteudo/estatistica_descritiva/images/varquanti.jpg" class="thumbnail-image"></p>
-</a><p><a href="./conteudo/estatistica_descritiva/varquant.html" class="no-external"></a></p>
+<p><a href="./conteudo/regressao_linear_bayesiana/distribuicao_normal-probabilidade.html" class="no-external"></a></p><a href="./conteudo/regressao_linear_bayesiana/distribuicao_normal-probabilidade.html" class="no-external">
+<p><img loading="lazy" src="./conteudo/regressao_linear_bayesiana/images/distribuicao_normal-probabilidade.png" class="thumbnail-image"></p>
+</a><p><a href="./conteudo/regressao_linear_bayesiana/distribuicao_normal-probabilidade.html" class="no-external"></a></p>
 </div>
 <div class="body">
 <h3 class="no-anchor listing-title">
-<a href="./conteudo/estatistica_descritiva/varquant.html" class="no-external">Descrevendo variáveis quantitativas</a>
+<a href="./conteudo/regressao_linear_bayesiana/distribuicao_normal-probabilidade.html" class="no-external">O modelo da distribuição normal</a>
 </h3>
 <div class="listing-subtitle">
-<a href="./conteudo/estatistica_descritiva/varquant.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('Ug=='); return false;">
-R
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('Q2klQzMlQUFuY2lhJTIwZGUlMjBEYWRvcw=='); return false;">
-Ciência de Dados
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('QW4lQzMlQTFsaXNlJTIwZGUlMjBEYWRvcw=='); return false;">
-Análise de Dados
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('RXN0YXQlQzMlQURzdGljYSUyMERlc2NyaXRpdmE='); return false;">
-Estatística Descritiva
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('VmFyaSVDMyVBMXZlaXMlMjBRdWFudGl0YXRpdmFz'); return false;">
-Variáveis Quantitativas
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('RGlzdHJpYnVpJUMzJUE3JUMzJUEzbyUyMGRlJTIwRnJlcXUlQzMlQUFuY2lh'); return false;">
-Distribuição de Frequência
-</div>
+<a href="./conteudo/regressao_linear_bayesiana/distribuicao_normal-probabilidade.html" class="no-external">Função de densidade e função de probabilidade</a>
 </div>
 <div class="listing-description">
-<a href="./conteudo/estatistica_descritiva/varquant.html" class="no-external">Descrição de variáveis quantitativas utilizando tabelas de frequência, histogramas e gráficos de frequência acumulada.</a>
+<a href="./conteudo/regressao_linear_bayesiana/distribuicao_normal-probabilidade.html" class="no-external">Conteúdo baseado em <span class="citation" data-cites="mcelreath2018statistical">McElreath (</span></a><a href="#ref-mcelreath2018statistical" role="doc-biblioref">2018</a>)
 </div>
 </div>
 <div class="metadata">
-<p><a href="./conteudo/estatistica_descritiva/varquant.html" class="no-external"></a></p><a href="./conteudo/estatistica_descritiva/varquant.html" class="no-external">
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="2" data-categories="UiUyQ0FuJUMzJUExbGlzZSUyMGRlJTIwRGFkb3MlMkNFc3RhdCVDMyVBRHN0aWNhJTIwRGVzY3JpdGl2YSUyQ1RlbmQlQzMlQUFuY2lhJTIwQ2VudHJhbCUyQ0Rpc3RyaWJ1aSVDMyVBNyVDMyVBM28lMjBkZSUyMERhZG9z" data-listing-file-modified-sort="1744407810660" data-listing-reading-time-sort="6" data-listing-word-count-sort="1154">
-<div class="thumbnail">
-<p><a href="./conteudo/estatistica_descritiva/tendcentral.html" class="no-external"></a></p><a href="./conteudo/estatistica_descritiva/tendcentral.html" class="no-external">
-<p><img loading="lazy" src="./conteudo/estatistica_descritiva/images/tendcentral.jpg" class="thumbnail-image"></p>
-</a><p><a href="./conteudo/estatistica_descritiva/tendcentral.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./conteudo/estatistica_descritiva/tendcentral.html" class="no-external">Medidas de tendência central</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./conteudo/estatistica_descritiva/tendcentral.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('Ug=='); return false;">
-R
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('QW4lQzMlQTFsaXNlJTIwZGUlMjBEYWRvcw=='); return false;">
-Análise de Dados
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('RXN0YXQlQzMlQURzdGljYSUyMERlc2NyaXRpdmE='); return false;">
-Estatística Descritiva
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('VGVuZCVDMyVBQW5jaWElMjBDZW50cmFs'); return false;">
-Tendência Central
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('RGlzdHJpYnVpJUMzJUE3JUMzJUEzbyUyMGRlJTIwRGFkb3M='); return false;">
-Distribuição de Dados
-</div>
-</div>
-<div class="listing-description">
-<a href="./conteudo/estatistica_descritiva/tendcentral.html" class="no-external">Cálculo e interpretação de medidas de tendência central, como média, mediana, moda e ponto médio, incluindo seu impacto em distribuições simétricas e assimétricas.</a>
-</div>
-</div>
-<div class="metadata">
-<p><a href="./conteudo/estatistica_descritiva/tendcentral.html" class="no-external"></a></p><a href="./conteudo/estatistica_descritiva/tendcentral.html" class="no-external">
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="3" data-categories="UiUyQ0FuJUMzJUExbGlzZSUyMGRlJTIwRGFkb3MlMkNFc3RhdCVDMyVBRHN0aWNhJTIwRGVzY3JpdGl2YSUyQ1ZhcmlhYmlsaWRhZGUlMjBkZSUyMERhZG9zJTJDQW4lQzMlQTFsaXNlJTIwZGUlMjBEaXNwZXJzJUMzJUEzbw==" data-listing-file-modified-sort="1744407810660" data-listing-reading-time-sort="3" data-listing-word-count-sort="513">
-<div class="thumbnail">
-<p><a href="./conteudo/estatistica_descritiva/variacao.html" class="no-external"></a></p><a href="./conteudo/estatistica_descritiva/variacao.html" class="no-external">
-<p><img loading="lazy" src="./conteudo/estatistica_descritiva/images/variacao.jpg" class="thumbnail-image"></p>
-</a><p><a href="./conteudo/estatistica_descritiva/variacao.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./conteudo/estatistica_descritiva/variacao.html" class="no-external">Medidas de variação</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./conteudo/estatistica_descritiva/variacao.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('Ug=='); return false;">
-R
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('QW4lQzMlQTFsaXNlJTIwZGUlMjBEYWRvcw=='); return false;">
-Análise de Dados
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('RXN0YXQlQzMlQURzdGljYSUyMERlc2NyaXRpdmE='); return false;">
-Estatística Descritiva
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('VmFyaWFiaWxpZGFkZSUyMGRlJTIwRGFkb3M='); return false;">
-Variabilidade de Dados
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('QW4lQzMlQTFsaXNlJTIwZGUlMjBEaXNwZXJzJUMzJUEzbw=='); return false;">
-Análise de Dispersão
-</div>
-</div>
-<div class="listing-description">
-<a href="./conteudo/estatistica_descritiva/variacao.html" class="no-external">Introdução às medidas de variação, como variância, desvio padrão, coeficiente de variação e amplitude, com exemplos práticos.</a>
-</div>
-</div>
-<div class="metadata">
-<p><a href="./conteudo/estatistica_descritiva/variacao.html" class="no-external"></a></p><a href="./conteudo/estatistica_descritiva/variacao.html" class="no-external">
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="4" data-categories="UiUyQ0FuJUMzJUExbGlzZSUyMGRlJTIwRGFkb3MlMkNFc3RhdCVDMyVBRHN0aWNhJTIwRGVzY3JpdGl2YSUyQ1ZhcmlhYmlsaWRhZGUlMjBkZSUyMERhZG9zJTJDQW4lQzMlQTFsaXNlJTIwZGUlMjBEaXNwZXJzJUMzJUEzbw==" data-listing-file-modified-sort="1744407810660" data-listing-reading-time-sort="7" data-listing-word-count-sort="1321">
-<div class="thumbnail">
-<p><a href="./conteudo/estatistica_descritiva/quartis.html" class="no-external"></a></p><a href="./conteudo/estatistica_descritiva/quartis.html" class="no-external">
-<p><img loading="lazy" src="./conteudo/estatistica_descritiva/images/quartis-logo.jpg" class="thumbnail-image"></p>
-</a><p><a href="./conteudo/estatistica_descritiva/quartis.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./conteudo/estatistica_descritiva/quartis.html" class="no-external">Medidas de posição: quartis</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./conteudo/estatistica_descritiva/quartis.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('Ug=='); return false;">
-R
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('QW4lQzMlQTFsaXNlJTIwZGUlMjBEYWRvcw=='); return false;">
-Análise de Dados
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('RXN0YXQlQzMlQURzdGljYSUyMERlc2NyaXRpdmE='); return false;">
-Estatística Descritiva
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('VmFyaWFiaWxpZGFkZSUyMGRlJTIwRGFkb3M='); return false;">
-Variabilidade de Dados
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('QW4lQzMlQTFsaXNlJTIwZGUlMjBEaXNwZXJzJUMzJUEzbw=='); return false;">
-Análise de Dispersão
-</div>
-</div>
-<div class="listing-description">
-<a href="./conteudo/estatistica_descritiva/quartis.html" class="no-external">Introdução às medidas de variação, como variância, desvio padrão, coeficiente de variação e amplitude, com exemplos práticos.</a>
-</div>
-</div>
-<div class="metadata">
-<p><a href="./conteudo/estatistica_descritiva/quartis.html" class="no-external"></a></p><a href="./conteudo/estatistica_descritiva/quartis.html" class="no-external">
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="5" data-categories="UiUyQ0FuJUMzJUExbGlzZSUyMGRlJTIwRGFkb3MlMkNFc3RhdCVDMyVBRHN0aWNhJTIwRGVzY3JpdGl2YSUyQ1BhZHJvbml6YSVDMyVBNyVDMyVBM28lMjBkZSUyMERhZG9zJTJDJUMzJThEbmRpY2UlMjBa" data-listing-file-modified-sort="1744407810654" data-listing-reading-time-sort="6" data-listing-word-count-sort="1131">
-<div class="thumbnail">
-<p><a href="./conteudo/estatistica_descritiva/escorez.html" class="no-external"></a></p><a href="./conteudo/estatistica_descritiva/escorez.html" class="no-external">
-<p><img loading="lazy" src="./conteudo/estatistica_descritiva/images/escorez-logo.jpg" class="thumbnail-image"></p>
-</a><p><a href="./conteudo/estatistica_descritiva/escorez.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./conteudo/estatistica_descritiva/escorez.html" class="no-external">Medidas de posição: transformação Z</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./conteudo/estatistica_descritiva/escorez.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('Ug=='); return false;">
-R
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('QW4lQzMlQTFsaXNlJTIwZGUlMjBEYWRvcw=='); return false;">
-Análise de Dados
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('RXN0YXQlQzMlQURzdGljYSUyMERlc2NyaXRpdmE='); return false;">
-Estatística Descritiva
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('UGFkcm9uaXphJUMzJUE3JUMzJUEzbyUyMGRlJTIwRGFkb3M='); return false;">
-Padronização de Dados
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('JUMzJThEbmRpY2UlMjBa'); return false;">
-Índice Z
-</div>
-</div>
-<div class="listing-description">
-<a href="./conteudo/estatistica_descritiva/escorez.html" class="no-external">Transformação e interpretação do índice Z para padronizar distribuições, destacando sua relação com a média e o desvio padrão.</a>
-</div>
-</div>
-<div class="metadata">
-<p><a href="./conteudo/estatistica_descritiva/escorez.html" class="no-external"></a></p><a href="./conteudo/estatistica_descritiva/escorez.html" class="no-external">
+<p><a href="./conteudo/regressao_linear_bayesiana/distribuicao_normal-probabilidade.html" class="no-external"></a></p><a href="./conteudo/regressao_linear_bayesiana/distribuicao_normal-probabilidade.html" class="no-external">
 </a>
 </div>
 </div>
@@ -453,7 +285,11 @@ Padronização de Dados
 <div class="listing-no-matching d-none">
 Nenhum item correspondente
 </div>
-</div></main> <!-- /main -->
+</div><div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">Referências</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-mcelreath2018statistical" class="csl-entry" role="listitem">
+McElreath, Richard. 2018. <em>Statistical rethinking: A Bayesian course with examples in R and Stan</em>. Chapman; Hall/CRC.
+</div>
+</div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
