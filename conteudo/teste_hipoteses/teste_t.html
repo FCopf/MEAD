@@ -6,7 +6,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="description" content="Comparando médias testes t para uma amostra, grupos independentes e medidas pareadas.">
+<meta name="description" content="Teste t de Student para comparação de médias, abrangendo uma amostra, grupos independentes e medidas pareadas.">
 
 <title>Comparando médias: teste t de Student – Métodos em Estatística e Análise de Dados</title>
 <style>
@@ -154,7 +154,7 @@ window.Quarto = {
 
 <link rel="stylesheet" href="../../styles/custom.css">
 <meta property="og:title" content="Comparando médias: teste t de Student – Métodos em Estatística e Análise de Dados">
-<meta property="og:description" content="Comparando médias testes t para uma amostra, grupos independentes e medidas pareadas.">
+<meta property="og:description" content="Teste t de Student para comparação de médias, abrangendo uma amostra, grupos independentes e medidas pareadas.">
 <meta property="og:image" content="https://github.com/FCopf/MEAD/conteudo/teste_hipoteses/images/teste_t.jpg">
 <meta property="og:site_name" content="Métodos em Estatística e Análise de Dados">
 </head>
@@ -217,7 +217,7 @@ window.Quarto = {
 
 <div>
   <div class="description">
-    Comparando médias testes t para uma amostra, grupos independentes e medidas pareadas.
+    Teste t de Student para comparação de médias, abrangendo uma amostra, grupos independentes e medidas pareadas.
   </div>
 </div>
 
@@ -385,23 +385,23 @@ Tabela&nbsp;1: Tempo de coagulação sanguínea (em minutos) para dois tipos de 
 </figcaption>
 <div aria-describedby="tbl-coagulacao-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
-<div id="nxlpbwmrxt" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#nxlpbwmrxt table {
+<div id="kjvylvouxp" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#kjvylvouxp table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#nxlpbwmrxt thead, #nxlpbwmrxt tbody, #nxlpbwmrxt tfoot, #nxlpbwmrxt tr, #nxlpbwmrxt td, #nxlpbwmrxt th {
+#kjvylvouxp thead, #kjvylvouxp tbody, #kjvylvouxp tfoot, #kjvylvouxp tr, #kjvylvouxp td, #kjvylvouxp th {
   border-style: none;
 }
 
-#nxlpbwmrxt p {
+#kjvylvouxp p {
   margin: 0;
   padding: 0;
 }
 
-#nxlpbwmrxt .gt_table {
+#kjvylvouxp .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -427,12 +427,12 @@ Tabela&nbsp;1: Tempo de coagulação sanguínea (em minutos) para dois tipos de 
   border-left-color: #D3D3D3;
 }
 
-#nxlpbwmrxt .gt_caption {
+#kjvylvouxp .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#nxlpbwmrxt .gt_title {
+#kjvylvouxp .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -444,7 +444,7 @@ Tabela&nbsp;1: Tempo de coagulação sanguínea (em minutos) para dois tipos de 
   border-bottom-width: 0;
 }
 
-#nxlpbwmrxt .gt_subtitle {
+#kjvylvouxp .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -456,7 +456,7 @@ Tabela&nbsp;1: Tempo de coagulação sanguínea (em minutos) para dois tipos de 
   border-top-width: 0;
 }
 
-#nxlpbwmrxt .gt_heading {
+#kjvylvouxp .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -468,13 +468,13 @@ Tabela&nbsp;1: Tempo de coagulação sanguínea (em minutos) para dois tipos de 
   border-right-color: #D3D3D3;
 }
 
-#nxlpbwmrxt .gt_bottom_border {
+#kjvylvouxp .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#nxlpbwmrxt .gt_col_headings {
+#kjvylvouxp .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -489,7 +489,7 @@ Tabela&nbsp;1: Tempo de coagulação sanguínea (em minutos) para dois tipos de 
   border-right-color: #D3D3D3;
 }
 
-#nxlpbwmrxt .gt_col_heading {
+#kjvylvouxp .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -509,7 +509,7 @@ Tabela&nbsp;1: Tempo de coagulação sanguínea (em minutos) para dois tipos de 
   overflow-x: hidden;
 }
 
-#nxlpbwmrxt .gt_column_spanner_outer {
+#kjvylvouxp .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -521,15 +521,15 @@ Tabela&nbsp;1: Tempo de coagulação sanguínea (em minutos) para dois tipos de 
   padding-right: 4px;
 }
 
-#nxlpbwmrxt .gt_column_spanner_outer:first-child {
+#kjvylvouxp .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#nxlpbwmrxt .gt_column_spanner_outer:last-child {
+#kjvylvouxp .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#nxlpbwmrxt .gt_column_spanner {
+#kjvylvouxp .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -541,11 +541,11 @@ Tabela&nbsp;1: Tempo de coagulação sanguínea (em minutos) para dois tipos de 
   width: 100%;
 }
 
-#nxlpbwmrxt .gt_spanner_row {
+#kjvylvouxp .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#nxlpbwmrxt .gt_group_heading {
+#kjvylvouxp .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -571,7 +571,7 @@ Tabela&nbsp;1: Tempo de coagulação sanguínea (em minutos) para dois tipos de 
   text-align: left;
 }
 
-#nxlpbwmrxt .gt_empty_group_heading {
+#kjvylvouxp .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -586,15 +586,15 @@ Tabela&nbsp;1: Tempo de coagulação sanguínea (em minutos) para dois tipos de 
   vertical-align: middle;
 }
 
-#nxlpbwmrxt .gt_from_md > :first-child {
+#kjvylvouxp .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#nxlpbwmrxt .gt_from_md > :last-child {
+#kjvylvouxp .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#nxlpbwmrxt .gt_row {
+#kjvylvouxp .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -613,7 +613,7 @@ Tabela&nbsp;1: Tempo de coagulação sanguínea (em minutos) para dois tipos de 
   overflow-x: hidden;
 }
 
-#nxlpbwmrxt .gt_stub {
+#kjvylvouxp .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -626,7 +626,7 @@ Tabela&nbsp;1: Tempo de coagulação sanguínea (em minutos) para dois tipos de 
   padding-right: 5px;
 }
 
-#nxlpbwmrxt .gt_stub_row_group {
+#kjvylvouxp .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -640,15 +640,15 @@ Tabela&nbsp;1: Tempo de coagulação sanguínea (em minutos) para dois tipos de 
   vertical-align: top;
 }
 
-#nxlpbwmrxt .gt_row_group_first td {
+#kjvylvouxp .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#nxlpbwmrxt .gt_row_group_first th {
+#kjvylvouxp .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#nxlpbwmrxt .gt_summary_row {
+#kjvylvouxp .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -658,16 +658,16 @@ Tabela&nbsp;1: Tempo de coagulação sanguínea (em minutos) para dois tipos de 
   padding-right: 5px;
 }
 
-#nxlpbwmrxt .gt_first_summary_row {
+#kjvylvouxp .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#nxlpbwmrxt .gt_first_summary_row.thick {
+#kjvylvouxp .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#nxlpbwmrxt .gt_last_summary_row {
+#kjvylvouxp .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -677,7 +677,7 @@ Tabela&nbsp;1: Tempo de coagulação sanguínea (em minutos) para dois tipos de 
   border-bottom-color: #D3D3D3;
 }
 
-#nxlpbwmrxt .gt_grand_summary_row {
+#kjvylvouxp .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -687,7 +687,7 @@ Tabela&nbsp;1: Tempo de coagulação sanguínea (em minutos) para dois tipos de 
   padding-right: 5px;
 }
 
-#nxlpbwmrxt .gt_first_grand_summary_row {
+#kjvylvouxp .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -697,7 +697,7 @@ Tabela&nbsp;1: Tempo de coagulação sanguínea (em minutos) para dois tipos de 
   border-top-color: #D3D3D3;
 }
 
-#nxlpbwmrxt .gt_last_grand_summary_row_top {
+#kjvylvouxp .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -707,11 +707,11 @@ Tabela&nbsp;1: Tempo de coagulação sanguínea (em minutos) para dois tipos de 
   border-bottom-color: #D3D3D3;
 }
 
-#nxlpbwmrxt .gt_striped {
+#kjvylvouxp .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#nxlpbwmrxt .gt_table_body {
+#kjvylvouxp .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -720,7 +720,7 @@ Tabela&nbsp;1: Tempo de coagulação sanguínea (em minutos) para dois tipos de 
   border-bottom-color: #D3D3D3;
 }
 
-#nxlpbwmrxt .gt_footnotes {
+#kjvylvouxp .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -734,7 +734,7 @@ Tabela&nbsp;1: Tempo de coagulação sanguínea (em minutos) para dois tipos de 
   border-right-color: #D3D3D3;
 }
 
-#nxlpbwmrxt .gt_footnote {
+#kjvylvouxp .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -743,7 +743,7 @@ Tabela&nbsp;1: Tempo de coagulação sanguínea (em minutos) para dois tipos de 
   padding-right: 5px;
 }
 
-#nxlpbwmrxt .gt_sourcenotes {
+#kjvylvouxp .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -757,7 +757,7 @@ Tabela&nbsp;1: Tempo de coagulação sanguínea (em minutos) para dois tipos de 
   border-right-color: #D3D3D3;
 }
 
-#nxlpbwmrxt .gt_sourcenote {
+#kjvylvouxp .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -765,72 +765,72 @@ Tabela&nbsp;1: Tempo de coagulação sanguínea (em minutos) para dois tipos de 
   padding-right: 5px;
 }
 
-#nxlpbwmrxt .gt_left {
+#kjvylvouxp .gt_left {
   text-align: left;
 }
 
-#nxlpbwmrxt .gt_center {
+#kjvylvouxp .gt_center {
   text-align: center;
 }
 
-#nxlpbwmrxt .gt_right {
+#kjvylvouxp .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#nxlpbwmrxt .gt_font_normal {
+#kjvylvouxp .gt_font_normal {
   font-weight: normal;
 }
 
-#nxlpbwmrxt .gt_font_bold {
+#kjvylvouxp .gt_font_bold {
   font-weight: bold;
 }
 
-#nxlpbwmrxt .gt_font_italic {
+#kjvylvouxp .gt_font_italic {
   font-style: italic;
 }
 
-#nxlpbwmrxt .gt_super {
+#kjvylvouxp .gt_super {
   font-size: 65%;
 }
 
-#nxlpbwmrxt .gt_footnote_marks {
+#kjvylvouxp .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#nxlpbwmrxt .gt_asterisk {
+#kjvylvouxp .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#nxlpbwmrxt .gt_indent_1 {
+#kjvylvouxp .gt_indent_1 {
   text-indent: 5px;
 }
 
-#nxlpbwmrxt .gt_indent_2 {
+#kjvylvouxp .gt_indent_2 {
   text-indent: 10px;
 }
 
-#nxlpbwmrxt .gt_indent_3 {
+#kjvylvouxp .gt_indent_3 {
   text-indent: 15px;
 }
 
-#nxlpbwmrxt .gt_indent_4 {
+#kjvylvouxp .gt_indent_4 {
   text-indent: 20px;
 }
 
-#nxlpbwmrxt .gt_indent_5 {
+#kjvylvouxp .gt_indent_5 {
   text-indent: 25px;
 }
 
-#nxlpbwmrxt .katex-display {
+#kjvylvouxp .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#nxlpbwmrxt div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#kjvylvouxp div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -946,23 +946,23 @@ Tabela&nbsp;2: Tempo de coagulação sanguínea (em minutos) para dois tipos de 
 </figcaption>
 <div aria-describedby="tbl-coagulacao-summary-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
-<div id="fizukseplr" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#fizukseplr table {
+<div id="dugishopoq" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#dugishopoq table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#fizukseplr thead, #fizukseplr tbody, #fizukseplr tfoot, #fizukseplr tr, #fizukseplr td, #fizukseplr th {
+#dugishopoq thead, #dugishopoq tbody, #dugishopoq tfoot, #dugishopoq tr, #dugishopoq td, #dugishopoq th {
   border-style: none;
 }
 
-#fizukseplr p {
+#dugishopoq p {
   margin: 0;
   padding: 0;
 }
 
-#fizukseplr .gt_table {
+#dugishopoq .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -988,12 +988,12 @@ Tabela&nbsp;2: Tempo de coagulação sanguínea (em minutos) para dois tipos de 
   border-left-color: #D3D3D3;
 }
 
-#fizukseplr .gt_caption {
+#dugishopoq .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#fizukseplr .gt_title {
+#dugishopoq .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1005,7 +1005,7 @@ Tabela&nbsp;2: Tempo de coagulação sanguínea (em minutos) para dois tipos de 
   border-bottom-width: 0;
 }
 
-#fizukseplr .gt_subtitle {
+#dugishopoq .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1017,7 +1017,7 @@ Tabela&nbsp;2: Tempo de coagulação sanguínea (em minutos) para dois tipos de 
   border-top-width: 0;
 }
 
-#fizukseplr .gt_heading {
+#dugishopoq .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1029,13 +1029,13 @@ Tabela&nbsp;2: Tempo de coagulação sanguínea (em minutos) para dois tipos de 
   border-right-color: #D3D3D3;
 }
 
-#fizukseplr .gt_bottom_border {
+#dugishopoq .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#fizukseplr .gt_col_headings {
+#dugishopoq .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1050,7 +1050,7 @@ Tabela&nbsp;2: Tempo de coagulação sanguínea (em minutos) para dois tipos de 
   border-right-color: #D3D3D3;
 }
 
-#fizukseplr .gt_col_heading {
+#dugishopoq .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1070,7 +1070,7 @@ Tabela&nbsp;2: Tempo de coagulação sanguínea (em minutos) para dois tipos de 
   overflow-x: hidden;
 }
 
-#fizukseplr .gt_column_spanner_outer {
+#dugishopoq .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1082,15 +1082,15 @@ Tabela&nbsp;2: Tempo de coagulação sanguínea (em minutos) para dois tipos de 
   padding-right: 4px;
 }
 
-#fizukseplr .gt_column_spanner_outer:first-child {
+#dugishopoq .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#fizukseplr .gt_column_spanner_outer:last-child {
+#dugishopoq .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#fizukseplr .gt_column_spanner {
+#dugishopoq .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1102,11 +1102,11 @@ Tabela&nbsp;2: Tempo de coagulação sanguínea (em minutos) para dois tipos de 
   width: 100%;
 }
 
-#fizukseplr .gt_spanner_row {
+#dugishopoq .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#fizukseplr .gt_group_heading {
+#dugishopoq .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1132,7 +1132,7 @@ Tabela&nbsp;2: Tempo de coagulação sanguínea (em minutos) para dois tipos de 
   text-align: left;
 }
 
-#fizukseplr .gt_empty_group_heading {
+#dugishopoq .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1147,15 +1147,15 @@ Tabela&nbsp;2: Tempo de coagulação sanguínea (em minutos) para dois tipos de 
   vertical-align: middle;
 }
 
-#fizukseplr .gt_from_md > :first-child {
+#dugishopoq .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#fizukseplr .gt_from_md > :last-child {
+#dugishopoq .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#fizukseplr .gt_row {
+#dugishopoq .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1174,7 +1174,7 @@ Tabela&nbsp;2: Tempo de coagulação sanguínea (em minutos) para dois tipos de 
   overflow-x: hidden;
 }
 
-#fizukseplr .gt_stub {
+#dugishopoq .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1187,7 +1187,7 @@ Tabela&nbsp;2: Tempo de coagulação sanguínea (em minutos) para dois tipos de 
   padding-right: 5px;
 }
 
-#fizukseplr .gt_stub_row_group {
+#dugishopoq .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1201,15 +1201,15 @@ Tabela&nbsp;2: Tempo de coagulação sanguínea (em minutos) para dois tipos de 
   vertical-align: top;
 }
 
-#fizukseplr .gt_row_group_first td {
+#dugishopoq .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#fizukseplr .gt_row_group_first th {
+#dugishopoq .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#fizukseplr .gt_summary_row {
+#dugishopoq .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1219,16 +1219,16 @@ Tabela&nbsp;2: Tempo de coagulação sanguínea (em minutos) para dois tipos de 
   padding-right: 5px;
 }
 
-#fizukseplr .gt_first_summary_row {
+#dugishopoq .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#fizukseplr .gt_first_summary_row.thick {
+#dugishopoq .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#fizukseplr .gt_last_summary_row {
+#dugishopoq .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1238,7 +1238,7 @@ Tabela&nbsp;2: Tempo de coagulação sanguínea (em minutos) para dois tipos de 
   border-bottom-color: #D3D3D3;
 }
 
-#fizukseplr .gt_grand_summary_row {
+#dugishopoq .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1248,7 +1248,7 @@ Tabela&nbsp;2: Tempo de coagulação sanguínea (em minutos) para dois tipos de 
   padding-right: 5px;
 }
 
-#fizukseplr .gt_first_grand_summary_row {
+#dugishopoq .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1258,7 +1258,7 @@ Tabela&nbsp;2: Tempo de coagulação sanguínea (em minutos) para dois tipos de 
   border-top-color: #D3D3D3;
 }
 
-#fizukseplr .gt_last_grand_summary_row_top {
+#dugishopoq .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1268,11 +1268,11 @@ Tabela&nbsp;2: Tempo de coagulação sanguínea (em minutos) para dois tipos de 
   border-bottom-color: #D3D3D3;
 }
 
-#fizukseplr .gt_striped {
+#dugishopoq .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#fizukseplr .gt_table_body {
+#dugishopoq .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1281,7 +1281,7 @@ Tabela&nbsp;2: Tempo de coagulação sanguínea (em minutos) para dois tipos de 
   border-bottom-color: #D3D3D3;
 }
 
-#fizukseplr .gt_footnotes {
+#dugishopoq .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1295,7 +1295,7 @@ Tabela&nbsp;2: Tempo de coagulação sanguínea (em minutos) para dois tipos de 
   border-right-color: #D3D3D3;
 }
 
-#fizukseplr .gt_footnote {
+#dugishopoq .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1304,7 +1304,7 @@ Tabela&nbsp;2: Tempo de coagulação sanguínea (em minutos) para dois tipos de 
   padding-right: 5px;
 }
 
-#fizukseplr .gt_sourcenotes {
+#dugishopoq .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1318,7 +1318,7 @@ Tabela&nbsp;2: Tempo de coagulação sanguínea (em minutos) para dois tipos de 
   border-right-color: #D3D3D3;
 }
 
-#fizukseplr .gt_sourcenote {
+#dugishopoq .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1326,72 +1326,72 @@ Tabela&nbsp;2: Tempo de coagulação sanguínea (em minutos) para dois tipos de 
   padding-right: 5px;
 }
 
-#fizukseplr .gt_left {
+#dugishopoq .gt_left {
   text-align: left;
 }
 
-#fizukseplr .gt_center {
+#dugishopoq .gt_center {
   text-align: center;
 }
 
-#fizukseplr .gt_right {
+#dugishopoq .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#fizukseplr .gt_font_normal {
+#dugishopoq .gt_font_normal {
   font-weight: normal;
 }
 
-#fizukseplr .gt_font_bold {
+#dugishopoq .gt_font_bold {
   font-weight: bold;
 }
 
-#fizukseplr .gt_font_italic {
+#dugishopoq .gt_font_italic {
   font-style: italic;
 }
 
-#fizukseplr .gt_super {
+#dugishopoq .gt_super {
   font-size: 65%;
 }
 
-#fizukseplr .gt_footnote_marks {
+#dugishopoq .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#fizukseplr .gt_asterisk {
+#dugishopoq .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#fizukseplr .gt_indent_1 {
+#dugishopoq .gt_indent_1 {
   text-indent: 5px;
 }
 
-#fizukseplr .gt_indent_2 {
+#dugishopoq .gt_indent_2 {
   text-indent: 10px;
 }
 
-#fizukseplr .gt_indent_3 {
+#dugishopoq .gt_indent_3 {
   text-indent: 15px;
 }
 
-#fizukseplr .gt_indent_4 {
+#dugishopoq .gt_indent_4 {
   text-indent: 20px;
 }
 
-#fizukseplr .gt_indent_5 {
+#dugishopoq .gt_indent_5 {
   text-indent: 25px;
 }
 
-#fizukseplr .katex-display {
+#dugishopoq .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#fizukseplr div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#dugishopoq div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>

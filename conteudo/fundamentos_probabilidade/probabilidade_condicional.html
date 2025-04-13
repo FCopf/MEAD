@@ -6,9 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="description" content="Fundamentos de Probabilidade">
+<meta name="description" content="Exploração da probabilidade condicional e independência, com aplicações do Teorema de Bayes.">
 
-<title>Probabilidade Condicional e independência – Métodos em Estatística e Análise de Dados</title>
+<title>Probabilidade condicional e independência – Métodos em Estatística e Análise de Dados</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -133,8 +133,8 @@ window.Quarto = {
 </script>
 
 <link rel="stylesheet" href="../../styles/custom.css">
-<meta property="og:title" content="Probabilidade Condicional e independência – Métodos em Estatística e Análise de Dados">
-<meta property="og:description" content="Fundamentos de Probabilidade">
+<meta property="og:title" content="Probabilidade condicional e independência – Métodos em Estatística e Análise de Dados">
+<meta property="og:description" content="Exploração da probabilidade condicional e independência, com aplicações do Teorema de Bayes.">
 <meta property="og:image" content="https://github.com/FCopf/MEAD/conteudo/fundamentos_probabilidade/images/probabilidade_condicional.png">
 <meta property="og:site_name" content="Métodos em Estatística e Análise de Dados">
 <meta property="og:image:height" content="1024">
@@ -197,18 +197,18 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Probabilidade Condicional e independência</h1>
+<h1 class="title">Probabilidade condicional e independência</h1>
   <div class="quarto-categories">
-    <div class="quarto-category">probabilidade condicional</div>
-    <div class="quarto-category">eventos dependentes</div>
-    <div class="quarto-category">teorema de Bayes</div>
-    <div class="quarto-category">diagrama de árvore</div>
+    <div class="quarto-category">Probabilidade condicional</div>
+    <div class="quarto-category">Eventos dependentes</div>
+    <div class="quarto-category">Teorema de Bayes</div>
+    <div class="quarto-category">Diagrama de árvore</div>
   </div>
   </div>
 
 <div>
   <div class="description">
-    Fundamentos de Probabilidade
+    Exploração da probabilidade condicional e independência, com aplicações do Teorema de Bayes.
   </div>
 </div>
 
@@ -317,23 +317,23 @@ Pacotes e funções utilizadas
 <p>Considere a matriz:</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="kzeivkxbbo" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#kzeivkxbbo table {
+<div id="mwmmuhdazf" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#mwmmuhdazf table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#kzeivkxbbo thead, #kzeivkxbbo tbody, #kzeivkxbbo tfoot, #kzeivkxbbo tr, #kzeivkxbbo td, #kzeivkxbbo th {
+#mwmmuhdazf thead, #mwmmuhdazf tbody, #mwmmuhdazf tfoot, #mwmmuhdazf tr, #mwmmuhdazf td, #mwmmuhdazf th {
   border-style: none;
 }
 
-#kzeivkxbbo p {
+#mwmmuhdazf p {
   margin: 0;
   padding: 0;
 }
 
-#kzeivkxbbo .gt_table {
+#mwmmuhdazf .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -359,12 +359,12 @@ Pacotes e funções utilizadas
   border-left-color: #D3D3D3;
 }
 
-#kzeivkxbbo .gt_caption {
+#mwmmuhdazf .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#kzeivkxbbo .gt_title {
+#mwmmuhdazf .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -376,7 +376,7 @@ Pacotes e funções utilizadas
   border-bottom-width: 0;
 }
 
-#kzeivkxbbo .gt_subtitle {
+#mwmmuhdazf .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -388,7 +388,7 @@ Pacotes e funções utilizadas
   border-top-width: 0;
 }
 
-#kzeivkxbbo .gt_heading {
+#mwmmuhdazf .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -400,13 +400,13 @@ Pacotes e funções utilizadas
   border-right-color: #D3D3D3;
 }
 
-#kzeivkxbbo .gt_bottom_border {
+#mwmmuhdazf .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#kzeivkxbbo .gt_col_headings {
+#mwmmuhdazf .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -421,7 +421,7 @@ Pacotes e funções utilizadas
   border-right-color: #D3D3D3;
 }
 
-#kzeivkxbbo .gt_col_heading {
+#mwmmuhdazf .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -441,7 +441,7 @@ Pacotes e funções utilizadas
   overflow-x: hidden;
 }
 
-#kzeivkxbbo .gt_column_spanner_outer {
+#mwmmuhdazf .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -453,15 +453,15 @@ Pacotes e funções utilizadas
   padding-right: 4px;
 }
 
-#kzeivkxbbo .gt_column_spanner_outer:first-child {
+#mwmmuhdazf .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#kzeivkxbbo .gt_column_spanner_outer:last-child {
+#mwmmuhdazf .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#kzeivkxbbo .gt_column_spanner {
+#mwmmuhdazf .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -473,11 +473,11 @@ Pacotes e funções utilizadas
   width: 100%;
 }
 
-#kzeivkxbbo .gt_spanner_row {
+#mwmmuhdazf .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#kzeivkxbbo .gt_group_heading {
+#mwmmuhdazf .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -503,7 +503,7 @@ Pacotes e funções utilizadas
   text-align: left;
 }
 
-#kzeivkxbbo .gt_empty_group_heading {
+#mwmmuhdazf .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -518,15 +518,15 @@ Pacotes e funções utilizadas
   vertical-align: middle;
 }
 
-#kzeivkxbbo .gt_from_md > :first-child {
+#mwmmuhdazf .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#kzeivkxbbo .gt_from_md > :last-child {
+#mwmmuhdazf .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#kzeivkxbbo .gt_row {
+#mwmmuhdazf .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -545,7 +545,7 @@ Pacotes e funções utilizadas
   overflow-x: hidden;
 }
 
-#kzeivkxbbo .gt_stub {
+#mwmmuhdazf .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -558,7 +558,7 @@ Pacotes e funções utilizadas
   padding-right: 5px;
 }
 
-#kzeivkxbbo .gt_stub_row_group {
+#mwmmuhdazf .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -572,15 +572,15 @@ Pacotes e funções utilizadas
   vertical-align: top;
 }
 
-#kzeivkxbbo .gt_row_group_first td {
+#mwmmuhdazf .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#kzeivkxbbo .gt_row_group_first th {
+#mwmmuhdazf .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#kzeivkxbbo .gt_summary_row {
+#mwmmuhdazf .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -590,16 +590,16 @@ Pacotes e funções utilizadas
   padding-right: 5px;
 }
 
-#kzeivkxbbo .gt_first_summary_row {
+#mwmmuhdazf .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#kzeivkxbbo .gt_first_summary_row.thick {
+#mwmmuhdazf .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#kzeivkxbbo .gt_last_summary_row {
+#mwmmuhdazf .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -609,7 +609,7 @@ Pacotes e funções utilizadas
   border-bottom-color: #D3D3D3;
 }
 
-#kzeivkxbbo .gt_grand_summary_row {
+#mwmmuhdazf .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -619,7 +619,7 @@ Pacotes e funções utilizadas
   padding-right: 5px;
 }
 
-#kzeivkxbbo .gt_first_grand_summary_row {
+#mwmmuhdazf .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -629,7 +629,7 @@ Pacotes e funções utilizadas
   border-top-color: #D3D3D3;
 }
 
-#kzeivkxbbo .gt_last_grand_summary_row_top {
+#mwmmuhdazf .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -639,11 +639,11 @@ Pacotes e funções utilizadas
   border-bottom-color: #D3D3D3;
 }
 
-#kzeivkxbbo .gt_striped {
+#mwmmuhdazf .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#kzeivkxbbo .gt_table_body {
+#mwmmuhdazf .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -652,7 +652,7 @@ Pacotes e funções utilizadas
   border-bottom-color: #D3D3D3;
 }
 
-#kzeivkxbbo .gt_footnotes {
+#mwmmuhdazf .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -666,7 +666,7 @@ Pacotes e funções utilizadas
   border-right-color: #D3D3D3;
 }
 
-#kzeivkxbbo .gt_footnote {
+#mwmmuhdazf .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -675,7 +675,7 @@ Pacotes e funções utilizadas
   padding-right: 5px;
 }
 
-#kzeivkxbbo .gt_sourcenotes {
+#mwmmuhdazf .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -689,7 +689,7 @@ Pacotes e funções utilizadas
   border-right-color: #D3D3D3;
 }
 
-#kzeivkxbbo .gt_sourcenote {
+#mwmmuhdazf .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -697,72 +697,72 @@ Pacotes e funções utilizadas
   padding-right: 5px;
 }
 
-#kzeivkxbbo .gt_left {
+#mwmmuhdazf .gt_left {
   text-align: left;
 }
 
-#kzeivkxbbo .gt_center {
+#mwmmuhdazf .gt_center {
   text-align: center;
 }
 
-#kzeivkxbbo .gt_right {
+#mwmmuhdazf .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#kzeivkxbbo .gt_font_normal {
+#mwmmuhdazf .gt_font_normal {
   font-weight: normal;
 }
 
-#kzeivkxbbo .gt_font_bold {
+#mwmmuhdazf .gt_font_bold {
   font-weight: bold;
 }
 
-#kzeivkxbbo .gt_font_italic {
+#mwmmuhdazf .gt_font_italic {
   font-style: italic;
 }
 
-#kzeivkxbbo .gt_super {
+#mwmmuhdazf .gt_super {
   font-size: 65%;
 }
 
-#kzeivkxbbo .gt_footnote_marks {
+#mwmmuhdazf .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#kzeivkxbbo .gt_asterisk {
+#mwmmuhdazf .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#kzeivkxbbo .gt_indent_1 {
+#mwmmuhdazf .gt_indent_1 {
   text-indent: 5px;
 }
 
-#kzeivkxbbo .gt_indent_2 {
+#mwmmuhdazf .gt_indent_2 {
   text-indent: 10px;
 }
 
-#kzeivkxbbo .gt_indent_3 {
+#mwmmuhdazf .gt_indent_3 {
   text-indent: 15px;
 }
 
-#kzeivkxbbo .gt_indent_4 {
+#mwmmuhdazf .gt_indent_4 {
   text-indent: 20px;
 }
 
-#kzeivkxbbo .gt_indent_5 {
+#mwmmuhdazf .gt_indent_5 {
   text-indent: 25px;
 }
 
-#kzeivkxbbo .katex-display {
+#mwmmuhdazf .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#kzeivkxbbo div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#mwmmuhdazf div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>

@@ -6,7 +6,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="description" content="Uso de operadores pipe para simplificar o fluxo de transformação de dados em R.">
+<meta name="description" content="Uso de operadores pipe para encadear funções e simplificar fluxos de dados em R.">
 
 <title>Operadores pipe – Métodos em Estatística e Análise de Dados</title>
 <style>
@@ -105,7 +105,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <link rel="stylesheet" href="../../styles/custom.css">
 <meta property="og:title" content="Operadores pipe – Métodos em Estatística e Análise de Dados">
-<meta property="og:description" content="Uso de operadores pipe para simplificar o fluxo de transformação de dados em R.">
+<meta property="og:description" content="Uso de operadores pipe para encadear funções e simplificar fluxos de dados em R.">
 <meta property="og:image" content="https://github.com/FCopf/MEAD/conteudo/ciencia_dados/images/pipe.jpg">
 <meta property="og:site_name" content="Métodos em Estatística e Análise de Dados">
 </head>
@@ -171,7 +171,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="quarto-title">
 <h1 class="title">Operadores pipe</h1>
   <div class="quarto-categories">
-    <div class="quarto-category">Ciência de Dados</div>
+    <div class="quarto-category">Ciência de dados</div>
     <div class="quarto-category">R</div>
     <div class="quarto-category">Tidyverse</div>
     <div class="quarto-category">Transformação de dados</div>
@@ -180,7 +180,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <div>
   <div class="description">
-    Uso de operadores pipe para simplificar o fluxo de transformação de dados em R.
+    Uso de operadores pipe para encadear funções e simplificar fluxos de dados em R.
   </div>
 </div>
 
@@ -375,9 +375,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code># A tibble: 3 × 4
   categoria media_variavel1 soma_variavel2 nova_variavel
   &lt;chr&gt;               &lt;dbl&gt;          &lt;dbl&gt;         &lt;dbl&gt;
-1 B                    6.54           56.2          8.59
-2 A                    6.85           47.7          6.96
-3 C                    6.82           21.7          3.18</code></pre>
+1 A                    5.59           51.6          9.23
+2 C                    5.84           45.7          7.82
+3 B                    6.18           43.8          7.08</code></pre>
 </div>
 </div>
 <p>O exemplo acima pode ser reescrito de forma que cada etapa tenha uma leitura mais clara.</p>
@@ -404,9 +404,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code># A tibble: 3 × 4
   categoria media_variavel1 soma_variavel2 nova_variavel
   &lt;chr&gt;               &lt;dbl&gt;          &lt;dbl&gt;         &lt;dbl&gt;
-1 B                    6.54           56.2          8.59
-2 A                    6.85           47.7          6.96
-3 C                    6.82           21.7          3.18</code></pre>
+1 A                    5.59           51.6          9.23
+2 C                    5.84           45.7          7.82
+3 B                    6.18           43.8          7.08</code></pre>
 </div>
 </div>
 <p>Embora o código tenha ficado mais longo, fica também mais simples de ser inspecionado.</p>

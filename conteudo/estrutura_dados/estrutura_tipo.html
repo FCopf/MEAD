@@ -6,7 +6,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="description" content="Estruturas de dados, categorização de variáveis, níveis de mensuração e estratégias práticas para tratar valores ausentes em tabelas">
+<meta name="description" content="Descrição de diferentes estruturas de dados e tipos de variáveis, com foco em níveis de mensuração e tratamento de valores ausentes em tabelas.">
 
 <title>Estrutura e tipos de dados – Métodos em Estatística e Análise de Dados</title>
 <style>
@@ -134,7 +134,7 @@ window.Quarto = {
 
 <link rel="stylesheet" href="../../styles/custom.css">
 <meta property="og:title" content="Estrutura e tipos de dados – Métodos em Estatística e Análise de Dados">
-<meta property="og:description" content="Estruturas de dados, categorização de variáveis, níveis de mensuração e estratégias práticas para tratar valores ausentes em tabelas">
+<meta property="og:description" content="Descrição de diferentes estruturas de dados e tipos de variáveis, com foco em níveis de mensuração e tratamento de valores ausentes em tabelas.">
 <meta property="og:image" content="https://github.com/FCopf/MEAD/conteudo/estrutura_dados/images/estrutura_tipo.jpg">
 <meta property="og:site_name" content="Métodos em Estatística e Análise de Dados">
 </head>
@@ -199,17 +199,16 @@ window.Quarto = {
 <div class="quarto-title">
 <h1 class="title">Estrutura e tipos de dados</h1>
   <div class="quarto-categories">
-    <div class="quarto-category">Ciência de Dados</div>
     <div class="quarto-category">R</div>
-    <div class="quarto-category">Estrutura de Dados</div>
-    <div class="quarto-category">Tipos de Dados</div>
-    <div class="quarto-category">Análise de Dados</div>
+    <div class="quarto-category">Estrutura de dados</div>
+    <div class="quarto-category">Tipos de dados</div>
+    <div class="quarto-category">Análise de dados</div>
   </div>
   </div>
 
 <div>
   <div class="description">
-    Estruturas de dados, categorização de variáveis, níveis de mensuração e estratégias práticas para tratar valores ausentes em tabelas
+    Descrição de diferentes estruturas de dados e tipos de variáveis, com foco em níveis de mensuração e tratamento de valores ausentes em tabelas.
   </div>
 </div>
 
@@ -262,23 +261,23 @@ Tabela&nbsp;1: Primeiras linhas da tabela <code>penguins_raw</code>.
 </figcaption>
 <div aria-describedby="tbl-penguins_raw-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
-<div id="nldbqcvrzh" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#nldbqcvrzh table {
+<div id="vdzvmuhfoc" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#vdzvmuhfoc table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#nldbqcvrzh thead, #nldbqcvrzh tbody, #nldbqcvrzh tfoot, #nldbqcvrzh tr, #nldbqcvrzh td, #nldbqcvrzh th {
+#vdzvmuhfoc thead, #vdzvmuhfoc tbody, #vdzvmuhfoc tfoot, #vdzvmuhfoc tr, #vdzvmuhfoc td, #vdzvmuhfoc th {
   border-style: none;
 }
 
-#nldbqcvrzh p {
+#vdzvmuhfoc p {
   margin: 0;
   padding: 0;
 }
 
-#nldbqcvrzh .gt_table {
+#vdzvmuhfoc .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -304,12 +303,12 @@ Tabela&nbsp;1: Primeiras linhas da tabela <code>penguins_raw</code>.
   border-left-color: #D3D3D3;
 }
 
-#nldbqcvrzh .gt_caption {
+#vdzvmuhfoc .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#nldbqcvrzh .gt_title {
+#vdzvmuhfoc .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -321,7 +320,7 @@ Tabela&nbsp;1: Primeiras linhas da tabela <code>penguins_raw</code>.
   border-bottom-width: 0;
 }
 
-#nldbqcvrzh .gt_subtitle {
+#vdzvmuhfoc .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -333,7 +332,7 @@ Tabela&nbsp;1: Primeiras linhas da tabela <code>penguins_raw</code>.
   border-top-width: 0;
 }
 
-#nldbqcvrzh .gt_heading {
+#vdzvmuhfoc .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -345,13 +344,13 @@ Tabela&nbsp;1: Primeiras linhas da tabela <code>penguins_raw</code>.
   border-right-color: #D3D3D3;
 }
 
-#nldbqcvrzh .gt_bottom_border {
+#vdzvmuhfoc .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#nldbqcvrzh .gt_col_headings {
+#vdzvmuhfoc .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -366,7 +365,7 @@ Tabela&nbsp;1: Primeiras linhas da tabela <code>penguins_raw</code>.
   border-right-color: #D3D3D3;
 }
 
-#nldbqcvrzh .gt_col_heading {
+#vdzvmuhfoc .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -386,7 +385,7 @@ Tabela&nbsp;1: Primeiras linhas da tabela <code>penguins_raw</code>.
   overflow-x: hidden;
 }
 
-#nldbqcvrzh .gt_column_spanner_outer {
+#vdzvmuhfoc .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -398,15 +397,15 @@ Tabela&nbsp;1: Primeiras linhas da tabela <code>penguins_raw</code>.
   padding-right: 4px;
 }
 
-#nldbqcvrzh .gt_column_spanner_outer:first-child {
+#vdzvmuhfoc .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#nldbqcvrzh .gt_column_spanner_outer:last-child {
+#vdzvmuhfoc .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#nldbqcvrzh .gt_column_spanner {
+#vdzvmuhfoc .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -418,11 +417,11 @@ Tabela&nbsp;1: Primeiras linhas da tabela <code>penguins_raw</code>.
   width: 100%;
 }
 
-#nldbqcvrzh .gt_spanner_row {
+#vdzvmuhfoc .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#nldbqcvrzh .gt_group_heading {
+#vdzvmuhfoc .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -448,7 +447,7 @@ Tabela&nbsp;1: Primeiras linhas da tabela <code>penguins_raw</code>.
   text-align: left;
 }
 
-#nldbqcvrzh .gt_empty_group_heading {
+#vdzvmuhfoc .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -463,15 +462,15 @@ Tabela&nbsp;1: Primeiras linhas da tabela <code>penguins_raw</code>.
   vertical-align: middle;
 }
 
-#nldbqcvrzh .gt_from_md > :first-child {
+#vdzvmuhfoc .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#nldbqcvrzh .gt_from_md > :last-child {
+#vdzvmuhfoc .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#nldbqcvrzh .gt_row {
+#vdzvmuhfoc .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -490,7 +489,7 @@ Tabela&nbsp;1: Primeiras linhas da tabela <code>penguins_raw</code>.
   overflow-x: hidden;
 }
 
-#nldbqcvrzh .gt_stub {
+#vdzvmuhfoc .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -503,7 +502,7 @@ Tabela&nbsp;1: Primeiras linhas da tabela <code>penguins_raw</code>.
   padding-right: 5px;
 }
 
-#nldbqcvrzh .gt_stub_row_group {
+#vdzvmuhfoc .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -517,15 +516,15 @@ Tabela&nbsp;1: Primeiras linhas da tabela <code>penguins_raw</code>.
   vertical-align: top;
 }
 
-#nldbqcvrzh .gt_row_group_first td {
+#vdzvmuhfoc .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#nldbqcvrzh .gt_row_group_first th {
+#vdzvmuhfoc .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#nldbqcvrzh .gt_summary_row {
+#vdzvmuhfoc .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -535,16 +534,16 @@ Tabela&nbsp;1: Primeiras linhas da tabela <code>penguins_raw</code>.
   padding-right: 5px;
 }
 
-#nldbqcvrzh .gt_first_summary_row {
+#vdzvmuhfoc .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#nldbqcvrzh .gt_first_summary_row.thick {
+#vdzvmuhfoc .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#nldbqcvrzh .gt_last_summary_row {
+#vdzvmuhfoc .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -554,7 +553,7 @@ Tabela&nbsp;1: Primeiras linhas da tabela <code>penguins_raw</code>.
   border-bottom-color: #D3D3D3;
 }
 
-#nldbqcvrzh .gt_grand_summary_row {
+#vdzvmuhfoc .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -564,7 +563,7 @@ Tabela&nbsp;1: Primeiras linhas da tabela <code>penguins_raw</code>.
   padding-right: 5px;
 }
 
-#nldbqcvrzh .gt_first_grand_summary_row {
+#vdzvmuhfoc .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -574,7 +573,7 @@ Tabela&nbsp;1: Primeiras linhas da tabela <code>penguins_raw</code>.
   border-top-color: #D3D3D3;
 }
 
-#nldbqcvrzh .gt_last_grand_summary_row_top {
+#vdzvmuhfoc .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -584,11 +583,11 @@ Tabela&nbsp;1: Primeiras linhas da tabela <code>penguins_raw</code>.
   border-bottom-color: #D3D3D3;
 }
 
-#nldbqcvrzh .gt_striped {
+#vdzvmuhfoc .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#nldbqcvrzh .gt_table_body {
+#vdzvmuhfoc .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -597,7 +596,7 @@ Tabela&nbsp;1: Primeiras linhas da tabela <code>penguins_raw</code>.
   border-bottom-color: #D3D3D3;
 }
 
-#nldbqcvrzh .gt_footnotes {
+#vdzvmuhfoc .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -611,7 +610,7 @@ Tabela&nbsp;1: Primeiras linhas da tabela <code>penguins_raw</code>.
   border-right-color: #D3D3D3;
 }
 
-#nldbqcvrzh .gt_footnote {
+#vdzvmuhfoc .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -620,7 +619,7 @@ Tabela&nbsp;1: Primeiras linhas da tabela <code>penguins_raw</code>.
   padding-right: 5px;
 }
 
-#nldbqcvrzh .gt_sourcenotes {
+#vdzvmuhfoc .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -634,7 +633,7 @@ Tabela&nbsp;1: Primeiras linhas da tabela <code>penguins_raw</code>.
   border-right-color: #D3D3D3;
 }
 
-#nldbqcvrzh .gt_sourcenote {
+#vdzvmuhfoc .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -642,72 +641,72 @@ Tabela&nbsp;1: Primeiras linhas da tabela <code>penguins_raw</code>.
   padding-right: 5px;
 }
 
-#nldbqcvrzh .gt_left {
+#vdzvmuhfoc .gt_left {
   text-align: left;
 }
 
-#nldbqcvrzh .gt_center {
+#vdzvmuhfoc .gt_center {
   text-align: center;
 }
 
-#nldbqcvrzh .gt_right {
+#vdzvmuhfoc .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#nldbqcvrzh .gt_font_normal {
+#vdzvmuhfoc .gt_font_normal {
   font-weight: normal;
 }
 
-#nldbqcvrzh .gt_font_bold {
+#vdzvmuhfoc .gt_font_bold {
   font-weight: bold;
 }
 
-#nldbqcvrzh .gt_font_italic {
+#vdzvmuhfoc .gt_font_italic {
   font-style: italic;
 }
 
-#nldbqcvrzh .gt_super {
+#vdzvmuhfoc .gt_super {
   font-size: 65%;
 }
 
-#nldbqcvrzh .gt_footnote_marks {
+#vdzvmuhfoc .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#nldbqcvrzh .gt_asterisk {
+#vdzvmuhfoc .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#nldbqcvrzh .gt_indent_1 {
+#vdzvmuhfoc .gt_indent_1 {
   text-indent: 5px;
 }
 
-#nldbqcvrzh .gt_indent_2 {
+#vdzvmuhfoc .gt_indent_2 {
   text-indent: 10px;
 }
 
-#nldbqcvrzh .gt_indent_3 {
+#vdzvmuhfoc .gt_indent_3 {
   text-indent: 15px;
 }
 
-#nldbqcvrzh .gt_indent_4 {
+#vdzvmuhfoc .gt_indent_4 {
   text-indent: 20px;
 }
 
-#nldbqcvrzh .gt_indent_5 {
+#vdzvmuhfoc .gt_indent_5 {
   text-indent: 25px;
 }
 
-#nldbqcvrzh .katex-display {
+#vdzvmuhfoc .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#nldbqcvrzh div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#vdzvmuhfoc div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -981,23 +980,23 @@ Tabela&nbsp;3: Estrutura geral de uma base de dados. As linhas representam as un
 </figcaption>
 <div aria-describedby="tbl-estrutura-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
-<div id="sselavfvpr" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#sselavfvpr table {
+<div id="iyktcimuzp" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#iyktcimuzp table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#sselavfvpr thead, #sselavfvpr tbody, #sselavfvpr tfoot, #sselavfvpr tr, #sselavfvpr td, #sselavfvpr th {
+#iyktcimuzp thead, #iyktcimuzp tbody, #iyktcimuzp tfoot, #iyktcimuzp tr, #iyktcimuzp td, #iyktcimuzp th {
   border-style: none;
 }
 
-#sselavfvpr p {
+#iyktcimuzp p {
   margin: 0;
   padding: 0;
 }
 
-#sselavfvpr .gt_table {
+#iyktcimuzp .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -1023,12 +1022,12 @@ Tabela&nbsp;3: Estrutura geral de uma base de dados. As linhas representam as un
   border-left-color: #D3D3D3;
 }
 
-#sselavfvpr .gt_caption {
+#iyktcimuzp .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#sselavfvpr .gt_title {
+#iyktcimuzp .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1040,7 +1039,7 @@ Tabela&nbsp;3: Estrutura geral de uma base de dados. As linhas representam as un
   border-bottom-width: 0;
 }
 
-#sselavfvpr .gt_subtitle {
+#iyktcimuzp .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1052,7 +1051,7 @@ Tabela&nbsp;3: Estrutura geral de uma base de dados. As linhas representam as un
   border-top-width: 0;
 }
 
-#sselavfvpr .gt_heading {
+#iyktcimuzp .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1064,13 +1063,13 @@ Tabela&nbsp;3: Estrutura geral de uma base de dados. As linhas representam as un
   border-right-color: #D3D3D3;
 }
 
-#sselavfvpr .gt_bottom_border {
+#iyktcimuzp .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#sselavfvpr .gt_col_headings {
+#iyktcimuzp .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1085,7 +1084,7 @@ Tabela&nbsp;3: Estrutura geral de uma base de dados. As linhas representam as un
   border-right-color: #D3D3D3;
 }
 
-#sselavfvpr .gt_col_heading {
+#iyktcimuzp .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1105,7 +1104,7 @@ Tabela&nbsp;3: Estrutura geral de uma base de dados. As linhas representam as un
   overflow-x: hidden;
 }
 
-#sselavfvpr .gt_column_spanner_outer {
+#iyktcimuzp .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1117,15 +1116,15 @@ Tabela&nbsp;3: Estrutura geral de uma base de dados. As linhas representam as un
   padding-right: 4px;
 }
 
-#sselavfvpr .gt_column_spanner_outer:first-child {
+#iyktcimuzp .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#sselavfvpr .gt_column_spanner_outer:last-child {
+#iyktcimuzp .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#sselavfvpr .gt_column_spanner {
+#iyktcimuzp .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1137,11 +1136,11 @@ Tabela&nbsp;3: Estrutura geral de uma base de dados. As linhas representam as un
   width: 100%;
 }
 
-#sselavfvpr .gt_spanner_row {
+#iyktcimuzp .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#sselavfvpr .gt_group_heading {
+#iyktcimuzp .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1167,7 +1166,7 @@ Tabela&nbsp;3: Estrutura geral de uma base de dados. As linhas representam as un
   text-align: left;
 }
 
-#sselavfvpr .gt_empty_group_heading {
+#iyktcimuzp .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1182,15 +1181,15 @@ Tabela&nbsp;3: Estrutura geral de uma base de dados. As linhas representam as un
   vertical-align: middle;
 }
 
-#sselavfvpr .gt_from_md > :first-child {
+#iyktcimuzp .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#sselavfvpr .gt_from_md > :last-child {
+#iyktcimuzp .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#sselavfvpr .gt_row {
+#iyktcimuzp .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1209,7 +1208,7 @@ Tabela&nbsp;3: Estrutura geral de uma base de dados. As linhas representam as un
   overflow-x: hidden;
 }
 
-#sselavfvpr .gt_stub {
+#iyktcimuzp .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1222,7 +1221,7 @@ Tabela&nbsp;3: Estrutura geral de uma base de dados. As linhas representam as un
   padding-right: 5px;
 }
 
-#sselavfvpr .gt_stub_row_group {
+#iyktcimuzp .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1236,15 +1235,15 @@ Tabela&nbsp;3: Estrutura geral de uma base de dados. As linhas representam as un
   vertical-align: top;
 }
 
-#sselavfvpr .gt_row_group_first td {
+#iyktcimuzp .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#sselavfvpr .gt_row_group_first th {
+#iyktcimuzp .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#sselavfvpr .gt_summary_row {
+#iyktcimuzp .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1254,16 +1253,16 @@ Tabela&nbsp;3: Estrutura geral de uma base de dados. As linhas representam as un
   padding-right: 5px;
 }
 
-#sselavfvpr .gt_first_summary_row {
+#iyktcimuzp .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#sselavfvpr .gt_first_summary_row.thick {
+#iyktcimuzp .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#sselavfvpr .gt_last_summary_row {
+#iyktcimuzp .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1273,7 +1272,7 @@ Tabela&nbsp;3: Estrutura geral de uma base de dados. As linhas representam as un
   border-bottom-color: #D3D3D3;
 }
 
-#sselavfvpr .gt_grand_summary_row {
+#iyktcimuzp .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1283,7 +1282,7 @@ Tabela&nbsp;3: Estrutura geral de uma base de dados. As linhas representam as un
   padding-right: 5px;
 }
 
-#sselavfvpr .gt_first_grand_summary_row {
+#iyktcimuzp .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1293,7 +1292,7 @@ Tabela&nbsp;3: Estrutura geral de uma base de dados. As linhas representam as un
   border-top-color: #D3D3D3;
 }
 
-#sselavfvpr .gt_last_grand_summary_row_top {
+#iyktcimuzp .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1303,11 +1302,11 @@ Tabela&nbsp;3: Estrutura geral de uma base de dados. As linhas representam as un
   border-bottom-color: #D3D3D3;
 }
 
-#sselavfvpr .gt_striped {
+#iyktcimuzp .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#sselavfvpr .gt_table_body {
+#iyktcimuzp .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1316,7 +1315,7 @@ Tabela&nbsp;3: Estrutura geral de uma base de dados. As linhas representam as un
   border-bottom-color: #D3D3D3;
 }
 
-#sselavfvpr .gt_footnotes {
+#iyktcimuzp .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1330,7 +1329,7 @@ Tabela&nbsp;3: Estrutura geral de uma base de dados. As linhas representam as un
   border-right-color: #D3D3D3;
 }
 
-#sselavfvpr .gt_footnote {
+#iyktcimuzp .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1339,7 +1338,7 @@ Tabela&nbsp;3: Estrutura geral de uma base de dados. As linhas representam as un
   padding-right: 5px;
 }
 
-#sselavfvpr .gt_sourcenotes {
+#iyktcimuzp .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1353,7 +1352,7 @@ Tabela&nbsp;3: Estrutura geral de uma base de dados. As linhas representam as un
   border-right-color: #D3D3D3;
 }
 
-#sselavfvpr .gt_sourcenote {
+#iyktcimuzp .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1361,72 +1360,72 @@ Tabela&nbsp;3: Estrutura geral de uma base de dados. As linhas representam as un
   padding-right: 5px;
 }
 
-#sselavfvpr .gt_left {
+#iyktcimuzp .gt_left {
   text-align: left;
 }
 
-#sselavfvpr .gt_center {
+#iyktcimuzp .gt_center {
   text-align: center;
 }
 
-#sselavfvpr .gt_right {
+#iyktcimuzp .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#sselavfvpr .gt_font_normal {
+#iyktcimuzp .gt_font_normal {
   font-weight: normal;
 }
 
-#sselavfvpr .gt_font_bold {
+#iyktcimuzp .gt_font_bold {
   font-weight: bold;
 }
 
-#sselavfvpr .gt_font_italic {
+#iyktcimuzp .gt_font_italic {
   font-style: italic;
 }
 
-#sselavfvpr .gt_super {
+#iyktcimuzp .gt_super {
   font-size: 65%;
 }
 
-#sselavfvpr .gt_footnote_marks {
+#iyktcimuzp .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#sselavfvpr .gt_asterisk {
+#iyktcimuzp .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#sselavfvpr .gt_indent_1 {
+#iyktcimuzp .gt_indent_1 {
   text-indent: 5px;
 }
 
-#sselavfvpr .gt_indent_2 {
+#iyktcimuzp .gt_indent_2 {
   text-indent: 10px;
 }
 
-#sselavfvpr .gt_indent_3 {
+#iyktcimuzp .gt_indent_3 {
   text-indent: 15px;
 }
 
-#sselavfvpr .gt_indent_4 {
+#iyktcimuzp .gt_indent_4 {
   text-indent: 20px;
 }
 
-#sselavfvpr .gt_indent_5 {
+#iyktcimuzp .gt_indent_5 {
   text-indent: 25px;
 }
 
-#sselavfvpr .katex-display {
+#iyktcimuzp .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#sselavfvpr div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#iyktcimuzp div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>

@@ -6,9 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="description" content="Conteúdo baseado em McElreath (2018)">
+<meta name="description" content="Construção de um modelo bayesiano, enfatizando a formulação de distribuições a priori e posterior.">
 
-<title>Construindo um modelo Bayesiano – Métodos em Estatística e Análise de Dados</title>
+<title>Construindo um modelo bayesiano – Métodos em Estatística e Análise de Dados</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -21,27 +21,7 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for citations */
-div.csl-bib-body { }
-div.csl-entry {
-  clear: both;
-  margin-bottom: 0em;
-}
-.hanging-indent div.csl-entry {
-  margin-left:2em;
-  text-indent:-2em;
-}
-div.csl-left-margin {
-  min-width:2em;
-  float:left;
-}
-div.csl-right-inline {
-  margin-left:2em;
-  padding-left:1em;
-}
-div.csl-indent {
-  margin-left: 2em;
-}</style>
+</style>
 
 
 <script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -119,8 +99,8 @@ window.Quarto = {
 </script>
 
 <link rel="stylesheet" href="../../styles/custom.css">
-<meta property="og:title" content="Construindo um modelo Bayesiano – Métodos em Estatística e Análise de Dados">
-<meta property="og:description" content="Conteúdo baseado em McElreath (2018)">
+<meta property="og:title" content="Construindo um modelo bayesiano – Métodos em Estatística e Análise de Dados">
+<meta property="og:description" content="Construção de um modelo bayesiano, enfatizando a formulação de distribuições a priori e posterior.">
 <meta property="og:image" content="https://github.com/FCopf/MEAD/conteudo/intro_bayes/images/intro-bayes-modelo-bayesiano.png">
 <meta property="og:site_name" content="Métodos em Estatística e Análise de Dados">
 <meta property="og:image:height" content="1024">
@@ -187,13 +167,13 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Construindo um modelo Bayesiano</h1>
+<h1 class="title">Construindo um modelo bayesiano</h1>
 <p class="subtitle lead">Verossimilhança e distribuição <em>a priori</em></p>
 </div>
 
 <div>
   <div class="description">
-    Conteúdo baseado em <span class="citation" data-cites="mcelreath2018statistical">McElreath (<a href="#ref-mcelreath2018statistical" role="doc-biblioref">2018</a>)</span>
+    Construção de um modelo bayesiano, enfatizando a formulação de distribuições a priori e posterior.
   </div>
 </div>
 
@@ -515,7 +495,7 @@ Resumo: A Função de Verossimilhança Binomial
 <section id="o-perfil-de-verossimilhança" class="level3" data-number="2.1">
 <h3 data-number="2.1" class="anchored" data-anchor-id="o-perfil-de-verossimilhança"><span class="header-section-number">2.1</span> O perfil de verossimilhança</h3>
 <p>Acima, foram testadas três conjecturas específicas para a proporção de água na superfície da Terra (<span class="math inline">\(p = 0.3\)</span>, <span class="math inline">\(p = 0.4\)</span>, <span class="math inline">\(p = 0.8\)</span>). Para uma avaliação mais completa, podemos analisar o <strong>perfil de verossimilhança</strong> para uma série de valores de <span class="math inline">\(p\)</span> entre 0 e 1:</p>
-<div id="b9497503" class="cell" data-execution_count="2">
+<div id="3c357bf6" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -603,15 +583,10 @@ P(p = 0.8) = \frac{5}{8}.\]</span></p>
 <p><span id="eq-posterior_proporcional_uniforme"><span class="math display">\[P(H_i \mid D) \;\propto\; \mathcal{L}(H_i \mid D) \tag{4}\]</span></span></p>
 
 
-
 </section>
 </section>
 
-<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">Referências</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
-<div id="ref-mcelreath2018statistical" class="csl-entry" role="listitem">
-McElreath, Richard. 2018. <em>Statistical rethinking: A Bayesian course with examples in R and Stan</em>. Chapman; Hall/CRC.
-</div>
-</div></section></div></main> <!-- /main -->
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {

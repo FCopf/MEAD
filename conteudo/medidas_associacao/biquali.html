@@ -6,7 +6,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="description" content="Análise da associação entre variáveis qualitativas, tabelas de contingência e índice de qui-quadrado.">
+<meta name="description" content="Análise da associação entre variáveis qualitativas, uso de tabelas de contingência e estatísticas de associação.">
 
 <title>Associação entre duas variáveis qualitativas – Métodos em Estatística e Análise de Dados</title>
 <style>
@@ -134,7 +134,7 @@ window.Quarto = {
 
 <link rel="stylesheet" href="../../styles/custom.css">
 <meta property="og:title" content="Associação entre duas variáveis qualitativas – Métodos em Estatística e Análise de Dados">
-<meta property="og:description" content="Análise da associação entre variáveis qualitativas, tabelas de contingência e índice de qui-quadrado.">
+<meta property="og:description" content="Análise da associação entre variáveis qualitativas, uso de tabelas de contingência e estatísticas de associação.">
 <meta property="og:image" content="https://github.com/FCopf/MEAD/conteudo/medidas_associacao/images/biquali.jpg">
 <meta property="og:site_name" content="Métodos em Estatística e Análise de Dados">
 </head>
@@ -199,14 +199,15 @@ window.Quarto = {
 <h1 class="title">Associação entre duas variáveis qualitativas</h1>
   <div class="quarto-categories">
     <div class="quarto-category">Estatística</div>
-    <div class="quarto-category">Análise Qualitativa</div>
-    <div class="quarto-category">Tabelas de Contingência</div>
+    <div class="quarto-category">Análise qualitativa</div>
+    <div class="quarto-category">Tabelas de contingência</div>
+    <div class="quarto-category">Medidas de associação</div>
   </div>
   </div>
 
 <div>
   <div class="description">
-    Análise da associação entre variáveis qualitativas, tabelas de contingência e índice de qui-quadrado.
+    Análise da associação entre variáveis qualitativas, uso de tabelas de contingência e estatísticas de associação.
   </div>
 </div>
 
@@ -293,23 +294,23 @@ Tabela&nbsp;1: Respostas dos primeiros munícipies entrevistados.
 </figcaption>
 <div aria-describedby="tbl-municipies-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
-<div id="fnuymumczz" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#fnuymumczz table {
+<div id="nielrvhhax" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#nielrvhhax table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#fnuymumczz thead, #fnuymumczz tbody, #fnuymumczz tfoot, #fnuymumczz tr, #fnuymumczz td, #fnuymumczz th {
+#nielrvhhax thead, #nielrvhhax tbody, #nielrvhhax tfoot, #nielrvhhax tr, #nielrvhhax td, #nielrvhhax th {
   border-style: none;
 }
 
-#fnuymumczz p {
+#nielrvhhax p {
   margin: 0;
   padding: 0;
 }
 
-#fnuymumczz .gt_table {
+#nielrvhhax .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -335,12 +336,12 @@ Tabela&nbsp;1: Respostas dos primeiros munícipies entrevistados.
   border-left-color: #D3D3D3;
 }
 
-#fnuymumczz .gt_caption {
+#nielrvhhax .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#fnuymumczz .gt_title {
+#nielrvhhax .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -352,7 +353,7 @@ Tabela&nbsp;1: Respostas dos primeiros munícipies entrevistados.
   border-bottom-width: 0;
 }
 
-#fnuymumczz .gt_subtitle {
+#nielrvhhax .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -364,7 +365,7 @@ Tabela&nbsp;1: Respostas dos primeiros munícipies entrevistados.
   border-top-width: 0;
 }
 
-#fnuymumczz .gt_heading {
+#nielrvhhax .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -376,13 +377,13 @@ Tabela&nbsp;1: Respostas dos primeiros munícipies entrevistados.
   border-right-color: #D3D3D3;
 }
 
-#fnuymumczz .gt_bottom_border {
+#nielrvhhax .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#fnuymumczz .gt_col_headings {
+#nielrvhhax .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -397,7 +398,7 @@ Tabela&nbsp;1: Respostas dos primeiros munícipies entrevistados.
   border-right-color: #D3D3D3;
 }
 
-#fnuymumczz .gt_col_heading {
+#nielrvhhax .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -417,7 +418,7 @@ Tabela&nbsp;1: Respostas dos primeiros munícipies entrevistados.
   overflow-x: hidden;
 }
 
-#fnuymumczz .gt_column_spanner_outer {
+#nielrvhhax .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -429,15 +430,15 @@ Tabela&nbsp;1: Respostas dos primeiros munícipies entrevistados.
   padding-right: 4px;
 }
 
-#fnuymumczz .gt_column_spanner_outer:first-child {
+#nielrvhhax .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#fnuymumczz .gt_column_spanner_outer:last-child {
+#nielrvhhax .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#fnuymumczz .gt_column_spanner {
+#nielrvhhax .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -449,11 +450,11 @@ Tabela&nbsp;1: Respostas dos primeiros munícipies entrevistados.
   width: 100%;
 }
 
-#fnuymumczz .gt_spanner_row {
+#nielrvhhax .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#fnuymumczz .gt_group_heading {
+#nielrvhhax .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -479,7 +480,7 @@ Tabela&nbsp;1: Respostas dos primeiros munícipies entrevistados.
   text-align: left;
 }
 
-#fnuymumczz .gt_empty_group_heading {
+#nielrvhhax .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -494,15 +495,15 @@ Tabela&nbsp;1: Respostas dos primeiros munícipies entrevistados.
   vertical-align: middle;
 }
 
-#fnuymumczz .gt_from_md > :first-child {
+#nielrvhhax .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#fnuymumczz .gt_from_md > :last-child {
+#nielrvhhax .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#fnuymumczz .gt_row {
+#nielrvhhax .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -521,7 +522,7 @@ Tabela&nbsp;1: Respostas dos primeiros munícipies entrevistados.
   overflow-x: hidden;
 }
 
-#fnuymumczz .gt_stub {
+#nielrvhhax .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -534,7 +535,7 @@ Tabela&nbsp;1: Respostas dos primeiros munícipies entrevistados.
   padding-right: 5px;
 }
 
-#fnuymumczz .gt_stub_row_group {
+#nielrvhhax .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -548,15 +549,15 @@ Tabela&nbsp;1: Respostas dos primeiros munícipies entrevistados.
   vertical-align: top;
 }
 
-#fnuymumczz .gt_row_group_first td {
+#nielrvhhax .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#fnuymumczz .gt_row_group_first th {
+#nielrvhhax .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#fnuymumczz .gt_summary_row {
+#nielrvhhax .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -566,16 +567,16 @@ Tabela&nbsp;1: Respostas dos primeiros munícipies entrevistados.
   padding-right: 5px;
 }
 
-#fnuymumczz .gt_first_summary_row {
+#nielrvhhax .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#fnuymumczz .gt_first_summary_row.thick {
+#nielrvhhax .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#fnuymumczz .gt_last_summary_row {
+#nielrvhhax .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -585,7 +586,7 @@ Tabela&nbsp;1: Respostas dos primeiros munícipies entrevistados.
   border-bottom-color: #D3D3D3;
 }
 
-#fnuymumczz .gt_grand_summary_row {
+#nielrvhhax .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -595,7 +596,7 @@ Tabela&nbsp;1: Respostas dos primeiros munícipies entrevistados.
   padding-right: 5px;
 }
 
-#fnuymumczz .gt_first_grand_summary_row {
+#nielrvhhax .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -605,7 +606,7 @@ Tabela&nbsp;1: Respostas dos primeiros munícipies entrevistados.
   border-top-color: #D3D3D3;
 }
 
-#fnuymumczz .gt_last_grand_summary_row_top {
+#nielrvhhax .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -615,11 +616,11 @@ Tabela&nbsp;1: Respostas dos primeiros munícipies entrevistados.
   border-bottom-color: #D3D3D3;
 }
 
-#fnuymumczz .gt_striped {
+#nielrvhhax .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#fnuymumczz .gt_table_body {
+#nielrvhhax .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -628,7 +629,7 @@ Tabela&nbsp;1: Respostas dos primeiros munícipies entrevistados.
   border-bottom-color: #D3D3D3;
 }
 
-#fnuymumczz .gt_footnotes {
+#nielrvhhax .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -642,7 +643,7 @@ Tabela&nbsp;1: Respostas dos primeiros munícipies entrevistados.
   border-right-color: #D3D3D3;
 }
 
-#fnuymumczz .gt_footnote {
+#nielrvhhax .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -651,7 +652,7 @@ Tabela&nbsp;1: Respostas dos primeiros munícipies entrevistados.
   padding-right: 5px;
 }
 
-#fnuymumczz .gt_sourcenotes {
+#nielrvhhax .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -665,7 +666,7 @@ Tabela&nbsp;1: Respostas dos primeiros munícipies entrevistados.
   border-right-color: #D3D3D3;
 }
 
-#fnuymumczz .gt_sourcenote {
+#nielrvhhax .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -673,72 +674,72 @@ Tabela&nbsp;1: Respostas dos primeiros munícipies entrevistados.
   padding-right: 5px;
 }
 
-#fnuymumczz .gt_left {
+#nielrvhhax .gt_left {
   text-align: left;
 }
 
-#fnuymumczz .gt_center {
+#nielrvhhax .gt_center {
   text-align: center;
 }
 
-#fnuymumczz .gt_right {
+#nielrvhhax .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#fnuymumczz .gt_font_normal {
+#nielrvhhax .gt_font_normal {
   font-weight: normal;
 }
 
-#fnuymumczz .gt_font_bold {
+#nielrvhhax .gt_font_bold {
   font-weight: bold;
 }
 
-#fnuymumczz .gt_font_italic {
+#nielrvhhax .gt_font_italic {
   font-style: italic;
 }
 
-#fnuymumczz .gt_super {
+#nielrvhhax .gt_super {
   font-size: 65%;
 }
 
-#fnuymumczz .gt_footnote_marks {
+#nielrvhhax .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#fnuymumczz .gt_asterisk {
+#nielrvhhax .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#fnuymumczz .gt_indent_1 {
+#nielrvhhax .gt_indent_1 {
   text-indent: 5px;
 }
 
-#fnuymumczz .gt_indent_2 {
+#nielrvhhax .gt_indent_2 {
   text-indent: 10px;
 }
 
-#fnuymumczz .gt_indent_3 {
+#nielrvhhax .gt_indent_3 {
   text-indent: 15px;
 }
 
-#fnuymumczz .gt_indent_4 {
+#nielrvhhax .gt_indent_4 {
   text-indent: 20px;
 }
 
-#fnuymumczz .gt_indent_5 {
+#nielrvhhax .gt_indent_5 {
   text-indent: 25px;
 }
 
-#fnuymumczz .katex-display {
+#nielrvhhax .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#fnuymumczz div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#nielrvhhax div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -843,23 +844,23 @@ Tabela&nbsp;1: Respostas dos primeiros munícipies entrevistados.
 <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gt</span>()</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div id="dskgnltmsm" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#dskgnltmsm table {
+<div id="ftzlwhwjae" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#ftzlwhwjae table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#dskgnltmsm thead, #dskgnltmsm tbody, #dskgnltmsm tfoot, #dskgnltmsm tr, #dskgnltmsm td, #dskgnltmsm th {
+#ftzlwhwjae thead, #ftzlwhwjae tbody, #ftzlwhwjae tfoot, #ftzlwhwjae tr, #ftzlwhwjae td, #ftzlwhwjae th {
   border-style: none;
 }
 
-#dskgnltmsm p {
+#ftzlwhwjae p {
   margin: 0;
   padding: 0;
 }
 
-#dskgnltmsm .gt_table {
+#ftzlwhwjae .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -885,12 +886,12 @@ Tabela&nbsp;1: Respostas dos primeiros munícipies entrevistados.
   border-left-color: #D3D3D3;
 }
 
-#dskgnltmsm .gt_caption {
+#ftzlwhwjae .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#dskgnltmsm .gt_title {
+#ftzlwhwjae .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -902,7 +903,7 @@ Tabela&nbsp;1: Respostas dos primeiros munícipies entrevistados.
   border-bottom-width: 0;
 }
 
-#dskgnltmsm .gt_subtitle {
+#ftzlwhwjae .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -914,7 +915,7 @@ Tabela&nbsp;1: Respostas dos primeiros munícipies entrevistados.
   border-top-width: 0;
 }
 
-#dskgnltmsm .gt_heading {
+#ftzlwhwjae .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -926,13 +927,13 @@ Tabela&nbsp;1: Respostas dos primeiros munícipies entrevistados.
   border-right-color: #D3D3D3;
 }
 
-#dskgnltmsm .gt_bottom_border {
+#ftzlwhwjae .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#dskgnltmsm .gt_col_headings {
+#ftzlwhwjae .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -947,7 +948,7 @@ Tabela&nbsp;1: Respostas dos primeiros munícipies entrevistados.
   border-right-color: #D3D3D3;
 }
 
-#dskgnltmsm .gt_col_heading {
+#ftzlwhwjae .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -967,7 +968,7 @@ Tabela&nbsp;1: Respostas dos primeiros munícipies entrevistados.
   overflow-x: hidden;
 }
 
-#dskgnltmsm .gt_column_spanner_outer {
+#ftzlwhwjae .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -979,15 +980,15 @@ Tabela&nbsp;1: Respostas dos primeiros munícipies entrevistados.
   padding-right: 4px;
 }
 
-#dskgnltmsm .gt_column_spanner_outer:first-child {
+#ftzlwhwjae .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#dskgnltmsm .gt_column_spanner_outer:last-child {
+#ftzlwhwjae .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#dskgnltmsm .gt_column_spanner {
+#ftzlwhwjae .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -999,11 +1000,11 @@ Tabela&nbsp;1: Respostas dos primeiros munícipies entrevistados.
   width: 100%;
 }
 
-#dskgnltmsm .gt_spanner_row {
+#ftzlwhwjae .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#dskgnltmsm .gt_group_heading {
+#ftzlwhwjae .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1029,7 +1030,7 @@ Tabela&nbsp;1: Respostas dos primeiros munícipies entrevistados.
   text-align: left;
 }
 
-#dskgnltmsm .gt_empty_group_heading {
+#ftzlwhwjae .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1044,15 +1045,15 @@ Tabela&nbsp;1: Respostas dos primeiros munícipies entrevistados.
   vertical-align: middle;
 }
 
-#dskgnltmsm .gt_from_md > :first-child {
+#ftzlwhwjae .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#dskgnltmsm .gt_from_md > :last-child {
+#ftzlwhwjae .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#dskgnltmsm .gt_row {
+#ftzlwhwjae .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1071,7 +1072,7 @@ Tabela&nbsp;1: Respostas dos primeiros munícipies entrevistados.
   overflow-x: hidden;
 }
 
-#dskgnltmsm .gt_stub {
+#ftzlwhwjae .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1084,7 +1085,7 @@ Tabela&nbsp;1: Respostas dos primeiros munícipies entrevistados.
   padding-right: 5px;
 }
 
-#dskgnltmsm .gt_stub_row_group {
+#ftzlwhwjae .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1098,15 +1099,15 @@ Tabela&nbsp;1: Respostas dos primeiros munícipies entrevistados.
   vertical-align: top;
 }
 
-#dskgnltmsm .gt_row_group_first td {
+#ftzlwhwjae .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#dskgnltmsm .gt_row_group_first th {
+#ftzlwhwjae .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#dskgnltmsm .gt_summary_row {
+#ftzlwhwjae .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1116,16 +1117,16 @@ Tabela&nbsp;1: Respostas dos primeiros munícipies entrevistados.
   padding-right: 5px;
 }
 
-#dskgnltmsm .gt_first_summary_row {
+#ftzlwhwjae .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#dskgnltmsm .gt_first_summary_row.thick {
+#ftzlwhwjae .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#dskgnltmsm .gt_last_summary_row {
+#ftzlwhwjae .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1135,7 +1136,7 @@ Tabela&nbsp;1: Respostas dos primeiros munícipies entrevistados.
   border-bottom-color: #D3D3D3;
 }
 
-#dskgnltmsm .gt_grand_summary_row {
+#ftzlwhwjae .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1145,7 +1146,7 @@ Tabela&nbsp;1: Respostas dos primeiros munícipies entrevistados.
   padding-right: 5px;
 }
 
-#dskgnltmsm .gt_first_grand_summary_row {
+#ftzlwhwjae .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1155,7 +1156,7 @@ Tabela&nbsp;1: Respostas dos primeiros munícipies entrevistados.
   border-top-color: #D3D3D3;
 }
 
-#dskgnltmsm .gt_last_grand_summary_row_top {
+#ftzlwhwjae .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1165,11 +1166,11 @@ Tabela&nbsp;1: Respostas dos primeiros munícipies entrevistados.
   border-bottom-color: #D3D3D3;
 }
 
-#dskgnltmsm .gt_striped {
+#ftzlwhwjae .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#dskgnltmsm .gt_table_body {
+#ftzlwhwjae .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1178,7 +1179,7 @@ Tabela&nbsp;1: Respostas dos primeiros munícipies entrevistados.
   border-bottom-color: #D3D3D3;
 }
 
-#dskgnltmsm .gt_footnotes {
+#ftzlwhwjae .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1192,7 +1193,7 @@ Tabela&nbsp;1: Respostas dos primeiros munícipies entrevistados.
   border-right-color: #D3D3D3;
 }
 
-#dskgnltmsm .gt_footnote {
+#ftzlwhwjae .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1201,7 +1202,7 @@ Tabela&nbsp;1: Respostas dos primeiros munícipies entrevistados.
   padding-right: 5px;
 }
 
-#dskgnltmsm .gt_sourcenotes {
+#ftzlwhwjae .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1215,7 +1216,7 @@ Tabela&nbsp;1: Respostas dos primeiros munícipies entrevistados.
   border-right-color: #D3D3D3;
 }
 
-#dskgnltmsm .gt_sourcenote {
+#ftzlwhwjae .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1223,72 +1224,72 @@ Tabela&nbsp;1: Respostas dos primeiros munícipies entrevistados.
   padding-right: 5px;
 }
 
-#dskgnltmsm .gt_left {
+#ftzlwhwjae .gt_left {
   text-align: left;
 }
 
-#dskgnltmsm .gt_center {
+#ftzlwhwjae .gt_center {
   text-align: center;
 }
 
-#dskgnltmsm .gt_right {
+#ftzlwhwjae .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#dskgnltmsm .gt_font_normal {
+#ftzlwhwjae .gt_font_normal {
   font-weight: normal;
 }
 
-#dskgnltmsm .gt_font_bold {
+#ftzlwhwjae .gt_font_bold {
   font-weight: bold;
 }
 
-#dskgnltmsm .gt_font_italic {
+#ftzlwhwjae .gt_font_italic {
   font-style: italic;
 }
 
-#dskgnltmsm .gt_super {
+#ftzlwhwjae .gt_super {
   font-size: 65%;
 }
 
-#dskgnltmsm .gt_footnote_marks {
+#ftzlwhwjae .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#dskgnltmsm .gt_asterisk {
+#ftzlwhwjae .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#dskgnltmsm .gt_indent_1 {
+#ftzlwhwjae .gt_indent_1 {
   text-indent: 5px;
 }
 
-#dskgnltmsm .gt_indent_2 {
+#ftzlwhwjae .gt_indent_2 {
   text-indent: 10px;
 }
 
-#dskgnltmsm .gt_indent_3 {
+#ftzlwhwjae .gt_indent_3 {
   text-indent: 15px;
 }
 
-#dskgnltmsm .gt_indent_4 {
+#ftzlwhwjae .gt_indent_4 {
   text-indent: 20px;
 }
 
-#dskgnltmsm .gt_indent_5 {
+#ftzlwhwjae .gt_indent_5 {
   text-indent: 25px;
 }
 
-#dskgnltmsm .katex-display {
+#ftzlwhwjae .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#dskgnltmsm div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#ftzlwhwjae div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -1331,23 +1332,23 @@ Tabela&nbsp;1: Respostas dos primeiros munícipies entrevistados.
 <span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gt</span>()</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div id="wunghioxrm" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#wunghioxrm table {
+<div id="rwdicfxsbx" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#rwdicfxsbx table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#wunghioxrm thead, #wunghioxrm tbody, #wunghioxrm tfoot, #wunghioxrm tr, #wunghioxrm td, #wunghioxrm th {
+#rwdicfxsbx thead, #rwdicfxsbx tbody, #rwdicfxsbx tfoot, #rwdicfxsbx tr, #rwdicfxsbx td, #rwdicfxsbx th {
   border-style: none;
 }
 
-#wunghioxrm p {
+#rwdicfxsbx p {
   margin: 0;
   padding: 0;
 }
 
-#wunghioxrm .gt_table {
+#rwdicfxsbx .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -1373,12 +1374,12 @@ Tabela&nbsp;1: Respostas dos primeiros munícipies entrevistados.
   border-left-color: #D3D3D3;
 }
 
-#wunghioxrm .gt_caption {
+#rwdicfxsbx .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#wunghioxrm .gt_title {
+#rwdicfxsbx .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1390,7 +1391,7 @@ Tabela&nbsp;1: Respostas dos primeiros munícipies entrevistados.
   border-bottom-width: 0;
 }
 
-#wunghioxrm .gt_subtitle {
+#rwdicfxsbx .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1402,7 +1403,7 @@ Tabela&nbsp;1: Respostas dos primeiros munícipies entrevistados.
   border-top-width: 0;
 }
 
-#wunghioxrm .gt_heading {
+#rwdicfxsbx .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1414,13 +1415,13 @@ Tabela&nbsp;1: Respostas dos primeiros munícipies entrevistados.
   border-right-color: #D3D3D3;
 }
 
-#wunghioxrm .gt_bottom_border {
+#rwdicfxsbx .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#wunghioxrm .gt_col_headings {
+#rwdicfxsbx .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1435,7 +1436,7 @@ Tabela&nbsp;1: Respostas dos primeiros munícipies entrevistados.
   border-right-color: #D3D3D3;
 }
 
-#wunghioxrm .gt_col_heading {
+#rwdicfxsbx .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1455,7 +1456,7 @@ Tabela&nbsp;1: Respostas dos primeiros munícipies entrevistados.
   overflow-x: hidden;
 }
 
-#wunghioxrm .gt_column_spanner_outer {
+#rwdicfxsbx .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1467,15 +1468,15 @@ Tabela&nbsp;1: Respostas dos primeiros munícipies entrevistados.
   padding-right: 4px;
 }
 
-#wunghioxrm .gt_column_spanner_outer:first-child {
+#rwdicfxsbx .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#wunghioxrm .gt_column_spanner_outer:last-child {
+#rwdicfxsbx .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#wunghioxrm .gt_column_spanner {
+#rwdicfxsbx .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1487,11 +1488,11 @@ Tabela&nbsp;1: Respostas dos primeiros munícipies entrevistados.
   width: 100%;
 }
 
-#wunghioxrm .gt_spanner_row {
+#rwdicfxsbx .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#wunghioxrm .gt_group_heading {
+#rwdicfxsbx .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1517,7 +1518,7 @@ Tabela&nbsp;1: Respostas dos primeiros munícipies entrevistados.
   text-align: left;
 }
 
-#wunghioxrm .gt_empty_group_heading {
+#rwdicfxsbx .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1532,15 +1533,15 @@ Tabela&nbsp;1: Respostas dos primeiros munícipies entrevistados.
   vertical-align: middle;
 }
 
-#wunghioxrm .gt_from_md > :first-child {
+#rwdicfxsbx .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#wunghioxrm .gt_from_md > :last-child {
+#rwdicfxsbx .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#wunghioxrm .gt_row {
+#rwdicfxsbx .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1559,7 +1560,7 @@ Tabela&nbsp;1: Respostas dos primeiros munícipies entrevistados.
   overflow-x: hidden;
 }
 
-#wunghioxrm .gt_stub {
+#rwdicfxsbx .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1572,7 +1573,7 @@ Tabela&nbsp;1: Respostas dos primeiros munícipies entrevistados.
   padding-right: 5px;
 }
 
-#wunghioxrm .gt_stub_row_group {
+#rwdicfxsbx .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1586,15 +1587,15 @@ Tabela&nbsp;1: Respostas dos primeiros munícipies entrevistados.
   vertical-align: top;
 }
 
-#wunghioxrm .gt_row_group_first td {
+#rwdicfxsbx .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#wunghioxrm .gt_row_group_first th {
+#rwdicfxsbx .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#wunghioxrm .gt_summary_row {
+#rwdicfxsbx .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1604,16 +1605,16 @@ Tabela&nbsp;1: Respostas dos primeiros munícipies entrevistados.
   padding-right: 5px;
 }
 
-#wunghioxrm .gt_first_summary_row {
+#rwdicfxsbx .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#wunghioxrm .gt_first_summary_row.thick {
+#rwdicfxsbx .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#wunghioxrm .gt_last_summary_row {
+#rwdicfxsbx .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1623,7 +1624,7 @@ Tabela&nbsp;1: Respostas dos primeiros munícipies entrevistados.
   border-bottom-color: #D3D3D3;
 }
 
-#wunghioxrm .gt_grand_summary_row {
+#rwdicfxsbx .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1633,7 +1634,7 @@ Tabela&nbsp;1: Respostas dos primeiros munícipies entrevistados.
   padding-right: 5px;
 }
 
-#wunghioxrm .gt_first_grand_summary_row {
+#rwdicfxsbx .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1643,7 +1644,7 @@ Tabela&nbsp;1: Respostas dos primeiros munícipies entrevistados.
   border-top-color: #D3D3D3;
 }
 
-#wunghioxrm .gt_last_grand_summary_row_top {
+#rwdicfxsbx .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1653,11 +1654,11 @@ Tabela&nbsp;1: Respostas dos primeiros munícipies entrevistados.
   border-bottom-color: #D3D3D3;
 }
 
-#wunghioxrm .gt_striped {
+#rwdicfxsbx .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#wunghioxrm .gt_table_body {
+#rwdicfxsbx .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1666,7 +1667,7 @@ Tabela&nbsp;1: Respostas dos primeiros munícipies entrevistados.
   border-bottom-color: #D3D3D3;
 }
 
-#wunghioxrm .gt_footnotes {
+#rwdicfxsbx .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1680,7 +1681,7 @@ Tabela&nbsp;1: Respostas dos primeiros munícipies entrevistados.
   border-right-color: #D3D3D3;
 }
 
-#wunghioxrm .gt_footnote {
+#rwdicfxsbx .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1689,7 +1690,7 @@ Tabela&nbsp;1: Respostas dos primeiros munícipies entrevistados.
   padding-right: 5px;
 }
 
-#wunghioxrm .gt_sourcenotes {
+#rwdicfxsbx .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1703,7 +1704,7 @@ Tabela&nbsp;1: Respostas dos primeiros munícipies entrevistados.
   border-right-color: #D3D3D3;
 }
 
-#wunghioxrm .gt_sourcenote {
+#rwdicfxsbx .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1711,72 +1712,72 @@ Tabela&nbsp;1: Respostas dos primeiros munícipies entrevistados.
   padding-right: 5px;
 }
 
-#wunghioxrm .gt_left {
+#rwdicfxsbx .gt_left {
   text-align: left;
 }
 
-#wunghioxrm .gt_center {
+#rwdicfxsbx .gt_center {
   text-align: center;
 }
 
-#wunghioxrm .gt_right {
+#rwdicfxsbx .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#wunghioxrm .gt_font_normal {
+#rwdicfxsbx .gt_font_normal {
   font-weight: normal;
 }
 
-#wunghioxrm .gt_font_bold {
+#rwdicfxsbx .gt_font_bold {
   font-weight: bold;
 }
 
-#wunghioxrm .gt_font_italic {
+#rwdicfxsbx .gt_font_italic {
   font-style: italic;
 }
 
-#wunghioxrm .gt_super {
+#rwdicfxsbx .gt_super {
   font-size: 65%;
 }
 
-#wunghioxrm .gt_footnote_marks {
+#rwdicfxsbx .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#wunghioxrm .gt_asterisk {
+#rwdicfxsbx .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#wunghioxrm .gt_indent_1 {
+#rwdicfxsbx .gt_indent_1 {
   text-indent: 5px;
 }
 
-#wunghioxrm .gt_indent_2 {
+#rwdicfxsbx .gt_indent_2 {
   text-indent: 10px;
 }
 
-#wunghioxrm .gt_indent_3 {
+#rwdicfxsbx .gt_indent_3 {
   text-indent: 15px;
 }
 
-#wunghioxrm .gt_indent_4 {
+#rwdicfxsbx .gt_indent_4 {
   text-indent: 20px;
 }
 
-#wunghioxrm .gt_indent_5 {
+#rwdicfxsbx .gt_indent_5 {
   text-indent: 25px;
 }
 
-#wunghioxrm .katex-display {
+#rwdicfxsbx .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#wunghioxrm div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#rwdicfxsbx div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -1819,23 +1820,23 @@ Tabela&nbsp;1: Respostas dos primeiros munícipies entrevistados.
 <span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gt</span>()</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div id="kpsfodkwil" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#kpsfodkwil table {
+<div id="svgpksgjmx" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#svgpksgjmx table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#kpsfodkwil thead, #kpsfodkwil tbody, #kpsfodkwil tfoot, #kpsfodkwil tr, #kpsfodkwil td, #kpsfodkwil th {
+#svgpksgjmx thead, #svgpksgjmx tbody, #svgpksgjmx tfoot, #svgpksgjmx tr, #svgpksgjmx td, #svgpksgjmx th {
   border-style: none;
 }
 
-#kpsfodkwil p {
+#svgpksgjmx p {
   margin: 0;
   padding: 0;
 }
 
-#kpsfodkwil .gt_table {
+#svgpksgjmx .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -1861,12 +1862,12 @@ Tabela&nbsp;1: Respostas dos primeiros munícipies entrevistados.
   border-left-color: #D3D3D3;
 }
 
-#kpsfodkwil .gt_caption {
+#svgpksgjmx .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#kpsfodkwil .gt_title {
+#svgpksgjmx .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1878,7 +1879,7 @@ Tabela&nbsp;1: Respostas dos primeiros munícipies entrevistados.
   border-bottom-width: 0;
 }
 
-#kpsfodkwil .gt_subtitle {
+#svgpksgjmx .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1890,7 +1891,7 @@ Tabela&nbsp;1: Respostas dos primeiros munícipies entrevistados.
   border-top-width: 0;
 }
 
-#kpsfodkwil .gt_heading {
+#svgpksgjmx .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1902,13 +1903,13 @@ Tabela&nbsp;1: Respostas dos primeiros munícipies entrevistados.
   border-right-color: #D3D3D3;
 }
 
-#kpsfodkwil .gt_bottom_border {
+#svgpksgjmx .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#kpsfodkwil .gt_col_headings {
+#svgpksgjmx .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1923,7 +1924,7 @@ Tabela&nbsp;1: Respostas dos primeiros munícipies entrevistados.
   border-right-color: #D3D3D3;
 }
 
-#kpsfodkwil .gt_col_heading {
+#svgpksgjmx .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1943,7 +1944,7 @@ Tabela&nbsp;1: Respostas dos primeiros munícipies entrevistados.
   overflow-x: hidden;
 }
 
-#kpsfodkwil .gt_column_spanner_outer {
+#svgpksgjmx .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1955,15 +1956,15 @@ Tabela&nbsp;1: Respostas dos primeiros munícipies entrevistados.
   padding-right: 4px;
 }
 
-#kpsfodkwil .gt_column_spanner_outer:first-child {
+#svgpksgjmx .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#kpsfodkwil .gt_column_spanner_outer:last-child {
+#svgpksgjmx .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#kpsfodkwil .gt_column_spanner {
+#svgpksgjmx .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1975,11 +1976,11 @@ Tabela&nbsp;1: Respostas dos primeiros munícipies entrevistados.
   width: 100%;
 }
 
-#kpsfodkwil .gt_spanner_row {
+#svgpksgjmx .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#kpsfodkwil .gt_group_heading {
+#svgpksgjmx .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2005,7 +2006,7 @@ Tabela&nbsp;1: Respostas dos primeiros munícipies entrevistados.
   text-align: left;
 }
 
-#kpsfodkwil .gt_empty_group_heading {
+#svgpksgjmx .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -2020,15 +2021,15 @@ Tabela&nbsp;1: Respostas dos primeiros munícipies entrevistados.
   vertical-align: middle;
 }
 
-#kpsfodkwil .gt_from_md > :first-child {
+#svgpksgjmx .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#kpsfodkwil .gt_from_md > :last-child {
+#svgpksgjmx .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#kpsfodkwil .gt_row {
+#svgpksgjmx .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2047,7 +2048,7 @@ Tabela&nbsp;1: Respostas dos primeiros munícipies entrevistados.
   overflow-x: hidden;
 }
 
-#kpsfodkwil .gt_stub {
+#svgpksgjmx .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2060,7 +2061,7 @@ Tabela&nbsp;1: Respostas dos primeiros munícipies entrevistados.
   padding-right: 5px;
 }
 
-#kpsfodkwil .gt_stub_row_group {
+#svgpksgjmx .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2074,15 +2075,15 @@ Tabela&nbsp;1: Respostas dos primeiros munícipies entrevistados.
   vertical-align: top;
 }
 
-#kpsfodkwil .gt_row_group_first td {
+#svgpksgjmx .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#kpsfodkwil .gt_row_group_first th {
+#svgpksgjmx .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#kpsfodkwil .gt_summary_row {
+#svgpksgjmx .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2092,16 +2093,16 @@ Tabela&nbsp;1: Respostas dos primeiros munícipies entrevistados.
   padding-right: 5px;
 }
 
-#kpsfodkwil .gt_first_summary_row {
+#svgpksgjmx .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#kpsfodkwil .gt_first_summary_row.thick {
+#svgpksgjmx .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#kpsfodkwil .gt_last_summary_row {
+#svgpksgjmx .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2111,7 +2112,7 @@ Tabela&nbsp;1: Respostas dos primeiros munícipies entrevistados.
   border-bottom-color: #D3D3D3;
 }
 
-#kpsfodkwil .gt_grand_summary_row {
+#svgpksgjmx .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2121,7 +2122,7 @@ Tabela&nbsp;1: Respostas dos primeiros munícipies entrevistados.
   padding-right: 5px;
 }
 
-#kpsfodkwil .gt_first_grand_summary_row {
+#svgpksgjmx .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2131,7 +2132,7 @@ Tabela&nbsp;1: Respostas dos primeiros munícipies entrevistados.
   border-top-color: #D3D3D3;
 }
 
-#kpsfodkwil .gt_last_grand_summary_row_top {
+#svgpksgjmx .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2141,11 +2142,11 @@ Tabela&nbsp;1: Respostas dos primeiros munícipies entrevistados.
   border-bottom-color: #D3D3D3;
 }
 
-#kpsfodkwil .gt_striped {
+#svgpksgjmx .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#kpsfodkwil .gt_table_body {
+#svgpksgjmx .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2154,7 +2155,7 @@ Tabela&nbsp;1: Respostas dos primeiros munícipies entrevistados.
   border-bottom-color: #D3D3D3;
 }
 
-#kpsfodkwil .gt_footnotes {
+#svgpksgjmx .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2168,7 +2169,7 @@ Tabela&nbsp;1: Respostas dos primeiros munícipies entrevistados.
   border-right-color: #D3D3D3;
 }
 
-#kpsfodkwil .gt_footnote {
+#svgpksgjmx .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -2177,7 +2178,7 @@ Tabela&nbsp;1: Respostas dos primeiros munícipies entrevistados.
   padding-right: 5px;
 }
 
-#kpsfodkwil .gt_sourcenotes {
+#svgpksgjmx .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2191,7 +2192,7 @@ Tabela&nbsp;1: Respostas dos primeiros munícipies entrevistados.
   border-right-color: #D3D3D3;
 }
 
-#kpsfodkwil .gt_sourcenote {
+#svgpksgjmx .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -2199,72 +2200,72 @@ Tabela&nbsp;1: Respostas dos primeiros munícipies entrevistados.
   padding-right: 5px;
 }
 
-#kpsfodkwil .gt_left {
+#svgpksgjmx .gt_left {
   text-align: left;
 }
 
-#kpsfodkwil .gt_center {
+#svgpksgjmx .gt_center {
   text-align: center;
 }
 
-#kpsfodkwil .gt_right {
+#svgpksgjmx .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#kpsfodkwil .gt_font_normal {
+#svgpksgjmx .gt_font_normal {
   font-weight: normal;
 }
 
-#kpsfodkwil .gt_font_bold {
+#svgpksgjmx .gt_font_bold {
   font-weight: bold;
 }
 
-#kpsfodkwil .gt_font_italic {
+#svgpksgjmx .gt_font_italic {
   font-style: italic;
 }
 
-#kpsfodkwil .gt_super {
+#svgpksgjmx .gt_super {
   font-size: 65%;
 }
 
-#kpsfodkwil .gt_footnote_marks {
+#svgpksgjmx .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#kpsfodkwil .gt_asterisk {
+#svgpksgjmx .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#kpsfodkwil .gt_indent_1 {
+#svgpksgjmx .gt_indent_1 {
   text-indent: 5px;
 }
 
-#kpsfodkwil .gt_indent_2 {
+#svgpksgjmx .gt_indent_2 {
   text-indent: 10px;
 }
 
-#kpsfodkwil .gt_indent_3 {
+#svgpksgjmx .gt_indent_3 {
   text-indent: 15px;
 }
 
-#kpsfodkwil .gt_indent_4 {
+#svgpksgjmx .gt_indent_4 {
   text-indent: 20px;
 }
 
-#kpsfodkwil .gt_indent_5 {
+#svgpksgjmx .gt_indent_5 {
   text-indent: 25px;
 }
 
-#kpsfodkwil .katex-display {
+#svgpksgjmx .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#kpsfodkwil div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#svgpksgjmx div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>

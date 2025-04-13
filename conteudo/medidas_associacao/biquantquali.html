@@ -6,7 +6,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="description" content="Relação entre variáveis categóricas e contínuas, partição da soma dos quadrados, coeficiente de determinação">
+<meta name="description" content="Análise da relação entre variáveis quantitativas e categóricas, considerando partição da soma de quadrados e coeficientes de determinação.">
 
 <title>Associação entre variáveis quantitativas e qualitativas – Métodos em Estatística e Análise de Dados</title>
 <style>
@@ -154,7 +154,7 @@ window.Quarto = {
 
 <link rel="stylesheet" href="../../styles/custom.css">
 <meta property="og:title" content="Associação entre variáveis quantitativas e qualitativas – Métodos em Estatística e Análise de Dados">
-<meta property="og:description" content="Relação entre variáveis categóricas e contínuas, partição da soma dos quadrados, coeficiente de determinação">
+<meta property="og:description" content="Análise da relação entre variáveis quantitativas e categóricas, considerando partição da soma de quadrados e coeficientes de determinação.">
 <meta property="og:image" content="https://github.com/FCopf/MEAD/conteudo/medidas_associacao/images/biquantquali.jpg">
 <meta property="og:site_name" content="Métodos em Estatística e Análise de Dados">
 </head>
@@ -223,14 +223,15 @@ window.Quarto = {
   <div class="quarto-categories">
     <div class="quarto-category">Estatística</div>
     <div class="quarto-category">ANOVA</div>
-    <div class="quarto-category">Análise Quantitativa</div>
-    <div class="quarto-category">Análise Qualitativa</div>
+    <div class="quarto-category">Análise quantitativa</div>
+    <div class="quarto-category">Análise qualitativa</div>
+    <div class="quarto-category">Medidas de associação</div>
   </div>
   </div>
 
 <div>
   <div class="description">
-    Relação entre variáveis categóricas e contínuas, partição da soma dos quadrados, coeficiente de determinação
+    Análise da relação entre variáveis quantitativas e categóricas, considerando partição da soma de quadrados e coeficientes de determinação.
   </div>
 </div>
 
@@ -288,23 +289,23 @@ Pacotes e funções utilizadas no capítulo
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>medley <span class="sc">|&gt;</span> <span class="fu">gt</span>()</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="pbsfyfdbcw" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#pbsfyfdbcw table {
+<div id="cdtgwrzgwe" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#cdtgwrzgwe table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#pbsfyfdbcw thead, #pbsfyfdbcw tbody, #pbsfyfdbcw tfoot, #pbsfyfdbcw tr, #pbsfyfdbcw td, #pbsfyfdbcw th {
+#cdtgwrzgwe thead, #cdtgwrzgwe tbody, #cdtgwrzgwe tfoot, #cdtgwrzgwe tr, #cdtgwrzgwe td, #cdtgwrzgwe th {
   border-style: none;
 }
 
-#pbsfyfdbcw p {
+#cdtgwrzgwe p {
   margin: 0;
   padding: 0;
 }
 
-#pbsfyfdbcw .gt_table {
+#cdtgwrzgwe .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -330,12 +331,12 @@ Pacotes e funções utilizadas no capítulo
   border-left-color: #D3D3D3;
 }
 
-#pbsfyfdbcw .gt_caption {
+#cdtgwrzgwe .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#pbsfyfdbcw .gt_title {
+#cdtgwrzgwe .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -347,7 +348,7 @@ Pacotes e funções utilizadas no capítulo
   border-bottom-width: 0;
 }
 
-#pbsfyfdbcw .gt_subtitle {
+#cdtgwrzgwe .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -359,7 +360,7 @@ Pacotes e funções utilizadas no capítulo
   border-top-width: 0;
 }
 
-#pbsfyfdbcw .gt_heading {
+#cdtgwrzgwe .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -371,13 +372,13 @@ Pacotes e funções utilizadas no capítulo
   border-right-color: #D3D3D3;
 }
 
-#pbsfyfdbcw .gt_bottom_border {
+#cdtgwrzgwe .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#pbsfyfdbcw .gt_col_headings {
+#cdtgwrzgwe .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -392,7 +393,7 @@ Pacotes e funções utilizadas no capítulo
   border-right-color: #D3D3D3;
 }
 
-#pbsfyfdbcw .gt_col_heading {
+#cdtgwrzgwe .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -412,7 +413,7 @@ Pacotes e funções utilizadas no capítulo
   overflow-x: hidden;
 }
 
-#pbsfyfdbcw .gt_column_spanner_outer {
+#cdtgwrzgwe .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -424,15 +425,15 @@ Pacotes e funções utilizadas no capítulo
   padding-right: 4px;
 }
 
-#pbsfyfdbcw .gt_column_spanner_outer:first-child {
+#cdtgwrzgwe .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#pbsfyfdbcw .gt_column_spanner_outer:last-child {
+#cdtgwrzgwe .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#pbsfyfdbcw .gt_column_spanner {
+#cdtgwrzgwe .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -444,11 +445,11 @@ Pacotes e funções utilizadas no capítulo
   width: 100%;
 }
 
-#pbsfyfdbcw .gt_spanner_row {
+#cdtgwrzgwe .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#pbsfyfdbcw .gt_group_heading {
+#cdtgwrzgwe .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -474,7 +475,7 @@ Pacotes e funções utilizadas no capítulo
   text-align: left;
 }
 
-#pbsfyfdbcw .gt_empty_group_heading {
+#cdtgwrzgwe .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -489,15 +490,15 @@ Pacotes e funções utilizadas no capítulo
   vertical-align: middle;
 }
 
-#pbsfyfdbcw .gt_from_md > :first-child {
+#cdtgwrzgwe .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#pbsfyfdbcw .gt_from_md > :last-child {
+#cdtgwrzgwe .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#pbsfyfdbcw .gt_row {
+#cdtgwrzgwe .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -516,7 +517,7 @@ Pacotes e funções utilizadas no capítulo
   overflow-x: hidden;
 }
 
-#pbsfyfdbcw .gt_stub {
+#cdtgwrzgwe .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -529,7 +530,7 @@ Pacotes e funções utilizadas no capítulo
   padding-right: 5px;
 }
 
-#pbsfyfdbcw .gt_stub_row_group {
+#cdtgwrzgwe .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -543,15 +544,15 @@ Pacotes e funções utilizadas no capítulo
   vertical-align: top;
 }
 
-#pbsfyfdbcw .gt_row_group_first td {
+#cdtgwrzgwe .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#pbsfyfdbcw .gt_row_group_first th {
+#cdtgwrzgwe .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#pbsfyfdbcw .gt_summary_row {
+#cdtgwrzgwe .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -561,16 +562,16 @@ Pacotes e funções utilizadas no capítulo
   padding-right: 5px;
 }
 
-#pbsfyfdbcw .gt_first_summary_row {
+#cdtgwrzgwe .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#pbsfyfdbcw .gt_first_summary_row.thick {
+#cdtgwrzgwe .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#pbsfyfdbcw .gt_last_summary_row {
+#cdtgwrzgwe .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -580,7 +581,7 @@ Pacotes e funções utilizadas no capítulo
   border-bottom-color: #D3D3D3;
 }
 
-#pbsfyfdbcw .gt_grand_summary_row {
+#cdtgwrzgwe .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -590,7 +591,7 @@ Pacotes e funções utilizadas no capítulo
   padding-right: 5px;
 }
 
-#pbsfyfdbcw .gt_first_grand_summary_row {
+#cdtgwrzgwe .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -600,7 +601,7 @@ Pacotes e funções utilizadas no capítulo
   border-top-color: #D3D3D3;
 }
 
-#pbsfyfdbcw .gt_last_grand_summary_row_top {
+#cdtgwrzgwe .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -610,11 +611,11 @@ Pacotes e funções utilizadas no capítulo
   border-bottom-color: #D3D3D3;
 }
 
-#pbsfyfdbcw .gt_striped {
+#cdtgwrzgwe .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#pbsfyfdbcw .gt_table_body {
+#cdtgwrzgwe .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -623,7 +624,7 @@ Pacotes e funções utilizadas no capítulo
   border-bottom-color: #D3D3D3;
 }
 
-#pbsfyfdbcw .gt_footnotes {
+#cdtgwrzgwe .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -637,7 +638,7 @@ Pacotes e funções utilizadas no capítulo
   border-right-color: #D3D3D3;
 }
 
-#pbsfyfdbcw .gt_footnote {
+#cdtgwrzgwe .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -646,7 +647,7 @@ Pacotes e funções utilizadas no capítulo
   padding-right: 5px;
 }
 
-#pbsfyfdbcw .gt_sourcenotes {
+#cdtgwrzgwe .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -660,7 +661,7 @@ Pacotes e funções utilizadas no capítulo
   border-right-color: #D3D3D3;
 }
 
-#pbsfyfdbcw .gt_sourcenote {
+#cdtgwrzgwe .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -668,72 +669,72 @@ Pacotes e funções utilizadas no capítulo
   padding-right: 5px;
 }
 
-#pbsfyfdbcw .gt_left {
+#cdtgwrzgwe .gt_left {
   text-align: left;
 }
 
-#pbsfyfdbcw .gt_center {
+#cdtgwrzgwe .gt_center {
   text-align: center;
 }
 
-#pbsfyfdbcw .gt_right {
+#cdtgwrzgwe .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#pbsfyfdbcw .gt_font_normal {
+#cdtgwrzgwe .gt_font_normal {
   font-weight: normal;
 }
 
-#pbsfyfdbcw .gt_font_bold {
+#cdtgwrzgwe .gt_font_bold {
   font-weight: bold;
 }
 
-#pbsfyfdbcw .gt_font_italic {
+#cdtgwrzgwe .gt_font_italic {
   font-style: italic;
 }
 
-#pbsfyfdbcw .gt_super {
+#cdtgwrzgwe .gt_super {
   font-size: 65%;
 }
 
-#pbsfyfdbcw .gt_footnote_marks {
+#cdtgwrzgwe .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#pbsfyfdbcw .gt_asterisk {
+#cdtgwrzgwe .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#pbsfyfdbcw .gt_indent_1 {
+#cdtgwrzgwe .gt_indent_1 {
   text-indent: 5px;
 }
 
-#pbsfyfdbcw .gt_indent_2 {
+#cdtgwrzgwe .gt_indent_2 {
   text-indent: 10px;
 }
 
-#pbsfyfdbcw .gt_indent_3 {
+#cdtgwrzgwe .gt_indent_3 {
   text-indent: 15px;
 }
 
-#pbsfyfdbcw .gt_indent_4 {
+#cdtgwrzgwe .gt_indent_4 {
   text-indent: 20px;
 }
 
-#pbsfyfdbcw .gt_indent_5 {
+#cdtgwrzgwe .gt_indent_5 {
   text-indent: 25px;
 }
 
-#pbsfyfdbcw .katex-display {
+#cdtgwrzgwe .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#pbsfyfdbcw div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#cdtgwrzgwe div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -997,23 +998,23 @@ Pacotes e funções utilizadas no capítulo
 <span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>medley_barras <span class="sc">|&gt;</span> </span>
 <span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gt</span>()</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="yoohwmnxsj" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#yoohwmnxsj table {
+<div id="wdjiggxbha" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#wdjiggxbha table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#yoohwmnxsj thead, #yoohwmnxsj tbody, #yoohwmnxsj tfoot, #yoohwmnxsj tr, #yoohwmnxsj td, #yoohwmnxsj th {
+#wdjiggxbha thead, #wdjiggxbha tbody, #wdjiggxbha tfoot, #wdjiggxbha tr, #wdjiggxbha td, #wdjiggxbha th {
   border-style: none;
 }
 
-#yoohwmnxsj p {
+#wdjiggxbha p {
   margin: 0;
   padding: 0;
 }
 
-#yoohwmnxsj .gt_table {
+#wdjiggxbha .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -1039,12 +1040,12 @@ Pacotes e funções utilizadas no capítulo
   border-left-color: #D3D3D3;
 }
 
-#yoohwmnxsj .gt_caption {
+#wdjiggxbha .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#yoohwmnxsj .gt_title {
+#wdjiggxbha .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1056,7 +1057,7 @@ Pacotes e funções utilizadas no capítulo
   border-bottom-width: 0;
 }
 
-#yoohwmnxsj .gt_subtitle {
+#wdjiggxbha .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1068,7 +1069,7 @@ Pacotes e funções utilizadas no capítulo
   border-top-width: 0;
 }
 
-#yoohwmnxsj .gt_heading {
+#wdjiggxbha .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1080,13 +1081,13 @@ Pacotes e funções utilizadas no capítulo
   border-right-color: #D3D3D3;
 }
 
-#yoohwmnxsj .gt_bottom_border {
+#wdjiggxbha .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#yoohwmnxsj .gt_col_headings {
+#wdjiggxbha .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1101,7 +1102,7 @@ Pacotes e funções utilizadas no capítulo
   border-right-color: #D3D3D3;
 }
 
-#yoohwmnxsj .gt_col_heading {
+#wdjiggxbha .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1121,7 +1122,7 @@ Pacotes e funções utilizadas no capítulo
   overflow-x: hidden;
 }
 
-#yoohwmnxsj .gt_column_spanner_outer {
+#wdjiggxbha .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1133,15 +1134,15 @@ Pacotes e funções utilizadas no capítulo
   padding-right: 4px;
 }
 
-#yoohwmnxsj .gt_column_spanner_outer:first-child {
+#wdjiggxbha .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#yoohwmnxsj .gt_column_spanner_outer:last-child {
+#wdjiggxbha .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#yoohwmnxsj .gt_column_spanner {
+#wdjiggxbha .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1153,11 +1154,11 @@ Pacotes e funções utilizadas no capítulo
   width: 100%;
 }
 
-#yoohwmnxsj .gt_spanner_row {
+#wdjiggxbha .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#yoohwmnxsj .gt_group_heading {
+#wdjiggxbha .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1183,7 +1184,7 @@ Pacotes e funções utilizadas no capítulo
   text-align: left;
 }
 
-#yoohwmnxsj .gt_empty_group_heading {
+#wdjiggxbha .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1198,15 +1199,15 @@ Pacotes e funções utilizadas no capítulo
   vertical-align: middle;
 }
 
-#yoohwmnxsj .gt_from_md > :first-child {
+#wdjiggxbha .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#yoohwmnxsj .gt_from_md > :last-child {
+#wdjiggxbha .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#yoohwmnxsj .gt_row {
+#wdjiggxbha .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1225,7 +1226,7 @@ Pacotes e funções utilizadas no capítulo
   overflow-x: hidden;
 }
 
-#yoohwmnxsj .gt_stub {
+#wdjiggxbha .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1238,7 +1239,7 @@ Pacotes e funções utilizadas no capítulo
   padding-right: 5px;
 }
 
-#yoohwmnxsj .gt_stub_row_group {
+#wdjiggxbha .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1252,15 +1253,15 @@ Pacotes e funções utilizadas no capítulo
   vertical-align: top;
 }
 
-#yoohwmnxsj .gt_row_group_first td {
+#wdjiggxbha .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#yoohwmnxsj .gt_row_group_first th {
+#wdjiggxbha .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#yoohwmnxsj .gt_summary_row {
+#wdjiggxbha .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1270,16 +1271,16 @@ Pacotes e funções utilizadas no capítulo
   padding-right: 5px;
 }
 
-#yoohwmnxsj .gt_first_summary_row {
+#wdjiggxbha .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#yoohwmnxsj .gt_first_summary_row.thick {
+#wdjiggxbha .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#yoohwmnxsj .gt_last_summary_row {
+#wdjiggxbha .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1289,7 +1290,7 @@ Pacotes e funções utilizadas no capítulo
   border-bottom-color: #D3D3D3;
 }
 
-#yoohwmnxsj .gt_grand_summary_row {
+#wdjiggxbha .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1299,7 +1300,7 @@ Pacotes e funções utilizadas no capítulo
   padding-right: 5px;
 }
 
-#yoohwmnxsj .gt_first_grand_summary_row {
+#wdjiggxbha .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1309,7 +1310,7 @@ Pacotes e funções utilizadas no capítulo
   border-top-color: #D3D3D3;
 }
 
-#yoohwmnxsj .gt_last_grand_summary_row_top {
+#wdjiggxbha .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1319,11 +1320,11 @@ Pacotes e funções utilizadas no capítulo
   border-bottom-color: #D3D3D3;
 }
 
-#yoohwmnxsj .gt_striped {
+#wdjiggxbha .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#yoohwmnxsj .gt_table_body {
+#wdjiggxbha .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1332,7 +1333,7 @@ Pacotes e funções utilizadas no capítulo
   border-bottom-color: #D3D3D3;
 }
 
-#yoohwmnxsj .gt_footnotes {
+#wdjiggxbha .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1346,7 +1347,7 @@ Pacotes e funções utilizadas no capítulo
   border-right-color: #D3D3D3;
 }
 
-#yoohwmnxsj .gt_footnote {
+#wdjiggxbha .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1355,7 +1356,7 @@ Pacotes e funções utilizadas no capítulo
   padding-right: 5px;
 }
 
-#yoohwmnxsj .gt_sourcenotes {
+#wdjiggxbha .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1369,7 +1370,7 @@ Pacotes e funções utilizadas no capítulo
   border-right-color: #D3D3D3;
 }
 
-#yoohwmnxsj .gt_sourcenote {
+#wdjiggxbha .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1377,72 +1378,72 @@ Pacotes e funções utilizadas no capítulo
   padding-right: 5px;
 }
 
-#yoohwmnxsj .gt_left {
+#wdjiggxbha .gt_left {
   text-align: left;
 }
 
-#yoohwmnxsj .gt_center {
+#wdjiggxbha .gt_center {
   text-align: center;
 }
 
-#yoohwmnxsj .gt_right {
+#wdjiggxbha .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#yoohwmnxsj .gt_font_normal {
+#wdjiggxbha .gt_font_normal {
   font-weight: normal;
 }
 
-#yoohwmnxsj .gt_font_bold {
+#wdjiggxbha .gt_font_bold {
   font-weight: bold;
 }
 
-#yoohwmnxsj .gt_font_italic {
+#wdjiggxbha .gt_font_italic {
   font-style: italic;
 }
 
-#yoohwmnxsj .gt_super {
+#wdjiggxbha .gt_super {
   font-size: 65%;
 }
 
-#yoohwmnxsj .gt_footnote_marks {
+#wdjiggxbha .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#yoohwmnxsj .gt_asterisk {
+#wdjiggxbha .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#yoohwmnxsj .gt_indent_1 {
+#wdjiggxbha .gt_indent_1 {
   text-indent: 5px;
 }
 
-#yoohwmnxsj .gt_indent_2 {
+#wdjiggxbha .gt_indent_2 {
   text-indent: 10px;
 }
 
-#yoohwmnxsj .gt_indent_3 {
+#wdjiggxbha .gt_indent_3 {
   text-indent: 15px;
 }
 
-#yoohwmnxsj .gt_indent_4 {
+#wdjiggxbha .gt_indent_4 {
   text-indent: 20px;
 }
 
-#yoohwmnxsj .gt_indent_5 {
+#wdjiggxbha .gt_indent_5 {
   text-indent: 25px;
 }
 
-#yoohwmnxsj .katex-display {
+#wdjiggxbha .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#yoohwmnxsj div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#wdjiggxbha div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>

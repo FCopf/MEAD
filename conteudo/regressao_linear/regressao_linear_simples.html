@@ -6,9 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="description" content="Modelos de regressão linear simples, ANOVA da regressão, coeficientes de determinação e diagnósticos da regressão.">
+<meta name="description" content="Introdução à regressão linear simples, incluindo ANOVA da regressão, coeficiente de determinação e diagnósticos básicos.">
 
-<title>Regressão Linear Simples – Métodos em Estatística e Análise de Dados</title>
+<title>Regressão linear simples – Métodos em Estatística e Análise de Dados</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -153,8 +153,8 @@ window.Quarto = {
 </script>
 
 <link rel="stylesheet" href="../../styles/custom.css">
-<meta property="og:title" content="Regressão Linear Simples – Métodos em Estatística e Análise de Dados">
-<meta property="og:description" content="Modelos de regressão linear simples, ANOVA da regressão, coeficientes de determinação e diagnósticos da regressão.">
+<meta property="og:title" content="Regressão linear simples – Métodos em Estatística e Análise de Dados">
+<meta property="og:description" content="Introdução à regressão linear simples, incluindo ANOVA da regressão, coeficiente de determinação e diagnósticos básicos.">
 <meta property="og:image" content="https://github.com/FCopf/MEAD/conteudo/regressao_linear/images/regressao_linear_simples.jpg">
 <meta property="og:site_name" content="Métodos em Estatística e Análise de Dados">
 </head>
@@ -239,12 +239,12 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Regressão Linear Simples</h1>
+<h1 class="title">Regressão linear simples</h1>
 </div>
 
 <div>
   <div class="description">
-    Modelos de regressão linear simples, ANOVA da regressão, coeficientes de determinação e diagnósticos da regressão.
+    Introdução à regressão linear simples, incluindo ANOVA da regressão, coeficiente de determinação e diagnósticos básicos.
   </div>
 </div>
 
@@ -298,23 +298,23 @@ Pacotes, funções e base de dados utilizadas
 <p>Considere novamente os dados sobre pluviosidade anual e vazão em uma bacia hidrográfica americada, medidos entre os anos de 1958 e 1987 (disponível em: <a href="https://tiee.esa.org/vol/v1/data_sets/hubbard/hubbard_overview.html">tiee.esa.org</a>). Vamos avaliar a relação entre a vazão na bacia e os volumes de chuva.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="cnmgqnczej" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#cnmgqnczej table {
+<div id="iuncyuqpjy" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#iuncyuqpjy table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#cnmgqnczej thead, #cnmgqnczej tbody, #cnmgqnczej tfoot, #cnmgqnczej tr, #cnmgqnczej td, #cnmgqnczej th {
+#iuncyuqpjy thead, #iuncyuqpjy tbody, #iuncyuqpjy tfoot, #iuncyuqpjy tr, #iuncyuqpjy td, #iuncyuqpjy th {
   border-style: none;
 }
 
-#cnmgqnczej p {
+#iuncyuqpjy p {
   margin: 0;
   padding: 0;
 }
 
-#cnmgqnczej .gt_table {
+#iuncyuqpjy .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -340,12 +340,12 @@ Pacotes, funções e base de dados utilizadas
   border-left-color: #D3D3D3;
 }
 
-#cnmgqnczej .gt_caption {
+#iuncyuqpjy .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#cnmgqnczej .gt_title {
+#iuncyuqpjy .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -357,7 +357,7 @@ Pacotes, funções e base de dados utilizadas
   border-bottom-width: 0;
 }
 
-#cnmgqnczej .gt_subtitle {
+#iuncyuqpjy .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -369,7 +369,7 @@ Pacotes, funções e base de dados utilizadas
   border-top-width: 0;
 }
 
-#cnmgqnczej .gt_heading {
+#iuncyuqpjy .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -381,13 +381,13 @@ Pacotes, funções e base de dados utilizadas
   border-right-color: #D3D3D3;
 }
 
-#cnmgqnczej .gt_bottom_border {
+#iuncyuqpjy .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#cnmgqnczej .gt_col_headings {
+#iuncyuqpjy .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -402,7 +402,7 @@ Pacotes, funções e base de dados utilizadas
   border-right-color: #D3D3D3;
 }
 
-#cnmgqnczej .gt_col_heading {
+#iuncyuqpjy .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -422,7 +422,7 @@ Pacotes, funções e base de dados utilizadas
   overflow-x: hidden;
 }
 
-#cnmgqnczej .gt_column_spanner_outer {
+#iuncyuqpjy .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -434,15 +434,15 @@ Pacotes, funções e base de dados utilizadas
   padding-right: 4px;
 }
 
-#cnmgqnczej .gt_column_spanner_outer:first-child {
+#iuncyuqpjy .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#cnmgqnczej .gt_column_spanner_outer:last-child {
+#iuncyuqpjy .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#cnmgqnczej .gt_column_spanner {
+#iuncyuqpjy .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -454,11 +454,11 @@ Pacotes, funções e base de dados utilizadas
   width: 100%;
 }
 
-#cnmgqnczej .gt_spanner_row {
+#iuncyuqpjy .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#cnmgqnczej .gt_group_heading {
+#iuncyuqpjy .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -484,7 +484,7 @@ Pacotes, funções e base de dados utilizadas
   text-align: left;
 }
 
-#cnmgqnczej .gt_empty_group_heading {
+#iuncyuqpjy .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -499,15 +499,15 @@ Pacotes, funções e base de dados utilizadas
   vertical-align: middle;
 }
 
-#cnmgqnczej .gt_from_md > :first-child {
+#iuncyuqpjy .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#cnmgqnczej .gt_from_md > :last-child {
+#iuncyuqpjy .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#cnmgqnczej .gt_row {
+#iuncyuqpjy .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -526,7 +526,7 @@ Pacotes, funções e base de dados utilizadas
   overflow-x: hidden;
 }
 
-#cnmgqnczej .gt_stub {
+#iuncyuqpjy .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -539,7 +539,7 @@ Pacotes, funções e base de dados utilizadas
   padding-right: 5px;
 }
 
-#cnmgqnczej .gt_stub_row_group {
+#iuncyuqpjy .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -553,15 +553,15 @@ Pacotes, funções e base de dados utilizadas
   vertical-align: top;
 }
 
-#cnmgqnczej .gt_row_group_first td {
+#iuncyuqpjy .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#cnmgqnczej .gt_row_group_first th {
+#iuncyuqpjy .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#cnmgqnczej .gt_summary_row {
+#iuncyuqpjy .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -571,16 +571,16 @@ Pacotes, funções e base de dados utilizadas
   padding-right: 5px;
 }
 
-#cnmgqnczej .gt_first_summary_row {
+#iuncyuqpjy .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#cnmgqnczej .gt_first_summary_row.thick {
+#iuncyuqpjy .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#cnmgqnczej .gt_last_summary_row {
+#iuncyuqpjy .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -590,7 +590,7 @@ Pacotes, funções e base de dados utilizadas
   border-bottom-color: #D3D3D3;
 }
 
-#cnmgqnczej .gt_grand_summary_row {
+#iuncyuqpjy .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -600,7 +600,7 @@ Pacotes, funções e base de dados utilizadas
   padding-right: 5px;
 }
 
-#cnmgqnczej .gt_first_grand_summary_row {
+#iuncyuqpjy .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -610,7 +610,7 @@ Pacotes, funções e base de dados utilizadas
   border-top-color: #D3D3D3;
 }
 
-#cnmgqnczej .gt_last_grand_summary_row_top {
+#iuncyuqpjy .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -620,11 +620,11 @@ Pacotes, funções e base de dados utilizadas
   border-bottom-color: #D3D3D3;
 }
 
-#cnmgqnczej .gt_striped {
+#iuncyuqpjy .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#cnmgqnczej .gt_table_body {
+#iuncyuqpjy .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -633,7 +633,7 @@ Pacotes, funções e base de dados utilizadas
   border-bottom-color: #D3D3D3;
 }
 
-#cnmgqnczej .gt_footnotes {
+#iuncyuqpjy .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -647,7 +647,7 @@ Pacotes, funções e base de dados utilizadas
   border-right-color: #D3D3D3;
 }
 
-#cnmgqnczej .gt_footnote {
+#iuncyuqpjy .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -656,7 +656,7 @@ Pacotes, funções e base de dados utilizadas
   padding-right: 5px;
 }
 
-#cnmgqnczej .gt_sourcenotes {
+#iuncyuqpjy .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -670,7 +670,7 @@ Pacotes, funções e base de dados utilizadas
   border-right-color: #D3D3D3;
 }
 
-#cnmgqnczej .gt_sourcenote {
+#iuncyuqpjy .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -678,72 +678,72 @@ Pacotes, funções e base de dados utilizadas
   padding-right: 5px;
 }
 
-#cnmgqnczej .gt_left {
+#iuncyuqpjy .gt_left {
   text-align: left;
 }
 
-#cnmgqnczej .gt_center {
+#iuncyuqpjy .gt_center {
   text-align: center;
 }
 
-#cnmgqnczej .gt_right {
+#iuncyuqpjy .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#cnmgqnczej .gt_font_normal {
+#iuncyuqpjy .gt_font_normal {
   font-weight: normal;
 }
 
-#cnmgqnczej .gt_font_bold {
+#iuncyuqpjy .gt_font_bold {
   font-weight: bold;
 }
 
-#cnmgqnczej .gt_font_italic {
+#iuncyuqpjy .gt_font_italic {
   font-style: italic;
 }
 
-#cnmgqnczej .gt_super {
+#iuncyuqpjy .gt_super {
   font-size: 65%;
 }
 
-#cnmgqnczej .gt_footnote_marks {
+#iuncyuqpjy .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#cnmgqnczej .gt_asterisk {
+#iuncyuqpjy .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#cnmgqnczej .gt_indent_1 {
+#iuncyuqpjy .gt_indent_1 {
   text-indent: 5px;
 }
 
-#cnmgqnczej .gt_indent_2 {
+#iuncyuqpjy .gt_indent_2 {
   text-indent: 10px;
 }
 
-#cnmgqnczej .gt_indent_3 {
+#iuncyuqpjy .gt_indent_3 {
   text-indent: 15px;
 }
 
-#cnmgqnczej .gt_indent_4 {
+#iuncyuqpjy .gt_indent_4 {
   text-indent: 20px;
 }
 
-#cnmgqnczej .gt_indent_5 {
+#iuncyuqpjy .gt_indent_5 {
   text-indent: 25px;
 }
 
-#cnmgqnczej .katex-display {
+#iuncyuqpjy .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#cnmgqnczej div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#iuncyuqpjy div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>

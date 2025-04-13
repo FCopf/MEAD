@@ -6,9 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="description" content="Conteúdo adaptado do livro Statistical Rethinking – A Bayesian Course with Examples in R and Stan (McElreath 2018)">
+<meta name="description" content="Fundamentos da inferência bayesiana, com base em Statistical Rethinking (McElreath 2018).">
 
-<title>Introdução à Inferência Bayesiana – Métodos em Estatística e Análise de Dados</title>
+<title>Introdução à inferência bayesiana – Métodos em Estatística e Análise de Dados</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -150,8 +150,8 @@ window.Quarto = {
 </script>
 
 <link rel="stylesheet" href="styles/custom.css">
-<meta property="og:title" content="Introdução à Inferência Bayesiana – Métodos em Estatística e Análise de Dados">
-<meta property="og:description" content="Conteúdo adaptado do livro Statistical Rethinking – A Bayesian Course with Examples in R and Stan (McElreath 2018)">
+<meta property="og:title" content="Introdução à inferência bayesiana – Métodos em Estatística e Análise de Dados">
+<meta property="og:description" content="Fundamentos da inferência bayesiana, com base em Statistical Rethinking (McElreath 2018).">
 <meta property="og:image" content="https://github.com/FCopf/MEAD/images/intro_bayes.png">
 <meta property="og:site_name" content="Métodos em Estatística e Análise de Dados">
 <meta property="og:image:height" content="1024">
@@ -202,10 +202,10 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Introdução à Inferência Bayesiana</h1>
+<h1 class="title">Introdução à inferência bayesiana</h1>
   <div class="quarto-categories">
-    <div class="quarto-category">Distribuições de Probabilidade</div>
-    <div class="quarto-category">Inferência Bayesiana</div>
+    <div class="quarto-category">Distribuição de probabilidade</div>
+    <div class="quarto-category">Inferência bayesiana</div>
     <div class="quarto-category">Distribuição a priori</div>
     <div class="quarto-category">Distribuição posterior</div>
   </div>
@@ -213,7 +213,7 @@ window.Quarto = {
 
 <div>
   <div class="description">
-    Conteúdo adaptado do livro <strong>Statistical Rethinking – A Bayesian Course with Examples in R and Stan</strong> <span class="citation" data-cites="mcelreath2018statistical">(<a href="#ref-mcelreath2018statistical" role="doc-biblioref">McElreath 2018</a>)</span>
+    Fundamentos da inferência bayesiana, com base em <em>Statistical Rethinking</em> <span class="citation" data-cites="mcelreath2018statistical">(<a href="#ref-mcelreath2018statistical" role="doc-biblioref">McElreath 2018</a>)</span>.
   </div>
 </div>
 
@@ -237,7 +237,7 @@ window.Quarto = {
 
 <div class="quarto-listing quarto-listing-container-default" id="listing-listing">
 <div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-listing-file-modified-sort="1744407810723" data-listing-reading-time-sort="14" data-listing-word-count-sort="2675">
+<div class="quarto-post image-right" data-index="0" data-listing-file-modified-sort="1744506503051" data-listing-reading-time-sort="14" data-listing-word-count-sort="2675">
 <div class="thumbnail">
 <p><a href="./conteudo/intro_bayes/intro-bayes-counting.html" class="no-external"></a></p><a href="./conteudo/intro_bayes/intro-bayes-counting.html" class="no-external">
 <p><img loading="lazy" src="./conteudo/intro_bayes/images/intro-bayes-conting.png" class="thumbnail-image"></p>
@@ -248,10 +248,10 @@ window.Quarto = {
 <a href="./conteudo/intro_bayes/intro-bayes-counting.html" class="no-external">Contando possibilidades</a>
 </h3>
 <div class="listing-subtitle">
-<a href="./conteudo/intro_bayes/intro-bayes-counting.html" class="no-external">Evidencias sobre uma hipótese</a>
+<a href="./conteudo/intro_bayes/intro-bayes-counting.html" class="no-external">Evidências sobre uma hipótese</a>
 </div>
 <div class="listing-description">
-<a href="./conteudo/intro_bayes/intro-bayes-counting.html" class="no-external">Conteúdo baseado em <span class="citation" data-cites="mcelreath2018statistical">McElreath (</span></a><a href="#ref-mcelreath2018statistical" role="doc-biblioref">2018</a>)
+<a href="./conteudo/intro_bayes/intro-bayes-counting.html" class="no-external">Introdução à contagem de possibilidades na abordagem bayesiana.</a>
 </div>
 </div>
 <div class="metadata">
@@ -259,7 +259,7 @@ window.Quarto = {
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="1" data-listing-file-modified-sort="1744407810723" data-listing-reading-time-sort="6" data-listing-word-count-sort="1060">
+<div class="quarto-post image-right" data-index="1" data-listing-file-modified-sort="1744506503051" data-listing-reading-time-sort="6" data-listing-word-count-sort="1060">
 <div class="thumbnail">
 <p><a href="./conteudo/intro_bayes/intro-bayes-distr-prob.html" class="no-external"></a></p><a href="./conteudo/intro_bayes/intro-bayes-distr-prob.html" class="no-external">
 <p><img loading="lazy" src="./conteudo/intro_bayes/images/intro-bayes-distr-prob.png" class="thumbnail-image"></p>
@@ -273,7 +273,7 @@ window.Quarto = {
 <a href="./conteudo/intro_bayes/intro-bayes-distr-prob.html" class="no-external">A distribuição <em>a posteriori</em></a>
 </div>
 <div class="listing-description">
-<a href="./conteudo/intro_bayes/intro-bayes-distr-prob.html" class="no-external">Conteúdo baseado em <span class="citation" data-cites="mcelreath2018statistical">McElreath (</span></a><a href="#ref-mcelreath2018statistical" role="doc-biblioref">2018</a>)
+<a href="./conteudo/intro_bayes/intro-bayes-distr-prob.html" class="no-external">Transição de contagens para probabilidades sob uma perspectiva bayesiana, destacando a importância das distribuições a priori e posterior.</a>
 </div>
 </div>
 <div class="metadata">
@@ -281,7 +281,7 @@ window.Quarto = {
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="2" data-listing-file-modified-sort="1744407810723" data-listing-reading-time-sort="17" data-listing-word-count-sort="3272">
+<div class="quarto-post image-right" data-index="2" data-listing-file-modified-sort="1744506503052" data-listing-reading-time-sort="17" data-listing-word-count-sort="3272">
 <div class="thumbnail">
 <p><a href="./conteudo/intro_bayes/intro-bayes-modelo-bayesiano.html" class="no-external"></a></p><a href="./conteudo/intro_bayes/intro-bayes-modelo-bayesiano.html" class="no-external">
 <p><img loading="lazy" src="./conteudo/intro_bayes/images/intro-bayes-modelo-bayesiano.png" class="thumbnail-image"></p>
@@ -289,13 +289,13 @@ window.Quarto = {
 </div>
 <div class="body">
 <h3 class="no-anchor listing-title">
-<a href="./conteudo/intro_bayes/intro-bayes-modelo-bayesiano.html" class="no-external">Construindo um modelo Bayesiano</a>
+<a href="./conteudo/intro_bayes/intro-bayes-modelo-bayesiano.html" class="no-external">Construindo um modelo bayesiano</a>
 </h3>
 <div class="listing-subtitle">
 <a href="./conteudo/intro_bayes/intro-bayes-modelo-bayesiano.html" class="no-external">Verossimilhança e distribuição <em>a priori</em></a>
 </div>
 <div class="listing-description">
-<a href="./conteudo/intro_bayes/intro-bayes-modelo-bayesiano.html" class="no-external">Conteúdo baseado em <span class="citation" data-cites="mcelreath2018statistical">McElreath (</span></a><a href="#ref-mcelreath2018statistical" role="doc-biblioref">2018</a>)
+<a href="./conteudo/intro_bayes/intro-bayes-modelo-bayesiano.html" class="no-external">Construção de um modelo bayesiano, enfatizando a formulação de distribuições a priori e posterior.</a>
 </div>
 </div>
 <div class="metadata">
