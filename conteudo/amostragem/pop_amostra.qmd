@@ -1,7 +1,10 @@
 ---
-title: Descrevendo populações e amostras
-description: "Conceitos de população estatística, unidade amostral, amostra, parâmetros e estimadores."
-Categories: ["população", "amostragem"]
+title: "Descrevendo populações e amostras"
+description: "Descreve populações e amostras, abordando a distinção entre parâmetros populacionais e estimadores amostrais."
+Categories: [
+          "Estatística",
+          "Amostragem"
+        ]
 image: "images/pop_amostra.jpg"
 execute:
   echo: true

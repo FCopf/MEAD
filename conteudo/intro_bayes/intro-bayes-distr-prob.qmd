@@ -1,8 +1,13 @@
 ---
 title: "De contagens a probabilidades"  
 subtitle: "A distribuição *a posteriori*"  
-description: "Conteúdo baseado em @mcelreath2018statistical"  
-Categories: ["Probabilidade", "Inferência bayesiana", "teorema de Bayes"]
+description: "Transição de contagens para probabilidades sob uma perspectiva bayesiana, destacando a importância das distribuições a priori e posterior."  
+Categories: [
+          "Inferência bayesiana",
+          "Distribuição de probabilidade",
+          "Distribuição a priori",
+          "Distribuição posterior"
+        ]
 
 image: "images/intro-bayes-distr-prob.png"  
 execute:  

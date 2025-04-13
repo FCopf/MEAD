@@ -1,8 +1,13 @@
 ---
 title: "O modelo da distribuição normal"  
 subtitle: "Um modelo para a distribuição de alturas"  
-description: "Conteúdo baseado em @mcelreath2018statistical"
-Categories: ["Probabilidade", "Inferência bayesiana", "Resultados equiprováveis"]
+description: "Apresenta o modelo matemático da distribuição normal."
+Categories: [
+          "Distribuição normal",
+          "Função exponencial",
+          "Média",
+          "Desvio padrão"
+        ]
 
 image: "images/distribuicao_normal-modelo.png"  
 execute:  

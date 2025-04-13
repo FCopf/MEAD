@@ -1,7 +1,10 @@
 ---
 title: "Amostragem"
-description: "Introdução aos conceitos fundamentais de amostragem em estatística."
-categories: ["estatística", "amostragem"]
+description: "Introdução aos conceitos fundamentais de amostragem em estatística, incluindo tipos de amostragem e considerações sobre precisão e acurácia."
+categories: [
+      "Estatística",
+      "Amostragem"
+    ]
 image: "images/amostragem.jpg"
 listing:
   contents: 

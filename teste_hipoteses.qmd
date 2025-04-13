@@ -1,7 +1,11 @@
 ---
 title: "Teste de hipóteses"
-description: "Fundamentos do teste de hipóteses, erros do tipo I e II e valor de p."
-categories: ["Inferência Estatística", "Teste de hipóteses", "Análise de Dados"]
+description: "Fundamentos de testes de hipóteses, incluindo erros do tipo I e II e valor de p."
+categories: [
+      "Inferência estatística",
+      "Teste de hipóteses",
+      "Análise de dados"
+    ]
 image: "images/teste_hipoteses.jpg"
 listing:
   contents:

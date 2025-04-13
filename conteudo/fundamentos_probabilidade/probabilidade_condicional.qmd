@@ -1,7 +1,12 @@
 ---
-title: Probabilidade Condicional e independência
-description: Fundamentos de Probabilidade
-categories: ["probabilidade condicional", "eventos dependentes", "teorema de Bayes", "diagrama de árvore"]
+title: "Probabilidade condicional e independência"
+description: "Exploração da probabilidade condicional e independência, com aplicações do Teorema de Bayes."
+categories: [
+          "Probabilidade condicional",
+          "Eventos dependentes",
+          "Teorema de Bayes",
+          "Diagrama de árvore"
+        ]
 image: "images/probabilidade_condicional.png"
 execute:
   echo: true

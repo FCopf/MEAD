@@ -1,7 +1,10 @@
 ---
-title: Estrutura da linguagem
-description: "Introdução ao R: estrutura da linguagem, operações básicas e tipo de objetos como vetores, data frames, matrizes e listas."
-categories: ["R", "Programação"]
+title: "Estrutura da linguagem"
+description: "Estrutura da linguagem R, incluindo operações básicas, tipos de objetos (vetores, data frames, matrizes, listas) e sintaxe principal."
+categories: [
+          "R",
+          "Programação"
+        ]
 image: "images/estrutura-liguagem-r.jpg"
 execute:
   echo: true

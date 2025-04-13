@@ -1,7 +1,13 @@
 ---
-title: Associação entre duas variáveis quantitativas
-description: "Relação entre variáveis quantitativas, covariância e correlação linear de Pearson."
-categories: ["Estatística", "Análise Quantitativa", "Covariância", "Correlação"]
+title: "Associação entre duas variáveis quantitativas"
+description: "Análise da associação entre variáveis quantitativas, com destaque para covariância e correlação de Pearson."
+categories: [
+          "Estatística",
+          "Análise quantitativa",
+          "Covariância",
+          "Correlação",
+          "Medidas de associação"
+        ]
 
 image: "images/biquanti.jpg"
 execute:

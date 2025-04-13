@@ -1,7 +1,13 @@
 ---
-title: Associação entre variáveis quantitativas e qualitativas 
-description: "Relação entre variáveis categóricas e contínuas, partição da soma dos quadrados, coeficiente de determinação"
-categories: ["Estatística", "ANOVA", "Análise Quantitativa", "Análise Qualitativa"]
+title: "Associação entre variáveis quantitativas e qualitativas" 
+description: "Análise da relação entre variáveis quantitativas e categóricas, considerando partição da soma de quadrados e coeficientes de determinação."
+categories: [
+          "Estatística",
+          "ANOVA",
+          "Análise quantitativa",
+          "Análise qualitativa",
+          "Medidas de associação"
+        ]
 
 image: "images/biquantquali.jpg"
 execute:

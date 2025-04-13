@@ -1,7 +1,11 @@
 ---
 title: "Ciência de Dados em R"
 description: "Introdução à ciência de dados em R, incluindo manipulação, transformação e visualização de dados."
-categories: ["Ciência de Dados", "R", "Tidyverse"]
+categories: [
+      "Ciência de dados",
+      "R",
+      "Tidyverse"
+    ]
 image: "images/ciencia_dados-r.jpg"
 listing:
   contents: 

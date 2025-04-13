@@ -1,7 +1,12 @@
 ---
-title: Associação entre duas variáveis qualitativas
-description: "Análise da associação entre variáveis qualitativas, tabelas de contingência e índice de qui-quadrado."
-categories: ["Estatística", "Análise Qualitativa", "Tabelas de Contingência"]
+title: "Associação entre duas variáveis qualitativas"
+description: "Análise da associação entre variáveis qualitativas, uso de tabelas de contingência e estatísticas de associação."
+categories: [
+          "Estatística",
+          "Análise qualitativa",
+          "Tabelas de contingência",
+          "Medidas de associação"
+        ]
 
 image: "images/biquali.jpg"
 execute:

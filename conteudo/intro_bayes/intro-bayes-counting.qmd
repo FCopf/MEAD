@@ -1,8 +1,12 @@
 ---
 title: "Contando possibilidades"  
-subtitle: "Evidencias sobre uma hipótese"  
-description: "Conteúdo baseado em @mcelreath2018statistical"
-Categories: ["Probabilidade", "Inferência bayesiana", "Resultados equiprováveis"]
+subtitle: "Evidências sobre uma hipótese"  
+description: "Introdução à contagem de possibilidades na abordagem bayesiana."
+Categories: [
+          "Inferência bayesiana",
+          "Distribuição a priori",
+          "Distribuição posterior"
+        ]
 
 image: "images/intro-bayes-conting.png"  
 execute:  

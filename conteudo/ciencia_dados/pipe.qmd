@@ -1,7 +1,12 @@
 ---
-title: Operadores pipe
-description: "Uso de operadores pipe para simplificar o fluxo de transformação de dados em R."
-categories: ["Ciência de Dados", "R", "Tidyverse", "Transformação de dados"]
+title: "Operadores pipe"
+description: "Uso de operadores pipe para encadear funções e simplificar fluxos de dados em R."
+categories: [
+          "Ciência de dados",
+          "R",
+          "Tidyverse",
+          "Transformação de dados"
+        ]
 image: "images/pipe.jpg"
 execute:
   echo: true

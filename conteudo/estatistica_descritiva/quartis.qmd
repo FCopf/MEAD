@@ -1,7 +1,13 @@
 ---
 title: "Medidas de posição: quartis"
-description: "Introdução às medidas de variação, como variância, desvio padrão, coeficiente de variação e amplitude, com exemplos práticos."
-categories: ["R", "Análise de Dados", "Estatística Descritiva", "Variabilidade de Dados", "Análise de Dispersão"]
+description: "Cálculo e interpretação de quartis para análise de distribuição, ressaltando faixas de variação e valores atípicos."
+categories: [
+          "R",
+          "Análise de dados",
+          "Estatística descritiva",
+          "Variabilidade de dados",
+          "Análise de dispersão"
+        ]
 
 image: "images/quartis-logo.jpg"
 execute:

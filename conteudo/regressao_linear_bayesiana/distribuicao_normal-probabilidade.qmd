@@ -1,8 +1,12 @@
 ---
 title: "O modelo da distribuição normal"  
-subtitle: "Função de densidade e função de probabilidade"  
-description: "Conteúdo baseado em @mcelreath2018statistical"
-Categories: ["Probabilidade", "Inferência bayesiana", "Resultados equiprováveis"]
+subtitle: "Função de densidade e função de probabilidade acumulada"  
+description: "Explora a distribuição normal para extrair probabilidades"
+Categories: [
+          "Distribuição normal",
+          "Função de densidade",
+          "Função de probabilidade acumulada"
+        ]
 
 image: "images/distribuicao_normal-probabilidade.png"
 execute:  

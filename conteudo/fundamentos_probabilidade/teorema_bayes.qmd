@@ -1,7 +1,11 @@
 ---
-title: Teorema de Bayes
-description: Fundamentos de Probabilidade
-categories: ["teorema de Bayes", "probabilidade condicional", "eventos dependentes"]
+title: "Teorema de Bayes"
+description: "Apresentação do Teorema de Bayes e sua aplicação no cálculo de probabilidades condicionais."
+categories: [
+          "Teorema de Bayes",
+          "Probabilidade condicional",
+          "Eventos dependentes"
+        ]
 image: "images/teorema_bayes.png"
 execute:
   echo: true

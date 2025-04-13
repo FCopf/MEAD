@@ -1,7 +1,12 @@
 ---
-title: Combinando as probabilidades de eventos
-description: Fundamentos de Probabilidade
-categories: ["eventos complexos", "diagrama de Venn", "Diagrama de árvore", "união de eventos"]
+title: "Combinando as probabilidades de eventos"
+description: "Combinação de probabilidades de eventos, utilizando diagramas de Venn e árvores para representar uniões e interseções."
+categories: [
+          "Probabilidade",
+          "Eventos complexos",
+          "Diagrama de Venn",
+          "Diagrama de árvore"
+        ]
 image: "images/eventos_complexos.png"
 execute:
   echo: true

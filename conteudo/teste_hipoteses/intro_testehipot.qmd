@@ -1,7 +1,10 @@
 ---
-title: Introdução ao Teste de Hipóteses
-description: "Hipóteses nula/alternativa, erros do Tipo I/II, valor do p e nível de significância"
-Categories: ["Fundamentos Estatísticos", "Teste de Hipóteses"]
+title: "Introdução ao teste de hipóteses"
+description: "Apresentação do teste de hipóteses, definições de hipóteses nula e alternativa, erros do tipo I/II e valor de p."
+Categories: [
+          "Inferência estatística",
+          "Teste de hipóteses"
+        ]
 
 image: "images/intro_testehipot.jpg"
 execute:

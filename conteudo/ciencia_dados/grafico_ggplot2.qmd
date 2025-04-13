@@ -1,7 +1,12 @@
 ---
-title: Gráficos em camadas
-description: "Criação de gráficos no R com o ggplot2, incluindo histogramas, boxplots e gráficos de dispersão."
-categories: ["Ciência de Dados", "R", "Tidyverse", "Visualização gráfica"]
+title: "Gráficos em camadas"
+description: "Criação de gráficos em camadas com ```ggplot2```, incluindo histogramas, boxplots e gráficos de dispersão."
+categories: [
+          "Ciência de dados",
+          "R",
+          "Tidyverse",
+          "Visualização gráfica"
+        ]
 image: "images/grafico_ggplot2.jpg"
 execute:
   echo: true

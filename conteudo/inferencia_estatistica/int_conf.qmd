@@ -1,7 +1,10 @@
 ---
-title: Estimando a média populacional
-description: "Intervalos de confiança para estimar a média populacional, introdução à distribuição t de Student."
-Categories: ["Intervalos de Confiança", "Inferência Estatística"]
+title: "Estimando a média populacional"
+description: "Construção e interpretação de intervalos de confiança para estimar a média populacional, incluindo a distribuição t de Student."
+Categories: [
+          "Estatística",
+          "Inferência estatística"
+        ]
 
 image: "images/int_conf.jpg"
 execute:

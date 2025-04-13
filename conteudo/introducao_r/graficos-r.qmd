@@ -1,7 +1,12 @@
 ---
-title: (Básico da) Visualização gráfica
-description: "Introdução à visualização gráfica no R: gráficos de barras, histogramas, boxplots, gráficos de dispersão e exportação de figuras."
-categories: ["R", "Programação", "Gráficos em R", "Visualização de dados"]
+title: "(Básico da) Visualização gráfica"
+description: "Introdução à criação de gráficos em R: gráficos de barras, histogramas, boxplots, dispersão e exportação de figuras."
+categories: [
+          "R",
+          "Programação",
+          "Gráficos em R",
+          "Visualização de dados"
+        ]
 image: "images/graficos-r.jpg"
 format: 
   html:

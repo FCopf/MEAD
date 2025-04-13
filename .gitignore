@@ -71,3 +71,6 @@ venv/
 /.quarto/
 
 testes/
+
+categorias_revisada.json
+categorias.json

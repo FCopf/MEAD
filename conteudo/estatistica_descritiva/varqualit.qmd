@@ -1,7 +1,13 @@
 ---
-title: Descrevendo variáveis qualitativas
-description: "Exploração de variáveis qualitativas, incluindo categóricas ordenadas e não ordenadas, tabelas de frequência e representações gráficas com gráficos de barras."
-categories: ["R", "Análise de Dados", "Estatística Descritiva", "Variáveis Qualitativas", "Visualização de Dados"]
+title: "Descrevendo variáveis qualitativas"
+description: "Descrição de variáveis qualitativas, incluindo tabelas de frequência, gráficos de barras e considerações sobre variáveis ordinais."
+categories: [
+          "R",
+          "Análise de dados",
+          "Estatística descritiva",
+          "Variáveis qualitativas",
+          "Visualização de dados"
+        ]
 
 image: "images/varquali.jpg"
 execute:

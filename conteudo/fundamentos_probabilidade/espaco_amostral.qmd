@@ -1,7 +1,12 @@
 ---
-title: Espaço de Possibilidades de um experimento
-description: Fundamentos de Probabilidade
-categories: ["espaço amostral", "evento", "experimento aleatório", "definição de probabilidade"]
+title: "Espaço de possibilidades de um experimento"
+description: "Espaço de possibilidades de um experimento aleatório, abordando a definição de evento e probabilidade."
+categories: [
+          "Probabilidade",
+          "Espaço amostral",
+          "Eventos",
+          "Experimento aleatório"
+        ]
 image: "images/espaco_amostral.png"
 execute:
   echo: true

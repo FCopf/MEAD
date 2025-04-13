@@ -1,7 +1,11 @@
 ---
 title: "Comparando médias: teste t de Student"
-description: "Comparando médias testes t para uma amostra, grupos independentes e medidas pareadas."
-Categories: ["Comparação de Médias", "Testes de hipóteses"]
+description: "Teste t de Student para comparação de médias, abrangendo uma amostra, grupos independentes e medidas pareadas."
+Categories: [
+          "Inferência estatística",
+          "Teste de hipóteses",
+          "Comparação de médias"
+        ]
 
 image: "images/teste_t.jpg"
 execute:

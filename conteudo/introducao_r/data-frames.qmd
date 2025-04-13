@@ -1,7 +1,12 @@
 ---
-title: (Básico da) Manipulação de data frames
-description: "Introdução à manipulação de data frames no R: importação de dados, seleção de linhas e colunas, criação de novas variáveis"
-categories: ["R", "Programação", "Manipulação de dados", "Data frames"]
+title: "(Básico da) Manipulação de data frames"
+description: "Princípios de manipulação de data frames no R: importação, seleção de linhas e colunas e criação de variáveis."
+categories: [
+          "R",
+          "Programação",
+          "Manipulação de dados",
+          "Data frames"
+        ]
 image: "images/data-frames-r.jpg"
 execute:
   echo: true

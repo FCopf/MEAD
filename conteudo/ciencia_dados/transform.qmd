@@ -1,7 +1,12 @@
 ---
-title: Transformação de Dados
-description: "Tidyverse - manipulação, transformação, visualização de dados."
-categories: ["Ciência de Dados", "R", "Tidyverse"]
+title: "Transformação de Dados"
+description: "Manipulação e transformação de dados com as funções principais do Tidyverse, incluindo ```dplyr``` e ```tidyr```."
+categories: [
+          "Ciência de dados",
+          "R",
+          "Tidyverse",
+          "Transformação de dados"
+        ]
 image: "images/transform.jpg"
 execute:
   echo: true

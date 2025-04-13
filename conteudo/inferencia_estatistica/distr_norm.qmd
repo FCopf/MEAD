@@ -1,7 +1,11 @@
 ---
-title: O modelo de distribuição normal
-description: "Introdução à distribuição normal de probabilidades, características, aplicações e cálculo de probabilidades no contexto da inferência estatística."
-Categories: ["Distribuição Normal", "Estatística Descritiva"]
+title: "O modelo de distribuição normal"
+description: "Introdução à distribuição normal, suas características e aplicações no contexto da inferência estatística."
+Categories: [
+          "Estatística",
+          "Inferência estatística",
+          "Distribuição normal"
+        ]
 
 image: "images/distr_norm.jpg"
 execute:

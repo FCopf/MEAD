@@ -1,8 +1,13 @@
 ---
 title: "Medidas de posição: transformação Z"
-description: "Transformação e interpretação do índice Z para padronizar distribuições, destacando sua relação com a média e o desvio padrão."
-categories: ["R", "Análise de Dados", "Estatística Descritiva", "Padronização de Dados", "Índice Z"]
-
+description: "Transformação Z para padronizar distribuições, facilitando comparações entre diferentes escalas de medida."
+categories: [
+          "R",
+          "Análise de dados",
+          "Estatística descritiva",
+          "Padronização de dados",
+          "Índice Z"
+        ]
 
 image: "images/escorez-logo.jpg"
 execute:

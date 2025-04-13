@@ -1,7 +1,10 @@
 ---
-title: Amostrando uma População Estatística
-description: "Métodos de amostragem aleatória simples, estratificada e sistemática. Conceitos de erro amostral, precisão e acurácia."
-Categories: ["amostragem", "inferência"]
+title: "Amostrando uma população estatística"
+description: "Métodos de amostragem aleatória simples, estratificada e sistemática, destacando o erro amostral e a acurácia das estimativas."
+Categories: [
+          "Estatística",
+          "Amostragem"
+        ]
 image: "images/tipos_amostragem.jpg"
 execute:
   echo: true

@@ -1,7 +1,12 @@
 ---
-title: Estrutura e tipos de dados
-description: "Estruturas de dados, categorização de variáveis, níveis de mensuração e estratégias práticas para tratar valores ausentes em tabelas"
-categories: ["Ciência de Dados", "R", "Estrutura de Dados", "Tipos de Dados", "Análise de Dados"]
+title: "Estrutura e tipos de dados"
+description: "Descrição de diferentes estruturas de dados e tipos de variáveis, com foco em níveis de mensuração e tratamento de valores ausentes em tabelas."
+categories: [
+          "R",
+          "Estrutura de dados",
+          "Tipos de dados",
+          "Análise de dados"
+        ]
 image: "images/estrutura_tipo.jpg"
 execute:
   echo: true

@@ -1,7 +1,14 @@
 ---
-title: Descrevendo variáveis quantitativas
-description: "Descrição de variáveis quantitativas utilizando tabelas de frequência, histogramas e gráficos de frequência acumulada."
-categories: ["R", "Ciência de Dados", "Análise de Dados", "Estatística Descritiva", "Variáveis Quantitativas", "Distribuição de Frequência"]
+title: "Descrevendo variáveis quantitativas"
+description: "Exploração de variáveis quantitativas por meio de tabelas de frequência, histogramas e gráficos de frequência acumulada."
+categories: [
+          "R",
+          "Ciência de dados",
+          "Análise de dados",
+          "Estatística descritiva",
+          "Variáveis quantitativas",
+          "Distribuição de frequência"
+        ]
 
 image: "images/varquanti.jpg"
 execute:

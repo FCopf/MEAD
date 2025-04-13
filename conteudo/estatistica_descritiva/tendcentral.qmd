@@ -1,7 +1,13 @@
 ---
-title: Medidas de tendência central
-description: "Cálculo e interpretação de medidas de tendência central, como média, mediana, moda e ponto médio, incluindo seu impacto em distribuições simétricas e assimétricas."
-categories: ["R", "Análise de Dados", "Estatística Descritiva", "Tendência Central", "Distribuição de Dados"]
+title: "Medidas de tendência central"
+description: "Discussão das principais medidas de tendência central (média, mediana, moda) e sua interpretação em diferentes distribuições."
+categories: [
+          "R",
+          "Análise de dados",
+          "Estatística descritiva",
+          "Tendência central",
+          "Distribuição de dados"
+        ]
 
 image: "images/tendcentral.jpg"
 execute:

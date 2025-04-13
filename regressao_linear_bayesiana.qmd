@@ -1,7 +1,13 @@
 ---
 title: "Regressão linear Bayesiana"
-description: "Construindo um modelo linear"
-categories: ["Modelo normal", "Regressão linear", "Distribuição a priori", "Distribuição posterior"]
+description: "Introdução à regressão linear com abordagem bayesiana. Baseado em @mcelreath2018statistical."
+categories: [
+      "Regressão linear",
+      "Inferência bayesiana",
+      "Distribuição normal",
+      "Distribuição a priori",
+      "Distribuição posterior"
+    ]
 
 image: "images/regressao_linear_bayesiana.png"
 listing:

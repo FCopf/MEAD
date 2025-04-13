@@ -1,7 +1,13 @@
 ---
 title: "Fundamentos de probabilidades"
-description: "Definição de probabilidade, probabilidade de eventos independentes, probabilidade condicional e Teorema de Bayes"
-categories: ["espaço amostral", "união", "intersecção", "eventos independentes", "probabilidade condicional", "Teorema de Bayes"]
+description: "Definição de probabilidade, eventos independentes, probabilidade condicional e Teorema de Bayes."
+categories: [
+      "Probabilidade",
+      "Espaço amostral",
+      "Eventos independentes",
+      "Probabilidade condicional",
+      "Teorema de Bayes"
+    ]
 
 image: "images/fundamentos_probabilidade.png"
 listing:

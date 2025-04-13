@@ -1,7 +1,11 @@
 ---
-title: Os pacotes em ```tidyverse```
-description: "Visão geral dos pacotes do Tidyverse para importação, organização, transformação e visualização de dados."
-categories: [Ciência de Dados", "R", "Tidyverse"]
+title: "Os pacotes em ```tidyverse```"
+description: "Pacotes do ```tidyverse``` para importação, organização, transformação e visualização de dados em R."
+categories: [
+          "Ciência de dados",
+          "R",
+          "Tidyverse"
+        ]
 image: "images/tidyverse.jpg"
 execute:
   echo: true

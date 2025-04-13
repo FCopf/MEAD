@@ -1,7 +1,11 @@
 ---
-title: Comparando variâncias
-description: "Comparando variâncias, teste F e teste de Levene."
-Categories: ["Análise de Variância", "Testes de hipóteses"]
+title: "Comparando variâncias"
+description: "Métodos de comparação de variâncias, incluindo o teste F e o teste de Levene."
+Categories: [
+          "Inferência estatística",
+          "Teste de hipóteses",
+          "Comparação de variâncias"
+        ]
 
 image: "images/teste_variancia.jpg"
 execute:

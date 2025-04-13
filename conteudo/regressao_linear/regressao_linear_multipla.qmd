@@ -1,8 +1,11 @@
 ---
-title: "Regressão Linear Múltipla"
+title: "Regressão linear múltipla"
 author: baseado no livro [Experimental Design and Data Analysis for Biologists](https://www.cambridge.org/highereducation/books/experimental-design-and-data-analysis-for-biologists/BAF276114278FF40A7ED1B0FE77D691A#overview){target="_blank"}
-description: "Regressão linear múltipla: determinação, seleção de variáveis, pressupostos e diagnósticos."
-Categories: ["Regressão Linear", "Estatística Descritiva", "Modelagem Matemática", "Análise de Variância"]
+description: "Regressão linear múltipla, discutindo seleção de variáveis, pressupostos e diagnósticos de adequação do modelo."
+Categories: [
+          "Regressão linear",
+          "Estatística"
+        ]
 
 image: "images/regressao_linear_multipla.jpg"
 execute:

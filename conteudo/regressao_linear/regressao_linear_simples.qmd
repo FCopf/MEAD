@@ -1,7 +1,10 @@
 ---
-title: Regressão Linear Simples
-description: "Modelos de regressão linear simples, ANOVA da regressão, coeficientes de determinação e diagnósticos da regressão."
-Categories: ["Regressão Linear", "Estatística Descritiva", "Modelagem Matemática", "Análise de Variância"]
+title: "Regressão linear simples"
+description: "Introdução à regressão linear simples, incluindo ANOVA da regressão, coeficiente de determinação e diagnósticos básicos."
+Categories: [
+          "Regressão linear",
+          "Estatística"
+        ]
 
 image: "images/regressao_linear_simples.jpg"
 execute:

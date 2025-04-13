@@ -1,7 +1,10 @@
 ---
 title: "Análise de variância"
-description: "Modelos de ANOVA para compararção de médias: ANOVA simples, em blocos e fatorial."
-categories: ["Comparação de Médias", "ANOVA"]
+description: "Modelos ANOVA para comparação de médias (simples, em blocos e fatorial)."
+categories: [
+      "Comparação de médias",
+      "ANOVA"
+    ]
 image: "images/anova.jpg"
 listing:
   contents:

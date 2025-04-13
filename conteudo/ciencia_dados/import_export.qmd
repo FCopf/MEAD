@@ -1,7 +1,12 @@
 ---
-title: Importando/Exportando dados
-description: "Técnicas de importação e exportação de dados usando o pacote `readr` do Tidyverse."
-categories: ["Ciência de Dados", "R", "Tidyverse", "Importação/Exportação de dados"]
+title: "Importando/Exportando dados"
+description: "Técnicas de importação e exportação de dados com o pacote ```readr``` do Tidyverse, para diversos formatos de arquivo."
+categories: [
+          "Ciência de dados",
+          "R",
+          "Tidyverse",
+          "Importação e exportação de dados"
+        ]
 image: "images/import_export.jpg"
 execute:
   echo: true

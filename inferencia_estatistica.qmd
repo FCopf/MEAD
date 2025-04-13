@@ -1,7 +1,10 @@
 ---
 title: "Inferência estatística"
-description: "Fundamentos da inferência estatística, teorema central do limite e intervalos de confiança."
-categories: ["Estatística", "Inferência Estatística"]
+description: "Fundamentos da inferência estatística, abrangendo teorema central do limite e intervalos de confiança."
+categories: [
+      "Estatística",
+      "Inferência estatística"
+    ]
 image: "images/inferencia_estatistica.jpg"
 listing:
   contents:

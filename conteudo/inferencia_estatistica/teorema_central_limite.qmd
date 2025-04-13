@@ -1,7 +1,10 @@
 ---
-title: Distribuição das médias amostrais
-description: "Teorema central do limite e a distribuição das médias amostrais."
-Categories: ["Teorema Central do Limite", "Inferência Estatística"]
+title: "Distribuição das médias amostrais"
+description: "Exposição do teorema central do limite, enfatizando a distribuição das médias amostrais e sua importância em inferência estatística."
+Categories: [
+          "Estatística",
+          "Inferência estatística"
+        ]
 
 image: "images/teorema_central_limite.jpg"
 execute:

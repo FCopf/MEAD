@@ -1,8 +1,13 @@
 ---
-title: "Construindo um modelo Bayesiano"  
+title: "Construindo um modelo bayesiano"  
 subtitle: "Verossimilhança e distribuição *a priori*"  
-description: "Conteúdo baseado em @mcelreath2018statistical"
-Categories: ["Inferência bayesiana", "modelo Binomial", "distribuições de probabilidade"]
+description: "Construção de um modelo bayesiano, enfatizando a formulação de distribuições a priori e posterior."
+Categories: [
+          "Inferência bayesiana",
+          "Distribuição a priori",
+          "Distribuição posterior",
+          "Modelo binomial"
+        ]
 image: "images/intro-bayes-modelo-bayesiano.png"  
 execute:
   echo: false
