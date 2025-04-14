@@ -495,7 +495,7 @@ Resumo: A Função de Verossimilhança Binomial
 <section id="o-perfil-de-verossimilhança" class="level3" data-number="2.1">
 <h3 data-number="2.1" class="anchored" data-anchor-id="o-perfil-de-verossimilhança"><span class="header-section-number">2.1</span> O perfil de verossimilhança</h3>
 <p>Acima, foram testadas três conjecturas específicas para a proporção de água na superfície da Terra (<span class="math inline">\(p = 0.3\)</span>, <span class="math inline">\(p = 0.4\)</span>, <span class="math inline">\(p = 0.8\)</span>). Para uma avaliação mais completa, podemos analisar o <strong>perfil de verossimilhança</strong> para uma série de valores de <span class="math inline">\(p\)</span> entre 0 e 1:</p>
-<div id="3c357bf6" class="cell" data-execution_count="2">
+<div id="30598251" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -581,6 +581,27 @@ P(p = 0.8) = \frac{5}{8}.\]</span></p>
 <p><span id="eq-posterior_proporcional"><span class="math display">\[P(H_i \mid D) \;\propto\; \mathcal{L}(H_i \mid D) \cdot P(H_i) \tag{3}\]</span></span></p>
 <p>No caso em que a distribuição <em>a priori</em> seja uniforme em todo o espaço de hipóteses, a distribuição <em>a posteriori</em> será <strong>proporcional apenas à verossimilhança</strong> (Eq. <a href="#eq-posterior_proporcional_uniforme" class="quarto-xref">Equação&nbsp;4</a>):</p>
 <p><span id="eq-posterior_proporcional_uniforme"><span class="math display">\[P(H_i \mid D) \;\propto\; \mathcal{L}(H_i \mid D) \tag{4}\]</span></span></p>
+<div class="callout callout-style-default callout-tip callout-titled" title="Explore o efeito da priori informativa!">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Explore o efeito da priori informativa!
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Você pode visualizar interativamente os efeitos das distribuições <em>a priori</em> e da verossimilhança na forma da distribuição <em>a posteriori</em> usando o app abaixo:</p>
+<p>👉 <a href="https://fcopf-binomial-bayesiana.share.connect.posit.cloud/" target="_blank"><strong>Abrir o app: Inferência Bayesiana (Shiny)</strong></a></p>
+<p>✅ <strong>Dicas:</strong></p>
+<ol type="1">
+<li><p><strong>Defina o número total de observações (<span class="math inline">\(N\)</span>)</strong> usando o controle deslizante no painel lateral.</p></li>
+<li><p><strong>Escolha o número de sucessos (<span class="math inline">\(k\)</span>)</strong> observados entre essas <span class="math inline">\(N\)</span> observações.</p></li>
+<li><p><strong>Ajuste os parâmetros da distribuição <em>a priori</em> Beta</strong>, modificando os valores de <span class="math inline">\(\alpha\)</span> e <span class="math inline">\(\beta\)</span> conforme sua hipótese inicial.</p></li>
+<li><p><strong>Observe os gráficos e compare as distribuições</strong> <em>a priori</em> (vermelho), o perfil de verossimilhança binomial (verde) e a distribuição <em>a posteriori</em>, resultante da combinação das outras duas (azul).</p></li>
+</ol>
+</div>
+</div>
 
 
 </section>
