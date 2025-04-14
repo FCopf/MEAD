@@ -366,20 +366,27 @@ No caso em que a distribuição *a priori* seja uniforme em todo o espaço de hi
 
 $$P(H_i \mid D) \;\propto\; \mathcal{L}(H_i \mid D)$${#eq-posterior_proporcional_uniforme}
 
-::: {.callout-tip title="Explore o efeito da priori informativa!"}
+::: {.callout-tip title="Atividades interativas: estimando a proporção da superfície oceânica!"}
 
-Você pode visualizar interativamente os efeitos das distribuições *a priori* e da verossimilhança na forma da distribuição *a posteriori* usando o app abaixo:
+1. **Amostre pontos no globo e faça sua própria inferência bayesiana**  
+   No app abaixo, gere **pontos aleatórios** na superfície da Terra e verifique quantos caem em água ou em terra.  
+   
+   👉 [**Estimando a Proporção da Superfície Oceânica**](https://fcopf-dash-ocean-surface.share.connect.posit.cloud/){target=_blank}
+   
+   - Escolha quantos pontos deseja amostrar (1 a 1000).  
+   - Clique em “Gerar Pontos Aleatórios” e observe quantos ficam sobre a água versus sobre a terra.  
+   - Registre esses valores como $k$ sucessos em $N$ pontos (N observações).
 
-👉 [**Abrir o app: Inferência Bayesiana (Shiny)**](https://fcopf-binomial-bayesiana.share.connect.posit.cloud/){target=_blank}
+2. **Utilize seus dados na inferência Bayesiana**  
+   Em seguida, abra o app abaixo para visualizar como as observações (sucessos e fracassos) combinadas a diferentes escolhas de parâmetros *a priori* (α, β) geram a distribuição *a posteriori*:  
+   
+   👉 [**Inferência Bayesiana**](https://fcopf-binomial-bayesiana.share.connect.posit.cloud/){target=_blank}
 
-✅ **Dicas:**
-
-1. **Defina o número total de observações ($N$)** usando o controle deslizante no painel lateral.
-
-2. **Escolha o número de sucessos ($k$)** observados entre essas $N$ observações.
-
-3. **Ajuste os parâmetros da distribuição *a priori* Beta**, modificando os valores de $\alpha$ e $\beta$ conforme sua hipótese inicial.
-
-4. **Observe os gráficos e compare as distribuições** *a priori* (vermelho), o perfil de verossimilhança binomial (verde) e a distribuição *a posteriori*, resultante da combinação das outras duas (azul).
+   **Dicas de uso**  
+   - Insira o mesmo **número de observações (N)** e **sucessos (k)** obtidos no primeiro app.  
+   - Ajuste interativamente a distribuição *a priori* Beta, modificando os parâmetros α e β.  
+   - Observe como a curva azul (“posteriori”) se altera de acordo com a *a priori* e com os dados observados, e compare com o perfil de verossimilhança (curva verde).
 
 :::
+
+
