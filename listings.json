@@ -7,75 +7,28 @@
     ]
   },
   {
-    "listing": "/anova.html",
+    "listing": "/distribuicao_normal.html",
     "items": [
-      "/conteudo/anova/anova_simples.html"
+      "/conteudo/distribuicao_normal/distr_norm.html",
+      "/conteudo/distribuicao_normal/distribuicao_normal-modelo.html",
+      "/conteudo/distribuicao_normal/distribuicao_normal-probabilidade.html"
     ]
   },
   {
-    "listing": "/introducao_r.html",
+    "listing": "/ciencia_dados.html",
     "items": [
-      "/conteudo/introducao_r/estrutura-linguagem.html",
-      "/conteudo/introducao_r/data-frames.html",
-      "/conteudo/introducao_r/graficos-r.html"
+      "/conteudo/ciencia_dados/tidyverse.html",
+      "/conteudo/ciencia_dados/import_export.html",
+      "/conteudo/ciencia_dados/pipe.html",
+      "/conteudo/ciencia_dados/transform.html",
+      "/conteudo/ciencia_dados/grafico_ggplot2.html"
     ]
   },
   {
-    "listing": "/regressao_linear.html",
+    "listing": "/inferencia_estatistica.html",
     "items": [
-      "/conteudo/regressao_linear/regressao_linear_simples.html",
-      "/conteudo/regressao_linear/regressao_linear_multipla.html"
-    ]
-  },
-  {
-    "listing": "/teste_hipoteses.html",
-    "items": [
-      "/conteudo/teste_hipoteses/intro_testehipot.html",
-      "/conteudo/teste_hipoteses/teste_variancia.html",
-      "/conteudo/teste_hipoteses/teste_t.html"
-    ]
-  },
-  {
-    "listing": "/index.html",
-    "items": [
-      "/introducao_r.html",
-      "/ciencia_dados.html",
-      "/estrutura_dados.html",
-      "/estatistica_descritiva.html",
-      "/medidas_associacao.html",
-      "/amostragem.html",
-      "/fundamentos_probabilidade.html",
-      "/inferencia_estatistica.html",
-      "/teste_hipoteses.html",
-      "/anova.html",
-      "/regressao_linear.html",
-      "/intro_bayes.html",
-      "/regressao_linear_bayesiana.html"
-    ]
-  },
-  {
-    "listing": "/medidas_associacao.html",
-    "items": [
-      "/conteudo/medidas_associacao/biquali.html",
-      "/conteudo/medidas_associacao/biquanti.html",
-      "/conteudo/medidas_associacao/biquantquali.html"
-    ]
-  },
-  {
-    "listing": "/intro_bayes.html",
-    "items": [
-      "/conteudo/intro_bayes/intro-bayes-counting.html",
-      "/conteudo/intro_bayes/intro-bayes-distr-prob.html",
-      "/conteudo/intro_bayes/intro-bayes-modelo-bayesiano.html",
-      "/conteudo/intro_bayes/intro-bayes-binomial-grid.html",
-      "/conteudo/intro_bayes/intro-bayes-binomial-pymc.html"
-    ]
-  },
-  {
-    "listing": "/regressao_linear_bayesiana.html",
-    "items": [
-      "/conteudo/regressao_linear_bayesiana/distribuicao_normal-modelo.html",
-      "/conteudo/regressao_linear_bayesiana/distribuicao_normal-probabilidade.html"
+      "/conteudo/inferencia_estatistica/teorema_central_limite.html",
+      "/conteudo/inferencia_estatistica/int_conf.html"
     ]
   },
   {
@@ -90,21 +43,72 @@
     ]
   },
   {
-    "listing": "/inferencia_estatistica.html",
+    "listing": "/regressao_linear_bayesiana.html",
+    "items": []
+  },
+  {
+    "listing": "/intro_bayes.html",
     "items": [
-      "/conteudo/inferencia_estatistica/distr_norm.html",
-      "/conteudo/inferencia_estatistica/teorema_central_limite.html",
-      "/conteudo/inferencia_estatistica/int_conf.html"
+      "/conteudo/intro_bayes/intro-bayes-counting.html",
+      "/conteudo/intro_bayes/intro-bayes-distr-prob.html",
+      "/conteudo/intro_bayes/intro-bayes-modelo-bayesiano.html",
+      "/conteudo/intro_bayes/intro-bayes-binomial-grid.html",
+      "/conteudo/intro_bayes/intro-bayes-binomial-pymc.html"
     ]
   },
   {
-    "listing": "/ciencia_dados.html",
+    "listing": "/medidas_associacao.html",
     "items": [
-      "/conteudo/ciencia_dados/tidyverse.html",
-      "/conteudo/ciencia_dados/import_export.html",
-      "/conteudo/ciencia_dados/pipe.html",
-      "/conteudo/ciencia_dados/transform.html",
-      "/conteudo/ciencia_dados/grafico_ggplot2.html"
+      "/conteudo/medidas_associacao/biquali.html",
+      "/conteudo/medidas_associacao/biquanti.html",
+      "/conteudo/medidas_associacao/biquantquali.html"
+    ]
+  },
+  {
+    "listing": "/index.html",
+    "items": [
+      "/introducao_r.html",
+      "/ciencia_dados.html",
+      "/estrutura_dados.html",
+      "/estatistica_descritiva.html",
+      "/medidas_associacao.html",
+      "/amostragem.html",
+      "/distribuicao_normal.html",
+      "/fundamentos_probabilidade.html",
+      "/inferencia_estatistica.html",
+      "/teste_hipoteses.html",
+      "/anova.html",
+      "/regressao_linear.html",
+      "/intro_bayes.html"
+    ]
+  },
+  {
+    "listing": "/teste_hipoteses.html",
+    "items": [
+      "/conteudo/teste_hipoteses/intro_testehipot.html",
+      "/conteudo/teste_hipoteses/teste_variancia.html",
+      "/conteudo/teste_hipoteses/teste_t.html"
+    ]
+  },
+  {
+    "listing": "/regressao_linear.html",
+    "items": [
+      "/conteudo/regressao_linear/regressao_linear_simples.html",
+      "/conteudo/regressao_linear/regressao_linear_multipla.html"
+    ]
+  },
+  {
+    "listing": "/introducao_r.html",
+    "items": [
+      "/conteudo/introducao_r/estrutura-linguagem.html",
+      "/conteudo/introducao_r/data-frames.html",
+      "/conteudo/introducao_r/graficos-r.html"
+    ]
+  },
+  {
+    "listing": "/anova.html",
+    "items": [
+      "/conteudo/anova/anova_simples.html"
     ]
   },
   {

@@ -6,9 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="description" content="Modelos ANOVA para comparação de médias (simples, em blocos e fatorial).">
+<meta name="description" content="Modelo, características e usos da distribuição normal.">
 
-<title>Análise de variância – Métodos em Estatística e Análise de Dados</title>
+<title>A distribuição normal – Métodos em Estatística e Análise de Dados</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -81,7 +81,7 @@ ul.task-list li input[type="checkbox"] {
     const options = {
       valueNames: ['listing-image','listing-title','listing-description','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
       
-      searchColumns: ["listing-title","listing-author","listing-image","listing-description"],
+      searchColumns: ["listing-title","listing-author","listing-subtitle","listing-image","listing-description"],
     };
 
     window['quarto-listings'] = window['quarto-listings'] || {};
@@ -130,10 +130,12 @@ window.Quarto = {
 </script>
 
 <link rel="stylesheet" href="styles/custom.css">
-<meta property="og:title" content="Análise de variância – Métodos em Estatística e Análise de Dados">
-<meta property="og:description" content="Modelos ANOVA para comparação de médias (simples, em blocos e fatorial).">
-<meta property="og:image" content="https://github.com/FCopf/MEAD/images/anova.jpg">
+<meta property="og:title" content="A distribuição normal – Métodos em Estatística e Análise de Dados">
+<meta property="og:description" content="Modelo, características e usos da distribuição normal.">
+<meta property="og:image" content="https://github.com/FCopf/MEAD/images/distribuicao-normal.png">
 <meta property="og:site_name" content="Métodos em Estatística e Análise de Dados">
+<meta property="og:image:height" content="1024">
+<meta property="og:image:width" content="1536">
 </head>
 
 <body class="nav-fixed">
@@ -180,17 +182,16 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Análise de variância</h1>
+<h1 class="title">A distribuição normal</h1>
   <div class="quarto-categories">
-    <div class="quarto-category">Inferência</div>
-    <div class="quarto-category">Testes Estatísticos</div>
-    <div class="quarto-category">Modelos</div>
+    <div class="quarto-category">Probabilidade</div>
+    <div class="quarto-category">Modelagem</div>
   </div>
   </div>
 
 <div>
   <div class="description">
-    Modelos ANOVA para comparação de médias (simples, em blocos e fatorial).
+    Modelo, características e usos da distribuição normal.
   </div>
 </div>
 
@@ -213,25 +214,69 @@ window.Quarto = {
 
 <div class="quarto-listing quarto-listing-container-default" id="listing-listing">
 <div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-listing-file-modified-sort="1744673735900" data-listing-reading-time-sort="26" data-listing-word-count-sort="5167">
+<div class="quarto-post image-right" data-index="0" data-listing-file-modified-sort="1744673735912" data-listing-reading-time-sort="38" data-listing-word-count-sort="7443">
 <div class="thumbnail">
-<p><a href="./conteudo/anova/anova_simples.html" class="no-external"></a></p><a href="./conteudo/anova/anova_simples.html" class="no-external">
-<p><img loading="lazy" src="./conteudo/anova/images/anova_simples.jpg" class="thumbnail-image"></p>
-</a><p><a href="./conteudo/anova/anova_simples.html" class="no-external"></a></p>
+<p><a href="./conteudo/distribuicao_normal/distr_norm.html" class="no-external"></a></p><a href="./conteudo/distribuicao_normal/distr_norm.html" class="no-external">
+<p><img loading="lazy" src="./conteudo/distribuicao_normal/images/distr_norm.jpg" class="thumbnail-image"></p>
+</a><p><a href="./conteudo/distribuicao_normal/distr_norm.html" class="no-external"></a></p>
 </div>
 <div class="body">
 <h3 class="no-anchor listing-title">
-<a href="./conteudo/anova/anova_simples.html" class="no-external">Análise de variância de um fator</a>
+<a href="./conteudo/distribuicao_normal/distr_norm.html" class="no-external">O modelo de distribuição normal</a>
 </h3>
 <div class="listing-subtitle">
-<a href="./conteudo/anova/anova_simples.html" class="no-external"></a>
+<a href="./conteudo/distribuicao_normal/distr_norm.html" class="no-external"></a>
 </div>
 <div class="listing-description">
-<a href="./conteudo/anova/anova_simples.html" class="no-external">Avaliação de uma única fonte de variação, partição da soma de quadrados e aplicação do teste F.</a>
+<a href="./conteudo/distribuicao_normal/distr_norm.html" class="no-external">Introdução à distribuição normal, suas características e aplicações no contexto da inferência estatística.</a>
 </div>
 </div>
 <div class="metadata">
-<p><a href="./conteudo/anova/anova_simples.html" class="no-external"></a></p><a href="./conteudo/anova/anova_simples.html" class="no-external">
+<p><a href="./conteudo/distribuicao_normal/distr_norm.html" class="no-external"></a></p><a href="./conteudo/distribuicao_normal/distr_norm.html" class="no-external">
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="1" data-listing-file-modified-sort="1744673735912" data-listing-reading-time-sort="5" data-listing-word-count-sort="840">
+<div class="thumbnail">
+<p><a href="./conteudo/distribuicao_normal/distribuicao_normal-modelo.html" class="no-external"></a></p><a href="./conteudo/distribuicao_normal/distribuicao_normal-modelo.html" class="no-external">
+<p><img loading="lazy" src="./conteudo/distribuicao_normal/images/distribuicao_normal-modelo.png" class="thumbnail-image"></p>
+</a><p><a href="./conteudo/distribuicao_normal/distribuicao_normal-modelo.html" class="no-external"></a></p>
+</div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="./conteudo/distribuicao_normal/distribuicao_normal-modelo.html" class="no-external">O modelo da distribuição normal</a>
+</h3>
+<div class="listing-subtitle">
+<a href="./conteudo/distribuicao_normal/distribuicao_normal-modelo.html" class="no-external">Um modelo para a distribuição de alturas</a>
+</div>
+<div class="listing-description">
+<a href="./conteudo/distribuicao_normal/distribuicao_normal-modelo.html" class="no-external">Apresenta o modelo matemático da distribuição normal.</a>
+</div>
+</div>
+<div class="metadata">
+<p><a href="./conteudo/distribuicao_normal/distribuicao_normal-modelo.html" class="no-external"></a></p><a href="./conteudo/distribuicao_normal/distribuicao_normal-modelo.html" class="no-external">
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="2" data-listing-file-modified-sort="1744673735912" data-listing-reading-time-sort="4" data-listing-word-count-sort="718">
+<div class="thumbnail">
+<p><a href="./conteudo/distribuicao_normal/distribuicao_normal-probabilidade.html" class="no-external"></a></p><a href="./conteudo/distribuicao_normal/distribuicao_normal-probabilidade.html" class="no-external">
+<p><img loading="lazy" src="./conteudo/distribuicao_normal/images/distribuicao_normal-probabilidade.png" class="thumbnail-image"></p>
+</a><p><a href="./conteudo/distribuicao_normal/distribuicao_normal-probabilidade.html" class="no-external"></a></p>
+</div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="./conteudo/distribuicao_normal/distribuicao_normal-probabilidade.html" class="no-external">O modelo da distribuição normal</a>
+</h3>
+<div class="listing-subtitle">
+<a href="./conteudo/distribuicao_normal/distribuicao_normal-probabilidade.html" class="no-external">Função de densidade e função de probabilidade acumulada</a>
+</div>
+<div class="listing-description">
+<a href="./conteudo/distribuicao_normal/distribuicao_normal-probabilidade.html" class="no-external">Explora a distribuição normal para extrair probabilidades</a>
+</div>
+</div>
+<div class="metadata">
+<p><a href="./conteudo/distribuicao_normal/distribuicao_normal-probabilidade.html" class="no-external"></a></p><a href="./conteudo/distribuicao_normal/distribuicao_normal-probabilidade.html" class="no-external">
 </a>
 </div>
 </div>
