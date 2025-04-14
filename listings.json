@@ -66,7 +66,9 @@
     "items": [
       "/conteudo/intro_bayes/intro-bayes-counting.html",
       "/conteudo/intro_bayes/intro-bayes-distr-prob.html",
-      "/conteudo/intro_bayes/intro-bayes-modelo-bayesiano.html"
+      "/conteudo/intro_bayes/intro-bayes-modelo-bayesiano.html",
+      "/conteudo/intro_bayes/intro-bayes-binomial-grid.html",
+      "/conteudo/intro_bayes/intro-bayes-binomial-pymc.html"
     ]
   },
   {
