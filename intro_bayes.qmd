@@ -14,6 +14,8 @@ listing:
     - conteudo/intro_bayes/intro-bayes-counting.qmd
     - conteudo/intro_bayes/intro-bayes-distr-prob.qmd
     - conteudo/intro_bayes/intro-bayes-modelo-bayesiano.qmd
+    - conteudo/intro_bayes/intro-bayes-binomial-grid.qmd
+    - conteudo/intro_bayes/intro-bayes-binomial-pymc.qmd
   sort: false
   type: default
   fields: 
