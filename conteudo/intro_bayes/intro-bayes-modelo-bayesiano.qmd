@@ -366,3 +366,20 @@ No caso em que a distribuição *a priori* seja uniforme em todo o espaço de hi
 
 $$P(H_i \mid D) \;\propto\; \mathcal{L}(H_i \mid D)$${#eq-posterior_proporcional_uniforme}
 
+::: {.callout-tip title="Explore o efeito da priori informativa!"}
+
+Você pode visualizar interativamente os efeitos das distribuições *a priori* e da verossimilhança na forma da distribuição *a posteriori* usando o app abaixo:
+
+👉 [**Abrir o app: Inferência Bayesiana (Shiny)**](https://fcopf-binomial-bayesiana.share.connect.posit.cloud/){target=_blank}
+
+✅ **Dicas:**
+
+1. **Defina o número total de observações ($N$)** usando o controle deslizante no painel lateral.
+
+2. **Escolha o número de sucessos ($k$)** observados entre essas $N$ observações.
+
+3. **Ajuste os parâmetros da distribuição *a priori* Beta**, modificando os valores de $\alpha$ e $\beta$ conforme sua hipótese inicial.
+
+4. **Observe os gráficos e compare as distribuições** *a priori* (vermelho), o perfil de verossimilhança binomial (verde) e a distribuição *a posteriori*, resultante da combinação das outras duas (azul).
+
+:::
