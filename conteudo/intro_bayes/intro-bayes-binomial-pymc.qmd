@@ -1,6 +1,6 @@
 ---
 title: "Inferência Bayesiana Binomial com PyMC"  
-subtitle: "Estimando $p$ pela modelagem probabilística"  
+subtitle: "Estimando $p$ usando modelagem probabilística"  
 description: "Introdução à modelagem probabilística na abordagem bayesiana."
 Categories: [
           "Inferência bayesiana",
@@ -21,7 +21,7 @@ execute:
 
 ## Visão Geral
 
-O **PyMC** é um pacote Python para modelagem estatística Bayesiana que utiliza métodos como **amostragem MCMC** (Markov Chain Monte Carlo) para estimar distribuições *a posteriori*. No caso de uma distribuição Binomial, podemos facilmente especificar uma **priori** Beta para o parâmetro $p$, observar dados (número de sucessos em $N$ ensaios) e obter a posteriori por meio de métodos de amostragem.
+O [PyMC](https://www.pymc.io/projects/docs/en/stable/learn.html) é um pacote Python para modelagem estatística Bayesiana que utiliza métodos como **amostragem MCMC** (Markov Chain Monte Carlo) para estimar distribuições *a posteriori*. No caso de uma distribuição Binomial, podemos facilmente especificar uma **priori** Beta para o parâmetro $p$, observar dados (número de sucessos em $N$ ensaios) e obter a posteriori por meio de métodos de amostragem.
 
 ### Passo a Passo
 
@@ -62,12 +62,10 @@ with pm.Model() as model:
     obs = pm.Binomial("obs", n=N, p=p, observed=k)
     
     # 3) Amostragem MCMC
-    # O PyMC usará, por padrão, o NUTS (No-U-Turn Sampler) para este tipo de modelo.
     trace = pm.sample(
         draws=2000,     # número de amostras pós-warmup
         tune=1000,      # número de iterações de warmup (ajuste)
         chains=2,       # número de cadeias em paralelo
-        random_seed=42, # para reprodutibilidade
         target_accept=0.9
     )
 
@@ -76,19 +74,18 @@ print(az.summary(trace, var_names=["p"], kind="stats"))
 
 # Plotando a posteriori e a evolução da cadeia
 az.plot_trace(trace, var_names=["p"])
-az.plot_posterior(trace, var_names=["p"], rope=[0.3, 0.7]);  # intervalos de relevância, se desejar
+az.plot_posterior(trace, var_names=["p"], rope=[0.3, 0.7]);  # intervalos de relevância
 ```
 
 ### Interpretação
 
-- A **forma** e a **localização** da posteriori dependerão tanto dos dados observados ($k$, $N$) quanto dos parâmetros da *a priori* ($\alpha$, $\beta$).  
+- A **forma** e a **localização** da posteriori dependerão tanto dos dados observados ($k$, $N$) quanto dos parâmetros da distribuição *a priori* ($\alpha$, $\beta$).  
 - Conforme $N$ aumenta, a verossimilhança passa a dominar o resultado, reduzindo o impacto de uma *a priori* moderada.  
-- Se você alterar $\alpha_{\mathrm{prior}}$ e $\beta_{\mathrm{prior}}$, verá como suposições prévias mudam a forma inicial da posteriori, sobretudo em regimes de poucos dados.
+- Se você alterar $\alpha_{\mathrm{prior}}$ e $\beta_{\mathrm{prior}}$, verá como suposições prévias mudam a forma inicial da posteriori, sobretudo em situações com poucos dados.
 
 ---
 
-## Exercício Sugerido
+## Exercício
 
 - **Varie** $N$ e $k$ para simular cenários distintos (poucos sucessos, muitos sucessos) e veja como a posteriori se adapta.  
-- **Altere** $\alpha_{\mathrm{prior}}$ e $\beta_{\mathrm{prior}}$ (por exemplo, prior fortemente concentrada em 0.8) e observe se, com poucos dados, a posteriori permanece próxima da *a priori*.  
-- Tente também usar `pm.sample_posterior_predictive(trace, ...)` para fazer predições sobre futuros ensaios (por exemplo, quantos sucessos esperar em novos $N_{\text{novos}}$ lançamentos).
+- **Altere** $\alpha_{\mathrm{prior}}$ e $\beta_{\mathrm{prior}}$ (por exemplo, prior fortemente concentrada em 0.8) e observe se, com poucos dados, a posteriori permanece próxima da distribuição *a priori*.
