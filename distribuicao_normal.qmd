@@ -1,0 +1,22 @@
+---
+title: "A distribuição normal"
+description: "Modelo, características e usos da distribuição normal."
+categories: [Probabilidade, Modelagem]
+image: "images/distribuicao-normal.png"
+listing:
+  contents: 
+    - conteudo/distribuicao_normal/distr_norm.qmd
+    - conteudo/distribuicao_normal/distribuicao_normal-modelo.qmd
+    - conteudo/distribuicao_normal/distribuicao_normal-probabilidade.qmd
+  sort: false
+  type: default
+  fields: 
+    - image
+    - title
+    - description
+    - categories    
+format:
+  html:
+    toc: true
+    number-sections: true
+---

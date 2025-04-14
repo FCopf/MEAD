@@ -13,20 +13,21 @@ listing:
     - estatistica_descritiva.qmd
     - medidas_associacao.qmd
     - amostragem.qmd
+    - distribuicao_normal.qmd
     - fundamentos_probabilidade.qmd
     - inferencia_estatistica.qmd
     - teste_hipoteses.qmd
     - anova.qmd
     - regressao_linear.qmd
     - intro_bayes.qmd
-    - regressao_linear_bayesiana.qmd
+    # - regressao_linear_bayesiana.qmd
   sort: false
   type: grid
   fields:
     - title
     - subtitle
-    - categories
-    - description
+    # - categories
+    # - description
     - image
   categories: true
 ---

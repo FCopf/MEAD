@@ -1,15 +1,7 @@
 ---
 title: "Introdução ao R"
 description: "Conceitos fundamentais da linguagem R, abrangendo manipulação e visualização de dados."
-categories: [
-      "R",
-      "Programação",
-      "Objetos em R",
-      "Manipulação de dados",
-      "Data frames",
-      "Gráficos em R",
-      "Visualização de dados"
-    ]
+categories: [Programação, R, Fundamentos]
 image: "images/intro-r.jpg"
 listing:
   contents: 

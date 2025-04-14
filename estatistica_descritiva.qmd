@@ -1,10 +1,7 @@
 ---
 title: "Estatística descritiva"
 description: "Representação de variáveis, medidas de tendência central e dispersão."
-categories: [
-      "Estatística",
-      "R"
-    ]
+categories: [Estatística Básica, Exploração de Dados, Visualização de Dados]
 image: "images/estatistica_descritiva.jpg"
 listing:
   contents: 

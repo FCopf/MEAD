@@ -1,12 +1,7 @@
 ---
 title: "Medidas de associação"
 description: "Métodos de avaliação de associação entre variáveis qualitativas e/ou quantitativas, incluindo técnicas de correlação e coeficientes de associação."
-categories: [
-      "Estatística",
-      "Análise de dados",
-      "Visualização de dados",
-      "Medidas de associação"
-    ]
+categories: [Estatística Básica, Correlação, Dependência]
 
 image: "images/medidas_associacao.jpg"
 listing:

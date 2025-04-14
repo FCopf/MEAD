@@ -1,12 +1,7 @@
 ---
 title: "Introdução à inferência bayesiana"
 description: "Fundamentos da inferência bayesiana, com base em *Statistical Rethinking* [@mcelreath2018statistical]."
-categories: [
-      "Distribuição de probabilidade",
-      "Inferência bayesiana",
-      "Distribuição a priori",
-      "Distribuição posterior"
-    ]
+categories: [Inferência, Estatística Bayesiana, Modelagem, Probabilidade]
 
 image: "images/intro_bayes.png"
 listing:
