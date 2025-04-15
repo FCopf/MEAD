@@ -19,9 +19,9 @@ execute:
 
 ---
 
-## Passo a passo
+A estratégia de **inferência via grid** consiste em discretizar o parâmetro $p$ em pequenos intervalos, avaliando a distribuição *a priori* e a verossimilhança em cada ponto da grade. Em seguida, multiplica-se esses valores e normaliza-se o resultado para obter a distribuição *a posteriori*.
 
-A estratégia de **inferência via grid** consiste em discretizar o parâmetro $p$ em pequenos intervalos, avaliando a priori, a verossimilhança e, então, normalizando para obter a posteriori.
+## Aproximação Bayesiana via Grid
 
 1. **Definir os dados**  
    - $N$: número total de observações (ensaios Bernoulli).  
@@ -31,7 +31,7 @@ A estratégia de **inferência via grid** consiste em discretizar o parâmetro $
    - Divida o intervalo $[0, 1]$ em muitos pontos (ex. 1000 pontos).  
    - Cada ponto será uma hipótese para o valor de $p$.
 
-3. **Avaliando a priori**  
+3. **Avaliar a priori**  
    - Escolha uma forma para a distribuição a priori de $p$.  
    - Exemplos: uma Beta($\alpha, \beta$) ou mesmo uma priori uniforme.  
    - Calcule a densidade da priori em cada ponto do grid.
@@ -40,24 +40,23 @@ A estratégia de **inferência via grid** consiste em discretizar o parâmetro $
    - Para cada valor de $p$ no grid, calcule $P(Y = k \mid p, N)$ usando a distribuição Binomial:  
      $$\mathcal{L}(p) = \binom{N}{k}\, p^k (1-p)^{N-k}.$$
 
-   - Você pode usar **`binom.pmf(k, N, p)`** (SciPy) ou escrever a fórmula manualmente.
+   - Use por exempo o método **`binom.pmf(k, N, p)`** do módulo [SciPy](https://scipy.org/) ou escreva a fórmula manualmente.
 
-5. **Combinar priori e verossimilhança**  
+5. **Combinar *priori* e verossimilhança**  
    - A posteriori não normalizada em cada ponto do grid é:  
      $$\text{posterior}_{\text{unnorm}}(p) = \text{prior}(p) \times \mathcal{L}(p).$$
 
-
-6. **Normalizar a posteriori**  
+6. **Normalizar a *posteriori***  
    - Some os valores de $\text{posterior}_{\text{unnorm}}(p)$ sobre todos os pontos $p$.  
-   - Divida cada valor pela soma total (ou use integração, como `scipy.integrate.simpson`, se quiser maior precisão).  
-   - O resultado é a distribuição a posteriori discreta (aproximada).
+   - Divida cada valor pela soma total (use integração, como `scipy.integrate.simpson` para maior precisão).  
+   - O resultado é a distribuição a *posteriori* discreta (aproximada).
 
 7. **Calcular probabilidades de intervalo**  
    - Para calcular $P(x_1 \leq p \leq x_2)$, some (ou integre) os valores da posteriori nos pontos entre $x_1$ e $x_2$.
 
 8. **Visualizar os resultados**  
-   - Faça gráficos do perfil da priori, da verossimilhança e da posteriori ao longo do grid de $p$.  
-   - Destaque intervalos de interesse ($x_1, x_2$) e compare valores de probabilidade.
+   - Faça gráficos do perfil da *priori*, da verossimilhança e da *posteriori* ao longo do grid de $p$.  
+   - Destaque intervalos de interesse ($x_1, x_2$) e use os valores de probabilidade para estimar o valor de $p$.
 
 ---
 
@@ -124,9 +123,9 @@ plt.show()
 
 ```
 
-### Interpretação:
+## Interpretação
 
-- Observe como a forma da posteriori (curva azul) é proporcional ao produto da priori (vermelho) pela verossimilhança (verde).
-- Se a priori for $Beta(1,1)$ (uniforme), a posteriori fica essencialmente guiada pelos dados.
-- Alterar $\alpha$ e $\beta$ faz a priori pesar mais (ou menos) no resultado final, dependendo de quão informativa ela é e do tamanho amostral $N$.
+- Observe como a forma da *posteriori* (curva azul) é proporcional ao produto da *priori* (vermelho) pela verossimilhança (verde).
+- Se a *priori* for $Beta(1,1)$ (uniforme), a *posteriori* fica essencialmente guiada pelos dados.
+- Alterar $\alpha$ e $\beta$ faz a *priori* pesar mais (ou menos) no resultado final, dependendo de quão informativa ela é e do tamanho amostral $N$.
 

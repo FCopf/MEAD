@@ -19,65 +19,93 @@ execute:
 
 ---
 
-## Visão Geral
+O [PyMC](https://www.pymc.io/projects/docs/en/stable/learn.html) é uma biblioteca de programação probabilística em Python que facilita a construção de modelos bayesianos, utilizando métodos como a **amostragem MCMC** (Markov Chain Monte Carlo) para estimar distribuições *a posteriori* de forma eficiente. 
 
-O [PyMC](https://www.pymc.io/projects/docs/en/stable/learn.html) é um pacote Python para modelagem estatística Bayesiana que utiliza métodos como **amostragem MCMC** (Markov Chain Monte Carlo) para estimar distribuições *a posteriori*. No caso de uma distribuição Binomial, podemos facilmente especificar uma **priori** Beta para o parâmetro $p$, observar dados (número de sucessos em $N$ ensaios) e obter a posteriori por meio de métodos de amostragem.
+Para modelar uma variável aleatória com distribuição Binomial, podemos especificar uma distribuição **a priori** do tipo Beta para o parâmetro $p$, observar os dados (número de sucessos em $N$ ensaios) e, então, obter a distribuição *a posteriori* utilizando técnicas de amostragem fornecidas pelo PyMC.
 
-### Passo a Passo
+## Estimativa Bayesiana com PyMC
 
-1. **Definição do Modelo**  
-   - Especificamos $p$ ~ Beta($\alpha_{\mathrm{prior}}$, $\beta_{\mathrm{prior}}$) como *a priori*.  
-   - Modelamos os dados observados ($k$ sucessos em $N$ ensaios) via Binomial($N, p$).
+1. **Definir os dados**  
 
-2. **Amostragem MCMC**  
-   - O PyMC utiliza, por padrão, o NUTS (No-U-Turn Sampler), uma variação de Hamiltonian Monte Carlo.  
-   - Ajustamos parâmetros como `draws` (quantas amostras serão salvas após o período de warmup), `tune` (quantas iterações de aquecimento) e `chains` (quantas cadeias paralelas).
+   - $N$: número total de observações (ensaios Bernoulli).  
+   - $k$: número de sucessos observados.
 
-3. **Inspeção dos Resultados**  
-   - `az.summary(trace)` exibe estatísticas como média, desvio-padrão, intervalos de credibilidade e $\hat{R}$ (verifica convergência).  
-   - `az.plot_trace(trace)` plota a série temporal das amostras e o histograma.  
-   - `az.plot_posterior(trace, var_names=["p"])` mostra a densidade *a posteriori*, intervalos de credibilidade e outras informações úteis.
+2. **Definir o modelo probabilístico**  
 
-## Exemplo de Código
+   - Especifique uma distribuição *a priori* para o parâmetro $p$, como uma Beta($\alpha$, $\beta$).  
+   - Modele os dados observados usando uma distribuição Binomial($N$, $p$):  
+
+     ```python
+     with pm.Model() as modelo:
+         p = pm.Beta("p", alpha=α_prior, beta=β_prior)
+         y = pm.Binomial("y", n=N, p=p, observed=k)
+     ```
+
+3. **Executar a amostragem MCMC**  
+
+   - Use o método `pm.sample()` para gerar amostras da distribuição *a posteriori*.  
+   - O PyMC utiliza, por padrão, o algoritmo **NUTS** (No-U-Turn Sampler), baseado em Hamiltonian Monte Carlo.  
+   
+     ```python
+     trace = pm.sample()
+     ```
+
+4. **Inspecionar os resultados da amostragem**  
+
+   - Use `az.summary(trace)` para obter estatísticas descritivas: média, desvio padrão, intervalos de credibilidade, $\hat{R}$ (diagnóstico de convergência), entre outros.  
+   - Visualize as cadeias com `az.plot_trace(trace)`, que mostra as séries temporais e histogramas das amostras.  
+   - Visualize a distribuição *a posteriori* com `az.plot_posterior(trace, var_names=["p"])`.
+
+5. **Calcular probabilidades e intervalos de credibilidade**  
+
+   - Use as amostras da posteriori para calcular quantidades como $P(x_1 \leq p \leq x_2)$, filtrando os valores de `p` entre esses limites e estimando a proporção.  
+   - Exemplo: 
+
+     ```python
+     amostras_p = trace.posterior["p"].values.flatten()
+     prob = ((amostras_p >= x1) & (amostras_p <= x2)).mean()
+     ```
+
+6. **Visualizar os resultados**  
+
+   - Faça gráficos para comparar a *priori* e a *posteriori*, ou destacar regiões de interesse com os intervalos de credibilidade.  
+   - Combine visualizações com `matplotlib`, `arviz` e outras bibliotecas para tornar as conclusões mais claras.
+
+
+## Exemplo em Python
 
 ```{python}
 import pymc as pm
-import arviz as az  # pacote complementar para análise/plot de resultados
+import arviz as az  # Pacote auxiliar para análise e visualização dos resultados
 
-# Parâmetros do experimento:
-N = 10    # número total de ensaios
-k = 6     # número de sucessos observados
+# 1. Definir os dados observados
+N = 10    # Número total de ensaios (Bernoulli)
+k = 6     # Número de sucessos observados
 
-# Parâmetros da priori Beta:
+# 2. Parâmetros da distribuição a priori (Beta)
 alpha_param = 2
 beta_param = 2
 
-# Define o modelo PyMC:
+# 3. Definir o modelo probabilístico no PyMC
 with pm.Model() as model:
-    # 1) Distribuição a priori: Beta(alpha_param, beta_param)
+    # 3.1. Definição da distribuição a priori para p
     p = pm.Beta("p", alpha=alpha_param, beta=beta_param)
     
-    # 2) Observações Binomiais
-    # 'observed=k' indica que estamos informando dados observados
+    # 3.2. Observações via distribuição Binomial
     obs = pm.Binomial("obs", n=N, p=p, observed=k)
     
-    # 3) Amostragem MCMC
-    trace = pm.sample(
-        draws=2000,     # número de amostras pós-warmup
-        tune=1000,      # número de iterações de warmup (ajuste)
-        chains=2,       # número de cadeias em paralelo
-        target_accept=0.9
-    )
+    # 4. Amostragem MCMC (posteriori)
+    trace = pm.sample()
 
-# Podemos resumir e visualizar os resultados usando o ArviZ
+# 5. Inspeção dos resultados
 print(az.summary(trace, var_names=["p"], kind="stats"))
 
-# Plotando a posteriori e a evolução da cadeia
-az.plot_trace(trace, var_names=["p"])
-az.plot_posterior(trace, var_names=["p"], rope=[0.3, 0.7]);  # intervalos de relevância
+# 6. Visualizações da amostragem e da posteriori
+az.plot_trace(trace, var_names=["p"])  # Trajetória e histograma das amostras
+az.plot_posterior(trace, var_names=["p"], rope=[0.3, 0.7]);  # Posteriori com intervalo de relevância
 ```
 
-### Interpretação
+## Interpretação
 
 - A **forma** e a **localização** da posteriori dependerão tanto dos dados observados ($k$, $N$) quanto dos parâmetros da distribuição *a priori* ($\alpha$, $\beta$).  
 - Conforme $N$ aumenta, a verossimilhança passa a dominar o resultado, reduzindo o impacto de uma *a priori* moderada.  
