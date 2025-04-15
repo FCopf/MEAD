@@ -182,11 +182,9 @@ window.Quarto = {
     <h2 id="toc-title">Nesta página</h2>
    
   <ul>
-  <li><a href="#passo-a-passo" id="toc-passo-a-passo" class="nav-link active" data-scroll-target="#passo-a-passo"><span class="header-section-number">1</span> Passo a passo</a></li>
-  <li><a href="#exemplo-em-python" id="toc-exemplo-em-python" class="nav-link" data-scroll-target="#exemplo-em-python"><span class="header-section-number">2</span> Exemplo em Python</a>
-  <ul class="collapse">
-  <li><a href="#interpretação" id="toc-interpretação" class="nav-link" data-scroll-target="#interpretação"><span class="header-section-number">2.1</span> Interpretação:</a></li>
-  </ul></li>
+  <li><a href="#aproximação-bayesiana-via-grid" id="toc-aproximação-bayesiana-via-grid" class="nav-link active" data-scroll-target="#aproximação-bayesiana-via-grid"><span class="header-section-number">1</span> Aproximação Bayesiana via Grid</a></li>
+  <li><a href="#exemplo-em-python" id="toc-exemplo-em-python" class="nav-link" data-scroll-target="#exemplo-em-python"><span class="header-section-number">2</span> Exemplo em Python</a></li>
+  <li><a href="#interpretação" id="toc-interpretação" class="nav-link" data-scroll-target="#interpretação"><span class="header-section-number">3</span> Interpretação</a></li>
   </ul>
 </nav>
     </div>
@@ -218,9 +216,9 @@ window.Quarto = {
 </header>
 
 
-<section id="passo-a-passo" class="level2" data-number="1">
-<h2 data-number="1" class="anchored" data-anchor-id="passo-a-passo"><span class="header-section-number">1</span> Passo a passo</h2>
-<p>A estratégia de <strong>inferência via grid</strong> consiste em discretizar o parâmetro <span class="math inline">\(p\)</span> em pequenos intervalos, avaliando a priori, a verossimilhança e, então, normalizando para obter a posteriori.</p>
+<p>A estratégia de <strong>inferência via grid</strong> consiste em discretizar o parâmetro <span class="math inline">\(p\)</span> em pequenos intervalos, avaliando a distribuição <em>a priori</em> e a verossimilhança em cada ponto da grade. Em seguida, multiplica-se esses valores e normaliza-se o resultado para obter a distribuição <em>a posteriori</em>.</p>
+<section id="aproximação-bayesiana-via-grid" class="level2" data-number="1">
+<h2 data-number="1" class="anchored" data-anchor-id="aproximação-bayesiana-via-grid"><span class="header-section-number">1</span> Aproximação Bayesiana via Grid</h2>
 <ol type="1">
 <li><strong>Definir os dados</strong>
 <ul>
@@ -234,7 +232,7 @@ window.Quarto = {
 </li>
 <li>Cada ponto será uma hipótese para o valor de <span class="math inline">\(p\)</span>.</li>
 </ul></li>
-<li><strong>Avaliando a priori</strong>
+<li><strong>Avaliar a priori</strong>
 <ul>
 <li>Escolha uma forma para a distribuição a priori de <span class="math inline">\(p\)</span>.<br>
 </li>
@@ -246,20 +244,20 @@ window.Quarto = {
 <ul>
 <li><p>Para cada valor de <span class="math inline">\(p\)</span> no grid, calcule <span class="math inline">\(P(Y = k \mid p, N)\)</span> usando a distribuição Binomial:<br>
 <span class="math display">\[\mathcal{L}(p) = \binom{N}{k}\, p^k (1-p)^{N-k}.\]</span></p></li>
-<li><p>Você pode usar <strong><code>binom.pmf(k, N, p)</code></strong> (SciPy) ou escrever a fórmula manualmente.</p></li>
+<li><p>Use por exempo o método <strong><code>binom.pmf(k, N, p)</code></strong> do módulo <a href="https://scipy.org/">SciPy</a> ou escreva a fórmula manualmente.</p></li>
 </ul></li>
-<li><strong>Combinar priori e verossimilhança</strong>
+<li><strong>Combinar <em>priori</em> e verossimilhança</strong>
 <ul>
 <li>A posteriori não normalizada em cada ponto do grid é:<br>
 <span class="math display">\[\text{posterior}_{\text{unnorm}}(p) = \text{prior}(p) \times \mathcal{L}(p).\]</span></li>
 </ul></li>
-<li><strong>Normalizar a posteriori</strong>
+<li><strong>Normalizar a <em>posteriori</em></strong>
 <ul>
 <li>Some os valores de <span class="math inline">\(\text{posterior}_{\text{unnorm}}(p)\)</span> sobre todos os pontos <span class="math inline">\(p\)</span>.<br>
 </li>
-<li>Divida cada valor pela soma total (ou use integração, como <code>scipy.integrate.simpson</code>, se quiser maior precisão).<br>
+<li>Divida cada valor pela soma total (use integração, como <code>scipy.integrate.simpson</code> para maior precisão).<br>
 </li>
-<li>O resultado é a distribuição a posteriori discreta (aproximada).</li>
+<li>O resultado é a distribuição a <em>posteriori</em> discreta (aproximada).</li>
 </ul></li>
 <li><strong>Calcular probabilidades de intervalo</strong>
 <ul>
@@ -267,9 +265,9 @@ window.Quarto = {
 </ul></li>
 <li><strong>Visualizar os resultados</strong>
 <ul>
-<li>Faça gráficos do perfil da priori, da verossimilhança e da posteriori ao longo do grid de <span class="math inline">\(p\)</span>.<br>
+<li>Faça gráficos do perfil da <em>priori</em>, da verossimilhança e da <em>posteriori</em> ao longo do grid de <span class="math inline">\(p\)</span>.<br>
 </li>
-<li>Destaque intervalos de interesse (<span class="math inline">\(x_1, x_2\)</span>) e compare valores de probabilidade.</li>
+<li>Destaque intervalos de interesse (<span class="math inline">\(x_1, x_2\)</span>) e use os valores de probabilidade para estimar o valor de <span class="math inline">\(p\)</span>.</li>
 </ul></li>
 </ol>
 <hr>
@@ -277,7 +275,7 @@ window.Quarto = {
 <section id="exemplo-em-python" class="level2" data-number="2">
 <h2 data-number="2" class="anchored" data-anchor-id="exemplo-em-python"><span class="header-section-number">2</span> Exemplo em Python</h2>
 <p>A seguir, um <strong>exemplo completo</strong> usando <code>numpy</code> e <code>matplotlib</code> para ilustrar cada etapa. Ajuste os valores de <span class="math inline">\(N\)</span>, <span class="math inline">\(k\)</span>, <span class="math inline">\(\alpha\)</span> e <span class="math inline">\(\beta\)</span> conforme necessário.</p>
-<div id="a8f3cff4" class="cell" data-execution_count="1">
+<div id="8d9a833c" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> binom, beta</span>
@@ -341,16 +339,16 @@ window.Quarto = {
 </div>
 </div>
 </div>
-<section id="interpretação" class="level3" data-number="2.1">
-<h3 data-number="2.1" class="anchored" data-anchor-id="interpretação"><span class="header-section-number">2.1</span> Interpretação:</h3>
+</section>
+<section id="interpretação" class="level2" data-number="3">
+<h2 data-number="3" class="anchored" data-anchor-id="interpretação"><span class="header-section-number">3</span> Interpretação</h2>
 <ul>
-<li>Observe como a forma da posteriori (curva azul) é proporcional ao produto da priori (vermelho) pela verossimilhança (verde).</li>
-<li>Se a priori for <span class="math inline">\(Beta(1,1)\)</span> (uniforme), a posteriori fica essencialmente guiada pelos dados.</li>
-<li>Alterar <span class="math inline">\(\alpha\)</span> e <span class="math inline">\(\beta\)</span> faz a priori pesar mais (ou menos) no resultado final, dependendo de quão informativa ela é e do tamanho amostral <span class="math inline">\(N\)</span>.</li>
+<li>Observe como a forma da <em>posteriori</em> (curva azul) é proporcional ao produto da <em>priori</em> (vermelho) pela verossimilhança (verde).</li>
+<li>Se a <em>priori</em> for <span class="math inline">\(Beta(1,1)\)</span> (uniforme), a <em>posteriori</em> fica essencialmente guiada pelos dados.</li>
+<li>Alterar <span class="math inline">\(\alpha\)</span> e <span class="math inline">\(\beta\)</span> faz a <em>priori</em> pesar mais (ou menos) no resultado final, dependendo de quão informativa ela é e do tamanho amostral <span class="math inline">\(N\)</span>.</li>
 </ul>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->
