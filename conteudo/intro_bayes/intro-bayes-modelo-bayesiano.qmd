@@ -255,32 +255,32 @@ P_Hi_list = np.round(P_Hi, 2).tolist()
 P_HiD_list = P_HiD_rounded.tolist()
 ```
 
-Vamos utilizar uma expressão análoga ao Teorema de Bayes para obter a probabilidade *a posteriori* para cada hipótese $H_i$:
+Vamos utilizar uma expressão análoga ao Teorema de Bayes para obter a distribuição de densidade de probabilidade *a posteriori* para $p_i$:
 
-$$P(H_i \mid D)
-= \frac{\mathcal{L}(D \mid H_i) \,\cdot\, P(H_i)}{P(H)},$$
+$$P(p_i \mid n, Y)
+= \frac{\mathcal{L}(p_i \mid n, Y) \,\cdot\, P(p_i)}{P(p)},$$
 
 Onde:
 
-- $P(H_i \mid D)$ é a probabilidade *a posteriori* da hipótese $H_i$ atualizada pelas observações.
-- $\mathcal{L}(D \mid H_i)$ é a verossimilhança dos dados $D$ (observações) dada a hipótese $H_i$.
-- $P(H_i)$ é a probabilidade *a priori* da hipótese $H_i$.
-- $P(H)$ a soma ponderada de todas as verossimilhanças pelas suas *priors* (fator de normalização), garantindo que as probabilidades *a posteriori* somem 1.
+- $P(p_i \mid n, Y)$ é a probabilidade *a posteriori* da hipótese $H_i$ atualizada pelas observações.
+- $\mathcal{L}(p_i \mid n, Y)$ é a verossimilhança da hipótese $H_i$ atualizada pelas observações.
+- $P(p_i)$ é a densidade de probabilidade *a priori* da hipótese $H_i$.
+- $P(p)$ a soma ponderada de todas as verossimilhanças pelas suas *priors* (fator de normalização), garantindo que as probabilidades *a posteriori* somem 1.
 
 Em nosso exemplo:
 
-$P(H) = \mathcal{L}(D \mid H_1) \,\cdot\, P(H_1) + \mathcal{L}(D \mid H_2) \,\cdot\, P(H_2) + \mathcal{L}(D \mid H_3) \,\cdot\, P(H_3)$
+$P(p) = \mathcal{L}(p_1 \mid n, Y) \,\cdot\, P(p_1) + \mathcal{L}(p_2 \mid n, Y) \,\cdot\, P(p_2) + \mathcal{L}(p_3 \mid n, Y) \,\cdot\, P(p_3)$
 
-$P(H) = \sum_{i=1}^{3} \mathcal{L}(D \mid H_i) \,\cdot\, P(H_i)$
+$P(p) = \sum_{i=1}^{3} \mathcal{L}(D \mid p_i) \,\cdot\, P(p_i)$
 
 
-Uma vez tendo assumindo uma distribuição *a priori* **uniforme** em que $P(H_i) = \frac{1}{3}$, podemos obter as probabilidades *a posteriori* para cada hipótese. Assim temos:
+Uma vez tendo assumindo uma distribuição *a priori* **uniforme** em que $P(p_i) = \frac{1}{3}$, podemos obter as probabilidades *a posteriori* para cada hipótese. Assim temos:
 
-$P(H) = \mathcal{L}(D \mid H_1) \,\cdot\, P(H_1) + \mathcal{L}(D \mid H_2) \,\cdot\, P(H_2) + \mathcal{L}(D \mid H_3) \,\cdot\, P(H_3)$
+$P(p) = \mathcal{L}(p_1 \mid n, Y) \,\cdot\, P(p_1) + \mathcal{L}(p_2 \mid n, Y) \,\cdot\, P(p_2) + \mathcal{L}(p_3 \mid n, Y) \,\cdot\, P(p_3)$
 
-$P(H) = `{python} lD_Hi_list[1]` \times \frac{1}{3} + `{python} lD_Hi_list[0]` \times \frac{1}{3} + `{python} lD_Hi_list[2]` \times \frac{1}{3}$
+$P(p) = `{python} lD_Hi_list[1]` \times \frac{1}{3} + `{python} lD_Hi_list[0]` \times \frac{1}{3} + `{python} lD_Hi_list[2]` \times \frac{1}{3}$
 
-$P(H) = `{python} P_Hi_list[1]` + `{python} P_Hi_list[0]` + `{python} P_Hi_list[2]` = `{python} P_H_list`$
+$P(p) = `{python} P_Hi_list[1]` + `{python} P_Hi_list[0]` + `{python} P_Hi_list[2]` = `{python} P_H_list`$
 
 De modo que:
 
@@ -340,11 +340,11 @@ max_P_HiD_inform_list = max(P_HiD_inform_list)
 indice_max_P_HiD_inform_list = P_HiD_inform_list.index(max_P_HiD_inform_list)
 ```
 
-$P(H) = \mathcal{L}(D \mid H_1) \,\cdot\, P(H_1) + \mathcal{L}(D \mid H_2) \,\cdot\, P(H_2) + \mathcal{L}(D \mid H_3) \,\cdot\, P(H_3)$
+$P(p) = \mathcal{L}(p_1 \mid n, Y) \,\cdot\, P(p_1) + \mathcal{L}(p_2 \mid n, Y) \,\cdot\, P(p_2) + \mathcal{L}(p_3 \mid n, Y) \,\cdot\, P(p_3)$
 
-$P(H) = `{python} lD_Hi_list[1]` \times \frac{1}{8} + `{python} lD_Hi_list[0]` \times \frac{2}{8} + `{python} lD_Hi_list[2]` \times \frac{5}{8}$
+$P(p) = `{python} lD_Hi_list[1]` \times \frac{1}{8} + `{python} lD_Hi_list[0]` \times \frac{2}{8} + `{python} lD_Hi_list[2]` \times \frac{5}{8}$
 
-$P(H) = `{python} P_Hi_inform_list[1]` + `{python} P_Hi_inform_list[0]` + `{python} P_Hi_inform_list[2]` = `{python} P_H_inform_list`$
+$P(p) = `{python} P_Hi_inform_list[1]` + `{python} P_Hi_inform_list[0]` + `{python} P_Hi_inform_list[2]` = `{python} P_H_inform_list`$
 
 De modo que:
 
@@ -360,11 +360,11 @@ Como resultado, observamos que a maior probabilidade *a posteriori* recai sobre 
 
 Portanto, na inferência bayesiana, a distribuição *a posteriori* de uma hipótese é **proporcional ao produto entre sua verossimilhança e sua probabilidade *a priori*** (Eq. @eq-posterior_proporcional):
 
-$$P(H_i \mid D) \;\propto\; \mathcal{L}(H_i \mid D) \cdot P(H_i)$${#eq-posterior_proporcional}
+$$P(p_1 \mid n, Y) \;\propto\; \mathcal{L}(p_1 \mid n, Y) \cdot P(p_i)$${#eq-posterior_proporcional}
 
 No caso em que a distribuição *a priori* seja uniforme em todo o espaço de hipóteses, a distribuição *a posteriori* será **proporcional apenas à verossimilhança** (Eq. @eq-posterior_proporcional_uniforme):
 
-$$P(H_i \mid D) \;\propto\; \mathcal{L}(H_i \mid D)$${#eq-posterior_proporcional_uniforme}
+$$P(p_1 \mid n, Y) \;\propto\; \mathcal{L}(p_1 \mid n, Y)$${#eq-posterior_proporcional_uniforme}
 
 ::: {.callout-tip title="Atividades interativas: estimando a proporção da superfície oceânica!"}
 
