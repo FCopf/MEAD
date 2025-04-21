@@ -495,7 +495,7 @@ Resumo: A Função de Verossimilhança Binomial
 <section id="o-perfil-de-verossimilhança" class="level3" data-number="2.1">
 <h3 data-number="2.1" class="anchored" data-anchor-id="o-perfil-de-verossimilhança"><span class="header-section-number">2.1</span> O perfil de verossimilhança</h3>
 <p>Acima, foram testadas três conjecturas específicas para a proporção de água na superfície da Terra (<span class="math inline">\(p = 0.3\)</span>, <span class="math inline">\(p = 0.4\)</span>, <span class="math inline">\(p = 0.8\)</span>). Para uma avaliação mais completa, podemos analisar o <strong>perfil de verossimilhança</strong> para uma série de valores de <span class="math inline">\(p\)</span> entre 0 e 1:</p>
-<div id="b09aa7f6" class="cell" data-execution_count="2">
+<div id="4bdb7fd0" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -533,23 +533,23 @@ Resumo: A Função de Verossimilhança Binomial
 </section>
 <section id="distribuição-a-posteriori" class="level3" data-number="3.2">
 <h3 data-number="3.2" class="anchored" data-anchor-id="distribuição-a-posteriori"><span class="header-section-number">3.2</span> Distribuição <em>a posteriori</em></h3>
-<p>Vamos utilizar uma expressão análoga ao Teorema de Bayes para obter a probabilidade <em>a posteriori</em> para cada hipótese <span class="math inline">\(H_i\)</span>:</p>
-<p><span class="math display">\[P(H_i \mid D)
-= \frac{\mathcal{L}(D \mid H_i) \,\cdot\, P(H_i)}{P(H)},\]</span></p>
+<p>Vamos utilizar uma expressão análoga ao Teorema de Bayes para obter a distribuição de densidade de probabilidade <em>a posteriori</em> para <span class="math inline">\(p_i\)</span>:</p>
+<p><span class="math display">\[P(p_i \mid n, Y)
+= \frac{\mathcal{L}(p_i \mid n, Y) \,\cdot\, P(p_i)}{P(p)},\]</span></p>
 <p>Onde:</p>
 <ul>
-<li><span class="math inline">\(P(H_i \mid D)\)</span> é a probabilidade <em>a posteriori</em> da hipótese <span class="math inline">\(H_i\)</span> atualizada pelas observações.</li>
-<li><span class="math inline">\(\mathcal{L}(D \mid H_i)\)</span> é a verossimilhança dos dados <span class="math inline">\(D\)</span> (observações) dada a hipótese <span class="math inline">\(H_i\)</span>.</li>
-<li><span class="math inline">\(P(H_i)\)</span> é a probabilidade <em>a priori</em> da hipótese <span class="math inline">\(H_i\)</span>.</li>
-<li><span class="math inline">\(P(H)\)</span> a soma ponderada de todas as verossimilhanças pelas suas <em>priors</em> (fator de normalização), garantindo que as probabilidades <em>a posteriori</em> somem 1.</li>
+<li><span class="math inline">\(P(p_i \mid n, Y)\)</span> é a probabilidade <em>a posteriori</em> da hipótese <span class="math inline">\(H_i\)</span> atualizada pelas observações.</li>
+<li><span class="math inline">\(\mathcal{L}(p_i \mid n, Y)\)</span> é a verossimilhança da hipótese <span class="math inline">\(H_i\)</span> atualizada pelas observações.</li>
+<li><span class="math inline">\(P(p_i)\)</span> é a densidade de probabilidade <em>a priori</em> da hipótese <span class="math inline">\(H_i\)</span>.</li>
+<li><span class="math inline">\(P(p)\)</span> a soma ponderada de todas as verossimilhanças pelas suas <em>priors</em> (fator de normalização), garantindo que as probabilidades <em>a posteriori</em> somem 1.</li>
 </ul>
 <p>Em nosso exemplo:</p>
-<p><span class="math inline">\(P(H) = \mathcal{L}(D \mid H_1) \,\cdot\, P(H_1) + \mathcal{L}(D \mid H_2) \,\cdot\, P(H_2) + \mathcal{L}(D \mid H_3) \,\cdot\, P(H_3)\)</span></p>
-<p><span class="math inline">\(P(H) = \sum_{i=1}^{3} \mathcal{L}(D \mid H_i) \,\cdot\, P(H_i)\)</span></p>
-<p>Uma vez tendo assumindo uma distribuição <em>a priori</em> <strong>uniforme</strong> em que <span class="math inline">\(P(H_i) = \frac{1}{3}\)</span>, podemos obter as probabilidades <em>a posteriori</em> para cada hipótese. Assim temos:</p>
-<p><span class="math inline">\(P(H) = \mathcal{L}(D \mid H_1) \,\cdot\, P(H_1) + \mathcal{L}(D \mid H_2) \,\cdot\, P(H_2) + \mathcal{L}(D \mid H_3) \,\cdot\, P(H_3)\)</span></p>
-<p><span class="math inline">\(P(H) = 0.26 \times \frac{1}{3} + 0.35 \times \frac{1}{3} + 0.15 \times \frac{1}{3}\)</span></p>
-<p><span class="math inline">\(P(H) = 0.09 + 0.12 + 0.05 = 0.25\)</span></p>
+<p><span class="math inline">\(P(p) = \mathcal{L}(p_1 \mid n, Y) \,\cdot\, P(p_1) + \mathcal{L}(p_2 \mid n, Y) \,\cdot\, P(p_2) + \mathcal{L}(p_3 \mid n, Y) \,\cdot\, P(p_3)\)</span></p>
+<p><span class="math inline">\(P(p) = \sum_{i=1}^{3} \mathcal{L}(D \mid p_i) \,\cdot\, P(p_i)\)</span></p>
+<p>Uma vez tendo assumindo uma distribuição <em>a priori</em> <strong>uniforme</strong> em que <span class="math inline">\(P(p_i) = \frac{1}{3}\)</span>, podemos obter as probabilidades <em>a posteriori</em> para cada hipótese. Assim temos:</p>
+<p><span class="math inline">\(P(p) = \mathcal{L}(p_1 \mid n, Y) \,\cdot\, P(p_1) + \mathcal{L}(p_2 \mid n, Y) \,\cdot\, P(p_2) + \mathcal{L}(p_3 \mid n, Y) \,\cdot\, P(p_3)\)</span></p>
+<p><span class="math inline">\(P(p) = 0.26 \times \frac{1}{3} + 0.35 \times \frac{1}{3} + 0.15 \times \frac{1}{3}\)</span></p>
+<p><span class="math inline">\(P(p) = 0.09 + 0.12 + 0.05 = 0.25\)</span></p>
 <p>De modo que:</p>
 <p><span class="math inline">\(P(0.3 \mid 4, 2) = \frac{0.26 \times \frac{1}{3}}{0.25} \approx 0.34\)</span></p>
 <p><span class="math inline">\(P(0.4 \mid 4, 2) = \frac{0.35 \times \frac{1}{3}}{0.25} \approx 0.46\)</span></p>
@@ -569,18 +569,18 @@ Resumo: A Função de Verossimilhança Binomial
 <p><span class="math display">\[P(p = 0.3) = \frac{1}{8}, \quad
 P(p = 0.4) = \frac{2}{8}, \quad
 P(p = 0.8) = \frac{5}{8}.\]</span></p>
-<p><span class="math inline">\(P(H) = \mathcal{L}(D \mid H_1) \,\cdot\, P(H_1) + \mathcal{L}(D \mid H_2) \,\cdot\, P(H_2) + \mathcal{L}(D \mid H_3) \,\cdot\, P(H_3)\)</span></p>
-<p><span class="math inline">\(P(H) = 0.26 \times \frac{1}{8} + 0.35 \times \frac{2}{8} + 0.15 \times \frac{5}{8}\)</span></p>
-<p><span class="math inline">\(P(H) = 0.03 + 0.09 + 0.09 = 0.21\)</span></p>
+<p><span class="math inline">\(P(p) = \mathcal{L}(p_1 \mid n, Y) \,\cdot\, P(p_1) + \mathcal{L}(p_2 \mid n, Y) \,\cdot\, P(p_2) + \mathcal{L}(p_3 \mid n, Y) \,\cdot\, P(p_3)\)</span></p>
+<p><span class="math inline">\(P(p) = 0.26 \times \frac{1}{8} + 0.35 \times \frac{2}{8} + 0.15 \times \frac{5}{8}\)</span></p>
+<p><span class="math inline">\(P(p) = 0.03 + 0.09 + 0.09 = 0.21\)</span></p>
 <p>De modo que:</p>
 <p><span class="math inline">\(P(0.3 \mid 4, 2) = \frac{0.26 \times \frac{1}{8}}{0.21} \approx 0.15\)</span></p>
 <p><span class="math inline">\(P(0.4 \mid 4, 2) = \frac{0.35 \times \frac{2}{8}}{0.21} \approx 0.41\)</span></p>
 <p><span class="math inline">\(P(0.8 \mid 4, 2) = \frac{0.15 \times \frac{5}{8}}{0.21} \approx 0.44\)</span></p>
 <p>Como resultado, observamos que a maior probabilidade <em>a posteriori</em> recai sobre a hipótese <span class="math inline">\(p = 0.8\)</span>, ainda que exista um suporte similar para <span class="math inline">\(p = 0.4\)</span>. Esse resultado se deve, sobretudo, à <strong>influência da distribuição <em>a priori</em></strong>, que atribuiu maior peso à hipótese <span class="math inline">\(H_3\)</span>.</p>
 <p>Portanto, na inferência bayesiana, a distribuição <em>a posteriori</em> de uma hipótese é <strong>proporcional ao produto entre sua verossimilhança e sua probabilidade <em>a priori</em></strong> (Eq. <a href="#eq-posterior_proporcional" class="quarto-xref">Equação&nbsp;3</a>):</p>
-<p><span id="eq-posterior_proporcional"><span class="math display">\[P(H_i \mid D) \;\propto\; \mathcal{L}(H_i \mid D) \cdot P(H_i) \tag{3}\]</span></span></p>
+<p><span id="eq-posterior_proporcional"><span class="math display">\[P(p_1 \mid n, Y) \;\propto\; \mathcal{L}(p_1 \mid n, Y) \cdot P(p_i) \tag{3}\]</span></span></p>
 <p>No caso em que a distribuição <em>a priori</em> seja uniforme em todo o espaço de hipóteses, a distribuição <em>a posteriori</em> será <strong>proporcional apenas à verossimilhança</strong> (Eq. <a href="#eq-posterior_proporcional_uniforme" class="quarto-xref">Equação&nbsp;4</a>):</p>
-<p><span id="eq-posterior_proporcional_uniforme"><span class="math display">\[P(H_i \mid D) \;\propto\; \mathcal{L}(H_i \mid D) \tag{4}\]</span></span></p>
+<p><span id="eq-posterior_proporcional_uniforme"><span class="math display">\[P(p_1 \mid n, Y) \;\propto\; \mathcal{L}(p_1 \mid n, Y) \tag{4}\]</span></span></p>
 <div class="callout callout-style-default callout-tip callout-titled" title="Atividades interativas: estimando a proporção da superfície oceânica!">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
