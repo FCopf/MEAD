@@ -39,7 +39,7 @@ ul.task-list li input[type="checkbox"] {
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting-d4d76bf8491c20bad77d141916dc28e1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-fd75e10d688f5043d524a95775cfac05.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-ee130889f7ce82c4b1e1e0da78b7ae6a.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -153,12 +153,8 @@ window.Quarto = {
   <ul class="collapse">
   <li><a href="#o-perfil-de-verossimilhança" id="toc-o-perfil-de-verossimilhança" class="nav-link" data-scroll-target="#o-perfil-de-verossimilhança"><span class="header-section-number">2.1</span> O perfil de verossimilhança</a></li>
   </ul></li>
-  <li><a href="#inferência-bayesiana-distribuições-a-priori-e-a-posteriori" id="toc-inferência-bayesiana-distribuições-a-priori-e-a-posteriori" class="nav-link" data-scroll-target="#inferência-bayesiana-distribuições-a-priori-e-a-posteriori"><span class="header-section-number">3</span> Inferência Bayesiana: distribuições <em>a priori</em> e <em>a posteriori</em></a>
-  <ul class="collapse">
-  <li><a href="#hipóteses-h-e-distribuição-a-priori-uniforme" id="toc-hipóteses-h-e-distribuição-a-priori-uniforme" class="nav-link" data-scroll-target="#hipóteses-h-e-distribuição-a-priori-uniforme"><span class="header-section-number">3.1</span> Hipóteses (<span class="math inline">\(H\)</span>) e distribuição <em>a priori</em> uniforme</a></li>
-  <li><a href="#distribuição-a-posteriori" id="toc-distribuição-a-posteriori" class="nav-link" data-scroll-target="#distribuição-a-posteriori"><span class="header-section-number">3.2</span> Distribuição <em>a posteriori</em></a></li>
-  <li><a href="#distribuição-a-priori-informativa" id="toc-distribuição-a-priori-informativa" class="nav-link" data-scroll-target="#distribuição-a-priori-informativa"><span class="header-section-number">3.3</span> Distribuição <em>a priori</em> informativa</a></li>
-  </ul></li>
+  <li><a href="#inferência-bayesiana-distribuições-a-priori-e-a-posteriori" id="toc-inferência-bayesiana-distribuições-a-priori-e-a-posteriori" class="nav-link" data-scroll-target="#inferência-bayesiana-distribuições-a-priori-e-a-posteriori"><span class="header-section-number">3</span> Inferência Bayesiana: distribuições <em>a priori</em> e <em>a posteriori</em></a></li>
+  <li><a href="#priori-informativa-e-não-informativa" id="toc-priori-informativa-e-não-informativa" class="nav-link" data-scroll-target="#priori-informativa-e-não-informativa"><span class="header-section-number">4</span> Priori informativa e não informativa</a></li>
   </ul>
 </nav>
     </div>
@@ -377,7 +373,7 @@ Tabela&nbsp;2: <strong>Combinações que resultam em <span class="math inline">\
 <div id="tbl-probabilidade-globo" class="striped hover quarto-float quarto-figure quarto-figure-center anchored" data-tbl-colwidths="[25,30,15,30]">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-probabilidade-globo-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Tabela&nbsp;3: <strong>Probabilidade <span class="math inline">\(P(Y)\)</span> de observar diferentes números (<span class="math inline">\(y_i\)</span>) de pontos sobre a água.</strong>
+Tabela&nbsp;3: <strong>Probabilidade <span class="math inline">\(P(Y)\)</span> de observar diferentes números (<span class="math inline">\(y\)</span>) de pontos sobre a água.</strong>
 </figcaption>
 <div aria-describedby="tbl-probabilidade-globo-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <table class="table-striped table-hover caption-top table">
@@ -389,7 +385,7 @@ Tabela&nbsp;3: <strong>Probabilidade <span class="math inline">\(P(Y)\)</span> d
 </colgroup>
 <thead>
 <tr class="header">
-<th style="text-align: center;">Nº pontos na água (<span class="math inline">\(y_i\)</span>)</th>
+<th style="text-align: center;">Nº pontos na água (<span class="math inline">\(y\)</span>)</th>
 <th style="text-align: left;">Dados</th>
 <th style="text-align: center;">Nº de combinações</th>
 <th style="text-align: left;"><span class="math inline">\(P(Y)\)</span></th>
@@ -424,7 +420,7 @@ Tabela&nbsp;3: <strong>Probabilidade <span class="math inline">\(P(Y)\)</span> d
 <td style="text-align: center;">4</td>
 <td style="text-align: left;">🌊 🌊 🌊 🌊</td>
 <td style="text-align: center;">1</td>
-<td style="text-align: left;"><span class="math inline">\((p) \times p \times p \times p\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(1 \times p \times p \times p \times p\)</span></td>
 </tr>
 </tbody>
 </table>
@@ -434,15 +430,15 @@ Tabela&nbsp;3: <strong>Probabilidade <span class="math inline">\(P(Y)\)</span> d
 <p><br></p>
 <section id="o-modelo-binomial" class="level2" data-number="1">
 <h2 data-number="1" class="anchored" data-anchor-id="o-modelo-binomial"><span class="header-section-number">1</span> O modelo Binomial</h2>
-<p>A partir das expressões para <span class="math inline">\(P(Y)\)</span> apresentadas na <a href="#tbl-probabilidade-globo" class="quarto-xref">Tabela&nbsp;3</a>, obtém-se uma fórmula geral que pode ser escrita como:</p>
-<p><span id="eq-binomial"><span class="math display">\[P(Y \mid n, p) = \binom{n}{Y} \, p^Y (1 - p)^{n - Y}.
+<p>A partir das expressões para <span class="math inline">\(P(y)\)</span> apresentadas na <a href="#tbl-probabilidade-globo" class="quarto-xref">Tabela&nbsp;3</a>, obtém-se uma fórmula geral que pode ser escrita como:</p>
+<p><span id="eq-binomial"><span class="math display">\[P(y \mid n, p) = \binom{n}{y} \, p^y (1 - p)^{n - y}.
 \tag{1}\]</span></span></p>
 <p><strong>Onde:</strong></p>
 <ul>
-<li><span class="math inline">\(Y \in \{0, 1, 2, \dots, n\}\)</span> é o número de observações de 🌊;</li>
+<li><span class="math inline">\(y \in \{0, 1, 2, \dots, n\}\)</span> é o número de observações de 🌊;</li>
 <li><span class="math inline">\(n\)</span> é o número total de observações;</li>
 <li><span class="math inline">\(p\)</span> é a fração de 🌊 que cobre o globo;</li>
-<li><span class="math inline">\(\binom{n}{Y}\)</span> é o coeficiente binomial, calculado por <span class="math inline">\(\frac{n!}{Y!(n - Y)!}\)</span>, indicando de quantas maneiras a combinação <span class="math inline">\(p^Y (1 - p)^{n - Y}\)</span> pode ocorrer.</li>
+<li><span class="math inline">\(\binom{n}{y}\)</span> é o coeficiente binomial, calculado por <span class="math inline">\(\frac{n!}{y!(n - y)!}\)</span>, indicando de quantas maneiras a combinação <span class="math inline">\(p^y (1 - p)^{n - y}\)</span> pode ocorrer.</li>
 </ul>
 <p>A <a href="#eq-binomial" class="quarto-xref">Equação&nbsp;1</a> fornece a probabilidade de cada resultado possível (número de observações 🌊) em <span class="math inline">\(n\)</span> tentativas, permitindo calcular a probabilidade de <strong>todos</strong> os possíveis resultados do experimento.</p>
 </section>
@@ -450,29 +446,29 @@ Tabela&nbsp;3: <strong>Probabilidade <span class="math inline">\(P(Y)\)</span> d
 <h2 data-number="2" class="anchored" data-anchor-id="verossimilhança-a-plausibilidade-de-uma-hipótese"><span class="header-section-number">2</span> Verossimilhança: a plausibilidade de uma hipótese</h2>
 <p>A partir do modelo binomial, podemos definir a <strong>função de verossimilhança</strong> para um resultado observado. Imagine que, em <span class="math inline">\(n = 4\)</span> lançamentos, foram observados <span class="math inline">\(y = 2\)</span> pontos sobre a água. Não sabemos a verdadeira proporção <span class="math inline">\(p\)</span> de água que cobre a Terra; portanto, fazemos conjecturas e avaliamos cada uma com base nas observações.</p>
 <p>Por exemplo, se supormos que a proporção verdadeira seja 40% <span class="math inline">\((p = 0.4)\)</span>, a distribuição binomial determina que a probabilidade de observar <span class="math inline">\(y = 2\)</span> sucessos em <span class="math inline">\(n = 4\)</span> lançamentos seja:</p>
-<p><span class="math display">\[P(Y=2 \mid 4, 0.4) = \binom{4}{2} \, 0.4^2 (1 - 0.4)^{4 - 2} = 0.35\]</span></p>
+<p><span class="math display">\[P(y = 2 \mid n = 4, p = 0.4) = \binom{4}{2} \, 0.4^2 (1 - 0.4)^{4 - 2} = 0.35\]</span></p>
 <p>Essa hipótese é apenas uma das possíveis. Para ilustrar outras conjecturas, considere:</p>
 <ul>
 <li><p>Se <span class="math inline">\(p = 0.3\)</span>:</p>
-<p><span class="math inline">\(P(Y=2 \mid 4, 0.3) = \binom{4}{2} \, 0.3^2 (1 - 0.3)^{4 - 2} = 0.26\)</span></p></li>
+<p><span class="math inline">\(P(2 \mid 4, 0.3) = \binom{4}{2} \, 0.3^2 (1 - 0.3)^{4 - 2} = 0.26\)</span></p></li>
 <li><p>Se <span class="math inline">\(p = 0.8\)</span>:</p>
-<p><span class="math inline">\(P(Y=2 \mid 4, 0.8) = \binom{4}{2} \, 0.8^2 (1 - 0.8)^{4 - 2} = 0.15\)</span></p></li>
+<p><span class="math inline">\(P(2 \mid 4, 0.8) = \binom{4}{2} \, 0.8^2 (1 - 0.8)^{4 - 2} = 0.15\)</span></p></li>
 </ul>
-<p>Em cada caso, os dados observados <span class="math inline">\((Y)\)</span> e o número total de observações <span class="math inline">\((n)\)</span> estão fixos, enquanto o parâmetro <span class="math inline">\(p\)</span> varia conforme a hipótese considerada. Embora a forma matemática seja idêntica à da função de probabilidade binomial, seu uso é diferente. Na função de probabilidade, lemos a probabilidade de <span class="math inline">\(Y\)</span> dado <span class="math inline">\(n\)</span> e <span class="math inline">\(p\)</span>, enquanto nos exemplos acima, avaliamos a plausibilidade de diferentes valores de <span class="math inline">\(p\)</span> diante dos dados fixos <span class="math inline">\(Y\)</span> e <span class="math inline">\(n\)</span>.</p>
+<p>Em cada caso, os dados observados <span class="math inline">\((y)\)</span> e o número total de observações <span class="math inline">\((n)\)</span> estão fixos, enquanto o parâmetro <span class="math inline">\(p\)</span> varia conforme a hipótese considerada. Embora a forma matemática seja idêntica à da função de probabilidade binomial, seu uso é diferente. Na função de probabilidade, lemos a <em>probabilidade de <span class="math inline">\(y\)</span> dado <span class="math inline">\(n\)</span> e <span class="math inline">\(p\)</span></em>, enquanto nos exemplos acima, avaliamos a <strong>plausibilidade de diferentes hipóteses sobre <span class="math inline">\(p\)</span> dados valores fixos de <span class="math inline">\(y\)</span> e <span class="math inline">\(n\)</span></strong>.</p>
 <p>Para evitar confusões, vamos definir a função de verossimilhança como:</p>
 <p><span id="eq-likelihood-binomial"><span class="math display">\[
-\mathcal{L}(p \mid n, Y) = \binom{n}{Y} \, p^Y (1 - p)^{n - Y}.
+\mathcal{L}(p \mid n, y) = \binom{n}{y} \, p^y (1 - p)^{n - y}.
 \tag{2}\]</span></span></p>
 <p>Assim, as verossimilhanças para as três conjecturas específicas sobre a proporção de água na superfície do globo serão:</p>
 <ul>
-<li><span class="math inline">\(\mathcal{L}(p = 0.3 \mid 4, 2) = 0.26\)</span>,</li>
-<li><span class="math inline">\(\mathcal{L}(p = 0.4 \mid 4, 2) = 0.35\)</span>,</li>
-<li><span class="math inline">\(\mathcal{L}(p = 0.8 \mid 4, 2) = 0.15\)</span>.</li>
+<li><span class="math inline">\(\mathcal{L}(p = 0.4 \mid n = 4, y = 2) = 0.35\)</span>,</li>
+<li><span class="math inline">\(\mathcal{L}(p = 0.3 \mid n = 4, y = 2) = 0.26\)</span>,</li>
+<li><span class="math inline">\(\mathcal{L}(p = 0.8 \mid n = 4, y = 2) = 0.15\)</span>.</li>
 </ul>
 <p>Dessa forma, entre as três hipóteses levantadas, aquela em que <span class="math inline">\(p = 0.4\)</span> recebe <strong>maior suporte das evidências</strong>, por estar associada à maior verossimilhança.</p>
 <p>Podemos quantificar esse suporte por meio da <strong>razão de verossimilhanças</strong>:</p>
 <p><span class="math display">\[RV = \frac{\mathcal{L}(p = 0.4 \mid 4, 2)}{\mathcal{L}(p = 0.3 \mid 4, 2)} = \frac{0.35}{0.26} = 1.35,\]</span></p>
-<p>o que indica que a hipótese <span class="math inline">\(p = 0.4\)</span> é aproximadamente <span class="math inline">\(1.35\)</span> <strong>vezes mais verossímil</strong> do que a hipótese <span class="math inline">\(p = 0.3\)</span> com base nos dados observados.</p>
+<p>o que indica que, com base nos dados observados, a hipótese de <span class="math inline">\(p = 0.4\)</span> é aproximadamente <span class="math inline">\(1.35\)</span> <strong>vezes mais verossímil</strong> do que a hipótese de <span class="math inline">\(p = 0.3\)</span>.</p>
 <div class="callout callout-style-default callout-warning callout-titled" title="Resumo: A Função de Verossimilhança Binomial">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -484,7 +480,7 @@ Resumo: A Função de Verossimilhança Binomial
 </div>
 <div class="callout-body-container callout-body">
 <ul>
-<li>A expressão é <strong>formalmente idêntica</strong> à da distribuição binomial, porém interpretada como uma função de <span class="math inline">\(p\)</span> quando os dados <span class="math inline">\(Y\)</span> e <span class="math inline">\(n\)</span> são fixos.</li>
+<li>A expressão é <strong>matematicamente idêntica</strong> à função de probabilidade binomial, porém interpretada como uma função de <span class="math inline">\(p\)</span> quando os dados <span class="math inline">\(Y\)</span> e <span class="math inline">\(n\)</span> são fixos.</li>
 <li>A verossimilhança indica a plausibilidade de diferentes valores de <span class="math inline">\(p\)</span> à luz dos dados observados.</li>
 <li>Na distribuição binomial, lemos: <strong>probabilidade de <span class="math inline">\(Y\)</span> dado <span class="math inline">\(n\)</span> e <span class="math inline">\(p\)</span></strong>.</li>
 <li>Na função de verossimilhança, interpretamos: <strong>verossimilhança de <span class="math inline">\(p\)</span> dado <span class="math inline">\(n\)</span> e <span class="math inline">\(Y\)</span></strong>.</li>
@@ -495,11 +491,11 @@ Resumo: A Função de Verossimilhança Binomial
 <section id="o-perfil-de-verossimilhança" class="level3" data-number="2.1">
 <h3 data-number="2.1" class="anchored" data-anchor-id="o-perfil-de-verossimilhança"><span class="header-section-number">2.1</span> O perfil de verossimilhança</h3>
 <p>Acima, foram testadas três conjecturas específicas para a proporção de água na superfície da Terra (<span class="math inline">\(p = 0.3\)</span>, <span class="math inline">\(p = 0.4\)</span>, <span class="math inline">\(p = 0.8\)</span>). Para uma avaliação mais completa, podemos analisar o <strong>perfil de verossimilhança</strong> para uma série de valores de <span class="math inline">\(p\)</span> entre 0 e 1:</p>
-<div id="4bdb7fd0" class="cell" data-execution_count="2">
+<div id="5a5ee5dc" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="intro-bayes-modelo-bayesiano_files/figure-html/cell-3-output-1.png" width="597" height="450" class="figure-img"></p>
+<p><img src="intro-bayes-modelo-bayesiano_files/figure-html/cell-3-output-1.png" width="597" height="451" class="figure-img"></p>
 </figure>
 </div>
 </div>
@@ -509,78 +505,28 @@ Resumo: A Função de Verossimilhança Binomial
 </section>
 <section id="inferência-bayesiana-distribuições-a-priori-e-a-posteriori" class="level2" data-number="3">
 <h2 data-number="3" class="anchored" data-anchor-id="inferência-bayesiana-distribuições-a-priori-e-a-posteriori"><span class="header-section-number">3</span> Inferência Bayesiana: distribuições <em>a priori</em> e <em>a posteriori</em></h2>
-<p>No contexto bayesiano, a função de verossimilhança é combinada com uma <strong>distribuição <em>a priori</em></strong> para obter a <strong>distribuição <em>a posteriori</em></strong> do parâmetro <span class="math inline">\(p\)</span>.</p>
-<p>Para ilustrar esse processo, retomamos as três conjecturas específicas sobre a proporção de água na superfície do globo e consideramos um caso simples, em que <span class="math inline">\(p\)</span> pode assumir <strong>apenas três valores</strong>: <span class="math inline">\(p = 0.3\)</span>, <span class="math inline">\(p = 0.4\)</span> e <span class="math inline">\(p = 0.8\)</span>.</p>
-<section id="hipóteses-h-e-distribuição-a-priori-uniforme" class="level3" data-number="3.1">
-<h3 data-number="3.1" class="anchored" data-anchor-id="hipóteses-h-e-distribuição-a-priori-uniforme"><span class="header-section-number">3.1</span> Hipóteses (<span class="math inline">\(H\)</span>) e distribuição <em>a priori</em> uniforme</h3>
-<p>Definimos três hipóteses sobre o parâmetro <span class="math inline">\(p\)</span>, cada uma correspondendo a um desses valores:</p>
-<ul>
-<li><span class="math inline">\(H_1: p = 0.3\)</span></li>
-<li><span class="math inline">\(H_2: p = 0.5\)</span></li>
-<li><span class="math inline">\(H_3: p = 0.8\)</span></li>
-</ul>
-<p>Para começar, vamos assumir que nossa distribuição <em>a priori</em> é <strong>uniforme</strong> entre essas três hipóteses, ou seja, não temos motivos para preferir uma à outra. Neste caso:</p>
-<p><span class="math display">\[P(p = 0.3) = P(p = 0.4) = P(p = 0.8) = \frac{1}{3}.\]</span></p>
-<p>Suponha que realizamos <span class="math inline">\(n = 4\)</span> lançamentos do globo e observamos <span class="math inline">\(Y = 2\)</span> pontos de água. As verossimilhanças para cada hipótese podem ser calculadas a partir da distribuição binomial:</p>
-<p><span class="math display">\[\mathcal{L}(p \mid n=4, Y=2)
-= \binom{4}{2}\, p^2 (1 - p)^{2}.\]</span></p>
-<p>Resultando em:</p>
-<ul>
-<li><span class="math inline">\(\mathcal{L}(p = 0.3 \mid 4, 2) = 0.26\)</span></li>
-<li><span class="math inline">\(\mathcal{L}(p = 0.4 \mid 4, 2) = 0.35\)</span></li>
-<li><span class="math inline">\(\mathcal{L}(p = 0.8 \mid 4, 2) = 0.15\)</span></li>
-</ul>
-</section>
-<section id="distribuição-a-posteriori" class="level3" data-number="3.2">
-<h3 data-number="3.2" class="anchored" data-anchor-id="distribuição-a-posteriori"><span class="header-section-number">3.2</span> Distribuição <em>a posteriori</em></h3>
-<p>Vamos utilizar uma expressão análoga ao Teorema de Bayes para obter a distribuição de densidade de probabilidade <em>a posteriori</em> para <span class="math inline">\(p_i\)</span>:</p>
-<p><span class="math display">\[P(p_i \mid n, Y)
-= \frac{\mathcal{L}(p_i \mid n, Y) \,\cdot\, P(p_i)}{P(p)},\]</span></p>
+<p>A inferência Bayesiana, consiste em utilizar o <em>Teorema de Bayes</em> para obter a função de densidade de probabilidade para o(s) parâmetro(s) de interesse, <span class="math inline">\(p(\theta \mid Y)\)</span>, a partir da função de densidade de probabilidade dos dados condicionais a hipótese, <span class="math inline">\(p(Y \mid \theta)\)</span>, multiplicada pela a função de densidade de probabilidade <em>a priori</em> do parâmetro, <span class="math inline">\(p(\theta)\)</span>:</p>
+<p><span id="eq-bayes"><span class="math display">\[p(\theta \mid Y) = \frac{p(Y \mid \theta) \times p(\theta)}{p(Y)} \tag{3}\]</span></span></p>
 <p>Onde:</p>
 <ul>
-<li><span class="math inline">\(P(p_i \mid n, Y)\)</span> é a probabilidade <em>a posteriori</em> da hipótese <span class="math inline">\(H_i\)</span> atualizada pelas observações.</li>
-<li><span class="math inline">\(\mathcal{L}(p_i \mid n, Y)\)</span> é a verossimilhança da hipótese <span class="math inline">\(H_i\)</span> atualizada pelas observações.</li>
-<li><span class="math inline">\(P(p_i)\)</span> é a densidade de probabilidade <em>a priori</em> da hipótese <span class="math inline">\(H_i\)</span>.</li>
-<li><span class="math inline">\(P(p)\)</span> a soma ponderada de todas as verossimilhanças pelas suas <em>priors</em> (fator de normalização), garantindo que as probabilidades <em>a posteriori</em> somem 1.</li>
+<li><span class="math inline">\(p(\theta \mid Y)\)</span> é a distribuição <em>posteriori</em> de <span class="math inline">\(\theta\)</span> condicional aos dados (<span class="math inline">\(Y\)</span>) observados;</li>
+<li><span class="math inline">\(p(Y \mid \theta)\)</span> é a dstribuição de <span class="math inline">\(Y\)</span> condicional ao parâmetro <span class="math inline">\(\theta\)</span>;</li>
+<li><span class="math inline">\(p(\theta)\)</span> é a distribuição <em>a priori</em> de <span class="math inline">\(\theta\)</span>;</li>
+<li><span class="math inline">\(p(Y)\)</span> é a probabilidade marginal dos dados (<span class="math inline">\(Y\)</span>), calculada como <span class="math inline">\(\int p(Y \mid \theta) \times p(\theta) \, d\theta\)</span></li>
 </ul>
-<p>Em nosso exemplo:</p>
-<p><span class="math inline">\(P(p) = \mathcal{L}(p_1 \mid n, Y) \,\cdot\, P(p_1) + \mathcal{L}(p_2 \mid n, Y) \,\cdot\, P(p_2) + \mathcal{L}(p_3 \mid n, Y) \,\cdot\, P(p_3)\)</span></p>
-<p><span class="math inline">\(P(p) = \sum_{i=1}^{3} \mathcal{L}(D \mid p_i) \,\cdot\, P(p_i)\)</span></p>
-<p>Uma vez tendo assumindo uma distribuição <em>a priori</em> <strong>uniforme</strong> em que <span class="math inline">\(P(p_i) = \frac{1}{3}\)</span>, podemos obter as probabilidades <em>a posteriori</em> para cada hipótese. Assim temos:</p>
-<p><span class="math inline">\(P(p) = \mathcal{L}(p_1 \mid n, Y) \,\cdot\, P(p_1) + \mathcal{L}(p_2 \mid n, Y) \,\cdot\, P(p_2) + \mathcal{L}(p_3 \mid n, Y) \,\cdot\, P(p_3)\)</span></p>
-<p><span class="math inline">\(P(p) = 0.26 \times \frac{1}{3} + 0.35 \times \frac{1}{3} + 0.15 \times \frac{1}{3}\)</span></p>
-<p><span class="math inline">\(P(p) = 0.09 + 0.12 + 0.05 = 0.25\)</span></p>
-<p>De modo que:</p>
-<p><span class="math inline">\(P(0.3 \mid 4, 2) = \frac{0.26 \times \frac{1}{3}}{0.25} \approx 0.34\)</span></p>
-<p><span class="math inline">\(P(0.4 \mid 4, 2) = \frac{0.35 \times \frac{1}{3}}{0.25} \approx 0.46\)</span></p>
-<p><span class="math inline">\(P(0.8 \mid 4, 2) = \frac{0.15 \times \frac{1}{3}}{0.25} \approx 0.2\)</span></p>
-<p>Observe que o valor mais alto da probabilidade <em>a posteriori</em> está associado a <span class="math inline">\(p = 0.4\)</span>. Além disso, ao calcularmos a razão entre as probabilidades <em>a posteriori</em> das hipóteses <span class="math inline">\(P(H_2)\)</span> (<span class="math inline">\(p = 0.4\)</span>) e <span class="math inline">\(P(H_1)\)</span> (<span class="math inline">\(p = 0.3\)</span>):</p>
-<p><span class="math display">\[\frac{P(0.4 \mid 4, 2)}{P(0.3 \mid 4, 2)} = \frac{0.46}{0.34} = 1.35,\]</span></p>
-<p>obtemos exatamente o mesmo resultado encontrado anteriormente pela razão de verossimilhanças. Isso ocorre porque ao assumimos uma distribuição <em>a priori</em> uniforme, <strong>toda a informação que diferencia as hipóteses vem exclusivamente dos dados observados</strong>, refletida nas verossimilhanças.</p>
+<p>No contexto bayesiano, podemos utilizar a função de verossimilhança no lugar de <span class="math inline">\(p(Y \mid \theta)\)</span>, uma vez que matematicamente, as duas funções são idêndicas.</p>
+<p>Deste modo, a função de densidade <em>a posteriori</em> pode ser expressa como:</p>
+<p><span id="eq-bayes-likelihood"><span class="math display">\[p(\theta \mid Y) = \frac{\mathcal{L}(\theta \mid Y) \times p(\theta)}{p(Y)} \tag{4}\]</span></span></p>
 </section>
-<section id="distribuição-a-priori-informativa" class="level3" data-number="3.3">
-<h3 data-number="3.3" class="anchored" data-anchor-id="distribuição-a-priori-informativa"><span class="header-section-number">3.3</span> Distribuição <em>a priori</em> informativa</h3>
-<p>Suponha agora que há informações prévias indicando que a proporção de água sobre o globo é frequentemente <strong>acima de 0.5</strong>. Especificamente, vamos supor que:</p>
-<ul>
-<li><span class="math inline">\(P(H_2)\)</span> (<span class="math inline">\(p = 0.4\)</span>) seja <strong>2 vezes maior</strong> que <span class="math inline">\(P(H_1)\)</span> <span class="math inline">\(p = 0.3\)</span>,</li>
-<li><span class="math inline">\(P(H_3)\)</span> (<span class="math inline">\(p = 0.8\)</span>) seja <strong>5 vezes maior</strong> que <span class="math inline">\(P(H_1)\)</span> <span class="math inline">\(p = 0.3\)</span>.</li>
-</ul>
-<p>Dessa forma, teremos uma distribuição <em>a priori</em> definida como:</p>
-<p><span class="math display">\[P(p = 0.3) = \frac{1}{8}, \quad
-P(p = 0.4) = \frac{2}{8}, \quad
-P(p = 0.8) = \frac{5}{8}.\]</span></p>
-<p><span class="math inline">\(P(p) = \mathcal{L}(p_1 \mid n, Y) \,\cdot\, P(p_1) + \mathcal{L}(p_2 \mid n, Y) \,\cdot\, P(p_2) + \mathcal{L}(p_3 \mid n, Y) \,\cdot\, P(p_3)\)</span></p>
-<p><span class="math inline">\(P(p) = 0.26 \times \frac{1}{8} + 0.35 \times \frac{2}{8} + 0.15 \times \frac{5}{8}\)</span></p>
-<p><span class="math inline">\(P(p) = 0.03 + 0.09 + 0.09 = 0.21\)</span></p>
-<p>De modo que:</p>
-<p><span class="math inline">\(P(0.3 \mid 4, 2) = \frac{0.26 \times \frac{1}{8}}{0.21} \approx 0.15\)</span></p>
-<p><span class="math inline">\(P(0.4 \mid 4, 2) = \frac{0.35 \times \frac{2}{8}}{0.21} \approx 0.41\)</span></p>
-<p><span class="math inline">\(P(0.8 \mid 4, 2) = \frac{0.15 \times \frac{5}{8}}{0.21} \approx 0.44\)</span></p>
-<p>Como resultado, observamos que a maior probabilidade <em>a posteriori</em> recai sobre a hipótese <span class="math inline">\(p = 0.8\)</span>, ainda que exista um suporte similar para <span class="math inline">\(p = 0.4\)</span>. Esse resultado se deve, sobretudo, à <strong>influência da distribuição <em>a priori</em></strong>, que atribuiu maior peso à hipótese <span class="math inline">\(H_3\)</span>.</p>
-<p>Portanto, na inferência bayesiana, a distribuição <em>a posteriori</em> de uma hipótese é <strong>proporcional ao produto entre sua verossimilhança e sua probabilidade <em>a priori</em></strong> (Eq. <a href="#eq-posterior_proporcional" class="quarto-xref">Equação&nbsp;3</a>):</p>
-<p><span id="eq-posterior_proporcional"><span class="math display">\[P(p_1 \mid n, Y) \;\propto\; \mathcal{L}(p_1 \mid n, Y) \cdot P(p_i) \tag{3}\]</span></span></p>
-<p>No caso em que a distribuição <em>a priori</em> seja uniforme em todo o espaço de hipóteses, a distribuição <em>a posteriori</em> será <strong>proporcional apenas à verossimilhança</strong> (Eq. <a href="#eq-posterior_proporcional_uniforme" class="quarto-xref">Equação&nbsp;4</a>):</p>
-<p><span id="eq-posterior_proporcional_uniforme"><span class="math display">\[P(p_1 \mid n, Y) \;\propto\; \mathcal{L}(p_1 \mid n, Y) \tag{4}\]</span></span></p>
+<section id="priori-informativa-e-não-informativa" class="level2" data-number="4">
+<h2 data-number="4" class="anchored" data-anchor-id="priori-informativa-e-não-informativa"><span class="header-section-number">4</span> Priori informativa e não informativa</h2>
+<p>Denominamos <em>priori</em> <strong>não informativa</strong> aquela que não acrescenta informações relevantes à distribuição <em>a posteriori</em> além daquelas já contidas nos dados observados. Nesses casos, a distribuição <em>a posteriori</em> é proporcional apenas à <strong>verossimilhança</strong>:</p>
+<p><span id="eq-prop-posteriori-uniforme"><span class="math display">\[p(\theta \mid Y) \propto \mathcal{L}(\theta \mid Y) \tag{5}\]</span></span></p>
+<p>Por outro lado, ao adotarmos uma <em>priori</em> <strong>informativa</strong>, atribuímos diferentes densidades de probabilidade às regiões específicas do espaço de parâmetros, refletindo o conhecimento prévio sobre o fenômeno estudado. A distribuição <em>a posteriori</em>, nesse caso, será proporcional ao produto entre a verossimilhança e a <em>priori</em>, integrando evidências anteriores com a informação contida nos dados:</p>
+<p><span id="eq-prop-posteriori-likelihood"><span class="math display">\[p(\theta \mid Y) \propto \mathcal{L}(\theta \mid Y) \cdot p(\theta) \tag{6}\]</span></span></p>
+<p>No modelo binomial aplicado à proporção de água na superfície oceânica, o parâmetro <span class="math inline">\(\theta\)</span> representa a proporção de água <span class="math inline">\(p\)</span>, e sua distribuição posterior é condicional ao número de observações <span class="math inline">\(n\)</span> e aos dados observados <span class="math inline">\(y\)</span>.</p>
+<p>A distribuição <em>a priori</em> para <span class="math inline">\(p\)</span> pode ser <strong>não informativa</strong>, como no caso da distribuição uniforme, que não favorece nenhum valor específico de <span class="math inline">\(p\)</span>. Alternativamente, pode-se adotar uma <em>priori</em> <strong>informativa</strong>, como a distribuição Beta, que permite ajustar a forma da densidade de probabilidade por meio dos parâmetros <span class="math inline">\(\alpha\)</span> e <span class="math inline">\(\beta\)</span>, incorporando conhecimento prévio sobre o fenômeno de interesse.</p>
+<p>Para ilustrar o efeito de <em>prioris</em> informativas e não-informativas sobre a distribuição a posteriori, siga a atividade abaixo:</p>
 <div class="callout callout-style-default callout-tip callout-titled" title="Atividades interativas: estimando a proporção da superfície oceânica!">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -603,22 +549,21 @@ No app abaixo, gere <strong>pontos aleatórios</strong> na superfície da Terra 
 <li>Registre esses valores como <span class="math inline">\(k\)</span> sucessos em <span class="math inline">\(N\)</span> pontos (N observações).</li>
 </ul></li>
 <li><p><strong>Utilize seus dados na inferência Bayesiana</strong><br>
-Em seguida, abra o app abaixo para visualizar como as observações (sucessos e fracassos) combinadas a diferentes escolhas de parâmetros <em>a priori</em> (α, β) geram a distribuição <em>a posteriori</em>:</p>
+Em seguida, abra o app abaixo para visualizar como as observações (sucessos e fracassos) combinadas a diferentes escolhas de parâmetros <em>a priori</em> (<span class="math inline">\(\alpha\)</span>, <span class="math inline">\(\beta\)</span>) geram a distribuição <em>a posteriori</em>:</p>
 <p>👉 <a href="https://fcopf-binomial-bayesiana.share.connect.posit.cloud/" target="_blank"><strong>Inferência Bayesiana</strong></a></p>
 <p><strong>Dicas de uso</strong></p>
 <ul>
 <li>Insira o mesmo <strong>número de observações (N)</strong> e <strong>sucessos (k)</strong> obtidos no primeiro app.<br>
 </li>
-<li>Ajuste interativamente a distribuição <em>a priori</em> Beta, modificando os parâmetros α e β.<br>
-</li>
+<li>Ajuste interativamente a distribuição <em>a priori</em> Beta, modificando os parâmetros <span class="math inline">\(\alpha\)</span> e <span class="math inline">\(\beta\)</span>.</li>
 <li>Observe como a curva azul (“posteriori”) se altera de acordo com a <em>a priori</em> e com os dados observados, e compare com o perfil de verossimilhança (curva verde).</li>
+<li>Note que ao escolher <span class="math inline">\(\alpha = 1\)</span> e <span class="math inline">\(\beta = 1\)</span> a distribuição assume um formato uniforme, tornando-se não-informativa.</li>
 </ul></li>
 </ol>
 </div>
 </div>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->
