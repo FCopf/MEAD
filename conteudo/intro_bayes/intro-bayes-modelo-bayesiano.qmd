@@ -200,21 +200,20 @@ O perfil de verossimilhança indica que, à luz dos nossos dados $y = `{python} 
 
 ## Inferência Bayesiana: distribuições *a priori* e *a posteriori*
 
-A inferência Bayesiana, consiste em utilizar o *Teorema de Bayes* para obter a função de densidade de probabilidade para o(s) parâmetro(s) de interesse, $p(\theta \mid Y)$, a partir da função de densidade de probabilidade dos dados condicionais a hipótese, $p(Y \mid \theta)$, multiplicada pela a função de densidade de probabilidade *a priori* do parâmetro, $p(\theta)$:
+A inferência bayesiana utiliza o **Teorema de Bayes** para derivar a distribuição *a posteriori* dos parâmetros de interesse, $p(\theta \mid Y)$, a partir da verossimilhança $p(Y \mid \theta)$ e da distribuição *a priori* $p(\theta)$:
 
 $$p(\theta \mid Y) = \frac{p(Y \mid \theta) \times p(\theta)}{p(Y)}$$ {#eq-bayes}
 
-Onde:
+Em que:
 
-- $p(\theta \mid Y)$ é a distribuição *posteriori* de $\theta$ condicional aos dados ($Y$) observados;
-- $p(Y \mid \theta)$ é a dstribuição de $Y$ condicional ao parâmetro $\theta$;
-- $p(\theta)$ é a distribuição *a priori* de $\theta$;
-- $p(Y)$ é a probabilidade marginal dos dados ($Y$), calculada como $\int p(Y \mid \theta) \times p(\theta) \, d\theta$
+- **$p(\theta \mid Y)$**: distribuição *a posteriori* de $\theta$ dado os dados observados $Y$;
+- **$p(Y \mid \theta)$**: verossimilhança dos dados $Y$ dada $\theta$;
+- **$p(\theta)$**: distribuição *a priori* de $\theta$;
+- **$p(Y)$**: probabilidade marginal dos dados, obtida por
 
+$$\int p(Y \mid \theta) \times p(\theta) \, d\theta$$
 
-No contexto bayesiano, podemos utilizar a função de verossimilhança no lugar de $p(Y \mid \theta)$, uma vez que matematicamente, as duas funções são idêndicas. 
-
-Deste modo, a função de densidade *a posteriori* pode ser expressa como:
+No contexto bayesiano, é comum substituir $p(Y \mid \theta)$ pela **função de verossimilhança** $\mathcal{L}(\theta \mid Y)$, pois ambas são matematicamente equivalentes. Assim, a fórmula da distribuição *a posteriori* pode ser reescrita como:
 
 $$p(\theta \mid Y) = \frac{\mathcal{L}(\theta \mid Y) \times p(\theta)}{p(Y)}$$ {#eq-bayes-likelihood}
 
@@ -226,7 +225,7 @@ $$p(\theta \mid Y) \propto \mathcal{L}(\theta \mid Y)$$  {#eq-prop-posteriori-un
 
 Por outro lado, ao adotarmos uma *priori* **informativa**, atribuímos diferentes densidades de probabilidade às regiões específicas do espaço de parâmetros, refletindo o conhecimento prévio sobre o fenômeno estudado. A distribuição *a posteriori*, nesse caso, será proporcional ao produto entre a verossimilhança e a *priori*, integrando evidências anteriores com a informação contida nos dados:
 
-$$p(\theta \mid Y) \propto \mathcal{L}(\theta \mid Y) \cdot p(\theta)$$  {#eq-prop-posteriori-likelihood}
+$$p(\theta \mid Y) \propto \mathcal{L}(\theta \mid Y) \times p(\theta)$$  {#eq-prop-posteriori-likelihood}
 
 No modelo binomial aplicado à proporção de água na superfície oceânica, o parâmetro $\theta$ representa a proporção de água $p$, e sua distribuição posterior é condicional ao número de observações $n$ e aos dados observados $y$.
 
