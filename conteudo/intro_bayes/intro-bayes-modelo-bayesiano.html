@@ -491,7 +491,7 @@ Resumo: A Função de Verossimilhança Binomial
 <section id="o-perfil-de-verossimilhança" class="level3" data-number="2.1">
 <h3 data-number="2.1" class="anchored" data-anchor-id="o-perfil-de-verossimilhança"><span class="header-section-number">2.1</span> O perfil de verossimilhança</h3>
 <p>Acima, foram testadas três conjecturas específicas para a proporção de água na superfície da Terra (<span class="math inline">\(p = 0.3\)</span>, <span class="math inline">\(p = 0.4\)</span>, <span class="math inline">\(p = 0.8\)</span>). Para uma avaliação mais completa, podemos analisar o <strong>perfil de verossimilhança</strong> para uma série de valores de <span class="math inline">\(p\)</span> entre 0 e 1:</p>
-<div id="5a5ee5dc" class="cell" data-execution_count="2">
+<div id="4abb85da" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -505,17 +505,17 @@ Resumo: A Função de Verossimilhança Binomial
 </section>
 <section id="inferência-bayesiana-distribuições-a-priori-e-a-posteriori" class="level2" data-number="3">
 <h2 data-number="3" class="anchored" data-anchor-id="inferência-bayesiana-distribuições-a-priori-e-a-posteriori"><span class="header-section-number">3</span> Inferência Bayesiana: distribuições <em>a priori</em> e <em>a posteriori</em></h2>
-<p>A inferência Bayesiana, consiste em utilizar o <em>Teorema de Bayes</em> para obter a função de densidade de probabilidade para o(s) parâmetro(s) de interesse, <span class="math inline">\(p(\theta \mid Y)\)</span>, a partir da função de densidade de probabilidade dos dados condicionais a hipótese, <span class="math inline">\(p(Y \mid \theta)\)</span>, multiplicada pela a função de densidade de probabilidade <em>a priori</em> do parâmetro, <span class="math inline">\(p(\theta)\)</span>:</p>
+<p>A inferência bayesiana utiliza o <strong>Teorema de Bayes</strong> para derivar a distribuição <em>a posteriori</em> dos parâmetros de interesse, <span class="math inline">\(p(\theta \mid Y)\)</span>, a partir da verossimilhança <span class="math inline">\(p(Y \mid \theta)\)</span> e da distribuição <em>a priori</em> <span class="math inline">\(p(\theta)\)</span>:</p>
 <p><span id="eq-bayes"><span class="math display">\[p(\theta \mid Y) = \frac{p(Y \mid \theta) \times p(\theta)}{p(Y)} \tag{3}\]</span></span></p>
-<p>Onde:</p>
+<p>Em que:</p>
 <ul>
-<li><span class="math inline">\(p(\theta \mid Y)\)</span> é a distribuição <em>posteriori</em> de <span class="math inline">\(\theta\)</span> condicional aos dados (<span class="math inline">\(Y\)</span>) observados;</li>
-<li><span class="math inline">\(p(Y \mid \theta)\)</span> é a dstribuição de <span class="math inline">\(Y\)</span> condicional ao parâmetro <span class="math inline">\(\theta\)</span>;</li>
-<li><span class="math inline">\(p(\theta)\)</span> é a distribuição <em>a priori</em> de <span class="math inline">\(\theta\)</span>;</li>
-<li><span class="math inline">\(p(Y)\)</span> é a probabilidade marginal dos dados (<span class="math inline">\(Y\)</span>), calculada como <span class="math inline">\(\int p(Y \mid \theta) \times p(\theta) \, d\theta\)</span></li>
+<li><strong><span class="math inline">\(p(\theta \mid Y)\)</span></strong>: distribuição <em>a posteriori</em> de <span class="math inline">\(\theta\)</span> dado os dados observados <span class="math inline">\(Y\)</span>;</li>
+<li><strong><span class="math inline">\(p(Y \mid \theta)\)</span></strong>: verossimilhança dos dados <span class="math inline">\(Y\)</span> dada <span class="math inline">\(\theta\)</span>;</li>
+<li><strong><span class="math inline">\(p(\theta)\)</span></strong>: distribuição <em>a priori</em> de <span class="math inline">\(\theta\)</span>;</li>
+<li><strong><span class="math inline">\(p(Y)\)</span></strong>: probabilidade marginal dos dados, obtida por</li>
 </ul>
-<p>No contexto bayesiano, podemos utilizar a função de verossimilhança no lugar de <span class="math inline">\(p(Y \mid \theta)\)</span>, uma vez que matematicamente, as duas funções são idêndicas.</p>
-<p>Deste modo, a função de densidade <em>a posteriori</em> pode ser expressa como:</p>
+<p><span class="math display">\[\int p(Y \mid \theta) \times p(\theta) \, d\theta\]</span></p>
+<p>No contexto bayesiano, é comum substituir <span class="math inline">\(p(Y \mid \theta)\)</span> pela <strong>função de verossimilhança</strong> <span class="math inline">\(\mathcal{L}(\theta \mid Y)\)</span>, pois ambas são matematicamente equivalentes. Assim, a fórmula da distribuição <em>a posteriori</em> pode ser reescrita como:</p>
 <p><span id="eq-bayes-likelihood"><span class="math display">\[p(\theta \mid Y) = \frac{\mathcal{L}(\theta \mid Y) \times p(\theta)}{p(Y)} \tag{4}\]</span></span></p>
 </section>
 <section id="priori-informativa-e-não-informativa" class="level2" data-number="4">
@@ -523,7 +523,7 @@ Resumo: A Função de Verossimilhança Binomial
 <p>Denominamos <em>priori</em> <strong>não informativa</strong> aquela que não acrescenta informações relevantes à distribuição <em>a posteriori</em> além daquelas já contidas nos dados observados. Nesses casos, a distribuição <em>a posteriori</em> é proporcional apenas à <strong>verossimilhança</strong>:</p>
 <p><span id="eq-prop-posteriori-uniforme"><span class="math display">\[p(\theta \mid Y) \propto \mathcal{L}(\theta \mid Y) \tag{5}\]</span></span></p>
 <p>Por outro lado, ao adotarmos uma <em>priori</em> <strong>informativa</strong>, atribuímos diferentes densidades de probabilidade às regiões específicas do espaço de parâmetros, refletindo o conhecimento prévio sobre o fenômeno estudado. A distribuição <em>a posteriori</em>, nesse caso, será proporcional ao produto entre a verossimilhança e a <em>priori</em>, integrando evidências anteriores com a informação contida nos dados:</p>
-<p><span id="eq-prop-posteriori-likelihood"><span class="math display">\[p(\theta \mid Y) \propto \mathcal{L}(\theta \mid Y) \cdot p(\theta) \tag{6}\]</span></span></p>
+<p><span id="eq-prop-posteriori-likelihood"><span class="math display">\[p(\theta \mid Y) \propto \mathcal{L}(\theta \mid Y) \times p(\theta) \tag{6}\]</span></span></p>
 <p>No modelo binomial aplicado à proporção de água na superfície oceânica, o parâmetro <span class="math inline">\(\theta\)</span> representa a proporção de água <span class="math inline">\(p\)</span>, e sua distribuição posterior é condicional ao número de observações <span class="math inline">\(n\)</span> e aos dados observados <span class="math inline">\(y\)</span>.</p>
 <p>A distribuição <em>a priori</em> para <span class="math inline">\(p\)</span> pode ser <strong>não informativa</strong>, como no caso da distribuição uniforme, que não favorece nenhum valor específico de <span class="math inline">\(p\)</span>. Alternativamente, pode-se adotar uma <em>priori</em> <strong>informativa</strong>, como a distribuição Beta, que permite ajustar a forma da densidade de probabilidade por meio dos parâmetros <span class="math inline">\(\alpha\)</span> e <span class="math inline">\(\beta\)</span>, incorporando conhecimento prévio sobre o fenômeno de interesse.</p>
 <p>Para ilustrar o efeito de <em>prioris</em> informativas e não-informativas sobre a distribuição a posteriori, siga a atividade abaixo:</p>
