@@ -17,43 +17,38 @@
   },
   {
     "listing": "/regressao_linear_bayesiana.html",
-    "items": []
-  },
-  {
-    "listing": "/index.html",
     "items": [
-      "/introducao_r.html",
-      "/ciencia_dados.html",
-      "/estrutura_dados.html",
-      "/estatistica_descritiva.html",
-      "/medidas_associacao.html",
-      "/amostragem.html",
-      "/distribuicao_normal.html",
-      "/fundamentos_probabilidade.html",
-      "/inferencia_estatistica.html",
-      "/teste_hipoteses.html",
-      "/anova.html",
-      "/regressao_linear.html",
-      "/intro_bayes.html"
+      "/conteudo/distribuicao_normal/distribuicao_normal-modelo.html"
     ]
   },
   {
-    "listing": "/fundamentos_probabilidade.html",
+    "listing": "/inferencia_estatistica.html",
     "items": [
-      "/conteudo/fundamentos_probabilidade/espaco_amostral.html",
-      "/conteudo/fundamentos_probabilidade/combina_probabilidades.html",
-      "/conteudo/fundamentos_probabilidade/probabilidade_condicional.html",
-      "/conteudo/fundamentos_probabilidade/teorema_bayes.html"
+      "/conteudo/inferencia_estatistica/teorema_central_limite.html",
+      "/conteudo/inferencia_estatistica/int_conf.html"
     ]
   },
   {
-    "listing": "/ciencia_dados.html",
+    "listing": "/regressao_linear.html",
     "items": [
-      "/conteudo/ciencia_dados/tidyverse.html",
-      "/conteudo/ciencia_dados/import_export.html",
-      "/conteudo/ciencia_dados/pipe.html",
-      "/conteudo/ciencia_dados/transform.html",
-      "/conteudo/ciencia_dados/grafico_ggplot2.html"
+      "/conteudo/regressao_linear/regressao_linear_simples.html",
+      "/conteudo/regressao_linear/regressao_linear_multipla.html"
+    ]
+  },
+  {
+    "listing": "/medidas_associacao.html",
+    "items": [
+      "/conteudo/medidas_associacao/biquali.html",
+      "/conteudo/medidas_associacao/biquanti.html",
+      "/conteudo/medidas_associacao/biquantquali.html"
+    ]
+  },
+  {
+    "listing": "/teste_hipoteses.html",
+    "items": [
+      "/conteudo/teste_hipoteses/intro_testehipot.html",
+      "/conteudo/teste_hipoteses/teste_variancia.html",
+      "/conteudo/teste_hipoteses/teste_t.html"
     ]
   },
   {
@@ -72,33 +67,47 @@
     ]
   },
   {
-    "listing": "/teste_hipoteses.html",
+    "listing": "/ecologia-numerica.html",
     "items": [
-      "/conteudo/teste_hipoteses/intro_testehipot.html",
-      "/conteudo/teste_hipoteses/teste_variancia.html",
-      "/conteudo/teste_hipoteses/teste_t.html"
+      "/conteudo/ecologia-numerica/intro-matrizes.html"
     ]
   },
   {
-    "listing": "/medidas_associacao.html",
+    "listing": "/ciencia_dados.html",
     "items": [
-      "/conteudo/medidas_associacao/biquali.html",
-      "/conteudo/medidas_associacao/biquanti.html",
-      "/conteudo/medidas_associacao/biquantquali.html"
+      "/conteudo/ciencia_dados/tidyverse.html",
+      "/conteudo/ciencia_dados/import_export.html",
+      "/conteudo/ciencia_dados/pipe.html",
+      "/conteudo/ciencia_dados/transform.html",
+      "/conteudo/ciencia_dados/grafico_ggplot2.html"
     ]
   },
   {
-    "listing": "/regressao_linear.html",
+    "listing": "/fundamentos_probabilidade.html",
     "items": [
-      "/conteudo/regressao_linear/regressao_linear_simples.html",
-      "/conteudo/regressao_linear/regressao_linear_multipla.html"
+      "/conteudo/fundamentos_probabilidade/espaco_amostral.html",
+      "/conteudo/fundamentos_probabilidade/combina_probabilidades.html",
+      "/conteudo/fundamentos_probabilidade/probabilidade_condicional.html",
+      "/conteudo/fundamentos_probabilidade/teorema_bayes.html"
     ]
   },
   {
-    "listing": "/inferencia_estatistica.html",
+    "listing": "/index.html",
     "items": [
-      "/conteudo/inferencia_estatistica/teorema_central_limite.html",
-      "/conteudo/inferencia_estatistica/int_conf.html"
+      "/introducao_r.html",
+      "/ciencia_dados.html",
+      "/estrutura_dados.html",
+      "/estatistica_descritiva.html",
+      "/medidas_associacao.html",
+      "/amostragem.html",
+      "/distribuicao_normal.html",
+      "/fundamentos_probabilidade.html",
+      "/inferencia_estatistica.html",
+      "/teste_hipoteses.html",
+      "/anova.html",
+      "/regressao_linear.html",
+      "/intro_bayes.html",
+      "/ecologia-numerica.html"
     ]
   },
   {
