@@ -12,8 +12,7 @@ categories: [
 image: "images/regressao_linear_bayesiana.png"
 listing:
   contents:
-    - conteudo/regressao_linear_bayesiana/distribuicao_normal-modelo.qmd
-    - conteudo/regressao_linear_bayesiana/distribuicao_normal-probabilidade.qmd
+    - conteudo/distribuicao_normal/distribuicao_normal-modelo.qmd
   sort: false
   type: default
   fields: 

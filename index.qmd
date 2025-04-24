@@ -20,6 +20,7 @@ listing:
     - anova.qmd
     - regressao_linear.qmd
     - intro_bayes.qmd
+    - ecologia-numerica.qmd
     # - regressao_linear_bayesiana.qmd
   sort: false
   type: grid
