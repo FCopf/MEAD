@@ -22,76 +22,6 @@
     ]
   },
   {
-    "listing": "/inferencia_estatistica.html",
-    "items": [
-      "/conteudo/inferencia_estatistica/teorema_central_limite.html",
-      "/conteudo/inferencia_estatistica/int_conf.html"
-    ]
-  },
-  {
-    "listing": "/regressao_linear.html",
-    "items": [
-      "/conteudo/regressao_linear/regressao_linear_simples.html",
-      "/conteudo/regressao_linear/regressao_linear_multipla.html"
-    ]
-  },
-  {
-    "listing": "/medidas_associacao.html",
-    "items": [
-      "/conteudo/medidas_associacao/biquali.html",
-      "/conteudo/medidas_associacao/biquanti.html",
-      "/conteudo/medidas_associacao/biquantquali.html"
-    ]
-  },
-  {
-    "listing": "/teste_hipoteses.html",
-    "items": [
-      "/conteudo/teste_hipoteses/intro_testehipot.html",
-      "/conteudo/teste_hipoteses/teste_variancia.html",
-      "/conteudo/teste_hipoteses/teste_t.html"
-    ]
-  },
-  {
-    "listing": "/distribuicao_normal.html",
-    "items": [
-      "/conteudo/distribuicao_normal/distr_norm.html",
-      "/conteudo/distribuicao_normal/distribuicao_normal-modelo.html",
-      "/conteudo/distribuicao_normal/distribuicao_normal-probabilidade.html"
-    ]
-  },
-  {
-    "listing": "/amostragem.html",
-    "items": [
-      "/conteudo/amostragem/pop_amostra.html",
-      "/conteudo/amostragem/tipos_amostragem.html"
-    ]
-  },
-  {
-    "listing": "/ecologia-numerica.html",
-    "items": [
-      "/conteudo/ecologia-numerica/intro-matrizes.html"
-    ]
-  },
-  {
-    "listing": "/ciencia_dados.html",
-    "items": [
-      "/conteudo/ciencia_dados/tidyverse.html",
-      "/conteudo/ciencia_dados/import_export.html",
-      "/conteudo/ciencia_dados/pipe.html",
-      "/conteudo/ciencia_dados/transform.html",
-      "/conteudo/ciencia_dados/grafico_ggplot2.html"
-    ]
-  },
-  {
-    "listing": "/fundamentos_probabilidade.html",
-    "items": [
-      "/conteudo/fundamentos_probabilidade/espaco_amostral.html",
-      "/conteudo/fundamentos_probabilidade/combina_probabilidades.html",
-      "/conteudo/fundamentos_probabilidade/probabilidade_condicional.html",
-      "/conteudo/fundamentos_probabilidade/teorema_bayes.html"
-    ]
-  },
-  {
     "listing": "/index.html",
     "items": [
       "/introducao_r.html",
@@ -108,6 +38,77 @@
       "/regressao_linear.html",
       "/intro_bayes.html",
       "/ecologia-numerica.html"
+    ]
+  },
+  {
+    "listing": "/fundamentos_probabilidade.html",
+    "items": [
+      "/conteudo/fundamentos_probabilidade/espaco_amostral.html",
+      "/conteudo/fundamentos_probabilidade/combina_probabilidades.html",
+      "/conteudo/fundamentos_probabilidade/probabilidade_condicional.html",
+      "/conteudo/fundamentos_probabilidade/teorema_bayes.html"
+    ]
+  },
+  {
+    "listing": "/ciencia_dados.html",
+    "items": [
+      "/conteudo/ciencia_dados/tidyverse.html",
+      "/conteudo/ciencia_dados/import_export.html",
+      "/conteudo/ciencia_dados/pipe.html",
+      "/conteudo/ciencia_dados/transform.html",
+      "/conteudo/ciencia_dados/grafico_ggplot2.html"
+    ]
+  },
+  {
+    "listing": "/ecologia-numerica.html",
+    "items": [
+      "/conteudo/ecologia-numerica/intro-matrizes.html",
+      "/conteudo/ecologia-numerica/cossine-similarity.html"
+    ]
+  },
+  {
+    "listing": "/amostragem.html",
+    "items": [
+      "/conteudo/amostragem/pop_amostra.html",
+      "/conteudo/amostragem/tipos_amostragem.html"
+    ]
+  },
+  {
+    "listing": "/distribuicao_normal.html",
+    "items": [
+      "/conteudo/distribuicao_normal/distr_norm.html",
+      "/conteudo/distribuicao_normal/distribuicao_normal-modelo.html",
+      "/conteudo/distribuicao_normal/distribuicao_normal-probabilidade.html"
+    ]
+  },
+  {
+    "listing": "/teste_hipoteses.html",
+    "items": [
+      "/conteudo/teste_hipoteses/intro_testehipot.html",
+      "/conteudo/teste_hipoteses/teste_variancia.html",
+      "/conteudo/teste_hipoteses/teste_t.html"
+    ]
+  },
+  {
+    "listing": "/medidas_associacao.html",
+    "items": [
+      "/conteudo/medidas_associacao/biquali.html",
+      "/conteudo/medidas_associacao/biquanti.html",
+      "/conteudo/medidas_associacao/biquantquali.html"
+    ]
+  },
+  {
+    "listing": "/regressao_linear.html",
+    "items": [
+      "/conteudo/regressao_linear/regressao_linear_simples.html",
+      "/conteudo/regressao_linear/regressao_linear_multipla.html"
+    ]
+  },
+  {
+    "listing": "/inferencia_estatistica.html",
+    "items": [
+      "/conteudo/inferencia_estatistica/teorema_central_limite.html",
+      "/conteudo/inferencia_estatistica/int_conf.html"
     ]
   },
   {
