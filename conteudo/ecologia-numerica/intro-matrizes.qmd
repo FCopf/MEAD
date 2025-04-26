@@ -3,6 +3,7 @@ title: "Introdução à Álgebra de Matrizes"
 institute: "9833 - BASES DA MATEMÁTICA E ESTATÍSTICA PARA CIÊNCIAS DO MAR"
 author: 	"Fabio Cop Ferreira e William Remo Pedroso Conti"
 image: "images/intro-matrizes.png"
+description: Operações básicas e álgebra matricial.
 format:
   revealjs: 
     slide-number: true

@@ -7,6 +7,7 @@ image: "images/ecologia-numerica.png"
 listing:
   contents:
     - conteudo/ecologia-numerica/intro-matrizes.qmd
+    - conteudo/ecologia-numerica/cossine_similarity.qmd
   sort: false
   type: default
   fields: 
