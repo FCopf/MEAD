@@ -7,7 +7,7 @@ categories: ["Produto escalar", "Ângulo entre vetores", "Multiplicação matric
 image: "images/cossine-similarity.png"
 
 format-resources:
-  - images/peixes
+  - images/peixe
 
 format: 
   html:
@@ -71,21 +71,21 @@ Considere a situação em que temos `r n_sp` espécies de peixes nas descritas p
 
 ::: {#fig-peixes layout-ncol=2 layout-nrow=4 fig-cap="Espécies da @tbl-tracos."}
 
-![Bryconamericus stramineus](images/peixes/Bryconamericus-stramineus.png){width=80%}
+![Bryconamericus stramineus](images/peixe/Bryconamericus-stramineus.png){width=80%}
 
-![Bryconamericus sp](images/peixes/Bryconamericus.png){width=80%}
+![Bryconamericus sp](images/peixe/Bryconamericus.png){width=80%}
 
-![Characidium fasciatum](images/peixes/Characidium-fasciatum.jpg){width=80%}
+![Characidium fasciatum](images/peixe/Characidium-fasciatum.jpg){width=80%}
 
-![Characidium zebra](images/peixes/Characidium-zebra.jpg){width=80%}
+![Characidium zebra](images/peixe/Characidium-zebra.jpg){width=80%}
 
-![Cetopsorhamdia iheringi](images/peixes/Cetopsorhamdia-iheringi.jpg){width=80%}
+![Cetopsorhamdia iheringi](images/peixe/Cetopsorhamdia-iheringi.jpg){width=80%}
 
-![Imparfinis minutus](images/peixes/Imparfinis-minutus.jpg){width=80%}
+![Imparfinis minutus](images/peixe/Imparfinis-minutus.jpg){width=80%}
 
-![Hisonotus sp](images/peixes/Hisonotus.jpg){width=80%}
+![Hisonotus sp](images/peixe/Hisonotus.jpg){width=80%}
 
-![Hypostomus sp](images/peixes/Hypostomus.png){width=80%}
+![Hypostomus sp](images/peixe/Hypostomus.png){width=80%}
 
 :::
 
