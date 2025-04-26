@@ -5,19 +5,10 @@ author: 	"Fabio Cop Ferreira e William Remo Pedroso Conti"
 description: "Cálculo da similaridade funcional entre espécies de peixes usando álgebra matricial."
 categories: ["Produto escalar", "Ângulo entre vetores", "Multiplicação matricial", "Matriz transposta", "Matriz simétrica"]
 image: "images/cossine-similarity.png"
-
-format-resources:
-  - images/peixe
-
 format: 
   html:
     number-sections: true
     number-depth: 3
-  typst:
-    toc: true
-    section-numbering: 1.1.
-    columns: 1
-
 execute:
   echo: false
   warning: false
@@ -289,10 +280,6 @@ C |>
 ``` -->
 
 ---
-
-```{=typst}
-#pagebreak()
-```
 
 ## Roteiro: Matriz de Similaridade no Google Planilhas
 
