@@ -3,7 +3,7 @@ title: "Similaridade entre espécies: aplicação da álgebra matricial em Ecolo
 institute: "9833 - BASES DA MATEMÁTICA E ESTATÍSTICA PARA CIÊNCIAS DO MAR"
 author: 	"Fabio Cop Ferreira e William Remo Pedroso Conti"
 description: "Cálculo da similaridade funcional entre espécies de peixes usando álgebra matricial."
-categories: ["Produto escalar", "Ângulo entre vetores", "Multiplicação matricial", "Matriz transposta", "Matriz simética"]
+categories: ["Produto escalar", "Ângulo entre vetores", "Multiplicação matricial", "Matriz transposta", "Matriz simétrica"]
 image: "images/cossine-similarity.png"
 
 format-resources:
