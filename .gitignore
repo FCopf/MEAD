@@ -71,6 +71,7 @@ venv/
 /.quarto/
 
 testes/
+conteudo/ecologia-numerica/images/peixes
 
 categorias_revisada.json
 categorias.json
