@@ -1,5 +1,5 @@
 ---
-title: "Similaridade entre espécies: aplicação da álgebra matricial em Ecologia Funcional"
+title: "Ecologia Funcional: aplicação da álgebra matricial"
 institute: "9833 - BASES DA MATEMÁTICA E ESTATÍSTICA PARA CIÊNCIAS DO MAR"
 author: 	"Fabio Cop Ferreira e William Remo Pedroso Conti"
 description: "Cálculo da similaridade funcional entre espécies de peixes usando álgebra matricial."
@@ -309,7 +309,7 @@ C |>
       =MATRIZ.MULT()
       ```
 
-7. **Verificação**: calcule o cosseno de $\theta$ entre algumas espécies utilizando a @eq-cos-angulo e verifique se os resultados coincidem com os observados na $\mathbf{C}$.
+7. **Verificação**: calcule o cosseno de $\theta$ entre algumas espécies utilizando a @eq-cos-angulo e verifique se os resultados coincidem com os observados na matriz de similaridade $\mathbf{C}$.
 
-8. **Verificação**: Observe a matriz para identificar pares de espécies mais similares entre si e avalie se o resultado faz sentido à luz das imagens da @fig-peixes.
+8. **Verificação**: Considerando as imagens apresentadas na @fig-peixes, avalie criticamente se a matriz de similaridade representa de maneira fidedigna a semelhança morfométrica entre as espécies.
 
