@@ -152,7 +152,7 @@ colnames(C) = rownames(C) = colnames(T)
 
 Os passos do item dois podem ser generalizados para todos os pares de espécies utilizando uma série de operações matriciais.
 
-1. **Matriz de Produtos Escalares ($\mathbf{E}$)**:
+1. **Obtenção da Matriz de Produtos Escalares ($\mathbf{E}$)**:
 $$\mathbf{E} = \mathbf{T}^\top \mathbf{T}$$
 
 $$\mathbf{T^\top} = 
@@ -207,12 +207,14 @@ E |>
   )
 ``` -->
 
-2. **Normas e Matriz $\mathbf{D}$**:
+2. **Obtenção da Matriz $\mathbf{D}$**:
 
-Norma dos vetores colunas da matriz $\mathbf{E}$:
+As normas dos vetores de espécies da matriz $\mathbf{T}$ podem ser obtidas a partir dos elementos da *diagonal* da matriz $\mathbf{E}$, em que:
+
 $$\text{norma}_i = \sqrt{e_{ii}}$$
 
-Matriz $\mathbf{D}$:
+Sabendo disso, obtenha a Matriz $\mathbf{D}$:
+
 $$\mathbf{D} = 
 \begin{bmatrix}
 \frac{1}{\sqrt{e_{11}}} & 0 & \dots & 0\\
@@ -246,7 +248,7 @@ D |>
   )
 ``` -->
 
-3. **Matriz Final ($\mathbf{C}$)**:
+3. **Matriz Final de similaridade por cossenos ($\mathbf{C}$)**:
 
 $$\mathbf{C} = \mathbf{D} \mathbf{E} \mathbf{D}
 $$ {#eq-similaridade_cossenos}
@@ -286,17 +288,16 @@ C |>
 1. Acesse [sheets.google.com](https://sheets.google.com).
 2. Insira os dados da tabela $\mathbf{T}$ (@tbl-tracos). *Se necessário modifique o decimal de ponto (`.`) para vírgula (`,`)*.
 3. Calcule $\mathbf{T}^\top$.
-   + Dica - utilize as fórmulas:  
+   + Dica - utilize a fórmula:  
 
       ```excel
       =TRANSPOR()
       ```
 
 4. Calcule a matriz $\mathbf{E}$.
-   + Dica - utilize as fórmulas: 
+   + Dica - utilize a fórmula: 
 
       ```excel
-      =TRANSPOR()
       =MATRIZ.MULT()
       ```
 
