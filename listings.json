@@ -1,24 +1,9 @@
 [
   {
-    "listing": "/estrutura_dados.html",
+    "listing": "/ecologia-numerica.html",
     "items": [
-      "/conteudo/estrutura_dados/estrutura_tipo.html"
-    ]
-  },
-  {
-    "listing": "/intro_bayes.html",
-    "items": [
-      "/conteudo/intro_bayes/intro-bayes-counting.html",
-      "/conteudo/intro_bayes/intro-bayes-distr-prob.html",
-      "/conteudo/intro_bayes/intro-bayes-modelo-bayesiano.html",
-      "/conteudo/intro_bayes/intro-bayes-binomial-grid.html",
-      "/conteudo/intro_bayes/intro-bayes-binomial-pymc.html"
-    ]
-  },
-  {
-    "listing": "/regressao_linear_bayesiana.html",
-    "items": [
-      "/conteudo/distribuicao_normal/distribuicao_normal-modelo.html"
+      "/conteudo/ecologia-numerica/intro-matrizes.html",
+      "/conteudo/ecologia-numerica/cossine-similarity.html"
     ]
   },
   {
@@ -41,12 +26,28 @@
     ]
   },
   {
-    "listing": "/fundamentos_probabilidade.html",
+    "listing": "/introducao_r.html",
     "items": [
-      "/conteudo/fundamentos_probabilidade/espaco_amostral.html",
-      "/conteudo/fundamentos_probabilidade/combina_probabilidades.html",
-      "/conteudo/fundamentos_probabilidade/probabilidade_condicional.html",
-      "/conteudo/fundamentos_probabilidade/teorema_bayes.html"
+      "/conteudo/introducao_r/estrutura-linguagem.html",
+      "/conteudo/introducao_r/data-frames.html",
+      "/conteudo/introducao_r/graficos-r.html"
+    ]
+  },
+  {
+    "listing": "/estrutura_dados.html",
+    "items": [
+      "/conteudo/estrutura_dados/estrutura_tipo.html"
+    ]
+  },
+  {
+    "listing": "/estatistica_descritiva.html",
+    "items": [
+      "/conteudo/estatistica_descritiva/varqualit.html",
+      "/conteudo/estatistica_descritiva/varquant.html",
+      "/conteudo/estatistica_descritiva/tendcentral.html",
+      "/conteudo/estatistica_descritiva/variacao.html",
+      "/conteudo/estatistica_descritiva/quartis.html",
+      "/conteudo/estatistica_descritiva/escorez.html"
     ]
   },
   {
@@ -60,10 +61,19 @@
     ]
   },
   {
-    "listing": "/ecologia-numerica.html",
+    "listing": "/intro_bayes.html",
     "items": [
-      "/conteudo/ecologia-numerica/intro-matrizes.html",
-      "/conteudo/ecologia-numerica/cossine-similarity.html"
+      "/conteudo/intro_bayes/intro-bayes-counting.html",
+      "/conteudo/intro_bayes/intro-bayes-distr-prob.html",
+      "/conteudo/intro_bayes/intro-bayes-modelo-bayesiano.html",
+      "/conteudo/intro_bayes/intro-bayes-binomial-grid.html",
+      "/conteudo/intro_bayes/intro-bayes-binomial-pymc.html"
+    ]
+  },
+  {
+    "listing": "/anova.html",
+    "items": [
+      "/conteudo/anova/anova_simples.html"
     ]
   },
   {
@@ -71,6 +81,22 @@
     "items": [
       "/conteudo/amostragem/pop_amostra.html",
       "/conteudo/amostragem/tipos_amostragem.html"
+    ]
+  },
+  {
+    "listing": "/regressao_linear.html",
+    "items": [
+      "/conteudo/regressao_linear/regressao_linear_simples.html",
+      "/conteudo/regressao_linear/regressao_linear_multipla.html"
+    ]
+  },
+  {
+    "listing": "/fundamentos_probabilidade.html",
+    "items": [
+      "/conteudo/fundamentos_probabilidade/espaco_amostral.html",
+      "/conteudo/fundamentos_probabilidade/combina_probabilidades.html",
+      "/conteudo/fundamentos_probabilidade/probabilidade_condicional.html",
+      "/conteudo/fundamentos_probabilidade/teorema_bayes.html"
     ]
   },
   {
@@ -82,14 +108,6 @@
     ]
   },
   {
-    "listing": "/teste_hipoteses.html",
-    "items": [
-      "/conteudo/teste_hipoteses/intro_testehipot.html",
-      "/conteudo/teste_hipoteses/teste_variancia.html",
-      "/conteudo/teste_hipoteses/teste_t.html"
-    ]
-  },
-  {
     "listing": "/medidas_associacao.html",
     "items": [
       "/conteudo/medidas_associacao/biquali.html",
@@ -98,10 +116,17 @@
     ]
   },
   {
-    "listing": "/regressao_linear.html",
+    "listing": "/regressao_linear_bayesiana.html",
     "items": [
-      "/conteudo/regressao_linear/regressao_linear_simples.html",
-      "/conteudo/regressao_linear/regressao_linear_multipla.html"
+      "/conteudo/distribuicao_normal/distribuicao_normal-modelo.html"
+    ]
+  },
+  {
+    "listing": "/teste_hipoteses.html",
+    "items": [
+      "/conteudo/teste_hipoteses/intro_testehipot.html",
+      "/conteudo/teste_hipoteses/teste_variancia.html",
+      "/conteudo/teste_hipoteses/teste_t.html"
     ]
   },
   {
@@ -109,31 +134,6 @@
     "items": [
       "/conteudo/inferencia_estatistica/teorema_central_limite.html",
       "/conteudo/inferencia_estatistica/int_conf.html"
-    ]
-  },
-  {
-    "listing": "/introducao_r.html",
-    "items": [
-      "/conteudo/introducao_r/estrutura-linguagem.html",
-      "/conteudo/introducao_r/data-frames.html",
-      "/conteudo/introducao_r/graficos-r.html"
-    ]
-  },
-  {
-    "listing": "/anova.html",
-    "items": [
-      "/conteudo/anova/anova_simples.html"
-    ]
-  },
-  {
-    "listing": "/estatistica_descritiva.html",
-    "items": [
-      "/conteudo/estatistica_descritiva/varqualit.html",
-      "/conteudo/estatistica_descritiva/varquant.html",
-      "/conteudo/estatistica_descritiva/tendcentral.html",
-      "/conteudo/estatistica_descritiva/variacao.html",
-      "/conteudo/estatistica_descritiva/quartis.html",
-      "/conteudo/estatistica_descritiva/escorez.html"
     ]
   }
 ]
