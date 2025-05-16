@@ -11,6 +11,7 @@ listing:
     - conteudo/intro_bayes/intro-bayes-modelo-bayesiano.qmd
     - conteudo/intro_bayes/intro-bayes-binomial-grid.qmd
     - conteudo/intro_bayes/intro-bayes-binomial-pymc.qmd
+    - conteudo/intro_bayes/intro-bayes-modelo-normal-bayesiano-priori.qmd
   sort: false
   type: default
   fields: 
