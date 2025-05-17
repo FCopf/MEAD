@@ -1,5 +1,5 @@
 ---
-title: "Distribuição Normal Bayesiano"
+title: "Modelo Normal Bayesiano"
 subtitle: "Modelando Dados Contínuos no PyMC - distribuições *a priori*"
 description: "Introdução à modelagem Bayesiana de dados contínuos, incluindo escolha de priores e checagens preditivas."
 Categories: [
