@@ -8,6 +8,7 @@ listing:
   contents:
     - conteudo/ecologia-numerica/intro-matrizes.qmd
     - conteudo/ecologia-numerica/cossine-similarity.qmd
+    - conteudo/ecologia-numerica/metodo-minimos-quadrados.qmd
   sort: false
   type: default
   fields: 

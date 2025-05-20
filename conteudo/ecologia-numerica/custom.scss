@@ -36,3 +36,11 @@ $presentation-li-font-size: .7em; // Define the font size for paragraphs
     margin-right: auto;       /* empurra para a esquerda */
     font-size: $presentation-li-font-size;
   }
+
+  .reveal section h2 {
+    background-color: rgb(55, 70, 60);
+    padding: 20px;
+    margin: -20px -2000px 20px -2000px;
+    color: white;
+    text-align: center; /* optional */
+  }
