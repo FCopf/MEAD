@@ -244,8 +244,8 @@ Objetivos de Aprendizagem
 </ul>
 </div>
 </div>
-<div id="f3972ea4" class="cell" data-execution_count="1">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Importando bibliotecas necessárias</span></span>
+<div id="5a6bf1ec" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Configuração inicial e importação de bibliotecas</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pymc <span class="im">as</span> pm</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
@@ -263,7 +263,7 @@ Objetivos de Aprendizagem
 <section id="curva-de-densidade-de-probabilidade" class="level3" data-number="1.1">
 <h3 data-number="1.1" class="anchored" data-anchor-id="curva-de-densidade-de-probabilidade"><span class="header-section-number">1.1</span> Curva de densidade de probabilidade</h3>
 <p>Gerando a Distribuição de Densidade Normal para diferentes valores de <span class="math inline">\(\mu\)</span> e <span class="math inline">\(\sigma\)</span>.</p>
-<div id="ad23f4d8" class="cell" data-execution_count="2">
+<div id="27832be2" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Parâmetros da distribuição</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>mu_1 <span class="op">=</span> <span class="dv">20</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>sigma_1 <span class="op">=</span> <span class="dv">3</span></span>
@@ -310,7 +310,7 @@ Figura&nbsp;1: Desidades da distribuição normal para diferentes valores de μ 
 <section id="sec-amostra-normal" class="level3" data-number="1.2">
 <h3 data-number="1.2" class="anchored" data-anchor-id="sec-amostra-normal"><span class="header-section-number">1.2</span> Amostrando valores de distribuição normal</h3>
 <p>Na <a href="#fig-normal-densities" class="quarto-xref">Figura&nbsp;1</a> vemos as curvas teóricas de densidade da distribuiçao normal. Podemos também gerar <em>amostras</em> valores ao acaso destas distribuições para verificar como estas amostras se parecem. Isso simula o processo de <strong>sortear</strong> alturas de uma população que segue essa distribuição.</p>
-<div id="5665902c" class="cell" data-execution_count="4">
+<div id="da68431c" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>mu <span class="op">=</span> <span class="dv">20</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>sigma <span class="op">=</span> <span class="dv">4</span></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>num_amostras <span class="op">=</span> <span class="dv">60</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -332,7 +332,7 @@ Figura&nbsp;1: Desidades da distribuição normal para diferentes valores de μ 
 <div id="fig-normal-sampling" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-normal-sampling-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="intro-bayes-modelo-normal-bayesiano-priori_files/figure-html/fig-normal-sampling-output-1.png" width="740" height="501" class="figure-img">
+<img src="intro-bayes-modelo-normal-bayesiano-priori_files/figure-html/fig-normal-sampling-output-1.png" width="747" height="501" class="figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-normal-sampling-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figura&nbsp;2: Histograma de amostras geradas a partir de uma distribuição normal com média <span class="math inline">\(\mu\)</span> e desvio padrão <span class="math inline">\(\sigma\)</span>, acompanhado da densidade empírica estimada por kernel e da densidade teórica correspondente.
@@ -387,7 +387,7 @@ Atividade em laboratório
 <p>Assumindo que a altura de adultos segue uma distribuição (<a href="#eq-normal-alturas" class="quarto-xref">Equação&nbsp;1</a>), vamos assumir que o parâmetro <span class="math inline">\(\mu\)</span> segue também uma distribuição normal e que <span class="math inline">\(\sigma\)</span> segue uma distribuição <em>log-normal</em></p>
 <p>Como utilizamos estes pressupostos para escolher distribuição razoiáveis para <span class="math inline">\(\mu\)</span> e <span class="math inline">\(\sigma\)</span>?</p>
 <p><strong>Priori para <span class="math inline">\(\mu\)</span></strong></p>
-<div id="c51590eb" class="cell" data-execution_count="6">
+<div id="9dd01cd6" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>mean_prior_mu <span class="op">=</span>  <span class="co"># INSIRA SUA ESCOLHA PARA A MÉDIA DA PRIORI DE mu</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>sd_prior_mu <span class="op">=</span>  <span class="co"># INSIRA SUA ESCOLHA PARA O DESVIO PADRÃO DA PRIORI DE mu</span></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -401,19 +401,20 @@ Atividade em laboratório
 <span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><strong>Priori para <span class="math inline">\(\sigma\)</span></strong></p>
-<div id="ccd28e29" class="cell" data-execution_count="7">
+<div id="99bf83f1" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>lmean_prior_sigma <span class="op">=</span>  <span class="co"># INSIRA SUA ESCOLHA PARA A MÉDIA DA PRIORI DE sigma</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>lsd_prior_sigma <span class="op">=</span>  <span class="co"># INSIRA SUA ESCOLHA PARA O DESVIO PADRÃO DA PRIORI DE sigma</span></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>xsd_prior <span class="op">=</span> np.linspace(<span class="fl">0.01</span>, <span class="dv">20</span>, <span class="dv">1000</span>)</span>
 <span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>pdf_sd_prior <span class="op">=</span> stats.lognorm.pdf(xsd_prior, s<span class="op">=</span>lsd_prior_sigma, scale<span class="op">=</span>lmean_prior_sigma)</span>
 <span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>plt.plot(xsd_prior, pdf_sd_prior)</span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="ss">f'Priori para $</span><span class="er">\</span><span class="ss">sigma$'</span>)</span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>plt.close()</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>plt.plot(xsd_prior, pdf_sd_prior)</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="ss">f'Priori para $</span><span class="er">\</span><span class="ss">sigma$'</span>)</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><strong>Extraindo distribuição a priori preditiva de <span class="math inline">\(y\)</span> no PyMC</strong></p>
-<div id="e1b5c155" class="cell" data-execution_count="8">
+<div id="a4de4215" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Definindo o modelo APENAS com as priores compartilhadas</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> pm.Model() <span class="im">as</span> prior_predictive_model:</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    </span>
@@ -462,7 +463,7 @@ Discussão
 </div>
 <p><strong>Checagem priori preditiva com PyMC</strong></p>
 <p>Podemos chegar não somente a distribuição preditiva de <span class="math inline">\(y\)</span>, mas também dos parâmetros <span class="math inline">\(\mu\)</span> e <span class="math inline">\(\sigma\)</span> usando o PyMC. Além disso, poderíamos testar outras distribuições a priori para algum dos parâmetros, por exemplo sigma. Teste cada uma destas e verifique os efeitos sobre as distribuições preditivas.</p>
-<div id="accc1838" class="cell" data-execution_count="10">
+<div id="02a878a8" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Definindo o modelo APENAS com as priores compartilhadas</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> pm.Model() <span class="im">as</span> prior_predictive_model:</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    </span>

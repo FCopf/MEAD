@@ -6,9 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="description" content="Introdução à regressão linear com abordagem bayesiana. Baseado em McElreath (2018).">
+<meta name="description" content="Introdução aos modelos de regressão com abordagem bayesiana.">
 
-<title>Regressão linear Bayesiana – Métodos em Estatística e Análise de Dados</title>
+<title>Modelos de regressão bayesianos – Métodos em Estatística e Análise de Dados</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -21,27 +21,7 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for citations */
-div.csl-bib-body { }
-div.csl-entry {
-  clear: both;
-  margin-bottom: 0em;
-}
-.hanging-indent div.csl-entry {
-  margin-left:2em;
-  text-indent:-2em;
-}
-div.csl-left-margin {
-  min-width:2em;
-  float:left;
-}
-div.csl-right-inline {
-  margin-left:2em;
-  padding-left:1em;
-}
-div.csl-indent {
-  margin-left: 2em;
-}</style>
+</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -151,9 +131,9 @@ window.Quarto = {
 </script>
 
 <link rel="stylesheet" href="styles/custom.css">
-<meta property="og:title" content="Regressão linear Bayesiana – Métodos em Estatística e Análise de Dados">
-<meta property="og:description" content="Introdução à regressão linear com abordagem bayesiana. Baseado em McElreath (2018).">
-<meta property="og:image" content="https://github.com/FCopf/MEAD/images/regressao_linear_bayesiana.png">
+<meta property="og:title" content="Modelos de regressão bayesianos – Métodos em Estatística e Análise de Dados">
+<meta property="og:description" content="Introdução aos modelos de regressão com abordagem bayesiana.">
+<meta property="og:image" content="https://github.com/FCopf/MEAD/images/modelos-regressao-bayes.png">
 <meta property="og:site_name" content="Métodos em Estatística e Análise de Dados">
 <meta property="og:image:height" content="1024">
 <meta property="og:image:width" content="1536">
@@ -203,11 +183,10 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Regressão linear Bayesiana</h1>
+<h1 class="title">Modelos de regressão bayesianos</h1>
   <div class="quarto-categories">
-    <div class="quarto-category">Regressão linear</div>
+    <div class="quarto-category">Regressão</div>
     <div class="quarto-category">Inferência bayesiana</div>
-    <div class="quarto-category">Distribuição normal</div>
     <div class="quarto-category">Distribuição a priori</div>
     <div class="quarto-category">Distribuição posterior</div>
   </div>
@@ -215,7 +194,7 @@ window.Quarto = {
 
 <div>
   <div class="description">
-    Introdução à regressão linear com abordagem bayesiana. Baseado em <span class="citation" data-cites="mcelreath2018statistical">McElreath (<a href="#ref-mcelreath2018statistical" role="doc-biblioref">2018</a>)</span>.
+    Introdução aos modelos de regressão com abordagem bayesiana.
   </div>
 </div>
 
@@ -236,35 +215,30 @@ window.Quarto = {
 
 
 
-
 <div class="quarto-listing quarto-listing-container-default" id="listing-listing">
 <div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-listing-file-modified-sort="1747752188819" data-listing-reading-time-sort="5" data-listing-word-count-sort="840">
-<div class="thumbnail"><a href="./conteudo/distribuicao_normal/distribuicao_normal-modelo.html" class="no-external">
+<div class="quarto-post image-right" data-index="0" data-listing-file-modified-sort="1747921272781" data-listing-reading-time-sort="10" data-listing-word-count-sort="1918">
+<div class="thumbnail"><a href="./conteudo/modelos_regressao_bayes/regressao-linear-bayesiana.html" class="no-external">
 
-<img loading="lazy" src="./conteudo/distribuicao_normal/images/distribuicao_normal-modelo.png" class="thumbnail-image">
+<img loading="lazy" src="./conteudo/modelos_regressao_bayes/images/regressao-linear-bayesiana.png" class="thumbnail-image">
 
 </a></div>
 <div class="body">
 <h3 class="no-anchor listing-title">
-<a href="./conteudo/distribuicao_normal/distribuicao_normal-modelo.html" class="no-external">O modelo da distribuição normal</a>
+<a href="./conteudo/modelos_regressao_bayes/regressao-linear-bayesiana.html" class="no-external">Regressão Linear Bayesiana</a>
 </h3>
-<div class="delink listing-description"><a href="./conteudo/distribuicao_normal/distribuicao_normal-modelo.html" class="no-external">
-<p>Apresenta o modelo matemático da distribuição normal.</p>
+<div class="delink listing-description"><a href="./conteudo/modelos_regressao_bayes/regressao-linear-bayesiana.html" class="no-external">
+<p>Regressão linear bayesiana — altura em adultos.</p>
 </a></div>
 </div>
 <div class="metadata">
-<a href="./conteudo/distribuicao_normal/distribuicao_normal-modelo.html" class="no-external">
+<a href="./conteudo/modelos_regressao_bayes/regressao-linear-bayesiana.html" class="no-external">
 </a>
 </div>
 </div>
 </div>
 <div class="listing-no-matching d-none">Nenhum item correspondente</div>
-</div><div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">Referências</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
-<div id="ref-mcelreath2018statistical" class="csl-entry" role="listitem">
-McElreath, Richard. 2018. <em>Statistical rethinking: A Bayesian course with examples in R and Stan</em>. Chapman; Hall/CRC.
-</div>
-</div></section></div></main> <!-- /main -->
+</div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";

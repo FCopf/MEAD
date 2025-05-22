@@ -6,7 +6,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="description" content="Transição de contagens para probabilidades sob uma perspectiva bayesiana, destacando a importância das distribuições a priori e posterior.">
+<meta name="description" content="Transição de contagens para probabilidades sob uma perspectiva bayesiana. Baseado em Statistical Rethinking (McElreath 2018).">
 
 <title>De contagens a probabilidades – Métodos em Estatística e Análise de Dados</title>
 <style>
@@ -21,7 +21,27 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -101,7 +121,7 @@ window.Quarto = {
 
 <link rel="stylesheet" href="../../styles/custom.css">
 <meta property="og:title" content="De contagens a probabilidades – Métodos em Estatística e Análise de Dados">
-<meta property="og:description" content="Transição de contagens para probabilidades sob uma perspectiva bayesiana, destacando a importância das distribuições a priori e posterior.">
+<meta property="og:description" content="Transição de contagens para probabilidades sob uma perspectiva bayesiana. Baseado em Statistical Rethinking (McElreath 2018).">
 <meta property="og:image" content="https://github.com/FCopf/MEAD/conteudo/intro_bayes/images/intro-bayes-distr-prob.png">
 <meta property="og:site_name" content="Métodos em Estatística e Análise de Dados">
 <meta property="og:image:height" content="1024">
@@ -164,7 +184,7 @@ window.Quarto = {
 
 <div>
   <div class="description">
-    Transição de contagens para probabilidades sob uma perspectiva bayesiana, destacando a importância das distribuições a priori e posterior.
+    Transição de contagens para probabilidades sob uma perspectiva bayesiana. Baseado em <em>Statistical Rethinking</em> <span class="citation" data-cites="mcelreath2018statistical">(<a href="#ref-mcelreath2018statistical" role="doc-biblioref">McElreath 2018</a>)</span>.
   </div>
 </div>
 
@@ -336,9 +356,14 @@ Figura&nbsp;1: Distribuição a priori (esquerda) e a posteriori (direita) para 
 </ul>
 
 
+
 </section>
 
-</main> <!-- /main -->
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">Referências</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-mcelreath2018statistical" class="csl-entry" role="listitem">
+McElreath, Richard. 2018. <em>Statistical rethinking: A Bayesian course with examples in R and Stan</em>. Chapman; Hall/CRC.
+</div>
+</div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";
