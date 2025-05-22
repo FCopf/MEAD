@@ -1,7 +1,7 @@
 ---
 title: "Contando possibilidades"  
 subtitle: "Evidências sobre uma hipótese"  
-description: "Introdução à contagem de possibilidades na abordagem bayesiana."
+description: "Introdução à contagem de possibilidades na abordagem bayesiana. Baseado em *Statistical Rethinking* [@mcelreath2018statistical]."
 Categories: [
           "Inferência bayesiana",
           "Distribuição a priori",

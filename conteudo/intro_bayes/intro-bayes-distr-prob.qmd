@@ -1,7 +1,7 @@
 ---
 title: "De contagens a probabilidades"  
 subtitle: "A distribuição *a posteriori*"  
-description: "Transição de contagens para probabilidades sob uma perspectiva bayesiana, destacando a importância das distribuições a priori e posterior."  
+description: "Transição de contagens para probabilidades sob uma perspectiva bayesiana. Baseado em *Statistical Rethinking* [@mcelreath2018statistical]."  
 Categories: [
           "Inferência bayesiana",
           "Distribuição de probabilidade",

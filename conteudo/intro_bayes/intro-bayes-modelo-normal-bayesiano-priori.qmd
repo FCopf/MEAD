@@ -31,7 +31,7 @@ Exploraremos a inferência bayesiana, com foco na modelagem de dados contínuos 
 
 
 ```{python}
-# Importando bibliotecas necessárias
+# Configuração inicial e importação de bibliotecas
 import pymc as pm
 import numpy as np
 import matplotlib.pyplot as plt
@@ -180,6 +180,7 @@ lsd_prior_sigma =  # INSIRA SUA ESCOLHA PARA O DESVIO PADRÃO DA PRIORI DE sigma
 xsd_prior = np.linspace(0.01, 20, 1000)
 pdf_sd_prior = stats.lognorm.pdf(xsd_prior, s=lsd_prior_sigma, scale=lmean_prior_sigma)
 
+plt.close()
 plt.plot(xsd_prior, pdf_sd_prior)
 plt.title(f'Priori para $\sigma$')
 plt.show()

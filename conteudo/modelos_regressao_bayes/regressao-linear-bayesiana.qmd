@@ -1,0 +1,382 @@
+---
+title: "Regressão Linear Bayesiana"
+subtitle: "Escolha das priores, checagem preditivas e inferência a posteriori."
+description: "Regressão linear bayesiana — altura em adultos."
+Categories: [
+        "Inferência bayesiana",
+        "Regressão linear",
+        "Modelo normal",
+        "Distribuição a priori",
+        "Distribuição a posteriori",
+        "Checagem preditiva",
+        "PyMC"
+        ]
+image: "images/regressao-linear-bayesiana.png"
+execute:
+    echo: true
+    warning: false
+    message: false
+---
+
+---
+
+Na inferência bayesiana, atualizamos nossas crenças sobre os parâmetros de um modelo combinando o **conhecimento prévio** (expresso pela distribuição *a priori*) com a **informação contida nos dados observados** (expressa pela **verossimilhança**) para obter a **distribuição *a posteriori***. A inferência bayesiana fornece uma **distribuição completa de probabilidade para os parâmetros**, refletindo explicitamente a incerteza sobre seus valores.
+
+No modelo de regressão linear bayesiano, assumimos que a variável **resposta $y$** é uma **variável aleatória** com distribuição **Normal**, cuja média depende *linearmente* de uma variável preditora $x$, ou seja, $\mu = \beta_0 + \beta_1 x$, e com desvio padrão $\sigma$.
+
+$$
+y \sim \mathcal{N}(\beta_0 + \beta_1 x, \sigma)
+$$ {#eq-likelihood-normal-regression}
+
+Onde:
+
+- $y$ é a variável aleatória observada;
+- $x$ é a variável preditora;
+- $\beta_0$ é o intercepto, representando o valor esperado de $y$ quando $x = 0$;
+- $\beta_1$ é o coeficiente de regressão, representando a variação média de $y$ para cada unidade adicional de $x$;
+- $\sigma$ é o desvio padrão dos erros aleatórios, representando a variabilidade de $y$ em torno da média.
+
+A especificação completa do modelo bayesiano requer a definição das distribuições *a priori* para os parâmetros $\beta_0$, $\beta_1$ e $\sigma$. Podemos assumir, por exemplo, distribuições normais para os coeficientes da regressão e uma distribuição **Lognormal** para o desvio padrão, garantindo que $\sigma$ assuma apenas valores positivos. As distribuições *a priori* são então:
+
+$$
+\beta_0 \sim \mathcal{N}(\mu_{\beta_0}, \sigma_{\beta_0})
+$$ {#eq-prior_beta_0}
+
+$$
+\beta_1 \sim \mathcal{N}(\mu_{\beta_1}, \sigma_{\beta_1})
+$$ {#eq-prior_beta_1}
+
+$$
+\sigma \sim \text{Lognormal}(\mu_{\log \sigma}, \sigma_{\log \sigma})
+$$ {#eq-prior_sigma}
+
+::: {.callout-tip title="Modelo Generativo"}
+Os componentes de **verossimilhança** ([@eq-likelihood-normal-regression]) e as distribuições **a priori** (Equações [-@eq-prior_beta_0], [-@eq-prior_beta_1] e [-@eq-prior_sigma]) definem o **modelo generativo** para a variável aleatória $y$.
+:::
+
+
+---
+## Atividate prática
+
+::: {.callout-important title="Objetivos de Aprendizagem"}
+- Compreender os fundamentos da regressão linear sob a abordagem bayesiana.
+- Simular dados utilizando a biblioteca [SciPy](https://scipy.org/){target=_blank}.
+- Aplicar conhecimento prévio para especificar distribuições *a priori* informativas para os parâmetros do modelo.
+- Implementar um modelo de regressão linear bayesiana com [PyMC](https://www.pymc.io/){target=_blank}, realizar a checagem preditiva *a priori* e ajustá-lo a dados reais para obter as distribuições *a posteriori* dos parâmetros.
+- Interpretar e validar os resultados da inferência bayesiana.
+:::
+
+Nesta atividade, aplicaremos a inferência bayesiana para modelar a relação entre duas variáveis contínuas: a **altura de indivíduos** e o **número do calçado** que utilizam. O conjunto de dados de altura (cm) e número do calçado está disponível no link: [`altura_adultos.csv`](https://github.com/FCopf/datasets/blob/main/altura_adultos.csv){target=_blank}. 
+
+Intuitivamente, esperamos que haja uma relação positiva: pessoas com pés maiores tendem a ser mais altas. Para quantificar essa relação, utilizaremos um **modelo de regressão linear**. O co
+
+```{python}
+# Configuração inicial e importação de bibliotecas
+import pymc as pm
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy.stats import norm, lognorm
+import pandas as pd
+import seaborn as sns
+import arviz as az
+
+```
+
+---
+### Escolhendo as prioris
+
+*Desenvolver uma boa intuição sobre os parâmetros é essencial para construir modelos coerentes com o conhecimento prévio*. Esta atividade tem como finalidade **apoiar a definição informada das distribuições a priori** no modelo bayesiano, de modo que reflitam o que sabemos (ou assumimos saber) sobre os parâmetros **antes de observar os dados**. O objetivo é explorar diferentes valores para os parâmetros da regressão linear e identificar combinações que representem, de forma realista, a relação esperada entre essas duas variáveis, e que possam ser utilizadas como prioris no modelo. 
+
+**1. Escolha valores** para os parâmetros $\beta_0$, $\beta_1$ e $\sigma$ (@eq-likelihood-normal-regression).
+
+   * $\beta_0$ (intercepto): representa altura esperada quando o número do calçado é 0. Embora esse valor não tenha significado físico direto, ele influencia a posição da reta ajustada.
+   * $\beta_1$ (inclinação da reta): representa a variação média na altura para cada número a mais de calçado.
+   * $\sigma$ (desvio padrão): representa a variação natural nas alturas entre pessoas com o mesmo número de calçado.
+
+```{python}
+#| eval: true
+# Parâmetros para simulação
+beta_0 = 60      # ESCOLHA a altura base (quando o número do calçado é zero)
+beta_1 = 2.8     # ESCOLHA a taxa média de aumento na altura para cada número a mais de calçado
+sigma = 7        # ESCOLHA a variação individual na altura (desvio padrão dos erros)
+
+```
+
+**2. Crie uma sequência de valores para $x$** abrangendo limites coerentes com número do calçado para indivíduos adultos e utilize a função `norm.rvs` da biblioteca [SciPy](https://scipy.org/){target=_blank} para gerar dados simulados de altura com base no número do calçado.
+
+```{python}
+#| eval: true
+# Simule o número do calçado (ex.: valores inteiros de 33 a 48, com 100 repetições por número)
+x_sim = np.repeat(np.arange(33, 49), 100)
+
+# Gere as alturas simuladas com erro normal
+mu = beta_0 + beta_1 * x_sim
+y_sim = norm.rvs(loc=mu, scale=sigma, size=len(x_sim))
+
+```
+
+**3. Utilize o `matplotlib` para visualizar os dados simulados**. O gráfico de dispersão mostrará a altura em função do número do calçado. Isso ajudará a avaliar se a simulação é coerente com sua expectativa sobre essa relação.
+
+```{python}
+# Use o matplotlib para plotar o resultado da simulação, isto é, altura_sim em função de x_sim
+plt.figure(figsize=(9, 6))
+plt.scatter(x_sim, y_sim, color='steelblue', alpha=0.6, label="Alturas simuladas")
+plt.xlabel("Número do calçado")
+plt.ylabel("Altura (cm)")
+plt.title("Relação simulada entre número do calçado e altura")
+plt.legend()
+plt.grid(True)
+plt.show()
+
+```
+
+**4. Ajuste os valores** de $\beta_0$, $\beta_1$ e $\sigma$ e **repita a simulação** até obter uma distribuição de pontos que represente **adequadamente** sua espectativa sobre a relação entre as variáveis.
+
+---
+### Implementando distribuições a priori no PyMC
+
+Agora que você já explorou os efeitos dos parâmetros $\beta_0$, $\beta_1$ e $\sigma$, o próximo passo é **formalizar esse conhecimento** na distribuições a priori (Equações [-@eq-prior_beta_0], [-@eq-prior_beta_1] e [-@eq-prior_sigma]). Para isso, vamos utilizar a biblioteca de programação probabilística [PyMC](https://www.pymc.io/){target=_blank}.
+
+**1. Defina as distribuições a priori**
+
+Utilize os valores escolhidos anteriormente como os **centros das distribuições a priori**, isto é, utilize `beta_0`, `beta_1` e `sigma` respectivamente para representar $\mu_{\beta_0}$ (@eq-prior_beta_0), $\mu_{\beta_1}$ (@eq-prior_beta_1) e $\mu_{\log \sigma}$ (@eq-prior_sigma). A implementação em PyMC tem por objetivo facilitar a escolha de valores razoáveis para $\sigma_{\beta_0}$ (@eq-prior_beta_0), $\sigma_{\beta_1}$ (@eq-prior_beta_1) e $\sigma_{\log \sigma}$ (@eq-prior_sigma) compatíveis com seu grau de incerteza sobre estes parâmetros.
+
+```{python}
+#| eval: true
+# Geração de valores simulados para a variável preditora (calcado)
+calcado_sim = np.arange(33, 49)
+
+# ESCOLHA altura base (quando o número do calçado é zero)
+mu_beta_0 = 60 # Média
+sd_beta_0 = 3 # Desvio padrão
+
+# ESCOLHA a taxa média de aumento na altura para cada número a mais de calçad
+mu_beta_1 = 2.8  # Média
+sd_beta_1 = 0.05  # Desvio padrão
+
+# ESCOLHA a variação individual na altura (desvio padrão dos erros)
+mu_lsigma = 7  # Média
+sd_lsigma = 0.3  # Desvio padrão
+
+```
+
+
+```{python}
+n_samples = 1000
+with pm.Model() as modelo_regressao_linear:
+
+    # Prioris
+    beta_0 = pm.Normal("beta_0", mu=mu_beta_0, sigma=sd_beta_0) 
+    beta_1 = pm.Normal("beta_1", mu=mu_beta_1, sigma=sd_beta_1)
+    sigma = pm.Lognormal("sigma", mu=np.log(mu_lsigma), sigma=sd_lsigma)
+
+    # Verossimilhança
+    mu = beta_0 + beta_1 * calcado_sim
+    altura_sim = pm.Normal("altura_sim", mu=mu, sigma=sigma, shape=len(calcado_sim))
+
+    # Amostragem da distribuição preditiva a priori
+    prior_predictive_samples = pm.sample_prior_predictive(samples=n_samples)
+
+
+```
+
+**2. Checagem preditiva a priori**: Extraia as distribuições a priori dos parâmetros
+
+```{python}
+#| eval: true
+
+# Extração das distribuições a priori dos parâmetros
+beta_0_prior = prior_predictive_samples.prior["beta_0"].values.flatten()
+beta_1_prior = prior_predictive_samples.prior["beta_1"].values.flatten()
+sigma_prior = prior_predictive_samples.prior["sigma"].values.flatten()
+
+# Extração da distribuição preditiva de y
+altura_sim_prior = prior_predictive_samples.prior["altura_sim"].values.flatten()
+
+# Repita calcado_sim para alinhar com os n_samples valores de altura_sim_prior
+calcado_sim_rep = np.tile(calcado_sim, n_samples)
+
+```
+
+**3. Verifique os histogramas das distribuições a priori e a distribuição preditiva com os dados simulados**
+
+```{python}
+#|eval: true
+#| label: fig-prior-parametros
+#| fig-cap: "Distribuições a priori de beta₀, beta₁ e sigma."
+# Plot dos histogramas e do gráfico de dispersão
+fig, axes = plt.subplots(2, 2, figsize=(8, 8))
+
+# Histograma do beta_0
+axes[0, 0].hist(beta_0_prior, bins=30, color='lightcoral', edgecolor='black')
+axes[0, 0].set_title("Intercepto: β₀")
+axes[0, 0].set_xlabel("β₀")
+axes[0, 0].set_ylabel("Frequência")
+
+# Histograma do beta_1
+axes[0, 1].hist(beta_1_prior, bins=30, color='cornflowerblue', edgecolor='black')
+axes[0, 1].set_title("Inclinação: β₁")
+axes[0, 1].set_xlabel("β₁")
+axes[0, 1].set_ylabel("Frequência")
+
+# Histograma de sigma
+axes[1, 0].hist(sigma_prior, bins=30, color='mediumseagreen', edgecolor='black')
+axes[1, 0].set_title("Desvio padrão: σ")
+axes[1, 0].set_xlabel("σ")
+axes[1, 0].set_ylabel("Frequência")
+
+# Gráfico de dispersão dos dados simulados anteriormente
+axes[1, 1].scatter(calcado_sim_rep, altura_sim_prior, color='steelblue', alpha=0.6, label="Alturas simuladas")
+axes[1, 1].set_title("Relação a priori predita")
+axes[1, 1].set_xlabel("Número do calçado")
+axes[1, 1].set_ylabel("Altura (cm)")
+axes[1, 1].legend()
+axes[1, 1].grid(True)
+
+plt.tight_layout()
+plt.show()
+
+```
+
+**4. Ajuste os valores** dos parâmetros e **repita a implementação do modelo** até obter uma distribuição de pontos que represente **adequadamente** sua espectativa sobre a relação entre as variáveis.
+
+### Ajustando o modelo a dados reais
+
+**1. Importe os dados** [`altura_adultos.csv`](https://raw.githubusercontent.com/FCopf/datasets/refs/heads/main/altura_adultos.csv)
+
+```{python}
+df = pd.read_csv('https://raw.githubusercontent.com/FCopf/datasets/refs/heads/main/altura_adultos.csv')
+df
+```
+
+Os dados contém informações sobre `altura` (cm), número do `calcado` e `ano` da resposta de `{python} df.shape[0]` respondentes.
+
+**2. Faça um gráfico de dispersão** entre `altura` ($y$) e `calcado` ($x$).
+```{python}
+plt.figure(figsize=(8, 6))
+sns.scatterplot(data=df, x='calcado', y='altura', 
+                alpha=0.7,           # transparência dos pontos
+                s=60,                # tamanho dos pontos
+                color='firebrick')   # cor dos pontos
+
+plt.title('Relação entre Número do Calçado e Altura', fontsize=14, fontweight='bold')
+plt.xlabel('Número do Calçado', fontsize=12)
+plt.ylabel('Altura (cm)', fontsize=12)
+plt.grid(True, alpha=0.3)
+plt.tight_layout()
+plt.show()
+```
+
+**3. Implemente os dados no PyMC** para estimar as distribuições posteriores
+
+*DADOS DE ENTRADA*
+
+```{python}
+# Parâmetros das prioris
+mu_beta_0 = 60
+sd_beta_0 = 5
+
+mu_beta_1 = 2.8
+sd_beta_1 = 0.1
+
+mu_lsigma = 7
+sd_lsigma = 0.4
+
+# Dados observados
+X = df['calcado']
+Y = df['altura']
+```
+
+*IMPLEMENTAÇÃO EM PYMC*
+```{python}
+with pm.Model() as modelo_regressao_linear:
+    
+    # Priori
+    beta_0 = pm.Normal("beta_0", mu=mu_beta_0, sigma=sd_beta_0)
+    beta_1 = pm.Normal("beta_1", mu=mu_beta_1, sigma=sd_beta_1)
+    sigma = pm.Lognormal("sigma", mu=np.log(mu_lsigma), sigma=sd_lsigma)
+
+    # Verossimilhança
+    mu = beta_0 + beta_1 * calcado_sim # Equação da reta (modelo preditivo)
+    altura_obs = pm.Normal("altura_obs", mu=beta_0 + beta_1 * X, 
+                           sigma=sigma, observed = Y)
+    
+    # Amostragem MCMC para estimar a posterior e da distribuição preditiva posterior
+    trace = pm.sample(draws=1000, tune=1000, chains=4, target_accept=0.95)
+    posterior_predictive_samples = pm.sample_posterior_predictive(trace)
+
+```
+
+
+**4. Resultados do ajuste**
+
+*4.1. Resumo dos parâmetros posteriores*
+```{python}
+az.summary(trace)
+```
+
+<br>
+
+*4.2. Gráficos de diagnóstico*
+```{python}
+fig, axes = plt.subplots(3, 2, figsize=(8, 6))
+
+# Trace plots
+az.plot_trace(trace, var_names=['beta_0', 'beta_1', 'sigma'], axes=axes)
+plt.suptitle('Trace Plots - Convergência das Cadeias MCMC')
+plt.tight_layout()
+plt.show()
+```
+
+<br>
+
+*4.3. Distribuições posteriores*
+
+```{python}
+az.plot_posterior(trace, var_names=['beta_0', 'beta_1', 'sigma'], 
+                 hdi_prob=0.95, figsize=(8, 4))
+plt.suptitle('Distribuições Posteriores dos Parâmetros')
+plt.show()
+```
+
+<br>
+
+*4.4. Ajuste do modelo (dados observados vs predições)*
+
+*Predições*
+```{python}
+# Intervalo de credibilidade das predições
+calcado_range = np.linspace(X.min(), X.max(), 100)
+posterior_beta_0 = trace.posterior['beta_0'].values.flatten()
+posterior_beta_1 = trace.posterior['beta_1'].values.flatten()
+
+# Calculando intervalos de credibilidade para a linha de regressão
+predictions = []
+for x in calcado_range:
+    pred = posterior_beta_0 + posterior_beta_1 * x
+    predictions.append(pred)
+
+predictions = np.array(predictions)
+pred_mean = np.mean(predictions, axis=1)
+pred_lower = np.percentile(predictions, 2.5, axis=1)
+pred_upper = np.percentile(predictions, 97.5, axis=1)
+
+```
+
+<br>
+*Gráfico de valores preditos*
+```{python}
+plt.figure(figsize=(8, 6))
+
+plt.scatter(X, Y, alpha=0.6, label='Dados Observados', color = 'firebrick')
+plt.plot(calcado_range, pred_mean, color = 'darkgreen', label='Regressão (Média Posterior)', 
+        linewidth=2, linestyle="--")
+plt.fill_between(calcado_range, pred_lower, pred_upper, 
+                alpha=0.2, color='darkgreen', label='IC 95% (Posterior)')
+plt.xlabel('Número do Calçado')
+plt.ylabel('Altura (cm)')
+plt.title('Ajuste do Modelo de Regressão Linear Bayesiana')
+plt.legend()
+plt.grid(True, alpha=0.3)
+plt.show()
+```

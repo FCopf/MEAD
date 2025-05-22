@@ -1,7 +1,7 @@
 ---
 title: "Construindo um modelo bayesiano"  
 subtitle: "Verossimilhança e distribuição *a priori*"  
-description: "Construção de um modelo bayesiano, enfatizando a formulação de distribuições a priori e posterior."
+description: "Construção de um modelo bayesiano, enfatizando a formulação de distribuições a priori e posterior. Baseado em *Statistical Rethinking* [@mcelreath2018statistical]."
 Categories: [
           "Inferência bayesiana",
           "Distribuição a priori",
