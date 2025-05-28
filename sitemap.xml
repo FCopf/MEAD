@@ -2,250 +2,254 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://github.com/FCopf/MEAD/teste_hipoteses.html</loc>
-    <lastmod>2025-05-22T13:41:12.837Z</lastmod>
+    <lastmod>2025-05-28T23:17:01.732Z</lastmod>
   </url>
   <url>
     <loc>https://github.com/FCopf/MEAD/estatistica_descritiva.html</loc>
-    <lastmod>2025-05-22T13:41:12.798Z</lastmod>
+    <lastmod>2025-05-28T23:17:01.693Z</lastmod>
   </url>
   <url>
     <loc>https://github.com/FCopf/MEAD/amostragem.html</loc>
-    <lastmod>2025-05-22T13:41:12.607Z</lastmod>
+    <lastmod>2025-05-28T23:17:01.529Z</lastmod>
   </url>
   <url>
     <loc>https://github.com/FCopf/MEAD/inferencia_estatistica.html</loc>
-    <lastmod>2025-05-22T13:41:12.835Z</lastmod>
+    <lastmod>2025-05-28T23:17:01.730Z</lastmod>
   </url>
   <url>
     <loc>https://github.com/FCopf/MEAD/medidas_associacao.html</loc>
-    <lastmod>2025-05-22T13:41:12.835Z</lastmod>
+    <lastmod>2025-05-28T23:17:01.730Z</lastmod>
   </url>
   <url>
     <loc>https://github.com/FCopf/MEAD/ecologia-numerica.html</loc>
-    <lastmod>2025-05-22T13:41:12.798Z</lastmod>
+    <lastmod>2025-05-28T23:17:01.693Z</lastmod>
   </url>
   <url>
     <loc>https://github.com/FCopf/MEAD/intro_bayes.html</loc>
-    <lastmod>2025-05-22T13:41:12.835Z</lastmod>
+    <lastmod>2025-05-28T23:17:01.730Z</lastmod>
   </url>
   <url>
     <loc>https://github.com/FCopf/MEAD/introducao_r.html</loc>
-    <lastmod>2025-05-22T13:41:12.835Z</lastmod>
+    <lastmod>2025-05-28T23:17:01.730Z</lastmod>
   </url>
   <url>
     <loc>https://github.com/FCopf/MEAD/conteudo/regressao_linear/regressao_linear_simples.html</loc>
-    <lastmod>2025-05-22T13:41:12.794Z</lastmod>
+    <lastmod>2025-05-28T23:17:01.689Z</lastmod>
   </url>
   <url>
     <loc>https://github.com/FCopf/MEAD/conteudo/distribuicao_normal/distribuicao_normal-probabilidade.html</loc>
-    <lastmod>2025-05-22T13:41:12.625Z</lastmod>
+    <lastmod>2025-05-28T23:17:01.547Z</lastmod>
   </url>
   <url>
     <loc>https://github.com/FCopf/MEAD/conteudo/distribuicao_normal/distribuicao_normal-modelo.html</loc>
-    <lastmod>2025-05-22T13:41:12.625Z</lastmod>
+    <lastmod>2025-05-28T23:17:01.547Z</lastmod>
   </url>
   <url>
     <loc>https://github.com/FCopf/MEAD/conteudo/amostragem/tipos_amostragem.html</loc>
-    <lastmod>2025-05-22T13:41:12.612Z</lastmod>
+    <lastmod>2025-05-28T23:17:01.534Z</lastmod>
   </url>
   <url>
     <loc>https://github.com/FCopf/MEAD/conteudo/intro_bayes/intro-bayes-binomial-grid.html</loc>
-    <lastmod>2025-05-22T13:41:12.765Z</lastmod>
+    <lastmod>2025-05-28T23:17:01.656Z</lastmod>
   </url>
   <url>
     <loc>https://github.com/FCopf/MEAD/conteudo/intro_bayes/intro-bayes-counting.html</loc>
-    <lastmod>2025-05-22T13:41:12.765Z</lastmod>
+    <lastmod>2025-05-28T23:17:01.656Z</lastmod>
   </url>
   <url>
     <loc>https://github.com/FCopf/MEAD/conteudo/intro_bayes/intro-bayes-modelo-bayesiano.html</loc>
-    <lastmod>2025-05-22T13:41:12.766Z</lastmod>
+    <lastmod>2025-05-28T23:17:01.656Z</lastmod>
   </url>
   <url>
     <loc>https://github.com/FCopf/MEAD/conteudo/inferencia_estatistica/int_conf.html</loc>
-    <lastmod>2025-05-22T13:41:12.721Z</lastmod>
+    <lastmod>2025-05-28T23:17:01.618Z</lastmod>
   </url>
   <url>
     <loc>https://github.com/FCopf/MEAD/conteudo/ecologia-numerica/metodo-minimos-quadrados.html</loc>
-    <lastmod>2025-05-22T13:41:12.664Z</lastmod>
+    <lastmod>2025-05-28T23:17:01.576Z</lastmod>
   </url>
   <url>
     <loc>https://github.com/FCopf/MEAD/conteudo/ecologia-numerica/intro-matrizes.html</loc>
-    <lastmod>2025-05-22T13:41:12.664Z</lastmod>
+    <lastmod>2025-05-28T23:17:01.576Z</lastmod>
   </url>
   <url>
     <loc>https://github.com/FCopf/MEAD/conteudo/introducao_r/graficos-r.html</loc>
-    <lastmod>2025-05-22T13:41:12.766Z</lastmod>
+    <lastmod>2025-05-28T23:17:01.657Z</lastmod>
   </url>
   <url>
     <loc>https://github.com/FCopf/MEAD/conteudo/estatistica_descritiva/varquant.html</loc>
-    <lastmod>2025-05-22T13:41:12.677Z</lastmod>
+    <lastmod>2025-05-28T23:17:01.582Z</lastmod>
   </url>
   <url>
     <loc>https://github.com/FCopf/MEAD/conteudo/estatistica_descritiva/variacao.html</loc>
-    <lastmod>2025-05-22T13:41:12.677Z</lastmod>
+    <lastmod>2025-05-28T23:17:01.582Z</lastmod>
   </url>
   <url>
     <loc>https://github.com/FCopf/MEAD/conteudo/estatistica_descritiva/escorez.html</loc>
-    <lastmod>2025-05-22T13:41:12.664Z</lastmod>
+    <lastmod>2025-05-28T23:17:01.577Z</lastmod>
   </url>
   <url>
     <loc>https://github.com/FCopf/MEAD/conteudo/medidas_associacao/biquantquali.html</loc>
-    <lastmod>2025-05-22T13:41:12.770Z</lastmod>
+    <lastmod>2025-05-28T23:17:01.661Z</lastmod>
   </url>
   <url>
     <loc>https://github.com/FCopf/MEAD/conteudo/medidas_associacao/series.html</loc>
-    <lastmod>2025-05-22T13:41:12.774Z</lastmod>
+    <lastmod>2025-05-28T23:17:01.664Z</lastmod>
   </url>
   <url>
     <loc>https://github.com/FCopf/MEAD/conteudo/anova/anova_simples.html</loc>
-    <lastmod>2025-05-22T13:41:12.612Z</lastmod>
+    <lastmod>2025-05-28T23:17:01.535Z</lastmod>
   </url>
   <url>
-    <loc>https://github.com/FCopf/MEAD/conteudo/fundamentos_probabilidade/combina_probabilidades.html</loc>
-    <lastmod>2025-05-22T13:41:12.680Z</lastmod>
-  </url>
-  <url>
-    <loc>https://github.com/FCopf/MEAD/conteudo/fundamentos_probabilidade/espaco_amostral.html</loc>
-    <lastmod>2025-05-22T13:41:12.680Z</lastmod>
-  </url>
-  <url>
-    <loc>https://github.com/FCopf/MEAD/conteudo/ciencia_dados/grafico_ggplot2.html</loc>
-    <lastmod>2025-05-22T13:41:12.619Z</lastmod>
-  </url>
-  <url>
-    <loc>https://github.com/FCopf/MEAD/conteudo/ciencia_dados/transform.html</loc>
-    <lastmod>2025-05-22T13:41:12.625Z</lastmod>
-  </url>
-  <url>
-    <loc>https://github.com/FCopf/MEAD/conteudo/ciencia_dados/tidyverse.html</loc>
-    <lastmod>2025-05-22T13:41:12.624Z</lastmod>
-  </url>
-  <url>
-    <loc>https://github.com/FCopf/MEAD/conteudo/teste_hipoteses/teste_variancia.html</loc>
-    <lastmod>2025-05-22T13:41:12.797Z</lastmod>
-  </url>
-  <url>
-    <loc>https://github.com/FCopf/MEAD/conteudo/teste_hipoteses/intro_testehipot.html</loc>
-    <lastmod>2025-05-22T13:41:12.797Z</lastmod>
-  </url>
-  <url>
-    <loc>https://github.com/FCopf/MEAD/conteudo/teste_hipoteses/teste_t.html</loc>
-    <lastmod>2025-05-22T13:41:12.797Z</lastmod>
-  </url>
-  <url>
-    <loc>https://github.com/FCopf/MEAD/conteudo/ciencia_dados/pipe.html</loc>
-    <lastmod>2025-05-22T13:41:12.624Z</lastmod>
-  </url>
-  <url>
-    <loc>https://github.com/FCopf/MEAD/conteudo/ciencia_dados/import_export.html</loc>
-    <lastmod>2025-05-22T13:41:12.624Z</lastmod>
-  </url>
-  <url>
-    <loc>https://github.com/FCopf/MEAD/conteudo/fundamentos_probabilidade/teorema_bayes.html</loc>
-    <lastmod>2025-05-22T13:41:12.708Z</lastmod>
+    <loc>https://github.com/FCopf/MEAD/conteudo/modelos_regressao_bayes/regressao-linear-bayesiana-bambi.html</loc>
+    <lastmod>2025-05-28T23:17:01.677Z</lastmod>
   </url>
   <url>
     <loc>https://github.com/FCopf/MEAD/conteudo/fundamentos_probabilidade/probabilidade_condicional.html</loc>
-    <lastmod>2025-05-22T13:41:12.708Z</lastmod>
+    <lastmod>2025-05-28T23:17:01.610Z</lastmod>
+  </url>
+  <url>
+    <loc>https://github.com/FCopf/MEAD/conteudo/fundamentos_probabilidade/teorema_bayes.html</loc>
+    <lastmod>2025-05-28T23:17:01.611Z</lastmod>
+  </url>
+  <url>
+    <loc>https://github.com/FCopf/MEAD/conteudo/ciencia_dados/import_export.html</loc>
+    <lastmod>2025-05-28T23:17:01.546Z</lastmod>
+  </url>
+  <url>
+    <loc>https://github.com/FCopf/MEAD/conteudo/ciencia_dados/pipe.html</loc>
+    <lastmod>2025-05-28T23:17:01.546Z</lastmod>
+  </url>
+  <url>
+    <loc>https://github.com/FCopf/MEAD/conteudo/teste_hipoteses/teste_t.html</loc>
+    <lastmod>2025-05-28T23:17:01.693Z</lastmod>
+  </url>
+  <url>
+    <loc>https://github.com/FCopf/MEAD/conteudo/teste_hipoteses/intro_testehipot.html</loc>
+    <lastmod>2025-05-28T23:17:01.693Z</lastmod>
+  </url>
+  <url>
+    <loc>https://github.com/FCopf/MEAD/conteudo/teste_hipoteses/teste_variancia.html</loc>
+    <lastmod>2025-05-28T23:17:01.693Z</lastmod>
+  </url>
+  <url>
+    <loc>https://github.com/FCopf/MEAD/conteudo/ciencia_dados/tidyverse.html</loc>
+    <lastmod>2025-05-28T23:17:01.546Z</lastmod>
+  </url>
+  <url>
+    <loc>https://github.com/FCopf/MEAD/conteudo/ciencia_dados/transform.html</loc>
+    <lastmod>2025-05-28T23:17:01.547Z</lastmod>
+  </url>
+  <url>
+    <loc>https://github.com/FCopf/MEAD/conteudo/ciencia_dados/grafico_ggplot2.html</loc>
+    <lastmod>2025-05-28T23:17:01.541Z</lastmod>
+  </url>
+  <url>
+    <loc>https://github.com/FCopf/MEAD/conteudo/fundamentos_probabilidade/espaco_amostral.html</loc>
+    <lastmod>2025-05-28T23:17:01.584Z</lastmod>
+  </url>
+  <url>
+    <loc>https://github.com/FCopf/MEAD/conteudo/fundamentos_probabilidade/combina_probabilidades.html</loc>
+    <lastmod>2025-05-28T23:17:01.584Z</lastmod>
   </url>
   <url>
     <loc>https://github.com/FCopf/MEAD/conteudo/modelos_regressao_bayes/regressao-linear-bayesiana.html</loc>
-    <lastmod>2025-05-22T13:41:12.781Z</lastmod>
+    <lastmod>2025-05-28T23:17:01.677Z</lastmod>
   </url>
   <url>
     <loc>https://github.com/FCopf/MEAD/conteudo/medidas_associacao/biquanti.html</loc>
-    <lastmod>2025-05-22T13:41:12.770Z</lastmod>
+    <lastmod>2025-05-28T23:17:01.661Z</lastmod>
   </url>
   <url>
     <loc>https://github.com/FCopf/MEAD/conteudo/medidas_associacao/biquali.html</loc>
-    <lastmod>2025-05-22T13:41:12.770Z</lastmod>
+    <lastmod>2025-05-28T23:17:01.660Z</lastmod>
   </url>
   <url>
     <loc>https://github.com/FCopf/MEAD/conteudo/estatistica_descritiva/quartis.html</loc>
-    <lastmod>2025-05-22T13:41:12.677Z</lastmod>
+    <lastmod>2025-05-28T23:17:01.582Z</lastmod>
   </url>
   <url>
     <loc>https://github.com/FCopf/MEAD/conteudo/estatistica_descritiva/tendcentral.html</loc>
-    <lastmod>2025-05-22T13:41:12.677Z</lastmod>
+    <lastmod>2025-05-28T23:17:01.582Z</lastmod>
   </url>
   <url>
     <loc>https://github.com/FCopf/MEAD/conteudo/estatistica_descritiva/varqualit.html</loc>
-    <lastmod>2025-05-22T13:41:12.677Z</lastmod>
+    <lastmod>2025-05-28T23:17:01.582Z</lastmod>
   </url>
   <url>
     <loc>https://github.com/FCopf/MEAD/conteudo/introducao_r/data-frames.html</loc>
-    <lastmod>2025-05-22T13:41:12.766Z</lastmod>
+    <lastmod>2025-05-28T23:17:01.657Z</lastmod>
   </url>
   <url>
     <loc>https://github.com/FCopf/MEAD/conteudo/introducao_r/estrutura-linguagem.html</loc>
-    <lastmod>2025-05-22T13:41:12.766Z</lastmod>
+    <lastmod>2025-05-28T23:17:01.657Z</lastmod>
   </url>
   <url>
     <loc>https://github.com/FCopf/MEAD/conteudo/ecologia-numerica/cossine-similarity.html</loc>
-    <lastmod>2025-05-22T13:41:12.636Z</lastmod>
+    <lastmod>2025-05-28T23:17:01.558Z</lastmod>
   </url>
   <url>
     <loc>https://github.com/FCopf/MEAD/conteudo/estrutura_dados/estrutura_tipo.html</loc>
-    <lastmod>2025-05-22T13:41:12.678Z</lastmod>
+    <lastmod>2025-05-28T23:17:01.583Z</lastmod>
   </url>
   <url>
     <loc>https://github.com/FCopf/MEAD/conteudo/inferencia_estatistica/teorema_central_limite.html</loc>
-    <lastmod>2025-05-22T13:41:12.722Z</lastmod>
+    <lastmod>2025-05-28T23:17:01.618Z</lastmod>
   </url>
   <url>
     <loc>https://github.com/FCopf/MEAD/conteudo/intro_bayes/intro-bayes-modelo-normal-bayesiano-priori.html</loc>
-    <lastmod>2025-05-22T13:41:12.766Z</lastmod>
+    <lastmod>2025-05-28T23:17:01.656Z</lastmod>
   </url>
   <url>
     <loc>https://github.com/FCopf/MEAD/conteudo/intro_bayes/intro-bayes-distr-prob.html</loc>
-    <lastmod>2025-05-22T13:41:12.765Z</lastmod>
+    <lastmod>2025-05-28T23:17:01.656Z</lastmod>
   </url>
   <url>
     <loc>https://github.com/FCopf/MEAD/conteudo/intro_bayes/intro-bayes-binomial-pymc.html</loc>
-    <lastmod>2025-05-22T13:41:12.765Z</lastmod>
+    <lastmod>2025-05-28T23:17:01.656Z</lastmod>
   </url>
   <url>
     <loc>https://github.com/FCopf/MEAD/conteudo/amostragem/pop_amostra.html</loc>
-    <lastmod>2025-05-22T13:41:12.612Z</lastmod>
+    <lastmod>2025-05-28T23:17:01.534Z</lastmod>
   </url>
   <url>
     <loc>https://github.com/FCopf/MEAD/conteudo/distribuicao_normal/distr_norm.html</loc>
-    <lastmod>2025-05-22T13:41:12.625Z</lastmod>
+    <lastmod>2025-05-28T23:17:01.547Z</lastmod>
   </url>
   <url>
     <loc>https://github.com/FCopf/MEAD/conteudo/regressao_linear/regressao_linear_multipla.html</loc>
-    <lastmod>2025-05-22T13:41:12.793Z</lastmod>
+    <lastmod>2025-05-28T23:17:01.689Z</lastmod>
   </url>
   <url>
     <loc>https://github.com/FCopf/MEAD/ciencia_dados.html</loc>
-    <lastmod>2025-05-22T13:41:12.607Z</lastmod>
+    <lastmod>2025-05-28T23:17:01.529Z</lastmod>
   </url>
   <url>
     <loc>https://github.com/FCopf/MEAD/regressao_linear.html</loc>
-    <lastmod>2025-05-22T13:41:12.835Z</lastmod>
+    <lastmod>2025-05-28T23:17:01.730Z</lastmod>
   </url>
   <url>
     <loc>https://github.com/FCopf/MEAD/estrutura_dados.html</loc>
-    <lastmod>2025-05-22T13:41:12.798Z</lastmod>
+    <lastmod>2025-05-28T23:17:01.693Z</lastmod>
   </url>
   <url>
     <loc>https://github.com/FCopf/MEAD/index.html</loc>
-    <lastmod>2025-05-22T13:41:12.835Z</lastmod>
+    <lastmod>2025-05-28T23:17:01.730Z</lastmod>
   </url>
   <url>
     <loc>https://github.com/FCopf/MEAD/anova.html</loc>
-    <lastmod>2025-05-22T13:41:12.607Z</lastmod>
+    <lastmod>2025-05-28T23:17:01.529Z</lastmod>
   </url>
   <url>
     <loc>https://github.com/FCopf/MEAD/fundamentos_probabilidade.html</loc>
-    <lastmod>2025-05-22T13:41:12.798Z</lastmod>
+    <lastmod>2025-05-28T23:17:01.693Z</lastmod>
   </url>
   <url>
     <loc>https://github.com/FCopf/MEAD/distribuicao_normal.html</loc>
-    <lastmod>2025-05-22T13:41:12.798Z</lastmod>
+    <lastmod>2025-05-28T23:17:01.693Z</lastmod>
   </url>
   <url>
     <loc>https://github.com/FCopf/MEAD/modelos_regressao_bayes.html</loc>
-    <lastmod>2025-05-22T13:41:12.835Z</lastmod>
+    <lastmod>2025-05-28T23:17:01.730Z</lastmod>
   </url>
 </urlset>

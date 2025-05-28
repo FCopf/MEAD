@@ -136,7 +136,8 @@
   {
     "listing": "/modelos_regressao_bayes.html",
     "items": [
-      "/conteudo/modelos_regressao_bayes/regressao-linear-bayesiana.html"
+      "/conteudo/modelos_regressao_bayes/regressao-linear-bayesiana.html",
+      "/conteudo/modelos_regressao_bayes/regressao-linear-bayesiana-bambi.html"
     ]
   }
 ]
