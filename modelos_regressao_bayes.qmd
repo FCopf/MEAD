@@ -12,6 +12,7 @@ image: "images/modelos-regressao-bayes.png"
 listing:
   contents:
     - conteudo/modelos_regressao_bayes/regressao-linear-bayesiana.qmd
+    - conteudo/modelos_regressao_bayes/regressao-linear-bayesiana-bambi.qmd
   sort: false
   type: default
   fields: 

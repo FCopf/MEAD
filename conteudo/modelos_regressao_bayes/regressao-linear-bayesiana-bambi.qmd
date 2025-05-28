@@ -1,0 +1,332 @@
+---
+title: "Fluxo de Trabalho na Modelagem Bayesiana"
+subtitle: "Do modelo linear à distribuição a posteriori"
+description: "Explorando o fluxo de trabalho bayesiano em modelos de regressão linear"
+categories: [
+    "Inferência bayesiana",
+    "Modelagem estatística",
+    "Bambi",
+    "PyMC",
+    "Fluxo de trabalho",
+    "Distribuições a priori",
+    "Inferência a posteriori"
+]
+image: "images/fluxo-bayesiano-abstrato.png"
+execute:
+    echo: true
+    eval: true
+    warning: false
+    message: false
+---
+
+---
+
+A modelagem bayesiana constitui um processo sistemático e **iterativo** para integrar dados e conhecimento prévio, visando a compreensão aprofundada de um fenômeno. O fluxo de trabalho bayesiano é um ciclo contínuo que envolve:
+
+- **Especificação do modelo:** Definir a estrutura probabilística que representa o fenômeno e as relações entre as variáveis.
+- **Definição de priors:** Incorporar conhecimento prévio sobre os parâmetros do modelo através de distribuições de probabilidade.
+- **Amostragem da posteriori:** Computar a distribuição de probabilidade dos parâmetros, combinando priors e a verossimilhança dos dados.
+- **Diagnóstico:** Avaliar a qualidade e a convergência dos resultados da amostragem (e.g., verificar se os algoritmos de MCMC funcionaram corretamente).
+- **Inferência:** Extrair conclusões sobre os parâmetros e o modelo a partir da distribuição posteriori.
+- **Validação:** Avaliar o desempenho do modelo, verificando sua capacidade de reproduzir os dados observados, prever novos dados ou se está alinhado com conhecimento externo.
+- **Predição:** Utilizar o modelo ajustado para fazer previsões sobre observações futuras.
+
+Descobertas ou problemas identificados em etapas posteriores (como diagnóstico ou validação) frequentemente levam à revisão e ao refinamento de decisões tomadas em etapas anteriores (como a especificação do modelo ou a escolha das priors). Para uma dsicussão detalhada do fluxo de trabalho Bayesiano, veja o texto [Bayesian workflow](https://sites.stat.columbia.edu/gelman/research/unpublished/Bayesian_Workflow_article.pdf).
+
+<!-- INTERFACE_BLOCK_START -->
+Para demonstrar este fluxo de trabalho de forma prática, utilizaremos a biblioteca [**Bambi**](https://bambinos.github.io/bambi/){target="_blank"} (BAyesian Model-Building Interface), uma interface de alto nível construída sobre o [**PyMC**](https://www.pymc.io/welcome.html){target="_blank"} que simplifica a implementação de modelos bayesianos comuns em Python. A biblioteca Bambi utiliza uma sintaxe baseada em fórmulas, semelhante àquela encontrada em pacotes R como [lme4](https://github.com/lme4/lme4) ou [brms](https://paulbuerkner.com/brms/), permitindo que nos concentremos mais nas etapas analíticas do fluxo de trabalho do que nos detalhes computacionais subjacentes.
+<!-- INTERFACE_BLOCK_END -->
+
+Nosso objetivo será percorrer estas etapas utilizando o conjunto de dados [`altura_adultos_subset.csv`](https://github.com/FCopf/datasets/blob/main/altura_adultos_subset.csv){target=_blank}, que descreve a relação entre **altura de indivíduos** e **número do calçado**. Ao fazer isso, esperamos que você reflita criticamente sobre como a avaliação sistemática e o refinamento contínuo do modelo, facilitados por ferramentas como Bambi/PyMC, são essenciais para extrair conhecimento científico robusto sobre os processos subjacentes aos dados observados.
+
+Nosso objetivo será percorrer cada uma das etapas do fluxo de trabalho bayesiano utilizando o conjunto de dados [`altura_adultos_subset.csv`](https://github.com/FCopf/datasets/blob/main/altura_adultos_subset.csv){target=_blank}, que descreve a relação entre a **altura de indivíduos** e o **número do calçado**.
+
+---
+
+## Preparação do ambiente
+
+```{python}
+# Importação das principais bibliotecas necessárias para análise de dados, visualização, modelagem bayesiana e diagnóstico.
+import arviz as az
+import bambi as bmb
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from scipy import stats
+
+
+```
+
+## Importação e visualização dos dados
+
+Vamos visualizar a relação entre o número do calçado e a altura. Esta etapa é importante para termos uma ideia preliminar do padrão nos dados a fim de julgarmos qual modelo adequado para descrever esta relação.
+```{python}
+df = pd.read_csv('https://raw.githubusercontent.com/FCopf/datasets/refs/heads/main/altura_adultos_subset.csv')
+
+```
+
+```{python}
+sns.regplot(data=df, x='calcado', y='altura', ci=None, scatter=True, fit_reg=False)
+```
+
+Os dados observados, sugere que um modelo linear é razoável se buscamos prever a altura de uma passoal adultra como função do número do calçado o que justifica a implementação de um modelo de regressão linear simples.
+
+## Especificação e ajuste do modelo
+
+Especificamos um modelo de regressão linear bayesiano em que a `altura` é modelada como uma função do número do `calçado`. A biblioteca Bambi adota uma sintaxe onde expressamos a relação entre as variáveis na forma `y ~ x`. Essa notação indica que a variável resposta (`y`) é explicada linearmente pela variável preditora (`x`), o que corresponde, ao modelo:  
+$$
+y = \beta_0 + \beta_1 x.
+$$  
+
+Nesse caso, o Bambi interpreta a fórmula `altura ~ calcado` como uma especificação de que a altura dos indivíduos depende linearmente do número do calçado, com coeficientes a serem estimados a partir dos dados.
+
+```{python}
+mod = bmb.Model("altura ~ calcado", df)
+mod
+
+```
+
+::: {.callout-tip title="Estrutura do modelo em Bambi"}
+
+Ao inspecionair o objeto `mod`, podemos verificar um resumo da estrutura do modelo especificado:
+
+- **Formula**: `altura ~ calcado`: Descreve a fórmula estatística especificada no modelo.
+- **Family**: `gaussian`: Indica a família da distribuição de probabilidade que Bambi assumiu para a variável resposta.
+- **Link**: `mu = identity`: Especifica a função de ligação que conecta o modelo linear ao parâmetro da família da distribuição.
+- **Observations**: `5`: Mostra o número de linhas (observações) no DataFrame que foram usadas para construir o modelo.
+- **Priors**: Distribuições *a priori*. Se não especificadas pelo usuário, o Bambi atribui priors padrão razoáveis parea o conjuto de dados e o modelo utilizado.
+    - **target = mu**: Indica que o modelo linear está focando em estimar a média (mu) da distribuição Gaussiana.
+        * **Common-level effects**: Lista os parâmetros associados aos termos fixos no modelo linear.
+        * **Intercept ~ Normal**(...): Define a prior para o intercepto ($\beta_0$)
+        * **calcado ~ Normal**(...): Define a prior para o coeficiente de regressão associado à variável calcado ($\beta_1$).
+    - **Auxiliary parameters**: Parâmetros não diretamente modelados pelo predictor linear.
+        * **sigma ~ HalfStudentT**(...): Define a prior para o parâmetro de desvio padrão ($\sigma$).
+
+:::
+
+
+## Amostragem MCMC
+
+Realizamos a **amostragem MCMC** (*Markov Chain Monte Carlo*) para obter amostras da **distribuição a posteriori** dos parâmetros, combinando as informações fornecidas pelos dados com as distribuições a priori.
+
+```{python}
+mod_fit = mod.fit()
+mod_fit
+
+```
+
+## Verificação das priors
+
+Neste exemplo as priors foram atribuídas automaticamente. Veremos como especificá-las manualmente mais adiante. Por enquanto, iremos nos concentrar em visualizar as distribuições a priori para entender as expectativas iniciais do modelo sobre os parâmetros **antes de processar os dados**.
+
+```{python}
+mod.plot_priors(var_names=['Intercept', 'calcado', 'sigma'], figsize=(9, 4))
+
+```
+
+## Diagnósticos de convergência
+
+Após realizar a amostragem MCMC, é fundamental verificar se o processo de amostragem funcionou corretamente. Para isso, utilizamos **diagnósticos de convergência**, que nos ajudam a avaliar se as cadeias geradas estão representando adequadamente a distribuição a posteriori dos parâmetros.
+
+Uma das ferramentas mais comuns para essa avaliação são os **trace plots** — gráficos que mostram os valores amostrados para cada parâmetro ao longo das iterações. Idealmente, essas cadeias devem parecer bem **misturadas** e sem padrões visíveis, o que indica que a amostragem atingiu o chamado **estado estacionário**, sugerindo que as estimativas são confiáveis.
+
+Tendências, oscilações sistemáticas ou falta de sobreposição entre diferentes cadeias pode ser um sinal de que o algoritmo não convergiu adequadamente, exigindo ajustes no modelo ou no processo de amostragem.
+
+
+```{python}
+# Gráficos de diagnóstico
+fig, axes = plt.subplots(3, 2, figsize=(8, 8))
+
+# Trace plots
+az.plot_trace(mod_fit, var_names=['Intercept', 'calcado', 'sigma'], axes=axes)
+plt.suptitle('Trace Plots - Convergência das Cadeias MCMC', fontsize=14, fontweight='bold')
+plt.tight_layout()
+plt.show()
+
+```
+
+## Resumo do ajuste
+
+```{python}
+az.summary(mod_fit)
+
+```
+
+Após a amostragem MCMC e a verificação da convergência, exploramos um **resumo estatístico** das distribuições a posteriori dos parâmetros do modelo. Na tabela acima, cada linha corresponde a um parâmetro (`sigma`, `Intercept`, `calcado`). As colunas fornecem estimativas pontuais (`MEAN`), intervalos de incerteza (`SD`, `HDI`) e métricas para verificar a qualidade e a confiabilidade das amostras MCMC (`MCSE`, `ESS`, `R_HAT`).
+
+::: {.callout-tip title="Tabela resumo em um modelo bayesiano"}
+
+1.  **`MEAN`**: A **média** das amostras a posteriori para o parâmetro.
+2.  **`SD`**: O **desvio padrão** das amostras a posteriori.
+3.  **`HDI_3%` e `HDI_97%`**: Os limites inferior (3%) e superior (97%) do **Intervalo de Credibilidade de Maior Densidade (HDI)**.
+4.  **`MCSE_MEAN` (Monte Carlo Standard Error of the Mean)**: O Erro Padrão de Monte Carlo da Média estima a variabilidade *da estimativa da média* a posteriori devido ao número finito e à correlação entre as amostras MCMC.
+5.  **`MCSE_SD` (Monte Carlo Standard Error of the Standard Deviation)**: O Erro Padrão de Monte Carlo do Desvio Padrão. Similar ao MCSE_MEAN, mas estima a precisão com que o *desvio padrão* a posteriori foi estimado a partir das amostras.
+6.  **`ESS_BULK` (Effective Sample Size - Bulk)**: O Tamanho Efetivo da Amostra. Devido à autocorrelação nas cadeias MCMC, o número de amostras *efetivamente independentes* é geralmente menor que o número total de amostras coletadas.
+7.  **`ESS_TAIL` (Effective Sample Size - Tail)**: O Tamanho Efetivo da Amostra para as características das caudas da distribuição (como quantis extremos).
+8.  **`R_HAT` (Gelman-Rubin statistic)**: O R-hat é um diagnóstico de **convergência** que compara a variabilidade *dentro* de cada cadeia MCMC com a variabilidade *entre* as diferentes cadeias. Se todas as cadeias convergiram para a mesma distribuição estacionária (a posteriori alvo), o valor de R_HAT deve ser muito próximo de 1 (idealmente <= 1.01 ou <= 1.05 no máximo). Valores significativamente maiores que 1 indicam que as cadeias não convergiram bem.
+
+:::
+
+
+## Verificação das posteriores e comparação com as priors
+
+A **comparação gráfica entre as distribuições a priori e a posteriori** dos parâmetros nos ajuda a avaliar o quanto os dados foram informativos, mostrando quais parâmetros foram mais ou menos atualizados em relação às nossas crenças iniciais. Uma pequena mudança da prior para a posteriori indica que os dados trouxeram pouca informação nova sobre aquele parâmetro, enquanto uma grande diferença sugere que os dados foram bastante informativos. No gráfico abaixo, visualizamos essa comparação para os parâmetros do modelo (`Intercept`, `calcado` e `sigma`), onde a linha superior exibe as **distribuições a priori** (atribuídas automaticamente) e a linha inferior apresenta as **distribuições a posteriori** resultantes da análise bayesiana.
+
+```{python}
+param_order = ['Intercept', 'calcado', 'sigma']
+
+fig, axes = plt.subplots(nrows=2, ncols=len(param_order), figsize=(9, 6))
+
+mod.plot_priors(var_names=param_order, ax=axes[0, :])
+az.plot_posterior(mod_fit, var_names=param_order, ax=axes[1, :])
+
+axes[0, 0].set_ylabel('Densidade das Prioris')
+axes[1, 0].set_ylabel('Densidade das Posteriores')
+
+```
+
+
+```{python}
+az.plot_trace(mod_fit, figsize=(9,10))
+```
+
+## Intervalo de credibilidade da reta de regressão
+
+Tendo o modelo ajustado, podemos utilizá-lo para avaliar a incerteza associada à reta média, isto é, o *intervalo de credibilidade para a reta de regressão*. As amostras da posteriori geradas pelo método MCMC nos fornecem várias *combinações de parâmetros possíveis* ajustadas ao conjunto de dados. Podemos entender estas como *retas possíveis* para o conjunto observado. Algumas das combinações dos parâmetros fornecem retas mais prováveis, outras menos. Vamos inicialmente visualizar uma amostra de 100 dessas retas possíveis.
+
+Para isso, precisamos:
+
+1. Obter a distribuição posterior e os valores esperados para dois pontos a fim de construir algumas retas.
+
+```{python}
+x_vals = [32, 48]
+novo_x = pd.DataFrame({"calcado": x_vals})
+posterior_par = mod.predict(mod_fit, kind="response_params", data=novo_x, inplace=False)
+mu_vals = posterior_par.posterior['mu'].values
+mu_flat = mu_vals.reshape(-1, mu_vals.shape[-1])
+```
+
+2. Calcular a **reta média**.
+
+```{python}
+y_mean = (posterior_par.posterior['Intercept'].mean().values + 
+          posterior_par.posterior['calcado'].mean().values * x_vals)
+```
+
+3. Plotar amostras de algumas dessas combinações
+
+```{python}
+n = 100
+indices = np.random.choice(mu_flat.shape[0], size=n, replace=False)
+
+# Plotar as retas
+plt.figure(figsize=(9, 6))
+for i in indices:
+    plt.plot(x_vals, mu_flat[i, :], '#e37d76', alpha=0.1)
+
+# Adicionar os pontos observados
+sns.scatterplot(data=df, x='calcado', y='altura', color='green', label='Observações')
+
+# Adicionar reta média
+plt.plot(x_vals, y_mean, '#162be0', linewidth=2, label='Reta média')
+
+plt.xlabel("Calçado")
+plt.ylabel("Altura prevista")
+plt.title(f"Amostra de {n} retas da posteriori")
+plt.legend()
+plt.grid(True)
+plt.ylim(120, 210)
+plt.xlim(32, 48)
+plt.show()
+```
+
+Observe que a maior parte das retas passa próxima ao centro da distribuição de $x$ e $y$, havendo uma maior variabilidade nos extremos.
+
+4. Podemos criar um envelope contendo as combinações que determinam os intervalos de credibilidade para a reta média.
+
+```{python}
+x_seq = np.linspace(32, 48, 100)
+
+intercept = posterior_par.posterior['Intercept'].values.flatten()
+slope = posterior_par.posterior['calcado'].values.flatten()
+
+y_seq = intercept[:, None] + slope[:, None] * x_seq[None, :]
+
+y_ci = np.percentile(y_seq, [2.5, 97.5], axis=0)
+```
+
+E plotar os resultados:
+
+```{python}
+plt.figure(figsize=(9, 6))
+
+# Intervalo de credibilidade (envelope)
+plt.fill_between(x_seq, y_ci[0], y_ci[1], color='#e37d76', alpha=0.2, 
+                 label='IC 95% da reta média')
+
+# Adicionar os pontos observados
+sns.scatterplot(data=df, x='calcado', y='altura', color='green', label='Observações')
+
+# Adicionar reta média
+# Calcular reta média para toda a sequência x_seq
+intercept_mean = posterior_par.posterior['Intercept'].mean().values
+slope_mean = posterior_par.posterior['calcado'].mean().values
+y_mean_seq = intercept_mean + slope_mean * x_seq
+
+plt.plot(x_seq, y_mean_seq, '#162be0', linewidth=2, label='Reta média')
+
+plt.xlabel("Calçado")
+plt.ylabel("Resposta média predita ($\mu$)")
+plt.title("Reta média e intervalo de credibilidade (95%)")
+plt.legend()
+plt.grid(True)
+plt.show()
+```
+
+-----
+
+## Estrutura de código: Bambi vs PyMC
+
+::: {.callout-tip title="Quando usar cada abordagem"}
+
+**Bambi: estrutura de código**
+
+```{python}
+#| eval: false
+# Bambi
+modelo = bmb.Model("altura ~ calcado", df, priors=priors)
+resultados = modelo.fit()
+```
+
+**Quando usar:**
+
+- Deseja implementar modelos estatísticos padrão (regressão linear, GLMs, modelos hierárquicos)
+- Necessita de rapidez de desenvolvimento e ajustes
+
+**PyMC: estrutura de código**
+
+```{python}
+#| eval: false
+# PyMC - requer definição manual de todas as componentes
+with pm.Model() as modelo:
+    # Priors
+    beta_0 = pm.Normal("beta_0", mu=60, sigma=5)
+    beta_1 = pm.Normal("beta_1", mu=2.8, sigma=0.1)
+    sigma = pm.HalfNormal("sigma", sigma=10)
+    
+    # Verossimilhança
+    mu = beta_0 + beta_1 * X
+    altura = pm.Normal("altura", mu=mu, sigma=sigma, observed=Y)
+    trace = pm.sample()
+```
+
+**Quando usar:**
+
+- Necessitar controle total sobre a especificação do modelo
+- Necessita implementar modelos customizados ou muito complexos
+- Necessita de funcionalidades específicas não disponíveis no Bambi
+:::
+
+---
+
