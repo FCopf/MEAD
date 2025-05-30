@@ -54,7 +54,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 from scipy import stats
-
+import random
 
 ```
 
@@ -191,45 +191,56 @@ axes[1, 0].set_ylabel('Densidade das Posteriores')
 az.plot_trace(mod_fit, figsize=(9,10))
 ```
 
-## Intervalo de credibilidade da reta de regressão
+## Predição Bayesiana
 
-Tendo o modelo ajustado, podemos utilizá-lo para avaliar a incerteza associada à reta média, isto é, o *intervalo de credibilidade para a reta de regressão*. As amostras da posteriori geradas pelo método MCMC nos fornecem várias *combinações de parâmetros possíveis* ajustadas ao conjunto de dados. Podemos entender estas como *retas possíveis* para o conjunto observado. Algumas das combinações dos parâmetros fornecem retas mais prováveis, outras menos. Vamos inicialmente visualizar uma amostra de 100 dessas retas possíveis.
+O processo de **predição** nos permite estimar valores da variável resposta para **novas observações não incluídas** no conjunto de dados original. Na abordagem bayesiana, a predição vai além de fornecer uma estimativa pontual (isto é, da média), incorporando explicitamente a **incerteza** associada tanto aos parâmetros do modelo quanto à variabilidade intrínseca do **processo gerador dos dados**.
 
-Para isso, precisamos:
+A **predição bayesiana** utiliza toda a distribuição a posteriori dos parâmetros para gerar a **distribuição preditiva a posteriori**. Esta distribuição captura duas fontes principais de incerteza:
 
-1. Obter a distribuição posterior e os valores esperados para dois pontos a fim de construir algumas retas.
+1. **Incerteza epistêmica**: Relacionada ao nosso conhecimento limitado sobre os verdadeiros valores dos parâmetros do modelo (representada pela distribuição a posteriori dos parâmetros).
+2. **Incerteza aleatória**: Relacionada à variabilidade natural do processo (representada pelo componente estocástico do modelo, como o termo de erro $\sigma$).
+
+A combinação dessas duas fontes de incerteza resulta em **intervalos de predição** mais amplos que os **intervalos de credibilidade da reta média**, refletindo de forma mais realista nossa incerteza sobre observações futuras.
+
+### Predição sobre a reta média (Incerteza epistêmica)
+
+A **predição da reta média** quantifica nossa incerteza sobre o valor **esperado** da variável resposta, considerando apenas a incerteza nos parâmetros do modelo. As amostras da posteriori geradas pelo método MCMC nos fornecem várias *combinações de parâmetros possíveis* ajustadas ao conjunto de dados. Podemos entender estas como *retas possíveis* para o conjunto observado - algumas combinações dos parâmetros fornecem retas mais prováveis, outras menos.
+
+#### Visualização das retas possíveis
+
+Para visualizar essa incerteza epistêmica, vamos primeiro obter amostras da distribuição posterior e construir algumas retas possíveis:
 
 ```{python}
+# Definir pontos extremos para construção das retas
 x_vals = [32, 48]
 novo_x = pd.DataFrame({"calcado": x_vals})
 posterior_par = mod.predict(mod_fit, kind="response_params", data=novo_x, inplace=False)
 mu_vals = posterior_par.posterior['mu'].values
 mu_flat = mu_vals.reshape(-1, mu_vals.shape[-1])
+
 ```
 
-2. Calcular a **reta média**.
-
 ```{python}
+# Calcular a reta média
 y_mean = (posterior_par.posterior['Intercept'].mean().values + 
           posterior_par.posterior['calcado'].mean().values * x_vals)
 ```
 
-3. Plotar amostras de algumas dessas combinações
 
 ```{python}
+# Plotar uma amostra de retas possíveis
 n = 100
 indices = np.random.choice(mu_flat.shape[0], size=n, replace=False)
 
-# Plotar as retas
 plt.figure(figsize=(9, 6))
 for i in indices:
     plt.plot(x_vals, mu_flat[i, :], '#e37d76', alpha=0.1)
 
-# Adicionar os pontos observados
-sns.scatterplot(data=df, x='calcado', y='altura', color='green', label='Observações')
-
-# Adicionar reta média
 plt.plot(x_vals, y_mean, '#162be0', linewidth=2, label='Reta média')
+
+# Adicionar os pontos observados e reta média
+sns.scatterplot(data=df, x='calcado', y='altura', color='green', label='Observações', s = 100)
+
 
 plt.xlabel("Calçado")
 plt.ylabel("Altura prevista")
@@ -241,38 +252,41 @@ plt.xlim(32, 48)
 plt.show()
 ```
 
-Observe que a maior parte das retas passa próxima ao centro da distribuição de $x$ e $y$, havendo uma maior variabilidade nos extremos.
+#### Intervalo de Credibilidade (IC) para $\mu$
 
-4. Podemos criar um envelope contendo as combinações que determinam os intervalos de credibilidade para a reta média.
+Ao invés de representar todas as retas possíveis, podemos criar um envelope contendo as combinações que determinam os **intervalos de credibilidade para a reta média**, representando nossa incerteza sobre o valor esperado da resposta:
 
 ```{python}
+# Criar sequência contínua para visualização
 x_seq = np.linspace(32, 48, 100)
 
+# Extrair amostras dos parâmetros
 intercept = posterior_par.posterior['Intercept'].values.flatten()
 slope = posterior_par.posterior['calcado'].values.flatten()
 
+# Calcular retas para toda a sequência
 y_seq = intercept[:, None] + slope[:, None] * x_seq[None, :]
 
+# Calcular intervalo de credibilidade de 95%
 y_ci = np.percentile(y_seq, [2.5, 97.5], axis=0)
+
+# Reta média para toda a sequência
+intercept_mean = posterior_par.posterior['Intercept'].mean().values
+slope_mean = posterior_par.posterior['calcado'].mean().values
+y_mean_seq = intercept_mean + slope_mean * x_seq
+
 ```
 
-E plotar os resultados:
-
 ```{python}
+# Plotar resultados
 plt.figure(figsize=(9, 6))
 
 # Intervalo de credibilidade (envelope)
 plt.fill_between(x_seq, y_ci[0], y_ci[1], color='#e37d76', alpha=0.2, 
                  label='IC 95% da reta média')
 
-# Adicionar os pontos observados
-sns.scatterplot(data=df, x='calcado', y='altura', color='green', label='Observações')
-
-# Adicionar reta média
-# Calcular reta média para toda a sequência x_seq
-intercept_mean = posterior_par.posterior['Intercept'].mean().values
-slope_mean = posterior_par.posterior['calcado'].mean().values
-y_mean_seq = intercept_mean + slope_mean * x_seq
+# Pontos observados
+sns.scatterplot(data=df, x='calcado', y='altura', color='green', label='Observações', s = 100)
 
 plt.plot(x_seq, y_mean_seq, '#162be0', linewidth=2, label='Reta média')
 
@@ -284,9 +298,103 @@ plt.grid(True)
 plt.show()
 ```
 
------
+O **Intervalo de Credibilidade** representa nossa incerteza sobre o valor médio esperado da altura para indivíduos com um determinado número de calçado, refletindo exclusivamente a incerteza epistêmica associada aos parâmetros do modelo. Note que a maioria das retas passa próxima ao centro da distribuição de $x$ e $y$, pois, nas proximidades da média de $x$, há maior confiança na estimativa da trajetória da reta. À medida que nos afastamos desse centro, a incerteza aumenta, resultando em maior variabilidade nas regiões mais afastadas de $x$.
+
+### Predição sobre novos pontos (Incerteza epistêmica + aleatória)
+
+A **predição de novas observações** vai além da estimativa da média, incorporando também a variabilidade intrínseca do processo. Enquanto o intervalo de credibilidade nos representa nossa incerteza quanto à reta média, o **Intervalo de Predição (IP)** nos informa sobre a incerteza associada ao valor que uma nova observação específica pode assumir.
+
+#### Implementação da predição para novas observações
+
+```{python}
+# Definir valores para predição
+calcado_pred = np.array([35, 40, 45])
+dados_pred = pd.DataFrame({"calcado": calcado_pred})
+
+# Predição da resposta média (μ - apenas incerteza epistêmica)
+pred_mu = mod.predict(mod_fit, kind="response_params", data=dados_pred, inplace=False)
+
+# Predição de novas observações (μ + σ - ambas as incertezas)
+pred_obs = mod.predict(mod_fit, kind="response", data=dados_pred, inplace=False)
+
+print("Valores preditos para número do calçado:", calcado_pred)
+print("\nResumo das predições:")
+print(f"Calçado 35: μ = {pred_mu.posterior['mu'].values[:,:,0].mean():.1f} cm")
+print(f"Calçado 40: μ = {pred_mu.posterior['mu'].values[:,:,1].mean():.1f} cm") 
+print(f"Calçado 45: μ = {pred_mu.posterior['mu'].values[:,:,2].mean():.1f} cm")
+```
+
+
+```{python}
+# Visualização das predições pontuais
+# Extrair amostras aleatórias de novas observações para cada valor de calçado
+n_samples = 80
+calcado_pred = [35, 40, 45]
+cores = ['#ff6b6b', '#4ecdc4', '#d1c845']
+
+plt.figure(figsize=(8, 5))
+
+# Reta média
+plt.plot(x_seq, y_mean_seq, '#162be0', linewidth=2, label='Reta média (μ)')
+
+# Plotar dados originais
+sns.scatterplot(data=df, x='calcado', y='altura', color='green', s=100, 
+                label='Dados observados', zorder=5)
+
+# Plotar uma amostra das predições para novos pontos
+for i, (calcado_val, cor) in enumerate(zip(calcado_pred, cores)):
+    x_sample = [calcado_val] * n_samples
+    y_sample = random.sample(list(pred_mu.posterior['mu'].values[:,:,i].flatten()), n_samples)
+    plt.scatter(x_sample, y_sample, color=cor, alpha=0.4, s=50, label=f'Predições calçado n. {calcado_val}')
+
+plt.xlabel("Número do calçado")
+plt.ylabel("Altura (cm)")
+plt.title(f"Reta média e amostra de {n_samples} predições para cada valor de calçado")
+plt.legend(loc='lower right')
+plt.grid(True, alpha=0.3)
+plt.tight_layout()
+plt.show()
+```
+
+Histograma das novas predições
+
+```{python}
+plt.figure(figsize=(8, 5))
+
+for i, (calcado_val, cor) in enumerate(zip(calcado_pred, cores)):
+    y_sample = random.sample(
+        list(pred_mu.posterior['mu'].values[:, :, i].flatten()), n_samples
+    )
+    sns.kdeplot(y_sample, color=cor, fill=True, alpha=0.3, linewidth=2,
+                label=f'Calçado n. {calcado_val}')
+
+plt.xlabel("Altura prevista")
+plt.ylabel("Densidade")
+plt.title("Distribuições de altura\ndas novas predições por número de calçado")
+plt.legend()
+plt.tight_layout()
+plt.show()
+
+```
+
+Observe que as médias das predições para novas observações coincidem com a reta média estimada ($\mu$), mas a variabilidade em torno dessas médias é maior. Isso ocorre porque essas predições incorporam tanto a incerteza epistêmica, proveniente da estimação dos parâmetros do modelo, e a incerteza aleatória, associada à variabilidade intrínseca do processo ($\sigma$).
+
+::: {.callout-note title="Interpretação dos tipos de predição bayesiana"}
+
+A abordagem bayesiana fornece uma caracterização completa e *hierárquica* da incerteza preditiva: primeiro quantificando nossa incerteza sobre a relação média entre as variáveis, e depois expandindo essa análise para incluir a variabilidade natural do fenômeno. Essa distinção é fundamental para decisões informadas, pois diferentes tipos de decisão podem requerer diferentes tipos de intervalo preditivo.
+
+**Intervalo de Credibilidade (IC) para μ**: Representa nossa incerteza sobre o valor médio esperado da altura para indivíduos com um determinado número de calçado. Este intervalo reflete apenas a **incerteza epistêmica** sobre os parâmetros do modelo. É mais estreito porque representa nossa incerteza sobre a *linha média* da relação.
+
+**Intervalo de Predição (IP) para novas observações**: Representa nossa incerteza sobre a altura de um novo indivíduo específico com um determinado número de calçado. Este intervalo é sempre mais amplo pois incorpora tanto a **incerteza epistêmica** (sobre os parâmetros) quanto a **incerteza aleatória** (variabilidade natural representada por $\sigma$).
+
+A **razão entre as larguras** dos intervalos indica o quanto a variabilidade intrínseca do processo contribui para a incerteza total. Valores maiores sugerem que a variabilidade natural dos dados ($\sigma$) é a principal fonte de incerteza nas predições, enquanto valores próximos de 1 indicariam que a incerteza sobre os parâmetros é dominante. Essa razão também permite avaliar aspectos do delineamento experimental, pois a incerteza epistêmica diminui à medida que obtemos mais dados, aumentando nossa confiança na posição da reta média. Por outro lado, a incerteza aleatória é inerente ao processo gerador dos dados e **não** é afetada pelo tamanho da amostra, representando um limite irreducível da precisão nas predições.
+
+:::
+
 
 ## Estrutura de código: Bambi vs PyMC
+
+Neste bloco, utilizamos a biblioteca Bambi como alternativa ao PyMC. Segue portanto uma comparação entre as duas abordagens para a implementação de uma regressão linear bayesiana.
 
 ::: {.callout-tip title="Quando usar cada abordagem"}
 
