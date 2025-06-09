@@ -44,8 +44,7 @@
     "listing": "/ecologia-numerica.html",
     "items": [
       "/conteudo/ecologia-numerica/intro-matrizes.html",
-      "/conteudo/ecologia-numerica/cossine-similarity.html",
-      "/conteudo/ecologia-numerica/metodo-minimos-quadrados.html"
+      "/conteudo/ecologia-numerica/cossine-similarity.html"
     ]
   },
   {
@@ -80,6 +79,8 @@
   {
     "listing": "/regressao_linear.html",
     "items": [
+      "/conteudo/regressao_linear/metodo-minimos-quadrados-apresentacao.html",
+      "/conteudo/regressao_linear/mmq_regressao_linear_simples.html",
       "/conteudo/regressao_linear/regressao_linear_simples.html",
       "/conteudo/regressao_linear/regressao_linear_multipla.html"
     ]
