@@ -7,6 +7,7 @@ listing:
   contents:
     - conteudo/regressao_linear/metodo-minimos-quadrados-apresentacao.qmd
     - conteudo/regressao_linear/mmq_regressao_linear_simples.qmd
+    - conteudo/regressao_linear/mmq_regressao_polinomial.qmd
     - conteudo/regressao_linear/regressao_linear_simples.qmd
     - conteudo/regressao_linear/regressao_linear_multipla.qmd
   sort: false

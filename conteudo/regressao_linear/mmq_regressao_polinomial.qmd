@@ -1,0 +1,333 @@
+---
+title: "Método dos Mínimos Quadrados na Regressão Polinomial"
+subtitle: "Implementação em Python usando Álgebra Matricial"
+description: "Tutorial prático para implementar o método dos mínimos quadrados em Python para modelos polinomiais, aplicando os conceitos de álgebra linear e estatística básica."
+Categories: [
+          "Regressão polinomial",
+          "Método dos Mínimos Quadrados",
+          "Álgebra Matricial",
+          "Python"
+        ]
+
+image: "images/mmq_regressao_polinomial.png"
+execute:
+  echo: true
+  warning: false
+  include: true
+  message: false
+---
+
+## 📚 Introdução
+
+::: {.callout-tip title="Objetivos"}
+
+Neste tutorial, vamos implementar o **Método dos Mínimos Quadrados (MMQ)** em Python para ajustar um modelo de **regressão polinomial** de segundo grau.
+
+**Objetivo**: Encontrar os coeficientes $\beta_0$, $\beta_1$ e $\beta_2$ da equação $\hat{y} = \beta_0 + \beta_1 x + \beta_2 x^2$ que melhor se ajustam aos nossos dados.
+
+:::
+
+## 🛠️ Importando as Bibliotecas
+
+Vamos começar importando as bibliotecas necessárias:
+
+```{python}
+import pandas as pd           # Para manipulação de dados
+import matplotlib.pyplot as plt  # Para criar gráficos
+import seaborn as sns        # Para gráficos mais bonitos
+import numpy as np           # Para operações matemáticas e matriciais
+```
+
+**💡 Dica**: Estas são as mesmas bibliotecas do tutorial anterior!
+
+## 📊 Definindo os Dados
+
+Vamos trabalhar com dados que apresentam uma relação quadrática:
+
+```{python}
+# Nossos dados de exemplo (relação quadrática)
+x = [0, 1, 2, 3, 4, 5]       # Variável independente (preditora)
+y = [5, 2, 10, 8, 15, 35]    # Variável dependente (resposta)
+
+print("Valores de x:", x)
+print("Valores de y:", y)
+print("Número de observações:", len(x))
+```
+
+## 📈 Visualizando os Dados
+
+Antes de ajustar o modelo, vamos visualizar nossos dados:
+
+```{python}
+# Criando the gráfico de dispersão
+plt.figure(figsize=(8, 6))
+plt.scatter(x, y, color='blue', marker='o', s=100, alpha=0.7, label='Dados observados')
+
+# Configurando o gráfico
+plt.title('Gráfico de Dispersão dos Dados', fontsize=14, fontweight='bold')
+plt.xlabel('Variável X', fontsize=12)
+plt.ylabel('Variável Y', fontsize=12)
+plt.grid(True, alpha=0.3)
+plt.legend()
+plt.show()
+```
+
+**📝 Observação**: Um modelo polinomial de segundo grau pode oferecer um ajuste melhor a estes dados do que a regressão linear simples. Nosso objetivo será explorar esse modelo e, ao final, compará-lo com o modelo linear.
+
+## 🧮 Implementando o MMQ Polinomial - Passo a Passo
+
+### Criando os Vetores Base
+
+Para o modelo polinomial $\hat{y} = \beta_0 + \beta_1 x + \beta_2 x^2$, precisamos dos vetores:
+
+$$\vec{f}_0 = \begin{bmatrix} 1 \\ 1 \\ \vdots \\ 1 \end{bmatrix} \quad \text{,} \quad \vec{f}_1 = \begin{bmatrix} x_1 \\ x_2 \\ \vdots \\ x_n \end{bmatrix} \quad \text{,} \quad \vec{f}_2 = \begin{bmatrix} x_1^2 \\ x_2^2 \\ \vdots \\ x_n^2 \end{bmatrix} \quad \text{e} \quad \vec{y} = \begin{bmatrix} y_1 \\ y_2 \\ \vdots \\ y_n \end{bmatrix}$$
+
+```{python}
+# Número de observações
+n = len(x)
+
+# Vetor f0: vetor de 1's (para o intercepto β₀)
+f0 = [1] * n
+
+# Vetor f1: valores de x (para o coeficiente linear β₁)
+f1 = x.copy()
+
+# Vetor f2: valores de x² (para o coeficiente quadrático β₂)
+f2 = np.array(x)**2  # Eleva cada elemento de x ao quadrado
+
+print("Vetor f0 (intercepto):", f0)
+print("Vetor f1 (termo linear):", f1)
+print("Vetor f2 (termo quadrático):", f2)
+```
+
+### Construindo as Matrizes X e Y
+
+Agora vamos montar as matrizes do sistema polinomial:
+
+$$X = \begin{bmatrix} \vec{f}_0 & \vec{f}_1 & \vec{f}_2 \end{bmatrix} = \begin{bmatrix} 1 & x_1 & x_1^2 \\ 1 & x_2 & x_2^2 \\ \vdots & \vdots & \vdots \\ 1 & x_n & x_n^2 \end{bmatrix} \quad \text{e} \quad Y = \begin{bmatrix} y_1 \\ y_2 \\ \vdots \\ y_n \end{bmatrix}$$
+
+```{python}
+# Matriz X: combinando f0, f1 e f2 em colunas
+X = np.column_stack((f0, f1, f2))
+
+# Matriz Y: transformando y em matriz com n linhas e 1 coluna
+Y = np.array(y).reshape(n, 1)
+
+print("Matriz X:")
+print(X)
+print("\nMatriz Y:")
+print(Y)
+print(f"\nDimensões - X: {X.shape}, Y: {Y.shape}")
+```
+
+### Resolvendo o Sistema Normal
+
+Calculamos os coeficientes usando a mesma fórmula: 
+
+$$\boldsymbol{\hat{\beta}} = (X^T X)^{-1} X^T Y$$
+
+```{python}
+# Calculando X transposta vezes X
+XTX = X.T @ X  # Usando o operador @ para multiplicação matricial
+print("X^T X:")
+print(XTX)
+
+# Calculando X transposta vezes Y
+XTY = X.T @ Y
+print("\nX^T Y:")
+print(XTY)
+
+# Calculando os coeficientes: B = (X^T X)^(-1) (X^T Y)
+XTX_inv = np.linalg.inv(XTX)  # Inversa de X^T X
+B = XTX_inv @ XTY
+
+print("\n🎯 Coeficientes estimados:")
+print(f"β₀ (intercepto) = {B[0, 0]:.4f}")
+print(f"β₁ (coeficiente linear) = {B[1, 0]:.4f}")
+print(f"β₂ (coeficiente quadrático) = {B[2, 0]:.4f}")
+```
+
+**📚 Interpretação**:
+
+- $\beta_0$: valor de y quando x = 0
+- $\beta_1$: relacionado à taxa de variação linear
+- $\beta_2$: relacionado à curvatura da parábola
+
+::: {.callout-note}
+
+**Observação importante**: Para um modelo polinomial de segundo grau:
+- Se $\beta_2 > 0$: parábola com concavidade para cima
+- Se $\beta_2 < 0$: parábola com concavidade para baixo
+
+:::
+
+### Avaliando a Qualidade do Ajuste
+
+Vamos calcular o coeficiente de determinação $R^2$:
+
+```{python}
+# Valores ajustados (preditos)
+Y_ajustado = X @ B
+
+# Resíduos: diferença entre valores observados e ajustados
+residuos = Y - Y_ajustado
+
+# Soma dos Quadrados dos Resíduos
+SQres = (residuos.T @ residuos)[0, 0]
+
+# Soma dos Quadrados Total
+Y_medio = np.mean(Y)
+desvios_media = Y - Y_medio
+SQtot = (desvios_media.T @ desvios_media)[0, 0]
+
+# Coeficiente de Determinação R²
+R2 = 1 - (SQres / SQtot)
+
+print("📊 Medidas de Qualidade do Ajuste:")
+print(f"Soma dos Quadrados dos Resíduos (SQres): {SQres:.4f}")
+print(f"Soma dos Quadrados Total (SQtot): {SQtot:.4f}")
+print(f"Coeficiente de Determinação (R²): {R2:.4f}")
+print(f"Porcentagem da variação explicada: {R2*100:.2f}%")
+```
+
+## 📊 Visualizando o Resultado Final
+
+Vamos plotar os dados originais junto com a curva ajustada:
+
+```{python}
+# Criando pontos para desenhar a curva suave
+x_curva = np.linspace(min(x) - 0.5, max(x) + 0.5, 100)
+y_curva = B[0, 0] + B[1, 0] * x_curva + B[2, 0] * x_curva**2
+
+# Valores ajustados nos pontos originais
+y_ajustados = B[0, 0] + B[1, 0] * np.array(x) + B[2, 0] * np.array(x)**2
+
+print("Valores y ajustados:")
+print(y_ajustados)
+```
+
+```{python}
+# Criando o gráfico final
+plt.figure(figsize=(8, 6))
+
+# Pontos observados
+plt.scatter(x, y, color='blue', marker='o', s=120, alpha=0.8, 
+           label=f'Dados observados (n={n})', zorder=3)
+
+# Valores ajustados
+plt.scatter(x, y_ajustados, color='red', marker='x', s=100, 
+           label='Valores ajustados', zorder=3)
+
+# Curva ajustada
+plt.plot(x_curva, y_curva, color='red', linewidth=2.5, 
+         label=fr'Curva ajustada: $\hat{{y}} = {B[0,0]:.3f} {B[1,0]:.3f}x + {B[2,0]:.3f}x^2$')
+
+# Linhas dos resíduos
+for i in range(len(x)):
+    plt.plot([x[i], x[i]], [y[i], y_ajustados[i]], 'gray', 
+             linestyle='--', alpha=0.6, label='Resíduos' if i == 0 else '')
+
+# Configurações do gráfico
+plt.title(f'Regressão Polinomial (2º grau) - MMQ\nR² = {R2:.4f}', 
+          fontsize=15, fontweight='bold')
+plt.xlabel('Variável X', fontsize=12)
+plt.ylabel('Variável Y', fontsize=12)
+plt.grid(True, alpha=0.3)
+plt.legend(fontsize=10)
+plt.tight_layout()
+plt.show()
+```
+
+## 🎯 Resumo dos Resultados
+
+```{python}
+print("="*60)
+print("         RESUMO DA REGRESSÃO POLINOMIAL")
+print("="*60)
+print(f"Equação ajustada: y = {B[0,0]:.4f} + {B[1,0]:.4f}x + {B[2,0]:.4f}x²")
+print(f"Coeficiente de determinação (R²): {R2:.4f}")
+print(f"Porcentagem da variação explicada: {R2*100:.2f}%")
+print("="*60)
+```
+
+## 🔍 Comparação: Linear vs Polinomial
+
+Vamos comparar o ajuste linear e polinomial para os mesmos dados:
+
+```{python}
+# Ajuste LINEAR para comparação
+X_linear = np.column_stack((f0, f1))  # Apenas f0 e f1
+B_linear = np.linalg.inv(X_linear.T @ X_linear) @ (X_linear.T @ Y)
+
+# R² do modelo linear
+Y_ajustado_linear = X_linear @ B_linear
+residuos_linear = Y - Y_ajustado_linear
+SQres_linear = (residuos_linear.T @ residuos_linear)[0, 0]
+R2_linear = 1 - (SQres_linear / SQtot)
+
+print("📊 Comparação dos Modelos:")
+print("-" * 40)
+print(f"Modelo Linear:     R² = {R2_linear:.4f}")
+print(f"Modelo Polinomial: R² = {R2:.4f}")
+print(f"Melhoria no R²:    {R2 - R2_linear:.4f}")
+```
+
+```{python}
+# Gráfico comparativo
+plt.figure(figsize=(8, 4))
+
+# Subplot 1: Modelo Linear
+plt.subplot(1, 2, 1)
+plt.scatter(x, y, color='blue', s=100, alpha=0.7, label='Dados observados')
+y_linear = B_linear[0, 0] + B_linear[1, 0] * np.array(x)
+plt.plot(x, y_linear, color='red', linewidth=2, label='Ajuste linear')
+plt.title(f'Modelo Linear\nR² = {R2_linear:.4f}', fontweight='bold')
+plt.xlabel('X')
+plt.ylabel('Y')
+plt.grid(True, alpha=0.3)
+plt.legend()
+
+# Subplot 2: Modelo Polinomial
+plt.subplot(1, 2, 2)
+plt.scatter(x, y, color='blue', s=100, alpha=0.7, label='Dados observados')
+plt.plot(x_curva, y_curva, color='red', linewidth=2, label='Ajuste polinomial')
+plt.title(f'Modelo Polinomial\nR² = {R2:.4f}', fontweight='bold')
+plt.xlabel('X')
+plt.ylabel('Y')
+plt.grid(True, alpha=0.3)
+plt.legend()
+
+plt.tight_layout()
+plt.show()
+```
+
+## 🚀 Exercício Prático
+
+**Agora é sua vez!** Teste o código com novos dados:
+
+```{python}
+# Experimente com estes dados (padrão quadrático diferente):
+x_novo = [1, 2, 3, 4, 5, 6, 7]
+y_novo = [30, 12, 18, 9, 7, 8, 6]
+
+# Questões para investigar:
+# 1. Qual é o R² do modelo polinomial para estes dados?
+# 2. O coeficiente β₂ é positivo ou negativo? O que isso significa?
+# 3. Compare com o modelo linear - qual é a diferença no R²?
+
+# Implemente todo o processo do MMQ polinomial com os novos dados
+# Dica: você pode copiar e adaptar o código acima!
+```
+
+## 💡 Conceitos Importantes Revisados
+
+1. **Regressão Polinomial**: Extensão da regressão linear para relações curvas
+2. **Matriz de Design**: Agora com três colunas: $[1, x, x^2]$
+3. **Interpretação dos Coeficientes**: Cada coeficiente tem significado específico
+4. **Comparação de Modelos**: Uso do $R^2$ para avaliar qual modelo é melhor
+
+## 🔗 Próximos Passos
+
+- Experimente com polinômios de grau maior ($x^3$, $x^4$, etc.)
+- Investigue o conceito de **overfitting** com graus muito altos
+- Compare com outras técnicas de ajuste de curvas
