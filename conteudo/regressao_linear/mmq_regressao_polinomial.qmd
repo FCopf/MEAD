@@ -42,16 +42,11 @@ import numpy as np           # Para operações matemáticas e matriciais
 
 ## 📊 Definindo os Dados
 
-Vamos trabalhar com dados que apresentam uma relação quadrática:
+Vamos trabalhar com dados que apresentam uma relação quadrática. Ao invés de digitarmos os dados diretamente como listas, iremos ler os dados a partir de um arquivo. O arquivo está disponível no link [regressao_polinomial_exemplo](https://raw.githubusercontent.com/FCopf/datasets/refs/heads/main/regressao_polinomial_exemplo.csv).
 
 ```{python}
-# Nossos dados de exemplo (relação quadrática)
-x = [0, 1, 2, 3, 4, 5]       # Variável independente (preditora)
-y = [5, 2, 10, 8, 15, 35]    # Variável dependente (resposta)
-
-print("Valores de x:", x)
-print("Valores de y:", y)
-print("Número de observações:", len(x))
+df = pd.read_csv('https://raw.githubusercontent.com/FCopf/datasets/refs/heads/main/regressao_polinomial_exemplo.csv')
+print(df)
 ```
 
 ## 📈 Visualizando os Dados
@@ -61,7 +56,7 @@ Antes de ajustar o modelo, vamos visualizar nossos dados:
 ```{python}
 # Criando the gráfico de dispersão
 plt.figure(figsize=(8, 6))
-plt.scatter(x, y, color='blue', marker='o', s=100, alpha=0.7, label='Dados observados')
+sns.scatterplot(data = df, x = 'x', y = 'y', color='blue', marker='o', s=100, alpha=0.7, label='Dados observados')
 
 # Configurando o gráfico
 plt.title('Gráfico de Dispersão dos Dados', fontsize=14, fontweight='bold')
@@ -72,7 +67,9 @@ plt.legend()
 plt.show()
 ```
 
-**📝 Observação**: Um modelo polinomial de segundo grau pode oferecer um ajuste melhor a estes dados do que a regressão linear simples. Nosso objetivo será explorar esse modelo e, ao final, compará-lo com o modelo linear.
+**📝 Observação 1**: Um modelo polinomial de segundo grau pode oferecer um ajuste melhor a estes dados do que a regressão linear simples. Nosso objetivo será explorar esse modelo e, ao final, compará-lo com o modelo linear.
+
+**📝 Observação 2**: Como importamos os dados diretamente de um arquivo `.csv` para o objeto `df`, utilizamos a função `scatterplot` da biblioteca [Seaborn](https://seaborn.pydata.org/) para plotar o gráfico de dispersão entre as variáveis $y$ e $x$.
 
 ## 🧮 Implementando o MMQ Polinomial - Passo a Passo
 
@@ -81,6 +78,12 @@ plt.show()
 Para o modelo polinomial $\hat{y} = \beta_0 + \beta_1 x + \beta_2 x^2$, precisamos dos vetores:
 
 $$\vec{f}_0 = \begin{bmatrix} 1 \\ 1 \\ \vdots \\ 1 \end{bmatrix} \quad \text{,} \quad \vec{f}_1 = \begin{bmatrix} x_1 \\ x_2 \\ \vdots \\ x_n \end{bmatrix} \quad \text{,} \quad \vec{f}_2 = \begin{bmatrix} x_1^2 \\ x_2^2 \\ \vdots \\ x_n^2 \end{bmatrix} \quad \text{e} \quad \vec{y} = \begin{bmatrix} y_1 \\ y_2 \\ \vdots \\ y_n \end{bmatrix}$$
+
+```{python}
+# Passando as variáveis do data frame para listas
+x = df['x'].to_list()
+y = df['y'].to_list()
+```
 
 ```{python}
 # Número de observações
@@ -104,7 +107,7 @@ print("Vetor f2 (termo quadrático):", f2)
 
 Agora vamos montar as matrizes do sistema polinomial:
 
-$$X = \begin{bmatrix} \vec{f}_0 & \vec{f}_1 & \vec{f}_2 \end{bmatrix} = \begin{bmatrix} 1 & x_1 & x_1^2 \\ 1 & x_2 & x_2^2 \\ \vdots & \vdots & \vdots \\ 1 & x_n & x_n^2 \end{bmatrix} \quad \text{e} \quad Y = \begin{bmatrix} y_1 \\ y_2 \\ \vdots \\ y_n \end{bmatrix}$$
+$$X = \begin{bmatrix} \vec{f}_0 & \vec{f}_1 & \vec{f}_2 \end{bmatrix} = \begin{bmatrix} 1 & x_1 & x_1^2 \\ 1 & x_2 & x_2^2 \\ \vdots & \vdots & \vdots \\ 1 & x_n & x_n^2 \end{bmatrix} \quad \text{e} \quad Y = \begin{bmatrix} \vec{y} \end{bmatrix} = \begin{bmatrix} y_1 \\ y_2 \\ \vdots \\ y_n \end{bmatrix}$$
 
 ```{python}
 # Matriz X: combinando f0, f1 e f2 em colunas
@@ -153,9 +156,10 @@ print(f"β₂ (coeficiente quadrático) = {B[2, 0]:.4f}")
 - $\beta_1$: relacionado à taxa de variação linear
 - $\beta_2$: relacionado à curvatura da parábola
 
-::: {.callout-note}
+::: {.callout-note title="Observação importante"}
 
-**Observação importante**: Para um modelo polinomial de segundo grau:
+Para um modelo polinomial de segundo grau:
+
 - Se $\beta_2 > 0$: parábola com concavidade para cima
 - Se $\beta_2 < 0$: parábola com concavidade para baixo
 
@@ -211,8 +215,9 @@ print(y_ajustados)
 plt.figure(figsize=(8, 6))
 
 # Pontos observados
-plt.scatter(x, y, color='blue', marker='o', s=120, alpha=0.8, 
-           label=f'Dados observados (n={n})', zorder=3)
+sns.scatterplot(data = df, x = 'x', y = 'y', 
+                color='blue', marker='o', s=120, alpha=0.8,
+                label=f'Dados observados (n={n})', zorder=3)
 
 # Valores ajustados
 plt.scatter(x, y_ajustados, color='red', marker='x', s=100, 
@@ -273,13 +278,14 @@ print(f"Melhoria no R²:    {R2 - R2_linear:.4f}")
 ```
 
 ```{python}
+y_linear = B_linear[0, 0] + B_linear[1, 0] * np.array(x)
+
 # Gráfico comparativo
 plt.figure(figsize=(8, 4))
 
 # Subplot 1: Modelo Linear
 plt.subplot(1, 2, 1)
-plt.scatter(x, y, color='blue', s=100, alpha=0.7, label='Dados observados')
-y_linear = B_linear[0, 0] + B_linear[1, 0] * np.array(x)
+sns.scatterplot(data = df, x = 'x', y = 'y', color='blue', marker='o', s=100, alpha=0.7, label='Dados observados')
 plt.plot(x, y_linear, color='red', linewidth=2, label='Ajuste linear')
 plt.title(f'Modelo Linear\nR² = {R2_linear:.4f}', fontweight='bold')
 plt.xlabel('X')
@@ -289,7 +295,7 @@ plt.legend()
 
 # Subplot 2: Modelo Polinomial
 plt.subplot(1, 2, 2)
-plt.scatter(x, y, color='blue', s=100, alpha=0.7, label='Dados observados')
+sns.scatterplot(data = df, x = 'x', y = 'y', color='blue', marker='o', s=100, alpha=0.7, label='Dados observados')
 plt.plot(x_curva, y_curva, color='red', linewidth=2, label='Ajuste polinomial')
 plt.title(f'Modelo Polinomial\nR² = {R2:.4f}', fontweight='bold')
 plt.xlabel('X')
@@ -307,8 +313,12 @@ plt.show()
 
 ```{python}
 # Experimente com estes dados (padrão quadrático diferente):
-x_novo = [1, 2, 3, 4, 5, 6, 7]
-y_novo = [30, 12, 18, 9, 7, 8, 6]
+df_novo = pd.DataFrame({
+  'x_novo': [1, 2, 3, 4, 5, 6, 7],
+  'y_novo': [30, 12, 18, 9, 7, 8, 6]
+})
+
+print(df_novo)
 
 # Questões para investigar:
 # 1. Qual é o R² do modelo polinomial para estes dados?
