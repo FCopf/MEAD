@@ -252,7 +252,7 @@ Objetivos
 <section id="importando-as-bibliotecas" class="level2" data-number="2">
 <h2 data-number="2" class="anchored" data-anchor-id="importando-as-bibliotecas"><span class="header-section-number">2</span> 🛠️ Importando as Bibliotecas</h2>
 <p>Vamos começar importando as bibliotecas necessárias:</p>
-<div id="2e46b7e5" class="cell" data-execution_count="1">
+<div id="cd1eea6d" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd           <span class="co"># Para manipulação de dados</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt  <span class="co"># Para criar gráficos</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns        <span class="co"># Para gráficos mais bonitos</span></span>
@@ -263,7 +263,7 @@ Objetivos
 <section id="definindo-os-dados" class="level2" data-number="3">
 <h2 data-number="3" class="anchored" data-anchor-id="definindo-os-dados"><span class="header-section-number">3</span> 📊 Definindo os Dados</h2>
 <p>Vamos trabalhar com dados que apresentam uma relação quadrática:</p>
-<div id="f8e27a7a" class="cell" data-execution_count="2">
+<div id="2397a128" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Nossos dados de exemplo (relação quadrática)</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> [<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>]       <span class="co"># Variável independente (preditora)</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> [<span class="dv">5</span>, <span class="dv">2</span>, <span class="dv">10</span>, <span class="dv">8</span>, <span class="dv">15</span>, <span class="dv">35</span>]    <span class="co"># Variável dependente (resposta)</span></span>
@@ -281,7 +281,7 @@ Número de observações: 6</code></pre>
 <section id="visualizando-os-dados" class="level2" data-number="4">
 <h2 data-number="4" class="anchored" data-anchor-id="visualizando-os-dados"><span class="header-section-number">4</span> 📈 Visualizando os Dados</h2>
 <p>Antes de ajustar o modelo, vamos visualizar nossos dados:</p>
-<div id="92890a38" class="cell" data-execution_count="3">
+<div id="47b9ad6e" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Criando the gráfico de dispersão</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">6</span>))</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>plt.scatter(x, y, color<span class="op">=</span><span class="st">'blue'</span>, marker<span class="op">=</span><span class="st">'o'</span>, s<span class="op">=</span><span class="dv">100</span>, alpha<span class="op">=</span><span class="fl">0.7</span>, label<span class="op">=</span><span class="st">'Dados observados'</span>)</span>
@@ -309,7 +309,7 @@ Número de observações: 6</code></pre>
 <h3 data-number="5.1" class="anchored" data-anchor-id="criando-os-vetores-base"><span class="header-section-number">5.1</span> Criando os Vetores Base</h3>
 <p>Para o modelo polinomial <span class="math inline">\(\hat{y} = \beta_0 + \beta_1 x + \beta_2 x^2\)</span>, precisamos dos vetores:</p>
 <p><span class="math display">\[\vec{f}_0 = \begin{bmatrix} 1 \\ 1 \\ \vdots \\ 1 \end{bmatrix} \quad \text{,} \quad \vec{f}_1 = \begin{bmatrix} x_1 \\ x_2 \\ \vdots \\ x_n \end{bmatrix} \quad \text{,} \quad \vec{f}_2 = \begin{bmatrix} x_1^2 \\ x_2^2 \\ \vdots \\ x_n^2 \end{bmatrix} \quad \text{e} \quad \vec{y} = \begin{bmatrix} y_1 \\ y_2 \\ \vdots \\ y_n \end{bmatrix}\]</span></p>
-<div id="2dd57429" class="cell" data-execution_count="4">
+<div id="139bef9e" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Número de observações</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="bu">len</span>(x)</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -336,7 +336,7 @@ Vetor f2 (termo quadrático): [ 0  1  4  9 16 25]</code></pre>
 <h3 data-number="5.2" class="anchored" data-anchor-id="construindo-as-matrizes-x-e-y"><span class="header-section-number">5.2</span> Construindo as Matrizes X e Y</h3>
 <p>Agora vamos montar as matrizes do sistema polinomial:</p>
 <p><span class="math display">\[X = \begin{bmatrix} \vec{f}_0 &amp; \vec{f}_1 &amp; \vec{f}_2 \end{bmatrix} = \begin{bmatrix} 1 &amp; x_1 &amp; x_1^2 \\ 1 &amp; x_2 &amp; x_2^2 \\ \vdots &amp; \vdots &amp; \vdots \\ 1 &amp; x_n &amp; x_n^2 \end{bmatrix} \quad \text{e} \quad Y = \begin{bmatrix} y_1 \\ y_2 \\ \vdots \\ y_n \end{bmatrix}\]</span></p>
-<div id="ed47ef8c" class="cell" data-execution_count="5">
+<div id="f4d9a852" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Matriz X: combinando f0, f1 e f2 em colunas</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> np.column_stack((f0, f1, f2))</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -373,7 +373,7 @@ Dimensões - X: (6, 3), Y: (6, 1)</code></pre>
 <h3 data-number="5.3" class="anchored" data-anchor-id="resolvendo-o-sistema-normal"><span class="header-section-number">5.3</span> Resolvendo o Sistema Normal</h3>
 <p>Calculamos os coeficientes usando a mesma fórmula:</p>
 <p><span class="math display">\[\boldsymbol{\hat{\beta}} = (X^T X)^{-1} X^T Y\]</span></p>
-<div id="ec11109c" class="cell" data-execution_count="6">
+<div id="d43cbef5" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculando X transposta vezes X</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>XTX <span class="op">=</span> X.T <span class="op">@</span> X  <span class="co"># Usando o operador @ para multiplicação matricial</span></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"X^T X:"</span>)</span>
@@ -432,7 +432,7 @@ Nota
 <section id="avaliando-a-qualidade-do-ajuste" class="level3" data-number="5.4">
 <h3 data-number="5.4" class="anchored" data-anchor-id="avaliando-a-qualidade-do-ajuste"><span class="header-section-number">5.4</span> Avaliando a Qualidade do Ajuste</h3>
 <p>Vamos calcular o coeficiente de determinação <span class="math inline">\(R^2\)</span>:</p>
-<div id="6870dd33" class="cell" data-execution_count="7">
+<div id="8465508b" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Valores ajustados (preditos)</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>Y_ajustado <span class="op">=</span> X <span class="op">@</span> B</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -468,7 +468,7 @@ Porcentagem da variação explicada: 91.60%</code></pre>
 <section id="visualizando-o-resultado-final" class="level2" data-number="6">
 <h2 data-number="6" class="anchored" data-anchor-id="visualizando-o-resultado-final"><span class="header-section-number">6</span> 📊 Visualizando o Resultado Final</h2>
 <p>Vamos plotar os dados originais junto com a curva ajustada:</p>
-<div id="1c757ce4" class="cell" data-execution_count="8">
+<div id="140d0640" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Criando pontos para desenhar a curva suave</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>x_curva <span class="op">=</span> np.linspace(<span class="bu">min</span>(x) <span class="op">-</span> <span class="fl">0.5</span>, <span class="bu">max</span>(x) <span class="op">+</span> <span class="fl">0.5</span>, <span class="dv">100</span>)</span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>y_curva <span class="op">=</span> B[<span class="dv">0</span>, <span class="dv">0</span>] <span class="op">+</span> B[<span class="dv">1</span>, <span class="dv">0</span>] <span class="op">*</span> x_curva <span class="op">+</span> B[<span class="dv">2</span>, <span class="dv">0</span>] <span class="op">*</span> x_curva<span class="op">**</span><span class="dv">2</span></span>
@@ -483,7 +483,7 @@ Porcentagem da variação explicada: 91.60%</code></pre>
 [ 5.75        3.16428571  4.54285714  9.88571429 19.19285714 32.46428571]</code></pre>
 </div>
 </div>
-<div id="c5e683ee" class="cell" data-execution_count="9">
+<div id="8d51e1eb" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Criando o gráfico final</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">6</span>))</span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -524,11 +524,11 @@ Porcentagem da variação explicada: 91.60%</code></pre>
 </section>
 <section id="resumo-dos-resultados" class="level2" data-number="7">
 <h2 data-number="7" class="anchored" data-anchor-id="resumo-dos-resultados"><span class="header-section-number">7</span> 🎯 Resumo dos Resultados</h2>
-<div id="e8750c59" class="cell" data-execution_count="10">
+<div id="4cd8b631" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"="</span><span class="op">*</span><span class="dv">60</span>)</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"         RESUMO DA REGRESSÃO POLINOMIAL"</span>)</span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"="</span><span class="op">*</span><span class="dv">60</span>)</span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Equação ajustada: y = </span><span class="sc">{</span>B[<span class="dv">0</span>,<span class="dv">0</span>]<span class="sc">:.4f}</span><span class="ss"> + </span><span class="sc">{</span>B[<span class="dv">1</span>,<span class="dv">0</span>]<span class="sc">:.4f}</span><span class="ss">x + </span><span class="sc">{</span>B[<span class="dv">2</span>,<span class="dv">0</span>]<span class="sc">:.4f}</span><span class="ss">x²"</span>)</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Equação ajustada: y = </span><span class="sc">{</span>B[<span class="dv">0</span>,<span class="dv">0</span>]<span class="sc">:.4f}</span><span class="ss"> </span><span class="sc">{</span>B[<span class="dv">1</span>,<span class="dv">0</span>]<span class="sc">:.4f}</span><span class="ss">x + </span><span class="sc">{</span>B[<span class="dv">2</span>,<span class="dv">0</span>]<span class="sc">:.4f}</span><span class="ss">x²"</span>)</span>
 <span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Coeficiente de determinação (R²): </span><span class="sc">{</span>R2<span class="sc">:.4f}</span><span class="ss">"</span>)</span>
 <span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Porcentagem da variação explicada: </span><span class="sc">{</span>R2<span class="op">*</span><span class="dv">100</span><span class="sc">:.2f}</span><span class="ss">%"</span>)</span>
 <span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"="</span><span class="op">*</span><span class="dv">60</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -536,7 +536,7 @@ Porcentagem da variação explicada: 91.60%</code></pre>
 <pre><code>============================================================
          RESUMO DA REGRESSÃO POLINOMIAL
 ============================================================
-Equação ajustada: y = 5.7500 + -4.5679x + 1.9821x²
+Equação ajustada: y = 5.7500 -4.5679x + 1.9821x²
 Coeficiente de determinação (R²): 0.9160
 Porcentagem da variação explicada: 91.60%
 ============================================================</code></pre>
@@ -546,7 +546,7 @@ Porcentagem da variação explicada: 91.60%
 <section id="comparação-linear-vs-polinomial" class="level2" data-number="8">
 <h2 data-number="8" class="anchored" data-anchor-id="comparação-linear-vs-polinomial"><span class="header-section-number">8</span> 🔍 Comparação: Linear vs Polinomial</h2>
 <p>Vamos comparar o ajuste linear e polinomial para os mesmos dados:</p>
-<div id="e1296fee" class="cell" data-execution_count="11">
+<div id="23a63fed" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ajuste LINEAR para comparação</span></span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>X_linear <span class="op">=</span> np.column_stack((f0, f1))  <span class="co"># Apenas f0 e f1</span></span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>B_linear <span class="op">=</span> np.linalg.inv(X_linear.T <span class="op">@</span> X_linear) <span class="op">@</span> (X_linear.T <span class="op">@</span> Y)</span>
@@ -570,7 +570,7 @@ Modelo Polinomial: R² = 0.9160
 Melhoria no R²:    0.2079</code></pre>
 </div>
 </div>
-<div id="255159fb" class="cell" data-execution_count="12">
+<div id="23e1cea3" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Gráfico comparativo</span></span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">4</span>))</span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -609,7 +609,7 @@ Melhoria no R²:    0.2079</code></pre>
 <section id="exercício-prático" class="level2" data-number="9">
 <h2 data-number="9" class="anchored" data-anchor-id="exercício-prático"><span class="header-section-number">9</span> 🚀 Exercício Prático</h2>
 <p><strong>Agora é sua vez!</strong> Teste o código com novos dados:</p>
-<div id="6e9afa4f" class="cell" data-execution_count="13">
+<div id="c00c3668" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Experimente com estes dados (padrão quadrático diferente):</span></span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>x_novo <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">7</span>]</span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>y_novo <span class="op">=</span> [<span class="dv">30</span>, <span class="dv">12</span>, <span class="dv">18</span>, <span class="dv">9</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">6</span>]</span>
