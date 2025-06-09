@@ -102,7 +102,7 @@ print("Vetor f1 (coeficiente):", f1)
 
 Agora vamos montar as matrizes do sistema:
 
-$$X = \begin{bmatrix} \vec{f}_0 & \vec{f}_1 \end{bmatrix} = \begin{bmatrix} 1 & x_1 \\ 1 & x_2 \\ \vdots & \vdots \\ 1 & x_n \end{bmatrix} \quad \text{e} \quad Y = \begin{bmatrix} \hat{y} \end{bmatrix} = \begin{bmatrix} y_1 \\ y_2 \\ \vdots \\ y_n \end{bmatrix}$$
+$$X = \begin{bmatrix} \vec{f}_0 & \vec{f}_1 \end{bmatrix} = \begin{bmatrix} 1 & x_1 \\ 1 & x_2 \\ \vdots & \vdots \\ 1 & x_n \end{bmatrix} \quad \text{e} \quad Y = \begin{bmatrix} \vec{y} \end{bmatrix} = \begin{bmatrix} y_1 \\ y_2 \\ \vdots \\ y_n \end{bmatrix}$$
 
 ```{python}
 # Matriz X: combinando f0 e f1 em colunas
