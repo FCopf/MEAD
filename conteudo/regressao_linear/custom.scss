@@ -1,0 +1,46 @@
+/*-- scss:defaults --*/
+
+//$body-bg: #191919;
+//$body-color: #fff;
+//$link-color: #42affa;
+$presentation-h2-font-size: .9em;
+$presentation-li-font-size: .7em; // Define the font size for paragraphs
+
+/*-- scss:rules --*/
+
+// .reveal .slide blockquote {
+//   border-left: 3px solid $text-muted;
+//   padding-left: 0.5em;
+// }
+
+.reveal h2 {
+    font-size: $presentation-h2-font-size;
+    padding: 0.25em 0;  // Adjust the padding as needed
+  }
+
+  .reveal li {
+    font-size: $presentation-li-font-size;
+  }
+
+  .reveal p {
+    font-size: $presentation-li-font-size;
+  }
+
+  .content-box {
+    background-color: rgba(255, 255, 255, 0.85); /* caixa branca translúcida */
+    padding: 0.9em;
+    border-radius: 15px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    max-width: 600px;
+    margin-left: 2em;         /* espaço da borda esquerda */
+    margin-right: auto;       /* empurra para a esquerda */
+    font-size: $presentation-li-font-size;
+  }
+
+  .reveal section h2 {
+    background-color: rgb(55, 70, 60);
+    padding: 20px;
+    margin: -20px -2000px 20px -2000px;
+    color: white;
+    text-align: center; /* optional */
+  }

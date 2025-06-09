@@ -3,15 +3,15 @@ title: "Método dos Mínimos Quadrados na Regressão Linear Simples"
 subtitle: "Representação Vetorial e Matricial"
 institute: "9833 - BASES DA MATEMÁTICA E ESTATÍSTICA PARA CIÊNCIAS DO MAR"
 author: 	"Fabio Cop Ferreira e William Remo Pedroso Conti"
-image: "images/metodo-minimos-quadrados.png"
-description: Método dos mínimos quadrados na Regressão linear simples por meio da representação vetorial e matricial.
+image: "images/metodo-minimos-quadrados-apresentacao.png"
+description: "Método dos mínimos quadrados na Regressão linear simples por meio da representação vetorial e matricial."
 format:
   revealjs: 
     slide-number: true
     chalkboard: 
       buttons: false
     preview-links: auto
-    logo: images/metodo-minimos-quadrados.png 
+    logo: images/metodo-minimos-quadrados-apresentacao.png 
     footer: |
       BICT Mar - Unifesp · <a href="/ecologia-numerica.html" target="_blank">Ecologia Numérica</a>
     theme: [default, custom.scss]

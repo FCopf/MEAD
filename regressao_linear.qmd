@@ -1,10 +1,12 @@
 ---
 title: "Modelo de Regressão linear"
 description: "Relações entre variáveis dependentes e independentes, com foco em previsão e análise de padrões para dados contínuos."
-categories: [Modelagem, Inferência, Previsão, Testes Estatísticos]
+categories: ["Modelagem", "Inferência", "Previsão", "Testes Estatísticos"]
 image: "images/regressao_linear.jpg"
 listing:
   contents:
+    - conteudo/regressao_linear/metodo-minimos-quadrados-apresentacao.qmd
+    - conteudo/regressao_linear/mmq_regressao_linear_simples.qmd
     - conteudo/regressao_linear/regressao_linear_simples.qmd
     - conteudo/regressao_linear/regressao_linear_multipla.qmd
   sort: false
