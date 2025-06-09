@@ -249,7 +249,7 @@ Objetivos
 <section id="importando-as-bibliotecas" class="level2" data-number="2">
 <h2 data-number="2" class="anchored" data-anchor-id="importando-as-bibliotecas"><span class="header-section-number">2</span> 🛠️ Importando as Bibliotecas</h2>
 <p>Primeiro, vamos importar as bibliotecas que usaremos:</p>
-<div id="c5f675bc" class="cell" data-execution_count="1">
+<div id="5facf568" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd           <span class="co"># Para manipulação de dados</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt  <span class="co"># Para criar gráficos</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns        <span class="co"># Para gráficos mais bonitos</span></span>
@@ -260,7 +260,7 @@ Objetivos
 <section id="definindo-os-dados" class="level2" data-number="3">
 <h2 data-number="3" class="anchored" data-anchor-id="definindo-os-dados"><span class="header-section-number">3</span> 📊 Definindo os Dados</h2>
 <p>Vamos trabalhar um exemplo simples em que <span class="math inline">\(x\)</span> e <span class="math inline">\(y\)</span> são inseridos como listas em Python:</p>
-<div id="06d2e52e" class="cell" data-execution_count="2">
+<div id="c7e3d582" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Nossos dados de exemplo</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> [<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>]  <span class="co"># Variável independente (preditora)</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> [<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">4</span>]  <span class="co"># Variável dependente (resposta)</span></span>
@@ -278,7 +278,7 @@ Número de observações: 5</code></pre>
 <section id="visualizando-os-dados" class="level2" data-number="4">
 <h2 data-number="4" class="anchored" data-anchor-id="visualizando-os-dados"><span class="header-section-number">4</span> 📈 Visualizando os Dados</h2>
 <p>Antes de ajustar o modelo, vamos visualizar nossos dados:</p>
-<div id="775c455f" class="cell" data-execution_count="3">
+<div id="550361ed" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Criando o gráfico de dispersão</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">6</span>))</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>plt.scatter(x, y, color<span class="op">=</span><span class="st">'blue'</span>, marker<span class="op">=</span><span class="st">'o'</span>, s<span class="op">=</span><span class="dv">80</span>, alpha<span class="op">=</span><span class="fl">0.7</span>, label<span class="op">=</span><span class="st">'Dados observados'</span>)</span>
@@ -306,7 +306,7 @@ Número de observações: 5</code></pre>
 <h3 data-number="5.1" class="anchored" data-anchor-id="criando-os-vetores-base"><span class="header-section-number">5.1</span> Criando os Vetores Base</h3>
 <p>Lembre-se da teoria: precisamos dos vetores <span class="math inline">\(\vec{f}_0\)</span>, <span class="math inline">\(\vec{f}_1\)</span> e <span class="math inline">\(\vec{y}\)</span>:</p>
 <p><span class="math display">\[\vec{f}_0 = \begin{bmatrix} 1 \\ 1 \\ \vdots \\ 1 \end{bmatrix} \quad \text{,} \quad \vec{f}_1 = \begin{bmatrix} x_1 \\ x_2 \\ \vdots \\ x_n \end{bmatrix} \quad \text{e} \quad \vec{y} = \begin{bmatrix} y_1 \\ y_2 \\ \vdots \\ y_n \end{bmatrix}\]</span></p>
-<div id="4557c1aa" class="cell" data-execution_count="4">
+<div id="766f9c65" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Número de observações</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="bu">len</span>(x)</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -327,8 +327,8 @@ Vetor f1 (coeficiente): [0, 1, 2, 3, 4]</code></pre>
 <section id="construindo-as-matrizes-x-e-y" class="level3" data-number="5.2">
 <h3 data-number="5.2" class="anchored" data-anchor-id="construindo-as-matrizes-x-e-y"><span class="header-section-number">5.2</span> Construindo as Matrizes X e Y</h3>
 <p>Agora vamos montar as matrizes do sistema:</p>
-<p><span class="math display">\[X = \begin{bmatrix} \vec{f}_0 &amp; \vec{f}_1 \end{bmatrix} = \begin{bmatrix} 1 &amp; x_1 \\ 1 &amp; x_2 \\ \vdots &amp; \vdots \\ 1 &amp; x_n \end{bmatrix} \quad \text{e} \quad Y = \begin{bmatrix} \hat{y} \end{bmatrix} = \begin{bmatrix} y_1 \\ y_2 \\ \vdots \\ y_n \end{bmatrix}\]</span></p>
-<div id="42254fa5" class="cell" data-execution_count="5">
+<p><span class="math display">\[X = \begin{bmatrix} \vec{f}_0 &amp; \vec{f}_1 \end{bmatrix} = \begin{bmatrix} 1 &amp; x_1 \\ 1 &amp; x_2 \\ \vdots &amp; \vdots \\ 1 &amp; x_n \end{bmatrix} \quad \text{e} \quad Y = \begin{bmatrix} \vec{y} \end{bmatrix} = \begin{bmatrix} y_1 \\ y_2 \\ \vdots \\ y_n \end{bmatrix}\]</span></p>
+<div id="edf03198" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Matriz X: combinando f0 e f1 em colunas</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> np.column_stack((f0, f1))</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -363,7 +363,7 @@ Dimensões - X: (5, 2), Y: (5, 1)</code></pre>
 <h3 data-number="5.3" class="anchored" data-anchor-id="resolvendo-o-sistema-normal"><span class="header-section-number">5.3</span> Resolvendo o Sistema Normal</h3>
 <p>Agora vamos calcular os coeficientes usando a fórmula:</p>
 <p><span class="math display">\[\boldsymbol{\hat{\beta}} = (X^T X)^{-1} X^T Y\]</span></p>
-<div id="39049bef" class="cell" data-execution_count="6">
+<div id="4cdfaadf" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculando X transposta vezes X</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>XTX <span class="op">=</span> np.dot(X.T, X)  <span class="co"># X.T é a transposta de X</span></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"X^T X:"</span>)</span>
@@ -411,7 +411,7 @@ Nota
 </div>
 <div class="callout-body-container callout-body">
 <p>A função ´np.dot()´ em Python também pode ser substituída pelo símbolo <code>@</code>. Teste os códigos abaixo e verifique que os resultados coincidem:</p>
-<div id="761f224a" class="cell" data-execution_count="7">
+<div id="64279951" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Usando np.dot()"</span>)</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(np.dot(X.T, X))</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -420,7 +420,7 @@ Nota
  [10 30]]</code></pre>
 </div>
 </div>
-<div id="3053955f" class="cell" data-execution_count="8">
+<div id="6559018a" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Usando '@'"</span>)</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(X.T <span class="op">@</span> X)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -435,7 +435,7 @@ Nota
 <section id="avaliando-a-qualidade-do-ajuste" class="level3" data-number="5.4">
 <h3 data-number="5.4" class="anchored" data-anchor-id="avaliando-a-qualidade-do-ajuste"><span class="header-section-number">5.4</span> Avaliando a Qualidade do Ajuste</h3>
 <p>Vamos calcular o coeficiente de determinação <span class="math inline">\(R^2\)</span>:</p>
-<div id="38e8d8b4" class="cell" data-execution_count="9">
+<div id="aa1a3cf6" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Valores ajustados (preditos)</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>Y_ajustado <span class="op">=</span> np.dot(X, B)</span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -477,7 +477,7 @@ Porcentagem da variação explicada: 86.43%</code></pre>
 <section id="visualizando-o-resultado-final" class="level2" data-number="6">
 <h2 data-number="6" class="anchored" data-anchor-id="visualizando-o-resultado-final"><span class="header-section-number">6</span> 📊 Visualizando o Resultado Final</h2>
 <p>Vamos plotar os dados originais junto com a reta ajustada:</p>
-<div id="f991630b" class="cell" data-execution_count="10">
+<div id="c0731c59" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Criando pontos para desenhar a reta</span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>y_ajustados <span class="op">=</span> B[<span class="dv">0</span>, <span class="dv">0</span>] <span class="op">+</span> B[<span class="dv">1</span>, <span class="dv">0</span>] <span class="op">*</span> np.array(x)  <span class="co"># Equação da reta: y = β₀ + β₁x</span></span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -488,7 +488,7 @@ Porcentagem da variação explicada: 86.43%</code></pre>
 [-0.2  0.9  2.   3.1  4.2]</code></pre>
 </div>
 </div>
-<div id="65d36dfb" class="cell" data-execution_count="11">
+<div id="80cbf935" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Criando o gráfico final</span></span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">6</span>))</span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -529,7 +529,7 @@ Porcentagem da variação explicada: 86.43%</code></pre>
 </section>
 <section id="resumo-dos-resultados" class="level2" data-number="7">
 <h2 data-number="7" class="anchored" data-anchor-id="resumo-dos-resultados"><span class="header-section-number">7</span> 🎯 Resumo dos Resultados</h2>
-<div id="75c34e58" class="cell" data-execution_count="12">
+<div id="c823d5cb" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"="</span><span class="op">*</span><span class="dv">50</span>)</span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"         RESUMO DA REGRESSÃO LINEAR"</span>)</span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"="</span><span class="op">*</span><span class="dv">50</span>)</span>
@@ -551,7 +551,7 @@ Porcentagem da variação explicada: 86.43%
 <section id="exercício-prático" class="level2" data-number="8">
 <h2 data-number="8" class="anchored" data-anchor-id="exercício-prático"><span class="header-section-number">8</span> 🚀 Exercício Prático</h2>
 <p>Teste o código com novos dados:</p>
-<div id="ddbb08a2" class="cell" data-execution_count="13">
+<div id="16668ed2" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Experimente com estes dados:</span></span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>x_novo <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>]</span>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>y_novo <span class="op">=</span> [<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">7</span>]</span>
