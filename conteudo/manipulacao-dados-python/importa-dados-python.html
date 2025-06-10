@@ -217,14 +217,14 @@ Objetivos
 <section id="preparação-inicial" class="level2" data-number="1">
 <h2 data-number="1" class="anchored" data-anchor-id="preparação-inicial"><span class="header-section-number">1</span> 🛠️ Preparação Inicial</h2>
 <p>Vamos importar as bibliotecas necessárias:</p>
-<div id="2de61091" class="cell" data-execution_count="1">
+<div id="50ce07c5" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> google.colab <span class="im">import</span> drive  <span class="co"># Permite que o Google Colab leia seu Google Drive</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd  <span class="co"># Análise e manipulação de dados</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="etapa-1-montando-o-google-drive-no-colab" class="level2" data-number="2">
 <h2 data-number="2" class="anchored" data-anchor-id="etapa-1-montando-o-google-drive-no-colab"><span class="header-section-number">2</span> 🔗 Etapa 1: Montando o Google Drive no Colab</h2>
-<div id="a48b07de" class="cell" data-execution_count="2">
+<div id="3278d3e7" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Montar o Google Drive (vai solicitar permissão)</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>drive.mount(<span class="st">"/content/drive"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -232,7 +232,7 @@ Objetivos
 <section id="verificando-os-arquivos-e-pastas" class="level3" data-number="2.1">
 <h3 data-number="2.1" class="anchored" data-anchor-id="verificando-os-arquivos-e-pastas"><span class="header-section-number">2.1</span> ✅ Verificando os arquivos e pastas</h3>
 <p>Você pode navegar pela estrutura de pastas do seu Drive:</p>
-<div id="70bd0936" class="cell" data-execution_count="3">
+<div id="f3320a60" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Listando arquivos e subpastas na pasta raiz do Drive</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>ls <span class="st">"/content/drive/MyDrive"</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -246,13 +246,13 @@ Objetivos
      └── Dados/
          └── arquivo_exemplo.csv</code></pre>
 <p>Então o caminho completo no Colab será:</p>
-<div id="28864347" class="cell" data-execution_count="4">
+<div id="27b61f60" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>caminho_arquivo <span class="op">=</span> <span class="st">"/content/drive/MyDrive/Projetos/Dados/arquivo_exemplo.csv"</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="etapa-3-lendo-o-csv-com-pandas" class="level2" data-number="4">
 <h2 data-number="4" class="anchored" data-anchor-id="etapa-3-lendo-o-csv-com-pandas"><span class="header-section-number">4</span> 📊 Etapa 3: Lendo o CSV com pandas</h2>
-<div id="e4061fc0" class="cell" data-execution_count="5">
+<div id="e68cbedf" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Caminho do arquivo no Google Drive montado</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>caminho_arquivo <span class="op">=</span> <span class="st">"/content/drive/MyDrive/Projetos/Dados/arquivo_exemplo.csv"</span></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -266,7 +266,7 @@ Objetivos
 <section id="parâmetros-úteis-do-read_csv" class="level2" data-number="5">
 <h2 data-number="5" class="anchored" data-anchor-id="parâmetros-úteis-do-read_csv"><span class="header-section-number">5</span> 🔧 Parâmetros Úteis do <code>read_csv()</code></h2>
 <p>Você pode ajustar a leitura do arquivo com diversos parâmetros:</p>
-<div id="0b66f5aa" class="cell" data-execution_count="6">
+<div id="0a59a9d7" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>df_arquivo_exemplo <span class="op">=</span> pd.read_csv(</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    caminho_arquivo,</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    sep<span class="op">=</span><span class="st">','</span>,              <span class="co"># separador padrão</span></span>
