@@ -24,7 +24,7 @@ execute:
 
 ::: {.callout-tip title="Objetivos"}
 
-Neste tutorial, você aprenderá a:
+Neste tutorial, você aprenderá a: 
 
 1. Conectar seu Google Drive ao Google Colab
 2. Navegar pelas pastas do Drive dentro do notebook
