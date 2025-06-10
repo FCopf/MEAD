@@ -1,0 +1,129 @@
+---
+title: "Importando data frames a partir de arquivos CSV"
+subtitle: "Lendo arquivos do armazenados na pasta pessoal do Google Drive"
+description: "Aprenda como montar o Google Drive no Colab e importar dados de arquivos CSV usando pandas"
+Categories: [
+          "Pandas",
+          "Importação de Dados",
+          "Google Colab",
+          "Google Drive",
+          "Python",
+          "CSV"
+        ]
+
+image: "images/importa-dados-python.png"
+execute:
+  echo: true
+  warning: false
+  include: true
+  message: false
+  eval: false
+---
+
+---
+
+::: {.callout-tip title="Objetivos"}
+
+Neste tutorial, você aprenderá a:
+
+1. Conectar seu Google Drive ao Google Colab
+2. Navegar pelas pastas do Drive dentro do notebook
+3. Importar um arquivo CSV usando pandas diretamente de uma pasta
+
+:::
+
+## 🛠️ Preparação Inicial
+
+Vamos importar as bibliotecas necessárias:
+
+```{python}
+import pandas as pd
+import numpy as np
+import os
+```
+
+## 🔗 Etapa 1: Montando o Google Drive no Colab
+
+```{python}
+from google.colab import drive
+
+# Montar o Google Drive (vai solicitar permissão)
+drive.mount('/content/drive')
+```
+
+Após executar, você verá um link de autorização. Clique, permita o acesso, copie o código e cole no prompt do Colab.
+
+### ✅ Verificando os arquivos e pastas
+
+Você pode navegar pela estrutura de pastas do seu Drive:
+
+```{python}
+# Listando arquivos e subpastas na pasta raiz do Drive
+!ls "/content/drive/My Drive"
+```
+
+## 📁 Etapa 2: Localizando seu Arquivo CSV
+
+Suponha que seu arquivo esteja na pasta:
+
+```{tex}
+Meu Drive/
+ └── Projetos/
+     └── Dados/
+         └── arquivo_exemplo.csv
+```
+
+Então o caminho completo no Colab será:
+
+```{python}
+caminho_arquivo = "/content/drive/My Drive/Projetos/Dados/arquivo_exemplo.csv"
+```
+
+## 📊 Etapa 3: Lendo o CSV com pandas
+
+```{python}
+# Caminho do arquivo no Google Drive montado
+caminho_arquivo = "/content/drive/My Drive/Projetos/Dados/arquivo_exemplo.csv"
+
+# Lendo o CSV
+df_arquivo_exemplo = pd.read_csv(caminho_arquivo)
+
+# Verificando os dados importados
+print(df_arquivo_exemplo.head())
+```
+
+## 🔧 Parâmetros Úteis do `read_csv()`
+
+Você pode ajustar a leitura do arquivo com diversos parâmetros:
+
+```{python}
+df_arquivo_exemplo = pd.read_csv(
+    caminho_arquivo,
+    sep=',',              # separador padrão
+    encoding='utf-8',     # codificação de caracteres
+    decimal='.',          # separador decimal
+    na_values=['NA', 'null'],  # valores ausentes
+)
+
+print(df_arquivo_exemplo.head())
+```
+
+## 🔍 Dica: Caminho com Espaços
+
+Se o caminho da sua pasta contiver espaços (ex: `"My Drive/Minhas Pastas/Dados Importantes"`), coloque-o entre aspas ou escape com `\ `:
+
+```{python}
+# Com aspas
+!ls "/content/drive/My Drive/Minhas Pastas/Dados Importantes"
+
+# Ou escapando espaços
+!ls /content/drive/My\ Drive/Minhas\ Pastas/Dados\ Importantes
+```
+
+## 🚀 Prática
+
+1. Suba um arquivo `.csv` para qualquer pasta no seu Google Drive
+2. Monte seu Google Drive no Colab e localize o caminho completo via `!ls`
+3. Use `pd.read_csv()` para importar e verificar os dados no Colab
+
+---
