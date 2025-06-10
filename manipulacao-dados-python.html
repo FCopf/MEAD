@@ -6,9 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="description" content="Fundamentos da inferência estatística, abrangendo teorema central do limite e intervalos de confiança.">
+<meta name="description" content="Fundamentos da estrutura, manipulação e visualização de dados em Python.">
 
-<title>Inferência estatística – Métodos em Estatística e Análise de Dados</title>
+<title>Manipulação de dados em Python – Métodos em Estatística e Análise de Dados</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -82,7 +82,7 @@ ul.task-list li input[type="checkbox"] {
     const options = {
       valueNames: ['listing-image','listing-title','listing-description','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
       
-      searchColumns: ["listing-title","listing-author","listing-image","listing-description"],
+      searchColumns: ["listing-title","listing-author","listing-subtitle","listing-image","listing-description"],
     };
 
     window['quarto-listings'] = window['quarto-listings'] || {};
@@ -131,10 +131,12 @@ window.Quarto = {
 </script>
 
 <link rel="stylesheet" href="styles/custom.css">
-<meta property="og:title" content="Inferência estatística – Métodos em Estatística e Análise de Dados">
-<meta property="og:description" content="Fundamentos da inferência estatística, abrangendo teorema central do limite e intervalos de confiança.">
-<meta property="og:image" content="https://github.com/FCopf/MEAD/images/inferencia_estatistica.jpg">
+<meta property="og:title" content="Manipulação de dados em Python – Métodos em Estatística e Análise de Dados">
+<meta property="og:description" content="Fundamentos da estrutura, manipulação e visualização de dados em Python.">
+<meta property="og:image" content="https://github.com/FCopf/MEAD/images/manipulacao-dados-python.png">
 <meta property="og:site_name" content="Métodos em Estatística e Análise de Dados">
+<meta property="og:image:height" content="1024">
+<meta property="og:image:width" content="1024">
 </head>
 
 <body class="nav-fixed quarto-light">
@@ -181,16 +183,17 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Inferência estatística</h1>
+<h1 class="title">Manipulação de dados em Python</h1>
   <div class="quarto-categories">
-    <div class="quarto-category">Inferência</div>
-    <div class="quarto-category">Probabilidade</div>
+    <div class="quarto-category">Programação</div>
+    <div class="quarto-category">Python</div>
+    <div class="quarto-category">Fundamentos</div>
   </div>
   </div>
 
 <div>
   <div class="description">
-    Fundamentos da inferência estatística, abrangendo teorema central do limite e intervalos de confiança.
+    Fundamentos da estrutura, manipulação e visualização de dados em Python.
   </div>
 </div>
 
@@ -213,41 +216,22 @@ window.Quarto = {
 
 <div class="quarto-listing quarto-listing-container-default" id="listing-listing">
 <div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-listing-file-modified-sort="1749514552760" data-listing-reading-time-sort="12" data-listing-word-count-sort="2201">
-<div class="thumbnail"><a href="./conteudo/inferencia_estatistica/teorema_central_limite.html" class="no-external">
+<div class="quarto-post image-right" data-index="0" data-listing-file-modified-sort="1749514552809" data-listing-reading-time-sort="2" data-listing-word-count-sort="327">
+<div class="thumbnail"><a href="./conteudo/manipulacao-dados-python/importa-dados-python.html" class="no-external">
 
-<img loading="lazy" src="./conteudo/inferencia_estatistica/images/teorema_central_limite.jpg" class="thumbnail-image">
-
-</a></div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./conteudo/inferencia_estatistica/teorema_central_limite.html" class="no-external">Distribuição das médias amostrais</a>
-</h3>
-<div class="delink listing-description"><a href="./conteudo/inferencia_estatistica/teorema_central_limite.html" class="no-external">
-<p>Exposição do teorema central do limite, enfatizando a distribuição das médias amostrais e sua importância em inferência estatística.</p>
-</a></div>
-</div>
-<div class="metadata">
-<a href="./conteudo/inferencia_estatistica/teorema_central_limite.html" class="no-external">
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="1" data-listing-file-modified-sort="1749514552759" data-listing-reading-time-sort="14" data-listing-word-count-sort="2708">
-<div class="thumbnail"><a href="./conteudo/inferencia_estatistica/int_conf.html" class="no-external">
-
-<img loading="lazy" src="./conteudo/inferencia_estatistica/images/int_conf.jpg" class="thumbnail-image">
+<img loading="lazy" src="./conteudo/manipulacao-dados-python/images/importa-dados-python.png" class="thumbnail-image">
 
 </a></div>
 <div class="body">
 <h3 class="no-anchor listing-title">
-<a href="./conteudo/inferencia_estatistica/int_conf.html" class="no-external">Estimando a média populacional</a>
+<a href="./conteudo/manipulacao-dados-python/importa-dados-python.html" class="no-external">Importando data frames a partir de arquivos CSV</a>
 </h3>
-<div class="delink listing-description"><a href="./conteudo/inferencia_estatistica/int_conf.html" class="no-external">
-<p>Construção e interpretação de intervalos de confiança para estimar a média populacional, incluindo a distribuição t de Student.</p>
+<div class="delink listing-description"><a href="./conteudo/manipulacao-dados-python/importa-dados-python.html" class="no-external">
+<p>Aprenda como montar o Google Drive no Colab e importar dados de arquivos CSV usando pandas</p>
 </a></div>
 </div>
 <div class="metadata">
-<a href="./conteudo/inferencia_estatistica/int_conf.html" class="no-external">
+<a href="./conteudo/manipulacao-dados-python/importa-dados-python.html" class="no-external">
 </a>
 </div>
 </div>
