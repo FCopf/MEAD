@@ -37,18 +37,15 @@ Neste tutorial, você aprenderá a:
 Vamos importar as bibliotecas necessárias:
 
 ```{python}
-import pandas as pd
-import numpy as np
-import os
+from google.colab import drive  # Permite que o Google Colab leia seu Google Drive
+import pandas as pd  # Análise e manipulação de dados
 ```
 
 ## 🔗 Etapa 1: Montando o Google Drive no Colab
 
 ```{python}
-from google.colab import drive
-
 # Montar o Google Drive (vai solicitar permissão)
-drive.mount('/content/drive')
+drive.mount("/content/drive")
 ```
 
 Após executar, você verá um link de autorização. Clique, permita o acesso, copie o código e cole no prompt do Colab.
@@ -59,7 +56,7 @@ Você pode navegar pela estrutura de pastas do seu Drive:
 
 ```{python}
 # Listando arquivos e subpastas na pasta raiz do Drive
-!ls "/content/drive/My Drive"
+!ls "/content/drive/MyDrive"
 ```
 
 ## 📁 Etapa 2: Localizando seu Arquivo CSV
@@ -67,7 +64,7 @@ Você pode navegar pela estrutura de pastas do seu Drive:
 Suponha que seu arquivo esteja na pasta:
 
 ```{tex}
-Meu Drive/
+MyDrive/
  └── Projetos/
      └── Dados/
          └── arquivo_exemplo.csv
@@ -76,14 +73,14 @@ Meu Drive/
 Então o caminho completo no Colab será:
 
 ```{python}
-caminho_arquivo = "/content/drive/My Drive/Projetos/Dados/arquivo_exemplo.csv"
+caminho_arquivo = "/content/drive/MyDrive/Projetos/Dados/arquivo_exemplo.csv"
 ```
 
 ## 📊 Etapa 3: Lendo o CSV com pandas
 
 ```{python}
 # Caminho do arquivo no Google Drive montado
-caminho_arquivo = "/content/drive/My Drive/Projetos/Dados/arquivo_exemplo.csv"
+caminho_arquivo = "/content/drive/MyDrive/Projetos/Dados/arquivo_exemplo.csv"
 
 # Lendo o CSV
 df_arquivo_exemplo = pd.read_csv(caminho_arquivo)
@@ -106,18 +103,6 @@ df_arquivo_exemplo = pd.read_csv(
 )
 
 print(df_arquivo_exemplo.head())
-```
-
-## 🔍 Dica: Caminho com Espaços
-
-Se o caminho da sua pasta contiver espaços (ex: `"My Drive/Minhas Pastas/Dados Importantes"`), coloque-o entre aspas ou escape com `\ `:
-
-```{python}
-# Com aspas
-!ls "/content/drive/My Drive/Minhas Pastas/Dados Importantes"
-
-# Ou escapando espaços
-!ls /content/drive/My\ Drive/Minhas\ Pastas/Dados\ Importantes
 ```
 
 ## 🚀 Prática
