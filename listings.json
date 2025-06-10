@@ -1,10 +1,101 @@
 [
   {
-    "listing": "/modelos_regressao_bayes.html",
+    "listing": "/teste_hipoteses.html",
     "items": [
-      "/conteudo/modelos_regressao_bayes/regressao-linear-bayesiana.html",
-      "/conteudo/modelos_regressao_bayes/regressao-linear-bayesiana-bambi.html",
-      "/conteudo/modelos_regressao_bayes/regressao-glm-hierarquico-apresentacao.html"
+      "/conteudo/teste_hipoteses/intro_testehipot.html",
+      "/conteudo/teste_hipoteses/teste_variancia.html",
+      "/conteudo/teste_hipoteses/teste_t.html"
+    ]
+  },
+  {
+    "listing": "/estatistica_descritiva.html",
+    "items": [
+      "/conteudo/estatistica_descritiva/varqualit.html",
+      "/conteudo/estatistica_descritiva/varquant.html",
+      "/conteudo/estatistica_descritiva/tendcentral.html",
+      "/conteudo/estatistica_descritiva/variacao.html",
+      "/conteudo/estatistica_descritiva/quartis.html",
+      "/conteudo/estatistica_descritiva/escorez.html"
+    ]
+  },
+  {
+    "listing": "/amostragem.html",
+    "items": [
+      "/conteudo/amostragem/pop_amostra.html",
+      "/conteudo/amostragem/tipos_amostragem.html"
+    ]
+  },
+  {
+    "listing": "/inferencia_estatistica.html",
+    "items": [
+      "/conteudo/inferencia_estatistica/teorema_central_limite.html",
+      "/conteudo/inferencia_estatistica/int_conf.html"
+    ]
+  },
+  {
+    "listing": "/medidas_associacao.html",
+    "items": [
+      "/conteudo/medidas_associacao/biquali.html",
+      "/conteudo/medidas_associacao/biquanti.html",
+      "/conteudo/medidas_associacao/biquantquali.html"
+    ]
+  },
+  {
+    "listing": "/manipulacao-dados-python.html",
+    "items": [
+      "/conteudo/manipulacao-dados-python/importa-dados-python.html"
+    ]
+  },
+  {
+    "listing": "/estrutura_dados.html",
+    "items": [
+      "/conteudo/estrutura_dados/estrutura_tipo.html"
+    ]
+  },
+  {
+    "listing": "/regressao_linear.html",
+    "items": [
+      "/conteudo/regressao_linear/metodo-minimos-quadrados-apresentacao.html",
+      "/conteudo/regressao_linear/mmq_regressao_linear_simples.html",
+      "/conteudo/regressao_linear/mmq_regressao_polinomial.html",
+      "/conteudo/regressao_linear/regressao_linear_simples.html",
+      "/conteudo/regressao_linear/regressao_linear_multipla.html"
+    ]
+  },
+  {
+    "listing": "/ciencia_dados.html",
+    "items": [
+      "/conteudo/ciencia_dados/tidyverse.html",
+      "/conteudo/ciencia_dados/import_export.html",
+      "/conteudo/ciencia_dados/pipe.html",
+      "/conteudo/ciencia_dados/transform.html",
+      "/conteudo/ciencia_dados/grafico_ggplot2.html"
+    ]
+  },
+  {
+    "listing": "/introducao_r.html",
+    "items": [
+      "/conteudo/introducao_r/estrutura-linguagem.html",
+      "/conteudo/introducao_r/data-frames.html",
+      "/conteudo/introducao_r/graficos-r.html"
+    ]
+  },
+  {
+    "listing": "/intro_bayes.html",
+    "items": [
+      "/conteudo/intro_bayes/intro-bayes-counting.html",
+      "/conteudo/intro_bayes/intro-bayes-distr-prob.html",
+      "/conteudo/intro_bayes/intro-bayes-modelo-bayesiano.html",
+      "/conteudo/intro_bayes/intro-bayes-binomial-grid.html",
+      "/conteudo/intro_bayes/intro-bayes-binomial-pymc.html",
+      "/conteudo/intro_bayes/intro-bayes-modelo-normal-bayesiano-priori.html"
+    ]
+  },
+  {
+    "listing": "/ecologia-numerica.html",
+    "items": [
+      "/conteudo/ecologia-numerica/intro-matrizes.html",
+      "/conteudo/ecologia-numerica/cossine-similarity.html"
     ]
   },
   {
@@ -29,52 +120,9 @@
     ]
   },
   {
-    "listing": "/introducao_r.html",
-    "items": [
-      "/conteudo/introducao_r/estrutura-linguagem.html",
-      "/conteudo/introducao_r/data-frames.html",
-      "/conteudo/introducao_r/graficos-r.html"
-    ]
-  },
-  {
-    "listing": "/manipulacao-dados-python.html",
-    "items": [
-      "/conteudo/manipulacao-dados-python/importa-dados-python.html"
-    ]
-  },
-  {
-    "listing": "/intro_bayes.html",
-    "items": [
-      "/conteudo/intro_bayes/intro-bayes-counting.html",
-      "/conteudo/intro_bayes/intro-bayes-distr-prob.html",
-      "/conteudo/intro_bayes/intro-bayes-modelo-bayesiano.html",
-      "/conteudo/intro_bayes/intro-bayes-binomial-grid.html",
-      "/conteudo/intro_bayes/intro-bayes-binomial-pymc.html",
-      "/conteudo/intro_bayes/intro-bayes-modelo-normal-bayesiano-priori.html"
-    ]
-  },
-  {
-    "listing": "/estatistica_descritiva.html",
-    "items": [
-      "/conteudo/estatistica_descritiva/varqualit.html",
-      "/conteudo/estatistica_descritiva/varquant.html",
-      "/conteudo/estatistica_descritiva/tendcentral.html",
-      "/conteudo/estatistica_descritiva/variacao.html",
-      "/conteudo/estatistica_descritiva/quartis.html",
-      "/conteudo/estatistica_descritiva/escorez.html"
-    ]
-  },
-  {
     "listing": "/anova.html",
     "items": [
       "/conteudo/anova/anova_simples.html"
-    ]
-  },
-  {
-    "listing": "/inferencia_estatistica.html",
-    "items": [
-      "/conteudo/inferencia_estatistica/teorema_central_limite.html",
-      "/conteudo/inferencia_estatistica/int_conf.html"
     ]
   },
   {
@@ -87,19 +135,6 @@
     ]
   },
   {
-    "listing": "/estrutura_dados.html",
-    "items": [
-      "/conteudo/estrutura_dados/estrutura_tipo.html"
-    ]
-  },
-  {
-    "listing": "/ecologia-numerica.html",
-    "items": [
-      "/conteudo/ecologia-numerica/intro-matrizes.html",
-      "/conteudo/ecologia-numerica/cossine-similarity.html"
-    ]
-  },
-  {
     "listing": "/distribuicao_normal.html",
     "items": [
       "/conteudo/distribuicao_normal/distr_norm.html",
@@ -108,46 +143,11 @@
     ]
   },
   {
-    "listing": "/teste_hipoteses.html",
+    "listing": "/modelos_regressao_bayes.html",
     "items": [
-      "/conteudo/teste_hipoteses/intro_testehipot.html",
-      "/conteudo/teste_hipoteses/teste_variancia.html",
-      "/conteudo/teste_hipoteses/teste_t.html"
-    ]
-  },
-  {
-    "listing": "/regressao_linear.html",
-    "items": [
-      "/conteudo/regressao_linear/metodo-minimos-quadrados-apresentacao.html",
-      "/conteudo/regressao_linear/mmq_regressao_linear_simples.html",
-      "/conteudo/regressao_linear/mmq_regressao_polinomial.html",
-      "/conteudo/regressao_linear/regressao_linear_simples.html",
-      "/conteudo/regressao_linear/regressao_linear_multipla.html"
-    ]
-  },
-  {
-    "listing": "/medidas_associacao.html",
-    "items": [
-      "/conteudo/medidas_associacao/biquali.html",
-      "/conteudo/medidas_associacao/biquanti.html",
-      "/conteudo/medidas_associacao/biquantquali.html"
-    ]
-  },
-  {
-    "listing": "/ciencia_dados.html",
-    "items": [
-      "/conteudo/ciencia_dados/tidyverse.html",
-      "/conteudo/ciencia_dados/import_export.html",
-      "/conteudo/ciencia_dados/pipe.html",
-      "/conteudo/ciencia_dados/transform.html",
-      "/conteudo/ciencia_dados/grafico_ggplot2.html"
-    ]
-  },
-  {
-    "listing": "/amostragem.html",
-    "items": [
-      "/conteudo/amostragem/pop_amostra.html",
-      "/conteudo/amostragem/tipos_amostragem.html"
+      "/conteudo/modelos_regressao_bayes/regressao-linear-bayesiana.html",
+      "/conteudo/modelos_regressao_bayes/regressao-linear-bayesiana-bambi.html",
+      "/conteudo/modelos_regressao_bayes/regressao-glm-hierarquico-apresentacao.html"
     ]
   }
 ]
