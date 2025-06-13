@@ -5,6 +5,127 @@ format:
   html:
     number-sections: false
 
+# Lista 1 - Fundamentos de Programação
+listing:
+  - id: programming-fundamentals
+    contents:
+      - introducao_r.qmd
+      - manipulacao-dados-R.qmd
+      - manipulacao-dados-python.qmd
+    sort: false
+    type: grid
+    fields:
+      - title
+      - subtitle
+      - image
+    categories: false
+
+  # Lista 2 - Estatística descritiva e Probabilidade
+  - id: descriptive-stats
+    contents:
+      - estrutura_dados.qmd
+      - estatistica_descritiva.qmd
+      - medidas_associacao.qmd
+      - amostragem.qmd
+      - distribuicao_normal.qmd
+      - fundamentos_probabilidade.qmd
+    sort: false
+    type: grid
+    fields:
+      - title
+      - subtitle
+      - image
+    categories: false
+
+  # Lista 3 - Inferência Estatística e Teste de hipóteses
+  - id: inference-testing
+    contents:
+      - inferencia_estatistica.qmd
+      - teste_hipoteses.qmd      
+    sort: false
+    type: grid
+    fields:
+      - title
+      - subtitle
+      - image
+    categories: false
+
+  # Lista 4 - Modelos Lineares
+  - id: linear-models
+    contents:
+      - anova.qmd
+      - regressao_linear.qmd
+    sort: false
+    type: grid
+    fields:
+      - title
+      - subtitle
+      - image
+    categories: false
+
+  # Lista 5 - Modelos Bayesianos
+  - id: bayesian-modeling
+    contents:
+      - intro_bayes.qmd
+      - modelos_regressao_bayes.qmd
+    sort: false
+    type: grid
+    fields:
+      - title
+      - subtitle
+      - image
+    categories: false
+  
+  # Lista 6 - Ecologia Numérica
+  - id: numerical-ecology
+    contents:
+      - ecologia-numerica.qmd
+    sort: false
+    type: grid
+    fields:
+      - title
+      - subtitle
+      - image
+    categories: false
+---
+
+## Fundamentos de Programação e Análise de Dados
+
+::: {#programming-fundamentals}
+:::
+
+## Estatística Descritiva e Probabilidade
+
+::: {#descriptive-stats}
+:::
+
+## Inferência Estatística e Teste de hipóteses
+
+::: {#inference-testing}
+:::
+
+## Modelos Lineares
+
+::: {#linear-models}
+:::
+
+## Modelos Bayesianos
+
+::: {#bayesian-modeling}
+:::
+
+## Ecologia Numérica
+
+::: {#numerical-ecology}
+:::
+
+<!-- ---
+slug: home
+weight: 10
+format:
+  html:
+    number-sections: false
+
 listing:
   contents:
     - introducao_r.qmd
@@ -31,6 +152,5 @@ listing:
     # - categories
     # - description
     - image
-  categories: true
----
-
+  categories: false
+--- -->

@@ -1,0 +1,12 @@
+{
+  "hash": "3ad1c258024c7d0bc7453134178aaba8",
+  "result": {
+    "engine": "jupyter",
+    "markdown": "<!-- ---\nslug: home\nweight: 10\nformat:\n  html:\n    number-sections: false\n\nlisting:\n  contents:\n    - introducao_r.qmd\n    - manipulacao-dados-python.qmd\n    - ciencia_dados.qmd\n    - estrutura_dados.qmd\n    - estatistica_descritiva.qmd\n    - medidas_associacao.qmd\n    - amostragem.qmd\n    - distribuicao_normal.qmd\n    - fundamentos_probabilidade.qmd\n    - inferencia_estatistica.qmd\n    - teste_hipoteses.qmd\n    - anova.qmd\n    - regressao_linear.qmd\n    - intro_bayes.qmd\n    - modelos_regressao_bayes.qmd\n    - ecologia-numerica.qmd    \n  sort: false\n  type: grid\n  fields:\n    - title\n    - subtitle\n    # - categories\n    # - description\n    - image\n  categories: true\n--- -->\n\n---\nslug: home\nweight: 10\nformat:\n  html:\n    number-sections: false\n---\n\n\n---\n\n## Tema 1: Introdução à Programação e Manipulação de Dados\n\n\n```{listing}\ncontents:\n  - introducao_r.qmd\n  - manipulacao-dados-python.qmd\n  - ciencia_dados.qmd\n  - estrutura_dados.qmd\nsort: false\ntype: grid\nfields:\n  - title\n  - subtitle\n  - image\ncategories: true\n````\n\n---\n\n## Tema 2: Fundamentos de Estatística e Probabilidade\n\n```{listing}\ncontents:\n  - estatistica_descritiva.qmd\n  - medidas_associacao.qmd\n  - amostragem.qmd\n  - distribuicao_normal.qmd\n  - fundamentos_probabilidade.qmd\nsort: false\ntype: grid\nfields:\n  - title\n  - subtitle\n  - image\ncategories: true\n```\n\n\n---\n\n## Tema 3: Inferência Estatística Clássica\n\n\n```{listing}\ncontents:\n  - inferencia_estatistica.qmd\n  - teste_hipoteses.qmd\n  - anova.qmd\n  - regressao_linear.qmd\nsort: false\ntype: grid\nfields:\n  - title\n  - subtitle\n  - image\ncategories: true\n```\n\n\n---\n\n## Tema 4: Modelagem Estatística e Bayesiana\n\n\n```{listing}\ncontents:\n  - intro_bayes.qmd\n  - modelos_regressao_bayes.qmd\nsort: false\ntype: grid\nfields:\n  - title\n  - subtitle\n  - image\ncategories: true\n```\n\n\n---\n\n## Tema 5: Análises em Ecologia Numérica\n\n\n```{listing}\ncontents:\n  - ecologia-numerica.qmd\nsort: false\ntype: grid\nfields:\n  - title\n  - subtitle\n  - image\ncategories: true\n```\n\n\n```\n\n",
+    "supporting": [
+      "index_files"
+    ],
+    "filters": [],
+    "includes": {}
+  }
+}

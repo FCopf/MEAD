@@ -1,15 +1,15 @@
 ---
-title: "Ciência de Dados em R"
+title: "Manipulação de Dados em R"
 description: "Introdução à ciência de dados em R, incluindo manipulação, transformação e visualização de dados."
 categories: [Programação, R, Aplicações]
-image: "images/ciencia_dados-r.jpg"
+image: "images/manipulacao-dados-R.jpg"
 listing:
   contents: 
-    - conteudo/ciencia_dados/tidyverse.qmd
-    - conteudo/ciencia_dados/import_export.qmd
-    - conteudo/ciencia_dados/pipe.qmd
-    - conteudo/ciencia_dados/transform.qmd
-    - conteudo/ciencia_dados/grafico_ggplot2.qmd
+    - conteudo/manipulacao-dados-R/tidyverse.qmd
+    - conteudo/manipulacao-dados-R/import_export.qmd
+    - conteudo/manipulacao-dados-R/pipe.qmd
+    - conteudo/manipulacao-dados-R/transform.qmd
+    - conteudo/manipulacao-dados-R/grafico_ggplot2.qmd
   sort: false
   type: default
   fields: 

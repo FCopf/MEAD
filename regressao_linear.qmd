@@ -1,5 +1,5 @@
 ---
-title: "Modelo de Regressão linear"
+title: "Modelos de Regressão"
 description: "Relações entre variáveis dependentes e independentes, com foco em previsão e análise de padrões para dados contínuos."
 categories: ["Modelagem", "Inferência", "Previsão", "Testes Estatísticos"]
 image: "images/regressao_linear.jpg"
