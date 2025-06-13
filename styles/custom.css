@@ -38,3 +38,7 @@
   padding-bottom: 6px; /* Espaço abaixo do conteúdo da célula */
   vertical-align: middle; /* Garante alinhamento vertical centralizado */
 }
+
+.navbar-title {
+  color: white;
+}

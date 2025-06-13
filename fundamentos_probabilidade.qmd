@@ -1,5 +1,5 @@
 ---
-title: "Fundamentos de probabilidades"
+title: "Fundamentos de Probabilidades"
 description: "Definição de probabilidade, eventos independentes, probabilidade condicional e Teorema de Bayes."
 categories: [Probabilidade, Fundamentos]
 

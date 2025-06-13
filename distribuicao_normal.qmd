@@ -1,5 +1,5 @@
 ---
-title: "A distribuição normal"
+title: "A Distribuição Normal"
 description: "Modelo, características e usos da distribuição normal."
 categories: [Probabilidade, Modelagem]
 image: "images/distribuicao-normal.png"

@@ -1,5 +1,5 @@
 ---
-title: "Estrutura de dados"
+title: "Estrutura de Dados"
 description: "Fundamentos da estrutura de dados, abordando tipos de variáveis e níveis de mensuração."
 categories: [Programação, R, Fundamentos]
 image: "images/estrutura_dados.jpg"

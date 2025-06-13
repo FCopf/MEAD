@@ -4,7 +4,7 @@ project:
 lang: pt
 
 website:
-  title: "Métodos em Estatística e Análise de Dados"
+  title: "Modelagem Estatística e Análise de Dados"
   description: "Conteúdos introdutórios e intermediários sobre estatística aplicada e análise de dados."
   site-url: "https://github.com/FCopf/MEAD"
 
@@ -13,9 +13,9 @@ website:
 
   # Navbar configuration
   navbar:
-    background: "#3b8170"
+    background: "#032235"
     search: true
-    logo: "images/logo_white.png"
+    logo: "images/MEAD-logo-white-sigla.png"
     right: # Content on the right https://github.com/FCopf/MEADhe navbar
        - icon: github
          href: https://github.com/FCopf/MEAD

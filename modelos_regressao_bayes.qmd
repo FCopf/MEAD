@@ -1,5 +1,5 @@
 ---
-title: "Modelos de regressão bayesianos"
+title: "Modelos de Regressão Bayesianos"
 description: "Introdução aos modelos de regressão com abordagem bayesiana."
 categories: [
       "Regressão",

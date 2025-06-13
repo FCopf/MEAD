@@ -1,5 +1,5 @@
 ---
-title: "Manipulação de dados em Python"
+title: "Manipulação de Dados em Python"
 description: "Fundamentos da estrutura, manipulação e visualização de dados em Python."
 categories: [Programação, Python, Fundamentos]
 image: "images/manipulacao-dados-python.png"

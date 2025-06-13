@@ -1,5 +1,5 @@
 ---
-title: "Introdução à inferência bayesiana"
+title: "Introdução à Inferência Bayesiana"
 description: "Fundamentos da inferência bayesiana."
 categories: [Inferência, Estatística Bayesiana, Modelagem, Probabilidade]
 
