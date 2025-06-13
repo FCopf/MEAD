@@ -6,9 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="description" content="Técnicas de importação e exportação de dados com o pacote readr do Tidyverse, para diversos formatos de arquivo.">
+<meta name="description" content="Pacotes do tidyverse para importação, organização, transformação e visualização de dados em R.">
 
-<title>Importando/Exportando dados – Métodos em Estatística e Análise de Dados</title>
+<title>Os pacotes em tidyverse – Métodos em Estatística e Análise de Dados</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -106,9 +106,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <link rel="stylesheet" href="../../styles/custom.css">
-<meta property="og:title" content="Importando/Exportando dados – Métodos em Estatística e Análise de Dados">
-<meta property="og:description" content="Técnicas de importação e exportação de dados com o pacote readr do Tidyverse, para diversos formatos de arquivo.">
-<meta property="og:image" content="https://github.com/FCopf/MEAD/conteudo/ciencia_dados/images/import_export.jpg">
+<meta property="og:title" content="Os pacotes em tidyverse – Métodos em Estatística e Análise de Dados">
+<meta property="og:description" content="Pacotes do tidyverse para importação, organização, transformação e visualização de dados em R.">
+<meta property="og:image" content="https://github.com/FCopf/MEAD/conteudo/manipulacao-dados-R/images/tidyverse.jpg">
 <meta property="og:site_name" content="Métodos em Estatística e Análise de Dados">
 </head>
 
@@ -153,8 +153,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Nesta página</h2>
    
   <ul>
-  <li><a href="#importando-dados-de-arquivos-texto" id="toc-importando-dados-de-arquivos-texto" class="nav-link active" data-scroll-target="#importando-dados-de-arquivos-texto"><span class="header-section-number">1</span> Importando dados de arquivos texto</a></li>
-  <li><a href="#exportando-um-data-frame" id="toc-exportando-um-data-frame" class="nav-link" data-scroll-target="#exportando-um-data-frame"><span class="header-section-number">2</span> Exportando um data frame</a></li>
+  <li><a href="#instalando-os-pacotes" id="toc-instalando-os-pacotes" class="nav-link active" data-scroll-target="#instalando-os-pacotes"><span class="header-section-number">1</span> Instalando os pacotes</a></li>
+  <li><a href="#carregando-os-pacotes" id="toc-carregando-os-pacotes" class="nav-link" data-scroll-target="#carregando-os-pacotes"><span class="header-section-number">2</span> Carregando os pacotes</a></li>
   </ul>
 </nav>
     </div>
@@ -163,18 +163,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Importando/Exportando dados</h1>
+<h1 class="title">Os pacotes em <code>tidyverse</code></h1>
   <div class="quarto-categories">
     <div class="quarto-category">Ciência de dados</div>
     <div class="quarto-category">R</div>
     <div class="quarto-category">Tidyverse</div>
-    <div class="quarto-category">Importação e exportação de dados</div>
   </div>
   </div>
 
 <div>
   <div class="description">
-    Técnicas de importação e exportação de dados com o pacote <code>readr</code> do Tidyverse, para diversos formatos de arquivo.
+    Pacotes do <code>tidyverse</code> para importação, organização, transformação e visualização de dados em R.
   </div>
 </div>
 
@@ -191,71 +190,85 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>O pacote responsável pela importação de dados no <code>tidyverse</code> é o <code>readr</code>. Este pacote permite importar arquivos de texto nos formatos <code>.csv</code> ou <code>.txt</code>.</p>
-<p>Existem diversas funções no pacote <code>readr</code>(veja <a href="https://readr.tidyverse.org/index.html">aqui</a>). A função <code>read_csv()</code> importa arquivos texto em que as colunas são separadas por <em>vírgulas</em>. A função <code>read_tsv()</code> importa arquivos texto em que as colunas são separadas por <em>tabulações</em>.</p>
-<section id="importando-dados-de-arquivos-texto" class="level2" data-number="1">
-<h2 data-number="1" class="anchored" data-anchor-id="importando-dados-de-arquivos-texto"><span class="header-section-number">1</span> Importando dados de arquivos texto</h2>
-<p>A função <code>read_delim()</code> oferece mais controle sobre o tipo de delimitador de colunas (<em>vírgulas</em>, <em>tabulações</em>, <em>ponto-e-vírgula</em>, entre outros) ou o identificador decimal (<em>vírgulas</em> ou <em>ponto</em>).</p>
-<p>Carrege o pacote <code>readr</code> e importe o arquivo <code>Reservatorios_Parana_parcial.csv</code> disponível no repositório <a href="https://github.com/FCopf/datasets">datasets</a> do <i class="bi bi-github"></i>. É possível importar o arquivo diretamente do repositório:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>res <span class="ot">=</span> <span class="fu">read_delim</span>(<span class="at">file =</span> <span class="st">"https://raw.githubusercontent.com/FCopf/datasets/refs/heads/main/Reservatorios_Parana_parcial.csv"</span>,</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>                  <span class="at">delim =</span> <span class="st">','</span>,</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>                  <span class="at">locale =</span> <span class="fu">locale</span>(<span class="at">decimal_mark =</span> <span class="st">'.'</span>,</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>                                  <span class="at">encoding =</span> <span class="st">'latin1'</span>))</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="callout callout-style-default callout-note callout-titled">
+<p>O <a href="https://www.tidyverse.org/">Tidyverse</a> é uma coleção de pacotes em R projetados para ciência de dados que inclui ferramentas para <strong>importar</strong>, <strong>arrumar</strong>, <strong>transformar</strong>, <strong>visualizar</strong> e <strong>modelar dados</strong>, todas integradas de forma coesa para tornar a análise de dados mais eficiente e intuitiva. O Tidyverse facilita a prática de uma ciência de dados mais limpa, clara e reproduzível. Entre os pacotes mais populares do Tidyverse estão <code>ggplot2</code> para visualização de dados, <code>dplyr</code> para manipulação de dados e <code>tidyr</code> para arrumação de dados.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Pacote</th>
+<th>Função</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>readr</code></td>
+<td>Importação de dados</td>
+</tr>
+<tr class="even">
+<td><code>dplyr</code></td>
+<td>Manipulação de dados</td>
+</tr>
+<tr class="odd">
+<td><code>tidyr</code></td>
+<td>Organização de dados</td>
+</tr>
+<tr class="even">
+<td><code>purrr</code></td>
+<td>Programação funcional</td>
+</tr>
+<tr class="odd">
+<td><code>tibble</code></td>
+<td>Visualização de data frames</td>
+</tr>
+<tr class="even">
+<td><code>stringr</code></td>
+<td>Manipulação de texto</td>
+</tr>
+<tr class="odd">
+<td><code>forcats</code></td>
+<td>Manipulação de fatores</td>
+</tr>
+<tr class="even">
+<td><code>ggplot2</code></td>
+<td>Visualização gráfica</td>
+</tr>
+</tbody>
+</table>
+<p>Além destes existem ainda outros que se integram bem à filosofia do <code>tidyverse</code> como o <code>lubridade</code> (manipulação de datas), o <code>readxl</code> (leitura de arquivos <code>.xls</code> e <code>.xlsx</code>), além de muitos outros. Veremos algumas funções e práticas úteis utilizando estes pacotes. Para uma visão geral de cada pacote, verifique as <a href="https://rstudio.com/resources/cheatsheets/">Cheatsheets</a> que oferecem um resumo sobre as funções principais.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Nota
+R for Data Science (2e)
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Se optar por fazer o download do arquivo, basta acessar pelo link (<a href="https://raw.githubusercontent.com/FCopf/datasets/refs/heads/main/Reservatorios_Parana_parcial.csv">Reservatorios_Parana_parcial.csv</a>), salvá-lo em seu diretório de trabalho e importar com o comando:</p>
+<p>Para uma fundamentação sobre as ferramentas mais importantes para tratamento de dados no R accesse a publicação <a href="https://r4ds.hadley.nz/">R for Data Science (2e)</a>.</p>
+</div>
+</div>
+<section id="instalando-os-pacotes" class="level2" data-number="1">
+<h2 data-number="1" class="anchored" data-anchor-id="instalando-os-pacotes"><span class="header-section-number">1</span> Instalando os pacotes</h2>
+<p>Cada um dos pacotes incorporados no <code>tidyverse</code> pode ser instalado individualmente. Por exemplo:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>res <span class="ot">=</span> <span class="fu">read_delim</span>(<span class="at">file =</span> <span class="st">"Reservatorios_Parana_parcial.csv.csv"</span>, <span class="at">delim =</span> <span class="st">","</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"dplyr"</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"ggplot2"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</div>
-</div>
-<p>Verifique o objeto importado.</p>
+<p>Entretando, ao instalar o <code>tidyverse</code>, todos são instalados de uma única vez:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>res</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 31 × 11
-   Reservatorio Bacia  Fechamento   Area Trofia    pH Condutividade Alcalinidade
-   &lt;chr&gt;        &lt;chr&gt;       &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt;  &lt;dbl&gt;         &lt;dbl&gt;        &lt;dbl&gt;
- 1 Cavernoso    Iguacu       1965   2.9  Oligo…   7.4          33.1        140. 
- 2 Curucaca     Iguacu       1982   2    Oligo…   7            32.4        126. 
- 3 Foz do Areia Iguacu       1980 139    Oligo…   7.3          35.5         97  
- 4 Irai         Iguacu       2000  15    EutrÃ…   6.9          50.2          3.3
- 5 JMF          Iguacu       1970   0.45 Mesot…   7.3          40.2          3.7
- 6 Jordao       Iguacu       1996   3.4  Oligo…   7.1          23.7        153. 
- 7 Passauna     Iguacu       1978  14    Oligo…   8.8         126.         526  
- 8 Piraquara    Iguacu       1979   3.3  Oligo…   7.1          22.8         50.7
- 9 Salto Caxias Iguacu       1998 124    Oligo…   7.3          39.6        106  
-10 Salto do Vau Iguacu       1959   2.9  Oligo…   6.5          23.2        279  
-# ℹ 21 more rows
-# ℹ 3 more variables: P.total &lt;dbl&gt;, Riqueza &lt;dbl&gt;, CPUE &lt;dbl&gt;</code></pre>
-</div>
-</div>
-<p>O objeto é do tipo <code>tibble</code> com 31 linhas por 11 colunas. Uma <a href="https://tibble.tidyverse.org/">tibble</a> é uma versão moderna do data.frame que preserva aspectos eficazes para manipulação, visualização e transformação de dados.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(res)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "spec_tbl_df" "tbl_df"      "tbl"         "data.frame" </code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"tidyverse"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="exportando-um-data-frame" class="level2" data-number="2">
-<h2 data-number="2" class="anchored" data-anchor-id="exportando-um-data-frame"><span class="header-section-number">2</span> Exportando um data frame</h2>
-<p>A função para exportar data frames no pacote <code>readr</code> é <code>write_delim()</code> e outras funções análogas. Para exportar uma parte do data frame utiliza-se o comando:</p>
+<section id="carregando-os-pacotes" class="level2" data-number="2">
+<h2 data-number="2" class="anchored" data-anchor-id="carregando-os-pacotes"><span class="header-section-number">2</span> Carregando os pacotes</h2>
+<p>Ao iniciar uma seção, você deve sempre carregar os pacotes que irá utilizar. No caso do <code>tidyverse</code>, você pode carregar cada pacote individualmente:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_delim</span>(res[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="dv">3</span><span class="sc">:</span><span class="dv">5</span>],</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>            <span class="at">file =</span> <span class="st">"Reservatorios_Parana_parcial.csv"</span>, </span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">delim =</span> <span class="st">','</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Ou todos de uma única vez:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 

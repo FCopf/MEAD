@@ -72,7 +72,7 @@ ul.task-list li input[type="checkbox"] {
 <script>
 
   window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-listing .list');
+    const listingTargetEl = window.document.querySelector('#listing-programming-fundamentals .list');
     if (!listingTargetEl) {
       // No listing discovered, do not attach.
       return; 
@@ -81,11 +81,151 @@ ul.task-list li input[type="checkbox"] {
     const options = {
       valueNames: ['listing-title','listing-subtitle','listing-image',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
       
-      searchColumns: ["listing-title","listing-author","listing-image","listing-description","listing-categories"],
+      searchColumns: ["listing-title","listing-author","listing-image","listing-description"],
     };
 
     window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
+    window['quarto-listings']['listing-programming-fundamentals'] = new List('listing-programming-fundamentals', options);
+
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  });
+
+  window.addEventListener('hashchange',() => {
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  })
+  
+
+  window.document.addEventListener("DOMContentLoaded", function (_event) {
+    const listingTargetEl = window.document.querySelector('#listing-descriptive-stats .list');
+    if (!listingTargetEl) {
+      // No listing discovered, do not attach.
+      return; 
+    }
+
+    const options = {
+      valueNames: ['listing-title','listing-subtitle','listing-image',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
+      
+      searchColumns: ["listing-title","listing-author","listing-image","listing-description"],
+    };
+
+    window['quarto-listings'] = window['quarto-listings'] || {};
+    window['quarto-listings']['listing-descriptive-stats'] = new List('listing-descriptive-stats', options);
+
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  });
+
+  window.addEventListener('hashchange',() => {
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  })
+  
+
+  window.document.addEventListener("DOMContentLoaded", function (_event) {
+    const listingTargetEl = window.document.querySelector('#listing-inference-testing .list');
+    if (!listingTargetEl) {
+      // No listing discovered, do not attach.
+      return; 
+    }
+
+    const options = {
+      valueNames: ['listing-title','listing-subtitle','listing-image',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
+      
+      searchColumns: ["listing-title","listing-author","listing-image","listing-description"],
+    };
+
+    window['quarto-listings'] = window['quarto-listings'] || {};
+    window['quarto-listings']['listing-inference-testing'] = new List('listing-inference-testing', options);
+
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  });
+
+  window.addEventListener('hashchange',() => {
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  })
+  
+
+  window.document.addEventListener("DOMContentLoaded", function (_event) {
+    const listingTargetEl = window.document.querySelector('#listing-linear-models .list');
+    if (!listingTargetEl) {
+      // No listing discovered, do not attach.
+      return; 
+    }
+
+    const options = {
+      valueNames: ['listing-title','listing-subtitle','listing-image',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
+      
+      searchColumns: ["listing-title","listing-author","listing-image","listing-description"],
+    };
+
+    window['quarto-listings'] = window['quarto-listings'] || {};
+    window['quarto-listings']['listing-linear-models'] = new List('listing-linear-models', options);
+
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  });
+
+  window.addEventListener('hashchange',() => {
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  })
+  
+
+  window.document.addEventListener("DOMContentLoaded", function (_event) {
+    const listingTargetEl = window.document.querySelector('#listing-bayesian-modeling .list');
+    if (!listingTargetEl) {
+      // No listing discovered, do not attach.
+      return; 
+    }
+
+    const options = {
+      valueNames: ['listing-title','listing-subtitle','listing-image',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
+      
+      searchColumns: ["listing-title","listing-author","listing-image","listing-description"],
+    };
+
+    window['quarto-listings'] = window['quarto-listings'] || {};
+    window['quarto-listings']['listing-bayesian-modeling'] = new List('listing-bayesian-modeling', options);
+
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  });
+
+  window.addEventListener('hashchange',() => {
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  })
+  
+
+  window.document.addEventListener("DOMContentLoaded", function (_event) {
+    const listingTargetEl = window.document.querySelector('#listing-numerical-ecology .list');
+    if (!listingTargetEl) {
+      // No listing discovered, do not attach.
+      return; 
+    }
+
+    const options = {
+      valueNames: ['listing-title','listing-subtitle','listing-image',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
+      
+      searchColumns: ["listing-title","listing-author","listing-image","listing-description"],
+    };
+
+    window['quarto-listings'] = window['quarto-listings'] || {};
+    window['quarto-listings']['listing-numerical-ecology'] = new List('listing-numerical-ecology', options);
 
     if (window['quarto-listing-loaded']) {
       window['quarto-listing-loaded']();
@@ -172,21 +312,30 @@ window.Quarto = {
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
-    <h5 class="quarto-listing-category-title">Categorias</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">Tudo <span class="quarto-category-count">(16)</span></div><div class="category" data-category="QWdydXBhbWVudG8=">Agrupamento <span class="quarto-category-count">(1)</span></div><div class="category" data-category="QW4lQzMlQTFsaXNlJTIwbXVsdGl2YXJpYWRh">Análise multivariada <span class="quarto-category-count">(1)</span></div><div class="category" data-category="QXBsaWNhJUMzJUE3JUMzJUI1ZXM=">Aplicações <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Q29ycmVsYSVDMyVBNyVDMyVBM28=">Correlação <span class="quarto-category-count">(1)</span></div><div class="category" data-category="RGVwZW5kJUMzJUFBbmNpYQ==">Dependência <span class="quarto-category-count">(1)</span></div><div class="category" data-category="RGlzdCVDMyVBMm5jaWElMjBlY29sJUMzJUIzZ2ljYQ==">Distância ecológica <span class="quarto-category-count">(1)</span></div><div class="category" data-category="RGlzdHJpYnVpJUMzJUE3JUMzJUEzbyUyMGElMjBwcmlvcmk=">Distribuição a priori <span class="quarto-category-count">(1)</span></div><div class="category" data-category="RGlzdHJpYnVpJUMzJUE3JUMzJUEzbyUyMHBvc3Rlcmlvcg==">Distribuição posterior <span class="quarto-category-count">(1)</span></div><div class="category" data-category="RXN0YXQlQzMlQURzdGljYSUyMEIlQzMlQTFzaWNh">Estatística Básica <span class="quarto-category-count">(2)</span></div><div class="category" data-category="RXN0YXQlQzMlQURzdGljYSUyMEJheWVzaWFuYQ==">Estatística Bayesiana <span class="quarto-category-count">(1)</span></div><div class="category" data-category="RXhwbG9yYSVDMyVBNyVDMyVBM28lMjBkZSUyMERhZG9z">Exploração de Dados <span class="quarto-category-count">(1)</span></div><div class="category" data-category="RnVuZGFtZW50b3M=">Fundamentos <span class="quarto-category-count">(5)</span></div><div class="category" data-category="SW5mZXIlQzMlQUFuY2lh">Inferência <span class="quarto-category-count">(5)</span></div><div class="category" data-category="SW5mZXIlQzMlQUFuY2lhJTIwYmF5ZXNpYW5h">Inferência bayesiana <span class="quarto-category-count">(1)</span></div><div class="category" data-category="TW9kZWxhZ2Vt">Modelagem <span class="quarto-category-count">(3)</span></div><div class="category" data-category="TW9kZWxvcw==">Modelos <span class="quarto-category-count">(1)</span></div><div class="category" data-category="T3JkZW5hJUMzJUE3JUMzJUEzbw==">Ordenação <span class="quarto-category-count">(1)</span></div><div class="category" data-category="UGxhbmVqYW1lbnRvJTIwZGUlMjBFc3R1ZG9z">Planejamento de Estudos <span class="quarto-category-count">(1)</span></div><div class="category" data-category="UHJldmlzJUMzJUEzbw==">Previsão <span class="quarto-category-count">(1)</span></div><div class="category" data-category="UHJvYmFiaWxpZGFkZQ==">Probabilidade <span class="quarto-category-count">(4)</span></div><div class="category" data-category="UHJvZ3JhbWElQzMlQTclQzMlQTNv">Programação <span class="quarto-category-count">(4)</span></div><div class="category" data-category="UHl0aG9u">Python <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Ug==">R <span class="quarto-category-count">(3)</span></div><div class="category" data-category="UmFuZG9taXphJUMzJUE3JUMzJUEzbw==">Randomização <span class="quarto-category-count">(1)</span></div><div class="category" data-category="UmVncmVzcyVDMyVBM28=">Regressão <span class="quarto-category-count">(1)</span></div><div class="category" data-category="VGVzdGVzJTIwRXN0YXQlQzMlQURzdGljb3M=">Testes Estatísticos <span class="quarto-category-count">(3)</span></div><div class="category" data-category="VmlzdWFsaXphJUMzJUE3JUMzJUEzbyUyMGRlJTIwRGFkb3M=">Visualização de Dados <span class="quarto-category-count">(1)</span></div></div></div>
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Nesta página</h2>
+   
+  <ul>
+  <li><a href="#fundamentos-de-programação-e-análise-de-dados" id="toc-fundamentos-de-programação-e-análise-de-dados" class="nav-link active" data-scroll-target="#fundamentos-de-programação-e-análise-de-dados">Fundamentos de Programação e Análise de Dados</a></li>
+  <li><a href="#estatística-descritiva-e-probabilidade" id="toc-estatística-descritiva-e-probabilidade" class="nav-link" data-scroll-target="#estatística-descritiva-e-probabilidade">Estatística Descritiva e Probabilidade</a></li>
+  <li><a href="#inferência-estatística-e-teste-de-hipóteses" id="toc-inferência-estatística-e-teste-de-hipóteses" class="nav-link" data-scroll-target="#inferência-estatística-e-teste-de-hipóteses">Inferência Estatística e Teste de hipóteses</a></li>
+  <li><a href="#modelos-lineares" id="toc-modelos-lineares" class="nav-link" data-scroll-target="#modelos-lineares">Modelos Lineares</a></li>
+  <li><a href="#modelos-bayesianos" id="toc-modelos-bayesianos" class="nav-link" data-scroll-target="#modelos-bayesianos">Modelos Bayesianos</a></li>
+  <li><a href="#ecologia-numérica" id="toc-ecologia-numérica" class="nav-link" data-scroll-target="#ecologia-numérica">Ecologia Numérica</a></li>
+  </ul>
+</nav>
+    </div>
 <!-- main -->
 <main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
 
 
 
 
-
-
-
-
-<div class="quarto-listing quarto-listing-container-grid" id="listing-listing">
+<section id="fundamentos-de-programação-e-análise-de-dados" class="level2">
+<h2 class="anchored" data-anchor-id="fundamentos-de-programação-e-análise-de-dados">Fundamentos de Programação e Análise de Dados</h2>
+<div id="listing-programming-fundamentals" class="quarto-listing quarto-listing-container-grid">
 <div class="list grid quarto-listing-cols-3">
-<div class="g-col-1" data-index="0" data-categories="UHJvZ3JhbWElQzMlQTclQzMlQTNvJTJDUiUyQ0Z1bmRhbWVudG9z" data-listing-file-modified-sort="1749649323156" data-listing-reading-time-sort="1" data-listing-word-count-sort="1">
+<div class="g-col-1" data-index="0" data-categories="UHJvZ3JhbWElQzMlQTclQzMlQTNvJTJDUiUyQ0Z1bmRhbWVudG9z" data-listing-file-modified-sort="1749817868524" data-listing-reading-time-sort="1" data-listing-word-count-sort="1">
 <a href="./introducao_r.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
 <p class="card-img-top">
@@ -199,7 +348,20 @@ Introdução ao R
 </div>
 </div></a>
 </div>
-<div class="g-col-1" data-index="1" data-categories="UHJvZ3JhbWElQzMlQTclQzMlQTNvJTJDUHl0aG9uJTJDRnVuZGFtZW50b3M=" data-listing-file-modified-sort="1749649323156" data-listing-reading-time-sort="1" data-listing-word-count-sort="1">
+<div class="g-col-1" data-index="1" data-categories="UHJvZ3JhbWElQzMlQTclQzMlQTNvJTJDUiUyQ0FwbGljYSVDMyVBNyVDMyVCNWVz" data-listing-file-modified-sort="1749817868524" data-listing-reading-time-sort="1" data-listing-word-count-sort="1">
+<a href="./manipulacao-dados-R.html" class="quarto-grid-link">
+<div class="quarto-grid-item card h-100 card-left">
+<p class="card-img-top">
+<img loading="lazy" src="./images/manipulacao-dados-R.jpg" class="thumbnail-image card-img" style="height: 150px;">
+</p>
+<div class="card-body post-contents">
+<h5 class="no-anchor card-title listing-title">
+Manipulação de Dados em R
+</h5>
+</div>
+</div></a>
+</div>
+<div class="g-col-1" data-index="2" data-categories="UHJvZ3JhbWElQzMlQTclQzMlQTNvJTJDUHl0aG9uJTJDRnVuZGFtZW50b3M=" data-listing-file-modified-sort="1749817868524" data-listing-reading-time-sort="1" data-listing-word-count-sort="1">
 <a href="./manipulacao-dados-python.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
 <p class="card-img-top">
@@ -212,20 +374,15 @@ Manipulação de dados em Python
 </div>
 </div></a>
 </div>
-<div class="g-col-1" data-index="2" data-categories="UHJvZ3JhbWElQzMlQTclQzMlQTNvJTJDUiUyQ0FwbGljYSVDMyVBNyVDMyVCNWVz" data-listing-file-modified-sort="1749649322917" data-listing-reading-time-sort="1" data-listing-word-count-sort="1">
-<a href="./ciencia_dados.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
-<p class="card-img-top">
-<img loading="lazy" src="./images/ciencia_dados-r.jpg" class="thumbnail-image card-img" style="height: 150px;">
-</p>
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-Ciência de Dados em R
-</h5>
 </div>
-</div></a>
+<div class="listing-no-matching d-none">Nenhum item correspondente</div>
 </div>
-<div class="g-col-1" data-index="3" data-categories="UHJvZ3JhbWElQzMlQTclQzMlQTNvJTJDUiUyQ0Z1bmRhbWVudG9z" data-listing-file-modified-sort="1749649323117" data-listing-reading-time-sort="1" data-listing-word-count-sort="1">
+</section>
+<section id="estatística-descritiva-e-probabilidade" class="level2">
+<h2 class="anchored" data-anchor-id="estatística-descritiva-e-probabilidade">Estatística Descritiva e Probabilidade</h2>
+<div id="listing-descriptive-stats" class="quarto-listing quarto-listing-container-grid">
+<div class="list grid quarto-listing-cols-3">
+<div class="g-col-1" data-index="0" data-categories="UHJvZ3JhbWElQzMlQTclQzMlQTNvJTJDUiUyQ0Z1bmRhbWVudG9z" data-listing-file-modified-sort="1749817868484" data-listing-reading-time-sort="1" data-listing-word-count-sort="1">
 <a href="./estrutura_dados.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
 <p class="card-img-top">
@@ -238,7 +395,7 @@ Estrutura de dados
 </div>
 </div></a>
 </div>
-<div class="g-col-1" data-index="4" data-categories="RXN0YXQlQzMlQURzdGljYSUyMEIlQzMlQTFzaWNhJTJDRXhwbG9yYSVDMyVBNyVDMyVBM28lMjBkZSUyMERhZG9zJTJDVmlzdWFsaXphJUMzJUE3JUMzJUEzbyUyMGRlJTIwRGFkb3M=" data-listing-file-modified-sort="1749649323117" data-listing-reading-time-sort="1" data-listing-word-count-sort="1">
+<div class="g-col-1" data-index="1" data-categories="RXN0YXQlQzMlQURzdGljYSUyMEIlQzMlQTFzaWNhJTJDRXhwbG9yYSVDMyVBNyVDMyVBM28lMjBkZSUyMERhZG9zJTJDVmlzdWFsaXphJUMzJUE3JUMzJUEzbyUyMGRlJTIwRGFkb3M=" data-listing-file-modified-sort="1749817868484" data-listing-reading-time-sort="1" data-listing-word-count-sort="1">
 <a href="./estatistica_descritiva.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
 <p class="card-img-top">
@@ -251,7 +408,7 @@ Estatística descritiva
 </div>
 </div></a>
 </div>
-<div class="g-col-1" data-index="5" data-categories="RXN0YXQlQzMlQURzdGljYSUyMEIlQzMlQTFzaWNhJTJDQ29ycmVsYSVDMyVBNyVDMyVBM28lMkNEZXBlbmQlQzMlQUFuY2lh" data-listing-file-modified-sort="1749649323156" data-listing-reading-time-sort="1" data-listing-word-count-sort="1">
+<div class="g-col-1" data-index="2" data-categories="RXN0YXQlQzMlQURzdGljYSUyMEIlQzMlQTFzaWNhJTJDQ29ycmVsYSVDMyVBNyVDMyVBM28lMkNEZXBlbmQlQzMlQUFuY2lh" data-listing-file-modified-sort="1749817868524" data-listing-reading-time-sort="1" data-listing-word-count-sort="1">
 <a href="./medidas_associacao.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
 <p class="card-img-top">
@@ -264,7 +421,7 @@ Medidas de associação
 </div>
 </div></a>
 </div>
-<div class="g-col-1" data-index="6" data-categories="RnVuZGFtZW50b3MlMkNQbGFuZWphbWVudG8lMjBkZSUyMEVzdHVkb3M=" data-listing-file-modified-sort="1749649322917" data-listing-reading-time-sort="1" data-listing-word-count-sort="1">
+<div class="g-col-1" data-index="3" data-categories="RnVuZGFtZW50b3MlMkNQbGFuZWphbWVudG8lMjBkZSUyMEVzdHVkb3M=" data-listing-file-modified-sort="1749817868283" data-listing-reading-time-sort="1" data-listing-word-count-sort="1">
 <a href="./amostragem.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
 <p class="card-img-top">
@@ -277,7 +434,7 @@ Amostragem
 </div>
 </div></a>
 </div>
-<div class="g-col-1" data-index="7" data-categories="UHJvYmFiaWxpZGFkZSUyQ01vZGVsYWdlbQ==" data-listing-file-modified-sort="1749649323117" data-listing-reading-time-sort="1" data-listing-word-count-sort="1">
+<div class="g-col-1" data-index="4" data-categories="UHJvYmFiaWxpZGFkZSUyQ01vZGVsYWdlbQ==" data-listing-file-modified-sort="1749817868484" data-listing-reading-time-sort="1" data-listing-word-count-sort="1">
 <a href="./distribuicao_normal.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
 <p class="card-img-top">
@@ -290,7 +447,7 @@ A distribuição normal
 </div>
 </div></a>
 </div>
-<div class="g-col-1" data-index="8" data-categories="UHJvYmFiaWxpZGFkZSUyQ0Z1bmRhbWVudG9z" data-listing-file-modified-sort="1749649323117" data-listing-reading-time-sort="1" data-listing-word-count-sort="1">
+<div class="g-col-1" data-index="5" data-categories="UHJvYmFiaWxpZGFkZSUyQ0Z1bmRhbWVudG9z" data-listing-file-modified-sort="1749817868484" data-listing-reading-time-sort="1" data-listing-word-count-sort="1">
 <a href="./fundamentos_probabilidade.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
 <p class="card-img-top">
@@ -303,7 +460,15 @@ Fundamentos de probabilidades
 </div>
 </div></a>
 </div>
-<div class="g-col-1" data-index="9" data-categories="SW5mZXIlQzMlQUFuY2lhJTJDUHJvYmFiaWxpZGFkZQ==" data-listing-file-modified-sort="1749649323156" data-listing-reading-time-sort="1" data-listing-word-count-sort="1">
+</div>
+<div class="listing-no-matching d-none">Nenhum item correspondente</div>
+</div>
+</section>
+<section id="inferência-estatística-e-teste-de-hipóteses" class="level2">
+<h2 class="anchored" data-anchor-id="inferência-estatística-e-teste-de-hipóteses">Inferência Estatística e Teste de hipóteses</h2>
+<div id="listing-inference-testing" class="quarto-listing quarto-listing-container-grid">
+<div class="list grid quarto-listing-cols-3">
+<div class="g-col-1" data-index="0" data-categories="SW5mZXIlQzMlQUFuY2lhJTJDUHJvYmFiaWxpZGFkZQ==" data-listing-file-modified-sort="1749817868523" data-listing-reading-time-sort="1" data-listing-word-count-sort="1">
 <a href="./inferencia_estatistica.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
 <p class="card-img-top">
@@ -316,7 +481,7 @@ Inferência estatística
 </div>
 </div></a>
 </div>
-<div class="g-col-1" data-index="10" data-categories="SW5mZXIlQzMlQUFuY2lhJTJDVGVzdGVzJTIwRXN0YXQlQzMlQURzdGljb3M=" data-listing-file-modified-sort="1749649323158" data-listing-reading-time-sort="1" data-listing-word-count-sort="1">
+<div class="g-col-1" data-index="1" data-categories="SW5mZXIlQzMlQUFuY2lhJTJDVGVzdGVzJTIwRXN0YXQlQzMlQURzdGljb3M=" data-listing-file-modified-sort="1749817868525" data-listing-reading-time-sort="1" data-listing-word-count-sort="1">
 <a href="./teste_hipoteses.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
 <p class="card-img-top">
@@ -329,7 +494,15 @@ Teste de hipóteses
 </div>
 </div></a>
 </div>
-<div class="g-col-1" data-index="11" data-categories="SW5mZXIlQzMlQUFuY2lhJTJDVGVzdGVzJTIwRXN0YXQlQzMlQURzdGljb3MlMkNNb2RlbG9z" data-listing-file-modified-sort="1749649322917" data-listing-reading-time-sort="1" data-listing-word-count-sort="1">
+</div>
+<div class="listing-no-matching d-none">Nenhum item correspondente</div>
+</div>
+</section>
+<section id="modelos-lineares" class="level2">
+<h2 class="anchored" data-anchor-id="modelos-lineares">Modelos Lineares</h2>
+<div id="listing-linear-models" class="quarto-listing quarto-listing-container-grid">
+<div class="list grid quarto-listing-cols-3">
+<div class="g-col-1" data-index="0" data-categories="SW5mZXIlQzMlQUFuY2lhJTJDVGVzdGVzJTIwRXN0YXQlQzMlQURzdGljb3MlMkNNb2RlbG9z" data-listing-file-modified-sort="1749817868283" data-listing-reading-time-sort="1" data-listing-word-count-sort="1">
 <a href="./anova.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
 <p class="card-img-top">
@@ -342,7 +515,7 @@ Análise de variância
 </div>
 </div></a>
 </div>
-<div class="g-col-1" data-index="12" data-categories="TW9kZWxhZ2VtJTJDSW5mZXIlQzMlQUFuY2lhJTJDUHJldmlzJUMzJUEzbyUyQ1Rlc3RlcyUyMEVzdGF0JUMzJUFEc3RpY29z" data-listing-file-modified-sort="1749649323156" data-listing-reading-time-sort="1" data-listing-word-count-sort="1">
+<div class="g-col-1" data-index="1" data-categories="TW9kZWxhZ2VtJTJDSW5mZXIlQzMlQUFuY2lhJTJDUHJldmlzJUMzJUEzbyUyQ1Rlc3RlcyUyMEVzdGF0JUMzJUFEc3RpY29z" data-listing-file-modified-sort="1749817868524" data-listing-reading-time-sort="1" data-listing-word-count-sort="1">
 <a href="./regressao_linear.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
 <p class="card-img-top">
@@ -350,12 +523,20 @@ Análise de variância
 </p>
 <div class="card-body post-contents">
 <h5 class="no-anchor card-title listing-title">
-Modelo de Regressão linear
+Modelos de Regressão
 </h5>
 </div>
 </div></a>
 </div>
-<div class="g-col-1" data-index="13" data-categories="SW5mZXIlQzMlQUFuY2lhJTJDRXN0YXQlQzMlQURzdGljYSUyMEJheWVzaWFuYSUyQ01vZGVsYWdlbSUyQ1Byb2JhYmlsaWRhZGU=" data-listing-file-modified-sort="1749649323156" data-listing-reading-time-sort="1" data-listing-word-count-sort="1">
+</div>
+<div class="listing-no-matching d-none">Nenhum item correspondente</div>
+</div>
+</section>
+<section id="modelos-bayesianos" class="level2">
+<h2 class="anchored" data-anchor-id="modelos-bayesianos">Modelos Bayesianos</h2>
+<div id="listing-bayesian-modeling" class="quarto-listing quarto-listing-container-grid">
+<div class="list grid quarto-listing-cols-3">
+<div class="g-col-1" data-index="0" data-categories="SW5mZXIlQzMlQUFuY2lhJTJDRXN0YXQlQzMlQURzdGljYSUyMEJheWVzaWFuYSUyQ01vZGVsYWdlbSUyQ1Byb2JhYmlsaWRhZGU=" data-listing-file-modified-sort="1749817868524" data-listing-reading-time-sort="1" data-listing-word-count-sort="1">
 <a href="./intro_bayes.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
 <p class="card-img-top">
@@ -368,7 +549,7 @@ Introdução à inferência bayesiana
 </div>
 </div></a>
 </div>
-<div class="g-col-1" data-index="14" data-categories="UmVncmVzcyVDMyVBM28lMkNJbmZlciVDMyVBQW5jaWElMjBiYXllc2lhbmElMkNEaXN0cmlidWklQzMlQTclQzMlQTNvJTIwYSUyMHByaW9yaSUyQ0Rpc3RyaWJ1aSVDMyVBNyVDMyVBM28lMjBwb3N0ZXJpb3I=" data-listing-file-modified-sort="1749649323156" data-listing-reading-time-sort="1" data-listing-word-count-sort="1">
+<div class="g-col-1" data-index="1" data-categories="UmVncmVzcyVDMyVBM28lMkNJbmZlciVDMyVBQW5jaWElMjBiYXllc2lhbmElMkNEaXN0cmlidWklQzMlQTclQzMlQTNvJTIwYSUyMHByaW9yaSUyQ0Rpc3RyaWJ1aSVDMyVBNyVDMyVBM28lMjBwb3N0ZXJpb3I=" data-listing-file-modified-sort="1749817868524" data-listing-reading-time-sort="1" data-listing-word-count-sort="1">
 <a href="./modelos_regressao_bayes.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
 <p class="card-img-top">
@@ -381,7 +562,15 @@ Modelos de regressão bayesianos
 </div>
 </div></a>
 </div>
-<div class="g-col-1" data-index="15" data-categories="QW4lQzMlQTFsaXNlJTIwbXVsdGl2YXJpYWRhJTJDT3JkZW5hJUMzJUE3JUMzJUEzbyUyQ0FncnVwYW1lbnRvJTJDUmFuZG9taXphJUMzJUE3JUMzJUEzbyUyQ0Rpc3QlQzMlQTJuY2lhJTIwZWNvbCVDMyVCM2dpY2E=" data-listing-file-modified-sort="1749649323117" data-listing-reading-time-sort="1" data-listing-word-count-sort="1">
+</div>
+<div class="listing-no-matching d-none">Nenhum item correspondente</div>
+</div>
+</section>
+<section id="ecologia-numérica" class="level2">
+<h2 class="anchored" data-anchor-id="ecologia-numérica">Ecologia Numérica</h2>
+<div id="listing-numerical-ecology" class="quarto-listing quarto-listing-container-grid">
+<div class="list grid quarto-listing-cols-3">
+<div class="g-col-1" data-index="0" data-categories="QW4lQzMlQTFsaXNlJTIwbXVsdGl2YXJpYWRhJTJDT3JkZW5hJUMzJUE3JUMzJUEzbyUyQ0FncnVwYW1lbnRvJTJDUmFuZG9taXphJUMzJUE3JUMzJUEzbyUyQ0Rpc3QlQzMlQTJuY2lhJTIwZWNvbCVDMyVCM2dpY2E=" data-listing-file-modified-sort="1749817868484" data-listing-reading-time-sort="1" data-listing-word-count-sort="1">
 <a href="./ecologia-numerica.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
 <p class="card-img-top">
@@ -396,7 +585,48 @@ Introdução à Ecologia Numérica
 </div>
 </div>
 <div class="listing-no-matching d-none">Nenhum item correspondente</div>
-</div></main> <!-- /main -->
+</div>
+<!-- ---
+slug: home
+weight: 10
+format:
+  html:
+    number-sections: false
+
+listing:
+  contents:
+    - introducao_r.qmd
+    - manipulacao-dados-python.qmd
+    - ciencia_dados.qmd
+    - estrutura_dados.qmd
+    - estatistica_descritiva.qmd
+    - medidas_associacao.qmd
+    - amostragem.qmd
+    - distribuicao_normal.qmd
+    - fundamentos_probabilidade.qmd
+    - inferencia_estatistica.qmd
+    - teste_hipoteses.qmd
+    - anova.qmd
+    - regressao_linear.qmd
+    - intro_bayes.qmd
+    - modelos_regressao_bayes.qmd
+    - ecologia-numerica.qmd    
+  sort: false
+  type: grid
+  fields:
+    - title
+    - subtitle
+    # - categories
+    # - description
+    - image
+  categories: false
+--- -->
+
+
+
+</section>
+
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";

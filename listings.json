@@ -11,8 +11,8 @@
     "listing": "/index.html",
     "items": [
       "/introducao_r.html",
+      "/manipulacao-dados-R.html",
       "/manipulacao-dados-python.html",
-      "/ciencia_dados.html",
       "/estrutura_dados.html",
       "/estatistica_descritiva.html",
       "/medidas_associacao.html",
@@ -29,11 +29,11 @@
     ]
   },
   {
-    "listing": "/introducao_r.html",
+    "listing": "/medidas_associacao.html",
     "items": [
-      "/conteudo/introducao_r/estrutura-linguagem.html",
-      "/conteudo/introducao_r/data-frames.html",
-      "/conteudo/introducao_r/graficos-r.html"
+      "/conteudo/medidas_associacao/biquali.html",
+      "/conteudo/medidas_associacao/biquanti.html",
+      "/conteudo/medidas_associacao/biquantquali.html"
     ]
   },
   {
@@ -126,21 +126,21 @@
     ]
   },
   {
-    "listing": "/medidas_associacao.html",
+    "listing": "/manipulacao-dados-R.html",
     "items": [
-      "/conteudo/medidas_associacao/biquali.html",
-      "/conteudo/medidas_associacao/biquanti.html",
-      "/conteudo/medidas_associacao/biquantquali.html"
+      "/conteudo/manipulacao-dados-R/tidyverse.html",
+      "/conteudo/manipulacao-dados-R/import_export.html",
+      "/conteudo/manipulacao-dados-R/pipe.html",
+      "/conteudo/manipulacao-dados-R/transform.html",
+      "/conteudo/manipulacao-dados-R/grafico_ggplot2.html"
     ]
   },
   {
-    "listing": "/ciencia_dados.html",
+    "listing": "/introducao_r.html",
     "items": [
-      "/conteudo/ciencia_dados/tidyverse.html",
-      "/conteudo/ciencia_dados/import_export.html",
-      "/conteudo/ciencia_dados/pipe.html",
-      "/conteudo/ciencia_dados/transform.html",
-      "/conteudo/ciencia_dados/grafico_ggplot2.html"
+      "/conteudo/introducao_r/estrutura-linguagem.html",
+      "/conteudo/introducao_r/data-frames.html",
+      "/conteudo/introducao_r/graficos-r.html"
     ]
   },
   {
