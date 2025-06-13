@@ -2,77 +2,77 @@
   {
     "objectID": "modelos_regressao_bayes.html",
     "href": "modelos_regressao_bayes.html",
-    "title": "Modelos de regressão bayesianos",
+    "title": "Modelos de Regressão Bayesianos",
     "section": "",
     "text": "Regressão Linear Bayesiana\n\n\nRegressão linear bayesiana — altura em adultos.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nFluxo de Trabalho na Modelagem Bayesiana\n\n\n\nInferência bayesiana\n\nModelagem estatística\n\nBambi\n\nPyMC\n\nFluxo de trabalho\n\nDistribuições a priori\n\nInferência a posteriori\n\n\n\nExplorando o fluxo de trabalho bayesiano em modelos de regressão linear\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nExplorando Modelos de Regressão Bayesiana\n\n\n\n\n\n\n\n\n\n\n\nNenhum item correspondente"
   },
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "Métodos em Estatística e Análise de Dados",
+    "title": "Modelagem Estatística e Análise de Dados",
     "section": "",
     "text": "Nenhum item correspondente"
   },
   {
     "objectID": "index.html#fundamentos-de-programação-e-análise-de-dados",
     "href": "index.html#fundamentos-de-programação-e-análise-de-dados",
-    "title": "Métodos em Estatística e Análise de Dados",
+    "title": "Modelagem Estatística e Análise de Dados",
     "section": "",
     "text": "Nenhum item correspondente"
   },
   {
     "objectID": "index.html#estatística-descritiva-e-probabilidade",
     "href": "index.html#estatística-descritiva-e-probabilidade",
-    "title": "Métodos em Estatística e Análise de Dados",
+    "title": "Modelagem Estatística e Análise de Dados",
     "section": "Estatística Descritiva e Probabilidade",
-    "text": "Estatística Descritiva e Probabilidade\n\n\n\n\n\n\n\n\n\n\nEstrutura de dados\n\n\n\n\n\n\n\n\n\n\n\n\nEstatística descritiva\n\n\n\n\n\n\n\n\n\n\n\n\nMedidas de associação\n\n\n\n\n\n\n\n\n\n\n\n\nAmostragem\n\n\n\n\n\n\n\n\n\n\n\n\nA distribuição normal\n\n\n\n\n\n\n\n\n\n\n\n\nFundamentos de probabilidades\n\n\n\n\n\nNenhum item correspondente"
+    "text": "Estatística Descritiva e Probabilidade\n\n\n\n\n\n\n\n\n\n\nEstrutura de Dados\n\n\n\n\n\n\n\n\n\n\n\n\nEstatística Descritiva\n\n\n\n\n\n\n\n\n\n\n\n\nMedidas de Associação\n\n\n\n\n\n\n\n\n\n\n\n\nAmostragem\n\n\n\n\n\n\n\n\n\n\n\n\nA Distribuição Normal\n\n\n\n\n\n\n\n\n\n\n\n\nFundamentos de Probabilidades\n\n\n\n\n\nNenhum item correspondente"
   },
   {
     "objectID": "index.html#inferência-estatística-e-teste-de-hipóteses",
     "href": "index.html#inferência-estatística-e-teste-de-hipóteses",
-    "title": "Métodos em Estatística e Análise de Dados",
+    "title": "Modelagem Estatística e Análise de Dados",
     "section": "Inferência Estatística e Teste de hipóteses",
-    "text": "Inferência Estatística e Teste de hipóteses\n\n\n\n\n\n\n\n\n\n\nInferência estatística\n\n\n\n\n\n\n\n\n\n\n\n\nTeste de hipóteses\n\n\n\n\n\nNenhum item correspondente"
+    "text": "Inferência Estatística e Teste de hipóteses\n\n\n\n\n\n\n\n\n\n\nInferência Estatística\n\n\n\n\n\n\n\n\n\n\n\n\nTeste de Hipóteses\n\n\n\n\n\nNenhum item correspondente"
   },
   {
     "objectID": "index.html#modelos-lineares",
     "href": "index.html#modelos-lineares",
-    "title": "Métodos em Estatística e Análise de Dados",
+    "title": "Modelagem Estatística e Análise de Dados",
     "section": "Modelos Lineares",
     "text": "Modelos Lineares\n\n\n\n\n\n\n\n\n\n\nAnálise de variância\n\n\n\n\n\n\n\n\n\n\n\n\nModelos de Regressão\n\n\n\n\n\nNenhum item correspondente"
   },
   {
     "objectID": "index.html#modelos-bayesianos",
     "href": "index.html#modelos-bayesianos",
-    "title": "Métodos em Estatística e Análise de Dados",
+    "title": "Modelagem Estatística e Análise de Dados",
     "section": "Modelos Bayesianos",
-    "text": "Modelos Bayesianos\n\n\n\n\n\n\n\n\n\n\nIntrodução à inferência bayesiana\n\n\n\n\n\n\n\n\n\n\n\n\nModelos de regressão bayesianos\n\n\n\n\n\nNenhum item correspondente"
+    "text": "Modelos Bayesianos\n\n\n\n\n\n\n\n\n\n\nIntrodução à Inferência Bayesiana\n\n\n\n\n\n\n\n\n\n\n\n\nModelos de Regressão Bayesianos\n\n\n\n\n\nNenhum item correspondente"
   },
   {
     "objectID": "index.html#ecologia-numérica",
     "href": "index.html#ecologia-numérica",
-    "title": "Métodos em Estatística e Análise de Dados",
+    "title": "Modelagem Estatística e Análise de Dados",
     "section": "Ecologia Numérica",
     "text": "Ecologia Numérica\n\n\n\n\n\n\n\n\n\n\nIntrodução à Ecologia Numérica\n\n\n\n\n\nNenhum item correspondente"
   },
   {
     "objectID": "medidas_associacao.html",
     "href": "medidas_associacao.html",
-    "title": "Medidas de associação",
+    "title": "Medidas de Associação",
     "section": "",
     "text": "Associação entre duas variáveis qualitativas\n\n\n\nEstatística\n\nAnálise qualitativa\n\nTabelas de contingência\n\nMedidas de associação\n\n\n\nAnálise da associação entre variáveis qualitativas, uso de tabelas de contingência e estatísticas de associação.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nAssociação entre duas variáveis quantitativas\n\n\n\nEstatística\n\nAnálise quantitativa\n\nCovariância\n\nCorrelação\n\nMedidas de associação\n\n\n\nAnálise da associação entre variáveis quantitativas, com destaque para covariância e correlação de Pearson.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nAssociação entre variáveis quantitativas e qualitativas\n\n\n\nEstatística\n\nANOVA\n\nAnálise quantitativa\n\nAnálise qualitativa\n\nMedidas de associação\n\n\n\nAnálise da relação entre variáveis quantitativas e categóricas, considerando partição da soma de quadrados e coeficientes de determinação.\n\n\n\n\n\n\n\n\nNenhum item correspondente"
   },
   {
     "objectID": "manipulacao-dados-python.html",
     "href": "manipulacao-dados-python.html",
-    "title": "Manipulação de dados em Python",
+    "title": "Manipulação de Dados em Python",
     "section": "",
     "text": "Importando data frames a partir de arquivos CSV\n\n\nAprenda como montar o Google Drive no Colab e importar dados de arquivos CSV usando pandas\n\n\n\n\n\n\n\n\nNenhum item correspondente"
   },
   {
     "objectID": "intro_bayes.html",
     "href": "intro_bayes.html",
-    "title": "Introdução à inferência bayesiana",
+    "title": "Introdução à Inferência Bayesiana",
     "section": "",
     "text": "Contando possibilidades\n\n\nIntrodução à contagem de possibilidades na abordagem bayesiana. Baseado em Statistical Rethinking (McElreath 2018).\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nDe contagens a probabilidades\n\n\nTransição de contagens para probabilidades sob uma perspectiva bayesiana. Baseado em Statistical Rethinking (McElreath 2018).\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nConstruindo um modelo bayesiano\n\n\nConstrução de um modelo bayesiano, enfatizando a formulação de distribuições a priori e posterior. Baseado em Statistical Rethinking (McElreath 2018).\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nInferência Bayesiana Binomial\n\n\nIntrodução ao conceito de aproximação por grid na abordagem bayesiana.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nInferência Bayesiana Binomial com PyMC\n\n\nIntrodução à modelagem probabilística na abordagem bayesiana.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nModelo Normal Bayesiano\n\n\nIntrodução à modelagem Bayesiana de dados contínuos, incluindo escolha das priores e checagens preditivas.\n\n\n\n\n\n\n\n\nNenhum item correspondente\nReferências\n\nMcElreath, Richard. 2018. Statistical rethinking: A Bayesian course with examples in R and Stan. Chapman; Hall/CRC."
   },
@@ -1157,7 +1157,7 @@
   {
     "objectID": "estatistica_descritiva.html",
     "href": "estatistica_descritiva.html",
-    "title": "Estatística descritiva",
+    "title": "Estatística Descritiva",
     "section": "",
     "text": "Descrevendo variáveis qualitativas\n\n\n\nR\n\nAnálise de dados\n\nEstatística descritiva\n\nVariáveis qualitativas\n\nVisualização de dados\n\n\n\nDescrição de variáveis qualitativas, incluindo tabelas de frequência, gráficos de barras e considerações sobre variáveis ordinais.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nDescrevendo variáveis quantitativas\n\n\n\nR\n\nCiência de dados\n\nAnálise de dados\n\nEstatística descritiva\n\nVariáveis quantitativas\n\nDistribuição de frequência\n\n\n\nExploração de variáveis quantitativas por meio de tabelas de frequência, histogramas e gráficos de frequência acumulada.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nMedidas de tendência central\n\n\n\nR\n\nAnálise de dados\n\nEstatística descritiva\n\nTendência central\n\nDistribuição de dados\n\n\n\nDiscussão das principais medidas de tendência central (média, mediana, moda) e sua interpretação em diferentes distribuições.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nMedidas de variação\n\n\n\nR\n\nAnálise de dados\n\nEstatística descritiva\n\nVariabilidade de dados\n\nAnálise de dispersão\n\n\n\nApresentação das medidas de variação, como variância, desvio padrão, coeficiente de variação e amplitude, com exemplos práticos.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nMedidas de posição: quartis\n\n\n\nR\n\nAnálise de dados\n\nEstatística descritiva\n\nVariabilidade de dados\n\nAnálise de dispersão\n\n\n\nCálculo e interpretação de quartis para análise de distribuição, ressaltando faixas de variação e valores atípicos.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nMedidas de posição: transformação Z\n\n\n\nR\n\nAnálise de dados\n\nEstatística descritiva\n\nPadronização de dados\n\nÍndice Z\n\n\n\nTransformação Z para padronizar distribuições, facilitando comparações entre diferentes escalas de medida.\n\n\n\n\n\n\n\n\nNenhum item correspondente"
   },
@@ -1171,21 +1171,21 @@
   {
     "objectID": "inferencia_estatistica.html",
     "href": "inferencia_estatistica.html",
-    "title": "Inferência estatística",
+    "title": "Inferência Estatística",
     "section": "",
     "text": "Distribuição das médias amostrais\n\n\nExposição do teorema central do limite, enfatizando a distribuição das médias amostrais e sua importância em inferência estatística.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nEstimando a média populacional\n\n\nConstrução e interpretação de intervalos de confiança para estimar a média populacional, incluindo a distribuição t de Student.\n\n\n\n\n\n\n\n\nNenhum item correspondente"
   },
   {
     "objectID": "fundamentos_probabilidade.html",
     "href": "fundamentos_probabilidade.html",
-    "title": "Fundamentos de probabilidades",
+    "title": "Fundamentos de Probabilidades",
     "section": "",
     "text": "Espaço de possibilidades de um experimento\n\n\n\nProbabilidade\n\nEspaço amostral\n\nEventos\n\nExperimento aleatório\n\n\n\nEspaço de possibilidades de um experimento aleatório, abordando a definição de evento e probabilidade.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nCombinando as probabilidades de eventos\n\n\n\nProbabilidade\n\nEventos complexos\n\nDiagrama de Venn\n\nDiagrama de árvore\n\n\n\nCombinação de probabilidades de eventos, utilizando diagramas de Venn e árvores para representar uniões e interseções.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nProbabilidade condicional e independência\n\n\n\nProbabilidade condicional\n\nEventos dependentes\n\nTeorema de Bayes\n\nDiagrama de árvore\n\n\n\nExploração da probabilidade condicional e independência, com aplicações do Teorema de Bayes.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nTeorema de Bayes\n\n\n\nTeorema de Bayes\n\nProbabilidade condicional\n\nEventos dependentes\n\n\n\nApresentação do Teorema de Bayes e sua aplicação no cálculo de probabilidades condicionais.\n\n\n\n\n\n\n\n\nNenhum item correspondente"
   },
   {
     "objectID": "estrutura_dados.html",
     "href": "estrutura_dados.html",
-    "title": "Estrutura de dados",
+    "title": "Estrutura de Dados",
     "section": "",
     "text": "Estrutura e tipos de dados\n\n\n\nR\n\nEstrutura de dados\n\nTipos de dados\n\nAnálise de dados\n\n\n\nDescrição de diferentes estruturas de dados e tipos de variáveis, com foco em níveis de mensuração e tratamento de valores ausentes em tabelas.\n\n\n\n\n\n\n\n\nNenhum item correspondente"
   },
@@ -1199,14 +1199,14 @@
   {
     "objectID": "distribuicao_normal.html",
     "href": "distribuicao_normal.html",
-    "title": "A distribuição normal",
+    "title": "A Distribuição Normal",
     "section": "",
     "text": "O modelo de distribuição normal\n\n\nIntrodução à distribuição normal, suas características e aplicações no contexto da inferência estatística.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nO modelo da distribuição normal\n\n\nApresenta o modelo matemático da distribuição normal.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nO modelo da distribuição normal\n\n\nExplora a distribuição normal para extrair probabilidades\n\n\n\n\n\n\n\n\nNenhum item correspondente"
   },
   {
     "objectID": "teste_hipoteses.html",
     "href": "teste_hipoteses.html",
-    "title": "Teste de hipóteses",
+    "title": "Teste de Hipóteses",
     "section": "",
     "text": "Introdução ao teste de hipóteses\n\n\nApresentação do teste de hipóteses, definições de hipóteses nula e alternativa, erros do tipo I/II e valor de p.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nComparando variâncias\n\n\nMétodos de comparação de variâncias, incluindo o teste F e o teste de Levene.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nComparando médias: teste t de Student\n\n\nTeste t de Student para comparação de médias, abrangendo uma amostra, grupos independentes e medidas pareadas.\n\n\n\n\n\n\n\n\nNenhum item correspondente"
   },
