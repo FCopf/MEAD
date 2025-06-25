@@ -14,6 +14,7 @@ listing:
     - conteudo/modelos_regressao_bayes/regressao-linear-bayesiana.qmd
     - conteudo/modelos_regressao_bayes/regressao-linear-bayesiana-bambi.qmd
     - conteudo/modelos_regressao_bayes/regressao-glm-hierarquico-apresentacao.qmd
+    - conteudo/modelos_regressao_bayes/regressao-poisson.qmd
   sort: false
   type: default
   fields: 

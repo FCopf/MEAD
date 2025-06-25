@@ -241,7 +241,7 @@ sns.scatterplot(data = df, x = 'x', y = 'y',
 # Valores ajustados
 plt.scatter(df['x'], F[:,0], 
            color='#000000', marker='*', s=120, 
-           label='Valores ajustados', zorder = 3)
+           label='Valores ajustados')
 
 # Curva ajustada
 plt.plot(x_curva, y_curva, 

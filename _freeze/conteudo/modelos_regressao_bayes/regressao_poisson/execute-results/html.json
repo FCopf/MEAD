@@ -1,0 +1,12 @@
+{
+  "hash": "b707bbf3a0a2eede747a5e4268573213",
+  "result": {
+    "engine": "jupyter",
+    "markdown": "---\ntitle: \"Modelos Estatśiticos e Modelos Científicos\"\nsubtitle: \"Complexidade Tecnológica em Ilhas da Oceania\"\ndescription: \"Como o tamanho das populações e o contato entre sociedades influenciaram a complexidade das ferramentas tradicionais\"\nCategories: [\n        \"Inferência bayesiana\",\n        \"Regressão linear\",\n        \"Modelo normal\",\n        \"Distribuição a priori\",\n        \"Distribuição a posteriori\",\n        \"Checagem preditiva\",\n        \"PyMC\"\n        ]\nimage: \"images/regressao-linear-bayesiana.png\"\nexecute:\n    echo: true\n    eval: false\n    warning: false\n    message: false\n---\n\n\n---\n\nVamos utilizar modelos estatísticos para analisar a **complexidade tecnológica tradicional em ilhas da Oceania** [@kline2010population]. Nosso objetivo é compreender como o **tamanho populacional** e a **intensidade de contato entre sociedades** influenciaram o **número de ferramentas** (e sua complexidade, medida em *unidades tecnológicas*). Iniciaremos essa investigação com **modelos estatísticos simples**, progredindo para **Modelos Lineares Generalizados (GLMs)**, com especial atenção à **regressão de Poisson**, que é particularmente adequada para dados de contagem como o número de ferramentas. Posteriormente, exploraremos a construção de um **modelo científico (mecanicista)** baseado em uma descrição da dinâmica de aquisição e perda de ferramentas por uma sociedade conforme apresentado por @mcelreath2018statistical.\n\nInicialmente, vamos avaliar o conjunto de dados [kline.csv](https://raw.githubusercontent.com/FCopf/datasets/refs/heads/main/kline.csv).\n\n::: {#2160502c .cell execution_count=1}\n``` {.python .cell-code}\nimport pandas as pd\n```\n:::\n\n\n::: {#a9799dd6 .cell execution_count=2}\n``` {.python .cell-code}\nkline = pd.read_csv('https://raw.githubusercontent.com/FCopf/datasets/refs/heads/main/kline.csv')\n\nkline\n```\n:::\n\n\n",
+    "supporting": [
+      "regressao_poisson_files/figure-html"
+    ],
+    "filters": [],
+    "includes": {}
+  }
+}

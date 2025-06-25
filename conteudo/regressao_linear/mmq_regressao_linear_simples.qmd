@@ -284,7 +284,7 @@ plt.scatter(x, y,
 # Valores ajustados
 plt.scatter(x, F[:,0],
             color='#000000', marker='*', s=120, 
-            label='Valores ajustados', zorder = 3)
+            label='Valores ajustados')
 
 # Reta ajustada
 plt.plot(x, F[:,0], color='#D55E00', 

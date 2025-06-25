@@ -1,0 +1,549 @@
+---
+title: "Modelos Estatísticos e Modelos Científicos"
+subtitle: "Complexidade Tecnológica em Ilhas da Oceania"
+description: "Como o tamanho das populações e o contato entre sociedades influenciaram a complexidade das ferramentas tradicionais"
+Categories: [
+        "GLM",
+        "Regressão linear",
+        "Modelo não linear",
+        "Regressão de Poisson"
+        ]
+image: "images/regressao-linear-bayesiana.png"
+execute:
+    echo: true
+    eval: true
+    warning: false
+    message: false
+
+---
+
+---
+
+Vamos utilizar modelos estatísticos para analisar a **complexidade tecnológica tradicional em ilhas da Oceania** [@kline2010population]. Nosso objetivo é compreender como o **tamanho populacional** e a **intensidade de contato entre sociedades** influenciaram o **número de ferramentas** (e sua complexidade, medida em *unidades tecnológicas*). Iniciaremos essa investigação com **modelos estatísticos simples**, progredindo para **Modelos Lineares Generalizados (GLMs)**, com especial atenção à **regressão de Poisson**, que é particularmente adequada para dados de contagem como o número de ferramentas. Posteriormente, exploraremos a construção de um **modelo científico (mecanicista)** baseado em uma descrição da dinâmica de aquisição e perda de ferramentas por uma sociedade conforme apresentado por @mcelreath2018statistical.
+
+Inicialmente, vamos avaliar o conjunto de dados [kline.csv](https://raw.githubusercontent.com/FCopf/datasets/refs/heads/main/kline.csv).
+
+```{python}
+import pymc as pm
+import bambi as bmb
+import arviz as az
+import pandas as pd
+import numpy as np
+from plotnine import *
+import plotly.express as px
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+```
+
+```{python}
+kline = pd.read_csv('https://raw.githubusercontent.com/FCopf/datasets/refs/heads/main/kline.csv')
+kline
+```
+
+E visualizar a relação entre tamanho populacional (P), intensidade de contato e número total de ferramentas (T). 
+
+```{python}
+#| label: fig-tools-pop 
+#| fig-cap: "Relação entre o número total de ferramentas e o tamanho populacional em ilhas na Oceania"
+#| fig-cap-location: bottom
+(
+    ggplot(kline, aes(x='population', y='total_tools', color='contact')) +
+       geom_point(size=5, alpha=0.7) +
+       scale_color_manual(values={'high': '#1f77b4', 'low': '#ff7f0e'}) +
+       labs(x='Tamanho populacional', 
+            y='Número total de ferramentas',
+            color='Intensidade de contato') +
+        theme(legend_position = 'top')
+)
+```
+
+
+## Regressão linear: transformação logarítmica
+
+A relação na @fig-tools-pop é claramente não linear e pode ser descrita por
+
+$$T = \beta_0P^{\beta_1}$$
+
+Um alterativa simples neste caso, é utilizar uma transformação logarítmica para *linearizar* a expressão:
+
+$$log(T) = log(\beta_0P^{\beta_1}) \Rightarrow log(T) = log(\beta_0) + log(P^{\beta_1}) \Rightarrow$$
+
+$$log(T) = B_0 + \beta_1 log(P)
+$${#eq-logT-logP}
+
+em que $\textit{B}_0 = log(\beta_0)$
+
+O que resulta na abaixo:
+
+```{python}
+#| label: fig-log-tools-pop 
+#| fig-cap: "Relação entre o logarítmo do número total de ferramentas e o logarítmo do tamanho populacional em ilhas na Oceania"
+#| fig-cap-location: bottom
+(
+    ggplot(kline, aes(x='population', y='total_tools', color='contact')) +
+       geom_point(size=5, alpha=0.7) +
+       scale_color_manual(values={'high': '#1f77b4', 'low': '#ff7f0e'}) +
+       scale_y_continuous(trans='log') +
+       scale_x_continuous(trans='log') +
+       labs(x='Tamanho populacional (escala log)', 
+            y='Número total de ferramentas (escala log)',
+            color='Intensidade de contato') +
+        theme(legend_position = 'top')
+)
+```
+
+
+Considerando que a relação na @fig-log-tools-pop é aproximadamente linear, vamos ajustar o modelo de regressão linear descrito na @eq-logT-logP.
+
+Neste modelo, estamos assumindo que:
+
+$$log(T) ~ \sim \mathcal{N}(\mu,\,\sigma)$$
+
+$$\mu = B_0 + \beta_1 log(P)$$
+
+```{python}
+kline['log_tools'] = np.log(kline['total_tools'])
+kline['log_pop'] = np.log(kline['population'])
+
+rl = bmb.Model('log_tools ~ log_pop', data=kline)
+
+# Amostragem posterior
+rl_fit = rl.fit(draws=2000, tune=1000)
+
+# Resumo dos parâmetros
+az.summary(rl_fit)
+```
+
+Extraindo amostras da posterior para construir a *reta média*
+
+```{python}
+rl_post = rl_fit.posterior
+beta_0 = rl_post['Intercept'].mean().item()
+beta_1 = rl_post['log_pop'].mean().item()
+
+# Gera reta de predição
+x_vals = np.linspace(kline['log_pop'].min(), kline['log_pop'].max(), 100)
+y_vals = beta_0 + beta_1 * x_vals
+
+```
+
+
+```{python}
+# Plotando o resultado
+plt.figure(figsize=(8, 6))
+
+sns.scatterplot(data=kline, x='log_pop', y='log_tools',
+    hue='contact', palette={'high': '#1f77b4', 'low': '#ff7f0e'}, s=150, alpha=0.7)
+
+# Adicionando as retas de predição
+plt.plot(x_vals, y_vals, color='#ff0e0e', linestyle='-', linewidth=3, label='Predição')
+
+plt.xlabel('log(Tamanho populacional)', fontsize=14)
+plt.ylabel('log(Número total de ferramentas)', fontsize=14)
+plt.xticks(fontsize=12)
+plt.yticks(fontsize=12)
+plt.legend()
+plt.tight_layout()
+plt.show()
+```
+
+A reta parece se ajustar bem ao pontos. Vamos agora incluir no modelo o efeito da intensidade de contato.
+
+```{python}
+rli = bmb.Model('log_tools ~ log_pop * contact', data=kline)
+
+# Amostragem posterior
+rli_fit = rli.fit(draws=2000, tune=1000)
+
+# Resumo dos parâmetros
+az.summary(rli_fit)
+```
+
+
+E plotar as retas médias com seus intervalos de credibilidade.
+
+
+```{python}
+rli_post = rli_fit.posterior
+beta_0_samples = rli_post['Intercept'].values.flatten()
+beta_1_samples = rli_post['log_pop'].values.flatten()
+beta_2_samples = rli_post['contact'].values.flatten()
+beta_3_samples = rli_post['log_pop:contact'].values.flatten()
+```
+
+
+```{python}
+# Gera valores de x para predição
+x_vals = np.linspace(kline['log_pop'].min(), kline['log_pop'].max(), 100)
+
+# Calcula predições para todas as amostras
+n_samples = len(beta_0_samples)
+predictions_high = np.zeros((n_samples, len(x_vals)))
+predictions_low = np.zeros((n_samples, len(x_vals)))
+
+for i in range(n_samples):
+    # Para contato 'high' (categoria de referência)
+    predictions_high[i] = beta_0_samples[i] + beta_1_samples[i] * x_vals
+    
+    # Para contato 'low'
+    predictions_low[i] = (beta_0_samples[i] + beta_2_samples[i]) + (beta_1_samples[i] + beta_3_samples[i]) * x_vals
+
+```
+
+```{python}
+# Calcula médias e intervalos de credibilidade
+mean_high = np.mean(predictions_high, axis=0)
+mean_low = np.mean(predictions_low, axis=0)
+
+# Intervalos de credibilidade de 95%
+hdi_high = az.hdi(predictions_high, hdi_prob=0.95)
+hdi_low = az.hdi(predictions_low, hdi_prob=0.95)
+```
+
+
+```{python}
+# Plotando o resultado
+plt.figure(figsize=(8, 6))
+
+# Scatter plot dos dados
+sns.scatterplot(data=kline, x='log_pop', y='log_tools',
+    hue='contact', palette={'high': '#1f77b4', 'low': '#ff7f0e'}, s=150, alpha=0.8)
+
+# Bandas de credibilidade
+plt.fill_between(x_vals, hdi_high[:, 0], hdi_high[:, 1], 
+                 color='#1f77b4', alpha=0.2, label='95% HDI (high contact)')
+plt.fill_between(x_vals, hdi_low[:, 0], hdi_low[:, 1], 
+                 color='#ff7f0e', alpha=0.2, label='95% HDI (low contact)')
+
+# Retas de predição (médias)
+plt.plot(x_vals, mean_high, color='#1f77b4', linestyle='-', linewidth=3, 
+         label='Média posterior (high contact)')
+plt.plot(x_vals, mean_low, color='#ff7f0e', linestyle='-', linewidth=3, 
+         label='Média posterior (low contact)')
+
+plt.xlabel('log(Tamanho populacional)', fontsize=14)
+plt.ylabel('log(Número total de ferramentas)', fontsize=14)
+plt.xticks(fontsize=12)
+plt.yticks(fontsize=12)
+plt.legend(loc='lower right', fontsize=10)
+plt.tight_layout()
+plt.show()
+```
+
+
+Como a regressão foi feita na escala logarítmica precisamos retornar à escala original para verificar os valores preditos.
+
+```{python}
+x_vals_or = np.exp(x_vals)
+hdi_high_or = np.exp(hdi_high)
+hdi_low_or = np.exp(hdi_low)
+mean_high_or = np.exp(mean_high)
+mean_low_or = np.exp(mean_low)
+```
+
+
+```{python}
+# Plotando o resultado
+plt.figure(figsize=(8, 6))
+
+# Scatter plot dos dados
+sns.scatterplot(data=kline, x='population', y='total_tools',
+    hue='contact', palette={'high': '#1f77b4', 'low': '#ff7f0e'}, s=150, alpha=0.8)
+
+# Bandas de credibilidade
+plt.fill_between(x_vals_or, hdi_high_or[:, 0], hdi_high_or[:, 1], 
+                 color='#1f77b4', alpha=0.2, label='95% HDI (high contact)')
+plt.fill_between(x_vals_or, hdi_low_or[:, 0], hdi_low_or[:, 1], 
+                 color='#ff7f0e', alpha=0.2, label='95% HDI (low contact)')
+
+# Retas de predição (médias)
+plt.plot(x_vals_or, mean_high_or, color='#1f77b4', linestyle='-', linewidth=3, 
+         label='Média posterior (high contact)')
+plt.plot(x_vals_or, mean_low_or, color='#ff7f0e', linestyle='-', linewidth=3, 
+         label='Média posterior (low contact)')
+
+plt.xlabel('Tamanho populacional', fontsize=14)
+plt.ylabel('Número total de ferramentas', fontsize=14)
+plt.xticks(fontsize=12)
+plt.yticks(fontsize=12)
+plt.legend(loc='upper left', fontsize=10)
+plt.tight_layout()
+plt.show()
+```
+
+## Regressão de Poisson: dados de contagem
+
+Embora a transformação logarítmica torne linear a porção determinística do modelo, ela não resolve adequadamente a natureza discreta da variável de resposta. No caso do número de ferramentas (`total_tools`), estamos lidando com dados de contagem — valores inteiros não negativos. Uma abordagem mais apropriada é utilizar uma **regressão de Poisson**, que modela diretamente a distribuição da variável como uma variável aleatória de contagem.
+
+Neste contexto, vamos explorar a hipótese de que o número de ferramentas disponíveis em uma sociedade depende de três fatores:
+
+1. **O tamanho populacional (em escala logarítmica):**
+   O que realmente influencia a diversidade tecnológica não é o tamanho absoluto da população, mas sim sua **ordem de grandeza** [@kline2010population]. Espera-se, portanto, uma associação positiva entre o número de ferramentas e o logaritmo do tamanho populacional.
+
+2. **A taxa de contato entre as ilhas:**
+   Ilhas com maior conectividade social e cultural tendem a manter ou adquirir mais tipos de ferramentas. Assim, espera-se um efeito positivo do nível de contato.
+
+3. **Interação entre população e contato:**
+   O efeito da população pode depender do nível de contato: em contextos mais conectados, o impacto do tamanho populacional sobre a diversidade de ferramentas pode ser mais pronunciado. Vamos representar essa moderação por meio de um **termo de interação entre `log(população)` e `contato`**.
+
+Com base nessas hipóteses, ajustaremos um modelo de regressão de Poisson no qual a expectativa do número de ferramentas é uma função log-linear desses três componentes.
+
+O modelo generativo pode ser descrito como:
+
+$$
+T_i \sim \text{Poisson}(\lambda_i)
+$$
+
+$$
+\log(\lambda_i) = \beta_0 + \beta_1 \cdot \log(P_i) + \beta_2 \cdot C_i + \beta_3 \cdot \log(P_i) \cdot C_i
+$$
+
+Onde:
+
+* $T_i$ é o número de ferramentas na sociedade *i*;
+* $P_i$ é o tamanho populacional;
+* $C_i$ representa o nível de contato (por exemplo, *high* ou *low*);
+* A interação $\log(P_i) \cdot C_i$ permite que o efeito de $\log(P_i)$ varie conforme o nível de contato.
+
+### Ajustando o modelo com `bambi`
+
+```{python}
+priors_rp={
+        "Intercept": bmb.Prior("Normal", mu=3, sigma=0.5),
+        "log_pop": bmb.Prior("Normal", mu=0, sigma=1),
+        "contact": bmb.Prior("Normal", mu=0, sigma=1),
+        "log_pop:contact": bmb.Prior("Normal", mu=0, sigma=1)
+    }
+
+rpois = bmb.Model(
+    "total_tools ~ log_pop * contact",
+    family="poisson",
+    data=kline,
+    priors=priors_rp
+)
+
+rpois_fit = rpois.fit(draws=2000, tune=1000)
+
+```
+
+
+```{python}
+az.summary(rpois_fit)
+```
+
+### Extração das amostras da posterior
+
+```{python}
+rpois_post = rpois_fit.posterior
+beta_0_samples = rpois_post['Intercept'].values.flatten()
+beta_1_samples = rpois_post['log_pop'].values.flatten()
+beta_2_samples = rpois_post['contact'].values.flatten()
+beta_3_samples = rpois_post['log_pop:contact'].values.flatten()
+```
+
+
+### Geração de predições (ainda na escala do preditor linear)
+
+```{python}
+x_vals = np.linspace(kline['log_pop'].min(), kline['log_pop'].max(), 100)
+
+n_samples = len(beta_0_samples)
+predictions_high = np.zeros((n_samples, len(x_vals)))
+predictions_low = np.zeros((n_samples, len(x_vals)))
+
+for i in range(n_samples):
+    # Contato 'high' (referência)
+    predictions_high[i] = beta_0_samples[i] + beta_1_samples[i] * x_vals
+    
+    # Contato 'low'
+    predictions_low[i] = (beta_0_samples[i] + beta_2_samples[i]) + (beta_1_samples[i] + beta_3_samples[i]) * x_vals
+```
+
+
+### Transformando para escala da resposta (contagens esperadas)
+
+```{python}
+# Aplica exponencial para obter E[Y]
+mu_high = np.exp(predictions_high)
+mu_low = np.exp(predictions_low)
+
+# Médias e intervalos de 95% (na escala original)
+mean_high = mu_high.mean(axis=0)
+mean_low = mu_low.mean(axis=0)
+
+hdi_high = az.hdi(mu_high, hdi_prob=0.95)
+hdi_low = az.hdi(mu_low, hdi_prob=0.95)
+```
+
+### Gráfico com predições e intervalos de credibilidade
+
+```{python}
+plt.figure(figsize=(8, 6))
+
+# Gráfico de dispersão
+sns.scatterplot(
+    data=kline, x='population', y='total_tools',
+    hue='contact', palette={'high': '#1f77b4', 'low': '#ff7f0e'},
+    s=150, alpha=0.8
+)
+
+# Intervalos de credibilidade
+plt.fill_between(np.exp(x_vals), hdi_high[:, 0], hdi_high[:, 1],
+                 color='#1f77b4', alpha=0.2, label='95% HDI (high contact)')
+plt.fill_between(np.exp(x_vals), hdi_low[:, 0], hdi_low[:, 1],
+                 color='#ff7f0e', alpha=0.2, label='95% HDI (low contact)')
+
+# Médias posteriores
+plt.plot(np.exp(x_vals), mean_high, color='#1f77b4', linewidth=3, label='Média posterior (high contact)')
+plt.plot(np.exp(x_vals), mean_low, color='#ff7f0e', linewidth=3, label='Média posterior (low contact)')
+
+plt.xlabel('Tamanho populacional', fontsize=14)
+plt.ylabel('Número total de ferramentas', fontsize=14)
+plt.xticks(fontsize=12)
+plt.yticks(fontsize=12)
+plt.legend(loc='upper left', fontsize=10)
+plt.tight_layout()
+plt.show()
+```
+
+## Um modelo científico: a dinâmica da inovação tecnológica
+
+Partindo do modelo verbal apresentado anteriormente, podemos expressar a mudança esperada no número de ferramentas ao longo do tempo como:
+
+$$
+\Delta T = \alpha P^\beta - \gamma T
+$$
+
+Onde:
+
+* $P$ é o tamanho da população,
+* $T$ é o número de ferramentas,
+* $\alpha$, $\beta$ e $\gamma$ são parâmetros a serem estimados.
+
+Vamos assumir como pressuposto que o número de ferramentas observado está em equilíbrio. Para encontrar o número de ferramentas em equilíbrio, basta definir $\Delta T = 0$ e resolver para $T$.
+
+::: {.callout-note title="Situação de equilíbrio"}
+
+Começamos com:
+
+$$
+0 = \alpha P^\beta - \gamma T
+$$
+
+Isolando o termo $T$:
+
+$$
+\gamma T = \alpha P^\beta
+$$
+
+Dividindo ambos os lados por $\gamma$ temos:
+
+$$
+T = \frac{\alpha P^\beta}{\gamma}
+$${#eq-delta-T-equilibrio}
+
+O valor de $T$ agora representa o **número esperado de ferramentas em equilíbrio**, assumindo que a taxa de inovação ($\alpha P^\beta$) é exatamente compensada pela taxa de perda ($\gamma T$).
+
+* $\alpha$: controla a **taxa base de inovação**;
+* $\beta$: define como a **população** afeta essa taxa (exponencialmente);
+* $\gamma$: representa a **taxa de perda** ou obsolescência de ferramentas.
+
+:::
+
+Vamos incorporar @eq-delta-T-equilibrio a um modelo de Poisson, pois essa continua sendo a distribuição adequada para dados de contagem — como `total_tools`, que representa um número inteiro positivo.
+
+Vamos assumir portando que a variável aleatória $T$ tem distribuição dada por:
+
+$$
+T_i \sim \text{Poisson}(\lambda_i)
+$$
+
+$$
+\lambda_i = \frac{\alpha P_i^{\beta}}{\gamma}
+$$
+
+Não usaremos a função de linação, mas é garantir que $\lambda$ seja sempre positiva. Para isso, utilizaremos **uma distribuição log-normal** para $\alpha$ e **distribuições exponenciais** para $\beta$ e $\gamma$, assegurando que todos os parâmetros permaneçam positivos.
+
+Também queremos permitir que esses parâmetros variações com a taxa de contato. Como essa taxa pode mediar a influência do tamanho populacional, podemos modelar $\alpha$ e $\beta$ como funções do contato — e até mesmo $\gamma$, considerando que redes sociais mais densas podem reter ferramentas por mais tempo. A depender do objetivo, podemos permitir diferentes combinações de variação nos parâmetros para capturar os efeitos do contato de forma mais realista.
+
+### O modelo
+
+Escreveremos o modelo em **PyMC** em que os parâmetros $\alpha$ e $\beta$ **variam com a taxa de contato** (`contact`: "high" ou "low"). Queremos modelar:
+
+$$
+T_i \sim \text{Poisson}(\lambda_i), \quad \text{onde} \quad \lambda_i = \frac{\alpha_c P_i^{\beta_c}}{\gamma}
+$$
+
+Em que:
+
+* $T_i$: número de ferramentas na ilha $i$
+* $P_i$: população da ilha $i$
+* $c \in \{\text{high}, \text{low}\}$: categoria de contato
+* $\alpha_c$, $\beta_c$: variam com o nível de contato
+* $\gamma$: constante positiva (global)
+
+
+### Observação importante
+
+Como o PyMC trabalha melhor com o preditor linear, vamos reparametrizar para usar:
+
+$$
+\log(\lambda_i) = \log(\alpha_c) + \beta_c \cdot \log(P_i) - \log(\gamma)
+$$
+
+ou equivalentemente:
+
+$$
+\log(\lambda_i) = \theta_{\alpha, c} + \beta_c \cdot \log(P_i) + \theta_\gamma
+$$
+
+onde:
+
+* $\theta_{\alpha, c} = \log(\alpha_c)$
+* $\theta_\gamma = -\log(\gamma)$
+
+### Código em PyMC
+
+```{python}
+# Assume: kline DataFrame com colunas 'total_tools', 'population', 'contact'
+# Codificar contato como índice (0 = high, 1 = low)
+kline['contact_code'] = kline['contact'].map({'high': 0, 'low': 1})
+log_pop = np.log(kline['population'])
+contact_idx = kline['contact_code'].values
+tools = kline['total_tools'].values
+
+with pm.Model() as model:
+    # Priors para log(alpha) por grupo de contato
+    theta_alpha = pm.Normal("theta_alpha", mu=0, sigma=2, shape=2)
+    
+    # Priors para beta por grupo de contato
+    beta = pm.Normal("beta", mu=0, sigma=1, shape=2)
+    
+    # Prior para log(gamma)
+    theta_gamma = pm.Normal("theta_gamma", mu=0, sigma=1)
+
+    # Esperança em escala log (link log para Poisson)
+    log_lambda = theta_alpha[contact_idx] + beta[contact_idx] * log_pop + theta_gamma
+    lambda_ = pm.math.exp(log_lambda)
+
+    # Likelihood
+    T_obs = pm.Poisson("total_tools", mu=lambda_, observed=tools)
+
+    # Amostragem
+    trace = pm.sample(2000, tune=1000, target_accept=0.95)
+```
+
+---
+
+Recuperando $\alpha$ e $\gamma$ de volta a partir dos parâmetros amostrados:
+
+```{python}
+import arviz as az
+posterior = trace.posterior
+
+# Recuperar alpha e gamma
+alpha_samples = np.exp(posterior['theta_alpha'])  # shape (chain, draw, contact)
+gamma_samples = np.exp(-posterior['theta_gamma']) # shape (chain, draw)
+```
+
