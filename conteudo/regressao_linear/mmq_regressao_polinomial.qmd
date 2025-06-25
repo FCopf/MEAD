@@ -326,6 +326,7 @@ df = pd.read_csv('https://raw.githubusercontent.com/FCopf/datasets/refs/heads/ma
 n = len(df['x'])
 f0 = [1] * n
 f1 = df['x'].copy()
+f2 = np.array(df['x'])**2
 
 X = np.column_stack((f0, f1, f2))
 Y = np.array(df['y']).reshape(n, 1)
