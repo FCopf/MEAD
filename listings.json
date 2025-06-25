@@ -1,107 +1,11 @@
 [
   {
-    "listing": "/fundamentos_probabilidade.html",
-    "items": [
-      "/conteudo/fundamentos_probabilidade/espaco_amostral.html",
-      "/conteudo/fundamentos_probabilidade/combina_probabilidades.html",
-      "/conteudo/fundamentos_probabilidade/probabilidade_condicional.html",
-      "/conteudo/fundamentos_probabilidade/teorema_bayes.html"
-    ]
-  },
-  {
-    "listing": "/introducao_r.html",
-    "items": [
-      "/conteudo/introducao_r/estrutura-linguagem.html",
-      "/conteudo/introducao_r/data-frames.html",
-      "/conteudo/introducao_r/graficos-r.html"
-    ]
-  },
-  {
-    "listing": "/anova.html",
-    "items": [
-      "/conteudo/anova/anova_simples.html"
-    ]
-  },
-  {
     "listing": "/modelos_regressao_bayes.html",
     "items": [
       "/conteudo/modelos_regressao_bayes/regressao-linear-bayesiana.html",
       "/conteudo/modelos_regressao_bayes/regressao-linear-bayesiana-bambi.html",
       "/conteudo/modelos_regressao_bayes/regressao-glm-hierarquico-apresentacao.html",
       "/conteudo/modelos_regressao_bayes/regressao-poisson.html"
-    ]
-  },
-  {
-    "listing": "/estrutura_dados.html",
-    "items": [
-      "/conteudo/estrutura_dados/estrutura_tipo.html"
-    ]
-  },
-  {
-    "listing": "/manipulacao-dados-python.html",
-    "items": [
-      "/conteudo/manipulacao-dados-python/importa-dados-python.html"
-    ]
-  },
-  {
-    "listing": "/amostragem.html",
-    "items": [
-      "/conteudo/amostragem/pop_amostra.html",
-      "/conteudo/amostragem/tipos_amostragem.html"
-    ]
-  },
-  {
-    "listing": "/teste_hipoteses.html",
-    "items": [
-      "/conteudo/teste_hipoteses/intro_testehipot.html",
-      "/conteudo/teste_hipoteses/teste_variancia.html",
-      "/conteudo/teste_hipoteses/teste_t.html"
-    ]
-  },
-  {
-    "listing": "/intro_bayes.html",
-    "items": [
-      "/conteudo/intro_bayes/intro-bayes-counting.html",
-      "/conteudo/intro_bayes/intro-bayes-distr-prob.html",
-      "/conteudo/intro_bayes/intro-bayes-modelo-bayesiano.html",
-      "/conteudo/intro_bayes/intro-bayes-binomial-grid.html",
-      "/conteudo/intro_bayes/intro-bayes-binomial-pymc.html",
-      "/conteudo/intro_bayes/intro-bayes-modelo-normal-bayesiano-priori.html"
-    ]
-  },
-  {
-    "listing": "/regressao_linear.html",
-    "items": [
-      "/conteudo/regressao_linear/metodo-minimos-quadrados-apresentacao.html",
-      "/conteudo/regressao_linear/mmq_regressao_linear_simples.html",
-      "/conteudo/regressao_linear/mmq_regressao_polinomial.html",
-      "/conteudo/regressao_linear/regressao_linear_simples.html",
-      "/conteudo/regressao_linear/regressao_linear_multipla.html"
-    ]
-  },
-  {
-    "listing": "/inferencia_estatistica.html",
-    "items": [
-      "/conteudo/inferencia_estatistica/teorema_central_limite.html",
-      "/conteudo/inferencia_estatistica/int_conf.html"
-    ]
-  },
-  {
-    "listing": "/manipulacao-dados-R.html",
-    "items": [
-      "/conteudo/manipulacao-dados-R/tidyverse.html",
-      "/conteudo/manipulacao-dados-R/import_export.html",
-      "/conteudo/manipulacao-dados-R/pipe.html",
-      "/conteudo/manipulacao-dados-R/transform.html",
-      "/conteudo/manipulacao-dados-R/grafico_ggplot2.html"
-    ]
-  },
-  {
-    "listing": "/distribuicao_normal.html",
-    "items": [
-      "/conteudo/distribuicao_normal/distr_norm.html",
-      "/conteudo/distribuicao_normal/distribuicao_normal-modelo.html",
-      "/conteudo/distribuicao_normal/distribuicao_normal-probabilidade.html"
     ]
   },
   {
@@ -126,6 +30,47 @@
     ]
   },
   {
+    "listing": "/medidas_associacao.html",
+    "items": [
+      "/conteudo/medidas_associacao/biquali.html",
+      "/conteudo/medidas_associacao/biquanti.html",
+      "/conteudo/medidas_associacao/biquantquali.html"
+    ]
+  },
+  {
+    "listing": "/manipulacao-dados-python.html",
+    "items": [
+      "/conteudo/manipulacao-dados-python/importa-dados-python.html"
+    ]
+  },
+  {
+    "listing": "/intro_bayes.html",
+    "items": [
+      "/conteudo/intro_bayes/intro-bayes-counting.html",
+      "/conteudo/intro_bayes/intro-bayes-distr-prob.html",
+      "/conteudo/intro_bayes/intro-bayes-modelo-bayesiano.html",
+      "/conteudo/intro_bayes/intro-bayes-binomial-grid.html",
+      "/conteudo/intro_bayes/intro-bayes-binomial-pymc.html",
+      "/conteudo/intro_bayes/intro-bayes-modelo-normal-bayesiano-priori.html"
+    ]
+  },
+  {
+    "listing": "/teste_hipoteses.html",
+    "items": [
+      "/conteudo/teste_hipoteses/intro_testehipot.html",
+      "/conteudo/teste_hipoteses/teste_variancia.html",
+      "/conteudo/teste_hipoteses/teste_t.html"
+    ]
+  },
+  {
+    "listing": "/distribuicao_normal.html",
+    "items": [
+      "/conteudo/distribuicao_normal/distr_norm.html",
+      "/conteudo/distribuicao_normal/distribuicao_normal-modelo.html",
+      "/conteudo/distribuicao_normal/distribuicao_normal-probabilidade.html"
+    ]
+  },
+  {
     "listing": "/ecologia-numerica.html",
     "items": [
       "/conteudo/ecologia-numerica/intro-matrizes.html",
@@ -133,11 +78,31 @@
     ]
   },
   {
-    "listing": "/medidas_associacao.html",
+    "listing": "/estrutura_dados.html",
     "items": [
-      "/conteudo/medidas_associacao/biquali.html",
-      "/conteudo/medidas_associacao/biquanti.html",
-      "/conteudo/medidas_associacao/biquantquali.html"
+      "/conteudo/estrutura_dados/estrutura_tipo.html"
+    ]
+  },
+  {
+    "listing": "/fundamentos_probabilidade.html",
+    "items": [
+      "/conteudo/fundamentos_probabilidade/espaco_amostral.html",
+      "/conteudo/fundamentos_probabilidade/combina_probabilidades.html",
+      "/conteudo/fundamentos_probabilidade/probabilidade_condicional.html",
+      "/conteudo/fundamentos_probabilidade/teorema_bayes.html"
+    ]
+  },
+  {
+    "listing": "/inferencia_estatistica.html",
+    "items": [
+      "/conteudo/inferencia_estatistica/teorema_central_limite.html",
+      "/conteudo/inferencia_estatistica/int_conf.html"
+    ]
+  },
+  {
+    "listing": "/anova.html",
+    "items": [
+      "/conteudo/anova/anova_simples.html"
     ]
   },
   {
@@ -149,6 +114,41 @@
       "/conteudo/estatistica_descritiva/variacao.html",
       "/conteudo/estatistica_descritiva/quartis.html",
       "/conteudo/estatistica_descritiva/escorez.html"
+    ]
+  },
+  {
+    "listing": "/regressao_linear.html",
+    "items": [
+      "/conteudo/regressao_linear/metodo-minimos-quadrados-apresentacao.html",
+      "/conteudo/regressao_linear/mmq_regressao_linear_simples.html",
+      "/conteudo/regressao_linear/mmq_regressao_polinomial.html",
+      "/conteudo/regressao_linear/regressao_linear_simples.html",
+      "/conteudo/regressao_linear/regressao_linear_multipla.html"
+    ]
+  },
+  {
+    "listing": "/manipulacao-dados-R.html",
+    "items": [
+      "/conteudo/manipulacao-dados-R/tidyverse.html",
+      "/conteudo/manipulacao-dados-R/import_export.html",
+      "/conteudo/manipulacao-dados-R/pipe.html",
+      "/conteudo/manipulacao-dados-R/transform.html",
+      "/conteudo/manipulacao-dados-R/grafico_ggplot2.html"
+    ]
+  },
+  {
+    "listing": "/introducao_r.html",
+    "items": [
+      "/conteudo/introducao_r/estrutura-linguagem.html",
+      "/conteudo/introducao_r/data-frames.html",
+      "/conteudo/introducao_r/graficos-r.html"
+    ]
+  },
+  {
+    "listing": "/amostragem.html",
+    "items": [
+      "/conteudo/amostragem/pop_amostra.html",
+      "/conteudo/amostragem/tipos_amostragem.html"
     ]
   }
 ]
