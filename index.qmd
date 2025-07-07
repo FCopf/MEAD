@@ -87,6 +87,18 @@ listing:
       - subtitle
       - image
     categories: false
+  
+  # Lista 7 - Funções e modelos
+  - id: funcoes-modelos
+    contents:
+      - funcoes-modelos.qmd
+    sort: false
+    type: grid
+    fields:
+      - title
+      - subtitle
+      - image
+    categories: false
 ---
 
 ## Fundamentos de Programação e Análise de Dados
@@ -119,38 +131,7 @@ listing:
 ::: {#numerical-ecology}
 :::
 
-<!-- ---
-slug: home
-weight: 10
-format:
-  html:
-    number-sections: false
+## Funções e Modelos
 
-listing:
-  contents:
-    - introducao_r.qmd
-    - manipulacao-dados-python.qmd
-    - ciencia_dados.qmd
-    - estrutura_dados.qmd
-    - estatistica_descritiva.qmd
-    - medidas_associacao.qmd
-    - amostragem.qmd
-    - distribuicao_normal.qmd
-    - fundamentos_probabilidade.qmd
-    - inferencia_estatistica.qmd
-    - teste_hipoteses.qmd
-    - anova.qmd
-    - regressao_linear.qmd
-    - intro_bayes.qmd
-    - modelos_regressao_bayes.qmd
-    - ecologia-numerica.qmd    
-  sort: false
-  type: grid
-  fields:
-    - title
-    - subtitle
-    # - categories
-    # - description
-    - image
-  categories: false
---- -->
+::: {#funcoes-modelos}
+:::

@@ -1,0 +1,21 @@
+---
+title: "Funções e modelos"
+description: "Descreve estrutura e propriedades de modelos determinísticos"
+categories: ["Modelos determinísticos", "Funções"]
+
+image: "images/funcoes-modelos.png"
+listing:
+  contents:
+    - conteudo/funcoes-modelos/funcoes-potencia.qmd
+  sort: false
+  type: default
+  fields: 
+    - image
+    - title
+    - description
+    - categories
+format:
+  html:
+    toc: true
+    number-sections: true
+---
