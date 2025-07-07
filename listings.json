@@ -32,9 +32,33 @@
     ]
   },
   {
-    "listing": "/estrutura_dados.html",
+    "listing": "/index.html",
     "items": [
-      "/conteudo/estrutura_dados/estrutura_tipo.html"
+      "/introducao_r.html",
+      "/manipulacao-dados-R.html",
+      "/manipulacao-dados-python.html",
+      "/estrutura_dados.html",
+      "/estatistica_descritiva.html",
+      "/medidas_associacao.html",
+      "/amostragem.html",
+      "/distribuicao_normal.html",
+      "/fundamentos_probabilidade.html",
+      "/inferencia_estatistica.html",
+      "/teste_hipoteses.html",
+      "/anova.html",
+      "/regressao_linear.html",
+      "/intro_bayes.html",
+      "/modelos_regressao_bayes.html",
+      "/ecologia-numerica.html",
+      "/funcoes-modelos.html"
+    ]
+  },
+  {
+    "listing": "/distribuicao_normal.html",
+    "items": [
+      "/conteudo/distribuicao_normal/distr_norm.html",
+      "/conteudo/distribuicao_normal/distribuicao_normal-modelo.html",
+      "/conteudo/distribuicao_normal/distribuicao_normal-probabilidade.html"
     ]
   },
   {
@@ -97,32 +121,15 @@
     ]
   },
   {
-    "listing": "/distribuicao_normal.html",
+    "listing": "/estrutura_dados.html",
     "items": [
-      "/conteudo/distribuicao_normal/distr_norm.html",
-      "/conteudo/distribuicao_normal/distribuicao_normal-modelo.html",
-      "/conteudo/distribuicao_normal/distribuicao_normal-probabilidade.html"
+      "/conteudo/estrutura_dados/estrutura_tipo.html"
     ]
   },
   {
-    "listing": "/index.html",
+    "listing": "/funcoes-modelos.html",
     "items": [
-      "/introducao_r.html",
-      "/manipulacao-dados-R.html",
-      "/manipulacao-dados-python.html",
-      "/estrutura_dados.html",
-      "/estatistica_descritiva.html",
-      "/medidas_associacao.html",
-      "/amostragem.html",
-      "/distribuicao_normal.html",
-      "/fundamentos_probabilidade.html",
-      "/inferencia_estatistica.html",
-      "/teste_hipoteses.html",
-      "/anova.html",
-      "/regressao_linear.html",
-      "/intro_bayes.html",
-      "/modelos_regressao_bayes.html",
-      "/ecologia-numerica.html"
+      "/conteudo/funcoes-modelos/funcoes-potencia.html"
     ]
   },
   {
