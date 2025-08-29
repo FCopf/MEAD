@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="pt" xml:lang="pt"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.32">
+<meta name="generator" content="quarto-1.7.34">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -72,10 +72,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-c8ad9e5dbd60b7b70b38521ab19b7da4.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-6c601a241cabbb1f6172e58da2277071.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-f8a7b73f25ce1e13d22e496f4555e3c8.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -221,7 +221,7 @@ Pacotes e funções utilizados
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">read_delim</span>(</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">file =</span> <span class="st">"https://raw.githubusercontent.com/FCopf/datasets/refs/heads/main/Reservatorios_Parana_parcial.csv"</span>,</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">delim =</span> <span class="st">","</span>,</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">locale =</span> <span class="fu">locale</span>(<span class="at">decimal_mark =</span> <span class="st">"."</span>, <span class="at">encoding =</span> <span class="st">"latin1"</span>)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">locale =</span> <span class="fu">locale</span>(<span class="at">decimal_mark =</span> <span class="st">"."</span>, <span class="at">encoding =</span> <span class="st">"UTF-8"</span>)</span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Na tabela, temos 3 variáveis categóricas: <code>Reservatorio</code>, <code>Bacia</code> e <code>Trofia</code>. A primeira identifica cada reservatório pelo seu nome. A segunda é uma variável categórica não ordenada (nível de mensuração nominal) e a terceira uma variável categórica ordenada (nível de mensuração ordinal).</p>
@@ -236,23 +236,23 @@ Pacotes e funções utilizados
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>fbacia <span class="sc">|&gt;</span> </span>
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gt</span>()</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="aggiolrqyy" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#aggiolrqyy table {
+<div id="amtogizwle" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#amtogizwle table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#aggiolrqyy thead, #aggiolrqyy tbody, #aggiolrqyy tfoot, #aggiolrqyy tr, #aggiolrqyy td, #aggiolrqyy th {
+#amtogizwle thead, #amtogizwle tbody, #amtogizwle tfoot, #amtogizwle tr, #amtogizwle td, #amtogizwle th {
   border-style: none;
 }
 
-#aggiolrqyy p {
+#amtogizwle p {
   margin: 0;
   padding: 0;
 }
 
-#aggiolrqyy .gt_table {
+#amtogizwle .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -278,12 +278,12 @@ Pacotes e funções utilizados
   border-left-color: #D3D3D3;
 }
 
-#aggiolrqyy .gt_caption {
+#amtogizwle .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#aggiolrqyy .gt_title {
+#amtogizwle .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -295,7 +295,7 @@ Pacotes e funções utilizados
   border-bottom-width: 0;
 }
 
-#aggiolrqyy .gt_subtitle {
+#amtogizwle .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -307,7 +307,7 @@ Pacotes e funções utilizados
   border-top-width: 0;
 }
 
-#aggiolrqyy .gt_heading {
+#amtogizwle .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -319,13 +319,13 @@ Pacotes e funções utilizados
   border-right-color: #D3D3D3;
 }
 
-#aggiolrqyy .gt_bottom_border {
+#amtogizwle .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#aggiolrqyy .gt_col_headings {
+#amtogizwle .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -340,7 +340,7 @@ Pacotes e funções utilizados
   border-right-color: #D3D3D3;
 }
 
-#aggiolrqyy .gt_col_heading {
+#amtogizwle .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -360,7 +360,7 @@ Pacotes e funções utilizados
   overflow-x: hidden;
 }
 
-#aggiolrqyy .gt_column_spanner_outer {
+#amtogizwle .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -372,15 +372,15 @@ Pacotes e funções utilizados
   padding-right: 4px;
 }
 
-#aggiolrqyy .gt_column_spanner_outer:first-child {
+#amtogizwle .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#aggiolrqyy .gt_column_spanner_outer:last-child {
+#amtogizwle .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#aggiolrqyy .gt_column_spanner {
+#amtogizwle .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -392,11 +392,11 @@ Pacotes e funções utilizados
   width: 100%;
 }
 
-#aggiolrqyy .gt_spanner_row {
+#amtogizwle .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#aggiolrqyy .gt_group_heading {
+#amtogizwle .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -422,7 +422,7 @@ Pacotes e funções utilizados
   text-align: left;
 }
 
-#aggiolrqyy .gt_empty_group_heading {
+#amtogizwle .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -437,15 +437,15 @@ Pacotes e funções utilizados
   vertical-align: middle;
 }
 
-#aggiolrqyy .gt_from_md > :first-child {
+#amtogizwle .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#aggiolrqyy .gt_from_md > :last-child {
+#amtogizwle .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#aggiolrqyy .gt_row {
+#amtogizwle .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -464,7 +464,7 @@ Pacotes e funções utilizados
   overflow-x: hidden;
 }
 
-#aggiolrqyy .gt_stub {
+#amtogizwle .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -477,7 +477,7 @@ Pacotes e funções utilizados
   padding-right: 5px;
 }
 
-#aggiolrqyy .gt_stub_row_group {
+#amtogizwle .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -491,15 +491,15 @@ Pacotes e funções utilizados
   vertical-align: top;
 }
 
-#aggiolrqyy .gt_row_group_first td {
+#amtogizwle .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#aggiolrqyy .gt_row_group_first th {
+#amtogizwle .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#aggiolrqyy .gt_summary_row {
+#amtogizwle .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -509,16 +509,16 @@ Pacotes e funções utilizados
   padding-right: 5px;
 }
 
-#aggiolrqyy .gt_first_summary_row {
+#amtogizwle .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#aggiolrqyy .gt_first_summary_row.thick {
+#amtogizwle .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#aggiolrqyy .gt_last_summary_row {
+#amtogizwle .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -528,7 +528,7 @@ Pacotes e funções utilizados
   border-bottom-color: #D3D3D3;
 }
 
-#aggiolrqyy .gt_grand_summary_row {
+#amtogizwle .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -538,7 +538,7 @@ Pacotes e funções utilizados
   padding-right: 5px;
 }
 
-#aggiolrqyy .gt_first_grand_summary_row {
+#amtogizwle .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -548,7 +548,7 @@ Pacotes e funções utilizados
   border-top-color: #D3D3D3;
 }
 
-#aggiolrqyy .gt_last_grand_summary_row_top {
+#amtogizwle .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -558,11 +558,11 @@ Pacotes e funções utilizados
   border-bottom-color: #D3D3D3;
 }
 
-#aggiolrqyy .gt_striped {
+#amtogizwle .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#aggiolrqyy .gt_table_body {
+#amtogizwle .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -571,7 +571,7 @@ Pacotes e funções utilizados
   border-bottom-color: #D3D3D3;
 }
 
-#aggiolrqyy .gt_footnotes {
+#amtogizwle .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -585,7 +585,7 @@ Pacotes e funções utilizados
   border-right-color: #D3D3D3;
 }
 
-#aggiolrqyy .gt_footnote {
+#amtogizwle .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -594,7 +594,7 @@ Pacotes e funções utilizados
   padding-right: 5px;
 }
 
-#aggiolrqyy .gt_sourcenotes {
+#amtogizwle .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -608,7 +608,7 @@ Pacotes e funções utilizados
   border-right-color: #D3D3D3;
 }
 
-#aggiolrqyy .gt_sourcenote {
+#amtogizwle .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -616,72 +616,72 @@ Pacotes e funções utilizados
   padding-right: 5px;
 }
 
-#aggiolrqyy .gt_left {
+#amtogizwle .gt_left {
   text-align: left;
 }
 
-#aggiolrqyy .gt_center {
+#amtogizwle .gt_center {
   text-align: center;
 }
 
-#aggiolrqyy .gt_right {
+#amtogizwle .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#aggiolrqyy .gt_font_normal {
+#amtogizwle .gt_font_normal {
   font-weight: normal;
 }
 
-#aggiolrqyy .gt_font_bold {
+#amtogizwle .gt_font_bold {
   font-weight: bold;
 }
 
-#aggiolrqyy .gt_font_italic {
+#amtogizwle .gt_font_italic {
   font-style: italic;
 }
 
-#aggiolrqyy .gt_super {
+#amtogizwle .gt_super {
   font-size: 65%;
 }
 
-#aggiolrqyy .gt_footnote_marks {
+#amtogizwle .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#aggiolrqyy .gt_asterisk {
+#amtogizwle .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#aggiolrqyy .gt_indent_1 {
+#amtogizwle .gt_indent_1 {
   text-indent: 5px;
 }
 
-#aggiolrqyy .gt_indent_2 {
+#amtogizwle .gt_indent_2 {
   text-indent: 10px;
 }
 
-#aggiolrqyy .gt_indent_3 {
+#amtogizwle .gt_indent_3 {
   text-indent: 15px;
 }
 
-#aggiolrqyy .gt_indent_4 {
+#amtogizwle .gt_indent_4 {
   text-indent: 20px;
 }
 
-#aggiolrqyy .gt_indent_5 {
+#amtogizwle .gt_indent_5 {
   text-indent: 25px;
 }
 
-#aggiolrqyy .katex-display {
+#amtogizwle .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#aggiolrqyy div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#amtogizwle div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -733,23 +733,23 @@ Pacotes e funções utilizados
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>fbacia <span class="sc">|&gt;</span> </span>
 <span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gt</span>()</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="ijoquzzqmv" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#ijoquzzqmv table {
+<div id="hvbyktvqiz" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#hvbyktvqiz table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#ijoquzzqmv thead, #ijoquzzqmv tbody, #ijoquzzqmv tfoot, #ijoquzzqmv tr, #ijoquzzqmv td, #ijoquzzqmv th {
+#hvbyktvqiz thead, #hvbyktvqiz tbody, #hvbyktvqiz tfoot, #hvbyktvqiz tr, #hvbyktvqiz td, #hvbyktvqiz th {
   border-style: none;
 }
 
-#ijoquzzqmv p {
+#hvbyktvqiz p {
   margin: 0;
   padding: 0;
 }
 
-#ijoquzzqmv .gt_table {
+#hvbyktvqiz .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -775,12 +775,12 @@ Pacotes e funções utilizados
   border-left-color: #D3D3D3;
 }
 
-#ijoquzzqmv .gt_caption {
+#hvbyktvqiz .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#ijoquzzqmv .gt_title {
+#hvbyktvqiz .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -792,7 +792,7 @@ Pacotes e funções utilizados
   border-bottom-width: 0;
 }
 
-#ijoquzzqmv .gt_subtitle {
+#hvbyktvqiz .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -804,7 +804,7 @@ Pacotes e funções utilizados
   border-top-width: 0;
 }
 
-#ijoquzzqmv .gt_heading {
+#hvbyktvqiz .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -816,13 +816,13 @@ Pacotes e funções utilizados
   border-right-color: #D3D3D3;
 }
 
-#ijoquzzqmv .gt_bottom_border {
+#hvbyktvqiz .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#ijoquzzqmv .gt_col_headings {
+#hvbyktvqiz .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -837,7 +837,7 @@ Pacotes e funções utilizados
   border-right-color: #D3D3D3;
 }
 
-#ijoquzzqmv .gt_col_heading {
+#hvbyktvqiz .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -857,7 +857,7 @@ Pacotes e funções utilizados
   overflow-x: hidden;
 }
 
-#ijoquzzqmv .gt_column_spanner_outer {
+#hvbyktvqiz .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -869,15 +869,15 @@ Pacotes e funções utilizados
   padding-right: 4px;
 }
 
-#ijoquzzqmv .gt_column_spanner_outer:first-child {
+#hvbyktvqiz .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#ijoquzzqmv .gt_column_spanner_outer:last-child {
+#hvbyktvqiz .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#ijoquzzqmv .gt_column_spanner {
+#hvbyktvqiz .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -889,11 +889,11 @@ Pacotes e funções utilizados
   width: 100%;
 }
 
-#ijoquzzqmv .gt_spanner_row {
+#hvbyktvqiz .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#ijoquzzqmv .gt_group_heading {
+#hvbyktvqiz .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -919,7 +919,7 @@ Pacotes e funções utilizados
   text-align: left;
 }
 
-#ijoquzzqmv .gt_empty_group_heading {
+#hvbyktvqiz .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -934,15 +934,15 @@ Pacotes e funções utilizados
   vertical-align: middle;
 }
 
-#ijoquzzqmv .gt_from_md > :first-child {
+#hvbyktvqiz .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#ijoquzzqmv .gt_from_md > :last-child {
+#hvbyktvqiz .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#ijoquzzqmv .gt_row {
+#hvbyktvqiz .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -961,7 +961,7 @@ Pacotes e funções utilizados
   overflow-x: hidden;
 }
 
-#ijoquzzqmv .gt_stub {
+#hvbyktvqiz .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -974,7 +974,7 @@ Pacotes e funções utilizados
   padding-right: 5px;
 }
 
-#ijoquzzqmv .gt_stub_row_group {
+#hvbyktvqiz .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -988,15 +988,15 @@ Pacotes e funções utilizados
   vertical-align: top;
 }
 
-#ijoquzzqmv .gt_row_group_first td {
+#hvbyktvqiz .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#ijoquzzqmv .gt_row_group_first th {
+#hvbyktvqiz .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#ijoquzzqmv .gt_summary_row {
+#hvbyktvqiz .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1006,16 +1006,16 @@ Pacotes e funções utilizados
   padding-right: 5px;
 }
 
-#ijoquzzqmv .gt_first_summary_row {
+#hvbyktvqiz .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#ijoquzzqmv .gt_first_summary_row.thick {
+#hvbyktvqiz .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#ijoquzzqmv .gt_last_summary_row {
+#hvbyktvqiz .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1025,7 +1025,7 @@ Pacotes e funções utilizados
   border-bottom-color: #D3D3D3;
 }
 
-#ijoquzzqmv .gt_grand_summary_row {
+#hvbyktvqiz .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1035,7 +1035,7 @@ Pacotes e funções utilizados
   padding-right: 5px;
 }
 
-#ijoquzzqmv .gt_first_grand_summary_row {
+#hvbyktvqiz .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1045,7 +1045,7 @@ Pacotes e funções utilizados
   border-top-color: #D3D3D3;
 }
 
-#ijoquzzqmv .gt_last_grand_summary_row_top {
+#hvbyktvqiz .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1055,11 +1055,11 @@ Pacotes e funções utilizados
   border-bottom-color: #D3D3D3;
 }
 
-#ijoquzzqmv .gt_striped {
+#hvbyktvqiz .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#ijoquzzqmv .gt_table_body {
+#hvbyktvqiz .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1068,7 +1068,7 @@ Pacotes e funções utilizados
   border-bottom-color: #D3D3D3;
 }
 
-#ijoquzzqmv .gt_footnotes {
+#hvbyktvqiz .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1082,7 +1082,7 @@ Pacotes e funções utilizados
   border-right-color: #D3D3D3;
 }
 
-#ijoquzzqmv .gt_footnote {
+#hvbyktvqiz .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1091,7 +1091,7 @@ Pacotes e funções utilizados
   padding-right: 5px;
 }
 
-#ijoquzzqmv .gt_sourcenotes {
+#hvbyktvqiz .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1105,7 +1105,7 @@ Pacotes e funções utilizados
   border-right-color: #D3D3D3;
 }
 
-#ijoquzzqmv .gt_sourcenote {
+#hvbyktvqiz .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1113,72 +1113,72 @@ Pacotes e funções utilizados
   padding-right: 5px;
 }
 
-#ijoquzzqmv .gt_left {
+#hvbyktvqiz .gt_left {
   text-align: left;
 }
 
-#ijoquzzqmv .gt_center {
+#hvbyktvqiz .gt_center {
   text-align: center;
 }
 
-#ijoquzzqmv .gt_right {
+#hvbyktvqiz .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#ijoquzzqmv .gt_font_normal {
+#hvbyktvqiz .gt_font_normal {
   font-weight: normal;
 }
 
-#ijoquzzqmv .gt_font_bold {
+#hvbyktvqiz .gt_font_bold {
   font-weight: bold;
 }
 
-#ijoquzzqmv .gt_font_italic {
+#hvbyktvqiz .gt_font_italic {
   font-style: italic;
 }
 
-#ijoquzzqmv .gt_super {
+#hvbyktvqiz .gt_super {
   font-size: 65%;
 }
 
-#ijoquzzqmv .gt_footnote_marks {
+#hvbyktvqiz .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#ijoquzzqmv .gt_asterisk {
+#hvbyktvqiz .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#ijoquzzqmv .gt_indent_1 {
+#hvbyktvqiz .gt_indent_1 {
   text-indent: 5px;
 }
 
-#ijoquzzqmv .gt_indent_2 {
+#hvbyktvqiz .gt_indent_2 {
   text-indent: 10px;
 }
 
-#ijoquzzqmv .gt_indent_3 {
+#hvbyktvqiz .gt_indent_3 {
   text-indent: 15px;
 }
 
-#ijoquzzqmv .gt_indent_4 {
+#hvbyktvqiz .gt_indent_4 {
   text-indent: 20px;
 }
 
-#ijoquzzqmv .gt_indent_5 {
+#hvbyktvqiz .gt_indent_5 {
   text-indent: 25px;
 }
 
-#ijoquzzqmv .katex-display {
+#hvbyktvqiz .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#ijoquzzqmv div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#hvbyktvqiz div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -1229,23 +1229,23 @@ Pacotes e funções utilizados
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>fbacia_rel <span class="sc">|&gt;</span> </span>
 <span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gt</span>()</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="nxdjmmlruy" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#nxdjmmlruy table {
+<div id="ppcebxfeps" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#ppcebxfeps table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#nxdjmmlruy thead, #nxdjmmlruy tbody, #nxdjmmlruy tfoot, #nxdjmmlruy tr, #nxdjmmlruy td, #nxdjmmlruy th {
+#ppcebxfeps thead, #ppcebxfeps tbody, #ppcebxfeps tfoot, #ppcebxfeps tr, #ppcebxfeps td, #ppcebxfeps th {
   border-style: none;
 }
 
-#nxdjmmlruy p {
+#ppcebxfeps p {
   margin: 0;
   padding: 0;
 }
 
-#nxdjmmlruy .gt_table {
+#ppcebxfeps .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -1271,12 +1271,12 @@ Pacotes e funções utilizados
   border-left-color: #D3D3D3;
 }
 
-#nxdjmmlruy .gt_caption {
+#ppcebxfeps .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#nxdjmmlruy .gt_title {
+#ppcebxfeps .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1288,7 +1288,7 @@ Pacotes e funções utilizados
   border-bottom-width: 0;
 }
 
-#nxdjmmlruy .gt_subtitle {
+#ppcebxfeps .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1300,7 +1300,7 @@ Pacotes e funções utilizados
   border-top-width: 0;
 }
 
-#nxdjmmlruy .gt_heading {
+#ppcebxfeps .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1312,13 +1312,13 @@ Pacotes e funções utilizados
   border-right-color: #D3D3D3;
 }
 
-#nxdjmmlruy .gt_bottom_border {
+#ppcebxfeps .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#nxdjmmlruy .gt_col_headings {
+#ppcebxfeps .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1333,7 +1333,7 @@ Pacotes e funções utilizados
   border-right-color: #D3D3D3;
 }
 
-#nxdjmmlruy .gt_col_heading {
+#ppcebxfeps .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1353,7 +1353,7 @@ Pacotes e funções utilizados
   overflow-x: hidden;
 }
 
-#nxdjmmlruy .gt_column_spanner_outer {
+#ppcebxfeps .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1365,15 +1365,15 @@ Pacotes e funções utilizados
   padding-right: 4px;
 }
 
-#nxdjmmlruy .gt_column_spanner_outer:first-child {
+#ppcebxfeps .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#nxdjmmlruy .gt_column_spanner_outer:last-child {
+#ppcebxfeps .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#nxdjmmlruy .gt_column_spanner {
+#ppcebxfeps .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1385,11 +1385,11 @@ Pacotes e funções utilizados
   width: 100%;
 }
 
-#nxdjmmlruy .gt_spanner_row {
+#ppcebxfeps .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#nxdjmmlruy .gt_group_heading {
+#ppcebxfeps .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1415,7 +1415,7 @@ Pacotes e funções utilizados
   text-align: left;
 }
 
-#nxdjmmlruy .gt_empty_group_heading {
+#ppcebxfeps .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1430,15 +1430,15 @@ Pacotes e funções utilizados
   vertical-align: middle;
 }
 
-#nxdjmmlruy .gt_from_md > :first-child {
+#ppcebxfeps .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#nxdjmmlruy .gt_from_md > :last-child {
+#ppcebxfeps .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#nxdjmmlruy .gt_row {
+#ppcebxfeps .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1457,7 +1457,7 @@ Pacotes e funções utilizados
   overflow-x: hidden;
 }
 
-#nxdjmmlruy .gt_stub {
+#ppcebxfeps .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1470,7 +1470,7 @@ Pacotes e funções utilizados
   padding-right: 5px;
 }
 
-#nxdjmmlruy .gt_stub_row_group {
+#ppcebxfeps .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1484,15 +1484,15 @@ Pacotes e funções utilizados
   vertical-align: top;
 }
 
-#nxdjmmlruy .gt_row_group_first td {
+#ppcebxfeps .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#nxdjmmlruy .gt_row_group_first th {
+#ppcebxfeps .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#nxdjmmlruy .gt_summary_row {
+#ppcebxfeps .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1502,16 +1502,16 @@ Pacotes e funções utilizados
   padding-right: 5px;
 }
 
-#nxdjmmlruy .gt_first_summary_row {
+#ppcebxfeps .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#nxdjmmlruy .gt_first_summary_row.thick {
+#ppcebxfeps .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#nxdjmmlruy .gt_last_summary_row {
+#ppcebxfeps .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1521,7 +1521,7 @@ Pacotes e funções utilizados
   border-bottom-color: #D3D3D3;
 }
 
-#nxdjmmlruy .gt_grand_summary_row {
+#ppcebxfeps .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1531,7 +1531,7 @@ Pacotes e funções utilizados
   padding-right: 5px;
 }
 
-#nxdjmmlruy .gt_first_grand_summary_row {
+#ppcebxfeps .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1541,7 +1541,7 @@ Pacotes e funções utilizados
   border-top-color: #D3D3D3;
 }
 
-#nxdjmmlruy .gt_last_grand_summary_row_top {
+#ppcebxfeps .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1551,11 +1551,11 @@ Pacotes e funções utilizados
   border-bottom-color: #D3D3D3;
 }
 
-#nxdjmmlruy .gt_striped {
+#ppcebxfeps .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#nxdjmmlruy .gt_table_body {
+#ppcebxfeps .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1564,7 +1564,7 @@ Pacotes e funções utilizados
   border-bottom-color: #D3D3D3;
 }
 
-#nxdjmmlruy .gt_footnotes {
+#ppcebxfeps .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1578,7 +1578,7 @@ Pacotes e funções utilizados
   border-right-color: #D3D3D3;
 }
 
-#nxdjmmlruy .gt_footnote {
+#ppcebxfeps .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1587,7 +1587,7 @@ Pacotes e funções utilizados
   padding-right: 5px;
 }
 
-#nxdjmmlruy .gt_sourcenotes {
+#ppcebxfeps .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1601,7 +1601,7 @@ Pacotes e funções utilizados
   border-right-color: #D3D3D3;
 }
 
-#nxdjmmlruy .gt_sourcenote {
+#ppcebxfeps .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1609,72 +1609,72 @@ Pacotes e funções utilizados
   padding-right: 5px;
 }
 
-#nxdjmmlruy .gt_left {
+#ppcebxfeps .gt_left {
   text-align: left;
 }
 
-#nxdjmmlruy .gt_center {
+#ppcebxfeps .gt_center {
   text-align: center;
 }
 
-#nxdjmmlruy .gt_right {
+#ppcebxfeps .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#nxdjmmlruy .gt_font_normal {
+#ppcebxfeps .gt_font_normal {
   font-weight: normal;
 }
 
-#nxdjmmlruy .gt_font_bold {
+#ppcebxfeps .gt_font_bold {
   font-weight: bold;
 }
 
-#nxdjmmlruy .gt_font_italic {
+#ppcebxfeps .gt_font_italic {
   font-style: italic;
 }
 
-#nxdjmmlruy .gt_super {
+#ppcebxfeps .gt_super {
   font-size: 65%;
 }
 
-#nxdjmmlruy .gt_footnote_marks {
+#ppcebxfeps .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#nxdjmmlruy .gt_asterisk {
+#ppcebxfeps .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#nxdjmmlruy .gt_indent_1 {
+#ppcebxfeps .gt_indent_1 {
   text-indent: 5px;
 }
 
-#nxdjmmlruy .gt_indent_2 {
+#ppcebxfeps .gt_indent_2 {
   text-indent: 10px;
 }
 
-#nxdjmmlruy .gt_indent_3 {
+#ppcebxfeps .gt_indent_3 {
   text-indent: 15px;
 }
 
-#nxdjmmlruy .gt_indent_4 {
+#ppcebxfeps .gt_indent_4 {
   text-indent: 20px;
 }
 
-#nxdjmmlruy .gt_indent_5 {
+#ppcebxfeps .gt_indent_5 {
   text-indent: 25px;
 }
 
-#nxdjmmlruy .katex-display {
+#ppcebxfeps .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#nxdjmmlruy div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#ppcebxfeps div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -1730,23 +1730,23 @@ Pacotes e funções utilizados
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise_if</span>(is.numeric, sum) <span class="sc">|&gt;</span> </span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gt</span>()</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="lzihhexjlg" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#lzihhexjlg table {
+<div id="gveoybtspi" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#gveoybtspi table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#lzihhexjlg thead, #lzihhexjlg tbody, #lzihhexjlg tfoot, #lzihhexjlg tr, #lzihhexjlg td, #lzihhexjlg th {
+#gveoybtspi thead, #gveoybtspi tbody, #gveoybtspi tfoot, #gveoybtspi tr, #gveoybtspi td, #gveoybtspi th {
   border-style: none;
 }
 
-#lzihhexjlg p {
+#gveoybtspi p {
   margin: 0;
   padding: 0;
 }
 
-#lzihhexjlg .gt_table {
+#gveoybtspi .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -1772,12 +1772,12 @@ Pacotes e funções utilizados
   border-left-color: #D3D3D3;
 }
 
-#lzihhexjlg .gt_caption {
+#gveoybtspi .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#lzihhexjlg .gt_title {
+#gveoybtspi .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1789,7 +1789,7 @@ Pacotes e funções utilizados
   border-bottom-width: 0;
 }
 
-#lzihhexjlg .gt_subtitle {
+#gveoybtspi .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1801,7 +1801,7 @@ Pacotes e funções utilizados
   border-top-width: 0;
 }
 
-#lzihhexjlg .gt_heading {
+#gveoybtspi .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1813,13 +1813,13 @@ Pacotes e funções utilizados
   border-right-color: #D3D3D3;
 }
 
-#lzihhexjlg .gt_bottom_border {
+#gveoybtspi .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#lzihhexjlg .gt_col_headings {
+#gveoybtspi .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1834,7 +1834,7 @@ Pacotes e funções utilizados
   border-right-color: #D3D3D3;
 }
 
-#lzihhexjlg .gt_col_heading {
+#gveoybtspi .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1854,7 +1854,7 @@ Pacotes e funções utilizados
   overflow-x: hidden;
 }
 
-#lzihhexjlg .gt_column_spanner_outer {
+#gveoybtspi .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1866,15 +1866,15 @@ Pacotes e funções utilizados
   padding-right: 4px;
 }
 
-#lzihhexjlg .gt_column_spanner_outer:first-child {
+#gveoybtspi .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#lzihhexjlg .gt_column_spanner_outer:last-child {
+#gveoybtspi .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#lzihhexjlg .gt_column_spanner {
+#gveoybtspi .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1886,11 +1886,11 @@ Pacotes e funções utilizados
   width: 100%;
 }
 
-#lzihhexjlg .gt_spanner_row {
+#gveoybtspi .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#lzihhexjlg .gt_group_heading {
+#gveoybtspi .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1916,7 +1916,7 @@ Pacotes e funções utilizados
   text-align: left;
 }
 
-#lzihhexjlg .gt_empty_group_heading {
+#gveoybtspi .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1931,15 +1931,15 @@ Pacotes e funções utilizados
   vertical-align: middle;
 }
 
-#lzihhexjlg .gt_from_md > :first-child {
+#gveoybtspi .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#lzihhexjlg .gt_from_md > :last-child {
+#gveoybtspi .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#lzihhexjlg .gt_row {
+#gveoybtspi .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1958,7 +1958,7 @@ Pacotes e funções utilizados
   overflow-x: hidden;
 }
 
-#lzihhexjlg .gt_stub {
+#gveoybtspi .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1971,7 +1971,7 @@ Pacotes e funções utilizados
   padding-right: 5px;
 }
 
-#lzihhexjlg .gt_stub_row_group {
+#gveoybtspi .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1985,15 +1985,15 @@ Pacotes e funções utilizados
   vertical-align: top;
 }
 
-#lzihhexjlg .gt_row_group_first td {
+#gveoybtspi .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#lzihhexjlg .gt_row_group_first th {
+#gveoybtspi .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#lzihhexjlg .gt_summary_row {
+#gveoybtspi .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2003,16 +2003,16 @@ Pacotes e funções utilizados
   padding-right: 5px;
 }
 
-#lzihhexjlg .gt_first_summary_row {
+#gveoybtspi .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#lzihhexjlg .gt_first_summary_row.thick {
+#gveoybtspi .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#lzihhexjlg .gt_last_summary_row {
+#gveoybtspi .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2022,7 +2022,7 @@ Pacotes e funções utilizados
   border-bottom-color: #D3D3D3;
 }
 
-#lzihhexjlg .gt_grand_summary_row {
+#gveoybtspi .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2032,7 +2032,7 @@ Pacotes e funções utilizados
   padding-right: 5px;
 }
 
-#lzihhexjlg .gt_first_grand_summary_row {
+#gveoybtspi .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2042,7 +2042,7 @@ Pacotes e funções utilizados
   border-top-color: #D3D3D3;
 }
 
-#lzihhexjlg .gt_last_grand_summary_row_top {
+#gveoybtspi .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2052,11 +2052,11 @@ Pacotes e funções utilizados
   border-bottom-color: #D3D3D3;
 }
 
-#lzihhexjlg .gt_striped {
+#gveoybtspi .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#lzihhexjlg .gt_table_body {
+#gveoybtspi .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2065,7 +2065,7 @@ Pacotes e funções utilizados
   border-bottom-color: #D3D3D3;
 }
 
-#lzihhexjlg .gt_footnotes {
+#gveoybtspi .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2079,7 +2079,7 @@ Pacotes e funções utilizados
   border-right-color: #D3D3D3;
 }
 
-#lzihhexjlg .gt_footnote {
+#gveoybtspi .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -2088,7 +2088,7 @@ Pacotes e funções utilizados
   padding-right: 5px;
 }
 
-#lzihhexjlg .gt_sourcenotes {
+#gveoybtspi .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2102,7 +2102,7 @@ Pacotes e funções utilizados
   border-right-color: #D3D3D3;
 }
 
-#lzihhexjlg .gt_sourcenote {
+#gveoybtspi .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -2110,72 +2110,72 @@ Pacotes e funções utilizados
   padding-right: 5px;
 }
 
-#lzihhexjlg .gt_left {
+#gveoybtspi .gt_left {
   text-align: left;
 }
 
-#lzihhexjlg .gt_center {
+#gveoybtspi .gt_center {
   text-align: center;
 }
 
-#lzihhexjlg .gt_right {
+#gveoybtspi .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#lzihhexjlg .gt_font_normal {
+#gveoybtspi .gt_font_normal {
   font-weight: normal;
 }
 
-#lzihhexjlg .gt_font_bold {
+#gveoybtspi .gt_font_bold {
   font-weight: bold;
 }
 
-#lzihhexjlg .gt_font_italic {
+#gveoybtspi .gt_font_italic {
   font-style: italic;
 }
 
-#lzihhexjlg .gt_super {
+#gveoybtspi .gt_super {
   font-size: 65%;
 }
 
-#lzihhexjlg .gt_footnote_marks {
+#gveoybtspi .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#lzihhexjlg .gt_asterisk {
+#gveoybtspi .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#lzihhexjlg .gt_indent_1 {
+#gveoybtspi .gt_indent_1 {
   text-indent: 5px;
 }
 
-#lzihhexjlg .gt_indent_2 {
+#gveoybtspi .gt_indent_2 {
   text-indent: 10px;
 }
 
-#lzihhexjlg .gt_indent_3 {
+#gveoybtspi .gt_indent_3 {
   text-indent: 15px;
 }
 
-#lzihhexjlg .gt_indent_4 {
+#gveoybtspi .gt_indent_4 {
   text-indent: 20px;
 }
 
-#lzihhexjlg .gt_indent_5 {
+#gveoybtspi .gt_indent_5 {
   text-indent: 25px;
 }
 
-#lzihhexjlg .katex-display {
+#gveoybtspi .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#lzihhexjlg div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#gveoybtspi div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -2211,23 +2211,23 @@ Pacotes e funções utilizados
 <span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>ftrofia <span class="sc">|&gt;</span> </span>
 <span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gt</span>()</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="hgpxdmhzzj" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#hgpxdmhzzj table {
+<div id="zyhbvjmvbk" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#zyhbvjmvbk table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#hgpxdmhzzj thead, #hgpxdmhzzj tbody, #hgpxdmhzzj tfoot, #hgpxdmhzzj tr, #hgpxdmhzzj td, #hgpxdmhzzj th {
+#zyhbvjmvbk thead, #zyhbvjmvbk tbody, #zyhbvjmvbk tfoot, #zyhbvjmvbk tr, #zyhbvjmvbk td, #zyhbvjmvbk th {
   border-style: none;
 }
 
-#hgpxdmhzzj p {
+#zyhbvjmvbk p {
   margin: 0;
   padding: 0;
 }
 
-#hgpxdmhzzj .gt_table {
+#zyhbvjmvbk .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -2253,12 +2253,12 @@ Pacotes e funções utilizados
   border-left-color: #D3D3D3;
 }
 
-#hgpxdmhzzj .gt_caption {
+#zyhbvjmvbk .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#hgpxdmhzzj .gt_title {
+#zyhbvjmvbk .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -2270,7 +2270,7 @@ Pacotes e funções utilizados
   border-bottom-width: 0;
 }
 
-#hgpxdmhzzj .gt_subtitle {
+#zyhbvjmvbk .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -2282,7 +2282,7 @@ Pacotes e funções utilizados
   border-top-width: 0;
 }
 
-#hgpxdmhzzj .gt_heading {
+#zyhbvjmvbk .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -2294,13 +2294,13 @@ Pacotes e funções utilizados
   border-right-color: #D3D3D3;
 }
 
-#hgpxdmhzzj .gt_bottom_border {
+#zyhbvjmvbk .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#hgpxdmhzzj .gt_col_headings {
+#zyhbvjmvbk .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2315,7 +2315,7 @@ Pacotes e funções utilizados
   border-right-color: #D3D3D3;
 }
 
-#hgpxdmhzzj .gt_col_heading {
+#zyhbvjmvbk .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2335,7 +2335,7 @@ Pacotes e funções utilizados
   overflow-x: hidden;
 }
 
-#hgpxdmhzzj .gt_column_spanner_outer {
+#zyhbvjmvbk .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2347,15 +2347,15 @@ Pacotes e funções utilizados
   padding-right: 4px;
 }
 
-#hgpxdmhzzj .gt_column_spanner_outer:first-child {
+#zyhbvjmvbk .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#hgpxdmhzzj .gt_column_spanner_outer:last-child {
+#zyhbvjmvbk .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#hgpxdmhzzj .gt_column_spanner {
+#zyhbvjmvbk .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -2367,11 +2367,11 @@ Pacotes e funções utilizados
   width: 100%;
 }
 
-#hgpxdmhzzj .gt_spanner_row {
+#zyhbvjmvbk .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#hgpxdmhzzj .gt_group_heading {
+#zyhbvjmvbk .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2397,7 +2397,7 @@ Pacotes e funções utilizados
   text-align: left;
 }
 
-#hgpxdmhzzj .gt_empty_group_heading {
+#zyhbvjmvbk .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -2412,15 +2412,15 @@ Pacotes e funções utilizados
   vertical-align: middle;
 }
 
-#hgpxdmhzzj .gt_from_md > :first-child {
+#zyhbvjmvbk .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#hgpxdmhzzj .gt_from_md > :last-child {
+#zyhbvjmvbk .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#hgpxdmhzzj .gt_row {
+#zyhbvjmvbk .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2439,7 +2439,7 @@ Pacotes e funções utilizados
   overflow-x: hidden;
 }
 
-#hgpxdmhzzj .gt_stub {
+#zyhbvjmvbk .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2452,7 +2452,7 @@ Pacotes e funções utilizados
   padding-right: 5px;
 }
 
-#hgpxdmhzzj .gt_stub_row_group {
+#zyhbvjmvbk .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2466,15 +2466,15 @@ Pacotes e funções utilizados
   vertical-align: top;
 }
 
-#hgpxdmhzzj .gt_row_group_first td {
+#zyhbvjmvbk .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#hgpxdmhzzj .gt_row_group_first th {
+#zyhbvjmvbk .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#hgpxdmhzzj .gt_summary_row {
+#zyhbvjmvbk .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2484,16 +2484,16 @@ Pacotes e funções utilizados
   padding-right: 5px;
 }
 
-#hgpxdmhzzj .gt_first_summary_row {
+#zyhbvjmvbk .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#hgpxdmhzzj .gt_first_summary_row.thick {
+#zyhbvjmvbk .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#hgpxdmhzzj .gt_last_summary_row {
+#zyhbvjmvbk .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2503,7 +2503,7 @@ Pacotes e funções utilizados
   border-bottom-color: #D3D3D3;
 }
 
-#hgpxdmhzzj .gt_grand_summary_row {
+#zyhbvjmvbk .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2513,7 +2513,7 @@ Pacotes e funções utilizados
   padding-right: 5px;
 }
 
-#hgpxdmhzzj .gt_first_grand_summary_row {
+#zyhbvjmvbk .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2523,7 +2523,7 @@ Pacotes e funções utilizados
   border-top-color: #D3D3D3;
 }
 
-#hgpxdmhzzj .gt_last_grand_summary_row_top {
+#zyhbvjmvbk .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2533,11 +2533,11 @@ Pacotes e funções utilizados
   border-bottom-color: #D3D3D3;
 }
 
-#hgpxdmhzzj .gt_striped {
+#zyhbvjmvbk .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#hgpxdmhzzj .gt_table_body {
+#zyhbvjmvbk .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2546,7 +2546,7 @@ Pacotes e funções utilizados
   border-bottom-color: #D3D3D3;
 }
 
-#hgpxdmhzzj .gt_footnotes {
+#zyhbvjmvbk .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2560,7 +2560,7 @@ Pacotes e funções utilizados
   border-right-color: #D3D3D3;
 }
 
-#hgpxdmhzzj .gt_footnote {
+#zyhbvjmvbk .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -2569,7 +2569,7 @@ Pacotes e funções utilizados
   padding-right: 5px;
 }
 
-#hgpxdmhzzj .gt_sourcenotes {
+#zyhbvjmvbk .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2583,7 +2583,7 @@ Pacotes e funções utilizados
   border-right-color: #D3D3D3;
 }
 
-#hgpxdmhzzj .gt_sourcenote {
+#zyhbvjmvbk .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -2591,72 +2591,72 @@ Pacotes e funções utilizados
   padding-right: 5px;
 }
 
-#hgpxdmhzzj .gt_left {
+#zyhbvjmvbk .gt_left {
   text-align: left;
 }
 
-#hgpxdmhzzj .gt_center {
+#zyhbvjmvbk .gt_center {
   text-align: center;
 }
 
-#hgpxdmhzzj .gt_right {
+#zyhbvjmvbk .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#hgpxdmhzzj .gt_font_normal {
+#zyhbvjmvbk .gt_font_normal {
   font-weight: normal;
 }
 
-#hgpxdmhzzj .gt_font_bold {
+#zyhbvjmvbk .gt_font_bold {
   font-weight: bold;
 }
 
-#hgpxdmhzzj .gt_font_italic {
+#zyhbvjmvbk .gt_font_italic {
   font-style: italic;
 }
 
-#hgpxdmhzzj .gt_super {
+#zyhbvjmvbk .gt_super {
   font-size: 65%;
 }
 
-#hgpxdmhzzj .gt_footnote_marks {
+#zyhbvjmvbk .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#hgpxdmhzzj .gt_asterisk {
+#zyhbvjmvbk .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#hgpxdmhzzj .gt_indent_1 {
+#zyhbvjmvbk .gt_indent_1 {
   text-indent: 5px;
 }
 
-#hgpxdmhzzj .gt_indent_2 {
+#zyhbvjmvbk .gt_indent_2 {
   text-indent: 10px;
 }
 
-#hgpxdmhzzj .gt_indent_3 {
+#zyhbvjmvbk .gt_indent_3 {
   text-indent: 15px;
 }
 
-#hgpxdmhzzj .gt_indent_4 {
+#zyhbvjmvbk .gt_indent_4 {
   text-indent: 20px;
 }
 
-#hgpxdmhzzj .gt_indent_5 {
+#zyhbvjmvbk .gt_indent_5 {
   text-indent: 25px;
 }
 
-#hgpxdmhzzj .katex-display {
+#zyhbvjmvbk .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#hgpxdmhzzj div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#zyhbvjmvbk div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -2670,15 +2670,15 @@ Pacotes e funções utilizados
 </thead>
 <tbody class="gt_table_body">
 <tr class="odd">
-<td class="gt_row gt_left" headers="Trofia">EutrÃ³fico</td>
+<td class="gt_row gt_left" headers="Trofia">Eutrófico</td>
 <td class="gt_row gt_right" headers="Frequencia">2</td>
 </tr>
 <tr class="even">
-<td class="gt_row gt_left" headers="Trofia">MesotrÃ³fico</td>
+<td class="gt_row gt_left" headers="Trofia">Mesotrófico</td>
 <td class="gt_row gt_right" headers="Frequencia">3</td>
 </tr>
 <tr class="odd">
-<td class="gt_row gt_left" headers="Trofia">OligotrÃ³fico</td>
+<td class="gt_row gt_left" headers="Trofia">Oligotrófico</td>
 <td class="gt_row gt_right" headers="Frequencia">24</td>
 </tr>
 <tr class="even">
@@ -2702,7 +2702,7 @@ $ Reservatorio  &lt;chr&gt; "Cavernoso", "Curucaca", "Foz do Areia", "Irai", "JM
 $ Bacia         &lt;chr&gt; "Iguacu", "Iguacu", "Iguacu", "Iguacu", "Iguacu", "Iguac…
 $ Fechamento    &lt;dbl&gt; 1965, 1982, 1980, 2000, 1970, 1996, 1978, 1979, 1998, 19…
 $ Area          &lt;dbl&gt; 2.90, 2.00, 139.00, 15.00, 0.45, 3.40, 14.00, 3.30, 124.…
-$ Trofia        &lt;chr&gt; "OligotrÃ³fico", "OligotrÃ³fico", "OligotrÃ³fico", "Eutr…
+$ Trofia        &lt;chr&gt; "Oligotrófico", "Oligotrófico", "Oligotrófico", "Eutrófi…
 $ pH            &lt;dbl&gt; 7.4, 7.0, 7.3, 6.9, 7.3, 7.1, 8.8, 7.1, 7.3, 6.5, 8.6, 9…
 $ Condutividade &lt;dbl&gt; 33.1, 32.4, 35.5, 50.2, 40.2, 23.7, 125.6, 22.8, 39.6, 2…
 $ Alcalinidade  &lt;dbl&gt; 139.80, 125.70, 97.00, 3.30, 3.70, 152.70, 526.00, 50.67…
@@ -2729,7 +2729,7 @@ $ Reservatorio  &lt;chr&gt; "Cavernoso", "Curucaca", "Foz do Areia", "Irai", "JM
 $ Bacia         &lt;chr&gt; "Iguacu", "Iguacu", "Iguacu", "Iguacu", "Iguacu", "Iguac…
 $ Fechamento    &lt;dbl&gt; 1965, 1982, 1980, 2000, 1970, 1996, 1978, 1979, 1998, 19…
 $ Area          &lt;dbl&gt; 2.90, 2.00, 139.00, 15.00, 0.45, 3.40, 14.00, 3.30, 124.…
-$ Trofia        &lt;ord&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, …
+$ Trofia        &lt;ord&gt; Oligotrófico, Oligotrófico, Oligotrófico, Eutrófico, Mes…
 $ pH            &lt;dbl&gt; 7.4, 7.0, 7.3, 6.9, 7.3, 7.1, 8.8, 7.1, 7.3, 6.5, 8.6, 9…
 $ Condutividade &lt;dbl&gt; 33.1, 32.4, 35.5, 50.2, 40.2, 23.7, 125.6, 22.8, 39.6, 2…
 $ Alcalinidade  &lt;dbl&gt; 139.80, 125.70, 97.00, 3.30, 3.70, 152.70, 526.00, 50.67…
@@ -2742,9 +2742,13 @@ $ CPUE          &lt;dbl&gt; 9.22, 28.73, 11.59, 30.76, 5.95, 7.75, 7.51, 4.01, 2
 <div class="cell">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>res<span class="sc">$</span>Trofia</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code> [1] &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt;
-[16] &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt; &lt;NA&gt;
-[31] &lt;NA&gt;
+<pre><code> [1] Oligotrófico Oligotrófico Oligotrófico Eutrófico    Mesotrófico 
+ [6] Oligotrófico Oligotrófico Oligotrófico Oligotrófico Oligotrófico
+[11] Oligotrófico Oligotrófico Oligotrófico Oligotrófico Mesotrófico 
+[16] Oligotrófico Oligotrófico Oligotrófico Mesotrófico  Oligotrófico
+[21] Oligotrófico Oligotrófico Oligotrófico &lt;NA&gt;         Oligotrófico
+[26] Oligotrófico Eutrófico    Oligotrófico Oligotrófico &lt;NA&gt;        
+[31] Oligotrófico
 Levels: Oligotrófico &lt; Mesotrófico &lt; Eutrófico</code></pre>
 </div>
 </div>
@@ -2758,23 +2762,23 @@ Levels: Oligotrófico &lt; Mesotrófico &lt; Eutrófico</code></pre>
 <span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>ftrofia <span class="sc">|&gt;</span> </span>
 <span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gt</span>()</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="tsvxwyqknq" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#tsvxwyqknq table {
+<div id="rahusdfgbc" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#rahusdfgbc table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#tsvxwyqknq thead, #tsvxwyqknq tbody, #tsvxwyqknq tfoot, #tsvxwyqknq tr, #tsvxwyqknq td, #tsvxwyqknq th {
+#rahusdfgbc thead, #rahusdfgbc tbody, #rahusdfgbc tfoot, #rahusdfgbc tr, #rahusdfgbc td, #rahusdfgbc th {
   border-style: none;
 }
 
-#tsvxwyqknq p {
+#rahusdfgbc p {
   margin: 0;
   padding: 0;
 }
 
-#tsvxwyqknq .gt_table {
+#rahusdfgbc .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -2800,12 +2804,12 @@ Levels: Oligotrófico &lt; Mesotrófico &lt; Eutrófico</code></pre>
   border-left-color: #D3D3D3;
 }
 
-#tsvxwyqknq .gt_caption {
+#rahusdfgbc .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#tsvxwyqknq .gt_title {
+#rahusdfgbc .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -2817,7 +2821,7 @@ Levels: Oligotrófico &lt; Mesotrófico &lt; Eutrófico</code></pre>
   border-bottom-width: 0;
 }
 
-#tsvxwyqknq .gt_subtitle {
+#rahusdfgbc .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -2829,7 +2833,7 @@ Levels: Oligotrófico &lt; Mesotrófico &lt; Eutrófico</code></pre>
   border-top-width: 0;
 }
 
-#tsvxwyqknq .gt_heading {
+#rahusdfgbc .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -2841,13 +2845,13 @@ Levels: Oligotrófico &lt; Mesotrófico &lt; Eutrófico</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#tsvxwyqknq .gt_bottom_border {
+#rahusdfgbc .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#tsvxwyqknq .gt_col_headings {
+#rahusdfgbc .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2862,7 +2866,7 @@ Levels: Oligotrófico &lt; Mesotrófico &lt; Eutrófico</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#tsvxwyqknq .gt_col_heading {
+#rahusdfgbc .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2882,7 +2886,7 @@ Levels: Oligotrófico &lt; Mesotrófico &lt; Eutrófico</code></pre>
   overflow-x: hidden;
 }
 
-#tsvxwyqknq .gt_column_spanner_outer {
+#rahusdfgbc .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2894,15 +2898,15 @@ Levels: Oligotrófico &lt; Mesotrófico &lt; Eutrófico</code></pre>
   padding-right: 4px;
 }
 
-#tsvxwyqknq .gt_column_spanner_outer:first-child {
+#rahusdfgbc .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#tsvxwyqknq .gt_column_spanner_outer:last-child {
+#rahusdfgbc .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#tsvxwyqknq .gt_column_spanner {
+#rahusdfgbc .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -2914,11 +2918,11 @@ Levels: Oligotrófico &lt; Mesotrófico &lt; Eutrófico</code></pre>
   width: 100%;
 }
 
-#tsvxwyqknq .gt_spanner_row {
+#rahusdfgbc .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#tsvxwyqknq .gt_group_heading {
+#rahusdfgbc .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2944,7 +2948,7 @@ Levels: Oligotrófico &lt; Mesotrófico &lt; Eutrófico</code></pre>
   text-align: left;
 }
 
-#tsvxwyqknq .gt_empty_group_heading {
+#rahusdfgbc .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -2959,15 +2963,15 @@ Levels: Oligotrófico &lt; Mesotrófico &lt; Eutrófico</code></pre>
   vertical-align: middle;
 }
 
-#tsvxwyqknq .gt_from_md > :first-child {
+#rahusdfgbc .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#tsvxwyqknq .gt_from_md > :last-child {
+#rahusdfgbc .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#tsvxwyqknq .gt_row {
+#rahusdfgbc .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2986,7 +2990,7 @@ Levels: Oligotrófico &lt; Mesotrófico &lt; Eutrófico</code></pre>
   overflow-x: hidden;
 }
 
-#tsvxwyqknq .gt_stub {
+#rahusdfgbc .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2999,7 +3003,7 @@ Levels: Oligotrófico &lt; Mesotrófico &lt; Eutrófico</code></pre>
   padding-right: 5px;
 }
 
-#tsvxwyqknq .gt_stub_row_group {
+#rahusdfgbc .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -3013,15 +3017,15 @@ Levels: Oligotrófico &lt; Mesotrófico &lt; Eutrófico</code></pre>
   vertical-align: top;
 }
 
-#tsvxwyqknq .gt_row_group_first td {
+#rahusdfgbc .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#tsvxwyqknq .gt_row_group_first th {
+#rahusdfgbc .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#tsvxwyqknq .gt_summary_row {
+#rahusdfgbc .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -3031,16 +3035,16 @@ Levels: Oligotrófico &lt; Mesotrófico &lt; Eutrófico</code></pre>
   padding-right: 5px;
 }
 
-#tsvxwyqknq .gt_first_summary_row {
+#rahusdfgbc .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#tsvxwyqknq .gt_first_summary_row.thick {
+#rahusdfgbc .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#tsvxwyqknq .gt_last_summary_row {
+#rahusdfgbc .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -3050,7 +3054,7 @@ Levels: Oligotrófico &lt; Mesotrófico &lt; Eutrófico</code></pre>
   border-bottom-color: #D3D3D3;
 }
 
-#tsvxwyqknq .gt_grand_summary_row {
+#rahusdfgbc .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -3060,7 +3064,7 @@ Levels: Oligotrófico &lt; Mesotrófico &lt; Eutrófico</code></pre>
   padding-right: 5px;
 }
 
-#tsvxwyqknq .gt_first_grand_summary_row {
+#rahusdfgbc .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -3070,7 +3074,7 @@ Levels: Oligotrófico &lt; Mesotrófico &lt; Eutrófico</code></pre>
   border-top-color: #D3D3D3;
 }
 
-#tsvxwyqknq .gt_last_grand_summary_row_top {
+#rahusdfgbc .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -3080,11 +3084,11 @@ Levels: Oligotrófico &lt; Mesotrófico &lt; Eutrófico</code></pre>
   border-bottom-color: #D3D3D3;
 }
 
-#tsvxwyqknq .gt_striped {
+#rahusdfgbc .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#tsvxwyqknq .gt_table_body {
+#rahusdfgbc .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -3093,7 +3097,7 @@ Levels: Oligotrófico &lt; Mesotrófico &lt; Eutrófico</code></pre>
   border-bottom-color: #D3D3D3;
 }
 
-#tsvxwyqknq .gt_footnotes {
+#rahusdfgbc .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -3107,7 +3111,7 @@ Levels: Oligotrófico &lt; Mesotrófico &lt; Eutrófico</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#tsvxwyqknq .gt_footnote {
+#rahusdfgbc .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -3116,7 +3120,7 @@ Levels: Oligotrófico &lt; Mesotrófico &lt; Eutrófico</code></pre>
   padding-right: 5px;
 }
 
-#tsvxwyqknq .gt_sourcenotes {
+#rahusdfgbc .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -3130,7 +3134,7 @@ Levels: Oligotrófico &lt; Mesotrófico &lt; Eutrófico</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#tsvxwyqknq .gt_sourcenote {
+#rahusdfgbc .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -3138,72 +3142,72 @@ Levels: Oligotrófico &lt; Mesotrófico &lt; Eutrófico</code></pre>
   padding-right: 5px;
 }
 
-#tsvxwyqknq .gt_left {
+#rahusdfgbc .gt_left {
   text-align: left;
 }
 
-#tsvxwyqknq .gt_center {
+#rahusdfgbc .gt_center {
   text-align: center;
 }
 
-#tsvxwyqknq .gt_right {
+#rahusdfgbc .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#tsvxwyqknq .gt_font_normal {
+#rahusdfgbc .gt_font_normal {
   font-weight: normal;
 }
 
-#tsvxwyqknq .gt_font_bold {
+#rahusdfgbc .gt_font_bold {
   font-weight: bold;
 }
 
-#tsvxwyqknq .gt_font_italic {
+#rahusdfgbc .gt_font_italic {
   font-style: italic;
 }
 
-#tsvxwyqknq .gt_super {
+#rahusdfgbc .gt_super {
   font-size: 65%;
 }
 
-#tsvxwyqknq .gt_footnote_marks {
+#rahusdfgbc .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#tsvxwyqknq .gt_asterisk {
+#rahusdfgbc .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#tsvxwyqknq .gt_indent_1 {
+#rahusdfgbc .gt_indent_1 {
   text-indent: 5px;
 }
 
-#tsvxwyqknq .gt_indent_2 {
+#rahusdfgbc .gt_indent_2 {
   text-indent: 10px;
 }
 
-#tsvxwyqknq .gt_indent_3 {
+#rahusdfgbc .gt_indent_3 {
   text-indent: 15px;
 }
 
-#tsvxwyqknq .gt_indent_4 {
+#rahusdfgbc .gt_indent_4 {
   text-indent: 20px;
 }
 
-#tsvxwyqknq .gt_indent_5 {
+#rahusdfgbc .gt_indent_5 {
   text-indent: 25px;
 }
 
-#tsvxwyqknq .katex-display {
+#rahusdfgbc .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#tsvxwyqknq div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#rahusdfgbc div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -3217,8 +3221,20 @@ Levels: Oligotrófico &lt; Mesotrófico &lt; Eutrófico</code></pre>
 </thead>
 <tbody class="gt_table_body">
 <tr class="odd">
+<td class="gt_row gt_center" headers="Trofia">Oligotrófico</td>
+<td class="gt_row gt_right" headers="Frequencia">24</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="Trofia">Mesotrófico</td>
+<td class="gt_row gt_right" headers="Frequencia">3</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_center" headers="Trofia">Eutrófico</td>
+<td class="gt_row gt_right" headers="Frequencia">2</td>
+</tr>
+<tr class="even">
 <td class="gt_row gt_center" headers="Trofia">NA</td>
-<td class="gt_row gt_right" headers="Frequencia">31</td>
+<td class="gt_row gt_right" headers="Frequencia">2</td>
 </tr>
 </tbody>
 </table>
@@ -3236,23 +3252,23 @@ Levels: Oligotrófico &lt; Mesotrófico &lt; Eutrófico</code></pre>
 <span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>ftrofia <span class="sc">|&gt;</span> </span>
 <span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gt</span>()</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="yszaemoaaj" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#yszaemoaaj table {
+<div id="rzfnoxirrw" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#rzfnoxirrw table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#yszaemoaaj thead, #yszaemoaaj tbody, #yszaemoaaj tfoot, #yszaemoaaj tr, #yszaemoaaj td, #yszaemoaaj th {
+#rzfnoxirrw thead, #rzfnoxirrw tbody, #rzfnoxirrw tfoot, #rzfnoxirrw tr, #rzfnoxirrw td, #rzfnoxirrw th {
   border-style: none;
 }
 
-#yszaemoaaj p {
+#rzfnoxirrw p {
   margin: 0;
   padding: 0;
 }
 
-#yszaemoaaj .gt_table {
+#rzfnoxirrw .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -3278,12 +3294,12 @@ Levels: Oligotrófico &lt; Mesotrófico &lt; Eutrófico</code></pre>
   border-left-color: #D3D3D3;
 }
 
-#yszaemoaaj .gt_caption {
+#rzfnoxirrw .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#yszaemoaaj .gt_title {
+#rzfnoxirrw .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -3295,7 +3311,7 @@ Levels: Oligotrófico &lt; Mesotrófico &lt; Eutrófico</code></pre>
   border-bottom-width: 0;
 }
 
-#yszaemoaaj .gt_subtitle {
+#rzfnoxirrw .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -3307,7 +3323,7 @@ Levels: Oligotrófico &lt; Mesotrófico &lt; Eutrófico</code></pre>
   border-top-width: 0;
 }
 
-#yszaemoaaj .gt_heading {
+#rzfnoxirrw .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -3319,13 +3335,13 @@ Levels: Oligotrófico &lt; Mesotrófico &lt; Eutrófico</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#yszaemoaaj .gt_bottom_border {
+#rzfnoxirrw .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#yszaemoaaj .gt_col_headings {
+#rzfnoxirrw .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -3340,7 +3356,7 @@ Levels: Oligotrófico &lt; Mesotrófico &lt; Eutrófico</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#yszaemoaaj .gt_col_heading {
+#rzfnoxirrw .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -3360,7 +3376,7 @@ Levels: Oligotrófico &lt; Mesotrófico &lt; Eutrófico</code></pre>
   overflow-x: hidden;
 }
 
-#yszaemoaaj .gt_column_spanner_outer {
+#rzfnoxirrw .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -3372,15 +3388,15 @@ Levels: Oligotrófico &lt; Mesotrófico &lt; Eutrófico</code></pre>
   padding-right: 4px;
 }
 
-#yszaemoaaj .gt_column_spanner_outer:first-child {
+#rzfnoxirrw .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#yszaemoaaj .gt_column_spanner_outer:last-child {
+#rzfnoxirrw .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#yszaemoaaj .gt_column_spanner {
+#rzfnoxirrw .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -3392,11 +3408,11 @@ Levels: Oligotrófico &lt; Mesotrófico &lt; Eutrófico</code></pre>
   width: 100%;
 }
 
-#yszaemoaaj .gt_spanner_row {
+#rzfnoxirrw .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#yszaemoaaj .gt_group_heading {
+#rzfnoxirrw .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -3422,7 +3438,7 @@ Levels: Oligotrófico &lt; Mesotrófico &lt; Eutrófico</code></pre>
   text-align: left;
 }
 
-#yszaemoaaj .gt_empty_group_heading {
+#rzfnoxirrw .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -3437,15 +3453,15 @@ Levels: Oligotrófico &lt; Mesotrófico &lt; Eutrófico</code></pre>
   vertical-align: middle;
 }
 
-#yszaemoaaj .gt_from_md > :first-child {
+#rzfnoxirrw .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#yszaemoaaj .gt_from_md > :last-child {
+#rzfnoxirrw .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#yszaemoaaj .gt_row {
+#rzfnoxirrw .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -3464,7 +3480,7 @@ Levels: Oligotrófico &lt; Mesotrófico &lt; Eutrófico</code></pre>
   overflow-x: hidden;
 }
 
-#yszaemoaaj .gt_stub {
+#rzfnoxirrw .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -3477,7 +3493,7 @@ Levels: Oligotrófico &lt; Mesotrófico &lt; Eutrófico</code></pre>
   padding-right: 5px;
 }
 
-#yszaemoaaj .gt_stub_row_group {
+#rzfnoxirrw .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -3491,15 +3507,15 @@ Levels: Oligotrófico &lt; Mesotrófico &lt; Eutrófico</code></pre>
   vertical-align: top;
 }
 
-#yszaemoaaj .gt_row_group_first td {
+#rzfnoxirrw .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#yszaemoaaj .gt_row_group_first th {
+#rzfnoxirrw .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#yszaemoaaj .gt_summary_row {
+#rzfnoxirrw .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -3509,16 +3525,16 @@ Levels: Oligotrófico &lt; Mesotrófico &lt; Eutrófico</code></pre>
   padding-right: 5px;
 }
 
-#yszaemoaaj .gt_first_summary_row {
+#rzfnoxirrw .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#yszaemoaaj .gt_first_summary_row.thick {
+#rzfnoxirrw .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#yszaemoaaj .gt_last_summary_row {
+#rzfnoxirrw .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -3528,7 +3544,7 @@ Levels: Oligotrófico &lt; Mesotrófico &lt; Eutrófico</code></pre>
   border-bottom-color: #D3D3D3;
 }
 
-#yszaemoaaj .gt_grand_summary_row {
+#rzfnoxirrw .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -3538,7 +3554,7 @@ Levels: Oligotrófico &lt; Mesotrófico &lt; Eutrófico</code></pre>
   padding-right: 5px;
 }
 
-#yszaemoaaj .gt_first_grand_summary_row {
+#rzfnoxirrw .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -3548,7 +3564,7 @@ Levels: Oligotrófico &lt; Mesotrófico &lt; Eutrófico</code></pre>
   border-top-color: #D3D3D3;
 }
 
-#yszaemoaaj .gt_last_grand_summary_row_top {
+#rzfnoxirrw .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -3558,11 +3574,11 @@ Levels: Oligotrófico &lt; Mesotrófico &lt; Eutrófico</code></pre>
   border-bottom-color: #D3D3D3;
 }
 
-#yszaemoaaj .gt_striped {
+#rzfnoxirrw .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#yszaemoaaj .gt_table_body {
+#rzfnoxirrw .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -3571,7 +3587,7 @@ Levels: Oligotrófico &lt; Mesotrófico &lt; Eutrófico</code></pre>
   border-bottom-color: #D3D3D3;
 }
 
-#yszaemoaaj .gt_footnotes {
+#rzfnoxirrw .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -3585,7 +3601,7 @@ Levels: Oligotrófico &lt; Mesotrófico &lt; Eutrófico</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#yszaemoaaj .gt_footnote {
+#rzfnoxirrw .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -3594,7 +3610,7 @@ Levels: Oligotrófico &lt; Mesotrófico &lt; Eutrófico</code></pre>
   padding-right: 5px;
 }
 
-#yszaemoaaj .gt_sourcenotes {
+#rzfnoxirrw .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -3608,7 +3624,7 @@ Levels: Oligotrófico &lt; Mesotrófico &lt; Eutrófico</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#yszaemoaaj .gt_sourcenote {
+#rzfnoxirrw .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -3616,77 +3632,77 @@ Levels: Oligotrófico &lt; Mesotrófico &lt; Eutrófico</code></pre>
   padding-right: 5px;
 }
 
-#yszaemoaaj .gt_left {
+#rzfnoxirrw .gt_left {
   text-align: left;
 }
 
-#yszaemoaaj .gt_center {
+#rzfnoxirrw .gt_center {
   text-align: center;
 }
 
-#yszaemoaaj .gt_right {
+#rzfnoxirrw .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#yszaemoaaj .gt_font_normal {
+#rzfnoxirrw .gt_font_normal {
   font-weight: normal;
 }
 
-#yszaemoaaj .gt_font_bold {
+#rzfnoxirrw .gt_font_bold {
   font-weight: bold;
 }
 
-#yszaemoaaj .gt_font_italic {
+#rzfnoxirrw .gt_font_italic {
   font-style: italic;
 }
 
-#yszaemoaaj .gt_super {
+#rzfnoxirrw .gt_super {
   font-size: 65%;
 }
 
-#yszaemoaaj .gt_footnote_marks {
+#rzfnoxirrw .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#yszaemoaaj .gt_asterisk {
+#rzfnoxirrw .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#yszaemoaaj .gt_indent_1 {
+#rzfnoxirrw .gt_indent_1 {
   text-indent: 5px;
 }
 
-#yszaemoaaj .gt_indent_2 {
+#rzfnoxirrw .gt_indent_2 {
   text-indent: 10px;
 }
 
-#yszaemoaaj .gt_indent_3 {
+#rzfnoxirrw .gt_indent_3 {
   text-indent: 15px;
 }
 
-#yszaemoaaj .gt_indent_4 {
+#rzfnoxirrw .gt_indent_4 {
   text-indent: 20px;
 }
 
-#yszaemoaaj .gt_indent_5 {
+#rzfnoxirrw .gt_indent_5 {
   text-indent: 25px;
 }
 
-#yszaemoaaj .katex-display {
+#rzfnoxirrw .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#yszaemoaaj div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#rzfnoxirrw div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
 
-<table class="gt_table caption-top" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<table class="gt_table caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
 <thead>
 <tr class="gt_col_headings header">
 <th id="Trofia" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">Trofia</th>
@@ -3694,6 +3710,18 @@ Levels: Oligotrófico &lt; Mesotrófico &lt; Eutrófico</code></pre>
 </tr>
 </thead>
 <tbody class="gt_table_body">
+<tr class="odd">
+<td class="gt_row gt_center" headers="Trofia">Oligotrófico</td>
+<td class="gt_row gt_right" headers="Frequencia">24</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="Trofia">Mesotrófico</td>
+<td class="gt_row gt_right" headers="Frequencia">3</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_center" headers="Trofia">Eutrófico</td>
+<td class="gt_row gt_right" headers="Frequencia">2</td>
+</tr>
 </tbody>
 </table>
 
@@ -3708,23 +3736,23 @@ Levels: Oligotrófico &lt; Mesotrófico &lt; Eutrófico</code></pre>
 <span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>ftrofia_rel <span class="sc">|&gt;</span> </span>
 <span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gt</span>()</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="qwwqhdherx" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#qwwqhdherx table {
+<div id="blmcutxtik" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#blmcutxtik table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#qwwqhdherx thead, #qwwqhdherx tbody, #qwwqhdherx tfoot, #qwwqhdherx tr, #qwwqhdherx td, #qwwqhdherx th {
+#blmcutxtik thead, #blmcutxtik tbody, #blmcutxtik tfoot, #blmcutxtik tr, #blmcutxtik td, #blmcutxtik th {
   border-style: none;
 }
 
-#qwwqhdherx p {
+#blmcutxtik p {
   margin: 0;
   padding: 0;
 }
 
-#qwwqhdherx .gt_table {
+#blmcutxtik .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -3750,12 +3778,12 @@ Levels: Oligotrófico &lt; Mesotrófico &lt; Eutrófico</code></pre>
   border-left-color: #D3D3D3;
 }
 
-#qwwqhdherx .gt_caption {
+#blmcutxtik .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#qwwqhdherx .gt_title {
+#blmcutxtik .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -3767,7 +3795,7 @@ Levels: Oligotrófico &lt; Mesotrófico &lt; Eutrófico</code></pre>
   border-bottom-width: 0;
 }
 
-#qwwqhdherx .gt_subtitle {
+#blmcutxtik .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -3779,7 +3807,7 @@ Levels: Oligotrófico &lt; Mesotrófico &lt; Eutrófico</code></pre>
   border-top-width: 0;
 }
 
-#qwwqhdherx .gt_heading {
+#blmcutxtik .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -3791,13 +3819,13 @@ Levels: Oligotrófico &lt; Mesotrófico &lt; Eutrófico</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#qwwqhdherx .gt_bottom_border {
+#blmcutxtik .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#qwwqhdherx .gt_col_headings {
+#blmcutxtik .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -3812,7 +3840,7 @@ Levels: Oligotrófico &lt; Mesotrófico &lt; Eutrófico</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#qwwqhdherx .gt_col_heading {
+#blmcutxtik .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -3832,7 +3860,7 @@ Levels: Oligotrófico &lt; Mesotrófico &lt; Eutrófico</code></pre>
   overflow-x: hidden;
 }
 
-#qwwqhdherx .gt_column_spanner_outer {
+#blmcutxtik .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -3844,15 +3872,15 @@ Levels: Oligotrófico &lt; Mesotrófico &lt; Eutrófico</code></pre>
   padding-right: 4px;
 }
 
-#qwwqhdherx .gt_column_spanner_outer:first-child {
+#blmcutxtik .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#qwwqhdherx .gt_column_spanner_outer:last-child {
+#blmcutxtik .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#qwwqhdherx .gt_column_spanner {
+#blmcutxtik .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -3864,11 +3892,11 @@ Levels: Oligotrófico &lt; Mesotrófico &lt; Eutrófico</code></pre>
   width: 100%;
 }
 
-#qwwqhdherx .gt_spanner_row {
+#blmcutxtik .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#qwwqhdherx .gt_group_heading {
+#blmcutxtik .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -3894,7 +3922,7 @@ Levels: Oligotrófico &lt; Mesotrófico &lt; Eutrófico</code></pre>
   text-align: left;
 }
 
-#qwwqhdherx .gt_empty_group_heading {
+#blmcutxtik .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -3909,15 +3937,15 @@ Levels: Oligotrófico &lt; Mesotrófico &lt; Eutrófico</code></pre>
   vertical-align: middle;
 }
 
-#qwwqhdherx .gt_from_md > :first-child {
+#blmcutxtik .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#qwwqhdherx .gt_from_md > :last-child {
+#blmcutxtik .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#qwwqhdherx .gt_row {
+#blmcutxtik .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -3936,7 +3964,7 @@ Levels: Oligotrófico &lt; Mesotrófico &lt; Eutrófico</code></pre>
   overflow-x: hidden;
 }
 
-#qwwqhdherx .gt_stub {
+#blmcutxtik .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -3949,7 +3977,7 @@ Levels: Oligotrófico &lt; Mesotrófico &lt; Eutrófico</code></pre>
   padding-right: 5px;
 }
 
-#qwwqhdherx .gt_stub_row_group {
+#blmcutxtik .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -3963,15 +3991,15 @@ Levels: Oligotrófico &lt; Mesotrófico &lt; Eutrófico</code></pre>
   vertical-align: top;
 }
 
-#qwwqhdherx .gt_row_group_first td {
+#blmcutxtik .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#qwwqhdherx .gt_row_group_first th {
+#blmcutxtik .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#qwwqhdherx .gt_summary_row {
+#blmcutxtik .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -3981,16 +4009,16 @@ Levels: Oligotrófico &lt; Mesotrófico &lt; Eutrófico</code></pre>
   padding-right: 5px;
 }
 
-#qwwqhdherx .gt_first_summary_row {
+#blmcutxtik .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#qwwqhdherx .gt_first_summary_row.thick {
+#blmcutxtik .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#qwwqhdherx .gt_last_summary_row {
+#blmcutxtik .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -4000,7 +4028,7 @@ Levels: Oligotrófico &lt; Mesotrófico &lt; Eutrófico</code></pre>
   border-bottom-color: #D3D3D3;
 }
 
-#qwwqhdherx .gt_grand_summary_row {
+#blmcutxtik .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -4010,7 +4038,7 @@ Levels: Oligotrófico &lt; Mesotrófico &lt; Eutrófico</code></pre>
   padding-right: 5px;
 }
 
-#qwwqhdherx .gt_first_grand_summary_row {
+#blmcutxtik .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -4020,7 +4048,7 @@ Levels: Oligotrófico &lt; Mesotrófico &lt; Eutrófico</code></pre>
   border-top-color: #D3D3D3;
 }
 
-#qwwqhdherx .gt_last_grand_summary_row_top {
+#blmcutxtik .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -4030,11 +4058,11 @@ Levels: Oligotrófico &lt; Mesotrófico &lt; Eutrófico</code></pre>
   border-bottom-color: #D3D3D3;
 }
 
-#qwwqhdherx .gt_striped {
+#blmcutxtik .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#qwwqhdherx .gt_table_body {
+#blmcutxtik .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -4043,7 +4071,7 @@ Levels: Oligotrófico &lt; Mesotrófico &lt; Eutrófico</code></pre>
   border-bottom-color: #D3D3D3;
 }
 
-#qwwqhdherx .gt_footnotes {
+#blmcutxtik .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -4057,7 +4085,7 @@ Levels: Oligotrófico &lt; Mesotrófico &lt; Eutrófico</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#qwwqhdherx .gt_footnote {
+#blmcutxtik .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -4066,7 +4094,7 @@ Levels: Oligotrófico &lt; Mesotrófico &lt; Eutrófico</code></pre>
   padding-right: 5px;
 }
 
-#qwwqhdherx .gt_sourcenotes {
+#blmcutxtik .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -4080,7 +4108,7 @@ Levels: Oligotrófico &lt; Mesotrófico &lt; Eutrófico</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#qwwqhdherx .gt_sourcenote {
+#blmcutxtik .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -4088,77 +4116,77 @@ Levels: Oligotrófico &lt; Mesotrófico &lt; Eutrófico</code></pre>
   padding-right: 5px;
 }
 
-#qwwqhdherx .gt_left {
+#blmcutxtik .gt_left {
   text-align: left;
 }
 
-#qwwqhdherx .gt_center {
+#blmcutxtik .gt_center {
   text-align: center;
 }
 
-#qwwqhdherx .gt_right {
+#blmcutxtik .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#qwwqhdherx .gt_font_normal {
+#blmcutxtik .gt_font_normal {
   font-weight: normal;
 }
 
-#qwwqhdherx .gt_font_bold {
+#blmcutxtik .gt_font_bold {
   font-weight: bold;
 }
 
-#qwwqhdherx .gt_font_italic {
+#blmcutxtik .gt_font_italic {
   font-style: italic;
 }
 
-#qwwqhdherx .gt_super {
+#blmcutxtik .gt_super {
   font-size: 65%;
 }
 
-#qwwqhdherx .gt_footnote_marks {
+#blmcutxtik .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#qwwqhdherx .gt_asterisk {
+#blmcutxtik .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#qwwqhdherx .gt_indent_1 {
+#blmcutxtik .gt_indent_1 {
   text-indent: 5px;
 }
 
-#qwwqhdherx .gt_indent_2 {
+#blmcutxtik .gt_indent_2 {
   text-indent: 10px;
 }
 
-#qwwqhdherx .gt_indent_3 {
+#blmcutxtik .gt_indent_3 {
   text-indent: 15px;
 }
 
-#qwwqhdherx .gt_indent_4 {
+#blmcutxtik .gt_indent_4 {
   text-indent: 20px;
 }
 
-#qwwqhdherx .gt_indent_5 {
+#blmcutxtik .gt_indent_5 {
   text-indent: 25px;
 }
 
-#qwwqhdherx .katex-display {
+#blmcutxtik .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#qwwqhdherx div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#blmcutxtik div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
 
-<table class="gt_table caption-top" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<table class="gt_table caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
 <thead>
 <tr class="gt_col_headings header">
 <th id="Trofia" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">Trofia</th>
@@ -4167,6 +4195,21 @@ Levels: Oligotrófico &lt; Mesotrófico &lt; Eutrófico</code></pre>
 </tr>
 </thead>
 <tbody class="gt_table_body">
+<tr class="odd">
+<td class="gt_row gt_center" headers="Trofia">Oligotrófico</td>
+<td class="gt_row gt_right" headers="Frequencia">24</td>
+<td class="gt_row gt_right" headers="Freq_relativa">0.82758621</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center" headers="Trofia">Mesotrófico</td>
+<td class="gt_row gt_right" headers="Frequencia">3</td>
+<td class="gt_row gt_right" headers="Freq_relativa">0.10344828</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_center" headers="Trofia">Eutrófico</td>
+<td class="gt_row gt_right" headers="Frequencia">2</td>
+<td class="gt_row gt_right" headers="Freq_relativa">0.06896552</td>
+</tr>
 </tbody>
 </table>
 
