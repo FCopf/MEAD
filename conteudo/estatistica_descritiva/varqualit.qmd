@@ -39,7 +39,7 @@ Importe a base de dados `Reservatorios_Parana_parcial.csv`.
 res <- read_delim(
   file = "https://raw.githubusercontent.com/FCopf/datasets/refs/heads/main/Reservatorios_Parana_parcial.csv",
   delim = ",",
-  locale = locale(decimal_mark = ".", encoding = "latin1")
+  locale = locale(decimal_mark = ".", encoding = "UTF-8")
 )
 ```
 

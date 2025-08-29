@@ -17,6 +17,8 @@ _site/
 .RData
 .Ruserdata
 .Rproj.user/
+.Rprofile
+renv.lock
 
 # Arquivos de plot padrão do R
 Rplots.pdf
@@ -71,6 +73,3 @@ venv/
 /.quarto/
 
 testes/
-
-categorias_revisada.json
-categorias.json
