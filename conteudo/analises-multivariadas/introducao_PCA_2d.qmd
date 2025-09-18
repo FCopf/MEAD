@@ -457,7 +457,7 @@ Markdown(tabulate(
 ```
 :::
 
-### Matriz de covariância
+### Matriz de dispersão: covariância e correlação
 
 Verifique que agora, as variáveis têm média 0 e desvio padrão 1, e que a matriz de covariância será idêntica à matriz de correlação, permitindo que a PCA resuma adequadamente a estrutura de correlação entre as variáveis por meio dos componentes principais.
 
@@ -485,6 +485,53 @@ S
 R
 ```
 :::
+
+Podemos observar que as três variáveis estão fortemente correlacionadas positivamente; ou seja, alunos que dedicam mais horas ao estudo, são também aqueles que apresentam maior frequência na disciplina e tendem a obter notas mais elevadas.
+
+```{python}
+#| code-fold: true
+def scatter_com_lowess(x, y, color=None, label=None, frac=0.6, **kws):
+    """Gráfico de dispersão com curva LOWESS suavizada"""
+    ax = plt.gca()
+    # Scatter plot
+    ax.scatter(x, y, alpha=0.7, color=color, s=50)
+    # Curva LOWESS
+    smoothed = lowess(y, x, frac=frac)
+    ax.plot(smoothed[:, 0], smoothed[:, 1], 
+            color="red", linewidth=2, alpha=0.8)
+
+def mostrar_correlacao(x, y, **kws):
+    """Calcula e exibe o coeficiente de correlação de Pearson"""
+    r, _ = pearsonr(x, y)
+    ax = plt.gca()
+    ax.annotate(f"r = {r:.2f}", 
+                xy=(.5, .5), xycoords=ax.transAxes,
+                ha='center', va='center', 
+                fontsize=14, color='red', fontweight='bold',
+                bbox=dict(boxstyle="round,pad=0.3", 
+                         facecolor="yellow", alpha=0.3))
+```
+
+```{python}
+#| code-fold: true
+plt.figure(figsize=(12, 10))
+
+# Criar PairGrid para visualização múltipla
+g = sns.PairGrid(Y[vars_pca], diag_sharey=False)
+
+# Triangular inferior: scatter com curva de tendência
+g.map_lower(scatter_com_lowess, frac=0.7)
+
+# Triangular superior: coeficiente de correlação
+g.map_upper(mostrar_correlacao)
+
+# Diagonal: distribuição das variáveis
+g.map_diag(sns.histplot, kde=True, alpha=0.6, color='steelblue')
+
+plt.suptitle('Matriz de Correlações e Distribuições', fontsize=16, y=1.02)
+plt.tight_layout()
+plt.show()
+```
 
 ### Aplicando PCA à matriz padronizada
 
