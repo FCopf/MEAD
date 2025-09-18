@@ -265,7 +265,8 @@ Ypadr_df.corr()
 # Aplicando PCA aos dados tridimensionais
 # ----------------------------------------------------------------------------
 pca_3d = PCA()
-F_3d = pca_3d.fit_transform(Ypadr)
+pca_3d.fit(Ypadr)
+F_3d = pca_3d.transform(Ypadr)
 F_3d_df = pd.DataFrame(F_3d, columns=[f'PCA{i+1}' for i in range(F_3d.shape[1])])
 
 # Adicionando componentes ao dataframe original
@@ -305,7 +306,7 @@ plt.tight_layout()
 plt.show()
 
 # ----------------------------------------------------------------------------
-# Biplot - PCA com loadings (contribuição das variáveis)
+# Biplot de Distância
 # ----------------------------------------------------------------------------
 plt.figure(figsize=(10, 10))
 
@@ -323,7 +324,7 @@ for i, nome in enumerate(Y['Nome']):
              s=nome, fontsize=9)
 
 # Calcular e plotar loadings (vetores das variáveis originais)
-loadings = pca_3d.components_.T * np.sqrt(pca_3d.explained_variance_)
+loadings = pca_3d.components_.T
 
 # Escala para os vetores de loading
 escala_loading = 1.5

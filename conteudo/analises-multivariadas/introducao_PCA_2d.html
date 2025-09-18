@@ -196,15 +196,21 @@ window.Quarto = {
   <li><a href="#autovalores-e-autovetores-da-matris-de-covariância" id="toc-autovalores-e-autovetores-da-matris-de-covariância" class="nav-link" data-scroll-target="#autovalores-e-autovetores-da-matris-de-covariância"><span class="header-section-number">1.3</span> Autovalores e Autovetores da matris de covariância</a></li>
   <li><a href="#componentes-principais-scores" id="toc-componentes-principais-scores" class="nav-link" data-scroll-target="#componentes-principais-scores"><span class="header-section-number">1.4</span> Componentes Principais (Scores)</a></li>
   </ul></li>
-  <li><a href="#interpretando-os-resultados-da-pca-biplots" id="toc-interpretando-os-resultados-da-pca-biplots" class="nav-link" data-scroll-target="#interpretando-os-resultados-da-pca-biplots"><span class="header-section-number">2</span> Interpretando os Resultados da PCA: Biplots</a>
+  <li><a href="#sec-biplots" id="toc-sec-biplots" class="nav-link" data-scroll-target="#sec-biplots"><span class="header-section-number">2</span> Interpretando os Resultados da PCA: Biplots</a>
   <ul class="collapse">
   <li><a href="#scaling-1-biplot-de-distância" id="toc-scaling-1-biplot-de-distância" class="nav-link" data-scroll-target="#scaling-1-biplot-de-distância"><span class="header-section-number">2.1</span> Scaling 1 (Biplot de Distância)</a></li>
   <li><a href="#scaling-2-biplot-de-correlação" id="toc-scaling-2-biplot-de-correlação" class="nav-link" data-scroll-target="#scaling-2-biplot-de-correlação"><span class="header-section-number">2.2</span> Scaling 2 (Biplot de Correlação)</a></li>
   <li><a href="#conclusão" id="toc-conclusão" class="nav-link" data-scroll-target="#conclusão"><span class="header-section-number">2.3</span> Conclusão</a></li>
   </ul></li>
-  <li><a href="#a-escolha-da-matriz-de-dispersão-na-pca-covariância-vs.-correlação" id="toc-a-escolha-da-matriz-de-dispersão-na-pca-covariância-vs.-correlação" class="nav-link" data-scroll-target="#a-escolha-da-matriz-de-dispersão-na-pca-covariância-vs.-correlação"><span class="header-section-number">3</span> A Escolha da Matriz de Dispersão na PCA: Covariância vs.&nbsp;Correlação</a>
+  <li><a href="#sec-cov-cor" id="toc-sec-cov-cor" class="nav-link" data-scroll-target="#sec-cov-cor"><span class="header-section-number">3</span> A Escolha da Matriz de Dispersão na PCA: Covariância vs.&nbsp;Correlação</a>
   <ul class="collapse">
   <li><a href="#exemplo-frequência-versus-tempo-de-estudo" id="toc-exemplo-frequência-versus-tempo-de-estudo" class="nav-link" data-scroll-target="#exemplo-frequência-versus-tempo-de-estudo"><span class="header-section-number">3.1</span> Exemplo: Frequência versus Tempo de Estudo</a></li>
+  </ul></li>
+  <li><a href="#exemplo-com-três-variáveis-tempo-de-estudo-frequência-e-nota-final" id="toc-exemplo-com-três-variáveis-tempo-de-estudo-frequência-e-nota-final" class="nav-link" data-scroll-target="#exemplo-com-três-variáveis-tempo-de-estudo-frequência-e-nota-final"><span class="header-section-number">4</span> Exemplo com três variáveis: tempo de Estudo, frequência e nota final</a>
+  <ul class="collapse">
+  <li><a href="#matriz-de-covariância" id="toc-matriz-de-covariância" class="nav-link" data-scroll-target="#matriz-de-covariância"><span class="header-section-number">4.1</span> Matriz de covariância</a></li>
+  <li><a href="#aplicando-pca-à-matriz-padronizada" id="toc-aplicando-pca-à-matriz-padronizada" class="nav-link" data-scroll-target="#aplicando-pca-à-matriz-padronizada"><span class="header-section-number">4.2</span> Aplicando PCA à matriz padronizada</a></li>
+  <li><a href="#biplots-de-distância-e-correlação" id="toc-biplots-de-distância-e-correlação" class="nav-link" data-scroll-target="#biplots-de-distância-e-correlação"><span class="header-section-number">4.3</span> Biplots de distância e correlação</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -231,7 +237,7 @@ window.Quarto = {
 </header>
 
 
-<div id="ddf13066" class="cell" data-execution_count="1">
+<div id="e265b68b" class="cell" data-execution_count="1">
 <details class="code-fold">
 <summary>Código</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Importação de bibliotecas essenciais</span></span>
@@ -282,12 +288,10 @@ window.Quarto = {
 <ul>
 <li><strong>Matriz <span class="math inline">\(\mathbf{Y}\)</span> (<span class="math inline">\(n \times p\)</span>):</strong></li>
 </ul>
-<div id="e62dc600" class="cell" data-execution_count="2">
+<div id="21c1567b" class="cell" data-execution_count="2">
 <details class="code-fold">
 <summary>Código</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>Y <span class="op">=</span> pd.read_csv(<span class="st">'https://raw.githubusercontent.com/FCopf/datasets/refs/heads/main/Notas.csv'</span>)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> Y.shape[<span class="dv">0</span>]</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>p <span class="op">=</span> Y.shape[<span class="dv">1</span>]</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>Y <span class="op">=</span> pd.read_csv(<span class="st">'https://raw.githubusercontent.com/FCopf/datasets/refs/heads/main/Notas.csv'</span>)</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
 <div class="table-narrow">
@@ -297,10 +301,13 @@ window.Quarto = {
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>colunas <span class="op">=</span> [<span class="st">'Nome'</span>, <span class="st">'Frequencia'</span>, <span class="st">'Estudo_horas'</span>]</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>Y_lista <span class="op">=</span> Y[colunas].values.tolist()</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>Markdown(tabulate(</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  Y_lista, </span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  headers<span class="op">=</span>colunas</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>))</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> Y.shape[<span class="dv">0</span>]</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>p <span class="op">=</span> Y[[<span class="st">'Frequencia'</span>, <span class="st">'Estudo_horas'</span>]].shape[<span class="dv">1</span>]</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>Markdown(tabulate(</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  Y_lista, </span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  headers<span class="op">=</span>colunas</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>))</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div id="tbl-alunos2d" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-execution_count="3">
 <figure class="quarto-float quarto-float-tbl figure">
@@ -308,7 +315,7 @@ window.Quarto = {
 Tabela&nbsp;1: Nome, frequência em sala de aula e tempo dedicado ao estudo.
 </figcaption>
 <div aria-describedby="tbl-alunos2d-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="68">
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="259">
 <table class="do-not-create-environment cell caption-top table table-sm table-striped small">
 <thead>
 <tr class="header">
@@ -376,13 +383,13 @@ Tabela&nbsp;1: Nome, frequência em sala de aula e tempo dedicado ao estudo.
 </div>
 </div>
 </div>
-<p>Onde <span class="math inline">\(n = 10\)</span> é o número de alunos e <span class="math inline">\(p = 4\)</span> o número de descritores.</p>
+<p>Onde <span class="math inline">\(n = 10\)</span> é o número de alunos e <span class="math inline">\(p = 2\)</span> o número de descritores.</p>
 <ul>
 <li><p><strong>Matriz Yc (Dados Centralizados):</strong></p>
 <p>Cada valor <span class="math inline">\(y_{ij}\)</span> é transformado em <span class="math inline">\(y_{ij} - \bar{y}_j\)</span>, onde <span class="math inline">\(\bar{y}_j\)</span> é a média da coluna <span class="math inline">\(j\)</span>.</p>
 <p><span class="math display">\[Y_c = Y - \bar{y}\]</span></p></li>
 </ul>
-<div id="d817841f" class="cell" data-execution_count="4">
+<div id="3c84b583" class="cell" data-execution_count="4">
 <details class="code-fold">
 <summary>Código</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>variaveis <span class="op">=</span> [<span class="st">"Frequencia"</span>, <span class="st">"Estudo_horas"</span>]</span>
@@ -411,7 +418,7 @@ Tabela&nbsp;1: Nome, frequência em sala de aula e tempo dedicado ao estudo.
 Tabela&nbsp;2: Matriz de daods centralizados.
 </figcaption>
 <div aria-describedby="tbl-alunos_centralizado2d-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="70">
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="261">
 <table class="do-not-create-environment cell caption-top table table-sm table-striped small">
 <thead>
 <tr class="header">
@@ -486,13 +493,13 @@ Tabela&nbsp;2: Matriz de daods centralizados.
 <p><span class="math display">\[\mathbf{S} = \frac{1}{n-1} \mathbf{Y_c'}\mathbf{Y_c}\]</span></p>
 <p>Onde <span class="math inline">\(\mathbf{Y_c'}\)</span> é a transposta de <span class="math inline">\(\mathbf{Y_c}\)</span>.</p>
 <p>A matriz de covariância dos dados deste exemplo é dada por:</p>
-<div id="4e9f7fc8" class="cell" data-execution_count="6">
+<div id="06b5f4ac" class="cell" data-execution_count="6">
 <details class="code-fold">
 <summary>Código</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>S <span class="op">=</span> Y_c[variaveis].cov(ddof<span class="op">=</span><span class="dv">0</span>)</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>S</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
-<div class="cell-output cell-output-display" data-execution_count="71">
+<div class="cell-output cell-output-display" data-execution_count="262">
 <div>
 
 
@@ -536,7 +543,7 @@ Tabela&nbsp;2: Matriz de daods centralizados.
 <p>Os autovalores são calculados a partir da equação característica:</p>
 <p><span class="math display">\[|S - \lambda_k I| = 0\]</span></p>
 <p>E neste exemplo os autovetores são:</p>
-<div id="d8f02e78" class="cell" data-execution_count="7">
+<div id="05f99352" class="cell" data-execution_count="7">
 <details class="code-fold">
 <summary>Código</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>Ycv <span class="op">=</span> Y_c[variaveis]</span>
@@ -556,13 +563,15 @@ Tabela&nbsp;2: Matriz de daods centralizados.
 <p>No exemplo, o PC1 explica a maior parte da variância (<span class="math inline">\(\lambda_1 = 95.31\)</span>%) e o PC2 explica o restante (<span class="math inline">\(\lambda_2 = 4.69\)</span>%), somando 100%.</p>
 <p>Os <strong>autovetores</strong> são então calculados e normalizados para terem comprimento unitário (<span class="math inline">\(u'u = 1\)</span>). Eles formam as colunas da matriz <span class="math inline">\(\mathbf{U}\)</span>.</p>
 <div class="table-narrow">
-<div id="e466a876" class="cell" data-execution_count="8">
+<div id="1bf0c3e5" class="cell" data-execution_count="8">
 <details class="code-fold">
 <summary>Código</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>U <span class="op">=</span> pca_2d.components_</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>pd.DataFrame(U, columns<span class="op">=</span>[<span class="st">'u1'</span>, <span class="st">'u2'</span>])</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>U_df <span class="op">=</span> pd.DataFrame({<span class="st">'Variveis'</span>: variaveis})</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>U_df[[<span class="st">'u1'</span>, <span class="st">'u2'</span>]] <span class="op">=</span> pd.DataFrame(U)</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>U_df</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
-<div class="cell-output cell-output-display" data-execution_count="73">
+<div class="cell-output cell-output-display" data-execution_count="264">
 <div>
 
 
@@ -570,6 +579,7 @@ Tabela&nbsp;2: Matriz de daods centralizados.
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">Variveis</th>
 <th data-quarto-table-cell-role="th">u1</th>
 <th data-quarto-table-cell-role="th">u2</th>
 </tr>
@@ -577,11 +587,13 @@ Tabela&nbsp;2: Matriz de daods centralizados.
 <tbody>
 <tr class="odd">
 <th data-quarto-table-cell-role="th">0</th>
+<td>Frequencia</td>
 <td>0.646175</td>
 <td>0.763189</td>
 </tr>
 <tr class="even">
 <th data-quarto-table-cell-role="th">1</th>
+<td>Estudo_horas</td>
 <td>0.763189</td>
 <td>-0.646175</td>
 </tr>
@@ -600,7 +612,7 @@ Tabela&nbsp;2: Matriz de daods centralizados.
 <p><span class="math display">\[f_{i1} = (y_{i1}-\bar{y}_1)u_{11} + ... + (y_{ip}-\bar{y}_p)u_{p1}\]</span></p>
 <p>Matricialmente, a matriz <strong>F</strong> dos componentes principais para todos os objetos é calculada como:</p>
 <p><span class="math display">\[F = Y_c U\]</span></p>
-<div id="4e03c36a" class="cell" data-execution_count="9">
+<div id="643ba4f2" class="cell" data-execution_count="9">
 <details class="code-fold">
 <summary>Código</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>F_2d_lista <span class="op">=</span> pca_2d.transform(Ycv)</span>
@@ -623,7 +635,7 @@ Tabela&nbsp;2: Matriz de daods centralizados.
 Tabela&nbsp;3: Matriz <strong>F</strong> contendo os scores dos componentes principais 1 e 2 para cada objeto da matriz original.
 </figcaption>
 <div aria-describedby="tbl-pca_2d_loadings-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="75">
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="266">
 <table class="do-not-create-environment cell caption-top table table-sm table-striped small">
 <thead>
 <tr class="header">
@@ -694,8 +706,8 @@ Tabela&nbsp;3: Matriz <strong>F</strong> contendo os scores dos componentes prin
 <p>As colunas da matriz <strong>F</strong> contêm os <em>scores</em> dos objetos (nas linhas) para cada componente principal e podem ser usadas para criar gráficos de ordenação, como os biplots.</p>
 </section>
 </section>
-<section id="interpretando-os-resultados-da-pca-biplots" class="level2" data-number="2">
-<h2 data-number="2" class="anchored" data-anchor-id="interpretando-os-resultados-da-pca-biplots"><span class="header-section-number">2</span> Interpretando os Resultados da PCA: Biplots</h2>
+<section id="sec-biplots" class="level2" data-number="2">
+<h2 data-number="2" class="anchored" data-anchor-id="sec-biplots"><span class="header-section-number">2</span> Interpretando os Resultados da PCA: Biplots</h2>
 <p>Um <strong>biplot</strong> é um gráfico que exibe simultaneamente os objetos (scores, da matriz <span class="math inline">\(\mathbf{F}\)</span>) e os descritores (loadings, da matriz <span class="math inline">\(\mathbf{U}\)</span>). Existem duas formas principais de escalonamento (scaling) para biplots, cada uma com uma interpretação diferente.</p>
 <section id="scaling-1-biplot-de-distância" class="level3" data-number="2.1">
 <h3 data-number="2.1" class="anchored" data-anchor-id="scaling-1-biplot-de-distância"><span class="header-section-number">2.1</span> Scaling 1 (Biplot de Distância)</h3>
@@ -778,7 +790,7 @@ Figura&nbsp;1: Gráfico de um biplot de distância (Scaling 1). A distância ent
 <h3 data-number="2.2" class="anchored" data-anchor-id="scaling-2-biplot-de-correlação"><span class="header-section-number">2.2</span> Scaling 2 (Biplot de Correlação)</h3>
 <ul>
 <li><strong>Objetivo:</strong> Representar as correlações (ou covariâncias) entre os descritores.</li>
-<li><strong>Matrizes:</strong> Usa os autovetores escalados pela raiz quadrada dos autovalores (<span class="math inline">\(U_{sc2} = U\Lambda^{1/2}\)</span>) para os descritores e scores reescalados (<span class="math inline">\(G = F\Lambda^{-1/2}\)</span>) para os objetos.</li>
+<li><strong>Matrizes:</strong> Usa os autovetores escalados pela raiz quadrada dos autovalores (<span class="math inline">\(\mathbf{U_{sc2}} = \mathbf{U}\mathbf{\Lambda}^{1/2}\)</span>) para os descritores e scores reescalados (<span class="math inline">\(\mathbf{G} = \mathbf{F}\mathbf{\Lambda}^{-1/2}\)</span>) para os objetos.</li>
 <li><strong>Interpretação:</strong>
 <ul>
 <li>Os ângulos entre os vetores dos descritores refletem suas correlações: vetores próximos indicam alta correlação positiva; vetores em direções opostas indicam correlação negativa; vetores em 90° indicam ausência de correlação.</li>
@@ -868,7 +880,7 @@ Figura&nbsp;2: Gráfico de um biplot de correlação (Scaling 2). Os ângulos en
 </section>
 <section id="conclusão" class="level3" data-number="2.3">
 <h3 data-number="2.3" class="anchored" data-anchor-id="conclusão"><span class="header-section-number">2.3</span> Conclusão</h3>
-<div id="7c3dbf3f" class="cell" data-execution_count="13">
+<div id="e9ba121d" class="cell" data-execution_count="13">
 <details class="code-fold">
 <summary>Código</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> angle_between_vectors(v1, v2):</span>
@@ -887,8 +899,8 @@ Figura&nbsp;2: Gráfico de um biplot de correlação (Scaling 2). Os ângulos en
 <p>No biplot de distância (Scaling 1), nota-se a proximidade entre os alunos com melhor desempenho, como Fernanda e Eduardo, que obtiveram os maiores valores em ambas as variáveis. Assim, a ordenação dos alunos a partir das variáveis originais pode ser bem representada por um único componente, o PC1. Nesse exemplo, o PC1 reflete a associação conjunta entre <em>Frequência</em> e <em>Estudo_horas</em>, podendo ser interpretado como um indicador de <em>nível de engajamento</em> do estudante na disciplina.</p>
 </section>
 </section>
-<section id="a-escolha-da-matriz-de-dispersão-na-pca-covariância-vs.-correlação" class="level2" data-number="3">
-<h2 data-number="3" class="anchored" data-anchor-id="a-escolha-da-matriz-de-dispersão-na-pca-covariância-vs.-correlação"><span class="header-section-number">3</span> A Escolha da Matriz de Dispersão na PCA: Covariância vs.&nbsp;Correlação</h2>
+<section id="sec-cov-cor" class="level2" data-number="3">
+<h2 data-number="3" class="anchored" data-anchor-id="sec-cov-cor"><span class="header-section-number">3</span> A Escolha da Matriz de Dispersão na PCA: Covariância vs.&nbsp;Correlação</h2>
 <p>A Análise de Componentes Principais (PCA) opera sobre uma matriz de dispersão, que pode ser uma <strong>matriz de covariância</strong> (<span class="math inline">\(\mathbf{S}\)</span>) ou uma <strong>matriz de correlação</strong> (<span class="math inline">\(\mathbf{R}\)</span>). A escolha entre essas duas matrizes depende diretamente da natureza das variáveis originais.</p>
 <ol type="1">
 <li><p><strong>PCA baseada na Matriz de Covariância (<span class="math inline">\(\mathbf{S}\)</span>):</strong> A análise é realizada diretamente sobre os dados centralizados (<span class="math inline">\(Y_c\)</span>), em que cada valor teve a média de sua coluna subtraída. Essa abordagem é adequada quando as variáveis são <strong>dimensionalmente homogêneas</strong>, ou seja, possuem as mesmas unidades físicas e ordens de magnitude e variabilidade semelhantes. Nesse caso, as diferenças de variância entre as variáveis são consideradas informações relevantes, e a PCA buscará os eixos que maximizam a covariância total.</p></li>
@@ -899,6 +911,504 @@ Figura&nbsp;2: Gráfico de um biplot de correlação (Scaling 2). Os ângulos en
 <p>No exemplo dos alunos, com as variáveis <code>Frequencia</code> e <code>Estudo_horas</code>, a PCA foi conduzida sobre a matriz de covariância. Isso foi possível porque as variâncias das duas variáveis são relativamente parecidas, como mostrado na <a href="#tbl-alunos2d" class="quarto-xref">Tabela&nbsp;1</a>. Neste cenário, a padronização não foi estritamente necessária, pois nenhuma das variáveis tinha variância suficientemente grande para ofuscar a outra, permitindo que a análise capturasse a estrutura de covariância e refletisse a forte associação positiva entre as duas variáveis.</p>
 <p>Em casos mais gerais, especialmente quando se mede uma ampla gama de descritores com unidades e escalas distintas, <strong>a padronização é fortemente recomendada</strong>, pois, se a PCA for aplicada a uma matriz de covariância de variáveis com variâncias muito díspares, os primeiros componentes principais seriam predominantemente determinados pelas variáveis de maior variância, e a estrutura de correlação entre as demais variáveis não seria descrita adequadamente.</p>
 <p>A decisão de usar a matriz <span class="math inline">\(\mathbf{S}\)</span> ou <span class="math inline">\(\mathbf{R}\)</span> se resume a determinar se a <strong>magnitude da variância das variáveis originais deve influenciar a análise ou se todas as variáveis devem ter o mesmo peso</strong>. Se for importante manter as diferenças de magnitude, utiliza-se a matriz de covariância. Caso contrário, para garantir que a PCA revele a estrutura de correlação subjacente entre os descritores, a padronização dos dados e, consequentemente, o uso da matriz de correlação é o caminho mais seguro.</p>
+</section>
+</section>
+<section id="exemplo-com-três-variáveis-tempo-de-estudo-frequência-e-nota-final" class="level2" data-number="4">
+<h2 data-number="4" class="anchored" data-anchor-id="exemplo-com-três-variáveis-tempo-de-estudo-frequência-e-nota-final"><span class="header-section-number">4</span> Exemplo com três variáveis: tempo de Estudo, frequência e nota final</h2>
+<p>Vamos incluir uma terceira variável <code>Nota_final</code> e refazer a PCA</p>
+<div id="b36f75d9" class="cell" data-execution_count="14">
+<details class="code-fold">
+<summary>Código</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>Y <span class="op">=</span> pd.read_csv(<span class="st">'https://raw.githubusercontent.com/FCopf/datasets/refs/heads/main/Notas.csv'</span>)</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<div class="table-narrow">
+<div class="cell" data-execution_count="15">
+<details class="code-fold">
+<summary>Código</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>colunas <span class="op">=</span> [<span class="st">'Nome'</span>, <span class="st">'Frequencia'</span>, <span class="st">'Estudo_horas'</span>, <span class="st">'Nota_final'</span>]</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>Y_lista <span class="op">=</span> Y[colunas].values.tolist()</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> Y.shape[<span class="dv">0</span>]</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>p <span class="op">=</span> Y[[<span class="st">'Frequencia'</span>, <span class="st">'Estudo_horas'</span>, <span class="st">'Nota_final'</span>]].shape[<span class="dv">1</span>]</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>Markdown(tabulate(</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>  Y_lista, </span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>  headers<span class="op">=</span>colunas</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>))</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div id="tbl-alunos3d" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-execution_count="15">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-alunos3d-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tabela&nbsp;4: Nome, frequência em sala de aula, tempo dedicado ao estudo e nota final da disciplina.
+</figcaption>
+<div aria-describedby="tbl-alunos3d-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="271">
+<table class="do-not-create-environment cell caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Nome</th>
+<th style="text-align: right;">Frequencia</th>
+<th style="text-align: right;">Estudo_horas</th>
+<th style="text-align: right;">Nota_final</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Ana</td>
+<td style="text-align: right;">36</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">7</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Helena</td>
+<td style="text-align: right;">38</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">5.5</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Diana</td>
+<td style="text-align: right;">34</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">3</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Carlos</td>
+<td style="text-align: right;">36</td>
+<td style="text-align: right;">11</td>
+<td style="text-align: right;">6.2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Eduardo</td>
+<td style="text-align: right;">40</td>
+<td style="text-align: right;">14</td>
+<td style="text-align: right;">9.6</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Fernanda</td>
+<td style="text-align: right;">40</td>
+<td style="text-align: right;">15</td>
+<td style="text-align: right;">8.9</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Gustavo</td>
+<td style="text-align: right;">32</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">3.1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Bruno</td>
+<td style="text-align: right;">33</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">3.5</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Igor</td>
+<td style="text-align: right;">31</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">4</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Juliana</td>
+<td style="text-align: right;">35</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">4.6</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</figure>
+</div>
+</div>
+</div>
+<p>Considerando as recomendações da <a href="#sec-cov-cor" class="quarto-xref">Seção&nbsp;3</a>, iremos realizar a PCA padronizando as variáveis. A matriz padronizada fica como na <a href="#tbl-ypadr" class="quarto-xref">Tabela&nbsp;5</a>.</p>
+<div class="table-narrow">
+<div class="cell" data-execution_count="16">
+<details class="code-fold">
+<summary>Código</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Selecionando três variáveis para análise</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>vars_pca <span class="op">=</span> [<span class="st">'Estudo_horas'</span>, <span class="st">'Frequencia'</span>, <span class="st">'Nota_final'</span>]</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>Yvar <span class="op">=</span> Y[vars_pca]</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>scaler <span class="op">=</span> StandardScaler()</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>Ypadr <span class="op">=</span> scaler.fit_transform(Yvar)</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>Ypadr_df <span class="op">=</span> pd.DataFrame(Ypadr, columns<span class="op">=</span>vars_pca)</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>Markdown(tabulate(</span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>  Ypadr, </span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>  headers<span class="op">=</span>colunas</span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>))</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div id="tbl-ypadr" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-execution_count="16">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-ypadr-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tabela&nbsp;5: Variáveis padronizadas para terem média 0 e desvio padrão 1.
+</figcaption>
+<div aria-describedby="tbl-ypadr-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output cell-output-display cell-output-markdown" data-execution_count="272">
+<table class="do-not-create-environment cell caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: right;">Nome</th>
+<th style="text-align: right;">Frequencia</th>
+<th style="text-align: right;">Estudo_horas</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">0.0578315</td>
+<td style="text-align: right;">0.168073</td>
+<td style="text-align: right;">0.651864</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0.346989</td>
+<td style="text-align: right;">0.840366</td>
+<td style="text-align: right;">-0.0178593</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">-1.0988</td>
+<td style="text-align: right;">-0.504219</td>
+<td style="text-align: right;">-1.13406</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">0.636146</td>
+<td style="text-align: right;">0.168073</td>
+<td style="text-align: right;">0.294678</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1.50362</td>
+<td style="text-align: right;">1.51266</td>
+<td style="text-align: right;">1.81272</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1.79278</td>
+<td style="text-align: right;">1.51266</td>
+<td style="text-align: right;">1.50018</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">-0.520483</td>
+<td style="text-align: right;">-1.17651</td>
+<td style="text-align: right;">-1.08942</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">-0.809641</td>
+<td style="text-align: right;">-0.840366</td>
+<td style="text-align: right;">-0.910823</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">-1.0988</td>
+<td style="text-align: right;">-1.51266</td>
+<td style="text-align: right;">-0.687582</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">-0.809641</td>
+<td style="text-align: right;">-0.168073</td>
+<td style="text-align: right;">-0.419693</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</figure>
+</div>
+</div>
+</div>
+<section id="matriz-de-covariância" class="level3" data-number="4.1">
+<h3 data-number="4.1" class="anchored" data-anchor-id="matriz-de-covariância"><span class="header-section-number">4.1</span> Matriz de covariância</h3>
+<p>Verifique que agora, as variáveis têm média 0 e desvio padrão 1, e que a matriz de covariância será idêntica à matriz de correlação, permitindo que a PCA resuma adequadamente a estrutura de correlação entre as variáveis por meio dos componentes principais.</p>
+<div id="6038e681" class="cell" data-execution_count="17">
+<details class="code-fold">
+<summary>Código</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>S <span class="op">=</span> Ypadr_df.cov(ddof<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>R <span class="op">=</span> Ypadr_df.corr()</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<div class="table-narrow">
+<div class="cell" data-execution_count="18">
+<details class="code-fold">
+<summary>Código</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>S</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div id="tbl-cov-pad" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-execution_count="18">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-cov-pad-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tabela&nbsp;6: Matriz de Covariância das variáveis padronizadas
+</figcaption>
+<div aria-describedby="tbl-cov-pad-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output cell-output-display" data-execution_count="274">
+<div>
+
+
+<table class="dataframe do-not-create-environment cell caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">Estudo_horas</th>
+<th data-quarto-table-cell-role="th">Frequencia</th>
+<th data-quarto-table-cell-role="th">Nota_final</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Estudo_horas</th>
+<td>1.000000</td>
+<td>0.903953</td>
+<td>0.927997</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Frequencia</th>
+<td>0.903953</td>
+<td>1.000000</td>
+<td>0.888493</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Nota_final</th>
+<td>0.927997</td>
+<td>0.888493</td>
+<td>1.000000</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</figure>
+</div>
+</div>
+</div>
+<div class="table-narrow">
+<div class="cell" data-execution_count="19">
+<details class="code-fold">
+<summary>Código</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>R</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div id="tbl-cor-pad" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-execution_count="19">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-cor-pad-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tabela&nbsp;7: Matriz de Correlação das variáveis padronizadas
+</figcaption>
+<div aria-describedby="tbl-cor-pad-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="cell-output cell-output-display" data-execution_count="275">
+<div>
+
+
+<table class="dataframe do-not-create-environment cell caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">Estudo_horas</th>
+<th data-quarto-table-cell-role="th">Frequencia</th>
+<th data-quarto-table-cell-role="th">Nota_final</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Estudo_horas</th>
+<td>1.000000</td>
+<td>0.903953</td>
+<td>0.927997</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Frequencia</th>
+<td>0.903953</td>
+<td>1.000000</td>
+<td>0.888493</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Nota_final</th>
+<td>0.927997</td>
+<td>0.888493</td>
+<td>1.000000</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="aplicando-pca-à-matriz-padronizada" class="level3" data-number="4.2">
+<h3 data-number="4.2" class="anchored" data-anchor-id="aplicando-pca-à-matriz-padronizada"><span class="header-section-number">4.2</span> Aplicando PCA à matriz padronizada</h3>
+<div id="6dad4173" class="cell" data-execution_count="20">
+<details class="code-fold">
+<summary>Código</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>pca_3d <span class="op">=</span> PCA()</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>pca_3d.fit(Ypadr)</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Análise da variância explicada</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>var_explicada <span class="op">=</span> pca_3d.explained_variance_</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>var_explicada_ratio <span class="op">=</span> pca_3d.explained_variance_ratio_</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>var_acumulada <span class="op">=</span> np.cumsum(var_explicada_ratio)</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<p>Podemos ver que as componentes principais geradas explicam as seguintes percetuais de variação:</p>
+<div id="8d360379" class="cell" data-execution_count="21">
+<details class="code-fold">
+<summary>Código</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(var_explicada_ratio)):</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"  PC</span><span class="sc">{</span>i<span class="op">+</span><span class="dv">1</span><span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>var_explicada_ratio[i]<span class="op">*</span><span class="dv">100</span><span class="sc">:.2f}</span><span class="ss">% "</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>          <span class="ss">f"(acumulada: </span><span class="sc">{</span>var_acumulada[i]<span class="op">*</span><span class="dv">100</span><span class="sc">:.2f}</span><span class="ss">%)"</span>)</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>  PC1: 93.79% (acumulada: 93.79%)
+  PC2: 3.87% (acumulada: 97.66%)
+  PC3: 2.34% (acumulada: 100.00%)</code></pre>
+</div>
+</div>
+<p>Estes perceituais de explicação podem ser observados no <strong>Scree plot</strong> quie mostra visualmente o percentual de variação associado a cada compomente principal.</p>
+<div id="214aec34" class="cell" data-execution_count="22">
+<details class="code-fold">
+<summary>Código</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">5</span>))</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>plt.bar(<span class="bu">range</span>(<span class="dv">1</span>, <span class="bu">len</span>(var_explicada_ratio) <span class="op">+</span> <span class="dv">1</span>), </span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>        var_explicada_ratio <span class="op">*</span> <span class="dv">100</span>, </span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>        alpha<span class="op">=</span><span class="fl">0.7</span>, color<span class="op">=</span><span class="st">'steelblue'</span>)</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>plt.xticks(<span class="bu">range</span>(<span class="dv">1</span>, <span class="bu">len</span>(var_explicada_ratio) <span class="op">+</span> <span class="dv">1</span>))</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Componente Principal'</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Variância Explicada (%)'</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Scree Plot - Variância Individual'</span>, fontsize<span class="op">=</span><span class="dv">14</span>)</span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>plt.grid(<span class="va">True</span>, alpha<span class="op">=</span><span class="fl">0.3</span>)</span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Adicionar valores no topo das barras</span></span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, v <span class="kw">in</span> <span class="bu">enumerate</span>(var_explicada_ratio):</span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a>    plt.text(i <span class="op">+</span> <span class="dv">1</span>, v <span class="op">*</span> <span class="dv">100</span> <span class="op">+</span> <span class="dv">1</span>, <span class="ss">f'</span><span class="sc">{</span>v<span class="op">*</span><span class="dv">100</span><span class="sc">:.1f}</span><span class="ss">%'</span>, </span>
+<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a>             ha<span class="op">=</span><span class="st">'center'</span>, fontsize<span class="op">=</span><span class="dv">10</span>)</span>
+<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-16"><a href="#cb23-16" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb23-17"><a href="#cb23-17" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="introducao_PCA_2d_files/figure-html/cell-23-output-1.png" width="759" height="470" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="biplots-de-distância-e-correlação" class="level3" data-number="4.3">
+<h3 data-number="4.3" class="anchored" data-anchor-id="biplots-de-distância-e-correlação"><span class="header-section-number">4.3</span> Biplots de distância e correlação</h3>
+<div id="839683b4" class="cell" data-execution_count="23">
+<details class="code-fold">
+<summary>Código</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_pca_biplot(pca, X, scaling<span class="op">=</span><span class="dv">1</span>):</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="co">    Retorna loadings e scores para biplot PCA.</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="co">    </span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a><span class="co">    Parâmetros</span></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a><span class="co">    ----------</span></span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a><span class="co">    pca : sklearn.decomposition.PCA</span></span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a><span class="co">        Objeto PCA ajustado.</span></span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a><span class="co">    X : array-like, shape (n_samples, n_features)</span></span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a><span class="co">        Dados usados na PCA (geralmente padronizados).</span></span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a><span class="co">    scaling : int</span></span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a><span class="co">        Tipo de scaling para o biplot:</span></span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a><span class="co">        1 -&gt; distâncias entre observações preservadas</span></span>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a><span class="co">        2 -&gt; distâncias entre variáveis preservadas</span></span>
+<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a><span class="co">    </span></span>
+<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a><span class="co">    Retorna</span></span>
+<span id="cb24-17"><a href="#cb24-17" aria-hidden="true" tabindex="-1"></a><span class="co">    -------</span></span>
+<span id="cb24-18"><a href="#cb24-18" aria-hidden="true" tabindex="-1"></a><span class="co">    loadings : array, shape (n_features, n_components)</span></span>
+<span id="cb24-19"><a href="#cb24-19" aria-hidden="true" tabindex="-1"></a><span class="co">        Vetores das variáveis (loadings) prontos para o biplot.</span></span>
+<span id="cb24-20"><a href="#cb24-20" aria-hidden="true" tabindex="-1"></a><span class="co">    scores : array, shape (n_samples, n_components)</span></span>
+<span id="cb24-21"><a href="#cb24-21" aria-hidden="true" tabindex="-1"></a><span class="co">        Scores das observações prontos para o biplot.</span></span>
+<span id="cb24-22"><a href="#cb24-22" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
+<span id="cb24-23"><a href="#cb24-23" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Autovalores e autovetores</span></span>
+<span id="cb24-24"><a href="#cb24-24" aria-hidden="true" tabindex="-1"></a>    eigvals <span class="op">=</span> pca.explained_variance_        <span class="co"># Λ</span></span>
+<span id="cb24-25"><a href="#cb24-25" aria-hidden="true" tabindex="-1"></a>    eigvecs <span class="op">=</span> pca.components_.T              <span class="co"># U</span></span>
+<span id="cb24-26"><a href="#cb24-26" aria-hidden="true" tabindex="-1"></a>    scores_raw <span class="op">=</span> pca.transform(X)            <span class="co"># F</span></span>
+<span id="cb24-27"><a href="#cb24-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-28"><a href="#cb24-28" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> scaling <span class="op">==</span> <span class="dv">1</span>:</span>
+<span id="cb24-29"><a href="#cb24-29" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Scaling 1: preserva distâncias entre observações</span></span>
+<span id="cb24-30"><a href="#cb24-30" aria-hidden="true" tabindex="-1"></a>        loadings <span class="op">=</span> eigvecs                     <span class="co"># vetores das variáveis</span></span>
+<span id="cb24-31"><a href="#cb24-31" aria-hidden="true" tabindex="-1"></a>        scores <span class="op">=</span> scores_raw                    <span class="co"># scores originais</span></span>
+<span id="cb24-32"><a href="#cb24-32" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> scaling <span class="op">==</span> <span class="dv">2</span>:</span>
+<span id="cb24-33"><a href="#cb24-33" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Scaling 2: preserva distâncias entre variáveis</span></span>
+<span id="cb24-34"><a href="#cb24-34" aria-hidden="true" tabindex="-1"></a>        loadings <span class="op">=</span> eigvecs <span class="op">*</span> np.sqrt(eigvals)       <span class="co"># U * sqrt(Λ)</span></span>
+<span id="cb24-35"><a href="#cb24-35" aria-hidden="true" tabindex="-1"></a>        scores <span class="op">=</span> scores_raw <span class="op">/</span> np.sqrt(eigvals)      <span class="co"># F * Λ^{-1/2}</span></span>
+<span id="cb24-36"><a href="#cb24-36" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb24-37"><a href="#cb24-37" aria-hidden="true" tabindex="-1"></a>        <span class="cf">raise</span> <span class="pp">ValueError</span>(<span class="st">"scaling deve ser 1 ou 2"</span>)</span>
+<span id="cb24-38"><a href="#cb24-38" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb24-39"><a href="#cb24-39" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> loadings, scores</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<p>Dependendo se desejamos fazer o bibplot de distância e correlação os loads e os scores são calculados de forma distinta conforme apresentado na <a href="#sec-biplots" class="quarto-xref">Seção&nbsp;2</a>.</p>
+<div id="9710e93a" class="cell" data-execution_count="24">
+<details class="code-fold">
+<summary>Código</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>loadings_s1, scores_s1 <span class="op">=</span> get_pca_biplot(pca_3d, Ypadr, scaling<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>loadings_s2, scores_s2 <span class="op">=</span> get_pca_biplot(pca_3d, Ypadr, scaling<span class="op">=</span><span class="dv">2</span>)</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<div id="4df2b15a" class="cell" data-execution_count="25">
+<details class="code-fold">
+<summary>Código</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">4</span>))</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="co"># -------------------- Biplot Scaling 1 --------------------</span></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> axes[<span class="dv">0</span>]</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>sns.scatterplot(x<span class="op">=</span>scores_s1[:,<span class="dv">0</span>], y<span class="op">=</span>scores_s1[:,<span class="dv">1</span>], ax<span class="op">=</span>ax, s<span class="op">=</span><span class="dv">100</span>, alpha<span class="op">=</span><span class="fl">0.7</span>)</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Adicionar nomes</span></span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, nome <span class="kw">in</span> <span class="bu">enumerate</span>(Y[<span class="st">'Nome'</span>]):</span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>    ax.text(scores_s1[i,<span class="dv">0</span>]<span class="op">+</span><span class="fl">0.05</span>, scores_s1[i,<span class="dv">1</span>]<span class="op">+</span><span class="fl">0.05</span>, nome, fontsize<span class="op">=</span><span class="dv">9</span>)</span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Vetores das variáveis</span></span>
+<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a>escala_loading <span class="op">=</span> <span class="fl">1.5</span></span>
+<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, var <span class="kw">in</span> <span class="bu">enumerate</span>(vars_pca):</span>
+<span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a>    ax.arrow(<span class="dv">0</span>, <span class="dv">0</span>, loadings_s1[i,<span class="dv">0</span>]<span class="op">*</span>escala_loading, loadings_s1[i,<span class="dv">1</span>]<span class="op">*</span>escala_loading,</span>
+<span id="cb26-15"><a href="#cb26-15" aria-hidden="true" tabindex="-1"></a>             color<span class="op">=</span><span class="st">'red'</span>, alpha<span class="op">=</span><span class="fl">0.7</span>, head_width<span class="op">=</span><span class="fl">0.03</span>, head_length<span class="op">=</span><span class="fl">0.08</span>, linewidth<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb26-16"><a href="#cb26-16" aria-hidden="true" tabindex="-1"></a>    ax.text(loadings_s1[i,<span class="dv">0</span>]<span class="op">*</span>escala_loading<span class="op">*</span><span class="fl">1.25</span>, loadings_s1[i,<span class="dv">1</span>]<span class="op">*</span>escala_loading<span class="op">*</span><span class="fl">1.25</span>,</span>
+<span id="cb26-17"><a href="#cb26-17" aria-hidden="true" tabindex="-1"></a>            var, color<span class="op">=</span><span class="st">'red'</span>, fontsize<span class="op">=</span><span class="dv">11</span>, ha<span class="op">=</span><span class="st">'center'</span>)</span>
+<span id="cb26-18"><a href="#cb26-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-19"><a href="#cb26-19" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="st">'Biplot PCA - Scaling 1'</span>, fontsize<span class="op">=</span><span class="dv">14</span>)</span>
+<span id="cb26-20"><a href="#cb26-20" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="ss">f'PC1 (</span><span class="sc">{</span>pca_3d<span class="sc">.</span>explained_variance_ratio_[<span class="dv">0</span>]<span class="op">*</span><span class="dv">100</span><span class="sc">:.1f}</span><span class="ss">% da variância)'</span>)</span>
+<span id="cb26-21"><a href="#cb26-21" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="ss">f'PC2 (</span><span class="sc">{</span>pca_3d<span class="sc">.</span>explained_variance_ratio_[<span class="dv">1</span>]<span class="op">*</span><span class="dv">100</span><span class="sc">:.1f}</span><span class="ss">% da variância)'</span>)</span>
+<span id="cb26-22"><a href="#cb26-22" aria-hidden="true" tabindex="-1"></a>ax.axhline(<span class="dv">0</span>, color<span class="op">=</span><span class="st">'gray'</span>, linestyle<span class="op">=</span><span class="st">'--'</span>, alpha<span class="op">=</span><span class="fl">0.3</span>)</span>
+<span id="cb26-23"><a href="#cb26-23" aria-hidden="true" tabindex="-1"></a>ax.axvline(<span class="dv">0</span>, color<span class="op">=</span><span class="st">'gray'</span>, linestyle<span class="op">=</span><span class="st">'--'</span>, alpha<span class="op">=</span><span class="fl">0.3</span>)</span>
+<span id="cb26-24"><a href="#cb26-24" aria-hidden="true" tabindex="-1"></a>ax.grid(<span class="va">True</span>, alpha<span class="op">=</span><span class="fl">0.3</span>)</span>
+<span id="cb26-25"><a href="#cb26-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-26"><a href="#cb26-26" aria-hidden="true" tabindex="-1"></a><span class="co"># -------------------- Biplot Scaling 2 --------------------</span></span>
+<span id="cb26-27"><a href="#cb26-27" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> axes[<span class="dv">1</span>]</span>
+<span id="cb26-28"><a href="#cb26-28" aria-hidden="true" tabindex="-1"></a>sns.scatterplot(x<span class="op">=</span>scores_s2[:,<span class="dv">0</span>], y<span class="op">=</span>scores_s2[:,<span class="dv">1</span>], ax<span class="op">=</span>ax, s<span class="op">=</span><span class="dv">100</span>, alpha<span class="op">=</span><span class="fl">0.7</span>)</span>
+<span id="cb26-29"><a href="#cb26-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-30"><a href="#cb26-30" aria-hidden="true" tabindex="-1"></a><span class="co"># Adicionar nomes</span></span>
+<span id="cb26-31"><a href="#cb26-31" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, nome <span class="kw">in</span> <span class="bu">enumerate</span>(Y[<span class="st">'Nome'</span>]):</span>
+<span id="cb26-32"><a href="#cb26-32" aria-hidden="true" tabindex="-1"></a>    ax.text(scores_s2[i,<span class="dv">0</span>]<span class="op">+</span><span class="fl">0.05</span>, scores_s2[i,<span class="dv">1</span>]<span class="op">+</span><span class="fl">0.05</span>, nome, fontsize<span class="op">=</span><span class="dv">9</span>)</span>
+<span id="cb26-33"><a href="#cb26-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-34"><a href="#cb26-34" aria-hidden="true" tabindex="-1"></a><span class="co"># Vetores das variáveis</span></span>
+<span id="cb26-35"><a href="#cb26-35" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, var <span class="kw">in</span> <span class="bu">enumerate</span>(vars_pca):</span>
+<span id="cb26-36"><a href="#cb26-36" aria-hidden="true" tabindex="-1"></a>    ax.arrow(<span class="dv">0</span>, <span class="dv">0</span>, loadings_s2[i,<span class="dv">0</span>]<span class="op">*</span>escala_loading, loadings_s2[i,<span class="dv">1</span>]<span class="op">*</span>escala_loading,</span>
+<span id="cb26-37"><a href="#cb26-37" aria-hidden="true" tabindex="-1"></a>             color<span class="op">=</span><span class="st">'red'</span>, alpha<span class="op">=</span><span class="fl">0.7</span>, head_width<span class="op">=</span><span class="fl">0.03</span>, head_length<span class="op">=</span><span class="fl">0.08</span>, linewidth<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb26-38"><a href="#cb26-38" aria-hidden="true" tabindex="-1"></a>    ax.text(loadings_s2[i,<span class="dv">0</span>]<span class="op">*</span>escala_loading<span class="op">*</span><span class="fl">1.25</span>, loadings_s2[i,<span class="dv">1</span>]<span class="op">*</span>escala_loading<span class="op">*</span><span class="fl">1.25</span>,</span>
+<span id="cb26-39"><a href="#cb26-39" aria-hidden="true" tabindex="-1"></a>            var, color<span class="op">=</span><span class="st">'red'</span>, fontsize<span class="op">=</span><span class="dv">11</span>, ha<span class="op">=</span><span class="st">'center'</span>)</span>
+<span id="cb26-40"><a href="#cb26-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-41"><a href="#cb26-41" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="st">'Biplot PCA - Scaling 2'</span>, fontsize<span class="op">=</span><span class="dv">14</span>)</span>
+<span id="cb26-42"><a href="#cb26-42" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="ss">f'PC1 (</span><span class="sc">{</span>pca_3d<span class="sc">.</span>explained_variance_ratio_[<span class="dv">0</span>]<span class="op">*</span><span class="dv">100</span><span class="sc">:.1f}</span><span class="ss">% da variância)'</span>)</span>
+<span id="cb26-43"><a href="#cb26-43" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="ss">f'PC2 (</span><span class="sc">{</span>pca_3d<span class="sc">.</span>explained_variance_ratio_[<span class="dv">1</span>]<span class="op">*</span><span class="dv">100</span><span class="sc">:.1f}</span><span class="ss">% da variância)'</span>)</span>
+<span id="cb26-44"><a href="#cb26-44" aria-hidden="true" tabindex="-1"></a>ax.axhline(<span class="dv">0</span>, color<span class="op">=</span><span class="st">'gray'</span>, linestyle<span class="op">=</span><span class="st">'--'</span>, alpha<span class="op">=</span><span class="fl">0.3</span>)</span>
+<span id="cb26-45"><a href="#cb26-45" aria-hidden="true" tabindex="-1"></a>ax.axvline(<span class="dv">0</span>, color<span class="op">=</span><span class="st">'gray'</span>, linestyle<span class="op">=</span><span class="st">'--'</span>, alpha<span class="op">=</span><span class="fl">0.3</span>)</span>
+<span id="cb26-46"><a href="#cb26-46" aria-hidden="true" tabindex="-1"></a>ax.grid(<span class="va">True</span>, alpha<span class="op">=</span><span class="fl">0.3</span>)</span>
+<span id="cb26-47"><a href="#cb26-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-48"><a href="#cb26-48" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb26-49"><a href="#cb26-49" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="introducao_PCA_2d_files/figure-html/cell-26-output-1.png" width="757" height="373" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Como discutido anteriormente, o biplot de distância preserva a distância euclidiana entre os objetos, mas distorce os ângulos entre as variáveis. Já o biplot de correlação preserva os ângulos entre as variáveis, refletindo melhor suas relações, mas não mantém as distâncias euclidianas entre os objetos. Dessa forma, cada tipo de biplot deve ser aplicado conforme o objetivo da análise.</p>
+<p>No caso deste conjunto de dados, as variáveis tempo de estudo, frequência e nota final estão altamente correlacionadas, permitindo capturar quase toda a estrutura de variação apenas com o primeiro componente principal. Isso indica que a dimensionalidade do conjunto pode ser reduzida de três para uma variável sem perda importante de informação.</p>
 
 
 </section>
