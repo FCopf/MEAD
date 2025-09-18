@@ -1,0 +1,256 @@
+---
+title: "Estatística Descritiva e Visualização com Python"
+description: "Análise descritiva de dados usando Python com Pandas e Matplotlib, incluindo medidas de tendência central, dispersão e visualizações básicas."
+
+image: "images/estatistica-descritiva-python.png"
+execute:
+  echo: true
+  warning: false
+  include: true
+  message: false
+---
+
+Neste tutorial, exploraremos como realizar análise estatística descritiva em Python, utilizando o dataset de [pinguins de Palmer](https://allisonhorst.github.io/palmerpenguins/index.html}{target="_blank"} para exemplificar conceitos fundamentais de estatística.
+
+::: {.callout-tip title="Código em Python"}
+
+Acompanha este tutorial o [Estatística descritiva em Python](03_estatistica_descrtitiva_python.py){target="_blank"}
+
+:::
+
+## Pacotes necessários
+
+```{python}
+import pandas as pd
+import numpy as np
+from palmerpenguins import load_penguins
+import matplotlib.pyplot as plt
+```
+
+## Carregando e preparando os dados
+
+```{python}
+penguins = load_penguins().dropna()  # Remove valores ausentes
+penguins.shape  # Verificar dimensões
+```
+
+## Variáveis Qualitativas (Categóricas)
+
+### Identificando tipos de dados
+
+```{python}
+penguins.dtypes
+```
+
+### Frequência absoluta
+
+```{python}
+penguins['species'].value_counts()
+```
+
+### Frequência relativa
+
+```{python}
+penguins['species'].value_counts(normalize=True)
+```
+
+### Visualização: Gráfico de barras
+
+```{python}
+penguins['species'].value_counts().plot(kind='bar')
+plt.title("Número de Pinguins por Espécie")
+plt.xlabel("Espécie")
+plt.ylabel("Frequência")
+plt.show()
+plt.close('all')
+```
+
+```{python}
+# Para outra variável categórica
+penguins['island'].value_counts().plot(kind='bar')
+plt.title("Distribuição de Pinguins por Ilha")
+plt.xlabel("Ilha")
+plt.ylabel("Frequência")
+plt.show()
+plt.close('all')
+```
+
+## Variáveis Quantitativas
+
+### Resumo descritivo básico
+
+```{python}
+penguins['body_mass_g'].describe()
+```
+
+```{python}
+# Para todas as variáveis numéricas
+penguins.describe()
+```
+
+### Visualização: Histograma
+
+```{python}
+penguins['body_mass_g'].plot(kind='hist', 
+                            bins=5, 
+                            edgecolor="white")
+plt.title("Histograma da Massa Corporal")
+plt.xlabel("Massa (g)")
+plt.ylabel("Frequência")
+plt.show()
+plt.close('all')
+```
+
+::: {.callout-tip}
+**Interpretando histogramas**:  
+- **Forma**: simétrica, assimétrica à esquerda/direita  
+- **Tendência central**: onde se concentram os dados  
+- **Dispersão**: quão espalhados estão os valores  
+:::
+
+## Quartis e Medidas de Posição
+
+### Quartis individuais
+
+```{python}
+penguins['body_mass_g'].quantile(0.25)  # Q1
+penguins['body_mass_g'].quantile(0.50)  # Q2 (mediana)
+penguins['body_mass_g'].quantile(0.75)  # Q3
+```
+
+### Múltiplos quantis
+
+```{python}
+penguins['body_mass_g'].quantile([0.25, 0.5, 0.75])
+```
+
+### Visualização: Boxplot
+
+```{python}
+penguins['body_mass_g'].plot(kind='box')
+plt.title("Boxplot da Massa Corporal")
+plt.ylabel("Massa (g)")
+plt.show()
+plt.close('all')
+```
+
+::: {.callout-note}
+**Interpretando boxplots**:  
+- **Linha central**: mediana (Q2)  
+- **Caixa**: do Q1 ao Q3 (50% dos dados centrais)  
+- **Whiskers**: extensão até ~1.5 × IQR  
+- **Pontos isolados**: possíveis outliers  
+:::
+
+## Medidas de Tendência Central
+
+```{python}
+penguins['body_mass_g'].mean()    # Média aritmética
+penguins['body_mass_g'].median()  # Mediana
+```
+
+::: {.callout-tip}  
+**Quando usar cada medida**:  
+- **Média**: dados simétricos, sem outliers extremos  
+- **Mediana**: dados assimétricos ou com outliers  
+:::
+
+## Medidas de Variação
+
+```{python}
+penguins['body_mass_g'].std()   # Desvio padrão
+penguins['body_mass_g'].var()   # Variância
+```
+
+### Cálculo manual da variância
+
+```{python}
+x = penguins['body_mass_g']
+# Fórmula: Σ(xi - x̄)² / (n-1)
+variancia_manual = np.sum((x - x.mean())**2) / (len(x) - 1)
+print(f"Variância manual: {variancia_manual}")
+print(f"Variância pandas: {x.var()}")
+```
+
+## Escore-Z (Padronização)
+
+A padronização transforma os dados para média = 0 e desvio padrão = 1:
+
+$$Z = \frac{(X - \mu)}{\sigma}$$
+
+```{python}
+media = penguins['body_mass_g'].mean()
+desvio_padrao = penguins['body_mass_g'].std()
+
+penguins['zscore_massa'] = (penguins['body_mass_g'] - media) / desvio_padrao
+```
+
+### Verificando a padronização
+
+```{python}
+penguins[['body_mass_g', 'zscore_massa']].head()
+```
+
+```{python}
+penguins[['body_mass_g', 'zscore_massa']].describe()
+```
+
+::: {.callout-note} 
+**Interpretação do Z-score**:  
+- **Z = 0**: valor igual à média  
+- **Z = 1**: um desvio padrão acima da média  
+- **Z = -1**: um desvio padrão abaixo da média  
+- **|Z| > 2**: valor considerado incomum  
+:::
+
+## Comparação Visual: Original vs Padronizado
+
+```{python}
+fig, axes = plt.subplots(2, 1, figsize=(8, 6))
+
+# Histograma da variável original
+axes[0].hist(penguins['body_mass_g'], bins=20, color='skyblue', edgecolor='black')
+axes[0].set_title("Massa Corporal (g) - Original")
+axes[0].set_xlabel("Massa (g)")
+axes[0].set_ylabel("Frequência")
+
+# Histograma da variável padronizada
+axes[1].hist(penguins['zscore_massa'], bins=20, color='lightgreen', edgecolor='black')
+axes[1].set_title("Massa Corporal - Z-Score")
+axes[1].set_xlabel("Escore-Z")
+axes[1].set_ylabel("Frequência")
+
+plt.tight_layout()
+plt.show()
+plt.close('all')
+```
+
+## Resumo das Medidas
+
+| **Medida** | **Função Python** | **Interpretação** |
+|------------|------------------|-------------------|
+| Média | `.mean()` | Valor central (sensível a outliers) |
+| Mediana | `.median()` | Valor central (robusta a outliers) |
+| Desvio Padrão | `.std()` | Dispersão dos dados |
+| Variância | `.var()` | Dispersão ao quadrado |
+| Q1, Q3 | `.quantile(0.25)`, `.quantile(0.75)` | Quartis |
+| Mínimo/Máximo | `.min()`, `.max()` | Valores extremos |
+
+## Aplicações Práticas
+
+### Identificando outliers com Z-score
+
+```{python}
+# Valores com |Z| > 2 são considerados incomuns
+outliers = penguins[np.abs(penguins['zscore_massa']) > 2]
+print(f"Encontrados {len(outliers)} possíveis outliers")
+outliers[['species', 'body_mass_g', 'zscore_massa']]
+```
+
+### Comparação rápida entre variáveis
+
+```{python}
+# Estatísticas descritivas para múltiplas variáveis
+colunas_numericas = ['bill_length_mm', 'bill_depth_mm', 'flipper_length_mm', 'body_mass_g']
+penguins[colunas_numericas].describe()
+```

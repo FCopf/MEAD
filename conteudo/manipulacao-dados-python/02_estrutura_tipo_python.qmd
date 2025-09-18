@@ -1,0 +1,214 @@
+---
+title: "Estrutura e Tipos de Dados em Python"
+description: "Manipulação de DataFrames em Python usando Pandas, incluindo seleção de linhas e colunas, filtragem de dados e tratamento de valores ausentes."
+
+image: "images/pandas-estrutura.png"
+execute:
+  echo: true
+  warning: false
+  include: true
+  message: false
+---
+
+Neste tutorial, vamos explorar como trabalhar com estruturas de dados tabulares em Python usando a biblioteca Pandas. Utilizaremos o dataset de [pinguins de Palmer](https://allisonhorst.github.io/palmerpenguins/index.html}{target="_blank"} como exemplo prático.
+
+
+::: {.callout-tip title="Código em Python"}
+
+Acompanha este tutorial o [Tipos de dados em Python](02_estrutura_tipo_python.py){target="_blank"}
+
+:::
+
+## Pacotes necessários
+
+```{python}
+import pandas as pd
+# pip install palmerpenguins
+from palmerpenguins import load_penguins
+```
+
+::: {.callout-note title="Instalação de palmerpenguins"}
+
+O dataset `palmerpenguins` pode ser instalado com: `pip install palmerpenguins`
+:::
+
+## Carregando os dados
+
+```{python}
+penguins = load_penguins()
+```
+
+## Explorando a estrutura dos dados
+
+### Dimensões do DataFrame
+
+```{python}
+penguins.shape  # (número de linhas, número de colunas)
+```
+
+### Primeiras observações
+
+```{python}
+penguins.head()  # Mostra as primeiras 5 linhas
+```
+
+### Tipos de dados
+
+```{python}
+penguins.dtypes  # Mostra o tipo de cada coluna
+```
+
+## Selecionando colunas
+
+### Seleção de uma coluna
+
+```{python}
+penguins['species']  # Retorna uma Series
+```
+
+### Seleção de múltiplas colunas
+
+```{python}
+penguins[['species', 'island', 'body_mass_g']]  # Retorna um DataFrame
+```
+
+::: {.callout-tip}
+**Diferença importante**:  
+- `df['coluna']` retorna uma **Series** (uma dimensão)  
+- `df[['coluna']]` retorna um **DataFrame** (duas dimensões)  
+:::
+
+## Selecionando linhas
+
+### Seleção por índice numérico
+
+```{python}
+penguins.iloc[0]     # Primeira linha (índice 0)
+penguins.iloc[10]    # 11ª linha (índice 10)
+```
+
+### Seleção de múltiplas linhas
+
+```{python}
+penguins.iloc[0:5]   # Linhas 0 a 4 (5 não incluído)
+```
+
+## Seleção combinada: linhas e colunas
+
+```{python}
+penguins.iloc[0:5, 0:3]  # Linhas 0-4, colunas 0-2
+```
+
+::: {.callout-note}
+**Indexação em Python**:  
+- Índices começam em **0**  
+- Intervalos `[inicio:fim]` **não incluem** o valor `fim`  
+- `0:5` significa índices 0, 1, 2, 3, 4  
+:::
+
+## Filtragem de dados
+
+### Filtro simples
+
+```{python}
+filtro = penguins['species'] == 'Adelie'
+filtro  # Retorna uma Series de True/False
+```
+
+```{python}
+penguins[filtro]  # Retorna apenas as linhas onde filtro é True
+```
+
+### Múltiplas condições
+
+Para combinar condições, usamos operadores lógicos:
+
+- `&` para **E** (AND)
+- `|` para **OU** (OR)
+- `~` para **NÃO** (NOT)
+
+```{python}
+filtro2 = (penguins['species'] == 'Adelie') & (penguins['island'] == 'Torgersen')
+filtro2
+```
+
+```{python}
+penguins[filtro2]
+```
+
+```{python}
+penguins[filtro2].shape  # Quantas linhas atendem aos critérios
+```
+
+::: {.callout-warning}
+
+**Parênteses são obrigatórios** ao combinar condições:  
+- ✅ `(condição1) & (condição2)`  
+- ❌ `condição1 & condição2`  
+:::
+
+## Tratando dados ausentes
+
+### Identificando valores ausentes
+
+```{python}
+penguins.isnull().sum(axis=1)  # Valores ausentes por linha
+```
+
+```{python}
+penguins.isnull().sum(axis=0)  # Valores ausentes por coluna
+```
+
+### Removendo valores ausentes
+
+```{python}
+penguins2 = penguins.dropna()  # Remove todas as linhas com valores ausentes
+penguins2.isnull().sum(axis=0)  # Verifica se ainda há valores ausentes
+```
+
+## Métodos úteis para exploração
+
+### Informações gerais
+
+```{python}
+penguins.info()          # Informações gerais sobre o DataFrame
+penguins.describe()      # Estatísticas descritivas para colunas numéricas
+penguins['species'].unique()        # Valores únicos em uma coluna
+penguins['species'].value_counts()  # Contagem de cada valor único
+```
+
+### Verificação de dados
+
+```{python}
+penguins.shape           # Dimensões
+penguins.columns         # Nomes das colunas
+penguins.index           # Índices das linhas
+```
+
+## Exemplos práticos
+
+### Filtros complexos
+
+```{python}
+# Pinguins Adelie com massa corporal > 4000g
+filtro_complexo = (penguins['species'] == 'Adelie') & (penguins['body_mass_g'] > 4000)
+penguins_grandes = penguins[filtro_complexo]
+print(f"Encontrados {len(penguins_grandes)} pinguins Adelie com massa > 4000g")
+```
+
+### Seleção específica
+
+```{python}
+# Primeiros 10 pinguins, apenas espécie e massa corporal
+penguins.iloc[0:10][['species', 'body_mass_g']]
+```
+
+### Combinando operações
+
+```{python}
+# Pinguins da ilha Biscoe, removendo valores ausentes, apenas colunas numéricas
+resultado = (penguins[penguins['island'] == 'Biscoe']
+            .dropna()
+            [['bill_length_mm', 'bill_depth_mm', 'flipper_length_mm', 'body_mass_g']])
+resultado.shape
+```

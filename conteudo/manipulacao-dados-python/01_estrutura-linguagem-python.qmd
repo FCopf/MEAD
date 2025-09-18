@@ -1,0 +1,280 @@
+---
+title: "Introdução ao Python: Estrutura da Linguagem"
+description: "Estrutura da linguagem Python, incluindo operações básicas, tipos de objetos (listas, arrays, strings, dicionários) e sintaxe principal."
+image: "images/estrutura-linguagem-python.png"
+execute:
+  echo: true
+  warning: false
+  include: true
+  message: false
+---
+
+Python é uma linguagem de programação de alto nível, interpretada e de propósito geral. É amplamente utilizada em ciência de dados, desenvolvimento web, automação e muitas outras áreas. Para análise de dados, utilizamos principalmente as bibliotecas NumPy para computação numérica e Pandas para manipulação de dados tabulares.
+
+::: {.callout-tip title="Código em Python"}
+
+Acompanha este tutorial o [Introdução ao Python](01_estrutura-linguagem-python.py){target="_blank"}
+
+:::
+
+
+## Pacotes essenciais
+
+Antes de começarmos, vamos importar os pacotes fundamentais que utilizaremos:
+
+```{python}
+import math
+import numpy as np
+import pandas as pd
+```
+
+## Operações aritméticas
+
+Python utiliza os operadores matemáticos padrão de forma intuitiva:
+
+```{python}
+2 + 4
+```
+
+```{python}
+2 * 4
+```
+
+```{python}
+2 - 4
+```
+
+```{python}
+2**4  # Potenciação
+```
+
+```{python}
+13 / 2   # Divisão comum (resultado decimal)
+```
+
+```{python}
+13 // 2  # Divisão inteira
+```
+
+```{python}
+13 % 2   # Módulo (resto da divisão)
+```
+
+Python respeita a precedência dos operadores matemáticos:
+
+```{python}
+5 * (9 + 2)
+```
+
+```{python}
+5 * 9 + 2
+```
+
+```{python}
+3 + 4**2
+```
+
+### Funções matemáticas
+
+Python oferece funções matemáticas tanto no módulo `math` quanto no NumPy:
+
+```{python}
+math.log(100)      # Logaritmo natural
+math.log10(100)    # Logaritmo base 10
+math.sqrt(36)      # Raiz quadrada
+math.pi            # Constante π
+```
+
+```{python}
+math.sin(0.5 * math.pi)       # Seno
+math.sin(math.radians(90))    # Seno de 90 graus
+```
+
+Com NumPy, temos funções vetorizadas:
+
+```{python}
+np.log(100)
+np.sqrt(36)
+```
+
+## Atribuição de valores
+
+Em Python, atribuímos valores a variáveis usando o operador `=`:
+
+```{python}
+x = np.log(100)
+x
+```
+
+```{python}
+y = x + 10
+y
+```
+
+Ao reatribuir um valor, o anterior é substituído:
+
+```{python}
+x = 5
+y = x + 10
+y
+```
+
+Python diferencia maiúsculas de minúsculas:
+
+```{python}
+a = math.sqrt(49)
+A = math.sqrt(81)
+a, A
+```
+
+## Estruturas de dados
+
+### Listas
+
+Listas são coleções ordenadas e mutáveis em Python:
+
+```{python}
+x = [4, 3.0, 5, 9, 10]
+x
+```
+
+```{python}
+type(x)        # Tipo do objeto
+len(x)         # Comprimento da lista
+```
+
+Acessando elementos (índices começam em 0):
+
+```{python}
+x[0]           # Primeiro elemento
+x[0:]          # Do primeiro elemento em diante
+```
+
+**Importante**: Multiplicar uma lista por um número replica a lista:
+
+```{python}
+x * 2          # Replica a lista duas vezes
+```
+
+### Arrays NumPy
+
+Arrays são mais eficientes para operações numéricas:
+
+```{python}
+y = np.array(x)
+y
+```
+
+```{python}
+type(y)
+len(y)
+y[0]           # Primeiro elemento
+y[0:2]         # Primeiros dois elementos
+```
+
+Operações em arrays são **elemento por elemento**:
+
+```{python}
+y * 2          # Multiplica cada elemento por 2
+```
+
+Comparação entre listas e arrays:
+
+```{python}
+x * 2                    # Lista: replica
+y * 2                    # Array: multiplica cada elemento
+[i * 2 for i in x]      # List comprehension: multiplica cada elemento
+```
+
+### Sequências
+
+Python oferece várias formas de criar sequências:
+
+```{python}
+list(range(2, 11))       # Sequência de 2 a 10
+np.linspace(2, 10, 4)    # 4 pontos igualmente espaçados entre 2 e 10
+np.repeat(4, 6)          # Repete o valor 4 seis vezes
+```
+
+```{python}
+[2, 5] * 3               # Lista: replica
+np.tile([2, 5], 3)       # Array: repete o padrão
+```
+
+### Strings (cadeias de caracteres)
+
+Strings são sequências de caracteres:
+
+```{python}
+especies = ["Deuterodon iguape", 
+           "Characidium japuhybense", 
+           "Trichomycterus zonatus"]
+especies
+```
+
+```{python}
+sorted(especies)         # Ordena alfabeticamente
+```
+
+**Importante**: Python é tipado dinamicamente, mas operações devem ser compatíveis:
+
+```{python}
+especies = [
+    "Deuterodon iguape",
+    "Characidium japuhybense", 
+    "Trichomycterus zonatus",
+    4]
+
+# especies[3] + 3  # Isso causaria erro: não pode somar string com número
+```
+
+### Arrays 2D (matrizes)
+
+Listas de listas podem representar matrizes:
+
+```{python}
+x = [
+    [21, 26, 5, 18],
+    [17, 28, 20, 15],
+    [13, 14, 27, 22]
+]
+
+x
+x[0]           # Primeira linha
+x[0][0]        # Elemento da primeira linha, primeira coluna
+```
+
+Arrays NumPy oferecem indexação mais conveniente:
+
+```{python}
+y = np.array(x)
+y
+y[0]           # Primeira linha
+y[0][0]        # Elemento [0,0]
+y[0, 0]        # Notação matricial
+y[0,:]         # Primeira linha (todas as colunas)
+y[:,0]         # Primeira coluna (todas as linhas)
+```
+
+### Dicionários
+
+Dicionários armazenam pares chave-valor:
+
+```{python}
+nosso_dic = {
+    'Ilha' : ['Ilhabela', 'Anchieta', 'Cardoso'],
+    'Areaskm2': [347.5, 8.3, 131]
+}
+nosso_dic
+nosso_dic.keys()       # Mostra as chaves
+```
+
+### DataFrames
+
+DataFrames são estruturas tabulares do Pandas, similares a planilhas:
+
+```{python}
+df = pd.DataFrame(nosso_dic)
+df
+df['Ilha']             # Acessa a coluna 'Ilha'
+```

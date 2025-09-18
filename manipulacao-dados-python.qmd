@@ -1,10 +1,14 @@
 ---
-title: "Manipulação de Dados em Python"
+title: "Introdução e Manipulação de Dados em Python"
 description: "Fundamentos da estrutura, manipulação e visualização de dados em Python."
 categories: [Programação, Python, Fundamentos]
 image: "images/manipulacao-dados-python.png"
 listing:
   contents: 
+    - conteudo/manipulacao-dados-python/01_estrutura-linguagem-python.qmd
+    - conteudo/manipulacao-dados-python/02_estrutura_tipo_python.qmd
+    - conteudo/manipulacao-dados-python/03_estatistica_descrtitiva_python.qmd
+    - conteudo/manipulacao-dados-python/04_medidas_associacao_python.qmd
     - conteudo/manipulacao-dados-python/importa-dados-python.qmd
   sort: false
   type: default

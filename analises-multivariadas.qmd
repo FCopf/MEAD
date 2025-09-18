@@ -1,0 +1,23 @@
+---
+title: "Análises multivariadas"
+description: "Técnicas de Análises multivariadas, incluindo métodos de ordenação, agrupamento, cálculo de distâncias e testes de randomização, para investigação de padrões em dados multivariados."
+categories: ["Análise multivariada", "Ordenação", "Agrupamento", "Randomização", "Distância"]
+
+image: "images/analises-multivariadas.png"
+listing:
+  contents:
+    - conteudo/analises-multivariadas/intro-matrizes.qmd
+    - conteudo/analises-multivariadas/cossine-similarity.qmd
+    - conteudo/analises-multivariadas/introducao_PCA_2d.qmd
+  sort: false
+  type: default
+  fields: 
+    - image
+    - title
+    - description
+    - categories
+format:
+  html:
+    toc: true
+    number-sections: true
+---

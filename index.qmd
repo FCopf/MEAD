@@ -76,10 +76,10 @@ listing:
       - image
     categories: false
   
-  # Lista 6 - Ecologia Numérica
-  - id: numerical-ecology
+  # Lista 6 - Análises Multivariadas
+  - id: multivariate-analysis
     contents:
-      - ecologia-numerica.qmd
+      - analises-multivariadas.qmd
     sort: false
     type: grid
     fields:
@@ -126,9 +126,9 @@ listing:
 ::: {#bayesian-modeling}
 :::
 
-## Ecologia Numérica
+## Análises Multivariadas
 
-::: {#numerical-ecology}
+::: {#multivariate-analysis}
 :::
 
 ## Funções e Modelos

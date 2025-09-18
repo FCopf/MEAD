@@ -1,0 +1,19 @@
+.table-narrow table {
+    width: 40% !important;
+    margin: 25px auto;
+    border-collapse: collapse;
+    font-size: .85em;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    box-shadow: 0 0 20px rgba(0,0,0,0.10);
+  }
+  .table-narrow th, .table-narrow td {
+    padding: 2px 6px;
+    border: 1px solid #eee;
+    text-align: left;
+  }
+  .table-narrow thead tr {
+    background-color: #4a90e2;
+    color: #fff;
+  }
+  
+  

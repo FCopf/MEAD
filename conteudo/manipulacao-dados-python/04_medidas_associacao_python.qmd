@@ -1,0 +1,369 @@
+---
+title: "Medidas de Associação e Relacionamentos entre Variáveis com Python"
+description: "Análise de associações entre variáveis usando Python com Pandas, Matplotlib e Seaborn, incluindo tabelas de contingência, correlação e visualizações."
+
+image: "images/medidas-associacao-python.png"
+execute:
+  echo: true
+  warning: false
+  include: true
+  message: false
+---
+
+Neste tutorial, exploraremos como analisar padrões de associação entre diferentes tipos de variáveis em Python, utilizando o dataset de [pinguins de Palmer](https://allisonhorst.github.io/palmerpenguins/index.html){target="_blank"}.
+
+::: {.callout-tip title="Código em Python"}
+
+Acompanha este tutorial o [Medidas de associação em Python](04_medidas_associacao_python.py){target="_blank"}
+
+:::
+
+
+## Pacotes necessários
+
+```{python}
+import pandas as pd
+import matplotlib.pyplot as plt
+from palmerpenguins import load_penguins
+import seaborn as sns
+import numpy as np
+```
+
+## Carregando e preparando os dados
+
+```{python}
+penguins = load_penguins().dropna()
+penguins.shape
+```
+
+```{python}
+# Visualizando as primeiras linhas
+penguins.head()
+```
+
+## Associação entre Duas Variáveis Qualitativas (Categóricas)
+
+Quando queremos analisar a relação entre duas variáveis categóricas, utilizamos **tabelas de contingência**.
+
+### Exemplo: Associação entre Espécie e Ilha
+
+```{python}
+# Tabela de contingência (frequências observadas)
+contingency_table = pd.crosstab(penguins['species'], 
+                                penguins['island'])
+contingency_table
+```
+
+### Frequências Relativas
+
+```{python}
+# Frequências relativas por linha (marginais)
+total_row = contingency_table.sum(axis=1)
+relative_row = contingency_table.div(total_row, axis=0)
+print("Frequências relativas por linha (espécie):")
+relative_row
+```
+
+```{python}
+# Frequências relativas por coluna (marginais)
+total_col = contingency_table.sum(axis=0)
+relative_col = contingency_table.div(total_col, axis=1)
+print("Frequências relativas por coluna (ilha):")
+relative_col
+```
+
+```{python}
+# Frequências relativas conjuntas
+relative_joint = contingency_table / contingency_table.sum().sum()
+print("Frequências relativas conjuntas:")
+relative_joint
+```
+
+### Visualização: Gráfico de Barras Agrupadas
+
+```{python}
+contingency_table.plot(kind='bar', stacked=False, figsize=(8, 6))
+plt.title("Associação entre Espécie e Ilha")
+plt.xlabel("Espécie")
+plt.ylabel("Frequência")
+plt.legend(title="Ilha")
+plt.xticks(rotation=45)
+plt.tight_layout()
+plt.show()
+plt.close('all')
+```
+
+```{python}
+# Gráfico alternativo com Seaborn
+plt.figure(figsize=(8, 6))
+sns.countplot(data=penguins, x='species', hue='island')
+plt.title("Distribuição de Espécies por Ilha")
+plt.xlabel("Espécie")
+plt.ylabel("Frequência")
+plt.legend(title="Ilha")
+plt.show()
+plt.close('all')
+```
+
+::: {.callout-note}
+**Interpretando a associação**:  
+- Se as proporções fossem similares em todas as categorias, não haveria associação  
+- Diferenças significativas nas proporções indicam possível associação  
+- No exemplo, vemos que diferentes espécies têm distribuições distintas entre as ilhas  
+:::
+
+## Associação entre Duas Variáveis Quantitativas
+
+Para variáveis quantitativas, utilizamos **correlação** e **covariância**.
+
+### Exemplo: Comprimento do Bico vs Massa Corporal
+
+```{python}
+# Gráfico de dispersão
+plt.figure(figsize=(10, 6))
+sns.scatterplot(
+    data=penguins,
+    x='bill_length_mm',
+    y='body_mass_g',
+    hue='species',
+    s=60
+)
+plt.title("Associação entre Comprimento do Bico e Massa Corporal")
+plt.xlabel("Comprimento do Bico (mm)")
+plt.ylabel("Massa Corporal (g)")
+plt.show()
+plt.close('all')
+```
+
+### Covariância e Correlação
+
+```{python}
+# Covariância
+covariance = penguins[['bill_length_mm', 'body_mass_g']].cov()
+print("Matriz de Covariância:")
+covariance
+```
+
+```{python}
+# Correlação de Pearson
+correlation = penguins[['bill_length_mm', 'body_mass_g']].corr()
+print("Matriz de Correlação:")
+correlation
+```
+
+### Entendendo a Correlação como Covariância Padronizada
+
+```{python}
+# Padronizando as variáveis (Z-score)
+penguins_padr = penguins[['bill_length_mm', 'body_mass_g']].copy()
+penguins_padr = (penguins_padr - penguins_padr.mean()) / penguins_padr.std()
+
+print("Média das variáveis padronizadas:", penguins_padr.mean().values)
+print("Desvio padrão das variáveis padronizadas:", penguins_padr.std().values)
+```
+
+```{python}
+# A covariância de variáveis padronizadas = correlação
+print("Covariância das variáveis padronizadas:")
+penguins_padr.cov()
+```
+
+## 3. Associação entre Variável Quantitativa e Qualitativa
+
+### Exemplo: Massa Corporal por Espécie
+
+```{python}
+# Resumo descritivo por grupo
+grouped_mass = penguins.groupby('species')['body_mass_g'].describe()
+grouped_mass
+```
+
+```{python}
+# Para outra variável
+grouped_bill = penguins.groupby('species')['bill_length_mm'].describe()
+grouped_bill
+```
+
+### Visualização: Boxplot por Grupos
+
+```{python}
+plt.figure(figsize=(10, 6))
+sns.boxplot(x='species', y='body_mass_g', data=penguins)
+plt.title("Distribuição da Massa Corporal por Espécie")
+plt.xlabel("Espécie")
+plt.ylabel("Massa Corporal (g)")
+plt.show()
+plt.close('all')
+```
+
+### Gráfico de Médias com Barras de Erro
+
+```{python}
+plt.figure(figsize=(10, 6))
+sns.pointplot(
+    data=penguins,
+    x='species',
+    y='body_mass_g',
+    capsize=0.1,
+    color='black',
+    errorbar='sd'
+)
+plt.title("Média e Desvio Padrão da Massa Corporal por Espécie")
+plt.xlabel("Espécie")
+plt.ylabel("Massa Corporal (g)")
+plt.show()
+plt.close('all')
+```
+
+::: {.callout-note}  
+**Interpretando boxplots por grupos**:  
+- **Medianas diferentes**: Indica diferenças entre os grupos  
+- **Sobreposição das caixas**: Grupos com distribuições similares  
+- **Outliers**: Valores atípicos em cada grupo  
+:::
+
+## Análises Multivariadas
+
+### Scatter Plot com Múltiplas Dimensões
+
+```{python}
+plt.figure(figsize=(10, 6))
+sns.scatterplot(
+    data=penguins,
+    x='bill_length_mm',
+    y='body_mass_g',
+    hue='species',
+    size='flipper_length_mm',
+    sizes=(50, 200)
+)
+plt.title("Massa Corporal vs Comprimento do Bico (tamanho = comprimento da nadadeira)")
+plt.xlabel("Comprimento do Bico (mm)")
+plt.ylabel("Massa Corporal (g)")
+plt.show()
+plt.close('all')
+```
+
+### Regressão Linear por Grupos
+
+```{python}
+sns.lmplot(
+    data=penguins,
+    x='bill_length_mm',
+    y='body_mass_g',
+    hue='species',
+    height=6,
+    aspect=1.2,
+    markers=['o', 's', 'D'],
+    ci=None
+)
+plt.title("Regressão Linear: Massa Corporal vs Comprimento do Bico por Espécie")
+plt.show()
+plt.close('all')
+```
+
+### Pairplot: Todas as Combinações de Variáveis
+
+```{python}
+# Matriz de gráficos de dispersão
+sns.pairplot(
+    data=penguins,
+    vars=['bill_length_mm', 'bill_depth_mm', 'flipper_length_mm', 'body_mass_g'],
+    hue='species',
+    diag_kind='kde',
+    height=2.5
+)
+plt.show()
+plt.close('all')
+```
+
+### Matriz de Correlação Completa
+
+```{python}
+# Calcular correlações para todas as variáveis numéricas
+numeric_vars = ['bill_length_mm', 'bill_depth_mm', 'flipper_length_mm', 'body_mass_g']
+correlation_matrix = penguins[numeric_vars].corr()
+
+# Heatmap da matriz de correlação
+plt.figure(figsize=(8, 6))
+sns.heatmap(
+    correlation_matrix,
+    annot=True,
+    cmap='coolwarm',
+    center=0,
+    square=True,
+    fmt='.2f'
+)
+plt.title("Matriz de Correlação das Variáveis Quantitativas")
+plt.tight_layout()
+plt.show()
+plt.close('all')
+```
+
+## Exemplos Adicionais de Visualização
+
+### Comprimento da Nadadeira vs Massa Corporal
+
+```{python}
+sns.lmplot(
+    data=penguins,
+    x='flipper_length_mm',
+    y='body_mass_g',
+    hue='species',
+    height=6,
+    aspect=1.2,
+    markers=['o', 's', 'D'],
+    ci=None
+)
+plt.title("Massa Corporal vs Comprimento da Nadadeira por Espécie")
+plt.show()
+plt.close('all')
+```
+
+### Altura vs Comprimento do Bico
+
+```{python}
+sns.lmplot(
+    data=penguins,
+    x='bill_depth_mm',
+    y='bill_length_mm',
+    hue='species',
+    height=6,
+    aspect=1.2,
+    markers=['o', 's', 'D'],
+    ci=None
+)
+plt.title("Comprimento vs Altura do Bico por Espécie")
+plt.show()
+plt.close('all')
+```
+
+## Resumo dos Tipos de Associação
+
+| **Tipos de Variáveis** | **Medidas** | **Visualizações** |
+|-------------------------|-------------|-------------------|
+| **Qualitativa vs Qualitativa** | Tabelas de contingência, frequências relativas | Barras agrupadas, countplot |
+| **Quantitativa vs Quantitativa** | Correlação, covariância | Scatter plot, pairplot |
+| **Quantitativa vs Qualitativa** | Estatísticas por grupo (média, mediana) | Boxplot, pointplot |
+| **Multivariada** | Correlações múltiplas | Pairplot, heatmap, lmplot |
+
+## Dicas Práticas
+
+### Escolhendo a visualização adequada
+```{python}
+# Para escolher o gráfico certo, considere:
+print("Tipos de dados:")
+print(penguins.dtypes)
+```
+
+### Identificando correlações interessantes
+```{python}
+# Encontrar as maiores correlações
+corr_matrix = penguins[numeric_vars].corr()
+# Remover a diagonal (correlação de uma variável consigo mesma)
+corr_matrix_clean = corr_matrix.where(np.triu(np.ones(corr_matrix.shape), k=1).astype(bool))
+
+# Empilhar e ordenar por valor absoluto
+correlations = corr_matrix_clean.stack().sort_values(key=abs, ascending=False)
+print("Correlações mais fortes:")
+correlations.head()
+```

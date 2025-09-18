@@ -1,15 +1,6 @@
 ---
 title: "Importando data frames a partir de arquivos CSV"
-subtitle: "Lendo arquivos do armazenados na pasta pessoal do Google Drive"
-description: "Aprenda como montar o Google Drive no Colab e importar dados de arquivos CSV usando pandas"
-Categories: [
-          "Pandas",
-          "Importação de Dados",
-          "Google Colab",
-          "Google Drive",
-          "Python",
-          "CSV"
-        ]
+subtitle: "Montar o Google Drive no Colab e importar dados de arquivos CSV usando pandas"
 
 image: "images/importa-dados-python.png"
 execute:
@@ -23,8 +14,6 @@ execute:
 ---
 
 ::: {.callout-tip title="Objetivos"}
-
-Neste tutorial, você aprenderá a: 
 
 1. Conectar seu Google Drive ao Google Colab
 2. Navegar pelas pastas do Drive dentro do notebook
