@@ -63,8 +63,6 @@ A matriz de dados brutos $\mathbf{Y}$ e a matriz centralizada $\mathbf{Y}$ teria
 ```{python}
 #| code-fold: true
 Y = pd.read_csv('https://raw.githubusercontent.com/FCopf/datasets/refs/heads/main/Notas.csv')
-n = Y.shape[0]
-p = Y.shape[1]
 ```
 
 ::: {.table-narrow}
@@ -74,6 +72,9 @@ p = Y.shape[1]
 #| tbl-cap: Nome, frequência em sala de aula e tempo dedicado ao estudo.
 colunas = ['Nome', 'Frequencia', 'Estudo_horas']
 Y_lista = Y[colunas].values.tolist()
+
+n = Y.shape[0]
+p = Y[['Frequencia', 'Estudo_horas']].shape[1]
 
 Markdown(tabulate(
   Y_lista, 
@@ -181,7 +182,9 @@ Os **autovetores** são então calculados e normalizados para terem comprimento 
 ```{python}
 #| code-fold: true
 U = pca_2d.components_
-pd.DataFrame(U, columns=['u1', 'u2'])
+U_df = pd.DataFrame({'Variveis': variaveis})
+U_df[['u1', 'u2']] = pd.DataFrame(U)
+U_df
 ```
 :::
 
@@ -220,7 +223,7 @@ Markdown(tabulate(
 As colunas da matriz **F** contêm os *scores* dos objetos (nas linhas) para cada componente principal e podem ser usadas para criar gráficos de ordenação, como os biplots.
 
 
-## Interpretando os Resultados da PCA: Biplots
+## Interpretando os Resultados da PCA: Biplots {#sec-biplots}
 
 Um **biplot** é um gráfico que exibe simultaneamente os objetos (scores, da matriz $\mathbf{F}$) e os descritores (loadings, da matriz $\mathbf{U}$). Existem duas formas principais de escalonamento (scaling) para biplots, cada uma com uma interpretação diferente.
 
@@ -290,7 +293,7 @@ plt.show()
 ### Scaling 2 (Biplot de Correlação)
 
 - **Objetivo:** Representar as correlações (ou covariâncias) entre os descritores.
-- **Matrizes:** Usa os autovetores escalados pela raiz quadrada dos autovalores ($U_{sc2} = U\Lambda^{1/2}$) para os descritores e scores reescalados ($G = F\Lambda^{-1/2}$) para os objetos.
+- **Matrizes:** Usa os autovetores escalados pela raiz quadrada dos autovalores ($\mathbf{U_{sc2}} = \mathbf{U}\mathbf{\Lambda}^{1/2}$) para os descritores e scores reescalados ($\mathbf{G} = \mathbf{F}\mathbf{\Lambda}^{-1/2}$) para os objetos.
 - **Interpretação:**
   - Os ângulos entre os vetores dos descritores refletem suas correlações: vetores próximos indicam alta correlação positiva; vetores em direções opostas indicam correlação negativa; vetores em 90° indicam ausência de correlação.
   - O comprimento do vetor de um descritor é uma aproximação de seu desvio padrão.
@@ -386,7 +389,7 @@ A primeira componente principal (PC1) explicou `{python} R2_perc[0]`% da variân
 
 No biplot de distância (Scaling 1), nota-se a proximidade entre os alunos com melhor desempenho, como Fernanda e Eduardo, que obtiveram os maiores valores em ambas as variáveis. Assim, a ordenação dos alunos a partir das variáveis originais pode ser bem representada por um único componente, o PC1. Nesse exemplo, o PC1 reflete a associação conjunta entre *Frequência* e *Estudo_horas*, podendo ser interpretado como um indicador de *nível de engajamento* do estudante na disciplina.
 
-## A Escolha da Matriz de Dispersão na PCA: Covariância vs. Correlação
+## A Escolha da Matriz de Dispersão na PCA: Covariância vs. Correlação {#sec-cov-cor}
 
 A Análise de Componentes Principais (PCA) opera sobre uma matriz de dispersão, que pode ser uma **matriz de covariância** ($\mathbf{S}$) ou uma **matriz de correlação** ($\mathbf{R}$). A escolha entre essas duas matrizes depende diretamente da natureza das variáveis originais.
 
@@ -401,3 +404,243 @@ No exemplo dos alunos, com as variáveis `Frequencia` e `Estudo_horas`, a PCA fo
 Em casos mais gerais, especialmente quando se mede uma ampla gama de descritores com unidades e escalas distintas, **a padronização é fortemente recomendada**, pois, se a PCA for aplicada a uma matriz de covariância de variáveis com variâncias muito díspares, os primeiros componentes principais seriam predominantemente determinados pelas variáveis de maior variância, e a estrutura de correlação entre as demais variáveis não seria descrita adequadamente.
 
 A decisão de usar a matriz $\mathbf{S}$ ou $\mathbf{R}$ se resume a determinar se a **magnitude da variância das variáveis originais deve influenciar a análise ou se todas as variáveis devem ter o mesmo peso**. Se for importante manter as diferenças de magnitude, utiliza-se a matriz de covariância. Caso contrário, para garantir que a PCA revele a estrutura de correlação subjacente entre os descritores, a padronização dos dados e, consequentemente, o uso da matriz de correlação é o caminho mais seguro.
+
+## Exemplo com três variáveis: tempo de Estudo, frequência e nota final
+
+Vamos incluir uma terceira variável `Nota_final` e refazer a PCA
+
+
+```{python}
+#| code-fold: true
+Y = pd.read_csv('https://raw.githubusercontent.com/FCopf/datasets/refs/heads/main/Notas.csv')
+```
+
+::: {.table-narrow}
+```{python}
+#| code-fold: true
+#| label: tbl-alunos3d
+#| tbl-cap: Nome, frequência em sala de aula, tempo dedicado ao estudo e nota final da disciplina.
+colunas = ['Nome', 'Frequencia', 'Estudo_horas', 'Nota_final']
+Y_lista = Y[colunas].values.tolist()
+
+n = Y.shape[0]
+p = Y[['Frequencia', 'Estudo_horas', 'Nota_final']].shape[1]
+
+Markdown(tabulate(
+  Y_lista, 
+  headers=colunas
+))
+
+```
+:::
+
+Considerando as recomendações da @sec-cov-cor, iremos realizar a PCA padronizando as variáveis. A matriz padronizada fica como na @tbl-ypadr.
+
+::: {.table-narrow}
+```{python}
+#| code-fold: true
+#| label: tbl-ypadr
+#| tbl-cap: Variáveis padronizadas para terem média 0 e desvio padrão 1.
+
+# Selecionando três variáveis para análise
+vars_pca = ['Estudo_horas', 'Frequencia', 'Nota_final']
+Yvar = Y[vars_pca]
+
+scaler = StandardScaler()
+Ypadr = scaler.fit_transform(Yvar)
+Ypadr_df = pd.DataFrame(Ypadr, columns=vars_pca)
+
+Markdown(tabulate(
+  Ypadr, 
+  headers=colunas
+))
+```
+:::
+
+### Matriz de covariância
+
+Verifique que agora, as variáveis têm média 0 e desvio padrão 1, e que a matriz de covariância será idêntica à matriz de correlação, permitindo que a PCA resuma adequadamente a estrutura de correlação entre as variáveis por meio dos componentes principais.
+
+```{python}
+#| code-fold: true
+S = Ypadr_df.cov(ddof=0)
+R = Ypadr_df.corr()
+```
+
+::: {.table-narrow}
+
+```{python}
+#| code-fold: true
+#| label: tbl-cov-pad
+#| tbl-cap: "Matriz de Covariância das variáveis padronizadas"
+S
+```
+:::
+
+::: {.table-narrow}
+```{python}
+#| code-fold: true
+#| label: tbl-cor-pad
+#| tbl-cap: "Matriz de Correlação das variáveis padronizadas"
+R
+```
+:::
+
+### Aplicando PCA à matriz padronizada
+
+
+```{python}
+#| code-fold: true
+pca_3d = PCA()
+pca_3d.fit(Ypadr)
+
+# Análise da variância explicada
+var_explicada = pca_3d.explained_variance_
+var_explicada_ratio = pca_3d.explained_variance_ratio_
+var_acumulada = np.cumsum(var_explicada_ratio)
+```
+
+Podemos ver que as componentes principais geradas explicam as seguintes percetuais de variação:
+```{python}
+#| code-fold: true
+for i in range(len(var_explicada_ratio)):
+    print(f"  PC{i+1}: {var_explicada_ratio[i]*100:.2f}% "
+          f"(acumulada: {var_acumulada[i]*100:.2f}%)")
+
+```
+
+Estes perceituais de explicação podem ser observados no **Scree plot** quie mostra visualmente o percentual de variação associado a cada compomente principal.
+
+```{python}
+#| code-fold: true
+
+plt.figure(figsize=(8, 5))
+plt.bar(range(1, len(var_explicada_ratio) + 1), 
+        var_explicada_ratio * 100, 
+        alpha=0.7, color='steelblue')
+plt.xticks(range(1, len(var_explicada_ratio) + 1))
+plt.xlabel('Componente Principal', fontsize=12)
+plt.ylabel('Variância Explicada (%)', fontsize=12)
+plt.title('Scree Plot - Variância Individual', fontsize=14)
+plt.grid(True, alpha=0.3)
+
+# Adicionar valores no topo das barras
+for i, v in enumerate(var_explicada_ratio):
+    plt.text(i + 1, v * 100 + 1, f'{v*100:.1f}%', 
+             ha='center', fontsize=10)
+
+plt.tight_layout()
+plt.show()
+```
+
+### Biplots de distância e correlação
+
+```{python}
+#| code-fold: true
+def get_pca_biplot(pca, X, scaling=1):
+    """
+    Retorna loadings e scores para biplot PCA.
+    
+    Parâmetros
+    ----------
+    pca : sklearn.decomposition.PCA
+        Objeto PCA ajustado.
+    X : array-like, shape (n_samples, n_features)
+        Dados usados na PCA (geralmente padronizados).
+    scaling : int
+        Tipo de scaling para o biplot:
+        1 -> distâncias entre observações preservadas
+        2 -> distâncias entre variáveis preservadas
+    
+    Retorna
+    -------
+    loadings : array, shape (n_features, n_components)
+        Vetores das variáveis (loadings) prontos para o biplot.
+    scores : array, shape (n_samples, n_components)
+        Scores das observações prontos para o biplot.
+    """
+    # Autovalores e autovetores
+    eigvals = pca.explained_variance_        # Λ
+    eigvecs = pca.components_.T              # U
+    scores_raw = pca.transform(X)            # F
+
+    if scaling == 1:
+        # Scaling 1: preserva distâncias entre observações
+        loadings = eigvecs                     # vetores das variáveis
+        scores = scores_raw                    # scores originais
+    elif scaling == 2:
+        # Scaling 2: preserva distâncias entre variáveis
+        loadings = eigvecs * np.sqrt(eigvals)       # U * sqrt(Λ)
+        scores = scores_raw / np.sqrt(eigvals)      # F * Λ^{-1/2}
+    else:
+        raise ValueError("scaling deve ser 1 ou 2")
+    
+    return loadings, scores
+
+```
+
+Dependendo se desejamos fazer o bibplot de distância e correlação os loads e os scores são calculados de forma distinta conforme apresentado na @sec-biplots.
+```{python}
+#| code-fold: true
+loadings_s1, scores_s1 = get_pca_biplot(pca_3d, Ypadr, scaling=1)
+loadings_s2, scores_s2 = get_pca_biplot(pca_3d, Ypadr, scaling=2)
+```
+
+
+```{python}
+#| code-fold: true
+fig, axes = plt.subplots(1, 2, figsize=(8, 4))
+
+# -------------------- Biplot Scaling 1 --------------------
+ax = axes[0]
+sns.scatterplot(x=scores_s1[:,0], y=scores_s1[:,1], ax=ax, s=100, alpha=0.7)
+
+# Adicionar nomes
+for i, nome in enumerate(Y['Nome']):
+    ax.text(scores_s1[i,0]+0.05, scores_s1[i,1]+0.05, nome, fontsize=9)
+
+# Vetores das variáveis
+escala_loading = 1.5
+for i, var in enumerate(vars_pca):
+    ax.arrow(0, 0, loadings_s1[i,0]*escala_loading, loadings_s1[i,1]*escala_loading,
+             color='red', alpha=0.7, head_width=0.03, head_length=0.08, linewidth=2)
+    ax.text(loadings_s1[i,0]*escala_loading*1.25, loadings_s1[i,1]*escala_loading*1.25,
+            var, color='red', fontsize=11, ha='center')
+
+ax.set_title('Biplot PCA - Scaling 1', fontsize=14)
+ax.set_xlabel(f'PC1 ({pca_3d.explained_variance_ratio_[0]*100:.1f}% da variância)')
+ax.set_ylabel(f'PC2 ({pca_3d.explained_variance_ratio_[1]*100:.1f}% da variância)')
+ax.axhline(0, color='gray', linestyle='--', alpha=0.3)
+ax.axvline(0, color='gray', linestyle='--', alpha=0.3)
+ax.grid(True, alpha=0.3)
+
+# -------------------- Biplot Scaling 2 --------------------
+ax = axes[1]
+sns.scatterplot(x=scores_s2[:,0], y=scores_s2[:,1], ax=ax, s=100, alpha=0.7)
+
+# Adicionar nomes
+for i, nome in enumerate(Y['Nome']):
+    ax.text(scores_s2[i,0]+0.05, scores_s2[i,1]+0.05, nome, fontsize=9)
+
+# Vetores das variáveis
+for i, var in enumerate(vars_pca):
+    ax.arrow(0, 0, loadings_s2[i,0]*escala_loading, loadings_s2[i,1]*escala_loading,
+             color='red', alpha=0.7, head_width=0.03, head_length=0.08, linewidth=2)
+    ax.text(loadings_s2[i,0]*escala_loading*1.25, loadings_s2[i,1]*escala_loading*1.25,
+            var, color='red', fontsize=11, ha='center')
+
+ax.set_title('Biplot PCA - Scaling 2', fontsize=14)
+ax.set_xlabel(f'PC1 ({pca_3d.explained_variance_ratio_[0]*100:.1f}% da variância)')
+ax.set_ylabel(f'PC2 ({pca_3d.explained_variance_ratio_[1]*100:.1f}% da variância)')
+ax.axhline(0, color='gray', linestyle='--', alpha=0.3)
+ax.axvline(0, color='gray', linestyle='--', alpha=0.3)
+ax.grid(True, alpha=0.3)
+
+plt.tight_layout()
+plt.show()
+```
+
+
+Como discutido anteriormente, o biplot de distância preserva a distância euclidiana entre os objetos, mas distorce os ângulos entre as variáveis. Já o biplot de correlação preserva os ângulos entre as variáveis, refletindo melhor suas relações, mas não mantém as distâncias euclidianas entre os objetos. Dessa forma, cada tipo de biplot deve ser aplicado conforme o objetivo da análise.
+
+No caso deste conjunto de dados, as variáveis tempo de estudo, frequência e nota final estão altamente correlacionadas, permitindo capturar quase toda a estrutura de variação apenas com o primeiro componente principal. Isso indica que a dimensionalidade do conjunto pode ser reduzida de três para uma variável sem perda importante de informação.
