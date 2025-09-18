@@ -6,8 +6,8 @@
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../../site_libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-c8ad9e5dbd60b7b70b38521ab19b7da4.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.7.34">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dc55a5b9e770e841cd82e46aadbfb9b0.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.8.24">
 
   <meta name="author" content="Fabio Cop Ferreira e William Remo Pedroso Conti">
   <title>Modelagem Estatística e Análise de Dados – Introdução à Álgebra de Matrizes</title>
@@ -29,7 +29,7 @@
       vertical-align: middle;
     }
   </style>
-  <link rel="stylesheet" href="../../site_libs/revealjs/dist/theme/quarto-7c1cccec28dfaa5b8e75d67bbe0c9e13.css">
+  <link rel="stylesheet" href="../../site_libs/revealjs/dist/theme/quarto-4efe348b07f1015ab92924186862b9b3.css">
   <link href="../../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="../../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="../../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -125,7 +125,7 @@
   </style>
 <meta property="og:title" content="Introdução à Álgebra de Matrizes – Modelagem Estatística e Análise de Dados">
 <meta property="og:description" content="Operações básicas e álgebra matricial.">
-<meta property="og:image" content="https://github.com/FCopf/MEAD/conteudo/ecologia-numerica/images/intro-matrizes.png">
+<meta property="og:image" content="https://github.com/FCopf/MEAD/conteudo/analises-multivariadas/images/intro-matrizes.png">
 <meta property="og:site_name" content="Modelagem Estatística e Análise de Dados">
 <meta property="og:image:height" content="1024">
 <meta property="og:image:width" content="1024">
@@ -1394,7 +1394,7 @@ L_4 - 2L_2 \\
         margin: 0.1,
 
         math: {
-          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js',
+          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js',
           config: 'TeX-AMS_HTML-full',
           tex2jax: {
             inlineMath: [['\\(','\\)']],
@@ -1468,13 +1468,14 @@ L_4 - 2L_2 \\
           e.clearSelection();
         }
         const getTextToCopy = function(trigger) {
-            const codeEl = trigger.previousElementSibling.cloneNode(true);
-            for (const childEl of codeEl.children) {
-              if (isCodeAnnotation(childEl)) {
-                childEl.remove();
-              }
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
             }
-            return codeEl.innerText;
+          }
+          return codeEl.innerText;
         }
         const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
           text: getTextToCopy

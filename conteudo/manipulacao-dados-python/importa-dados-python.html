@@ -2,11 +2,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="pt" xml:lang="pt"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.34">
+<meta name="generator" content="quarto-1.8.24">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="description" content="Aprenda como montar o Google Drive no Colab e importar dados de arquivos CSV usando pandas">
 
 <title>Importando data frames a partir de arquivos CSV – Modelagem Estatística e Análise de Dados</title>
 <style>
@@ -68,14 +67,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <meta name="quarto:offset" content="../../">
 <script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-c8ad9e5dbd60b7b70b38521ab19b7da4.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dc55a5b9e770e841cd82e46aadbfb9b0.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-f8a7b73f25ce1e13d22e496f4555e3c8.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-842b3f155a5c8185421458a5626a713a.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -107,7 +107,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <link rel="stylesheet" href="../../styles/custom.css">
 <meta property="og:title" content="Importando data frames a partir de arquivos CSV – Modelagem Estatística e Análise de Dados">
-<meta property="og:description" content="Aprenda como montar o Google Drive no Colab e importar dados de arquivos CSV usando pandas">
+<meta property="og:description" content="Montar o Google Drive no Colab e importar dados de arquivos CSV usando pandas">
 <meta property="og:image" content="https://github.com/FCopf/MEAD/conteudo/manipulacao-dados-python/images/importa-dados-python.png">
 <meta property="og:site_name" content="Modelagem Estatística e Análise de Dados">
 <meta property="og:image:height" content="1024">
@@ -122,7 +122,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a href="../../index.html" class="navbar-brand navbar-brand-logo">
-    <img src="../../images/MEAD-logo-white-sigla.png" alt="" class="navbar-logo">
+    <img src="../../images/MEAD-logo-white-sigla.png" alt="" class="navbar-logo light-content">
+    <img src="../../images/MEAD-logo-white-sigla.png" alt="" class="navbar-logo dark-content">
     </a>
     <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">Modelagem Estatística e Análise de Dados</span>
@@ -171,14 +172,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
 <h1 class="title">Importando data frames a partir de arquivos CSV</h1>
-<p class="subtitle lead">Lendo arquivos do armazenados na pasta pessoal do Google Drive</p>
+<p class="subtitle lead">Montar o Google Drive no Colab e importar dados de arquivos CSV usando pandas</p>
 </div>
 
-<div>
-  <div class="description">
-    Aprenda como montar o Google Drive no Colab e importar dados de arquivos CSV usando pandas
-  </div>
-</div>
 
 
 <div class="quarto-title-meta">
@@ -200,11 +196,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Objetivos
+<span class="screen-reader-only">Dica</span>Objetivos
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Neste tutorial, você aprenderá a:</p>
 <ol type="1">
 <li>Conectar seu Google Drive ao Google Colab</li>
 <li>Navegar pelas pastas do Drive dentro do notebook</li>
@@ -231,44 +226,44 @@ Importante
 <section id="preparação-inicial" class="level2" data-number="1">
 <h2 data-number="1" class="anchored" data-anchor-id="preparação-inicial"><span class="header-section-number">1</span> 🛠️ Preparação Inicial</h2>
 <p>Vamos importar as bibliotecas necessárias:</p>
-<div id="924edd3b" class="cell" data-execution_count="1">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> google.colab <span class="im">import</span> drive  <span class="co"># Permite que o Google Colab leia seu Google Drive</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd  <span class="co"># Análise e manipulação de dados</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="3a58f0fa" class="cell" data-execution_count="1">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> google.colab <span class="im">import</span> drive  <span class="co"># Permite que o Google Colab leia seu Google Drive</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd  <span class="co"># Análise e manipulação de dados</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="etapa-1-montando-o-google-drive-no-colab" class="level2" data-number="2">
 <h2 data-number="2" class="anchored" data-anchor-id="etapa-1-montando-o-google-drive-no-colab"><span class="header-section-number">2</span> 🔗 Etapa 1: Montando o Google Drive no Colab</h2>
 <p>O primeiro passo é <em>montar</em> seu Google Drive, dentro do Google Colab. Isto pode ser feito com o comando <code>drive.mount()</code>. No exemplo abaixo, vamos pedir que as pasats de seu Google Dive sejam incluídas em uma estrutura de pastas dentro do caminho <code>"/content/drive"</code>.</p>
-<div id="bcf664d8" class="cell" data-execution_count="2">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Montar o Google Drive (vai solicitar permissão)</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>drive.mount(<span class="st">"/content/drive"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="21e55a1a" class="cell" data-execution_count="2">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Montar o Google Drive (vai solicitar permissão)</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>drive.mount(<span class="st">"/content/drive"</span>)</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Após executar este comando, você verá um link de autorização de acesso ao Google Drive pelo Google Colab. Permita todos os acessos.</p>
 <section id="verificando-os-arquivos-e-pastas" class="level3" data-number="2.1">
 <h3 data-number="2.1" class="anchored" data-anchor-id="verificando-os-arquivos-e-pastas"><span class="header-section-number">2.1</span> ✅ Verificando os arquivos e pastas</h3>
 <p>Você agora será capaz de navegar pela estrutura de pastas do seu Drive. Por exemplo, você pode verificar se seu arquivo está realmente salvo com o comando <code>!ls</code>.</p>
-<div id="30c15112" class="cell" data-execution_count="3">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Listando arquivos e subpastas na pasta raiz do Drive</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>ls <span class="st">"/content/drive/MyDrive/MyDrive/Projetos/Dados"</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="f8daefb3" class="cell" data-execution_count="3">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Listando arquivos e subpastas na pasta raiz do Drive</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>ls <span class="st">"/content/drive/MyDrive/MyDrive/Projetos/Dados"</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 </section>
 <section id="etapa-2-localizando-seu-arquivo-csv" class="level2" data-number="3">
 <h2 data-number="3" class="anchored" data-anchor-id="etapa-2-localizando-seu-arquivo-csv"><span class="header-section-number">3</span> 📁 Etapa 2: Localizando seu Arquivo CSV</h2>
 <p>Caso seu arquivo <code>arquivo_exemplo.csv</code> esteja listado na pasta acima, crie um objeto que conterá todo o caminho até o arquivo:</p>
-<div id="a62dc2a5" class="cell" data-execution_count="4">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>caminho_arquivo <span class="op">=</span> <span class="st">"/content/drive/MyDrive/Projetos/Dados/arquivo_exemplo.csv"</span></span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="bf67d799" class="cell" data-execution_count="4">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>caminho_arquivo <span class="op">=</span> <span class="st">"/content/drive/MyDrive/Projetos/Dados/arquivo_exemplo.csv"</span></span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="etapa-3-lendo-o-csv-com-pandas" class="level2" data-number="4">
 <h2 data-number="4" class="anchored" data-anchor-id="etapa-3-lendo-o-csv-com-pandas"><span class="header-section-number">4</span> 📊 Etapa 3: Lendo o CSV com pandas</h2>
 <p>Leia o arquivo com a função <code>read_csv()</code> do pandas e salve-o em um data frame.</p>
-<div id="adcf7fda" class="cell" data-execution_count="5">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Lendo o CSV</span></span>
+<div id="1d7eaf71" class="cell" data-execution_count="5">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Lendo o CSV</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(caminho_arquivo)</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Verique se os dados foram importados corretamente</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df)</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p><strong>Pronto!!</strong> Após verificar se a importação foi feita corretamente, você pode utilizar o data frame no restante do código</p>
 <hr>
@@ -328,13 +323,14 @@ Importante
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy

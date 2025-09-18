@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="pt" xml:lang="pt"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.34">
+<meta name="generator" content="quarto-1.8.24">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -88,14 +88,15 @@ div.csl-indent {
 <meta name="quarto:offset" content="../../">
 <script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-c8ad9e5dbd60b7b70b38521ab19b7da4.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dc55a5b9e770e841cd82e46aadbfb9b0.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-f8a7b73f25ce1e13d22e496f4555e3c8.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-842b3f155a5c8185421458a5626a713a.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -138,7 +139,7 @@ const typesetMath = (el) => {
     var macros = [];
     for (var i = 0; i < mathElements.length; i++) {
       var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
         window.katex.render(texText.data, mathElements[i], {
           displayMode: mathElements[i].classList.contains('display'),
           throwOnError: false,
@@ -169,7 +170,8 @@ window.Quarto = {
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a href="../../index.html" class="navbar-brand navbar-brand-logo">
-    <img src="../../images/MEAD-logo-white-sigla.png" alt="" class="navbar-logo">
+    <img src="../../images/MEAD-logo-white-sigla.png" alt="" class="navbar-logo light-content">
+    <img src="../../images/MEAD-logo-white-sigla.png" alt="" class="navbar-logo dark-content">
     </a>
     <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">Modelagem Estatística e Análise de Dados</span>
@@ -248,22 +250,22 @@ window.Quarto = {
 
 
 <div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Pacotes, funções e base de dados utilizadas
+<span class="screen-reader-only">Dica</span>Pacotes, funções e base de dados utilizadas
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
 <div id="callout-1" class="callout-1-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gt)</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">'scripts/anova_sim.r'</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">'scripts/anova_sim.r'</span>)</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 </div>
@@ -281,7 +283,7 @@ Pacotes, funções e base de dados utilizadas
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Hipóteses estatísticas no modelo de ANOVA
+<span class="screen-reader-only">Nota</span>Hipóteses estatísticas no modelo de ANOVA
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -321,7 +323,7 @@ Hipóteses estatísticas no modelo de ANOVA
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Notações
+<span class="screen-reader-only">Nota</span>Notações
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -365,7 +367,7 @@ Notações
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-A característica aditiva das somas dos quadrados
+<span class="screen-reader-only">Nota</span>A característica aditiva das somas dos quadrados
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -428,7 +430,7 @@ A característica aditiva das somas dos quadrados
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Tomada de decisão na ANOVA
+<span class="screen-reader-only">Nota</span>Tomada de decisão na ANOVA
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -452,7 +454,7 @@ Tomada de decisão na ANOVA
 <h2 data-number="6" class="anchored" data-anchor-id="um-exemplo-de-anova-os-níveis-de-metais-pesados-afetam-a-diversidade-de-espécies"><span class="header-section-number">6</span> Um exemplo de ANOVA: os níveis de metais pesados afetam a diversidade de espécies?</h2>
 <p>Importe a base de dados <code>medley.csv</code> (disponível também em <a href="https://users.monash.edu.au/~murray/BDAR/" target="_blank">Chapter 10 - Single factor classification (ANOVA)</a>) que avalia o impacto da presença de metais pesados na diversidade de espécies de diatomácias em riachos (<span class="citation" data-cites="medleyclements1998">Medley e Clements (<a href="#ref-medleyclements1998" role="doc-biblioref">1998</a>)</span>; <span class="citation" data-cites="queen2002experimental">Queen, Quinn, e Keough (<a href="#ref-queen2002experimental" role="doc-biblioref">2002</a>)</span>; <span class="citation" data-cites="logan2011biostatistical">Logan (<a href="#ref-logan2011biostatistical" role="doc-biblioref">2011</a>)</span>).</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>medley <span class="ot">=</span> <span class="fu">read_csv</span>(<span class="st">"https://raw.githubusercontent.com/FCopf/datasets/refs/heads/main/medley.csv"</span>) <span class="sc">|&gt;</span> </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>medley <span class="ot">=</span> <span class="fu">read_csv</span>(<span class="st">"https://raw.githubusercontent.com/FCopf/datasets/refs/heads/main/medley.csv"</span>) <span class="sc">|&gt;</span> </span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">STREAM =</span> <span class="fu">factor</span>(STREAM),</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">ZINC =</span> <span class="fu">factor</span>(ZINC, <span class="at">ordered =</span> <span class="cn">TRUE</span>,</span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>                       <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"BACK"</span>, <span class="st">"LOW"</span>, <span class="st">"MED"</span>, <span class="st">"HIGH"</span>)))</span>
@@ -460,10 +462,10 @@ Tomada de decisão na ANOVA
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>stream_levels <span class="ot">=</span> <span class="fu">levels</span>(medley<span class="sc">$</span>STREAM)</span>
 <span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>n_stream <span class="ot">=</span> <span class="fu">nlevels</span>(medley<span class="sc">$</span>STREAM)</span>
 <span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>zinc_levels <span class="ot">=</span> <span class="fu">levels</span>(medley<span class="sc">$</span>ZINC)</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>n_zinc <span class="ot">=</span> <span class="fu">nlevels</span>(medley<span class="sc">$</span>ZINC)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>n_zinc <span class="ot">=</span> <span class="fu">nlevels</span>(medley<span class="sc">$</span>ZINC)</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>medley <span class="sc">|&gt;</span> <span class="fu">gt</span>()</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>medley <span class="sc">|&gt;</span> <span class="fu">gt</span>()</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div id="jyloatcfjj" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>#jyloatcfjj table {
@@ -915,7 +917,7 @@ Tomada de decisão na ANOVA
 }
 </style>
 
-<table class="gt_table caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<table class="gt_table caption-top table table-sm table-striped small" data-quarto-bootstrap="false">
 <thead>
 <tr class="gt_col_headings header">
 <th id="STREAM" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">STREAM</th>
@@ -1106,10 +1108,10 @@ Tomada de decisão na ANOVA
 <div class="cell">
 <details class="code-fold">
 <summary>Código</summary>
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(medley) <span class="sc">+</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(medley) <span class="sc">+</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> ZINC, <span class="at">y =</span> DIVERSITY) <span class="sc">+</span></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">coef =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>(<span class="at">base_size =</span> <span class="dv">15</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>(<span class="at">base_size =</span> <span class="dv">15</span>)</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output-display">
 <div>
@@ -1126,7 +1128,7 @@ Tomada de decisão na ANOVA
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Hipópteses estatísticas
+<span class="screen-reader-only">Nota</span>Hipópteses estatísticas
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -1154,7 +1156,7 @@ Hipópteses estatísticas
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Tabela da ANOVA**
+<span class="screen-reader-only">Nota</span>Tabela da ANOVA**
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -1162,8 +1164,8 @@ Tabela da ANOVA**
 <div class="cell">
 <details class="code-fold">
 <summary>Código</summary>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>aov_ex <span class="ot">=</span> <span class="fu">aov</span>(DIVERSITY <span class="sc">~</span> ZINC, <span class="at">data =</span> medley)</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>anova_ex <span class="ot">=</span> <span class="fu">anova</span>(aov_ex)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>aov_ex <span class="ot">=</span> <span class="fu">aov</span>(DIVERSITY <span class="sc">~</span> ZINC, <span class="at">data =</span> medley)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>anova_ex <span class="ot">=</span> <span class="fu">anova</span>(aov_ex)</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
 <div class="cell">
@@ -1624,7 +1626,7 @@ Tabela&nbsp;1: Tabela da ANOVA para a base de dados medley.
 }
 </style>
 
-<table class="gt_table do-not-create-environment cell caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<table class="gt_table do-not-create-environment cell caption-top table table-sm table-striped small" data-quarto-bootstrap="false">
 <thead>
 <tr class="gt_col_headings header">
 <th id="Df" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Df</th>
@@ -1701,7 +1703,7 @@ Figura&nbsp;1: Distribuição F com indicação do valor de p.
 <p>O valor crítico de <span class="math inline">\(q\)</span> pode ser obtido de uma <strong>tabela estatística da distribuição de amplitude normalizada</strong> (<em>studentized range q table</em>). Para um dado <span class="math inline">\(\alpha\)</span>, o valor desejado de <span class="math inline">\(q\)</span> é encontrado cruzando a linha contento o número <span class="math inline">\(k\)</span> de tratamentos do experimento com a linha contendo os graus de liberdade do resíduo (<span class="math inline">\(gl_{Res}\)</span>). Veja um exemplo desta tabela no link: <a href="https://www.real-statistics.com/statistics-tables/studentized-range-q-table/" target="_blank">Studentized Range q Table</a>.</p>
 <p>Em nosso exemplo, os valores de <span class="math inline">\(q\)</span> entre os pares de médias serão:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>Tukey_tab <span class="sc">|&gt;</span> </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>Tukey_tab <span class="sc">|&gt;</span> </span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gt</span>() <span class="sc">|&gt;</span> </span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cols_label</span>(</span>
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">combinacoes =</span> <span class="st">"Combinações"</span>,</span>
@@ -1726,7 +1728,7 @@ Figura&nbsp;1: Distribuição F com indicação do valor de p.
 <span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tab_options</span>(</span>
 <span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>    <span class="at">table.width =</span> <span class="st">"100%"</span>,</span>
 <span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>    <span class="at">column_labels.font.weight =</span> <span class="st">"bold"</span></span>
-<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div id="hlywxfzgsj" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>#hlywxfzgsj table {
@@ -2178,7 +2180,7 @@ Figura&nbsp;1: Distribuição F com indicação do valor de p.
 }
 </style>
 
-<table class="gt_table caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<table class="gt_table caption-top table table-sm table-striped small" data-quarto-bootstrap="false">
 <thead>
 <tr class="gt_col_headings header">
 <th id="combinacoes" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">Combinações</th>
@@ -2257,8 +2259,8 @@ Figura&nbsp;1: Distribuição F com indicação do valor de p.
 <h2 data-number="8" class="anchored" data-anchor-id="ajustando-a-anova-no-r"><span class="header-section-number">8</span> Ajustando a ANOVA no R</h2>
 <p>A ANOVA no R pode ser feita com o comando <code>aov</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>ajuste <span class="ot">=</span> <span class="fu">aov</span>(DIVERSITY <span class="sc">~</span> ZINC, <span class="at">data =</span> medley)</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>ajuste</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>ajuste <span class="ot">=</span> <span class="fu">aov</span>(DIVERSITY <span class="sc">~</span> ZINC, <span class="at">data =</span> medley)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>ajuste</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Call:
    aov(formula = DIVERSITY ~ ZINC, data = medley)
@@ -2278,7 +2280,7 @@ Estimated effects may be unbalanced</code></pre>
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Fórmula no R
+<span class="screen-reader-only">Nota</span>Fórmula no R
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -2287,7 +2289,7 @@ Fórmula no R
 </div>
 <p>O comando acima fez os cálculos da ANOVA, isto é, computou as somas dos quadrados, os graus de liberdade, os quadrados médios, o <span class="math inline">\(F_{calculado}\)</span> e o valor de <span class="math inline">\(p\)</span>. Para visualizarmos a tabela da ANOVA escrevemos:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(ajuste)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(ajuste)</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Analysis of Variance Table
 
@@ -2301,8 +2303,8 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
 <p>Note que os resultados coincidem com o que apresentamos anteriormente. Como o valor de <span class="math inline">\(p\)</span> foi menor que <span class="math inline">\(\alpha = 0.05\)</span>, concluimos que a ANOVA foi significativa, isto é, indicou que ao menos um par de médias difere entre si. Podemos fazer o teste a <em>posteriori</em> de Tukey com o comando:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>alfa <span class="ot">=</span> <span class="fl">0.05</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">TukeyHSD</span>(ajuste, <span class="at">conf.level =</span> <span class="dv">1</span><span class="sc">-</span>alfa)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>alfa <span class="ot">=</span> <span class="fl">0.05</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">TukeyHSD</span>(ajuste, <span class="at">conf.level =</span> <span class="dv">1</span><span class="sc">-</span>alfa)</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  Tukey multiple comparisons of means
     95% family-wise confidence level
@@ -2322,7 +2324,7 @@ HIGH-MED  -0.44000000 -1.0373984  0.15739837 0.2095597</code></pre>
 <p>O resultado apresenta todas as comparações possíveis entre os grupos, mostrando as diferenças de médias, seus intervalos de confiança a <span class="math inline">\(95\%\)</span> e os valores de <span class="math inline">\(p\)</span>, indicando quais destas diferenças são significativas (<span class="math inline">\(p \le \alpha\)</span>). Nvamente, estes resultados nos permitem concluir que somente o par <code>HIGH-LOW</code> difere entre si, pois <code>p adj &lt; 0.05</code>.</p>
 <p>O gráfico abaixo facilita a visualização das comparações, sobretudo em situações com muitos pares de médias envolvidos:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">TukeyHSD</span>(ajuste))</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">TukeyHSD</span>(ajuste))</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -2343,9 +2345,9 @@ HIGH-MED  -0.44000000 -1.0373984  0.15739837 0.2095597</code></pre>
 </ol>
 <p>Vamos inicialmente testar o pressuposto de homogeneidade de variâncias com um teste <span class="math inline">\(F\)</span>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>medley <span class="sc">|&gt;</span> <span class="fu">group_by</span>(ZINC) <span class="sc">|&gt;</span> </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>medley <span class="sc">|&gt;</span> <span class="fu">group_by</span>(ZINC) <span class="sc">|&gt;</span> </span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Var =</span> <span class="fu">var</span>(DIVERSITY)) <span class="sc">|&gt;</span> </span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gt</span>()</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gt</span>()</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div id="fxnbmrvnfa" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>#fxnbmrvnfa table {
@@ -2797,7 +2799,7 @@ HIGH-MED  -0.44000000 -1.0373984  0.15739837 0.2095597</code></pre>
 }
 </style>
 
-<table class="gt_table caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<table class="gt_table caption-top table table-sm table-striped small" data-quarto-bootstrap="false">
 <thead>
 <tr class="gt_col_headings header">
 <th id="ZINC" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">ZINC</th>
@@ -2830,9 +2832,9 @@ HIGH-MED  -0.44000000 -1.0373984  0.15739837 0.2095597</code></pre>
 <p>Note que a maior variância é <span class="math inline">\(0.2530194\)</span> e a menor <span class="math inline">\(0.1822194\)</span>.</p>
 <p>O teste <span class="math inline">\(F\)</span> consiste em dividir a maior variância pela menor:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>vmax <span class="ot">=</span> medley<span class="sc">$</span>DIVERSITY[medley<span class="sc">$</span>ZINC <span class="sc">==</span> <span class="st">"MED"</span>]</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>vmax <span class="ot">=</span> medley<span class="sc">$</span>DIVERSITY[medley<span class="sc">$</span>ZINC <span class="sc">==</span> <span class="st">"MED"</span>]</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>vmin <span class="ot">=</span> medley<span class="sc">$</span>DIVERSITY[medley<span class="sc">$</span>ZINC <span class="sc">==</span> <span class="st">"HIGH"</span>]</span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="fu">var.test</span>(vmax, vmin)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="fu">var.test</span>(vmax, vmin)</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     F test to compare two variances
@@ -2850,8 +2852,8 @@ ratio of variances
 <p>A maior variância foi 1.39 vezes maior que a menor variância e o test F sugere que esta diferença é <strong>não-significativa</strong> a <span class="math inline">\(5\%\)</span> (<span class="math inline">\(p &lt; 0.05\)</span>). Isto indica que as variâncias são homogêneas.</p>
 <p>A verificação visual de que as variâncias são homogêneas pode também ser inspecionada pelo <strong>gráfico de resíduos</strong>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">rstudent</span>(ajuste) <span class="sc">~</span> <span class="fu">fitted</span>(ajuste), <span class="at">pch =</span> <span class="dv">16</span>)</span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="dv">0</span>, <span class="at">col =</span> <span class="dv">2</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">rstudent</span>(ajuste) <span class="sc">~</span> <span class="fu">fitted</span>(ajuste), <span class="at">pch =</span> <span class="dv">16</span>)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="dv">0</span>, <span class="at">col =</span> <span class="dv">2</span>)</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -2862,7 +2864,7 @@ ratio of variances
 </div>
 <p>Em seguida avaliamos o histograma dos resíduos e aplicamos um teste de normalidade (ex. teste de Shapiro-Wilk) para verificar se o pressuposto de normalidade pode ser aceito.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(<span class="fu">rstudent</span>(ajuste), <span class="at">breaks =</span> <span class="dv">10</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(<span class="fu">rstudent</span>(ajuste), <span class="at">breaks =</span> <span class="dv">10</span>)</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -2870,7 +2872,7 @@ ratio of variances
 </figure>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">shapiro.test</span>(<span class="fu">rstudent</span>(ajuste))</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">shapiro.test</span>(<span class="fu">rstudent</span>(ajuste))</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Shapiro-Wilk normality test
@@ -2947,13 +2949,14 @@ Queen, Jerry P, Gerry P Quinn, e Michael J Keough. 2002. <em>Experimental design
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy

@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="pt" xml:lang="pt"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.34">
+<meta name="generator" content="quarto-1.8.24">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -68,14 +68,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <meta name="quarto:offset" content="../../">
 <script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-c8ad9e5dbd60b7b70b38521ab19b7da4.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dc55a5b9e770e841cd82e46aadbfb9b0.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-f8a7b73f25ce1e13d22e496f4555e3c8.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-842b3f155a5c8185421458a5626a713a.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -122,7 +123,7 @@ const typesetMath = (el) => {
     var macros = [];
     for (var i = 0; i < mathElements.length; i++) {
       var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
         window.katex.render(texText.data, mathElements[i], {
           displayMode: mathElements[i].classList.contains('display'),
           throwOnError: false,
@@ -155,7 +156,8 @@ window.Quarto = {
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a href="../../index.html" class="navbar-brand navbar-brand-logo">
-    <img src="../../images/MEAD-logo-white-sigla.png" alt="" class="navbar-logo">
+    <img src="../../images/MEAD-logo-white-sigla.png" alt="" class="navbar-logo light-content">
+    <img src="../../images/MEAD-logo-white-sigla.png" alt="" class="navbar-logo dark-content">
     </a>
     <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">Modelagem Estatística e Análise de Dados</span>
@@ -262,7 +264,7 @@ window.Quarto = {
 <section id="preparação-do-ambiente" class="level2" data-number="1">
 <h2 data-number="1" class="anchored" data-anchor-id="preparação-do-ambiente"><span class="header-section-number">1</span> Preparação do ambiente</h2>
 <div id="2b6e3beb" class="cell" data-execution_count="1">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Importação das principais bibliotecas necessárias para análise de dados, visualização, modelagem bayesiana e diagnóstico.</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Importação das principais bibliotecas necessárias para análise de dados, visualização, modelagem bayesiana e diagnóstico.</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> arviz <span class="im">as</span> az</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> bambi <span class="im">as</span> bmb</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
@@ -270,17 +272,17 @@ window.Quarto = {
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy <span class="im">import</span> stats</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> random</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> random</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="importação-e-visualização-dos-dados" class="level2" data-number="2">
 <h2 data-number="2" class="anchored" data-anchor-id="importação-e-visualização-dos-dados"><span class="header-section-number">2</span> Importação e visualização dos dados</h2>
 <p>Vamos visualizar a relação entre o número do calçado e a altura. Esta etapa é importante para termos uma ideia preliminar do padrão nos dados a fim de julgarmos qual modelo adequado para descrever esta relação.</p>
 <div id="6d85d58b" class="cell" data-execution_count="2">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">'https://raw.githubusercontent.com/FCopf/datasets/refs/heads/main/altura_adultos_subset.csv'</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">'https://raw.githubusercontent.com/FCopf/datasets/refs/heads/main/altura_adultos_subset.csv'</span>)</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div id="8cc187fc" class="cell" data-execution_count="3">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>sns.regplot(data<span class="op">=</span>df, x<span class="op">=</span><span class="st">'calcado'</span>, y<span class="op">=</span><span class="st">'altura'</span>, ci<span class="op">=</span><span class="va">None</span>, scatter<span class="op">=</span><span class="va">True</span>, fit_reg<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>sns.regplot(data<span class="op">=</span>df, x<span class="op">=</span><span class="st">'calcado'</span>, y<span class="op">=</span><span class="st">'altura'</span>, ci<span class="op">=</span><span class="va">None</span>, scatter<span class="op">=</span><span class="va">True</span>, fit_reg<span class="op">=</span><span class="va">False</span>)</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -299,8 +301,8 @@ y = \beta_0 + \beta_1 x.
 \]</span></p>
 <p>Nesse caso, o Bambi interpreta a fórmula <code>altura ~ calcado</code> como uma especificação de que a altura dos indivíduos depende linearmente do número do calçado, com coeficientes a serem estimados a partir dos dados.</p>
 <div id="72a93484" class="cell" data-execution_count="4">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>mod <span class="op">=</span> bmb.Model(<span class="st">"altura ~ calcado"</span>, df)</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>mod</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>mod <span class="op">=</span> bmb.Model(<span class="st">"altura ~ calcado"</span>, df)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>mod</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="73">
 <pre><code>       Formula: altura ~ calcado
         Family: gaussian
@@ -322,7 +324,7 @@ y = \beta_0 + \beta_1 x.
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Estrutura do modelo em Bambi
+<span class="screen-reader-only">Dica</span>Estrutura do modelo em Bambi
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -353,8 +355,8 @@ Estrutura do modelo em Bambi
 <h2 data-number="4" class="anchored" data-anchor-id="amostragem-mcmc"><span class="header-section-number">4</span> Amostragem MCMC</h2>
 <p>Realizamos a <strong>amostragem MCMC</strong> (<em>Markov Chain Monte Carlo</em>) para obter amostras da <strong>distribuição a posteriori</strong> dos parâmetros, combinando as informações fornecidas pelos dados com as distribuições a priori.</p>
 <div id="163fcd2d" class="cell" data-execution_count="5">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>mod_fit <span class="op">=</span> mod.fit()</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>mod_fit</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>mod_fit <span class="op">=</span> mod.fit()</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>mod_fit</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <script type="application/vnd.jupyter.widget-view+json">
 {"model_id":"5a30f4e933bb48c7a78ee6304ee03c5f","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
@@ -2039,7 +2041,7 @@ dl.xr-attrs {
 <h2 data-number="5" class="anchored" data-anchor-id="verificação-das-priors"><span class="header-section-number">5</span> Verificação das priors</h2>
 <p>Neste exemplo as priors foram atribuídas automaticamente. Veremos como especificá-las manualmente mais adiante. Por enquanto, iremos nos concentrar em visualizar as distribuições a priori para entender as expectativas iniciais do modelo sobre os parâmetros <strong>antes de processar os dados</strong>.</p>
 <div id="c63258fd" class="cell" data-execution_count="6">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>mod.plot_priors(var_names<span class="op">=</span>[<span class="st">'Intercept'</span>, <span class="st">'calcado'</span>, <span class="st">'sigma'</span>], figsize<span class="op">=</span>(<span class="dv">9</span>, <span class="dv">4</span>))</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>mod.plot_priors(var_names<span class="op">=</span>[<span class="st">'Intercept'</span>, <span class="st">'calcado'</span>, <span class="st">'sigma'</span>], figsize<span class="op">=</span>(<span class="dv">9</span>, <span class="dv">4</span>))</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="75">
 <pre><code>array([&lt;Axes: title={'center': 'Intercept'}&gt;,
        &lt;Axes: title={'center': 'calcado'}&gt;,
@@ -2060,14 +2062,14 @@ dl.xr-attrs {
 <p>Uma das ferramentas mais comuns para essa avaliação são os <strong>trace plots</strong> — gráficos que mostram os valores amostrados para cada parâmetro ao longo das iterações. Idealmente, essas cadeias devem parecer bem <strong>misturadas</strong> e sem padrões visíveis, o que indica que a amostragem atingiu o chamado <strong>estado estacionário</strong>, sugerindo que as estimativas são confiáveis.</p>
 <p>Tendências, oscilações sistemáticas ou falta de sobreposição entre diferentes cadeias pode ser um sinal de que o algoritmo não convergiu adequadamente, exigindo ajustes no modelo ou no processo de amostragem.</p>
 <div id="7c50d800" class="cell" data-execution_count="7">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Gráficos de diagnóstico</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Gráficos de diagnóstico</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">3</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">8</span>))</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Trace plots</span></span>
 <span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>az.plot_trace(mod_fit, var_names<span class="op">=</span>[<span class="st">'Intercept'</span>, <span class="st">'calcado'</span>, <span class="st">'sigma'</span>], axes<span class="op">=</span>axes)</span>
 <span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>plt.suptitle(<span class="st">'Trace Plots - Convergência das Cadeias MCMC'</span>, fontsize<span class="op">=</span><span class="dv">14</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>)</span>
 <span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -2080,12 +2082,12 @@ dl.xr-attrs {
 <section id="resumo-do-ajuste" class="level2" data-number="7">
 <h2 data-number="7" class="anchored" data-anchor-id="resumo-do-ajuste"><span class="header-section-number">7</span> Resumo do ajuste</h2>
 <div id="fc71e91a" class="cell" data-execution_count="8">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>az.summary(mod_fit)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>az.summary(mod_fit)</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="77">
 <div>
 
 
-<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
@@ -2102,7 +2104,7 @@ dl.xr-attrs {
 </thead>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">sigma</td>
+<th data-quarto-table-cell-role="th">sigma</th>
 <td>9.054</td>
 <td>4.328</td>
 <td>3.614</td>
@@ -2114,7 +2116,7 @@ dl.xr-attrs {
 <td>1.01</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">Intercept</td>
+<th data-quarto-table-cell-role="th">Intercept</th>
 <td>67.498</td>
 <td>45.410</td>
 <td>-11.602</td>
@@ -2126,7 +2128,7 @@ dl.xr-attrs {
 <td>1.00</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">calcado</td>
+<th data-quarto-table-cell-role="th">calcado</th>
 <td>2.571</td>
 <td>1.118</td>
 <td>0.220</td>
@@ -2150,7 +2152,7 @@ dl.xr-attrs {
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Tabela resumo em um modelo bayesiano
+<span class="screen-reader-only">Dica</span>Tabela resumo em um modelo bayesiano
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -2171,7 +2173,7 @@ Tabela resumo em um modelo bayesiano
 <h2 data-number="8" class="anchored" data-anchor-id="verificação-das-posteriores-e-comparação-com-as-priors"><span class="header-section-number">8</span> Verificação das posteriores e comparação com as priors</h2>
 <p>A <strong>comparação gráfica entre as distribuições a priori e a posteriori</strong> dos parâmetros nos ajuda a avaliar o quanto os dados foram informativos, mostrando quais parâmetros foram mais ou menos atualizados em relação às nossas crenças iniciais. Uma pequena mudança da prior para a posteriori indica que os dados trouxeram pouca informação nova sobre aquele parâmetro, enquanto uma grande diferença sugere que os dados foram bastante informativos. No gráfico abaixo, visualizamos essa comparação para os parâmetros do modelo (<code>Intercept</code>, <code>calcado</code> e <code>sigma</code>), onde a linha superior exibe as <strong>distribuições a priori</strong> (atribuídas automaticamente) e a linha inferior apresenta as <strong>distribuições a posteriori</strong> resultantes da análise bayesiana.</p>
 <div id="39ee1587" class="cell" data-execution_count="9">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>param_order <span class="op">=</span> [<span class="st">'Intercept'</span>, <span class="st">'calcado'</span>, <span class="st">'sigma'</span>]</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>param_order <span class="op">=</span> [<span class="st">'Intercept'</span>, <span class="st">'calcado'</span>, <span class="st">'sigma'</span>]</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(nrows<span class="op">=</span><span class="dv">2</span>, ncols<span class="op">=</span><span class="bu">len</span>(param_order), figsize<span class="op">=</span>(<span class="dv">9</span>, <span class="dv">6</span>))</span>
 <span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
@@ -2179,7 +2181,7 @@ Tabela resumo em um modelo bayesiano
 <span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>az.plot_posterior(mod_fit, var_names<span class="op">=</span>param_order, ax<span class="op">=</span>axes[<span class="dv">1</span>, :])</span>
 <span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>, <span class="dv">0</span>].set_ylabel(<span class="st">'Densidade das Prioris'</span>)</span>
-<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>, <span class="dv">0</span>].set_ylabel(<span class="st">'Densidade das Posteriores'</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>, <span class="dv">0</span>].set_ylabel(<span class="st">'Densidade das Posteriores'</span>)</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="78">
 <pre><code>Text(0, 0.5, 'Densidade das Posteriores')</code></pre>
 </div>
@@ -2192,7 +2194,7 @@ Tabela resumo em um modelo bayesiano
 </div>
 </div>
 <div id="ec16a042" class="cell" data-execution_count="10">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>az.plot_trace(mod_fit, figsize<span class="op">=</span>(<span class="dv">9</span>,<span class="dv">10</span>))</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>az.plot_trace(mod_fit, figsize<span class="op">=</span>(<span class="dv">9</span>,<span class="dv">10</span>))</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="79">
 <pre><code>array([[&lt;Axes: title={'center': 'sigma'}&gt;,
         &lt;Axes: title={'center': 'sigma'}&gt;],
@@ -2226,20 +2228,20 @@ Tabela resumo em um modelo bayesiano
 <h4 data-number="9.1.1" class="anchored" data-anchor-id="visualização-das-retas-possíveis"><span class="header-section-number">9.1.1</span> Visualização das retas possíveis</h4>
 <p>Para visualizar essa incerteza epistêmica, vamos primeiro obter amostras da distribuição posterior e construir algumas retas possíveis:</p>
 <div id="ea59eea9" class="cell" data-execution_count="11">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Definir pontos extremos para construção das retas</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Definir pontos extremos para construção das retas</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>x_vals <span class="op">=</span> [<span class="dv">32</span>, <span class="dv">48</span>]</span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>novo_x <span class="op">=</span> pd.DataFrame({<span class="st">"calcado"</span>: x_vals})</span>
 <span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>posterior_par <span class="op">=</span> mod.predict(mod_fit, kind<span class="op">=</span><span class="st">"response_params"</span>, data<span class="op">=</span>novo_x, inplace<span class="op">=</span><span class="va">False</span>)</span>
 <span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>mu_vals <span class="op">=</span> posterior_par.posterior[<span class="st">'mu'</span>].values</span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>mu_flat <span class="op">=</span> mu_vals.reshape(<span class="op">-</span><span class="dv">1</span>, mu_vals.shape[<span class="op">-</span><span class="dv">1</span>])</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>mu_flat <span class="op">=</span> mu_vals.reshape(<span class="op">-</span><span class="dv">1</span>, mu_vals.shape[<span class="op">-</span><span class="dv">1</span>])</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div id="4598235d" class="cell" data-execution_count="12">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calcular a reta média</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calcular a reta média</span></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>y_mean <span class="op">=</span> (posterior_par.posterior[<span class="st">'Intercept'</span>].mean().values <span class="op">+</span> </span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>          posterior_par.posterior[<span class="st">'calcado'</span>].mean().values <span class="op">*</span> x_vals)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>          posterior_par.posterior[<span class="st">'calcado'</span>].mean().values <span class="op">*</span> x_vals)</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div id="37503b57" class="cell" data-execution_count="13">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plotar uma amostra de retas possíveis</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plotar uma amostra de retas possíveis</span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">100</span></span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>indices <span class="op">=</span> np.random.choice(mu_flat.shape[<span class="dv">0</span>], size<span class="op">=</span>n, replace<span class="op">=</span><span class="va">False</span>)</span>
 <span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a></span>
@@ -2260,7 +2262,7 @@ Tabela resumo em um modelo bayesiano
 <span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a>plt.grid(<span class="va">True</span>)</span>
 <span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a>plt.ylim(<span class="dv">120</span>, <span class="dv">210</span>)</span>
 <span id="cb17-21"><a href="#cb17-21" aria-hidden="true" tabindex="-1"></a>plt.xlim(<span class="dv">32</span>, <span class="dv">48</span>)</span>
-<span id="cb17-22"><a href="#cb17-22" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb17-22"><a href="#cb17-22" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -2274,7 +2276,7 @@ Tabela resumo em um modelo bayesiano
 <h4 data-number="9.1.2" class="anchored" data-anchor-id="intervalo-de-credibilidade-ic-para-mu"><span class="header-section-number">9.1.2</span> Intervalo de Credibilidade (IC) para <span class="math inline">\(\mu\)</span></h4>
 <p>Ao invés de representar todas as retas possíveis, podemos criar um envelope contendo as combinações que determinam os <strong>intervalos de credibilidade para a reta média</strong>, representando nossa incerteza sobre o valor esperado da resposta:</p>
 <div id="8a22e39d" class="cell" data-execution_count="14">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Criar sequência contínua para visualização</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Criar sequência contínua para visualização</span></span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>x_seq <span class="op">=</span> np.linspace(<span class="dv">32</span>, <span class="dv">48</span>, <span class="dv">100</span>)</span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Extrair amostras dos parâmetros</span></span>
@@ -2290,10 +2292,10 @@ Tabela resumo em um modelo bayesiano
 <span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Reta média para toda a sequência</span></span>
 <span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>intercept_mean <span class="op">=</span> posterior_par.posterior[<span class="st">'Intercept'</span>].mean().values</span>
 <span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a>slope_mean <span class="op">=</span> posterior_par.posterior[<span class="st">'calcado'</span>].mean().values</span>
-<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a>y_mean_seq <span class="op">=</span> intercept_mean <span class="op">+</span> slope_mean <span class="op">*</span> x_seq</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a>y_mean_seq <span class="op">=</span> intercept_mean <span class="op">+</span> slope_mean <span class="op">*</span> x_seq</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div id="cf1f9159" class="cell" data-execution_count="15">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plotar resultados</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plotar resultados</span></span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">9</span>, <span class="dv">6</span>))</span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Intervalo de credibilidade (envelope)</span></span>
@@ -2310,7 +2312,7 @@ Tabela resumo em um modelo bayesiano
 <span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Reta média e intervalo de credibilidade (95%)"</span>)</span>
 <span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
 <span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a>plt.grid(<span class="va">True</span>)</span>
-<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -2328,7 +2330,7 @@ Tabela resumo em um modelo bayesiano
 <section id="implementação-da-predição-para-novas-observações" class="level4" data-number="9.2.1">
 <h4 data-number="9.2.1" class="anchored" data-anchor-id="implementação-da-predição-para-novas-observações"><span class="header-section-number">9.2.1</span> Implementação da predição para novas observações</h4>
 <div id="e6f645e9" class="cell" data-execution_count="16">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Definir valores para predição</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Definir valores para predição</span></span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>calcado_pred <span class="op">=</span> np.array([<span class="dv">35</span>, <span class="dv">40</span>, <span class="dv">45</span>])</span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>dados_pred <span class="op">=</span> pd.DataFrame({<span class="st">"calcado"</span>: calcado_pred})</span>
 <span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a></span>
@@ -2342,7 +2344,7 @@ Tabela resumo em um modelo bayesiano
 <span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Resumo das predições:"</span>)</span>
 <span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Calçado 35: μ = </span><span class="sc">{</span>pred_mu<span class="sc">.</span>posterior[<span class="st">'mu'</span>]<span class="sc">.</span>values[:,:,<span class="dv">0</span>]<span class="sc">.</span>mean()<span class="sc">:.1f}</span><span class="ss"> cm"</span>)</span>
 <span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Calçado 40: μ = </span><span class="sc">{</span>pred_mu<span class="sc">.</span>posterior[<span class="st">'mu'</span>]<span class="sc">.</span>values[:,:,<span class="dv">1</span>]<span class="sc">.</span>mean()<span class="sc">:.1f}</span><span class="ss"> cm"</span>) </span>
-<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Calçado 45: μ = </span><span class="sc">{</span>pred_mu<span class="sc">.</span>posterior[<span class="st">'mu'</span>]<span class="sc">.</span>values[:,:,<span class="dv">2</span>]<span class="sc">.</span>mean()<span class="sc">:.1f}</span><span class="ss"> cm"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Calçado 45: μ = </span><span class="sc">{</span>pred_mu<span class="sc">.</span>posterior[<span class="st">'mu'</span>]<span class="sc">.</span>values[:,:,<span class="dv">2</span>]<span class="sc">.</span>mean()<span class="sc">:.1f}</span><span class="ss"> cm"</span>)</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Valores preditos para número do calçado: [35 40 45]
 
@@ -2353,7 +2355,7 @@ Calçado 45: μ = 183.2 cm</code></pre>
 </div>
 </div>
 <div id="065d4653" class="cell" data-execution_count="17">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Visualização das predições pontuais</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Visualização das predições pontuais</span></span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Extrair amostras aleatórias de novas observações para cada valor de calçado</span></span>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>n_samples <span class="op">=</span> <span class="dv">80</span></span>
 <span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>calcado_pred <span class="op">=</span> [<span class="dv">35</span>, <span class="dv">40</span>, <span class="dv">45</span>]</span>
@@ -2380,7 +2382,7 @@ Calçado 45: μ = 183.2 cm</code></pre>
 <span id="cb22-25"><a href="#cb22-25" aria-hidden="true" tabindex="-1"></a>plt.legend(loc<span class="op">=</span><span class="st">'lower right'</span>)</span>
 <span id="cb22-26"><a href="#cb22-26" aria-hidden="true" tabindex="-1"></a>plt.grid(<span class="va">True</span>, alpha<span class="op">=</span><span class="fl">0.3</span>)</span>
 <span id="cb22-27"><a href="#cb22-27" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
-<span id="cb22-28"><a href="#cb22-28" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb22-28"><a href="#cb22-28" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -2391,7 +2393,7 @@ Calçado 45: μ = 183.2 cm</code></pre>
 </div>
 <p>Histograma das novas predições</p>
 <div id="1c4325a7" class="cell" data-execution_count="18">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">5</span>))</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">5</span>))</span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, (calcado_val, cor) <span class="kw">in</span> <span class="bu">enumerate</span>(<span class="bu">zip</span>(calcado_pred, cores)):</span>
 <span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>    y_sample <span class="op">=</span> random.sample(</span>
@@ -2405,7 +2407,7 @@ Calçado 45: μ = 183.2 cm</code></pre>
 <span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Distribuições de altura</span><span class="ch">\n</span><span class="st">das novas predições por número de calçado"</span>)</span>
 <span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
 <span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
-<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -2421,7 +2423,7 @@ Calçado 45: μ = 183.2 cm</code></pre>
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Interpretação dos tipos de predição bayesiana
+<span class="screen-reader-only">Nota</span>Interpretação dos tipos de predição bayesiana
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -2443,15 +2445,15 @@ Interpretação dos tipos de predição bayesiana
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Quando usar cada abordagem
+<span class="screen-reader-only">Dica</span>Quando usar cada abordagem
 </div>
 </div>
 <div class="callout-body-container callout-body">
 <p><strong>Bambi: estrutura de código</strong></p>
 <div id="1483d8b4" class="cell" data-execution_count="19">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Bambi</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Bambi</span></span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>modelo <span class="op">=</span> bmb.Model(<span class="st">"altura ~ calcado"</span>, df, priors<span class="op">=</span>priors)</span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>resultados <span class="op">=</span> modelo.fit()</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>resultados <span class="op">=</span> modelo.fit()</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p><strong>Quando usar:</strong></p>
 <ul>
@@ -2460,7 +2462,7 @@ Quando usar cada abordagem
 </ul>
 <p><strong>PyMC: estrutura de código</strong></p>
 <div id="62332ab5" class="cell" data-execution_count="20">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># PyMC - requer definição manual de todas as componentes</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># PyMC - requer definição manual de todas as componentes</span></span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> pm.Model() <span class="im">as</span> modelo:</span>
 <span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Priors</span></span>
 <span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>    beta_0 <span class="op">=</span> pm.Normal(<span class="st">"beta_0"</span>, mu<span class="op">=</span><span class="dv">60</span>, sigma<span class="op">=</span><span class="dv">5</span>)</span>
@@ -2470,7 +2472,7 @@ Quando usar cada abordagem
 <span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Verossimilhança</span></span>
 <span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>    mu <span class="op">=</span> beta_0 <span class="op">+</span> beta_1 <span class="op">*</span> X</span>
 <span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>    altura <span class="op">=</span> pm.Normal(<span class="st">"altura"</span>, mu<span class="op">=</span>mu, sigma<span class="op">=</span>sigma, observed<span class="op">=</span>Y)</span>
-<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>    trace <span class="op">=</span> pm.sample()</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>    trace <span class="op">=</span> pm.sample()</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p><strong>Quando usar:</strong></p>
 <ul>
@@ -2540,13 +2542,14 @@ Quando usar cada abordagem
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy

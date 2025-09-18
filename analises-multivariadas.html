@@ -2,13 +2,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="pt" xml:lang="pt"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.34">
+<meta name="generator" content="quarto-1.8.24">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="description" content="Técnicas de Análise multivariada em ecologia, incluindo métodos de ordenação, agrupamento, cálculo de distâncias ecológicas e testes de randomização, para investigação de padrões em comunidades ecológicas.">
+<meta name="description" content="Técnicas de Análises multivariadas, incluindo métodos de ordenação, agrupamento, cálculo de distâncias e testes de randomização, para investigação de padrões em dados multivariados.">
 
-<title>Introdução à Ecologia Numérica – Modelagem Estatística e Análise de Dados</title>
+<title>Análises multivariadas – Modelagem Estatística e Análise de Dados</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -35,14 +35,15 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-listing/quarto-listing.js"></script>
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-c8ad9e5dbd60b7b70b38521ab19b7da4.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dc55a5b9e770e841cd82e46aadbfb9b0.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-f8a7b73f25ce1e13d22e496f4555e3c8.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-842b3f155a5c8185421458a5626a713a.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -114,7 +115,7 @@ const typesetMath = (el) => {
     var macros = [];
     for (var i = 0; i < mathElements.length; i++) {
       var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
         window.katex.render(texText.data, mathElements[i], {
           displayMode: mathElements[i].classList.contains('display'),
           throwOnError: false,
@@ -131,9 +132,9 @@ window.Quarto = {
 </script>
 
 <link rel="stylesheet" href="styles/custom.css">
-<meta property="og:title" content="Introdução à Ecologia Numérica – Modelagem Estatística e Análise de Dados">
-<meta property="og:description" content="Técnicas de Análise multivariada em ecologia, incluindo métodos de ordenação, agrupamento, cálculo de distâncias ecológicas e testes de randomização, para investigação de padrões em comunidades ecológicas.">
-<meta property="og:image" content="https://github.com/FCopf/MEAD/images/ecologia-numerica.png">
+<meta property="og:title" content="Análises multivariadas – Modelagem Estatística e Análise de Dados">
+<meta property="og:description" content="Técnicas de Análises multivariadas, incluindo métodos de ordenação, agrupamento, cálculo de distâncias e testes de randomização, para investigação de padrões em dados multivariados.">
+<meta property="og:image" content="https://github.com/FCopf/MEAD/images/analises-multivariadas.png">
 <meta property="og:site_name" content="Modelagem Estatística e Análise de Dados">
 <meta property="og:image:height" content="602">
 <meta property="og:image:width" content="731">
@@ -147,7 +148,8 @@ window.Quarto = {
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a href="./index.html" class="navbar-brand navbar-brand-logo">
-    <img src="./images/MEAD-logo-white-sigla.png" alt="" class="navbar-logo">
+    <img src="./images/MEAD-logo-white-sigla.png" alt="" class="navbar-logo light-content">
+    <img src="./images/MEAD-logo-white-sigla.png" alt="" class="navbar-logo dark-content">
     </a>
     <a class="navbar-brand" href="./index.html">
     <span class="navbar-title">Modelagem Estatística e Análise de Dados</span>
@@ -183,19 +185,19 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Introdução à Ecologia Numérica</h1>
+<h1 class="title">Análises multivariadas</h1>
   <div class="quarto-categories">
     <div class="quarto-category">Análise multivariada</div>
     <div class="quarto-category">Ordenação</div>
     <div class="quarto-category">Agrupamento</div>
     <div class="quarto-category">Randomização</div>
-    <div class="quarto-category">Distância ecológica</div>
+    <div class="quarto-category">Distância</div>
   </div>
   </div>
 
 <div>
   <div class="description">
-    Técnicas de Análise multivariada em ecologia, incluindo métodos de ordenação, agrupamento, cálculo de distâncias ecológicas e testes de randomização, para investigação de padrões em comunidades ecológicas.
+    Técnicas de Análises multivariadas, incluindo métodos de ordenação, agrupamento, cálculo de distâncias e testes de randomização, para investigação de padrões em dados multivariados.
   </div>
 </div>
 
@@ -218,34 +220,34 @@ window.Quarto = {
 
 <div class="quarto-listing quarto-listing-container-default" id="listing-listing">
 <div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-listing-file-modified-sort="1756507389972" data-listing-reading-time-sort="23" data-listing-word-count-sort="4440">
-<div class="thumbnail"><a href="./conteudo/ecologia-numerica/intro-matrizes.html" class="no-external">
+<div class="quarto-post image-right" data-index="0" data-listing-file-modified-sort="1758214341984" data-listing-reading-time-sort="23" data-listing-word-count-sort="4440">
+<div class="thumbnail"><a href="./conteudo/analises-multivariadas/intro-matrizes.html" class="no-external">
 
-<img loading="lazy" src="./conteudo/ecologia-numerica/images/intro-matrizes.png" class="thumbnail-image">
+<img loading="lazy" src="./conteudo/analises-multivariadas/images/intro-matrizes.png" class="thumbnail-image">
 
 </a></div>
 <div class="body">
 <h3 class="no-anchor listing-title">
-<a href="./conteudo/ecologia-numerica/intro-matrizes.html" class="no-external">Introdução à Álgebra de Matrizes</a>
+<a href="./conteudo/analises-multivariadas/intro-matrizes.html" class="no-external">Introdução à Álgebra de Matrizes</a>
 </h3>
-<div class="delink listing-description"><a href="./conteudo/ecologia-numerica/intro-matrizes.html" class="no-external">
+<div class="delink listing-description"><a href="./conteudo/analises-multivariadas/intro-matrizes.html" class="no-external">
 <p>Operações básicas e álgebra matricial.</p>
 </a></div>
 </div>
 <div class="metadata">
-<a href="./conteudo/ecologia-numerica/intro-matrizes.html" class="no-external">
+<a href="./conteudo/analises-multivariadas/intro-matrizes.html" class="no-external">
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="1" data-categories="UHJvZHV0byUyMGVzY2FsYXIlMkMlQzMlODJuZ3VsbyUyMGVudHJlJTIwdmV0b3JlcyUyQ011bHRpcGxpY2ElQzMlQTclQzMlQTNvJTIwbWF0cmljaWFsJTJDTWF0cml6JTIwdHJhbnNwb3N0YSUyQ01hdHJpeiUyMHNpbSVDMyVBOXRyaWNh" data-listing-file-modified-sort="1756507389955" data-listing-reading-time-sort="9" data-listing-word-count-sort="1699">
-<div class="thumbnail"><a href="./conteudo/ecologia-numerica/cossine-similarity.html" class="no-external">
+<div class="quarto-post image-right" data-index="1" data-categories="UHJvZHV0byUyMGVzY2FsYXIlMkMlQzMlODJuZ3VsbyUyMGVudHJlJTIwdmV0b3JlcyUyQ011bHRpcGxpY2ElQzMlQTclQzMlQTNvJTIwbWF0cmljaWFsJTJDTWF0cml6JTIwdHJhbnNwb3N0YSUyQ01hdHJpeiUyMHNpbSVDMyVBOXRyaWNh" data-listing-file-modified-sort="1758214341967" data-listing-reading-time-sort="9" data-listing-word-count-sort="1699">
+<div class="thumbnail"><a href="./conteudo/analises-multivariadas/cossine-similarity.html" class="no-external">
 
-<img loading="lazy" src="./conteudo/ecologia-numerica/images/cossine-similarity.png" class="thumbnail-image">
+<img loading="lazy" src="./conteudo/analises-multivariadas/images/cossine-similarity.png" class="thumbnail-image">
 
 </a></div>
 <div class="body">
 <h3 class="no-anchor listing-title">
-<a href="./conteudo/ecologia-numerica/cossine-similarity.html" class="no-external">Ecologia Funcional: aplicação da álgebra matricial</a>
+<a href="./conteudo/analises-multivariadas/cossine-similarity.html" class="no-external">Ecologia Funcional: aplicação da álgebra matricial</a>
 </h3>
 <div class="listing-categories">
 
@@ -260,12 +262,31 @@ window.Quarto = {
 <div class="listing-category" onclick="window.quartoListingCategory('TWF0cml6JTIwc2ltJUMzJUE5dHJpY2E='); return false;">Matriz simétrica</div>
 
 </div>
-<div class="delink listing-description"><a href="./conteudo/ecologia-numerica/cossine-similarity.html" class="no-external">
+<div class="delink listing-description"><a href="./conteudo/analises-multivariadas/cossine-similarity.html" class="no-external">
 <p>Cálculo da similaridade funcional entre espécies de peixes usando álgebra matricial.</p>
 </a></div>
 </div>
 <div class="metadata">
-<a href="./conteudo/ecologia-numerica/cossine-similarity.html" class="no-external">
+<a href="./conteudo/analises-multivariadas/cossine-similarity.html" class="no-external">
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="2" data-listing-file-modified-sort="1758214341984" data-listing-reading-time-sort="15" data-listing-word-count-sort="2938">
+<div class="thumbnail"><a href="./conteudo/analises-multivariadas/introducao_PCA_2d.html" class="no-external">
+
+<p class="card-img-top"><img src="conteudo/analises-multivariadas/introducao_PCA_2d_files/figure-html/fig-pca2d-biplot-scaling1-output-1.png"  class="thumbnail-image card-img"/></p>
+
+</a></div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="./conteudo/analises-multivariadas/introducao_PCA_2d.html" class="no-external">Introdução à Análise de Componentes Principais (PCA)</a>
+</h3>
+<div class="delink listing-description"><a href="./conteudo/analises-multivariadas/introducao_PCA_2d.html" class="no-external">
+A Análise de Componentes Principais (PCA) é uma técnica multivariada utilizada para organizar e representar objetos (como locais de amostragem, estações, indivíduos, etc.)…<strong></strong>
+</a></div>
+</div>
+<div class="metadata">
+<a href="./conteudo/analises-multivariadas/introducao_PCA_2d.html" class="no-external">
 </a>
 </div>
 </div>
@@ -323,13 +344,14 @@ window.Quarto = {
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy

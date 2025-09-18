@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="pt" xml:lang="pt"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.34">
+<meta name="generator" content="quarto-1.8.24">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -34,14 +34,15 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-listing/quarto-listing.js"></script>
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-c8ad9e5dbd60b7b70b38521ab19b7da4.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dc55a5b9e770e841cd82e46aadbfb9b0.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-f8a7b73f25ce1e13d22e496f4555e3c8.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-842b3f155a5c8185421458a5626a713a.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -212,7 +213,7 @@ ul.task-list li input[type="checkbox"] {
   
 
   window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-numerical-ecology .list');
+    const listingTargetEl = window.document.querySelector('#listing-multivariate-analysis .list');
     if (!listingTargetEl) {
       // No listing discovered, do not attach.
       return; 
@@ -225,7 +226,7 @@ ul.task-list li input[type="checkbox"] {
     };
 
     window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-numerical-ecology'] = new List('listing-numerical-ecology', options);
+    window['quarto-listings']['listing-multivariate-analysis'] = new List('listing-multivariate-analysis', options);
 
     if (window['quarto-listing-loaded']) {
       window['quarto-listing-loaded']();
@@ -281,7 +282,7 @@ const typesetMath = (el) => {
     var macros = [];
     for (var i = 0; i < mathElements.length; i++) {
       var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
         window.katex.render(texText.data, mathElements[i], {
           displayMode: mathElements[i].classList.contains('display'),
           throwOnError: false,
@@ -311,7 +312,8 @@ window.Quarto = {
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a href="./index.html" class="navbar-brand navbar-brand-logo">
-    <img src="./images/MEAD-logo-white-sigla.png" alt="" class="navbar-logo">
+    <img src="./images/MEAD-logo-white-sigla.png" alt="" class="navbar-logo light-content">
+    <img src="./images/MEAD-logo-white-sigla.png" alt="" class="navbar-logo dark-content">
     </a>
     <a class="navbar-brand" href="./index.html">
     <span class="navbar-title">Modelagem Estatística e Análise de Dados</span>
@@ -349,7 +351,7 @@ window.Quarto = {
   <li><a href="#inferência-estatística-e-teste-de-hipóteses" id="toc-inferência-estatística-e-teste-de-hipóteses" class="nav-link" data-scroll-target="#inferência-estatística-e-teste-de-hipóteses">Inferência Estatística e Teste de hipóteses</a></li>
   <li><a href="#modelos-lineares" id="toc-modelos-lineares" class="nav-link" data-scroll-target="#modelos-lineares">Modelos Lineares</a></li>
   <li><a href="#modelos-bayesianos" id="toc-modelos-bayesianos" class="nav-link" data-scroll-target="#modelos-bayesianos">Modelos Bayesianos</a></li>
-  <li><a href="#ecologia-numérica" id="toc-ecologia-numérica" class="nav-link" data-scroll-target="#ecologia-numérica">Ecologia Numérica</a></li>
+  <li><a href="#análises-multivariadas" id="toc-análises-multivariadas" class="nav-link" data-scroll-target="#análises-multivariadas">Análises Multivariadas</a></li>
   <li><a href="#funções-e-modelos" id="toc-funções-e-modelos" class="nav-link" data-scroll-target="#funções-e-modelos">Funções e Modelos</a></li>
   </ul>
 </nav>
@@ -364,7 +366,7 @@ window.Quarto = {
 <h2 class="anchored" data-anchor-id="fundamentos-de-programação-e-análise-de-dados">Fundamentos de Programação e Análise de Dados</h2>
 <div id="listing-programming-fundamentals" class="quarto-listing quarto-listing-container-grid">
 <div class="list grid quarto-listing-cols-3">
-<div class="g-col-1" data-index="0" data-categories="UHJvZ3JhbWElQzMlQTclQzMlQTNvJTJDUiUyQ0Z1bmRhbWVudG9z" data-listing-file-modified-sort="1756507390205" data-listing-reading-time-sort="1" data-listing-word-count-sort="1">
+<div class="g-col-1" data-index="0" data-categories="UHJvZ3JhbWElQzMlQTclQzMlQTNvJTJDUiUyQ0Z1bmRhbWVudG9z" data-listing-file-modified-sort="1758214342242" data-listing-reading-time-sort="1" data-listing-word-count-sort="1">
 <a href="./introducao_r.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
 <p class="card-img-top">
@@ -377,7 +379,7 @@ Introdução ao R
 </div>
 </div></a>
 </div>
-<div class="g-col-1" data-index="1" data-categories="UHJvZ3JhbWElQzMlQTclQzMlQTNvJTJDUiUyQ0FwbGljYSVDMyVBNyVDMyVCNWVz" data-listing-file-modified-sort="1756507390205" data-listing-reading-time-sort="1" data-listing-word-count-sort="1">
+<div class="g-col-1" data-index="1" data-categories="UHJvZ3JhbWElQzMlQTclQzMlQTNvJTJDUiUyQ0FwbGljYSVDMyVBNyVDMyVCNWVz" data-listing-file-modified-sort="1758214342242" data-listing-reading-time-sort="1" data-listing-word-count-sort="1">
 <a href="./manipulacao-dados-R.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
 <p class="card-img-top">
@@ -390,7 +392,7 @@ Manipulação de Dados em R
 </div>
 </div></a>
 </div>
-<div class="g-col-1" data-index="2" data-categories="UHJvZ3JhbWElQzMlQTclQzMlQTNvJTJDUHl0aG9uJTJDRnVuZGFtZW50b3M=" data-listing-file-modified-sort="1756507390205" data-listing-reading-time-sort="1" data-listing-word-count-sort="1">
+<div class="g-col-1" data-index="2" data-categories="UHJvZ3JhbWElQzMlQTclQzMlQTNvJTJDUHl0aG9uJTJDRnVuZGFtZW50b3M=" data-listing-file-modified-sort="1758214342242" data-listing-reading-time-sort="1" data-listing-word-count-sort="1">
 <a href="./manipulacao-dados-python.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
 <p class="card-img-top">
@@ -398,7 +400,7 @@ Manipulação de Dados em R
 </p>
 <div class="card-body post-contents">
 <h5 class="no-anchor card-title listing-title">
-Manipulação de Dados em Python
+Introdução e Manipulação de Dados em Python
 </h5>
 </div>
 </div></a>
@@ -411,7 +413,7 @@ Manipulação de Dados em Python
 <h2 class="anchored" data-anchor-id="estatística-descritiva-e-probabilidade">Estatística Descritiva e Probabilidade</h2>
 <div id="listing-descriptive-stats" class="quarto-listing quarto-listing-container-grid">
 <div class="list grid quarto-listing-cols-3">
-<div class="g-col-1" data-index="0" data-categories="UHJvZ3JhbWElQzMlQTclQzMlQTNvJTJDUiUyQ0Z1bmRhbWVudG9z" data-listing-file-modified-sort="1756507390151" data-listing-reading-time-sort="1" data-listing-word-count-sort="1">
+<div class="g-col-1" data-index="0" data-categories="UHJvZ3JhbWElQzMlQTclQzMlQTNvJTJDUiUyQ0Z1bmRhbWVudG9z" data-listing-file-modified-sort="1758214342187" data-listing-reading-time-sort="1" data-listing-word-count-sort="1">
 <a href="./estrutura_dados.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
 <p class="card-img-top">
@@ -424,7 +426,7 @@ Estrutura de Dados
 </div>
 </div></a>
 </div>
-<div class="g-col-1" data-index="1" data-categories="RXN0YXQlQzMlQURzdGljYSUyMEIlQzMlQTFzaWNhJTJDRXhwbG9yYSVDMyVBNyVDMyVBM28lMjBkZSUyMERhZG9zJTJDVmlzdWFsaXphJUMzJUE3JUMzJUEzbyUyMGRlJTIwRGFkb3M=" data-listing-file-modified-sort="1756507390151" data-listing-reading-time-sort="1" data-listing-word-count-sort="1">
+<div class="g-col-1" data-index="1" data-categories="RXN0YXQlQzMlQURzdGljYSUyMEIlQzMlQTFzaWNhJTJDRXhwbG9yYSVDMyVBNyVDMyVBM28lMjBkZSUyMERhZG9zJTJDVmlzdWFsaXphJUMzJUE3JUMzJUEzbyUyMGRlJTIwRGFkb3M=" data-listing-file-modified-sort="1758214342187" data-listing-reading-time-sort="1" data-listing-word-count-sort="1">
 <a href="./estatistica_descritiva.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
 <p class="card-img-top">
@@ -437,7 +439,7 @@ Estatística Descritiva
 </div>
 </div></a>
 </div>
-<div class="g-col-1" data-index="2" data-categories="RXN0YXQlQzMlQURzdGljYSUyMEIlQzMlQTFzaWNhJTJDQ29ycmVsYSVDMyVBNyVDMyVBM28lMkNEZXBlbmQlQzMlQUFuY2lh" data-listing-file-modified-sort="1756507390205" data-listing-reading-time-sort="1" data-listing-word-count-sort="1">
+<div class="g-col-1" data-index="2" data-categories="RXN0YXQlQzMlQURzdGljYSUyMEIlQzMlQTFzaWNhJTJDQ29ycmVsYSVDMyVBNyVDMyVBM28lMkNEZXBlbmQlQzMlQUFuY2lh" data-listing-file-modified-sort="1758214342242" data-listing-reading-time-sort="1" data-listing-word-count-sort="1">
 <a href="./medidas_associacao.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
 <p class="card-img-top">
@@ -450,7 +452,7 @@ Medidas de Associação
 </div>
 </div></a>
 </div>
-<div class="g-col-1" data-index="3" data-categories="RnVuZGFtZW50b3MlMkNQbGFuZWphbWVudG8lMjBkZSUyMEVzdHVkb3M=" data-listing-file-modified-sort="1756507389932" data-listing-reading-time-sort="1" data-listing-word-count-sort="1">
+<div class="g-col-1" data-index="3" data-categories="RnVuZGFtZW50b3MlMkNQbGFuZWphbWVudG8lMjBkZSUyMEVzdHVkb3M=" data-listing-file-modified-sort="1758214341962" data-listing-reading-time-sort="1" data-listing-word-count-sort="1">
 <a href="./amostragem.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
 <p class="card-img-top">
@@ -463,7 +465,7 @@ Amostragem
 </div>
 </div></a>
 </div>
-<div class="g-col-1" data-index="4" data-categories="UHJvYmFiaWxpZGFkZSUyQ01vZGVsYWdlbQ==" data-listing-file-modified-sort="1756507390151" data-listing-reading-time-sort="1" data-listing-word-count-sort="1">
+<div class="g-col-1" data-index="4" data-categories="UHJvYmFiaWxpZGFkZSUyQ01vZGVsYWdlbQ==" data-listing-file-modified-sort="1758214342187" data-listing-reading-time-sort="1" data-listing-word-count-sort="1">
 <a href="./distribuicao_normal.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
 <p class="card-img-top">
@@ -476,7 +478,7 @@ A Distribuição Normal
 </div>
 </div></a>
 </div>
-<div class="g-col-1" data-index="5" data-categories="UHJvYmFiaWxpZGFkZSUyQ0Z1bmRhbWVudG9z" data-listing-file-modified-sort="1756507390151" data-listing-reading-time-sort="1" data-listing-word-count-sort="1">
+<div class="g-col-1" data-index="5" data-categories="UHJvYmFiaWxpZGFkZSUyQ0Z1bmRhbWVudG9z" data-listing-file-modified-sort="1758214342187" data-listing-reading-time-sort="1" data-listing-word-count-sort="1">
 <a href="./fundamentos_probabilidade.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
 <p class="card-img-top">
@@ -497,7 +499,7 @@ Fundamentos de Probabilidades
 <h2 class="anchored" data-anchor-id="inferência-estatística-e-teste-de-hipóteses">Inferência Estatística e Teste de hipóteses</h2>
 <div id="listing-inference-testing" class="quarto-listing quarto-listing-container-grid">
 <div class="list grid quarto-listing-cols-3">
-<div class="g-col-1" data-index="0" data-categories="SW5mZXIlQzMlQUFuY2lhJTJDUHJvYmFiaWxpZGFkZQ==" data-listing-file-modified-sort="1756507390205" data-listing-reading-time-sort="1" data-listing-word-count-sort="1">
+<div class="g-col-1" data-index="0" data-categories="SW5mZXIlQzMlQUFuY2lhJTJDUHJvYmFiaWxpZGFkZQ==" data-listing-file-modified-sort="1758214342242" data-listing-reading-time-sort="1" data-listing-word-count-sort="1">
 <a href="./inferencia_estatistica.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
 <p class="card-img-top">
@@ -510,7 +512,7 @@ Inferência Estatística
 </div>
 </div></a>
 </div>
-<div class="g-col-1" data-index="1" data-categories="SW5mZXIlQzMlQUFuY2lhJTJDVGVzdGVzJTIwRXN0YXQlQzMlQURzdGljb3M=" data-listing-file-modified-sort="1756507390207" data-listing-reading-time-sort="1" data-listing-word-count-sort="1">
+<div class="g-col-1" data-index="1" data-categories="SW5mZXIlQzMlQUFuY2lhJTJDVGVzdGVzJTIwRXN0YXQlQzMlQURzdGljb3M=" data-listing-file-modified-sort="1758214342243" data-listing-reading-time-sort="1" data-listing-word-count-sort="1">
 <a href="./teste_hipoteses.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
 <p class="card-img-top">
@@ -531,7 +533,7 @@ Teste de Hipóteses
 <h2 class="anchored" data-anchor-id="modelos-lineares">Modelos Lineares</h2>
 <div id="listing-linear-models" class="quarto-listing quarto-listing-container-grid">
 <div class="list grid quarto-listing-cols-3">
-<div class="g-col-1" data-index="0" data-categories="SW5mZXIlQzMlQUFuY2lhJTJDVGVzdGVzJTIwRXN0YXQlQzMlQURzdGljb3MlMkNNb2RlbG9z" data-listing-file-modified-sort="1756507389932" data-listing-reading-time-sort="1" data-listing-word-count-sort="1">
+<div class="g-col-1" data-index="0" data-categories="SW5mZXIlQzMlQUFuY2lhJTJDVGVzdGVzJTIwRXN0YXQlQzMlQURzdGljb3MlMkNNb2RlbG9z" data-listing-file-modified-sort="1758214341962" data-listing-reading-time-sort="1" data-listing-word-count-sort="1">
 <a href="./anova.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
 <p class="card-img-top">
@@ -544,7 +546,7 @@ Análise de variância
 </div>
 </div></a>
 </div>
-<div class="g-col-1" data-index="1" data-categories="TW9kZWxhZ2VtJTJDSW5mZXIlQzMlQUFuY2lhJTJDUHJldmlzJUMzJUEzbyUyQ1Rlc3RlcyUyMEVzdGF0JUMzJUFEc3RpY29z" data-listing-file-modified-sort="1756507390205" data-listing-reading-time-sort="1" data-listing-word-count-sort="1">
+<div class="g-col-1" data-index="1" data-categories="TW9kZWxhZ2VtJTJDSW5mZXIlQzMlQUFuY2lhJTJDUHJldmlzJUMzJUEzbyUyQ1Rlc3RlcyUyMEVzdGF0JUMzJUFEc3RpY29z" data-listing-file-modified-sort="1758214342242" data-listing-reading-time-sort="1" data-listing-word-count-sort="1">
 <a href="./regressao_linear.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
 <p class="card-img-top">
@@ -565,7 +567,7 @@ Modelos de Regressão
 <h2 class="anchored" data-anchor-id="modelos-bayesianos">Modelos Bayesianos</h2>
 <div id="listing-bayesian-modeling" class="quarto-listing quarto-listing-container-grid">
 <div class="list grid quarto-listing-cols-3">
-<div class="g-col-1" data-index="0" data-categories="SW5mZXIlQzMlQUFuY2lhJTJDRXN0YXQlQzMlQURzdGljYSUyMEJheWVzaWFuYSUyQ01vZGVsYWdlbSUyQ1Byb2JhYmlsaWRhZGU=" data-listing-file-modified-sort="1756507390205" data-listing-reading-time-sort="1" data-listing-word-count-sort="1">
+<div class="g-col-1" data-index="0" data-categories="SW5mZXIlQzMlQUFuY2lhJTJDRXN0YXQlQzMlQURzdGljYSUyMEJheWVzaWFuYSUyQ01vZGVsYWdlbSUyQ1Byb2JhYmlsaWRhZGU=" data-listing-file-modified-sort="1758214342242" data-listing-reading-time-sort="1" data-listing-word-count-sort="1">
 <a href="./intro_bayes.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
 <p class="card-img-top">
@@ -578,7 +580,7 @@ Introdução à Inferência Bayesiana
 </div>
 </div></a>
 </div>
-<div class="g-col-1" data-index="1" data-categories="UmVncmVzcyVDMyVBM28lMkNJbmZlciVDMyVBQW5jaWElMjBiYXllc2lhbmElMkNEaXN0cmlidWklQzMlQTclQzMlQTNvJTIwYSUyMHByaW9yaSUyQ0Rpc3RyaWJ1aSVDMyVBNyVDMyVBM28lMjBwb3N0ZXJpb3I=" data-listing-file-modified-sort="1756507390205" data-listing-reading-time-sort="1" data-listing-word-count-sort="1">
+<div class="g-col-1" data-index="1" data-categories="UmVncmVzcyVDMyVBM28lMkNJbmZlciVDMyVBQW5jaWElMjBiYXllc2lhbmElMkNEaXN0cmlidWklQzMlQTclQzMlQTNvJTIwYSUyMHByaW9yaSUyQ0Rpc3RyaWJ1aSVDMyVBNyVDMyVBM28lMjBwb3N0ZXJpb3I=" data-listing-file-modified-sort="1758214342242" data-listing-reading-time-sort="1" data-listing-word-count-sort="1">
 <a href="./modelos_regressao_bayes.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
 <p class="card-img-top">
@@ -595,19 +597,19 @@ Modelos de Regressão Bayesianos
 <div class="listing-no-matching d-none">Nenhum item correspondente</div>
 </div>
 </section>
-<section id="ecologia-numérica" class="level2">
-<h2 class="anchored" data-anchor-id="ecologia-numérica">Ecologia Numérica</h2>
-<div id="listing-numerical-ecology" class="quarto-listing quarto-listing-container-grid">
+<section id="análises-multivariadas" class="level2">
+<h2 class="anchored" data-anchor-id="análises-multivariadas">Análises Multivariadas</h2>
+<div id="listing-multivariate-analysis" class="quarto-listing quarto-listing-container-grid">
 <div class="list grid quarto-listing-cols-3">
-<div class="g-col-1" data-index="0" data-categories="QW4lQzMlQTFsaXNlJTIwbXVsdGl2YXJpYWRhJTJDT3JkZW5hJUMzJUE3JUMzJUEzbyUyQ0FncnVwYW1lbnRvJTJDUmFuZG9taXphJUMzJUE3JUMzJUEzbyUyQ0Rpc3QlQzMlQTJuY2lhJTIwZWNvbCVDMyVCM2dpY2E=" data-listing-file-modified-sort="1756507390151" data-listing-reading-time-sort="1" data-listing-word-count-sort="1">
-<a href="./ecologia-numerica.html" class="quarto-grid-link">
+<div class="g-col-1" data-index="0" data-categories="QW4lQzMlQTFsaXNlJTIwbXVsdGl2YXJpYWRhJTJDT3JkZW5hJUMzJUE3JUMzJUEzbyUyQ0FncnVwYW1lbnRvJTJDUmFuZG9taXphJUMzJUE3JUMzJUEzbyUyQ0Rpc3QlQzMlQTJuY2lh" data-listing-file-modified-sort="1758214341962" data-listing-reading-time-sort="1" data-listing-word-count-sort="1">
+<a href="./analises-multivariadas.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
 <p class="card-img-top">
-<img loading="lazy" src="./images/ecologia-numerica.png" class="thumbnail-image card-img" style="height: 150px;">
+<img loading="lazy" src="./images/analises-multivariadas.png" class="thumbnail-image card-img" style="height: 150px;">
 </p>
 <div class="card-body post-contents">
 <h5 class="no-anchor card-title listing-title">
-Introdução à Ecologia Numérica
+Análises multivariadas
 </h5>
 </div>
 </div></a>
@@ -620,7 +622,7 @@ Introdução à Ecologia Numérica
 <h2 class="anchored" data-anchor-id="funções-e-modelos">Funções e Modelos</h2>
 <div id="listing-funcoes-modelos" class="quarto-listing quarto-listing-container-grid">
 <div class="list grid quarto-listing-cols-3">
-<div class="g-col-1" data-index="0" data-categories="TW9kZWxvcyUyMGRldGVybWluJUMzJUFEc3RpY29zJTJDRnVuJUMzJUE3JUMzJUI1ZXM=" data-listing-file-modified-sort="1756507390151" data-listing-reading-time-sort="1" data-listing-word-count-sort="1">
+<div class="g-col-1" data-index="0" data-categories="TW9kZWxvcyUyMGRldGVybWluJUMzJUFEc3RpY29zJTJDRnVuJUMzJUE3JUMzJUI1ZXM=" data-listing-file-modified-sort="1758214342187" data-listing-reading-time-sort="1" data-listing-word-count-sort="1">
 <a href="./funcoes-modelos.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
 <p class="card-img-top">
@@ -693,13 +695,14 @@ Funções e modelos
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy

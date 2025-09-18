@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="pt" xml:lang="pt"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.34">
+<meta name="generator" content="quarto-1.8.24">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -55,14 +55,15 @@ div.csl-indent {
 <script src="site_libs/quarto-listing/quarto-listing.js"></script>
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-c8ad9e5dbd60b7b70b38521ab19b7da4.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dc55a5b9e770e841cd82e46aadbfb9b0.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-f8a7b73f25ce1e13d22e496f4555e3c8.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-842b3f155a5c8185421458a5626a713a.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -134,7 +135,7 @@ const typesetMath = (el) => {
     var macros = [];
     for (var i = 0; i < mathElements.length; i++) {
       var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
         window.katex.render(texText.data, mathElements[i], {
           displayMode: mathElements[i].classList.contains('display'),
           throwOnError: false,
@@ -167,7 +168,8 @@ window.Quarto = {
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a href="./index.html" class="navbar-brand navbar-brand-logo">
-    <img src="./images/MEAD-logo-white-sigla.png" alt="" class="navbar-logo">
+    <img src="./images/MEAD-logo-white-sigla.png" alt="" class="navbar-logo light-content">
+    <img src="./images/MEAD-logo-white-sigla.png" alt="" class="navbar-logo dark-content">
     </a>
     <a class="navbar-brand" href="./index.html">
     <span class="navbar-title">Modelagem Estatística e Análise de Dados</span>
@@ -238,7 +240,7 @@ window.Quarto = {
 
 <div class="quarto-listing quarto-listing-container-default" id="listing-listing">
 <div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-listing-file-modified-sort="1756507390057" data-listing-reading-time-sort="14" data-listing-word-count-sort="2675">
+<div class="quarto-post image-right" data-index="0" data-listing-file-modified-sort="1758214342088" data-listing-reading-time-sort="14" data-listing-word-count-sort="2675">
 <div class="thumbnail"><a href="./conteudo/intro_bayes/intro-bayes-counting.html" class="no-external">
 
 <img loading="lazy" src="./conteudo/intro_bayes/images/intro-bayes-conting.png" class="thumbnail-image">
@@ -257,7 +259,7 @@ window.Quarto = {
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="1" data-listing-file-modified-sort="1756507390057" data-listing-reading-time-sort="6" data-listing-word-count-sort="1060">
+<div class="quarto-post image-right" data-index="1" data-listing-file-modified-sort="1758214342088" data-listing-reading-time-sort="6" data-listing-word-count-sort="1060">
 <div class="thumbnail"><a href="./conteudo/intro_bayes/intro-bayes-distr-prob.html" class="no-external">
 
 <img loading="lazy" src="./conteudo/intro_bayes/images/intro-bayes-distr-prob.png" class="thumbnail-image">
@@ -276,7 +278,7 @@ window.Quarto = {
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="2" data-listing-file-modified-sort="1756507390057" data-listing-reading-time-sort="15" data-listing-word-count-sort="2924">
+<div class="quarto-post image-right" data-index="2" data-listing-file-modified-sort="1758214342088" data-listing-reading-time-sort="15" data-listing-word-count-sort="2924">
 <div class="thumbnail"><a href="./conteudo/intro_bayes/intro-bayes-modelo-bayesiano.html" class="no-external">
 
 <img loading="lazy" src="./conteudo/intro_bayes/images/intro-bayes-modelo-bayesiano.png" class="thumbnail-image">
@@ -295,7 +297,7 @@ window.Quarto = {
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="3" data-listing-file-modified-sort="1756507390057" data-listing-reading-time-sort="4" data-listing-word-count-sort="615">
+<div class="quarto-post image-right" data-index="3" data-listing-file-modified-sort="1758214342088" data-listing-reading-time-sort="4" data-listing-word-count-sort="615">
 <div class="thumbnail"><a href="./conteudo/intro_bayes/intro-bayes-binomial-grid.html" class="no-external">
 
 <img loading="lazy" src="./conteudo/intro_bayes/images/intro-bayes-binomial-grid.png" class="thumbnail-image">
@@ -314,7 +316,7 @@ window.Quarto = {
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="4" data-listing-file-modified-sort="1756507390057" data-listing-reading-time-sort="4" data-listing-word-count-sort="702">
+<div class="quarto-post image-right" data-index="4" data-listing-file-modified-sort="1758214342088" data-listing-reading-time-sort="4" data-listing-word-count-sort="702">
 <div class="thumbnail"><a href="./conteudo/intro_bayes/intro-bayes-binomial-pymc.html" class="no-external">
 
 <img loading="lazy" src="./conteudo/intro_bayes/images/intro-bayes-binomial-pymc.png" class="thumbnail-image">
@@ -333,7 +335,7 @@ window.Quarto = {
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="5" data-listing-file-modified-sort="1756507390057" data-listing-reading-time-sort="7" data-listing-word-count-sort="1252">
+<div class="quarto-post image-right" data-index="5" data-listing-file-modified-sort="1758214342088" data-listing-reading-time-sort="7" data-listing-word-count-sort="1252">
 <div class="thumbnail"><a href="./conteudo/intro_bayes/intro-bayes-modelo-normal-bayesiano-priori.html" class="no-external">
 
 <img loading="lazy" src="./conteudo/intro_bayes/images/intro-bayes-modelo-normal-bayesiano-priori.png" class="thumbnail-image">
@@ -410,13 +412,14 @@ McElreath, Richard. 2018. <em>Statistical rethinking: A Bayesian course with exa
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy

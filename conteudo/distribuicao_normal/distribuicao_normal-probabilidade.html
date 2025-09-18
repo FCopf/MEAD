@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="pt" xml:lang="pt"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.34">
+<meta name="generator" content="quarto-1.8.24">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -88,14 +88,15 @@ div.csl-indent {
 <meta name="quarto:offset" content="../../">
 <script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-c8ad9e5dbd60b7b70b38521ab19b7da4.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dc55a5b9e770e841cd82e46aadbfb9b0.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-f8a7b73f25ce1e13d22e496f4555e3c8.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-842b3f155a5c8185421458a5626a713a.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -138,7 +139,7 @@ const typesetMath = (el) => {
     var macros = [];
     for (var i = 0; i < mathElements.length; i++) {
       var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
         window.katex.render(texText.data, mathElements[i], {
           displayMode: mathElements[i].classList.contains('display'),
           throwOnError: false,
@@ -171,7 +172,8 @@ window.Quarto = {
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a href="../../index.html" class="navbar-brand navbar-brand-logo">
-    <img src="../../images/MEAD-logo-white-sigla.png" alt="" class="navbar-logo">
+    <img src="../../images/MEAD-logo-white-sigla.png" alt="" class="navbar-logo light-content">
+    <img src="../../images/MEAD-logo-white-sigla.png" alt="" class="navbar-logo dark-content">
     </a>
     <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">Modelagem Estatística e Análise de Dados</span>
@@ -244,21 +246,21 @@ window.Quarto = {
 
 
 <div class="callout callout-style-default callout-tip callout-titled" title="Bibliotecas utilizadas nesta seção">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Bibliotecas utilizadas nesta seção
+<span class="screen-reader-only">Dica</span>Bibliotecas utilizadas nesta seção
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
 <div id="callout-1" class="callout-1-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div id="42c7bf6d" class="cell" data-execution_count="1">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> scipy.stats <span class="im">as</span> st</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> scipy.stats <span class="im">as</span> st</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 </div>
@@ -282,16 +284,16 @@ f(x) = \frac{1}{\sqrt{2\pi\sigma^2}} e^{-\frac{1}{2} \left(\frac{x - \mu}{\sigma
 \]</span></p>
 <p>é a <strong>Função de Densidade de Probabilidade (PDF)</strong> da distribuição normal. Com base nesta equação, as probabilidades para intervalos de <span class="math inline">\(X\)</span> são obtidas por meio da Função de <strong>Probabilidade Acumulada (CDF)</strong>.</p>
 <div id="a6475ec4" class="cell" data-execution_count="2">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>mi <span class="op">=</span> <span class="fl">170.94</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>mi <span class="op">=</span> <span class="fl">170.94</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>sigma <span class="op">=</span> <span class="fl">6.86</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> np.linspace(<span class="dv">130</span>, <span class="dv">210</span>, <span class="dv">1000</span>)</span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>pdf <span class="op">=</span> st.norm.pdf(x <span class="op">=</span> x, loc <span class="op">=</span> mi, scale <span class="op">=</span> sigma)</span>
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>cdf <span class="op">=</span> st.norm.cdf(x <span class="op">=</span> x, loc <span class="op">=</span> mi, scale <span class="op">=</span> sigma)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>cdf <span class="op">=</span> st.norm.cdf(x <span class="op">=</span> x, loc <span class="op">=</span> mi, scale <span class="op">=</span> sigma)</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>A distribuição normal com média <span class="math inline">\(X = 170.94\)</span> e <span class="math inline">\(\sigma = 6.86\)</span> estão representadas abaixo (PDF - <a href="#fig-normal-pdf-cdf-1" class="quarto-xref">Figura&nbsp;2 (a)</a>; CDF - <a href="#fig-normal-pdf-cdf-2" class="quarto-xref">Figura&nbsp;2 (b)</a>).</p>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>plt.plot(x, pdf)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>plt.plot(x, pdf)</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Alturas (cm)'</span>)</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'PDF'</span>)</span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
@@ -299,7 +301,7 @@ f(x) = \frac{1}{\sqrt{2\pi\sigma^2}} e^{-\frac{1}{2} \left(\frac{x - \mu}{\sigma
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>plt.plot(x, cdf)</span>
 <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Alturas (cm)'</span>)</span>
 <span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'CDF'</span>)</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 <div id="fig-normal-pdf-cdf" class="quarto-layout-panel">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-normal-pdf-cdf-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -340,7 +342,7 @@ Figura&nbsp;2: Distribuição normal de probabilidade
 <h2 data-number="2" class="anchored" data-anchor-id="obtendo-probabilidades-de-uma-distribuição-normal"><span class="header-section-number">2</span> Obtendo probabilidades de uma distribuição normal</h2>
 <section id="a-probabilidade-de-x-ser-menor-ou-igual-a-x_1-px-le-x_1" class="level3" data-number="2.1">
 <h3 data-number="2.1" class="anchored" data-anchor-id="a-probabilidade-de-x-ser-menor-ou-igual-a-x_1-px-le-x_1"><span class="header-section-number">2.1</span> A probabilidade de <span class="math inline">\(X\)</span> ser <strong>menor</strong> ou igual a <span class="math inline">\(x_1\)</span>: <span class="math inline">\(P(X \le x_1)\)</span></h3>
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>mi <span class="op">=</span> <span class="fl">170.94</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>mi <span class="op">=</span> <span class="fl">170.94</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>sigma <span class="op">=</span> <span class="fl">6.86</span></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>x1 <span class="op">=</span> <span class="dv">160</span></span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
@@ -360,7 +362,7 @@ Figura&nbsp;2: Distribuição normal de probabilidade
 <span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="ss">f'$F(X = </span><span class="sc">{</span>x1<span class="sc">}</span><span class="ss">$) = </span><span class="sc">{</span>np<span class="sc">.</span><span class="bu">round</span>(p, <span class="dv">3</span>)<span class="sc">}</span><span class="ss">'</span>)</span>
 <span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>plt.plot([x1, x1], [<span class="dv">0</span>, p], color <span class="op">=</span> <span class="st">'red'</span>, linewidth <span class="op">=</span> <span class="dv">3</span>)</span>
 <span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>plt.plot([<span class="dv">130</span>, x1], [p, p], color <span class="op">=</span> <span class="st">'red'</span>, linewidth <span class="op">=</span> <span class="dv">3</span>)</span>
-<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 <div id="fig-normal-prob-abaixo" class="quarto-layout-panel">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-normal-prob-abaixo-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -399,7 +401,7 @@ Figura&nbsp;3: Distribuição Normal de Probabilidades.
 </section>
 <section id="a-probabilidade-de-x-ser-maior-ou-igual-a-x_1-px-ge-x_1" class="level3" data-number="2.2">
 <h3 data-number="2.2" class="anchored" data-anchor-id="a-probabilidade-de-x-ser-maior-ou-igual-a-x_1-px-ge-x_1"><span class="header-section-number">2.2</span> A probabilidade de <span class="math inline">\(X\)</span> ser <strong>maior</strong> ou igual a <span class="math inline">\(x_1\)</span>: <span class="math inline">\(P(X \ge x_1)\)</span></h3>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>mi <span class="op">=</span> <span class="fl">170.94</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>mi <span class="op">=</span> <span class="fl">170.94</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>sigma <span class="op">=</span> <span class="fl">6.86</span></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>x1 <span class="op">=</span> <span class="dv">180</span></span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
@@ -419,7 +421,7 @@ Figura&nbsp;3: Distribuição Normal de Probabilidades.
 <span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="ss">f'$F(X = </span><span class="sc">{</span>x1<span class="sc">}</span><span class="ss">$) = </span><span class="sc">{</span>np<span class="sc">.</span><span class="bu">round</span>(p, <span class="dv">3</span>)<span class="sc">}</span><span class="ss">'</span>)</span>
 <span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>plt.plot([x1, x1], [<span class="dv">0</span>, p], color <span class="op">=</span> <span class="st">'red'</span>, linewidth <span class="op">=</span> <span class="dv">3</span>)</span>
 <span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>plt.plot([<span class="dv">130</span>, x1], [p, p], color <span class="op">=</span> <span class="st">'red'</span>, linewidth <span class="op">=</span> <span class="dv">3</span>)</span>
-<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 <div id="fig-normal-prob-acima" class="quarto-layout-panel">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-normal-prob-acima-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -458,7 +460,7 @@ Figura&nbsp;4: Distribuição Normal de Probabilidades.
 </section>
 <section id="a-probabilidade-de-x-estar-entre-x_1-e-x_2-px_1-le-x-le-x_2" class="level3" data-number="2.3">
 <h3 data-number="2.3" class="anchored" data-anchor-id="a-probabilidade-de-x-estar-entre-x_1-e-x_2-px_1-le-x-le-x_2"><span class="header-section-number">2.3</span> A probabilidade de <span class="math inline">\(X\)</span> estar <strong>entre</strong> <span class="math inline">\(x_1\)</span> e <span class="math inline">\(x_2\)</span>: <span class="math inline">\(P(x_1 \le X \le x_2)\)</span></h3>
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>mi <span class="op">=</span> <span class="fl">170.94</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>mi <span class="op">=</span> <span class="fl">170.94</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>sigma <span class="op">=</span> <span class="fl">6.86</span></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>x1 <span class="op">=</span> <span class="dv">160</span></span>
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>x2 <span class="op">=</span> <span class="dv">180</span></span>
@@ -484,7 +486,7 @@ Figura&nbsp;4: Distribuição Normal de Probabilidades.
 <span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>plt.plot([<span class="dv">130</span>, x1], [p1, p1], color <span class="op">=</span> <span class="st">'red'</span>, linewidth <span class="op">=</span> <span class="dv">3</span>)</span>
 <span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>plt.plot([x2, x2], [<span class="dv">0</span>, p2], color <span class="op">=</span> <span class="st">'red'</span>, linewidth <span class="op">=</span> <span class="dv">3</span>)</span>
 <span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>plt.plot([<span class="dv">130</span>, x2], [p2, p2], color <span class="op">=</span> <span class="st">'red'</span>, linewidth <span class="op">=</span> <span class="dv">3</span>)</span>
-<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 <div id="fig-normal-prob-entre" class="quarto-layout-panel">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-normal-prob-entre-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -525,7 +527,7 @@ Figura&nbsp;5: Distribuição Normal de Probabilidades.
 <h3 data-number="2.4" class="anchored" data-anchor-id="representando-x_1-e-x_2-por-mu-pm-zsigma-pmu---zsigma-le-x-le-mu-zsigma"><span class="header-section-number">2.4</span> Representando <span class="math inline">\(x_1\)</span> e <span class="math inline">\(x_2\)</span> por <span class="math inline">\(\mu \pm z\sigma\)</span>: <span class="math inline">\(P(\mu - z\sigma \le X \le \mu + z\sigma)\)</span></h3>
 <p>Obs.: <span class="math inline">\(z\)</span> representa o <strong>número de desvios padrões</strong> acima ou abaixo de <span class="math inline">\(\mu\)</span>.</p>
 <div id="cell-fig-normal-prob-z" class="cell" data-execution_count="7">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>mi <span class="op">=</span> <span class="fl">170.94</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>mi <span class="op">=</span> <span class="fl">170.94</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>sigma <span class="op">=</span> <span class="fl">6.86</span></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>z <span class="op">=</span> <span class="fl">1.96</span></span>
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>x1 <span class="op">=</span> mi <span class="op">-</span> z <span class="op">*</span> sigma</span>
@@ -541,7 +543,7 @@ Figura&nbsp;5: Distribuição Normal de Probabilidades.
 <span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>plt.plot(x, y)</span>
 <span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>plt.fill_between(x, y, where <span class="op">=</span> ((x <span class="op">&gt;=</span> x1) <span class="op">&amp;</span> (x <span class="op">&lt;=</span> x2)), color<span class="op">=</span><span class="st">'lightblue'</span>)</span>
 <span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="ss">f'P($</span><span class="er">\</span><span class="ss">mu - </span><span class="sc">{</span>z<span class="sc">}</span><span class="er">\</span><span class="ss">sigma </span><span class="er">\</span><span class="ss">leq X </span><span class="er">\</span><span class="ss">leq </span><span class="er">\</span><span class="ss">mu + </span><span class="sc">{</span>z<span class="sc">}</span><span class="er">\</span><span class="ss">sigma$) = </span><span class="sc">{</span>np<span class="sc">.</span><span class="bu">round</span>(p, <span class="dv">3</span>)<span class="sc">}</span><span class="ss">'</span>)</span>
-<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div id="fig-normal-prob-z" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
@@ -620,13 +622,14 @@ Crow, James F. 1997. <span>«Birth defects, Jimson weeds and bell curves»</span
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy

@@ -2,13 +2,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="pt" xml:lang="pt"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.34">
+<meta name="generator" content="quarto-1.8.24">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="description" content="Fundamentos da estrutura, manipulação e visualização de dados em Python.">
 
-<title>Manipulação de Dados em Python – Modelagem Estatística e Análise de Dados</title>
+<title>Introdução e Manipulação de Dados em Python – Modelagem Estatística e Análise de Dados</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -35,14 +35,15 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-listing/quarto-listing.js"></script>
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-c8ad9e5dbd60b7b70b38521ab19b7da4.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dc55a5b9e770e841cd82e46aadbfb9b0.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-f8a7b73f25ce1e13d22e496f4555e3c8.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-842b3f155a5c8185421458a5626a713a.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -114,7 +115,7 @@ const typesetMath = (el) => {
     var macros = [];
     for (var i = 0; i < mathElements.length; i++) {
       var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
         window.katex.render(texText.data, mathElements[i], {
           displayMode: mathElements[i].classList.contains('display'),
           throwOnError: false,
@@ -131,7 +132,7 @@ window.Quarto = {
 </script>
 
 <link rel="stylesheet" href="styles/custom.css">
-<meta property="og:title" content="Manipulação de Dados em Python – Modelagem Estatística e Análise de Dados">
+<meta property="og:title" content="Introdução e Manipulação de Dados em Python – Modelagem Estatística e Análise de Dados">
 <meta property="og:description" content="Fundamentos da estrutura, manipulação e visualização de dados em Python.">
 <meta property="og:image" content="https://github.com/FCopf/MEAD/images/manipulacao-dados-python.png">
 <meta property="og:site_name" content="Modelagem Estatística e Análise de Dados">
@@ -147,7 +148,8 @@ window.Quarto = {
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a href="./index.html" class="navbar-brand navbar-brand-logo">
-    <img src="./images/MEAD-logo-white-sigla.png" alt="" class="navbar-logo">
+    <img src="./images/MEAD-logo-white-sigla.png" alt="" class="navbar-logo light-content">
+    <img src="./images/MEAD-logo-white-sigla.png" alt="" class="navbar-logo dark-content">
     </a>
     <a class="navbar-brand" href="./index.html">
     <span class="navbar-title">Modelagem Estatística e Análise de Dados</span>
@@ -183,7 +185,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Manipulação de Dados em Python</h1>
+<h1 class="title">Introdução e Manipulação de Dados em Python</h1>
   <div class="quarto-categories">
     <div class="quarto-category">Programação</div>
     <div class="quarto-category">Python</div>
@@ -216,7 +218,83 @@ window.Quarto = {
 
 <div class="quarto-listing quarto-listing-container-default" id="listing-listing">
 <div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-listing-file-modified-sort="1756507390074" data-listing-reading-time-sort="2" data-listing-word-count-sort="310">
+<div class="quarto-post image-right" data-index="0" data-listing-file-modified-sort="1758214342098" data-listing-reading-time-sort="5" data-listing-word-count-sort="834">
+<div class="thumbnail"><a href="./conteudo/manipulacao-dados-python/01_estrutura-linguagem-python.html" class="no-external">
+
+<img loading="lazy" src="./conteudo/manipulacao-dados-python/images/estrutura-linguagem-python.png" class="thumbnail-image">
+
+</a></div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="./conteudo/manipulacao-dados-python/01_estrutura-linguagem-python.html" class="no-external">Introdução ao Python: Estrutura da Linguagem</a>
+</h3>
+<div class="delink listing-description"><a href="./conteudo/manipulacao-dados-python/01_estrutura-linguagem-python.html" class="no-external">
+<p>Estrutura da linguagem Python, incluindo operações básicas, tipos de objetos (listas, arrays, strings, dicionários) e sintaxe principal.</p>
+</a></div>
+</div>
+<div class="metadata">
+<a href="./conteudo/manipulacao-dados-python/01_estrutura-linguagem-python.html" class="no-external">
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="1" data-listing-file-modified-sort="1758214342098" data-listing-reading-time-sort="3" data-listing-word-count-sort="518">
+<div class="thumbnail"><a href="./conteudo/manipulacao-dados-python/02_estrutura_tipo_python.html" class="no-external">
+
+<img loading="lazy" src="./conteudo/manipulacao-dados-python/images/pandas-estrutura.png" class="thumbnail-image">
+
+</a></div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="./conteudo/manipulacao-dados-python/02_estrutura_tipo_python.html" class="no-external">Estrutura e Tipos de Dados em Python</a>
+</h3>
+<div class="delink listing-description"><a href="./conteudo/manipulacao-dados-python/02_estrutura_tipo_python.html" class="no-external">
+<p>Manipulação de DataFrames em Python usando Pandas, incluindo seleção de linhas e colunas, filtragem de dados e tratamento de valores ausentes.</p>
+</a></div>
+</div>
+<div class="metadata">
+<a href="./conteudo/manipulacao-dados-python/02_estrutura_tipo_python.html" class="no-external">
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="2" data-listing-file-modified-sort="1758214342098" data-listing-reading-time-sort="3" data-listing-word-count-sort="538">
+<div class="thumbnail"><a href="./conteudo/manipulacao-dados-python/03_estatistica_descrtitiva_python.html" class="no-external">
+
+<img loading="lazy" src="./conteudo/manipulacao-dados-python/images/estatistica-descritiva-python.png" class="thumbnail-image">
+
+</a></div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="./conteudo/manipulacao-dados-python/03_estatistica_descrtitiva_python.html" class="no-external">Estatística Descritiva e Visualização com Python</a>
+</h3>
+<div class="delink listing-description"><a href="./conteudo/manipulacao-dados-python/03_estatistica_descrtitiva_python.html" class="no-external">
+<p>Análise descritiva de dados usando Python com Pandas e Matplotlib, incluindo medidas de tendência central, dispersão e visualizações básicas.</p>
+</a></div>
+</div>
+<div class="metadata">
+<a href="./conteudo/manipulacao-dados-python/03_estatistica_descrtitiva_python.html" class="no-external">
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="3" data-listing-file-modified-sort="1758214342098" data-listing-reading-time-sort="5" data-listing-word-count-sort="834">
+<div class="thumbnail"><a href="./conteudo/manipulacao-dados-python/04_medidas_associacao_python.html" class="no-external">
+
+<img loading="lazy" src="./conteudo/manipulacao-dados-python/images/medidas-associacao-python.png" class="thumbnail-image">
+
+</a></div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="./conteudo/manipulacao-dados-python/04_medidas_associacao_python.html" class="no-external">Medidas de Associação e Relacionamentos entre Variáveis com Python</a>
+</h3>
+<div class="delink listing-description"><a href="./conteudo/manipulacao-dados-python/04_medidas_associacao_python.html" class="no-external">
+<p>Análise de associações entre variáveis usando Python com Pandas, Matplotlib e Seaborn, incluindo tabelas de contingência, correlação e visualizações.</p>
+</a></div>
+</div>
+<div class="metadata">
+<a href="./conteudo/manipulacao-dados-python/04_medidas_associacao_python.html" class="no-external">
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="4" data-listing-file-modified-sort="1758214342109" data-listing-reading-time-sort="2" data-listing-word-count-sort="305">
 <div class="thumbnail"><a href="./conteudo/manipulacao-dados-python/importa-dados-python.html" class="no-external">
 
 <img loading="lazy" src="./conteudo/manipulacao-dados-python/images/importa-dados-python.png" class="thumbnail-image">
@@ -227,7 +305,7 @@ window.Quarto = {
 <a href="./conteudo/manipulacao-dados-python/importa-dados-python.html" class="no-external">Importando data frames a partir de arquivos CSV</a>
 </h3>
 <div class="delink listing-description"><a href="./conteudo/manipulacao-dados-python/importa-dados-python.html" class="no-external">
-<p>Aprenda como montar o Google Drive no Colab e importar dados de arquivos CSV usando pandas</p>
+Antes de iniciar o tutorial, garanta que o arquivo <code>.csv</code> que você deseja importar esteja salvo em uma pasta dentro do seu Google Drive pessoal.
 </a></div>
 </div>
 <div class="metadata">
@@ -289,13 +367,14 @@ window.Quarto = {
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy
